@@ -1,134 +1,1442 @@
 {
  "schema_version": 1,
  "session": "arena-1531ecf1",
- "observed_at": "2026-10-23T10:20:00Z",
- "environment": "arena-session-fetch",
+ "observed_at": "2026-10-23T10:53:08Z",
+ "environment": "github-actions-runner",
  "role": "Dated research and gap picks. Only a bound two-sided prematch price or the documented Valve-rating research model may produce the probabilities recorded here. Hotspawn crowd percentages and HLTV fan votes are never inputs.",
- "policy": "HLTV first (identity, format, started/finished state only), then esportsbooks and esports betting-line services (bo3.gg bookmaker relay, Smarkets, Thunderpick, Pinnacle guest board, book-surface sweep). Resolution reuses scripts/originate.py's reviewed ladder. An even estimate never receives an invented side.",
+ "policy": "HLTV first (identity, format, started/finished state only), then esportsbooks and esports betting-line services (bo3.gg bookmaker relay, Smarkets, Thunderpick, Pinnacle guest board, book-surface sweep). Resolution reuses scripts/originate.py’s reviewed ladder. An even estimate never receives an invented side.",
  "inventory": {
   "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
   "lobby_url": "https://play.hotspawn.com/lobby",
-  "observed_at": "2026-10-23T10:20:00Z",
+  "observed_at": "2026-10-23T10:53:08Z",
   "http_status": 200,
-  "fixtures_seen": 92,
-  "note": "The fixtures API returned the same upcoming CS2 card as the deployed snapshot (30 active fixtures, 2026-10-23T09:23:57Z build). The three register rows below come from the 2026-10-23T04:58Z lobby comparison (data/research/9fd5fbf1/live-coverage.json) and were each re-checked today against HLTV before being classified."
+  "fixtures_seen": 92
  },
  "published": {
-  "latest_generated_at": "2026-10-23T09:23:57Z",
-  "origination_generated_at": "2026-10-23T09:24:00Z",
+  "latest_generated_at": "2026-10-15T08:36:13Z",
+  "origination_generated_at": "2026-10-15T09:31:24Z",
   "upcoming_ids": [
-   "1079655",
-   "1081148",
-   "1081605",
-   "1081606",
-   "1082926",
-   "1082980",
-   "1083014",
-   "1082924",
-   "1079657",
-   "1081150",
-   "1082693",
-   "1082925",
-   "1083025",
-   "1082923",
-   "1079193",
-   "1079195",
-   "1082996",
-   "1079198",
-   "1079199",
-   "1079200",
-   "1082858",
-   "1082859",
-   "1082860",
-   "1082861",
-   "1082897",
-   "1082898",
-   "1082900",
-   "1082901",
-   "1082792",
-   "1082793"
+   "1051301",
+   "1051339",
+   "1051340",
+   "1051341",
+   "1051342",
+   "1051343",
+   "1051344",
+   "1051789",
+   "1051790",
+   "1051800",
+   "1051801",
+   "1051803",
+   "1051804",
+   "1052180",
+   "1052181",
+   "1052183",
+   "1052184",
+   "1052185",
+   "1052186",
+   "1052187",
+   "1052357",
+   "1052599",
+   "1052686",
+   "1052695",
+   "1052696",
+   "1052697",
+   "1052698",
+   "1052699",
+   "1052700",
+   "1052701",
+   "1052702",
+   "1052746",
+   "1052747",
+   "1052748",
+   "1052749",
+   "1052750",
+   "1052751",
+   "1053068",
+   "1053069",
+   "1053070",
+   "1053071",
+   "1053072",
+   "1053073",
+   "1053146",
+   "1053313",
+   "1053431",
+   "1053432",
+   "1053433",
+   "1053434",
+   "1053435",
+   "1053436",
+   "1053439",
+   "1053441",
+   "1053442",
+   "1053469",
+   "1053470",
+   "1053471",
+   "1053679",
+   "1055478",
+   "1079440",
+   "1079442",
+   "1079621",
+   "1080201",
+   "1080202",
+   "1080203",
+   "1080204",
+   "1080279",
+   "1080280",
+   "1080281",
+   "1080282",
+   "1080283",
+   "1080284",
+   "1080285",
+   "1080286",
+   "1080287",
+   "1080288",
+   "1080289",
+   "1080290",
+   "1081105",
+   "1081120"
   ]
  },
  "lobby_fixtures": [
   {
-   "id": "1081872",
+   "id": "1079654",
    "teams": [
-    "NEXVOID",
-    "Rare Atom"
+    "ex-Zero Tenacity",
+    "ex-RUSTEC"
    ],
-   "competition": "VOID Autumn Cup 2026",
-   "starts_at": null,
-   "hotspawn_url": "https://www.hotspawn.com/matches/nexvoid-vs-rare-atom-void-autumn-cup-2026-1081872",
-   "hltv_url": "https://www.hltv.org/matches/2399587/nexvoid-vs-rare-atom-macemedia-void-autumn-cup-2026",
-   "status": "finished",
-   "covered_as": null,
-   "research": [
-    {
-     "stage": "HLTV first (identity & state)",
-     "source_url": "https://www.hltv.org/matches/2399587/nexvoid-vs-rare-atom-macemedia-void-autumn-cup-2026",
-     "status": "checked",
-     "detail": "hltv.org matches listing at 2026-10-23T09:55Z shows this fixture finished, NEXVOID 0 - 2 Rare Atom (MaceMedia VOID Autumn Cup 2026). Fan votes on the match page are recorded as identity evidence only and never converted into a probability."
-    }
-   ],
-   "pick": null,
-   "prior_published_pick": "NEXVOID 62.2% (Valve-rating research estimate; published in the 2026-10-23T04:58Z research record)",
-   "limitation": "The pick window has closed: HLTV shows this fixture finished (NEXVOID 0 - 2 Rare Atom), so no prematch pick can be generated now. An earlier snapshot published a prematch pick before lock, cited above with its method. Nothing is manufactured after lock."
-  },
-  {
-   "id": "1081149",
-   "teams": [
-    "FORZE Reload",
-    "LFO 10"
-   ],
-   "competition": "CCT Europe 2026 Series #12",
-   "starts_at": null,
-   "hotspawn_url": "https://www.hotspawn.com/matches/forze-reload-vs-lfo-10-cct-europe-2026-series-12-1081149",
-   "hltv_url": "https://www.hltv.org/matches/2399499/forze-reload-vs-lfo-10-cct-2026-europe-series-12",
+   "competition": "CCT Europe 2026 Series #11",
+   "starts_at": "2026-10-23T08:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/ex-ero-enacity-vs-ex-1079654",
    "status": "started",
    "covered_as": null,
    "research": [
     {
      "stage": "HLTV first (identity & state)",
-     "source_url": "https://www.hltv.org/matches/2399499/forze-reload-vs-lfo-10-cct-2026-europe-series-12",
-     "status": "checked",
-     "detail": "hltv.org matches listing at 2026-10-23T09:55Z shows this fixture in progress, FORZE Reload 2 - 0 LFO 10 (CCT 2026 Europe Series 12). Fan votes are never a probability input."
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
     }
    ],
    "pick": null,
-   "prior_published_pick": "FORZE Reload 51.0% (HLTV world ranking; published in the 2026-10-23T04:58Z research record)",
-   "limitation": "The pick window has closed: HLTV shows this fixture already in progress (FORZE Reload 2 - 0 LFO 10), so no prematch pick can be generated now. An earlier snapshot published a prematch pick before lock, cited above with its method. Nothing is manufactured after lock."
+   "limitation": "The pick window has closed: this fixture is already running or finished, so no prematch pick can be generated now. Where an earlier snapshot published a prematch pick it is cited above with its method. Nothing is manufactured after lock.",
+   "hltv_url": null,
+   "prior_published_pick": "ex-Zero Tenacity 51.7% (consensus; published in the 2026-10-23T04:58Z research record)"
   },
   {
-   "id": null,
+   "id": "1081605",
+   "teams": [
+    "Phantom Academy",
+    "Banda chuya"
+   ],
+   "competition": "CCT Europe 2026 Challengers #8",
+   "starts_at": "2026-10-23T11:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/hantom-cademy-vs-anda-chuya-1081605",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "family": "model",
+    "probabilities": [
+     0.47482128,
+     0.52517872
+    ],
+    "pick_index": 1,
+    "pick_team": "Banda chuya",
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "book_url": null,
+    "odds": null,
+    "observed_at": "2026-10-15T08:36:13Z"
+   },
+   "limitation": "Researched pick for a fixture missing from the published snapshot. Uncalibrated Valve-rating research model, not a price you could have bet. No two-sided prematch price was reachable on any probed surface.",
+   "hltv_url": null
+  },
+  {
+   "id": "1081148",
+   "teams": [
+    "Inner Circle Academy",
+    "Spirit Academy"
+   ],
+   "competition": "CCT Europe 2026 Series #12",
+   "starts_at": "2026-10-23T11:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/nner-ircle-cademy-vs-pirit-cademy-1081148",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "family": "model",
+    "probabilities": [
+     0.6141524,
+     0.3858476
+    ],
+    "pick_index": 0,
+    "pick_team": "Inner Circle Academy",
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "book_url": null,
+    "odds": null,
+    "observed_at": "2026-10-15T08:36:13Z"
+   },
+   "limitation": "Researched pick for a fixture missing from the published snapshot. Uncalibrated Valve-rating research model, not a price you could have bet. No two-sided prematch price was reachable on any probed surface.",
+   "hltv_url": null
+  },
+  {
+   "id": "1079655",
+   "teams": [
+    "Nuclear TigeRES",
+    "ILLYRIANS"
+   ],
+   "competition": "CCT Europe 2026 Series #11",
+   "starts_at": "2026-10-23T11:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/uclear-ige-vs-page-1079655",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "family": "model",
+    "probabilities": [
+     0.93003347,
+     0.06996653
+    ],
+    "pick_index": 0,
+    "pick_team": "Nuclear TigeRES",
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "book_url": null,
+    "odds": null,
+    "observed_at": "2026-10-15T08:36:13Z"
+   },
+   "limitation": "Researched pick for a fixture missing from the published snapshot. Uncalibrated Valve-rating research model, not a price you could have bet. No two-sided prematch price was reachable on any probed surface.",
+   "hltv_url": null
+  },
+  {
+   "id": "1081606",
    "teams": [
     "JiJieHao",
     "Eternal Fire"
    ],
    "competition": "DraculaN Season 7",
-   "starts_at": null,
-   "hotspawn_url": null,
-   "hltv_url": "https://www.hltv.org/matches/2399638/jijiehao-vs-eternal-fire-digital-crusade-draculan-season-7",
-   "status": "covered",
-   "covered_as": "1081606",
+   "starts_at": "2026-10-23T13:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/i-ie-ao-vs-ternal-ire-1081606",
+   "status": "open",
+   "covered_as": null,
    "research": [
     {
-     "stage": "Snapshot cross-check (team-name pair + competition)",
-     "source_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081606",
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
      "status": "resolved",
-     "detail": "This lobby card is the same pairing as snapshot fixture 1081606 (JiJieHao vs Eternal Fire, DraculaN Season 7, 2026-10-23), which carries a Polymarket market-line pick. The lobby card had no View Match permalink at the 04:58Z observation, so its Hotspawn id was left blank rather than guessed; the name pair and competition match exactly. It is a false gap, not a missing pick."
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "family": "model",
+    "probabilities": [
+     0.53494299,
+     0.46505701
+    ],
+    "pick_index": 0,
+    "pick_team": "JiJieHao",
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "book_url": null,
+    "odds": null,
+    "observed_at": "2026-10-15T08:36:13Z"
+   },
+   "limitation": "Researched pick for a fixture missing from the published snapshot. Uncalibrated Valve-rating research model, not a price you could have bet. No two-sided prematch price was reachable on any probed surface.",
+   "hltv_url": null
+  },
+  {
+   "id": "1082926",
+   "teams": [
+    "Isurus",
+    "Hacha"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-23T13:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/surus-vs-acha-1082926",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "unresolved",
+     "detail": "Hacha: no Valve rating row found (including registry aliases)"
     }
    ],
    "pick": null,
-   "limitation": "Not missing: covered by snapshot fixture 1081606, which already carries a researched pick with its sources."
+   "limitation": "No two-sided prematch price on any probed surface and no unique Valve-rating record, so no pick is generated. The sources tried are listed above; a blocked page is not evidence that no market exists.",
+   "hltv_url": null
+  },
+  {
+   "id": "1082980",
+   "teams": [
+    "LPH",
+    "WBT Academy"
+   ],
+   "competition": "ESL Challenger League Season 52: Europe - Cup #9",
+   "starts_at": "2026-10-23T13:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/page-vs-cademy-1082980",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "family": "model",
+    "probabilities": [
+     0.41678134,
+     0.58321866
+    ],
+    "pick_index": 1,
+    "pick_team": "WBT Academy",
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "book_url": null,
+    "odds": null,
+    "observed_at": "2026-10-15T08:36:13Z"
+   },
+   "limitation": "Researched pick for a fixture missing from the published snapshot. Uncalibrated Valve-rating research model, not a price you could have bet. No two-sided prematch price was reachable on any probed surface.",
+   "hltv_url": null
+  },
+  {
+   "id": "1083014",
+   "teams": [
+    "K27",
+    "Virtus.pro"
+   ],
+   "competition": "CIS LAN Championship #9",
+   "starts_at": "2026-10-23T13:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/27-vs-irtus-pro-1083014",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "family": "model",
+    "probabilities": [
+     0.66942841,
+     0.33057159
+    ],
+    "pick_index": 0,
+    "pick_team": "K27",
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "book_url": null,
+    "odds": null,
+    "observed_at": "2026-10-15T08:36:13Z"
+   },
+   "limitation": "Researched pick for a fixture missing from the published snapshot. Uncalibrated Valve-rating research model, not a price you could have bet. No two-sided prematch price was reachable on any probed surface.",
+   "hltv_url": null
+  },
+  {
+   "id": "1082924",
+   "teams": [
+    "BORRACHEIROS",
+    "QUINTESSÊNCIA"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-23T16:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/page-vs-page-1082924",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "family": "model",
+    "probabilities": [
+     0.47621793,
+     0.52378207
+    ],
+    "pick_index": 1,
+    "pick_team": "QUINTESSÊNCIA",
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "book_url": null,
+    "odds": null,
+    "observed_at": "2026-10-15T08:36:13Z"
+   },
+   "limitation": "Researched pick for a fixture missing from the published snapshot. Uncalibrated Valve-rating research model, not a price you could have bet. No two-sided prematch price was reachable on any probed surface.",
+   "hltv_url": null
+  },
+  {
+   "id": "1081150",
+   "teams": [
+    "ex-RUSTEC",
+    "Saint Sinners"
+   ],
+   "competition": "CCT Europe 2026 Series #12",
+   "starts_at": "2026-10-23T17:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/ex-vs-aint-inners-1081150",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "family": "model",
+    "probabilities": [
+     0.80746193,
+     0.19253807
+    ],
+    "pick_index": 0,
+    "pick_team": "ex-RUSTEC",
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "book_url": null,
+    "odds": null,
+    "observed_at": "2026-10-15T08:36:13Z"
+   },
+   "limitation": "Researched pick for a fixture missing from the published snapshot. Uncalibrated Valve-rating research model, not a price you could have bet. No two-sided prematch price was reachable on any probed surface.",
+   "hltv_url": null
+  },
+  {
+   "id": "1079657",
+   "teams": [
+    "BakS",
+    "BRUTE"
+   ],
+   "competition": "CCT Europe 2026 Series #11",
+   "starts_at": "2026-10-23T17:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/ak-vs-page-1079657",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "unresolved",
+     "detail": "BRUTE: multiple Valve rosters share this name; no unique exact-five-player HLTV proof"
+    }
+   ],
+   "pick": null,
+   "limitation": "No two-sided prematch price on any probed surface and no unique Valve-rating record, so no pick is generated. The sources tried are listed above; a blocked page is not evidence that no market exists.",
+   "hltv_url": null
+  },
+  {
+   "id": "1082693",
+   "teams": [
+    "BESTIA",
+    "Galorys"
+   ],
+   "competition": "Circuit X Curitiba #4",
+   "starts_at": "2026-10-23T18:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/page-vs-alorys-1082693",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "family": "model",
+    "probabilities": [
+     0.62339905,
+     0.37660095
+    ],
+    "pick_index": 0,
+    "pick_team": "BESTIA",
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "book_url": null,
+    "odds": null,
+    "observed_at": "2026-10-15T08:36:13Z"
+   },
+   "limitation": "Researched pick for a fixture missing from the published snapshot. Uncalibrated Valve-rating research model, not a price you could have bet. No two-sided prematch price was reachable on any probed surface.",
+   "hltv_url": null
+  },
+  {
+   "id": "1082925",
+   "teams": [
+    "BESTIA Academy",
+    "RED Canids Academy"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-23T19:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/cademy-vs-anids-cademy-1082925",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "unresolved",
+     "detail": "RED Canids Academy: no Valve rating row found (including registry aliases)"
+    }
+   ],
+   "pick": null,
+   "limitation": "No two-sided prematch price on any probed surface and no unique Valve-rating record, so no pick is generated. The sources tried are listed above; a blocked page is not evidence that no market exists.",
+   "hltv_url": null
+  },
+  {
+   "id": "1083025",
+   "teams": [
+    "paiN",
+    "Imperial"
+   ],
+   "competition": "Circuit X Curitiba #4",
+   "starts_at": "2026-10-23T21:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/pai-vs-mperial-1083025",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "family": "model",
+    "probabilities": [
+     0.48600364,
+     0.51399636
+    ],
+    "pick_index": 1,
+    "pick_team": "Imperial",
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "book_url": null,
+    "odds": null,
+    "observed_at": "2026-10-15T08:36:13Z"
+   },
+   "limitation": "Researched pick for a fixture missing from the published snapshot. Uncalibrated Valve-rating research model, not a price you could have bet. No two-sided prematch price was reachable on any probed surface.",
+   "hltv_url": null
+  },
+  {
+   "id": "1082923",
+   "teams": [
+    "Alka",
+    "LOS NINOS"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-23T22:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/lka-vs-page-1082923",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "unresolved",
+     "detail": "LOS NINOS: no Valve rating row found (including registry aliases)"
+    }
+   ],
+   "pick": null,
+   "limitation": "No two-sided prematch price on any probed surface and no unique Valve-rating record, so no pick is generated. The sources tried are listed above; a blocked page is not evidence that no market exists.",
+   "hltv_url": null
+  },
+  {
+   "id": "1079193",
+   "teams": [
+    "FOKUS",
+    "ex-6666"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at": "2026-10-24T08:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/page-vs-ex-6666-1079193",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "family": "model",
+    "probabilities": [
+     0.90280638,
+     0.09719362
+    ],
+    "pick_index": 0,
+    "pick_team": "FOKUS",
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "book_url": null,
+    "odds": null,
+    "observed_at": "2026-10-15T08:36:13Z"
+   },
+   "limitation": "Researched pick for a fixture missing from the published snapshot. Uncalibrated Valve-rating research model, not a price you could have bet. No two-sided prematch price was reachable on any probed surface.",
+   "hltv_url": null
+  },
+  {
+   "id": "1079195",
+   "teams": [
+    "Nuclear TigeRES",
+    "FORZE Reload"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at": "2026-10-24T14:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/uclear-ige-vs-eload-1079195",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "family": "model",
+    "probabilities": [
+     0.77806089,
+     0.22193911
+    ],
+    "pick_index": 0,
+    "pick_team": "Nuclear TigeRES",
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "book_url": null,
+    "odds": null,
+    "observed_at": "2026-10-15T08:36:13Z"
+   },
+   "limitation": "Researched pick for a fixture missing from the published snapshot. Uncalibrated Valve-rating research model, not a price you could have bet. No two-sided prematch price was reachable on any probed surface.",
+   "hltv_url": null
+  },
+  {
+   "id": "1082996",
+   "teams": [
+    "Acend",
+    "UNiTY"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at": "2026-10-25T09:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/cend-vs-i-1082996",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "family": "model",
+    "probabilities": [
+     0.54190155,
+     0.45809845
+    ],
+    "pick_index": 0,
+    "pick_team": "Acend",
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "book_url": null,
+    "odds": null,
+    "observed_at": "2026-10-15T08:36:13Z"
+   },
+   "limitation": "Researched pick for a fixture missing from the published snapshot. Uncalibrated Valve-rating research model, not a price you could have bet. No two-sided prematch price was reachable on any probed surface.",
+   "hltv_url": null
+  },
+  {
+   "id": "1079198",
+   "teams": [
+    "Metizport",
+    "BakS"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at": "2026-10-25T12:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/etizport-vs-ak-1079198",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "family": "model",
+    "probabilities": [
+     0.79860558,
+     0.20139442
+    ],
+    "pick_index": 0,
+    "pick_team": "Metizport",
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "book_url": null,
+    "odds": null,
+    "observed_at": "2026-10-15T08:36:13Z"
+   },
+   "limitation": "Researched pick for a fixture missing from the published snapshot. Uncalibrated Valve-rating research model, not a price you could have bet. No two-sided prematch price was reachable on any probed surface.",
+   "hltv_url": null
+  },
+  {
+   "id": "1079199",
+   "teams": [
+    "Infinite",
+    "BRUTE"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at": "2026-10-25T15:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/nfinite-vs-page-1079199",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "unresolved",
+     "detail": "BRUTE: multiple Valve rosters share this name; no unique exact-five-player HLTV proof"
+    }
+   ],
+   "pick": null,
+   "limitation": "No two-sided prematch price on any probed surface and no unique Valve-rating record, so no pick is generated. The sources tried are listed above; a blocked page is not evidence that no market exists.",
+   "hltv_url": null
+  },
+  {
+   "id": "1079200",
+   "teams": [
+    "Color",
+    "ex-Zero Tenacity"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at": "2026-10-25T18:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/olor-vs-ex-ero-enacity-1079200",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "family": "model",
+    "probabilities": [
+     0.7359068,
+     0.2640932
+    ],
+    "pick_index": 0,
+    "pick_team": "Color",
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "book_url": null,
+    "odds": null,
+    "observed_at": "2026-10-15T08:36:13Z"
+   },
+   "limitation": "Researched pick for a fixture missing from the published snapshot. Uncalibrated Valve-rating research model, not a price you could have bet. No two-sided prematch price was reachable on any probed surface.",
+   "hltv_url": null
+  },
+  {
+   "id": "1082858",
+   "teams": [
+    "Ground Zero",
+    "Off Chops"
+   ],
+   "competition": "DFRAG Invitational 2026",
+   "starts_at": "2026-10-26T03:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/round-ero-vs-ff-hops-1082858",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "unresolved",
+     "detail": "Off Chops: no Valve rating row found (including registry aliases)"
+    }
+   ],
+   "pick": null,
+   "limitation": "No two-sided prematch price on any probed surface and no unique Valve-rating record, so no pick is generated. The sources tried are listed above; a blocked page is not evidence that no market exists.",
+   "hltv_url": null
+  },
+  {
+   "id": "1082859",
+   "teams": [
+    "NEXVOID",
+    "Alter Ego"
+   ],
+   "competition": "DFRAG Invitational 2026",
+   "starts_at": "2026-10-26T03:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/page-vs-lter-go-1082859",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "family": "model",
+    "probabilities": [
+     0.72821824,
+     0.27178176
+    ],
+    "pick_index": 0,
+    "pick_team": "NEXVOID",
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "book_url": null,
+    "odds": null,
+    "observed_at": "2026-10-15T08:36:13Z"
+   },
+   "limitation": "Researched pick for a fixture missing from the published snapshot. Uncalibrated Valve-rating research model, not a price you could have bet. No two-sided prematch price was reachable on any probed surface.",
+   "hltv_url": null
+  },
+  {
+   "id": "1082860",
+   "teams": [
+    "FlyQuest",
+    "Staqued"
+   ],
+   "competition": "DFRAG Invitational 2026",
+   "starts_at": "2026-10-27T03:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/ly-uest-vs-taqued-1082860",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "unresolved",
+     "detail": "Staqued: no Valve rating row found (including registry aliases)"
+    }
+   ],
+   "pick": null,
+   "limitation": "No two-sided prematch price on any probed surface and no unique Valve-rating record, so no pick is generated. The sources tried are listed above; a blocked page is not evidence that no market exists.",
+   "hltv_url": null
+  },
+  {
+   "id": "1082861",
+   "teams": [
+    "Rooster",
+    "Abyssal"
+   ],
+   "competition": "DFRAG Invitational 2026",
+   "starts_at": "2026-10-27T03:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/ooster-vs-byssal-1082861",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "family": "model",
+    "probabilities": [
+     0.47761494,
+     0.52238506
+    ],
+    "pick_index": 1,
+    "pick_team": "Abyssal",
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "book_url": null,
+    "odds": null,
+    "observed_at": "2026-10-15T08:36:13Z"
+   },
+   "limitation": "Researched pick for a fixture missing from the published snapshot. Uncalibrated Valve-rating research model, not a price you could have bet. No two-sided prematch price was reachable on any probed surface.",
+   "hltv_url": null
+  },
+  {
+   "id": "1082897",
+   "teams": [
+    "B8",
+    "K27"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T08:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/8-vs-27-1082897",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "family": "model",
+    "probabilities": [
+     0.66195106,
+     0.33804894
+    ],
+    "pick_index": 0,
+    "pick_team": "B8",
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "book_url": null,
+    "odds": null,
+    "observed_at": "2026-10-15T08:36:13Z"
+   },
+   "limitation": "Researched pick for a fixture missing from the published snapshot. Uncalibrated Valve-rating research model, not a price you could have bet. No two-sided prematch price was reachable on any probed surface.",
+   "hltv_url": null
+  },
+  {
+   "id": "1082898",
+   "teams": [
+    "Alliance",
+    "FaZe"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T11:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/lliance-vs-a-e-1082898",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "family": "model",
+    "probabilities": [
+     0.5014,
+     0.4986
+    ],
+    "pick_index": 0,
+    "pick_team": "Alliance",
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "book_url": null,
+    "odds": null,
+    "observed_at": "2026-10-15T08:36:13Z"
+   },
+   "limitation": "Researched pick for a fixture missing from the published snapshot. Uncalibrated Valve-rating research model, not a price you could have bet. No two-sided prematch price was reachable on any probed surface.",
+   "hltv_url": null
+  },
+  {
+   "id": "1082900",
+   "teams": [
+    "Luminosity",
+    "HOTU"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T17:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/uminosity-vs-page-1082900",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "family": "model",
+    "probabilities": [
+     0.64930846,
+     0.35069154
+    ],
+    "pick_index": 0,
+    "pick_team": "Luminosity",
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "book_url": null,
+    "odds": null,
+    "observed_at": "2026-10-15T08:36:13Z"
+   },
+   "limitation": "Researched pick for a fixture missing from the published snapshot. Uncalibrated Valve-rating research model, not a price you could have bet. No two-sided prematch price was reachable on any probed surface.",
+   "hltv_url": null
+  },
+  {
+   "id": "1082901",
+   "teams": [
+    "Envy",
+    "GamerLegion"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T20:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/nvy-vs-amer-egion-1082901",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "unresolved",
+     "detail": "Envy: no Valve rating row found (including registry aliases)"
+    }
+   ],
+   "pick": null,
+   "limitation": "No two-sided prematch price on any probed surface and no unique Valve-rating record, so no pick is generated. The sources tried are listed above; a blocked page is not evidence that no market exists.",
+   "hltv_url": null
+  },
+  {
+   "id": "1082792",
+   "teams": [
+    "HOTU",
+    "The Huns"
+   ],
+   "competition": "Moscow Cyber Games 2026",
+   "starts_at": "2026-10-31T09:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/page-vs-he-uns-1082792",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "unresolved",
+     "detail": "The Huns: multiple Valve rosters share this name; no unique exact-five-player HLTV proof"
+    }
+   ],
+   "pick": null,
+   "limitation": "No two-sided prematch price on any probed surface and no unique Valve-rating record, so no pick is generated. The sources tried are listed above; a blocked page is not evidence that no market exists.",
+   "hltv_url": null
+  },
+  {
+   "id": "1082793",
+   "teams": [
+    "5star",
+    "1WIN"
+   ],
+   "competition": "Moscow Cyber Games 2026",
+   "starts_at": "2026-10-31T13:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/5star-vs-1-1082793",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Valve-rating research model",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": {
+    "method": "model",
+    "label": "Valve-rating research estimate",
+    "family": "model",
+    "probabilities": [
+     0.17816902,
+     0.82183098
+    ],
+    "pick_index": 1,
+    "pick_team": "1WIN",
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "book_url": null,
+    "odds": null,
+    "observed_at": "2026-10-15T08:36:13Z"
+   },
+   "limitation": "Researched pick for a fixture missing from the published snapshot. Uncalibrated Valve-rating research model, not a price you could have bet. No two-sided prematch price was reachable on any probed surface.",
+   "hltv_url": null
   }
  ],
- "no_line_fixtures": [],
+ "no_line_fixtures": [
+  {
+   "id": "1080202",
+   "teams": [
+    "9z",
+    "Falcons"
+   ],
+   "competition": "Thunderpick World Championship 2026",
+   "starts_at": "2026-10-15T11:00:00Z",
+   "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080202",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "Valve-rating research model",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": null,
+   "limitation": "No two-sided prematch price on any probed surface; the published research estimate and its limitation stand until the next refresh.",
+   "current_estimate": {
+    "label": "Valve-rating research estimate",
+    "probabilities": [
+     0.15709516,
+     0.84290484
+    ],
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   }
+  },
+  {
+   "id": "1080203",
+   "teams": [
+    "PARIVISION",
+    "BetBoom"
+   ],
+   "competition": "Thunderpick World Championship 2026",
+   "starts_at": "2026-10-15T13:30:00Z",
+   "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080203",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "Valve-rating research model",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": null,
+   "limitation": "No two-sided prematch price on any probed surface; the published research estimate and its limitation stand until the next refresh.",
+   "current_estimate": {
+    "label": "Valve-rating research estimate",
+    "probabilities": [
+     0.26192226,
+     0.73807774
+    ],
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   }
+  },
+  {
+   "id": "1080282",
+   "teams": [
+    "EAC",
+    "BOJONG"
+   ],
+   "competition": "Elisa BreakOut Series #2",
+   "starts_at": "2026-10-15T14:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/eac-vs-bojong-elisa-breakout-series-2-1080282",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "Valve-rating research model",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": null,
+   "limitation": "No two-sided prematch price on any probed surface; the published research estimate and its limitation stand until the next refresh.",
+   "current_estimate": {
+    "label": "Valve-rating research estimate",
+    "probabilities": [
+     0.96095469,
+     0.03904531
+    ],
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   }
+  },
+  {
+   "id": "1080284",
+   "teams": [
+    "EAC",
+    "ENCE"
+   ],
+   "competition": "Elisa BreakOut Series #2",
+   "starts_at": "2026-10-15T18:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/eac-vs-ence-elisa-breakout-series-2-1080284",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "Valve-rating research model",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": null,
+   "limitation": "No two-sided prematch price on any probed surface; the published research estimate and its limitation stand until the next refresh.",
+   "current_estimate": {
+    "label": "Valve-rating research estimate",
+    "probabilities": [
+     0.51399636,
+     0.48600364
+    ],
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   }
+  },
+  {
+   "id": "1081120",
+   "teams": [
+    "mellren",
+    "Privateer"
+   ],
+   "competition": "CCT Europe 2026 Series #12 Play-In",
+   "starts_at": "2026-10-16T14:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/mellren-vs-privateer-cct-europe-2026-series-12-play-in-1081120",
+   "status": "open",
+   "covered_as": null,
+   "research": [
+    {
+     "stage": "Valve-rating research model",
+     "status": "resolved",
+     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
+    }
+   ],
+   "pick": null,
+   "limitation": "No two-sided prematch price on any probed surface; the published research estimate and its limitation stand until the next refresh.",
+   "current_estimate": {
+    "label": "Valve-rating research estimate",
+    "probabilities": [
+     0.85989312,
+     0.14010688
+    ],
+    "source": "Valve official standings",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   }
+  }
+ ],
  "counts": {
-  "lobby_missing": 0,
-  "lobby_closed": 2,
-  "lobby_resolved_picks": 0,
-  "lobby_unresolved": 0,
-  "no_line_targets": 0,
+  "lobby_missing": 30,
+  "lobby_closed": 1,
+  "lobby_resolved_picks": 21,
+  "lobby_unresolved": 9,
+  "no_line_targets": 5,
   "no_line_money_leads": 0
  }
 }
