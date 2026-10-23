@@ -118,6 +118,7 @@ the same row. The full browser suite is **89/89** (includes the phone navigation
 
 * `python -m unittest discover -s tests` → **1020 tests, OK** (merged tree).
 * `npx playwright test` → **89/89 passed**.
-* `python -m scripts.build` → `PASS: 80 source rows reconciled`, row-source audit
-  **673 rows / 654 with an official link / 9 flagged unverified / 0 without a source**, **802** internal
-  links/assets/anchors OK.
+* `python -m scripts.build` → `PASS: 80 source rows reconciled`, row-source audit **700 rows / 681 with
+  an official link / 9 flagged unverified / 0 without a source**, **806** internal links/assets/anchors OK
+  (on the build that integrates main as of 2026-10-23T08:00Z; the row count grows as other sessions'
+  registers merge — the invariant this dossier stands behind is **0 rows without a source**).

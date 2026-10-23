@@ -139,7 +139,7 @@
   "tests_run_locally": {
     "unittest": "Ran 1020 tests, OK (full suite, merged tree)",
     "playwright": "89 passed (320/390/768/1440, no-JS, axe WCAG A/AA, pick-safety)",
-    "build": "PASS: 80 source rows replayed; row-source audit 673 rows / 654 with an official link / 9 flagged unverified / 0 without a source; PASS 802 internal links",
+    "build": "PASS: 80 source rows replayed; row-source audit 700 rows / 681 with an official link / 9 flagged unverified / 0 without a source; PASS 806 internal links (build integrating main as of 2026-10-23T08:00Z; the row count grows as other sessions merge, the invariant is 0 rows without a source)",
     "targeted": "tests.test_f6bfc506_republish_guard (5), tests.test_96fbe295 + tests.test_15fc6bca_relay (53), tests.test_f4eb8ae3 (9)"
   }
 }
