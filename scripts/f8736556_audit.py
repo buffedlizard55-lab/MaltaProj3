@@ -11,7 +11,8 @@ an alias. It answers four separate questions and keeps them separate:
 2. **Every active row.** Does every non-past fixture in the published Hotspawn
    inventory appear exactly once in the complete-picks feed, with the same
    teams/start/source, two probabilities and an argmax pick, or an explicit
-   unresolved research trail and limitation?
+   unresolved research trail and limitation? Published probabilities are also
+   replayed from the quote/input fields retained in that feed.
 3. **Fresh Hotspawn identity check.** Has the first-party scheduled-fixture
    API changed since the published snapshot? Additions/removals are recorded,
    not silently treated as covered.
@@ -30,10 +31,12 @@ import argparse
 import hashlib
 import importlib
 import json
+import math
 import os
 import re
 from datetime import datetime, timezone
 from pathlib import Path
+from statistics import median
 from typing import Any
 from urllib.parse import urljoin
 
@@ -41,6 +44,9 @@ import requests
 from bs4 import BeautifulSoup
 
 from scripts.coverage_audit import audit_complete_picks
+from scripts.domain import finite, no_vig, normalize_pair
+from scripts.form_model import win_probability as form_win_probability
+from scripts.network_model import win_probability as network_win_probability
 
 UTC = timezone.utc
 SESSION_ID = "f8736556"
@@ -129,6 +135,203 @@ def _is_external_line(origination: dict | None) -> bool:
     )
 
 
+REPLAY_TOLERANCE = 2e-6
+
+
+def _probability_pair(value: Any) -> list[float] | None:
+    if not isinstance(value, list) or len(value) != 2:
+        return None
+    pair = [finite(item) for item in value]
+    if any(item is None or not 0 < item < 1 for item in pair):
+        return None
+    return [float(item) for item in pair]
+
+
+def _numeric_pair(value: Any) -> list[float] | None:
+    if not isinstance(value, list) or len(value) != 2:
+        return None
+    pair = [finite(item) for item in value]
+    if any(item is None for item in pair):
+        return None
+    return [float(item) for item in pair]
+
+
+def _quote_replay_pair(quote: dict) -> tuple[list[float] | None, str, list[str]]:
+    """Recompute one provider quote from raw odds/book fields when present."""
+    stored = _probability_pair(quote.get("probabilities"))
+    derived: list[float] | None = None
+    basis = "stored provider probabilities (no raw odds/book fields published)"
+    problems: list[str] = []
+
+    odds = _numeric_pair(quote.get("odds"))
+    bid = _numeric_pair(quote.get("bid"))
+    ask = _numeric_pair(quote.get("ask"))
+    try:
+        if odds is not None and all(item > 1 for item in odds):
+            derived = no_vig(odds)
+            basis = "decimal odds, proportional no-vig"
+        elif bid is not None and ask is not None:
+            if any(not 0 < b <= a < 1 for b, a in zip(bid, ask)):
+                problems.append("provider bid/ask book is crossed or outside (0, 1)")
+            else:
+                derived = normalize_pair(*[(b + a) / 2 for b, a in zip(bid, ask)])
+                basis = "paired bid/ask midpoints, normalized"
+    except ValueError as exc:
+        problems.append(f"provider quote could not be replayed: {exc}")
+
+    if derived is not None and stored is not None:
+        difference = max(abs(a - b) for a, b in zip(derived, stored))
+        if difference > REPLAY_TOLERANCE:
+            problems.append(
+                "provider stored probabilities differ from raw quote replay "
+                f"by {difference:.8f}"
+            )
+    return derived or stored, basis, problems
+
+
+def replay_probabilities(origination: dict | None) -> dict:
+    """Replay a published pair from the quote/input fields in that same row.
+
+    This deliberately does not use the live provider price at audit time:
+    markets move. It proves the arithmetic from the evidence the publisher
+    retained in the complete-picks document. Unknown future schemas are
+    reported as unsupported rather than silently passed.
+    """
+    if not origination:
+        return {
+            "status": "not-applicable",
+            "basis": "unresolved row has no probability to replay",
+            "derived_probabilities": None,
+            "max_abs_difference": None,
+            "problems": [],
+        }
+    published = _probability_pair(origination.get("probabilities"))
+    if published is None:
+        return {
+            "status": "fail",
+            "basis": "published probabilities are not a valid pair",
+            "derived_probabilities": None,
+            "max_abs_difference": None,
+            "problems": ["published probabilities are not two numbers in (0, 1)"],
+        }
+
+    quotes = [q for q in origination.get("quotes") or [] if isinstance(q, dict)]
+    derived: list[float] | None = None
+    basis = "unsupported published quote/input schema"
+    problems: list[str] = []
+
+    if origination.get("method") == "model":
+        inputs = origination.get("inputs")
+        if not isinstance(inputs, list) or len(inputs) != 2:
+            for quote in quotes:
+                if isinstance(quote.get("inputs"), list) and len(quote["inputs"]) == 2:
+                    inputs = quote["inputs"]
+                    break
+        points = (
+            [finite(row.get("points")) for row in inputs]
+            if isinstance(inputs, list) and len(inputs) == 2
+            else [None, None]
+        )
+        if all(point is not None for point in points):
+            families = {origination.get("family"), *(q.get("family") for q in quotes)}
+            g_value = finite(origination.get("g"))
+            if g_value is None:
+                g_value = next(
+                    (finite(q.get("g")) for q in quotes if finite(q.get("g")) is not None),
+                    None,
+                )
+            if "network" in families:
+                p0 = network_win_probability(float(points[0]), float(points[1]))
+                derived = normalize_pair(p0, 1 - p0)
+                basis = "network-model published rating points, 400-point logistic"
+            elif "form" in families:
+                fitted_counts = [
+                    finite((row.get("fitted") or {}).get("n"))
+                    for row in inputs
+                    if finite((row.get("fitted") or {}).get("n")) is not None
+                ]
+                if fitted_counts:
+                    rd = min(400.0, 150.0 + 300.0 / math.sqrt(max(1.0, min(fitted_counts))))
+                    p0 = form_win_probability(float(points[0]), float(points[1]), rd)
+                    derived = normalize_pair(p0, 1 - p0)
+                    basis = "results-form published rating points and fitted sample size"
+                else:
+                    problems.append("form-model row does not publish a fitted sample size")
+            elif origination.get("source") == "HLTV world ranking":
+                p0 = network_win_probability(float(points[0]), float(points[1]))
+                derived = normalize_pair(p0, 1 - p0)
+                basis = "HLTV published ranking points, 400-point logistic (g=1)"
+            elif g_value is not None:
+                p0 = 1 / (
+                    1
+                    + 10 ** (float(g_value) * (float(points[1]) - float(points[0])) / 400)
+                )
+                derived = normalize_pair(p0, 1 - p0)
+                basis = "published official rating points and published g factor"
+        if derived is None and quotes:
+            quote_pair = _probability_pair(quotes[0].get("probabilities"))
+            if quote_pair is not None:
+                derived = quote_pair
+                basis = "stored model quote probabilities (formula inputs incomplete)"
+    elif len(quotes) == 2 and all(
+        finite(q.get("midpoint")) is not None and "probabilities" not in q for q in quotes
+    ):
+        # Featured Polymarket schema: one side-level order-book quote per team.
+        try:
+            derived = normalize_pair(*(float(finite(q.get("midpoint"))) for q in quotes))
+            basis = "two side-level order-book midpoints, normalized"
+        except ValueError as exc:
+            problems.append(f"side-level order-book replay failed: {exc}")
+    elif quotes:
+        quote_pairs: list[list[float]] = []
+        quote_bases: list[str] = []
+        for quote in quotes:
+            pair, quote_basis, quote_problems = _quote_replay_pair(quote)
+            problems.extend(
+                f"{quote.get('provider') or 'provider'}: {problem}" for problem in quote_problems
+            )
+            if pair is not None:
+                quote_pairs.append(pair)
+                quote_bases.append(quote_basis)
+        if quote_pairs:
+            if len(quote_pairs) == 1:
+                derived = quote_pairs[0]
+                basis = quote_bases[0]
+            else:
+                p0 = median(pair[0] for pair in quote_pairs)
+                derived = normalize_pair(p0, 1 - p0)
+                basis = "median of provider first-team probabilities, normalized; providers: " + "; ".join(
+                    _unique(quote_bases)
+                )
+
+    fair = origination.get("fair_decimal")
+    if fair is not None:
+        expected_fair = [round(1 / probability, 3) for probability in published]
+        if fair != expected_fair:
+            problems.append(f"fair_decimal {fair!r} differs from 1/probability {expected_fair!r}")
+
+    if derived is None:
+        return {
+            "status": "unsupported",
+            "basis": basis,
+            "derived_probabilities": None,
+            "max_abs_difference": None,
+            "problems": problems,
+        }
+    difference = max(abs(a - b) for a, b in zip(derived, published))
+    if difference > REPLAY_TOLERANCE:
+        problems.append(
+            f"published probabilities differ from retained-evidence replay by {difference:.8f}"
+        )
+    return {
+        "status": "fail" if problems else "pass",
+        "basis": basis,
+        "derived_probabilities": derived,
+        "max_abs_difference": difference,
+        "problems": problems,
+    }
+
+
 def row_audit(latest: dict, complete: dict) -> dict:
     """Line-by-line inventory/complete-picks join; inputs are not mutated."""
     inventory = [m for m in latest.get("matches") or [] if m.get("availability") != "past"]
@@ -164,6 +367,11 @@ def row_audit(latest: dict, complete: dict) -> dict:
                     problems.append(f"{field} differs between inventory and complete-picks feed")
 
         origination = completed.get("origination") if isinstance(completed.get("origination"), dict) else None
+        probability_replay = replay_probabilities(origination)
+        if probability_replay["status"] == "fail":
+            problems.extend(
+                f"probability replay: {problem}" for problem in probability_replay["problems"]
+            )
         pick_index = completed.get("pick_index") if completed.get("pick_index") in (0, 1) else None
         names = _team_names(match)
         state = (
@@ -192,6 +400,7 @@ def row_audit(latest: dict, complete: dict) -> dict:
                 "source": (origination or {}).get("source"),
                 "source_url": (origination or {}).get("source_url"),
                 "observed_at": (origination or {}).get("observed_at"),
+                "probability_replay": probability_replay,
                 "limitations": _unique(
                     list(completed.get("limitations") or [])
                     + list((origination or {}).get("limitations") or [])
@@ -222,6 +431,15 @@ def row_audit(latest: dict, complete: dict) -> dict:
         "external_line_rows": sum(row["state"] == "external-line" for row in rows),
         "research_model_rows": sum(row["state"] == "research-model" for row in rows),
         "unresolved_rows": sum(row["state"] == "unresolved" for row in rows),
+        "probability_replay_pass_rows": sum(
+            row["probability_replay"]["status"] == "pass" for row in rows
+        ),
+        "probability_replay_unsupported_rows": sum(
+            row["probability_replay"]["status"] == "unsupported" for row in rows
+        ),
+        "probability_replay_failed_rows": sum(
+            row["probability_replay"]["status"] == "fail" for row in rows
+        ),
         "rows_with_problems": sum(bool(row["problems"]) for row in rows),
         "extra_complete_pick_ids": extra_ids,
         "global_problems": global_problems,

@@ -18,6 +18,7 @@ from scripts.f8736556_audit import (
     public_summary_checks,
     publication_checks,
     render_audit_markdown,
+    replay_probabilities,
     row_audit,
     select_targets,
 )
@@ -70,8 +71,36 @@ class F8736556AuditTests(unittest.TestCase):
         self.assertEqual(audit["external_line_rows"], 12)
         self.assertEqual(audit["research_model_rows"], 5)
         self.assertEqual(audit["unresolved_rows"], 0)
+        self.assertEqual(audit["probability_replay_pass_rows"], 17)
+        self.assertEqual(audit["probability_replay_failed_rows"], 0)
         self.assertEqual(audit["rows_with_problems"], 0)
         self.assertEqual(audit["global_problems"], [])
+
+    def test_probability_replay_recomputes_retained_quotes_and_catches_drift(self):
+        bookmaker = next(
+            row["origination"]
+            for row in self.complete["matches"]
+            if (row.get("origination") or {}).get("method") == "bookmaker"
+            and (row["origination"].get("quotes") or [{}])[0].get("odds")
+        )
+        replay = replay_probabilities(bookmaker)
+        self.assertEqual(replay["status"], "pass", replay)
+        self.assertLessEqual(replay["max_abs_difference"], 2e-6)
+
+        drifted = copy.deepcopy(bookmaker)
+        drifted["probabilities"] = [0.51, 0.49]
+        drifted["fair_decimal"] = [round(1 / 0.51, 3), round(1 / 0.49, 3)]
+        replay = replay_probabilities(drifted)
+        self.assertEqual(replay["status"], "fail")
+        self.assertTrue(any("retained-evidence replay" in p for p in replay["problems"]))
+
+        model = next(
+            row["origination"]
+            for row in self.complete["matches"]
+            if (row.get("origination") or {}).get("method") == "model"
+        )
+        self.assertEqual(replay_probabilities(model)["status"], "pass")
+        self.assertEqual(replay_probabilities(None)["status"], "not-applicable")
 
     def test_missing_complete_row_and_identity_drift_are_visible(self):
         missing = copy.deepcopy(self.complete)
