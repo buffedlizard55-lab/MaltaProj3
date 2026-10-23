@@ -2,8 +2,8 @@
   "schema_version": 1,
   "title": "Verified team-identity registry for pick origination",
   "policy": "An alias may join two provider names only when an official or first-party source link demonstrates they are the same team in the same competition, and every alias declares the exact competitions it applies to ('applies_to'). Sponsor/abbreviation spellings are not silently inferred and an alias never crosses into a competition it does not declare. Every alias below carries its evidence links and is displayed on the published page. Any name without a registry entry remains unmatched; missing values stay blank and are flagged.",
-  "updated_at": "2026-10-23T05:18:00Z",
-  "updated_by": "arena-2e8b83a7 research session (every alias carries its own official source links and an explicit competition scope); extended by arena-c07e1b40; extended by arena-35440d12 (2026-10-16); extended by arena-fe48a0df (2026-10-18); extended by arena-1fb85c47 (2026-10-19); extended by arena-c03ef201 (2026-10-19); extended by arena-f9d0a5a2 (2026-10-21); extended by arena-a34bc06b (2026-10-22); extended by arena-f2b91672 (2026-10-22); extended by arena-52aee465 (2026-10-23): competition-scoped first-party joins for CCT Europe 2026 Series #12 (Sokerorg -> LFO 10 on Bovada 32630179), CCT South America 2026 Series #7 (Quintessencia -> QUINTESSÊNCIA on Bovada 32606587 & Pinnacle 1638942963; RED Academy -> RED Canids Academy on Bovada 32606588), NODWIN Clutch Series #13 (FokuS Esports -> FOKUS on Bovada 32627973; UNiTY esports -> UNiTY & BakS eSports -> BakS scope extensions on Polymarket 1238703 & 1238705), Tesla Cup 2026 (FaZe Clan -> FaZe scope extension on Hotspawn 1082898 / HLTV 2399867), and PGL Masters Bucharest 2026 (Team AURORA, FUT Esports, Team Spirit, BB Team, Team Liquid, 9Z Globant, Nemiga Gaming, G2 Esports, FURIA Esports across Bovada & Pinnacle).",
+  "updated_at": "2026-10-23T06:26:00Z",
+  "updated_by": "arena-2e8b83a7 research session (every alias carries its own official source links and an explicit competition scope); extended by arena-c07e1b40; extended by arena-35440d12 (2026-10-16); extended by arena-fe48a0df (2026-10-18); extended by arena-1fb85c47 (2026-10-19); extended by arena-c03ef201 (2026-10-19); extended by arena-f9d0a5a2 (2026-10-21); extended by arena-a34bc06b (2026-10-22); extended by arena-f2b91672 (2026-10-22); extended by arena-52aee465 (2026-10-23): competition-scoped first-party joins for CCT Europe 2026 Series #12 (Sokerorg -> LFO 10 on Bovada 32630179), CCT South America 2026 Series #7 (Quintessencia -> QUINTESSÊNCIA on Bovada 32606587 & Pinnacle 1638942963; RED Academy -> RED Canids Academy on Bovada 32606588), NODWIN Clutch Series #13 (FokuS Esports -> FOKUS on Bovada 32627973; UNiTY esports -> UNiTY & BakS eSports -> BakS scope extensions on Polymarket 1238703 & 1238705), Tesla Cup 2026 (FaZe Clan -> FaZe scope extension on Hotspawn 1082898 / HLTV 2399867), and PGL Masters Bucharest 2026 (Team AURORA, FUT Esports, Team Spirit, BB Team, Team Liquid, 9Z Globant, Nemiga Gaming, G2 Esports, FURIA Esports across Bovada & Pinnacle).; extended by arena-92a3e9fb (2026-10-23): competition-scoped first-party joins for NODWIN Clutch Series #13 (FOKUS CS -> FOKUS on bo3.gg/Thunderpick 2872398, INFINITE Gaming -> INFINITE, Team Brute -> BRUTE, Zero Tenacity -> ex-Zero Tenacity), CCT Europe 2026 Series #11 (ex-ZeroTenacity -> ex-Zero Tenacity, RUSTEC -> ex-RUSTEC), and Tesla Cup 2026 (HOTU eSports -> HOTU, 5star gaming -> 5star).",
   "aliases": [
     {
       "alias": "WBT",
@@ -439,7 +439,9 @@
       "canonical": "Apogee Betclic",
       "kind": "display-name variant",
       "applies_to": [
-        "Stake Ranked Episode 6: Closed Qualifier"
+        "Stake Ranked Episode 6: Closed Qualifier",
+        "PGL Bucharest 2027: Closed Qualifier",
+        "PGL Bucharest 2027 Closed Qualifier"
       ],
       "competition_note": "Polymarket event 1231280 lists 'Betclic Apogee Esports' against 'UNiTY esports' at 2026-10-22T14:00:00Z in Stake Ranked Episode 6: Closed Qualifier (Hotspawn fixture 1082882 / HLTV match 2399784).",
       "must_not_match": [
@@ -461,6 +463,26 @@
           "url": "https://www.hltv.org/matches/2399784/unity-vs-betclic-stake-ranked-episode-6-closed-qualifier",
           "source": "HLTV.org match page",
           "detail": "HLTV match 2399784 schedules \"UNiTY vs Betclic\" BO3 in Stake Ranked Episode 6 Closed Qualifier at 2026-10-22T14:00:00Z with Polish lineup Demho, Prism, Ex1st, ultimate, Qlocuu."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/apogee-betclic-vs-nemesis-pgl-bucharest-2027-closed-qualifier-1081515",
+          "source": "Hotspawn match page (fixture 1081515)",
+          "detail": "Hotspawn's own fixture page titles the series \"Apogee Betclic vs Nemesis\" while the team card and team page on the same page name the same club \"Betclic Apogee Esports\" (/counter-strike/teams/betclic-apogee-esports), start 14:00 17 OCT. First-party proof that the two Hotspawn strings are one team. Observed 2026-10-16T20:12Z."
+        },
+        {
+          "url": "https://polymarket.com/esports/cs2/pgl/cs2-bca-nem-2026-10-17",
+          "source": "Polymarket event page",
+          "detail": "Polymarket lists \"Betclic Apogee Esports vs Team Nemesis (BO3) - PGL Bucharest Closed Qualifier Playoffs\", Tomorrow 10:00 AM ET = 14:00 UTC — the exact fixture 1081515 slot. Observed 2026-10-16T19:42Z."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/markets?slug=cs2-bca-nem-2026-10-17",
+          "source": "Polymarket Gamma API record (market 5776037, event 1200120)",
+          "detail": "Official market record: outcomes [\"Betclic Apogee Esports\", \"Team Nemesis\"], gameStartTime \"2026-10-17 14:00:00+00\", resolutionSource https://hltv.org. Observed 2026-10-16T19:44Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399660/betclic-vs-nemesis-pgl-bucharest-2027-closed-qualifier",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists \"Betclic vs Nemesis\" at the same slot in the PGL Bucharest 2027 Closed Qualifier; Hotspawn's own team page for the same roster is \"Betclic Apogee Esports\", closing the chain. Observed 2026-10-16T19:58Z."
         }
       ],
       "review_note": "Added by session arena-a34bc06b (2026-10-22): separate scoped entry for Stake Ranked Episode 6: Closed Qualifier."
@@ -493,7 +515,9 @@
       "canonical": "Nemesis",
       "kind": "display-name expansion",
       "applies_to": [
-        "CIS LAN Championship #9"
+        "CIS LAN Championship #9",
+        "PGL Bucharest 2027: Closed Qualifier",
+        "PGL Bucharest 2027 Closed Qualifier"
       ],
       "competition_note": "Added by arena-a34bc06b (2026-10-22) for CIS LAN Championship #9 (Hotspawn fixture 1082767 / HLTV match 2399844 'Nemesis vs WW').",
       "evidence": [
@@ -506,6 +530,16 @@
           "url": "https://www.hotspawn.com/matches/nemesis-vs-ww-cis-lan-championship-9-1082767",
           "source": "Hotspawn match page (fixture 1082767)",
           "detail": "Hotspawn schedules \"Nemesis vs WW\" in \"CIS LAN Championship #9\" at 2026-10-22T11:30:00Z."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/markets?slug=cs2-bca-nem-2026-10-17",
+          "source": "Polymarket Gamma API record (market 5776037)",
+          "detail": "Outcomes [\"Betclic Apogee Esports\", \"Team Nemesis\"], gameStartTime \"2026-10-17 14:00:00+00\". Observed 2026-10-16T19:44Z."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/apogee-betclic-vs-nemesis-pgl-bucharest-2027-closed-qualifier-1081515",
+          "source": "Hotspawn match page (fixture 1081515)",
+          "detail": "Opponent is Hotspawn's \"Nemesis\" (/counter-strike/teams/nemesis) with lineup tex1y, SELLTER, mag1k3Y, Sdaim, r3salt. Observed 2026-10-16T20:12Z."
         }
       ],
       "review_note": "Added by session arena-a34bc06b (2026-10-22): separate scoped entry for CIS LAN Championship #9."
@@ -980,6 +1014,16 @@
           "url": "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
           "source": "HLTV.org match page (2399112)",
           "detail": "HLTV match 2399112 lists 'Acend vs UNiTY' BO3 in NODWIN Clutch Series 13 at 2026-10-25T09:00:00Z (matching Hotspawn fixture 1082996)."
+        },
+        {
+          "url": "https://bo3.gg/matches/acend-vs-unity-esports-25-10-2026",
+          "source": "bo3.gg match record (131196)",
+          "detail": "api.bo3.gg match 131196 schedules \"Acend vs UNiTY esports\" at 2026-10-25T09:00:00Z in NODWIN Clutch Series #13."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
+          "source": "Hotspawn match page (fixture 1082996)",
+          "detail": "Hotspawn schedules \"Acend vs UNiTY\" (id 1082996) at 2026-10-25T09:00:00Z in NODWIN Clutch Series #13."
         }
       ],
       "review_note": "Added by session arena-a34bc06b (2026-10-22); extended by arena-52aee465 (2026-10-23) to NODWIN Clutch Series #13."
@@ -989,7 +1033,8 @@
       "canonical": "UNiTY",
       "kind": "display-name expansion",
       "applies_to": [
-        "Stake Ranked Episode 6: Closed Qualifier"
+        "Stake Ranked Episode 6: Closed Qualifier",
+        "NODWIN Clutch Series #13"
       ],
       "competition_note": "Thunderpick API event 2865424 ('Team UNiTY vs Apogee Esports') at 2026-10-22T14:00:00Z in Ranked Episode 6: Closed Qualifier.",
       "must_not_match": [
@@ -1011,6 +1056,16 @@
           "url": "https://www.hotspawn.com/matches/unity-vs-apogee-betclic-stake-ranked-episode-6-closed-qualifier-1082882",
           "source": "Hotspawn match page (fixture 1082882)",
           "detail": "Hotspawn schedules 'UNiTY vs Apogee Betclic' at 2026-10-22T14:00:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
+          "source": "HLTV.org match page (2399112)",
+          "detail": "HLTV match 2399112 schedules BO3 \"Acend vs UNiTY\" in NODWIN Clutch Series #13 at 2026-10-25T09:00:00Z."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
+          "source": "Hotspawn match page (fixture 1082996)",
+          "detail": "Hotspawn schedules \"Acend vs UNiTY\" (id 1082996) at 2026-10-25T09:00:00Z in NODWIN Clutch Series #13."
         }
       ],
       "review_note": "Added by session arena-a34bc06b (2026-10-22): first-party Thunderpick 'Team UNiTY' join for fixture 1082882."
@@ -1207,6 +1262,16 @@
           "url": "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13",
           "source": "HLTV.org match page (2399113)",
           "detail": "HLTV match 2399113 lists 'Metizport vs BAKS' BO3 in NODWIN Clutch Series 13 at 2026-10-25T12:00:00Z (matching Hotspawn fixture 1079198)."
+        },
+        {
+          "url": "https://bo3.gg/matches/metizport-vs-baks-esports-25-10-2026",
+          "source": "bo3.gg match record (131197)",
+          "detail": "api.bo3.gg match 131197 schedules \"Metizport vs BakS eSports\" at 2026-10-25T12:00:00Z in NODWIN Clutch Series #13."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198",
+          "source": "Hotspawn match page (fixture 1079198)",
+          "detail": "Hotspawn schedules \"Metizport vs BakS\" (id 1079198) at 2026-10-25T12:00:00Z in NODWIN Clutch Series #13."
         }
       ],
       "review_note": "Added by session arena-a34bc06b (2026-10-22); extended by arena-52aee465 (2026-10-23) to NODWIN Clutch Series #13."
@@ -1288,6 +1353,16 @@
           "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
           "source": "Hotspawn fixtures API (fixture 1082898)",
           "detail": "Hotspawn fixture 1082898 schedules 'Alliance vs FaZe' in 'Tesla Cup 2026' at 2026-10-27T11:00:00Z."
+        },
+        {
+          "url": "https://polymarket.com/esports/cs2",
+          "source": "Polymarket CS2 markets",
+          "detail": "Polymarket CS2 lists \"Alliance vs FaZe Clan\" at 2026-10-27T11:00:00Z in Tesla Cup 2026."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/alliance-vs-faze-tesla-cup-2026-1082898",
+          "source": "Hotspawn match page (fixture 1082898)",
+          "detail": "Hotspawn schedules \"Alliance vs FaZe\" (id 1082898, scheduled_start_time 1793098800000 = 2026-10-27T11:00:00Z) in Tesla Cup 2026."
         }
       ],
       "review_note": "Added by session arena-a34bc06b (2026-10-22); extended by arena-52aee465 (2026-10-23) to Tesla Cup 2026."
@@ -1935,6 +2010,137 @@
         }
       ],
       "review_note": "Added by session arena-52aee465 (2026-10-23): completes two-sided Bovada join on fixture 1082766."
+    },
+    {
+      "alias": "FOKUS CS",
+      "canonical": "FOKUS",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "NODWIN Clutch Series #13"
+      ],
+      "competition_note": "bo3.gg match 131192 lists \"FOKUS CS vs ex-6666\" at 2026-10-24T08:00:00Z in NODWIN Clutch Series #13 with Thunderpick Match Winner quote 1.17 / 4.40 (match 2872398), matching Hotspawn fixture 1079193 (\"FOKUS vs ex-6666\").",
+      "must_not_match": [
+        "FOKUS Academy",
+        "FOKUS fe"
+      ],
+      "evidence": [
+        {
+          "url": "https://bo3.gg/matches/fokus-cs-vs-ex-6666-24-10-2026",
+          "source": "bo3.gg match record (131192)",
+          "detail": "api.bo3.gg match 131192 schedules \"FOKUS CS vs ex-6666\" at 2026-10-24T08:00:00Z in NODWIN Clutch Series #13 with Thunderpick bet_updates 1.17 / 4.40."
+        },
+        {
+          "url": "https://thunderpick.io/match/2872398",
+          "source": "Thunderpick prematch CS2 match 2872398",
+          "detail": "Thunderpick prematch link relayed on bo3.gg match 131192 prices FOKUS CS 1.17 vs ex-6666 4.40 at 2026-10-24T08:00:00Z."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/fokus-vs-ex-6666-nodwin-clutch-series-13-1079193",
+          "source": "Hotspawn match page (fixture 1079193)",
+          "detail": "Hotspawn schedules \"FOKUS vs ex-6666\" (id 1079193) at 2026-10-24T08:00:00Z in NODWIN Clutch Series #13."
+        }
+      ],
+      "review_note": "Added by session arena-92a3e9fb (2026-10-23): exact 2026-10-24T08:00:00Z start and shared opponent ex-6666 across Hotspawn 1079193, bo3.gg 131192 and Thunderpick 2872398."
+    },
+    {
+      "alias": "INFINITE Gaming",
+      "canonical": "Infinite",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "NODWIN Clutch Series #13"
+      ],
+      "competition_note": "bo3.gg match 131198 lists \"INFINITE Gaming vs Team Brute\" at 2026-10-25T15:00:00Z in NODWIN Clutch Series #13, matching HLTV 2399114 (\"INFINITE vs BRUTE\") and Hotspawn 1079199 (\"Infinite vs BRUTE\").",
+      "must_not_match": [
+        "INFINITE Academy",
+        "Infinite fe"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399114/infinite-vs-brute-nodwin-clutch-series-13",
+          "source": "HLTV.org match page (2399114)",
+          "detail": "HLTV match 2399114 lists BO3 \"INFINITE vs BRUTE\" at 2026-10-25T15:00:00Z in NODWIN Clutch Series #13 (lineup d1maje, mhN1, CHANKY, zewts, starplajerz)."
+        },
+        {
+          "url": "https://bo3.gg/matches/infinite-gaming-vs-team-brute-25-10-2026",
+          "source": "bo3.gg match record (131198)",
+          "detail": "api.bo3.gg match 131198 schedules \"INFINITE Gaming vs Team Brute\" at 2026-10-25T15:00:00Z in NODWIN Clutch Series #13."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/infinite-vs-brute-nodwin-clutch-series-13-1079199",
+          "source": "Hotspawn match page (fixture 1079199)",
+          "detail": "Hotspawn schedules \"Infinite vs BRUTE\" (id 1079199) at 2026-10-25T15:00:00Z in NODWIN Clutch Series #13."
+        }
+      ],
+      "review_note": "Added by session arena-92a3e9fb (2026-10-23): exact 2026-10-25T15:00:00Z start across HLTV 2399114, bo3.gg 131198 and Hotspawn 1079199."
+    },
+    {
+      "alias": "Team Brute",
+      "canonical": "BRUTE",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "CCT Europe 2026 Series #11",
+        "NODWIN Clutch Series #13"
+      ],
+      "competition_note": "bo3.gg expands \"BRUTE\" to \"Team Brute\" in CCT Europe 2026 Series #11 (fixture 1079657 vs BakS at 2026-10-23T17:00:00Z) and NODWIN Clutch Series #13 (fixture 1079199 vs Infinite at 2026-10-25T15:00:00Z).",
+      "must_not_match": [
+        "BRUTE Academy",
+        "Team Brute Academy",
+        "BRUTE fe"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399334/brute-vs-baks-cct-2026-europe-series-11",
+          "source": "HLTV.org match page (2399334)",
+          "detail": "HLTV match 2399334 schedules BO3 \"BRUTE vs BAKS\" at 2026-10-23T17:00:00Z in CCT 2026 Europe Series 11."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399114/infinite-vs-brute-nodwin-clutch-series-13",
+          "source": "HLTV.org match page (2399114)",
+          "detail": "HLTV match 2399114 schedules BO3 \"INFINITE vs BRUTE\" at 2026-10-25T15:00:00Z in NODWIN Clutch Series #13 (lineup realzen, K1-FiDa, w4rden, Blytz, NIO)."
+        },
+        {
+          "url": "https://bo3.gg/matches/infinite-gaming-vs-team-brute-25-10-2026",
+          "source": "bo3.gg match record (131198)",
+          "detail": "api.bo3.gg match 131198 schedules \"INFINITE Gaming vs Team Brute\" at 2026-10-25T15:00:00Z in NODWIN Clutch Series #13."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/infinite-vs-brute-nodwin-clutch-series-13-1079199",
+          "source": "Hotspawn match page (fixture 1079199)",
+          "detail": "Hotspawn schedules \"Infinite vs BRUTE\" (id 1079199) at 2026-10-25T15:00:00Z in NODWIN Clutch Series #13."
+        }
+      ],
+      "review_note": "Added by session arena-92a3e9fb (2026-10-23): exact start times and shared opponents in CCT Europe Series #11 and NODWIN Clutch Series #13."
+    },
+    {
+      "alias": "Team Abyssal",
+      "canonical": "Abyssal",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "DFRAG Invitational 2026"
+      ],
+      "competition_note": "bo3.gg match 132606 lists \"Rooster vs Team Abyssal\" at 2026-10-27T03:00:00Z in DFRAG Invitational 2026, matching HLTV 2399891 (\"Rooster vs Abyssal\") and Hotspawn 1082861 (\"Rooster vs Abyssal\").",
+      "must_not_match": [
+        "Abyssal Academy",
+        "Team Abyssal Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+          "source": "HLTV.org match page (2399891)",
+          "detail": "HLTV match 2399891 schedules BO3 \"Rooster vs Abyssal\" at 2026-10-27T03:00:00Z in DFRAG Invitational 2026 (lineup Crunch, gump, mechanical, Mingovi, kyson)."
+        },
+        {
+          "url": "https://bo3.gg/matches/rooster-vs-team-abyssal-27-10-2026",
+          "source": "bo3.gg match record (132606)",
+          "detail": "api.bo3.gg match 132606 schedules \"Rooster vs Team Abyssal\" at 2026-10-27T03:00:00Z in DFRAG Invitational 2026."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
+          "source": "Hotspawn match page (fixture 1082861)",
+          "detail": "Hotspawn schedules \"Rooster vs Abyssal\" (id 1082861, scheduled_start_time 1793070000000 = 2026-10-27T03:00:00Z) in DFRAG Invitational 2026."
+        }
+      ],
+      "review_note": "Added by session arena-92a3e9fb (2026-10-23): exact 2026-10-27T03:00:00Z start and shared opponent Rooster across HLTV 2399891, bo3.gg 132606 and Hotspawn 1082861."
     }
   ]
 }
