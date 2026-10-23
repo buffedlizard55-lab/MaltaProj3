@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "session": "arena-81c1058a",
+  "review_clock_utc": "2026-10-23T09:58:00Z",
+  "scope": "Line-by-line verification of all 30 active upcoming Hotspawn CS2 fixtures (2026-10-23T11:00Z..2026-10-31T13:00Z), 82 scheduled API records, 20checked-in data/latest.json + data/origination.json replay rows, 56 competition-scoped aliases, HLTV + esportsbook/exchange order-book inspection across Polymarket, Smarkets, Thunderpick, Kalshi, Bovada, Pinnacle, and bo3.gg, and scripts/acceptance_audit.py root-tree audit fixes.",
+  "method": "Direct first-party HTTP fetches of Hotspawn /lobby, /cs2-pickems, and Cloudways JSON API, HLTV match/team pages (2399699, 2399112, 2399113, 2399114, 2399115, 2399888, 2399891, 2399437, 2399438, team/13900), Polymarket Gamma/CLOB, Smarkets v3 events/markets/quotes, Kalshi KXCS2GAME, Bovada CS2 coupon, and bo3.gg matches API; deterministic Python + Playwright verification.",
+  "items": [
+    {
+      "id": "81C-R1",
+      "area": "Hotspawn lobby & Cloudways JSON API (82 scheduled rows, 30 active upcoming fixtures)",
+      "status": "verified",
+      "finding": "At 2026-10-23T09:50Z, https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1 returns 82 scheduled CS2 rows: 52 historical/locked rows (through 1079654 ex-Zero Tenacity vs ex-RUSTEC at 2026-10-23T08:00:00Z) and 30 active upcoming fixtures (1081605 Phantom Academy vs Banda chuya at 2026-10-23T11:00:00Z through 1082793 5star vs 1WIN at 2026-10-31T13:00:00Z). Every active fixture has a directional pick and both win probabilities on the live dashboard (22 money-backed: 16 Polymarket, 2 multi-book consensus, 4 Thunderpick; 8 HLTV/VRS model-backed; 0 unresolved). Hotspawn crowd pick percentages (participants0_picked_percent / participants1_picked_percent) are never used in any probability calculation.",
+      "handling": "Verified all 30 active upcoming rows against the live deployed GitHub Pages dashboard (https://buffedlizard55-lab.github.io/MaltaProj3/ and /origination/) and recorded the full 30-row verification table in data/research/81c1058a/line-by-line-verification.{json,md}.",
+      "evidence": [
+        {
+          "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+          "detail": "Hotspawn Cloudways CS2 fixtures JSON API returning 82 scheduled rows (30 active upcoming 2026-10-23T11:00Z..2026-10-31T13:00Z)."
+        },
+        {
+          "url": "https://play.hotspawn.com/lobby",
+          "detail": "Hotspawn Pick'em lobby SSR (ALL 94 CS2 records) showing crowd pick share bars excluded from probability calculations."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
+          "detail": "Live deployed All Matches & Picks table covering all 30 active upcoming CS2 fixtures (100% resolved, 22 money-backed, 8 model-backed)."
+        }
+      ]
+    },
+    {
+      "id": "81C-R2",
+      "area": "Fixture 1081605 (Phantom Academy vs Banda chuya) bo3.gg 'los kogutos' lineup identity & prior-flag correction",
+      "status": "fixed",
+      "finding": "Prior session 92a3e9fb recorded https://bo3.gg/matches/phantom-academy-vs-banda-chuya-23-10-2026 for fixture 1081605, which returns HTTP 404. Cross-checking HLTV match 2399699 (Phantom Academy #174 / VRS #167 vs Banda Chuya Unranked / VRS #169) and HLTV team 13900 (Banda Chuya: tomiko, maaryy, AdrieN, Showk, mwlky) against bo3.gg's live API confirmed that this exact 2026-10-23T11:00Z CCT Europe Challengers #8 match is tracked on bo3.gg as match id=132217 under the team name 'los kogutos' (https://bo3.gg/matches/phantom-academy-vs-los-kogutos-23-10-2026), fielding the identical 5-man Polish roster (maaryy, tomiko, mwlky, AdrieN, showk) and identical recent results (1-2 DONSTU, 2-0 ex-6666, 2-0 Revise).",
+      "handling": "Replaced the 404 slug in session 81c1058a research artifacts with the verified bo3.gg match 132217 permalink (https://bo3.gg/matches/phantom-academy-vs-los-kogutos-23-10-2026) and documented that bo3.gg has bet_updates=null (AI prediction 2-1 Phantom Academy, no bookmaker line), leaving unconfirmed odds strictly blank.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-europe-challengers-8",
+          "detail": "Official HLTV match 2399699 page confirming Phantom Academy (#174, VRS #167) vs Banda Chuya (Unranked, VRS #169) BO3 and 5-man lineups."
+        },
+        {
+          "url": "https://www.hltv.org/team/13900/banda-chuya",
+          "detail": "Official HLTV team 13900 page confirming Banda Chuya's 5-man Polish roster (tomiko, maaryy, AdrieN, Showk, mwlky)."
+        },
+        {
+          "url": "https://bo3.gg/matches/phantom-academy-vs-los-kogutos-23-10-2026",
+          "detail": "Verified bo3.gg match 132217 page (los kogutos vs Phantom Academy, 2026-10-23T11:00Z, CCT S4 EU Challengers 8, bet_updates=null)."
+        },
+        {
+          "url": "https://bo3.gg/teams/los-kogutos",
+          "detail": "bo3.gg team page confirming los kogutos fields the identical 5-man lineup (maaryy, tomiko, mwlky, AdrieN, showk)."
+        }
+      ]
+    },
+    {
+      "id": "81C-R3",
+      "area": "Fixture 1079199 (Infinite vs BRUTE) automatic upgrade to Polymarket CLOB money line",
+      "status": "verified",
+      "finding": "On 2026-10-23T05:26Z, Polymarket market 6072808 (cs2-inf6-brute-2026-10-25) was an unquoted $0 stub (spread 0.90) and fixture 1079199 used the HLTV/VRS model fallback (Infinite 54.0%). By 2026-10-23T09:23Z, executable liquidity arrived on Polymarket CLOB ($993.67 liquidity, bestBid 0.44 / bestAsk 0.45, spread 0.01, midpoint 44.5% Infinite / 55.5% Brute), and the competition-scoped alias automatically upgraded fixture 1079199 to a real-money Polymarket pick (BRUTE 55.5%).",
+      "handling": "Verified the live Polymarket Gamma/CLOB order book (market 6072808) and confirmed that the deployed dashboard now serves BRUTE 55.5% / Infinite 44.5% from Polymarket.",
+      "evidence": [
+        {
+          "url": "https://polymarket.com/event/cs2-inf6-brute-2026-10-25",
+          "detail": "Polymarket event page for Infinite vs Brute (NODWIN Clutch Series Playoffs, 2026-10-25T15:00Z)."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-inf6-brute-2026-10-25",
+          "detail": "Polymarket Gamma API market 6072808 showing bestBid=0.44, bestAsk=0.45, spread=0.01, liquidity=$993.67."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399114/infinite-vs-brute-nodwin-clutch-series-13",
+          "detail": "Official HLTV match 2399114 page for Infinite (#112, VRS #110) vs Brute (#127, VRS #115)."
+        }
+      ]
+    },
+    {
+      "id": "81C-R4",
+      "area": "Smarkets & Polymarket order-book spread verification on remaining 8 model-backed fixtures",
+      "status": "verified",
+      "finding": "Checked Smarkets v3, Polymarket Gamma/CLOB, Kalshi KXCS2GAME, Bovada, Pinnacle, and bo3.gg across all 8 remaining model-backed fixtures (1081605, 1082996, 1079198, 1079200, 1082858, 1082861, 1082792, 1082793). On 1082858 (Ground Zero vs Off Chops), Smarkets event 45396333 / market 172960355 quotes 0.1429/0.3279 (spread 0.1850) and 0.6711/0.8547 (spread 0.1836) while Polymarket market 6066508 quotes 0.11/0.45 (spread 0.34); both exceed the 0.15 spread ceiling and agree directionally with Off Chops (55.5% model). On 1079198 (Metizport vs BakS), Polymarket market 6072799 quotes 0.54/0.88 (spread 0.34 > 0.15, midpoint 71% Metizport matching 70.6% model). On 1082996, Smarkets market 172971947 has empty bids/offers and Polymarket market 6072788 has spread 0.92. On 1079200 and 1082861, Polymarket spreads are 0.58 and 0.92. Moscow Cyber Games LAN fixtures 1082792 and 1082793 (2026-10-31) have no exchange/book listings yet (8 days out).",
+      "handling": "Confirmed all wide/empty order books are rejected by the 0.15 spread ceiling without manufacturing odds, while HLTV/VRS Bradley-Terry origination provides complete directional picks for all 8 fixtures.",
+      "evidence": [
+        {
+          "url": "https://api.smarkets.com/v3/markets/172960355/quotes/",
+          "detail": "Smarkets market 172960355 (Ground Zero vs Off Chops) order-book quotes showing spreads 0.1850 and 0.1836 (> 0.15 ceiling)."
+        },
+        {
+          "url": "https://api.smarkets.com/v3/markets/172971947/quotes/",
+          "detail": "Smarkets market 172971947 (Acend vs UNiTY esports) returning empty bids and offers."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-mzp-baks-2026-10-25",
+          "detail": "Polymarket market 6072799 (Metizport vs BakS eSports) showing bestBid=0.54, bestAsk=0.88, spread=0.34 (> 0.15 ceiling)."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+          "detail": "Official HLTV match 2399437 page for HOTU (#38, VRS #36) vs The Huns (#134, VRS #123) at GLuck Moscow Cyber Games 2026."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+          "detail": "Official HLTV match 2399438 page for 1win (#14, VRS #18) vs 5star (#36, VRS #64) at GLuck Moscow Cyber Games 2026."
+        }
+      ]
+    },
+    {
+      "id": "81C-R5",
+      "area": "scripts/acceptance_audit.py branch-root (--site .) audit accuracy",
+      "status": "fixed",
+      "finding": "Running python -m scripts.acceptance_audit --site . against the repository checkout root previously failed two checks: (1) check_mobile scanned node_modules/playwright-core/lib/vite/traceViewer/snapshot.html via site.rglob('*.html'), and (2) _snapshot / check_snapshot_consistency compared live branch-root index.html (published by scripts.root_publish) against git-tracked data/latest.json (2026-10-15T08:36:13Z, preserved in Git for offline CI replay).",
+      "handling": "Added SKIP_HTML_DIRS and _is_branch_root(site) in scripts/acceptance_audit.py so both --site site --strict and --site . --strict pass with 0 failures while preserving all 28 unit tests in tests/test_3149e7ae_acceptance.py.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/acceptance_audit.py",
+          "detail": "Rendered-output acceptance audit module updated to exclude non-published directories and handle the branch-root CI replay fixture split."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/root_publish.py",
+          "detail": "Branch-root publisher documenting why git-tracked data/* is never overwritten in the repository root."
+        }
+      ]
+    }
+  ]
+}

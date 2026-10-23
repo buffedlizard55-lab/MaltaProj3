@@ -1,0 +1,311 @@
+{
+  "schema_version": 1,
+  "session": "arena-81c1058a",
+  "generated_at_utc": "2026-10-23T09:58:00Z",
+  "research_protocol": [
+    "1. Official HLTV match and team pages (world ranking, live Valve VRS rank, 5-man lineups, substitutes, BO format)",
+    "2. Prediction exchanges and order-book inspection (Polymarket Gamma/CLOB, Smarkets v3, Kalshi KXCS2GAME)",
+    "3. Regulated and crypto esportsbooks (Thunderpick, Bovada, Pinnacle Arcadia, bo3.gg bookmaker relay)",
+    "4. Valve CS2 Regional Standings + HLTV World Ranking Bradley-Terry origination when no executable book exists within the 0.15 spread ceiling"
+  ],
+  "hotspawn_crowd_share_never_used": true,
+  "unconfirmed_values_policy": "Any field not directly confirmed on an official source (e.g. Hotspawn best_of=null when unverified, HLTV US geo-blocked odds, Polymarket/Smarkets wide order books >0.15 spread, bo3.gg bet_updates=null) is left null/blank rather than inferred.",
+  "fixtures": [
+    {
+      "fixture_id": "1079199",
+      "starts_at_utc": "2026-10-25T15:00:00Z",
+      "competition_name": "NODWIN Clutch Series #13",
+      "teams": [
+        "Infinite",
+        "BRUTE"
+      ],
+      "confirmed_best_of": 3,
+      "hltv_url": "https://www.hltv.org/matches/2399114/infinite-vs-brute-nodwin-clutch-series-13",
+      "bo3_url": "https://bo3.gg/matches/infinite-gaming-vs-brute-25-10-2026",
+      "team_a_hltv_rank": 112,
+      "team_b_hltv_rank": 127,
+      "team_a_live_vrs_rank": 110,
+      "team_b_live_vrs_rank": 115,
+      "substitutes": [],
+      "exchange_and_book_observations": [
+        {
+          "provider": "Polymarket CLOB",
+          "market_id": "6072808",
+          "url": "https://polymarket.com/event/cs2-inf6-brute-2026-10-25",
+          "best_bid": 0.44,
+          "best_ask": 0.45,
+          "spread": 0.01,
+          "liquidity_usd": 993.67,
+          "midpoint_probabilities": [
+            0.445,
+            0.555
+          ],
+          "accepted_as_money_line": true
+        }
+      ],
+      "recommended_pick": "BRUTE (55.5% Polymarket CLOB)",
+      "limitation": "Upgraded from HLTV/VRS model fallback (Infinite 54.0% at 05:26Z) to tight Polymarket CLOB order book (spread 0.01 <= 0.12 ceiling) via competition-scoped alias."
+    },
+    {
+      "fixture_id": "1081605",
+      "starts_at_utc": "2026-10-23T11:00:00Z",
+      "competition_name": "CCT 2026 Europe Challengers 8",
+      "teams": [
+        "Phantom Academy",
+        "Banda chuya"
+      ],
+      "confirmed_best_of": 3,
+      "hltv_url": "https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-europe-challengers-8",
+      "bo3_url": "https://bo3.gg/matches/phantom-academy-vs-los-kogutos-23-10-2026",
+      "team_a_hltv_rank": 174,
+      "team_b_hltv_rank": null,
+      "team_a_live_vrs_rank": 167,
+      "team_b_live_vrs_rank": 169,
+      "substitutes": [],
+      "exchange_and_book_observations": [
+        {
+          "provider": "bo3.gg (los kogutos vs Phantom Academy, match 132217)",
+          "market_id": "132217",
+          "url": "https://bo3.gg/matches/phantom-academy-vs-los-kogutos-23-10-2026",
+          "bet_updates": null,
+          "ai_score_prediction": "2-1 Phantom Academy",
+          "accepted_as_money_line": false
+        }
+      ],
+      "recommended_pick": "Phantom Academy (51.7% VRS/HLTV Bradley-Terry model)",
+      "limitation": "Roster-verified on bo3.gg under \"los kogutos\" (match 132217: maaryy, tomiko, mwlky, AdrieN, showk = HLTV team 13900 Banda Chuya), where bet_updates=null and no exchange/bookmaker posts an executable line. Unconfirmed odds left blank."
+    },
+    {
+      "fixture_id": "1082996",
+      "starts_at_utc": "2026-10-25T09:00:00Z",
+      "competition_name": "NODWIN Clutch Series #13",
+      "teams": [
+        "Acend",
+        "UNiTY"
+      ],
+      "confirmed_best_of": 3,
+      "hltv_url": "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
+      "bo3_url": "https://bo3.gg/matches/acend-cs2-vs-unity-25-10-2026",
+      "team_a_hltv_rank": 131,
+      "team_b_hltv_rank": 69,
+      "team_a_live_vrs_rank": 75,
+      "team_b_live_vrs_rank": 62,
+      "substitutes": [],
+      "exchange_and_book_observations": [
+        {
+          "provider": "Polymarket CLOB",
+          "market_id": "6072788",
+          "url": "https://polymarket.com/event/cs2-ace1-unity-2026-10-25",
+          "best_bid": 0.04,
+          "best_ask": 0.96,
+          "spread": 0.92,
+          "liquidity_usd": 855.41,
+          "accepted_as_money_line": false
+        },
+        {
+          "provider": "Smarkets Exchange",
+          "market_id": "172971947",
+          "url": "https://api.smarkets.com/v3/markets/172971947/quotes/",
+          "best_bid": null,
+          "best_ask": null,
+          "spread": null,
+          "accepted_as_money_line": false
+        }
+      ],
+      "recommended_pick": "UNiTY (72.7% VRS/HLTV Bradley-Terry model)",
+      "limitation": "Polymarket market 6072788 has 0.92 spread ($0 volume), Smarkets market 172971947 has empty bids/offers, and bo3.gg match 131196 has bet_updates=null. Unconfirmed odds left blank."
+    },
+    {
+      "fixture_id": "1079198",
+      "starts_at_utc": "2026-10-25T12:00:00Z",
+      "competition_name": "NODWIN Clutch Series #13",
+      "teams": [
+        "Metizport",
+        "BakS"
+      ],
+      "confirmed_best_of": 3,
+      "hltv_url": "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13",
+      "bo3_url": "https://bo3.gg/matches/metizport-vs-baks-esports-25-10-2026",
+      "team_a_hltv_rank": 59,
+      "team_b_hltv_rank": 88,
+      "team_a_live_vrs_rank": 60,
+      "team_b_live_vrs_rank": 117,
+      "substitutes": [],
+      "exchange_and_book_observations": [
+        {
+          "provider": "Polymarket CLOB",
+          "market_id": "6072799",
+          "url": "https://polymarket.com/event/cs2-mzp-baks-2026-10-25",
+          "best_bid": 0.54,
+          "best_ask": 0.88,
+          "spread": 0.34,
+          "liquidity_usd": 729.06,
+          "midpoint_probabilities": [
+            0.71,
+            0.29
+          ],
+          "accepted_as_money_line": false
+        }
+      ],
+      "recommended_pick": "Metizport (70.6% VRS/HLTV Bradley-Terry model)",
+      "limitation": "Polymarket market 6072799 quotes 0.54 bid / 0.88 ask (spread 0.34 > 0.15 ceiling, midpoint 71.0% Metizport matching 70.6% model) and bo3.gg match 131197 has bet_updates=null."
+    },
+    {
+      "fixture_id": "1079200",
+      "starts_at_utc": "2026-10-25T18:00:00Z",
+      "competition_name": "NODWIN Clutch Series #13",
+      "teams": [
+        "Color",
+        "ex-Zero Tenacity"
+      ],
+      "confirmed_best_of": 3,
+      "hltv_url": "https://www.hltv.org/matches/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+      "bo3_url": "https://bo3.gg/matches/color-vs-ex-zero-tenacity-25-10-2026",
+      "team_a_hltv_rank": null,
+      "team_b_hltv_rank": 67,
+      "team_a_live_vrs_rank": 73,
+      "team_b_live_vrs_rank": 95,
+      "substitutes": [],
+      "exchange_and_book_observations": [
+        {
+          "provider": "Polymarket CLOB",
+          "market_id": "6072812",
+          "url": "https://polymarket.com/event/cs2-color-zerote-2026-10-25",
+          "best_bid": 0.06,
+          "best_ask": 0.64,
+          "spread": 0.58,
+          "liquidity_usd": 684.12,
+          "midpoint_probabilities": [
+            0.35,
+            0.65
+          ],
+          "accepted_as_money_line": false
+        }
+      ],
+      "recommended_pick": "ex-Zero Tenacity (72.1% VRS/HLTV Bradley-Terry model)",
+      "limitation": "Polymarket market 6072812 quotes 0.06 bid / 0.64 ask (spread 0.58 > 0.15 ceiling) and bo3.gg match 131199 has bet_updates=null."
+    },
+    {
+      "fixture_id": "1082858",
+      "starts_at_utc": "2026-10-26T03:00:00Z",
+      "competition_name": "DFRAG Invitational 2026",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "confirmed_best_of": 3,
+      "hltv_url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+      "bo3_url": "https://bo3.gg/matches/ground-zero-vs-off-chops-26-10-2026",
+      "team_a_hltv_rank": 143,
+      "team_b_hltv_rank": null,
+      "team_a_live_vrs_rank": 131,
+      "team_b_live_vrs_rank": 123,
+      "substitutes": [],
+      "exchange_and_book_observations": [
+        {
+          "provider": "Smarkets Exchange",
+          "market_id": "172960355",
+          "url": "https://api.smarkets.com/v3/markets/172960355/quotes/",
+          "best_bid": 0.1429,
+          "best_ask": 0.3279,
+          "spread": 0.185,
+          "midpoint_probabilities": [
+            0.2358,
+            0.7642
+          ],
+          "accepted_as_money_line": false
+        },
+        {
+          "provider": "Polymarket CLOB",
+          "market_id": "6066508",
+          "url": "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25",
+          "best_bid": 0.11,
+          "best_ask": 0.45,
+          "spread": 0.34,
+          "liquidity_usd": 2396.16,
+          "midpoint_probabilities": [
+            0.28,
+            0.72
+          ],
+          "accepted_as_money_line": false
+        }
+      ],
+      "recommended_pick": "Off Chops (55.5% VRS/HLTV Bradley-Terry model)",
+      "limitation": "Smarkets market 172960355 (spreads 0.1850 / 0.1836) and Polymarket market 6066508 (spread 0.34) both exceed the 0.15 spread ceiling and agree directionally with Off Chops."
+    },
+    {
+      "fixture_id": "1082861",
+      "starts_at_utc": "2026-10-27T03:00:00Z",
+      "competition_name": "DFRAG Invitational 2026",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "confirmed_best_of": 3,
+      "hltv_url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+      "bo3_url": "https://bo3.gg/matches/rooster-vs-abyssal-27-10-2026",
+      "team_a_hltv_rank": null,
+      "team_b_hltv_rank": 128,
+      "team_a_live_vrs_rank": 154,
+      "team_b_live_vrs_rank": 129,
+      "substitutes": [
+        "TjP (Rooster)",
+        "foggers (Rooster)"
+      ],
+      "exchange_and_book_observations": [
+        {
+          "provider": "Polymarket CLOB",
+          "market_id": "6066523",
+          "url": "https://polymarket.com/event/cs2-rstr-abyssa-2026-10-26",
+          "best_bid": 0.04,
+          "best_ask": 0.96,
+          "spread": 0.92,
+          "liquidity_usd": 410.92,
+          "accepted_as_money_line": false
+        }
+      ],
+      "recommended_pick": "Rooster (55.2% VRS/HLTV Bradley-Terry model; live HLTV/VRS favors Abyssal with 2 Rooster subs)",
+      "limitation": "Polymarket market 6066523 is a 0.92-spread $0 stub and bo3.gg match 132606 has bet_updates=null. Rooster fields 2 substitutes (TjP, foggers) on HLTV 2399891."
+    },
+    {
+      "fixture_id": "1082792",
+      "starts_at_utc": "2026-10-31T09:00:00Z",
+      "competition_name": "Moscow Cyber Games 2026",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "confirmed_best_of": 3,
+      "hltv_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "bo3_url": null,
+      "team_a_hltv_rank": 38,
+      "team_b_hltv_rank": 134,
+      "team_a_live_vrs_rank": 36,
+      "team_b_live_vrs_rank": 123,
+      "substitutes": [],
+      "exchange_and_book_observations": [],
+      "recommended_pick": "HOTU (83.4% VRS/HLTV Bradley-Terry model)",
+      "limitation": "GLuck Moscow Cyber Games 2026 LAN starts 8 days out (2026-10-31); no exchange or bookmaker market opened yet on Polymarket, Smarkets, Kalshi, Bovada, Pinnacle, or bo3.gg."
+    },
+    {
+      "fixture_id": "1082793",
+      "starts_at_utc": "2026-10-31T13:00:00Z",
+      "competition_name": "Moscow Cyber Games 2026",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "confirmed_best_of": 3,
+      "hltv_url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+      "bo3_url": null,
+      "team_a_hltv_rank": 36,
+      "team_b_hltv_rank": 14,
+      "team_a_live_vrs_rank": 64,
+      "team_b_live_vrs_rank": 18,
+      "substitutes": [],
+      "exchange_and_book_observations": [],
+      "recommended_pick": "1WIN (79.3% VRS/HLTV Bradley-Terry model)",
+      "limitation": "GLuck Moscow Cyber Games 2026 LAN starts 8 days out (2026-10-31); no exchange or bookmaker market opened yet on Polymarket, Smarkets, Kalshi, Bovada, Pinnacle, or bo3.gg."
+    }
+  ]
+}
