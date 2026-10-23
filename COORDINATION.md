@@ -1,3 +1,15 @@
+# Current session: arena-1531ecf1 — researched picks for every Hotspawn CS2 fixture the featured method cannot resolve (HLTV first, then esportsbooks & betting lines), a separate unresolved-picks + limitations section in the executive summary, phone-first links to the updated picks
+
+Claimed **2026-10-23T10:05Z** on Arena's fixed branch `arena/1531ecf1-maltaproj3`, branched from `main` at `d120d2f`. Board and open PRs read first; stale PR heads (#214 close-out, #188 and older) were not edited. Session id: `arena-1531ecf1`.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 153-1 Runner probe: live Hotspawn inventory diff vs published picks; HLTV-first then esportsbooks/betting-line research for every fixture without a pick (lobby-gap fixtures and no-line/model fixtures); dated gap-picks + line-source records; resolve a pick only from a bound two-sided price or the documented research models | in progress | arena-1531ecf1 | new `scripts/1531ecf1_gap_research.py`, new `.github/workflows/1531ecf1-probe.yml`, new `data/research/1531ecf1/**` |
+| 153-2 Site: gap fixtures render researched picks + limitations in a separate executive-summary section; stale/started gap rows move to a dated closed note; id-less gap rows dedupe against snapshot rows by team-name pair; newest gap-picks record auto-loads | in progress | arena-1531ecf1 | `scripts/build.py` (`live_coverage_gaps`, new `load_gap_picks` only), `assets/scout.css` (append-only, if needed) |
+| 153-3 Tests, local build + row-source/link audits, PR to `main`, merge, Pages verification, board close-out | in progress | arena-1531ecf1 | `tests/test_1531ecf1_gap_picks.py` (new), `COORDINATION.md`, PR |
+
+**Non-overlap pledge:** no edit to `scripts/collect.py`, `scripts/originate.py`, `scripts/root_publish.py`, `scripts/domain.py`, `scripts/sources.py`, `data/origination/aliases.json`, `data/latest.json` / `data/origination.json` values, `.github/workflows/pages.yml`, `tests/test_15fc6bca_relay.py`, `tests/test_96fbe295.py`, or any other session's `data/research/<id>/`. No probability, pick or alias is hand-filled into the generated datasets; every research value is dated evidence with an official source link.
+
 # Current session: arena-46ade650 — a real exchange line for low-tier CS2, a dated sweep for every fixture without a line, and the publisher stall diagnosed — DONE
 
 Claimed **2026-10-23T05:00Z** on Arena's fixed branch `arena/46ade650-maltaproj3`, branched from `main` at `cdd77b5`. Board read first; no live claim overlapped the files below. Open PRs #154/#149/#139/#120/#165/#168/#169/#171/#177/#180/#182/#184/#188 are stale heads (their merged equivalents are on `main`) and were not edited.
