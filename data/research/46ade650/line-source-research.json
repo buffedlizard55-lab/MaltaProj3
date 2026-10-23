@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "session": "arena-46ade650",
-  "observed_at": "2026-10-23T04:57:52Z",
+  "observed_at": "2026-10-23T05:18:21Z",
   "environment": "github-actions-runner",
   "policy": "Read-only research. HLTV first (identity and ranking only — HLTV publishes no two-sided price), then esportsbooks and betting-line aggregators. Nothing here is a probability or a pick; only a bound fixture with both sides priced is a lead.",
   "target_source": {
     "source_url": "data/origination.json",
     "source": "freshly collected in this run",
-    "snapshot_generated_at": "2026-10-23T04:57:03Z",
+    "snapshot_generated_at": "2026-10-23T05:17:16Z",
     "targets": 9,
-    "active": 31
+    "active": 30
   },
   "targets": [
     {
@@ -138,8 +138,15 @@
     {
       "name": "Betano CS2",
       "url": "https://www.betano.com/esports/counter-strike-2/",
-      "status": null,
-      "error": "ConnectionError: HTTPSConnectionPool(host='www.betano.mx', port=443): Max retries exceeded with url: /esports/counter-strike-2/ (Caused by NameResolutionError(\"HTTPSConnection(host='www.betano.mx', port=443): Failed to resolve 'www.betano.mx' ([Errno"
+      "status": 200,
+      "final_url": "https://www.betano.com/esports/counter-strike-2/",
+      "bytes": 29481,
+      "challenge_markers": [
+        "challenge-platform"
+      ],
+      "teams_found": [
+        "Color"
+      ]
     },
     {
       "name": "Betsson CS2",
@@ -164,7 +171,7 @@
       "url": "https://oddspedia.com/esports/counter-strike",
       "status": 410,
       "final_url": "https://oddspedia.com/esports/counter-strike",
-      "bytes": 340035,
+      "bytes": 340025,
       "challenge_markers": [
         "challenge-platform",
         "captcha"
@@ -177,23 +184,26 @@
     {
       "name": "22bet CS2",
       "url": "https://22bet.com/line/counter-strike-2",
-      "status": 200,
+      "status": 203,
       "final_url": "https://22bet.com/line/counter-strike-2",
-      "bytes": 308457,
+      "bytes": 27144,
       "challenge_markers": [
-        "captcha"
+        "captcha",
+        "access denied"
       ],
-      "teams_found": [
-        "Color"
-      ]
+      "teams_found": []
     },
     {
       "name": "Bet365 esports",
       "url": "https://www.bet365.com/#/AS/B18/",
       "status": 403,
       "final_url": "https://www.bet365.com/#/AS/B18/",
-      "bytes": 1807,
-      "challenge_markers": [],
+      "bytes": 5607,
+      "challenge_markers": [
+        "just a moment",
+        "challenge-platform",
+        "enable javascript and cookies"
+      ],
       "teams_found": [
         "Color"
       ]
@@ -232,21 +242,95 @@
       "url": "https://egamersworld.com/counter-strike/betting",
       "status": 403,
       "final_url": "https://egamersworld.com/counter-strike/betting",
-      "bytes": 5739,
+      "bytes": 5774,
       "challenge_markers": [
-        "just a moment",
         "challenge-platform",
-        "enable javascript and cookies"
+        "attention required",
+        "captcha"
       ],
-      "teams_found": [
-        "Color"
-      ]
+      "teams_found": []
     }
   ],
   "pinnacle_guest_api": {
     "api": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
-    "matchups_seen": 20055,
+    "matchups_seen": 20409,
     "fixture_hits": []
+  },
+  "smarkets": {
+    "evidence": "data/origination/evidence/live-smarkets-cs.json",
+    "observed_at": "2026-10-23T05:17:28Z",
+    "events_listed": 11,
+    "fixtures_bound": 11,
+    "quoted_two_sided": 8,
+    "bound_fixtures": [
+      {
+        "hotspawn_id": "1079654",
+        "event_id": "45394279",
+        "event_name": "ex-Zero Tenacity vs ex-RUSTEC",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/cct-europe/playoffs/2026/10/23/08-00/ex-zero-tenacity-vs-ex-rustec"
+      },
+      {
+        "hotspawn_id": "1079655",
+        "event_id": "45396218",
+        "event_name": "Nuclear TigeRES vs ILLYRIANS",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/cct-europe/playoffs/2026/10/23/11-00/nuclear-tigeres-vs-illyrians"
+      },
+      {
+        "hotspawn_id": "1081148",
+        "event_id": "45394269",
+        "event_name": "Inner Circle Academy vs Spirit Academy",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/cct-europe/group-stage/2026/10/23/11-00/inner-circle-academy-vs-spirit-academy"
+      },
+      {
+        "hotspawn_id": "1081606",
+        "event_id": "45396158",
+        "event_name": "JiJieHao vs Eternal Fire",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/draculan/playoffs/2026/10/23/13-00/jijiehao-vs-eternal-fire"
+      },
+      {
+        "hotspawn_id": "1083014",
+        "event_id": "45396221",
+        "event_name": "K27 vs Virtus.pro",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/cis-lan-championship/playoffs/2026/10/23/13-00/k27-vs-virtus-pro"
+      },
+      {
+        "hotspawn_id": "1082924",
+        "event_id": "45394414",
+        "event_name": "BORRACHEIROS vs QUINTESSÊNCIA",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/23/16-00/borracheiros-vs-quintessencia"
+      },
+      {
+        "hotspawn_id": "1081150",
+        "event_id": "45396225",
+        "event_name": "ex-RUSTEC vs Saint Sinners",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/cct-europe/group-stage/2026/10/23/17-00/ex-rustec-vs-saint-sinners"
+      },
+      {
+        "hotspawn_id": "1082693",
+        "event_id": "45396231",
+        "event_name": "BESTIA vs Galorys",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/circuit-x/playoffs/2026/10/23/18-00/bestia-vs-galorys"
+      },
+      {
+        "hotspawn_id": "1082925",
+        "event_id": "45394415",
+        "event_name": "BESTIA Academy vs RED Canids Academy",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/23/19-00/bestia-academy-vs-red-canids-academy"
+      },
+      {
+        "hotspawn_id": "1079193",
+        "event_id": "45396121",
+        "event_name": "FOKUS vs ex-6666",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/nodwin-clutch-series/playoffs/2026/10/24/08-00/fokus-vs-ex-6666"
+      },
+      {
+        "hotspawn_id": "1079195",
+        "event_id": "45396122",
+        "event_name": "Nuclear TigeRES vs FORZE Reload",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/nodwin-clutch-series/playoffs/2026/10/24/14-00/nuclear-tigeres-vs-forze-reload"
+      }
+    ],
+    "errors": []
   },
   "bo3": [
     {
@@ -602,12 +686,11 @@
       "pinnacle_matchup": null,
       "extra_pages_listing_a_team": [
         "Rivalry CS2",
+        "Betano CS2",
         "Oddspedia CS2",
-        "22bet CS2",
         "Bet365 esports",
         "HLTV search endpoint",
-        "bo3.gg matches",
-        "EGamersWorld CS2 odds"
+        "bo3.gg matches"
       ],
       "money_line_lead": false,
       "verdict": "No two-sided price on any surface probed; the published research estimate and its limitation stand"

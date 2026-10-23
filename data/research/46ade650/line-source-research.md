@@ -1,6 +1,6 @@
 # Line-source research for fixtures without a betting line — arena-46ade650
 
-Observed 2026-10-23T04:57:52Z (github-actions-runner). Targets: 9 fixtures with no external line in snapshot 2026-10-23T04:57:03Z (freshly collected in this run).
+Observed 2026-10-23T05:18:21Z (github-actions-runner). Targets: 9 fixtures with no external line in snapshot 2026-10-23T05:17:16Z (freshly collected in this run).
 
 HLTV first, then esportsbooks/aggregators. A reachable page is not a price.
 
@@ -21,16 +21,31 @@ HLTV first, then esportsbooks/aggregators. A reachable page is not a price.
 | Source | HTTP | Teams found | Challenge |
 | --- | --- | --- | --- |
 | Rivalry CS2 (https://www.rivalry.com/esports/counter-strike-2) | 200 | Color | challenge-platform |
-| Betano CS2 (https://www.betano.com/esports/counter-strike-2/) | ConnectionError: HTTPSConnectionPool(host='www.betano.mx', port=443): Max retries exceeded with url: /esports/counter-strike-2/ (Caused by NameResolutionError("HTTPSConnection(host='www.betano.mx', port=443): Failed to resolve 'www.betano.mx' ([Errno | — | — |
+| Betano CS2 (https://www.betano.com/esports/counter-strike-2/) | 200 | Color | challenge-platform |
 | Betsson CS2 (https://www.betsson.com/en/sports/esports/counter-strike) | 202 | — | — |
 | Unibet CS2 (https://www.unibet.com/betting/sports/filter/counter_strike_2) | 503 | — | — |
 | Oddspedia CS2 (https://oddspedia.com/esports/counter-strike) | 410 | Color, Infinite | challenge-platform, captcha |
-| 22bet CS2 (https://22bet.com/line/counter-strike-2) | 200 | Color | captcha |
-| Bet365 esports (https://www.bet365.com/#/AS/B18/) | 403 | Color | — |
+| 22bet CS2 (https://22bet.com/line/counter-strike-2) | 203 | — | captcha, access denied |
+| Bet365 esports (https://www.bet365.com/#/AS/B18/) | 403 | Color | just a moment, challenge-platform, enable javascript and cookies |
 | HLTV search endpoint (https://www.hltv.org/search?query=counter-strike) | 403 | Color | just a moment, challenge-platform, enable javascript and cookies |
 | bo3.gg matches (https://bo3.gg/matches) | 200 | Color, Infinite | captcha |
-| EGamersWorld CS2 odds (https://egamersworld.com/counter-strike/betting) | 403 | Color | just a moment, challenge-platform, enable javascript and cookies |
+| EGamersWorld CS2 odds (https://egamersworld.com/counter-strike/betting) | 403 | — | challenge-platform, attention required, captcha |
 
-Pinnacle guest API: 20055 esports matchups, 0 target-fixture hits
+## Smarkets exchange board
+
+Evidence: `data/origination/evidence/live-smarkets-cs.json` (observed 2026-10-23T05:17:28Z) — 11 fixture(s) bound, 8 with a two-sided quote.
+- `1079654` ex-Zero Tenacity vs ex-RUSTEC — https://smarkets.com/sport/esports/cs-go/cct-europe/playoffs/2026/10/23/08-00/ex-zero-tenacity-vs-ex-rustec
+- `1079655` Nuclear TigeRES vs ILLYRIANS — https://smarkets.com/sport/esports/cs-go/cct-europe/playoffs/2026/10/23/11-00/nuclear-tigeres-vs-illyrians
+- `1081148` Inner Circle Academy vs Spirit Academy — https://smarkets.com/sport/esports/cs-go/cct-europe/group-stage/2026/10/23/11-00/inner-circle-academy-vs-spirit-academy
+- `1081606` JiJieHao vs Eternal Fire — https://smarkets.com/sport/esports/cs-go/draculan/playoffs/2026/10/23/13-00/jijiehao-vs-eternal-fire
+- `1083014` K27 vs Virtus.pro — https://smarkets.com/sport/esports/cs-go/cis-lan-championship/playoffs/2026/10/23/13-00/k27-vs-virtus-pro
+- `1082924` BORRACHEIROS vs QUINTESSÊNCIA — https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/23/16-00/borracheiros-vs-quintessencia
+- `1081150` ex-RUSTEC vs Saint Sinners — https://smarkets.com/sport/esports/cs-go/cct-europe/group-stage/2026/10/23/17-00/ex-rustec-vs-saint-sinners
+- `1082693` BESTIA vs Galorys — https://smarkets.com/sport/esports/cs-go/circuit-x/playoffs/2026/10/23/18-00/bestia-vs-galorys
+- `1082925` BESTIA Academy vs RED Canids Academy — https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/23/19-00/bestia-academy-vs-red-canids-academy
+- `1079193` FOKUS vs ex-6666 — https://smarkets.com/sport/esports/cs-go/nodwin-clutch-series/playoffs/2026/10/24/08-00/fokus-vs-ex-6666
+- `1079195` Nuclear TigeRES vs FORZE Reload — https://smarkets.com/sport/esports/cs-go/nodwin-clutch-series/playoffs/2026/10/24/14-00/nuclear-tigeres-vs-forze-reload
+
+Pinnacle guest API: 20409 esports matchups, 0 target-fixture hits
 
 **New money-line leads: 0** of 9 target fixtures.
