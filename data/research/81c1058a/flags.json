@@ -1,0 +1,62 @@
+[
+  {
+    "id": "81c1058a-banda-chuya-bo3-los-kogutos-roster-verification",
+    "severity": "medium",
+    "match_ids": [
+      "1081605"
+    ],
+    "title": "Fixture 1081605 (Phantom Academy vs Banda chuya, HLTV 2399699) verified on bo3.gg under 'los kogutos' (match 132217) via 5-man lineup match",
+    "detail": "Prior session 92a3e9fb recorded a fabricated bo3.gg URL (https://bo3.gg/matches/phantom-academy-vs-banda-chuya-23-10-2026) that returns HTTP 404. Direct verification of HLTV match 2399699 (https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-europe-challengers-8) and HLTV team 13900 (https://www.hltv.org/team/13900/banda-chuya) against bo3.gg's live API confirmed that Banda Chuya's 5-man Polish roster (tomiko, maaryy, AdrieN, Showk, mwlky) is tracked on bo3.gg as 'los kogutos' (match id=132217, https://bo3.gg/matches/phantom-academy-vs-los-kogutos-23-10-2026, https://bo3.gg/teams/los-kogutos), sharing the exact same CCT Europe Challengers #8 match history (1-2 DONSTU, 2-0 ex-6666, 2-0 Revise). Both HLTV (US geo-blocked odds) and bo3.gg (bet_updates=null) carry no executable bookmaker quote; unconfirmed odds remain blank.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-europe-challengers-8",
+      "https://www.hltv.org/team/13900/banda-chuya",
+      "https://bo3.gg/matches/phantom-academy-vs-los-kogutos-23-10-2026",
+      "https://bo3.gg/teams/los-kogutos"
+    ]
+  },
+  {
+    "id": "81c1058a-nodwin-1079199-polymarket-clob-upgrade",
+    "severity": "low",
+    "match_ids": [
+      "1079199"
+    ],
+    "title": "Fixture 1079199 (Infinite vs BRUTE) upgraded from VRS/HLTV model fallback to tight Polymarket CLOB order book (spread 0.01)",
+    "detail": "At 2026-10-23T05:26Z, Polymarket event cs2-inf6-brute-2026-10-25 (market 6072808) was an unquoted $0 stub (spread 0.90) and was rejected by the 0.15 spread ceiling. By 2026-10-23T09:23Z, executable liquidity arrived on Polymarket CLOB ($993.67 liquidity, bestBid 0.44 / bestAsk 0.45, spread 0.01, midpoint 44.5% Infinite / 55.5% Brute), and the competition-scoped alias ('Brute' -> 'brute' in NODWIN Clutch Series #13) automatically upgraded fixture 1079199 to a real-money Polymarket pick (BRUTE 55.5%).",
+    "source_urls": [
+      "https://polymarket.com/event/cs2-inf6-brute-2026-10-25",
+      "https://gamma-api.polymarket.com/events?slug=cs2-inf6-brute-2026-10-25",
+      "https://www.hltv.org/matches/2399114/infinite-vs-brute-nodwin-clutch-series-13"
+    ]
+  },
+  {
+    "id": "81c1058a-smarkets-and-polymarket-wide-spread-rejections",
+    "severity": "medium",
+    "match_ids": [
+      "1082858",
+      "1082996",
+      "1079198",
+      "1079200",
+      "1082861"
+    ],
+    "title": "Smarkets and Polymarket wide/empty order books verified and rightly rejected on 1082858, 1082996, 1079198, 1079200, and 1082861",
+    "detail": "Direct order-book inspection at 2026-10-23T09:50Z confirmed: (1) On 1082858 (Ground Zero vs Off Chops), Smarkets event 45396333 / market 172960355 quotes two-sided order book (Ground Zero 0.1429 bid / 0.3279 ask, spread 0.1850; Off Chops 0.6711 bid / 0.8547 ask, spread 0.1836) and Polymarket market 6066508 quotes bestBid 0.11 / bestAsk 0.45 (spread 0.34); both exceed the 0.15 spread ceiling and agree directionally with the VRS/HLTV model pick (Off Chops 55.5%). (2) On 1082996 (Acend vs UNiTY), Smarkets event 45396351 / market 172971947 has empty bids/offers and Polymarket market 6072788 has 0.92 spread. (3) On 1079198 (Metizport vs BakS), Polymarket market 6072799 quotes bestBid 0.54 / bestAsk 0.88 (spread 0.34 > 0.15, midpoint 71% Metizport matching model 70.6%). (4) On 1079200 (Color vs ex-Zero Tenacity), Polymarket market 6072812 has spread 0.58. (5) On 1082861 (Rooster vs Abyssal), Polymarket market 6066523 has spread 0.92.",
+    "source_urls": [
+      "https://api.smarkets.com/v3/markets/172960355/quotes/",
+      "https://api.smarkets.com/v3/markets/172971947/quotes/",
+      "https://gamma-api.polymarket.com/events?slug=cs2-gz1-offcho-2026-10-25",
+      "https://gamma-api.polymarket.com/events?slug=cs2-mzp-baks-2026-10-25",
+      "https://gamma-api.polymarket.com/events?slug=cs2-color-zerote-2026-10-25"
+    ]
+  },
+  {
+    "id": "81c1058a-acceptance-audit-branch-root-fix",
+    "severity": "low",
+    "match_ids": [],
+    "title": "Fixed scripts/acceptance_audit.py false failures when auditing the repository checkout root (--site .)",
+    "detail": "Running python -m scripts.acceptance_audit --site . previously failed check_mobile (by scanning node_modules/playwright-core/lib/vite/traceViewer/snapshot.html via rglob('*.html')) and check_snapshot_consistency (by comparing live root index.html published by scripts.root_publish against git-tracked CI replay fixture data/latest.json). Updated check_mobile to skip non-published directories (SKIP_HTML_DIRS) and updated _snapshot / check_snapshot_consistency to recognize the branch-root split documented in scripts/root_publish.py.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/acceptance_audit.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/root_publish.py"
+    ]
+  }
+]

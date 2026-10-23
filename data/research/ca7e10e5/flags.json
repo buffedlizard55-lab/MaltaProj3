@@ -1,0 +1,51 @@
+[
+  {
+    "id": "ca7e10e5-downloadable-json-eight-days-behind",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "The downloadable snapshot served 2026-10-15 under a 2026-10-23 page (192.8 h apart) — fixed by publishing snapshot.json",
+    "detail": "Runner read at 2026-10-23T09:58:24Z (run 39935447513, data/research/ca7e10e5/published-and-coverage.md): the public index.html carried data-snapshot-generated 2026-10-23T09:23:57Z, while the public /data/latest.json carried generated_at 2026-10-15T08:36:13Z. Every 'Open data ↓' and 'Full snapshot JSON ↓' link on the site pointed at that file, so a reader who downloaded it received an eight-day-old observation that contradicted the page above it. The same read at 09:51:40Z showed a 0.0 h gap, which proves the cause is the publishing race rather than a stale build: GitHub Pages is in legacy mode, so a push to main makes the platform republish the checked-in branch root, whose data/latest.json is the CI replay fixture. scripts/root_publish.py never copies data/ because replay and the regression tests assert against that fixture, so the root could not carry the current JSON. Fix: scripts.build now writes a byte-identical top-level snapshot.json, every page links and fetches ./snapshot.json, scripts.root_publish publishes snapshot.json into the branch root (data/ is still never copied), and scripts.verify_live plus scripts.acceptance_audit read snapshot.json first with data/latest.json only as a fallback for older deployments. Reproduce with tests/test_ca7e10e5_snapshot.py.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/data/research/ca7e10e5/published-and-coverage.md",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/scripts/root_publish.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/scripts/build.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39935447513"
+    ]
+  },
+  {
+    "id": "ca7e10e5-gap-list-contradicted-the-snapshot",
+    "severity": "warning",
+    "match_ids": ["1081606"],
+    "title": "The executive summary published JiJieHao vs Eternal Fire as missing while the same snapshot resolved it — fixed",
+    "detail": "Captured verbatim from the public site at 2026-10-23T09:58Z (data/research/ca7e10e5/live/published-index.html.txt): the section 'Live Hotspawn fixtures missing from this snapshot' listed 'JiJieHao vs Eternal Fire — Not in this snapshot. No probability is invented.' The same snapshot carries fixture 1081606, JiJieHao vs Eternal Fire, availability open, method market, pick Eternal Fire at 55.5%. The block compared Hotspawn ids only and the research record for that card (data/research/9fd5fbf1/live-coverage.json) has no id, so one match was published as both covered and missing. The same block also described a 04:58Z checklist as cards 'on Hotspawn right now' under a 09:23Z snapshot. Fix: scripts/build.py::live_coverage_gaps skips a lobby card when this build already carries the same pairing (case-, order- and punctuation-insensitive) and prints the record's own time, stating explicitly when it is older than the snapshot. tests/test_ca7e10e5_live_gaps.py pins both behaviours.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/data/research/9fd5fbf1/live-coverage.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/scripts/build.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/tests/test_ca7e10e5_live_gaps.py"
+    ]
+  },
+  {
+    "id": "ca7e10e5-eight-model-only-fixtures",
+    "severity": "notice",
+    "match_ids": ["1081605", "1079657", "1082996", "1079198", "1079200", "1082858", "1079199"],
+    "title": "8 of 30 listed fixtures carry a research estimate, not a betting line: no two-sided price was reachable in this pass",
+    "detail": "From the runner's 2026-10-23T09:50:31Z collection (data/research/ca7e10e5/published-and-coverage.md): 21 of 30 active fixtures resolved from an external money line, 8 from a research model and 1 from the bo3.gg relayed bookmaker feed. The eight model rows are the low-tier class the brief names. Surfaces probed in the same pass, with the exact answer each gave: HLTV /matches 403 (Cloudflare), DraftKings league feed 403, 1xBet line feed 203 (challenge), FanDuel content page 404, SofaScore schedule 403, Kalshi open-markets API 200 but no CS2 match market bound to these pairings, plus the reviewed esportsbook probe (Rivalry 200 without these pairings, OddsPortal 200 without a two-sided match price, Stake 403, GG.BET 403, BetBoom 401, Marathonbet 403, Betway 404, Oddspedia 410, EGamersWorld 403, bo3.gg 200 without a quote block for these fixtures). No number was invented and no 50/50 was substituted; each row names its model and carries its limitations. This is a source-availability limitation for manual review, not a claim that no market exists.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/data/research/ca7e10e5/published-and-coverage.md",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/data/research/ca7e10e5/line-sources/live-research.md",
+      "https://www.hltv.org/matches"
+    ]
+  },
+  {
+    "id": "ca7e10e5-captured-html-broke-the-link-check",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "This session's own evidence capture broke the build for one commit — found by the rebuild and fixed",
+    "detail": "The first runner pass saved the fetched public pages as data/research/ca7e10e5/live/index.html. scripts.build copies data/ into site/data/ and scripts.validate.check_links walks every *.html under the site, so the captured page was parsed as one of this site's pages and the build failed with 'site/data/research/ca7e10e5/live/index.html: broken local link ./assets/scout-mark.svg'. No deployed build was affected (the runner commits only reports, and the failing build was local). Handling: captures are now written as published-index.html.txt, published-origination.html.txt, published-picks.html.txt and published-latest.json, and tests/test_ca7e10e5_live_gaps.py fails if any .html file reappears under data/. Recorded because the same mistake would silently break any future session's capture.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/scripts/validate.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/scripts/ca7e10e5_probe.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/tests/test_ca7e10e5_live_gaps.py"
+    ]
+  }
+]

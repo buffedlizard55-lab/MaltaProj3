@@ -1,4 +1,4 @@
-"""Smarkets exchange prices for CS2 series winners (session arena-46ade650).
+"""Smarkets exchange prices for CS2 series winners (sessions arena-46ade650 & arena-80c3b4e0).
 
 Why this source
 ---------------
@@ -8,7 +8,8 @@ reviewed ladder used to fall back to a rating or results model for those
 fixtures. [Smarkets](https://smarkets.com/sport/esports/cs-go) is a regulated
 betting exchange that publishes a **public, documented** read-only API
 ([docs.smarkets.com](https://docs.smarkets.com/)) and lists CS2 (``csgo_match``)
-matches, including academy and tier-3 events such as CCT Europe and United21.
+matches, including academy and tier-3 events such as CCT Europe, NODWIN Clutch
+Series and United21.
 
 What is read
 ------------
@@ -20,14 +21,16 @@ What is read
 
 Smarkets quotes integer probabilities scaled by 10,000 (``4132`` is 0.4132), so
 a contract's implied probability is ``price / 10000``. Only a fixture that binds
-on **both** team names and a start time inside the project-wide 60-second window
-is stored, and only a market that is two-way, open, not in-play and quoted on
-both sides becomes a price row.
+on **both** team names (either exact normalized names or competition-scoped
+verified aliases in ``data/origination/aliases.json``) and a start time inside
+the project-wide 60-second window is stored, and only a market that is two-way,
+open, not in-play and quoted on both sides becomes a price row.
 
 This module never writes a probability by itself: it saves the original API
 responses under ``data/origination/evidence/`` and returns rows that
 ``scripts/originate.py`` re-validates (freshness, crossed books, spread
-ceilings, name alignment) exactly like every other exchange row.
+ceilings, competition-scoped alias alignment) exactly like every other exchange
+row.
 """
 from __future__ import annotations
 
@@ -46,6 +49,7 @@ EVENT_TYPE = 'csgo_match'
 EVIDENCE_NAME = 'live-smarkets-cs.json'
 START_TOLERANCE_SEC = 60
 QUOTE_SCALE = 10000
+DEFAULT_ALIASES_PATH = Path(__file__).resolve().parent.parent / 'data' / 'origination' / 'aliases.json'
 
 
 def events_url(limit: int = 200) -> str:
@@ -69,28 +73,103 @@ def split_names(name: str) -> list[str]:
     return []
 
 
-def binds(event: dict, match: dict) -> bool:
-    """Both names exact (normalised) and the start inside the 60-second window."""
+def _load_default_registry(evidence_dir: Path) -> dict:
+    """Load competition-scoped alias registry next to ``evidence_dir`` or direct file."""
+    target = Path(evidence_dir)
+    candidates = [target] if target.is_file() else [target.parent / 'aliases.json']
+    repo_root = DEFAULT_ALIASES_PATH.parent.parent.resolve()
+    try:
+        target.resolve().relative_to(repo_root)
+        candidates.append(DEFAULT_ALIASES_PATH)
+    except ValueError:
+        pass
+    for path in candidates:
+        if not path.is_file():
+            continue
+        try:
+            data = json.loads(path.read_text())
+            if isinstance(data, dict) and isinstance(data.get('aliases'), list):
+                return data
+        except (OSError, ValueError, TypeError):
+            continue
+    return {'aliases': []}
+
+
+def resolve_team(name: str, registry: dict | None, competition: str | None = None) -> tuple[str, list[dict]]:
+    """Resolve an exchange team name using exact match or competition-scoped aliases.
+
+    Mirrors ``scripts.originate.resolve_name`` so ``smarkets_lines.collect`` and
+    ``originate.pair_join`` apply the exact same non-fuzzy, competition-scoped
+    contract. When ``registry`` is ``None`` or empty, only exact normalized
+    names match.
+    """
+    key = name_key(name)
+    if not registry or not isinstance(registry.get('aliases'), list):
+        return key, []
+    comp_key = name_key(competition or '')
+    pool = (registry['aliases'] if competition is None else
+            [e for e in registry['aliases']
+             if isinstance(e, dict) and comp_key in {name_key(s) for s in (e.get('applies_to') or [])}])
+    for entry in pool:
+        if not isinstance(entry, dict):
+            continue
+        excluded = {name_key(x) for x in (entry.get('must_not_match') or [])}
+        if key in excluded:
+            continue
+        if key == name_key(entry.get('alias') or ''):
+            used = [{
+                'alias': entry.get('alias'),
+                'canonical': entry.get('canonical'),
+                'kind': entry.get('kind'),
+                'applies_to': list(entry.get('applies_to') or []),
+                'evidence': list(entry.get('evidence') or []),
+            }]
+            return name_key(entry.get('canonical') or ''), used
+    return key, []
+
+
+def _bind_detail(event: dict, match: dict, registry: dict | None = None) -> tuple[bool, list[dict]]:
+    """Return ``(matched, aliases_used)`` under the 60-second prematch join contract."""
     names = split_names(event.get('name'))
     if len(names) != 2 or not all(names):
-        return False
-    wanted = {name_key(t.get('name') or '') for t in match.get('teams') or []}
-    if len(wanted) != 2 or {name_key(n) for n in names} != wanted:
-        return False
+        return False, []
+    wanted = [name_key(t.get('name') or '') for t in (match.get('teams') or []) if t.get('name')]
+    if len(wanted) != 2 or len(set(wanted)) != 2:
+        return False, []
+    canon, aliases_used = [], []
+    competition = match.get('competition')
+    for raw_name in names:
+        resolved, used = resolve_team(raw_name, registry, competition)
+        canon.append(resolved)
+        aliases_used.extend(used)
+    if len(set(canon)) != 2 or set(canon) != set(wanted):
+        return False, []
     start, fixture_start = timestamp(event.get('start_datetime')), timestamp(match.get('starts_at'))
     if start is None or fixture_start is None:
-        return False
-    return abs((start - fixture_start).total_seconds()) <= START_TOLERANCE_SEC
+        return False, []
+    if abs((start - fixture_start).total_seconds()) > START_TOLERANCE_SEC:
+        return False, []
+    return True, aliases_used
 
 
-def collect(client, evidence_dir: Path, matches: list) -> dict:
+def binds(event: dict, match: dict, registry: dict | None = None) -> bool:
+    """Both names match (exact, or competition-scoped alias when ``registry`` given) and start <= 60s."""
+    matched, _ = _bind_detail(event, match, registry=registry)
+    return matched
+
+
+def collect(client, evidence_dir: Path, matches: list, registry: dict | None = None) -> dict:
     """Fetch and save the exchange board for the fixtures that bind.
 
-    ``client`` is ``scripts.originate.Collector``. Every HTTP failure is raised as
-    ``RuntimeError`` by that client and is caught here: an unreachable exchange
-    writes an error note and prices nothing, so the four-hour pipeline keeps
-    running on the rungs it already has.
+    ``client`` is ``scripts.originate.Collector``. When ``registry`` is omitted
+    (as in ``originate.collect_live``), the competition-scoped registry in
+    ``data/origination/aliases.json`` is loaded automatically so verified
+    spellings such as ``BakS eSports -> BakS`` or ``UNiTY esports -> UNiTY`` bind
+    consistently with ``originate.pair_join``. Every HTTP failure is raised as
+    ``RuntimeError`` by ``client`` and caught here so the four-hour pipeline
+    never stalls when an external surface is unreachable.
     """
+    active_registry = _load_default_registry(evidence_dir) if registry is None else registry
     observed_at = datetime.now(UTC).isoformat(timespec='seconds').replace('+00:00', 'Z')
     document = {'source': 'Smarkets public exchange API', 'api': API, 'site': SITE,
                 'docs': DOCS, 'event_type': EVENT_TYPE, 'observed_at': observed_at,
@@ -112,18 +191,24 @@ def collect(client, evidence_dir: Path, matches: list) -> dict:
     for match in matches:
         if match.get('availability') == 'past':
             continue
-        hits = [e for e in events if isinstance(e, dict) and binds(e, match)]
+        hits = []
+        for event in events:
+            if not isinstance(event, dict):
+                continue
+            ok, aliases_used = _bind_detail(event, match, registry=active_registry)
+            if ok:
+                hits.append((event, aliases_used))
         if len(hits) != 1:
             # Zero hits means the exchange does not list it; more than one means
             # the identity is ambiguous. Neither may become a price.
             continue
-        bound.append((match, hits[0]))
+        bound.append((match, hits[0][0], hits[0][1]))
 
     if not bound:
         (evidence_dir / EVIDENCE_NAME).write_text(json.dumps(document, ensure_ascii=False) + '\n')
         return {'bound': 0, 'events_seen': len(events)}
 
-    event_ids = [str(e.get('id')) for _, e in bound]
+    event_ids = [str(e.get('id')) for _, e, _ in bound]
     try:
         markets_body, _ = client.get_json(f'{API}/events/{",".join(event_ids)}/markets/',
                                           'live-smarkets-markets', save=False)
@@ -141,18 +226,24 @@ def collect(client, evidence_dir: Path, matches: list) -> dict:
         by_event.setdefault(str(market.get('event_id')), []).append(market)
 
     market_ids = []
-    for match, event in bound:
+    for match, event, aliases_used in bound:
         markets = by_event.get(str(event.get('id'))) or []
         if len(markets) != 1:
             # Several markets for one event (specials, map winners) is ambiguous.
             document['errors'].append(
                 f'{event.get("id")}: {len(markets)} open two-way winner markets; not priced')
             continue
-        document['bindings'].append({'hotspawn_id': match.get('id'), 'event_id': str(event.get('id')),
-                                     'market_id': str(markets[0].get('id')),
-                                     'event_name': event.get('name'),
-                                     'event_url': event_url(event),
-                                     'start_datetime': event.get('start_datetime')})
+        binding_record = {
+            'hotspawn_id': match.get('id'),
+            'event_id': str(event.get('id')),
+            'market_id': str(markets[0].get('id')),
+            'event_name': event.get('name'),
+            'event_url': event_url(event),
+            'start_datetime': event.get('start_datetime'),
+        }
+        if aliases_used:
+            binding_record['aliases_used'] = aliases_used
+        document['bindings'].append(binding_record)
         market_ids.append(str(markets[0].get('id')))
 
     if market_ids:
@@ -171,8 +262,9 @@ def collect(client, evidence_dir: Path, matches: list) -> dict:
         except RuntimeError as exc:
             document['errors'].append(str(exc)[:300])
 
-    document['events'] = [e for _, e in bound]
-    (evidence_dir / EVIDENCE_NAME).write_text(json.dumps(document, ensure_ascii=False) + '\n')
+    document['events'] = [e for _, e, _ in bound]
+    Path(evidence_dir).mkdir(parents=True, exist_ok=True)
+    (Path(evidence_dir) / EVIDENCE_NAME).write_text(json.dumps(document, ensure_ascii=False) + '\n')
     return {'bound': len(document['bindings']), 'events_seen': len(events),
             'quotes': len(document['quotes']), 'errors': document['errors'][:4]}
 

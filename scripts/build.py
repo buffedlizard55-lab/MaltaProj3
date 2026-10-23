@@ -12,7 +12,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-from scripts.domain import timestamp, is_fresh
+from scripts.domain import name_key, timestamp, is_fresh
 from scripts.validate import check_data, check_links
 from scripts.contrarian import derive_context, load_review, validate_context
 from scripts.briefing import render as contrarian_briefing, review_note, audit_register
@@ -342,6 +342,70 @@ def analysis_source_label(analysis: dict) -> str:
     return METHOD_BADGES.get(method, ('Source', 'green'))[0]
 
 
+def observed_price_label(analysis: dict) -> str:
+    """The literal price that produced a row's probability, or an empty string.
+
+    Session 9c4b1f7a. Every row already links its evidence, but the phone
+    summary showed only a method badge ("Market line", "Bookmaker"), so a
+    reader could not see the quoted price without opening the audit card. This
+    helper renders exactly the numbers stored in the row's own ``quotes`` and
+    never re-prices, rounds into a probability, or names a provider the record
+    does not carry:
+
+    * a featured prediction-market row stores one quote per outcome with scalar
+      ``bid``/``ask`` (0-1 cents);
+    * a featured esportsbook row stores one quote with two decimal ``odds``;
+    * an origination row stores one quote per provider, whose ``odds`` or
+      ``bid``/``ask`` are two-element lists;
+    * a consensus row keeps one quote per contributing provider, so the honest
+      summary is its contributor count, not one provider's price.
+
+    Research models carry no market price and correctly return an empty string.
+    """
+    a = analysis or {}
+    method = a.get('method')
+    quotes = a.get('quotes') or []
+    if method == 'consensus':
+        contributors = len(quotes) or len([p for p in str(a.get('source') or '').split('+') if p.strip()])
+        return f'median of {contributors} books' if contributors > 1 else ''
+    if method not in MONEY_METHODS:
+        return ''
+
+    def _decimal(odds):
+        if not isinstance(odds, (list, tuple)) or len(odds) != 2:
+            return ''
+        try:
+            first, second = float(odds[0]), float(odds[1])
+        except (TypeError, ValueError):
+            return ''
+        return f'{first:.2f} / {second:.2f}' if first > 1 and second > 1 else ''
+
+    def _cents(pair, key):
+        values = []
+        for quote in pair:
+            value = quote.get(key) if isinstance(quote, dict) else None
+            if not isinstance(value, (int, float)):
+                return ''
+            values.append(value)
+        return values
+
+    # Featured market: one quote per outcome, scalar bid and ask.
+    if len(quotes) == 2 and all(isinstance(q, dict) and 'bid' in q and 'ask' in q for q in quotes):
+        bids, asks = _cents(quotes, 'bid'), _cents(quotes, 'ask')
+        if bids and asks:
+            return (f'{bids[0] * 100:.0f}–{asks[0] * 100:.0f}¢ / '
+                    f'{bids[1] * 100:.0f}–{asks[1] * 100:.0f}¢')
+    if quotes:
+        quote = quotes[0]
+        odds = _decimal(quote.get('odds'))
+        if odds:
+            return f'line {odds}'
+        bids, asks = quote.get('bid'), quote.get('ask')
+        if isinstance(bids, (list, tuple)) and isinstance(asks, (list, tuple)) and len(bids) == len(asks) == 2:
+            return f'{bids[0] * 100:.0f}–{asks[0] * 100:.0f}¢ / {bids[1] * 100:.0f}–{asks[1] * 100:.0f}¢'
+    return ''
+
+
 def researched_method(match: dict) -> tuple[str, str, str]:
     """Short, data-derived provenance for one researched (featured-blank) row.
 
@@ -620,10 +684,15 @@ def glance(data, prefix, now=None):
         names = [t['name'] or 'Unverified team' for t in m['teams']]
         a, pick, researched = basis(m)
         detail = f'{prefix}origination/#match-{e(m["id"])}'
-        links = external(m['source_url'], 'Hotspawn')
+        # "Hotspawn fixture" rather than a bare "Hotspawn": the chip is the
+        # source of the *fixture listing*, never an input to the probability.
+        links = external(m['source_url'], 'Hotspawn fixture')
         if a:
             links += external(a['source_url'], analysis_source_label(a))
         links += f'<a class="source-link" href="{detail}">Full detail{icon("arrow")}</a>'
+        line = observed_price_label(a) if a else ''
+        line_chip = (f'<span class="glance-line" title="Observed price behind this estimate; '
+                     f'not a guarantee of execution">Observed: {e(line)}</span>' if line else '')
         if a and pick is not None:
             lock = timestamp(m['locks_at'])
             start = timestamp(m.get('starts_at'))
@@ -658,7 +727,7 @@ def glance(data, prefix, now=None):
         rows += (f'<li class="glance-row" data-glance-id="{e(m["id"])}" data-search="{e(search_text)}"{closed_attr}{method_attr}>'
                  f'<div class="glance-match"><strong>{e(names[0])} <span class="versus">vs</span> {e(names[1])}</strong>'
                  f'<span class="glance-time">{e(m["competition"] or "Unverified tournament")} · {local_time(m["starts_at"])}</span></div>'
-                 f'<div class="glance-choice">{choice}</div>'
+                 f'<div class="glance-choice">{choice}{line_chip}</div>'
                  f'<div class="glance-links">{links}</div></li>')
     note = (f'<p class="tiny muted glance-foot">Showing {len(shown)} of {len(active)} active fixtures; every unresolved fixture is included. '
             f'<a class="internal-link" href="{prefix}origination/#unresolved">Unresolved &amp; limitations →</a></p>'
@@ -911,6 +980,63 @@ def no_line_register(data, prefix):
             '<ul class="unresolved-summary-list no-line-list">' + cards + '</ul></div>')
 
 
+def no_line_digest(data, prefix):
+    """Compact one-screen version of the no-line register.
+
+    The executive summary keeps the separate section the brief asks for: every
+    pick that no external book priced, with its blocker and one tap to the
+    evidence. The per-stage research chips and the money-source links are
+    published in full on ``/unresolved/`` instead of being repeated inline, so
+    the phone summary stays scannable. No number is re-derived here.
+    """
+    complete = data.get('complete_picks') or {}
+    rows = [m for m in (complete.get('matches') or [])
+            if (m.get('origination') or {}).get('method') not in MONEY_METHODS
+            and (m.get('origination') or {}).get('method') is not None]
+    if not rows:
+        return ''
+    active = (complete.get('counts') or {}).get('active') or data.get('counts', {}).get('upcoming')
+    cards = ''
+    for m in rows:
+        o = m['origination']
+        names = [t.get('name') or 'Unverified team' for t in m.get('teams') or []]
+        pick = m.get('pick_index')
+        probs = o.get('probabilities') or []
+        badge = 'Wide book · guidance only' if o.get('method') == 'guidance' else 'No betting line'
+        tone = 'amber' if o.get('method') == 'guidance' else 'purple'
+        if pick is not None and len(probs) == 2:
+            other = 1 - pick
+            choice = (f'<span class="glance-pick-label">Pick</span><strong>{e(names[pick])}</strong>'
+                      f'<span class="glance-prob">{probs[pick] * 100:.1f}%</span>'
+                      f'<span class="glance-other">{e(names[other])} {probs[other] * 100:.1f}%</span>')
+        else:
+            choice = ('<span class="glance-pick-label">No edge</span><strong>Even</strong>'
+                      '<span class="glance-prob">no side</span>')
+        label, source_name, source_url = researched_method(m)
+        source = (external(source_url, source_name) if source_url else '')
+        cards += (f'<li class="no-line-card" id="no-line-{e(m.get("id"))}">'
+                  f'<div class="unresolved-summary-head"><span class="comp">{e(m.get("competition") or "Unverified tournament")} · {local_time(m.get("starts_at"))}</span>'
+                  f'<span class="badge {tone}">{e(badge)}</span></div>'
+                  f'<h3><a class="internal-link" href="{prefix}origination/#match-{e(m.get("id"))}">'
+                  f'{e(names[0])} <span class="versus">vs</span> {e(names[1])}</a></h3>'
+                  f'<p class="no-line-choice">{choice}</p>'
+                  f'<p class="no-line-model">{e(label)} '
+                  f'<span class="tiny muted">· uncalibrated estimate, not a betting price</span></p>'
+                  f'<p class="no-line-why"><strong>Why no line:</strong> {e(_no_line_reason(m))}</p>'
+                  f'<p class="unresolved-links">{source}'
+                  f'<a class="internal-link" href="{prefix}unresolved/#no-line-{e(m.get("id"))}">Evidence &amp; sources {icon("arrow")}</a></p>'
+                  '</li>')
+    return ('<div class="no-line-register" id="no-line-register">'
+            '<h3 id="no-line-title">Picks without a betting line · limitations</h3>'
+            f'<p class="section-intro">These <strong>{len(rows)}</strong> of <strong>{active}</strong> active fixtures '
+            'carry a pick that no external sportsbook, exchange or market listed for us at the last refresh. They stay '
+            'in the list — the brief asks for a pick or an explicit reason for every match — but each is a '
+            '<strong>research estimate</strong>, not a price you could have bet. The model and the blocker are shown '
+            'here; the full source trial for each row is on the <a class="internal-link" '
+            f'href="{prefix}unresolved/">Unresolved &amp; limitations</a> page.</p>'
+            '<ul class="unresolved-summary-list no-line-list">' + cards + '</ul></div>')
+
+
 def line_sources_block(data, prefix):
     """Dated record of which line sources answered, for every reader.
 
@@ -1113,21 +1239,50 @@ def no_line_research_block(data, prefix):
 def live_coverage_gaps(data, prefix):
     """Live Hotspawn lobby fixtures that this snapshot does not contain.
 
-    Session 9fd5fbf1. Dated inventory research only: each missing row keeps its
-    official Hotspawn and HLTV links. No probability, pick or 50/50 is added.
-    When the next four-hour collect includes the id, the row drops out of this
-    list automatically.
+    Session 9fd5fbf1, corrected by sessions 9c4b1f7a and ca7e10e5. Dated
+    inventory research only: each missing row keeps its official Hotspawn and
+    HLTV links. No probability, pick or 50/50 is added.
+
+    Two rules keep the section honest, because a stale checklist is worse than
+    none:
+
+    * a lobby card is skipped when this build already resolves the same match,
+      even under a blank Hotspawn id — the research record left the
+      JiJieHao–Eternal Fire id blank, so an id-only comparison published it as
+      "not in this snapshot" while the very same page carried its pick
+      (ca7e10e5 reproduced this from the published page; the merged fix reads
+      both feeds and matches the exact team pair);
+    * the section never claims the cards are live "right now": it prints the
+      record's own observation time and states that the list is a dated
+      observation, not a live claim.
     """
     record = data.get('_live_coverage') or {}
     live = record.get('live_fixtures') or []
     if not live:
         return ''
     known = {str(m.get('id')) for m in data.get('matches') or [] if m.get('id') is not None}
+    # The published picks are the complete researched list, not the featured
+    # sub-list. Checking only `data['matches']` left fixtures that DO carry a
+    # pick (for example JiJieHao vs Eternal Fire, resolved on a later refresh)
+    # advertised as "no pick in this build". Read both, plus a normalised team
+    # pair for a live card whose Hotspawn id was unverified.
+    complete = data.get('complete_picks') or {}
+    known_pairs = set()
+    for row in list(data.get('matches') or []) + list(complete.get('matches') or []):
+        names = [name_key(t.get('name') or '') for t in row.get('teams') or []]
+        if len(names) == 2 and all(names):
+            known_pairs.add(frozenset(names))
+        if row.get('id') is not None:
+            known.add(str(row.get('id')))
     missing = []
     for fixture in live:
         identity = fixture.get('id')
-        if identity is None or str(identity) not in known:
-            missing.append(fixture)
+        if identity is not None and str(identity) in known:
+            continue
+        teams = [name_key(t) for t in fixture.get('teams') or []]
+        if len(teams) == 2 and all(teams) and frozenset(teams) in known_pairs:
+            continue
+        missing.append(fixture)
     observed = local_time(record.get('observed_at')) if record.get('observed_at') else blank()
     rows = ''
     for fixture in missing:
@@ -1142,6 +1297,8 @@ def live_coverage_gaps(data, prefix):
         if fixture.get('hltv_analytics_url'):
             links += external(fixture['hltv_analytics_url'], 'HLTV analytics')
         note = fixture.get('note') or 'Not in this snapshot. No probability is invented.'
+        if fixture.get('in_published_snapshot') and not fixture.get('note'):
+            note += ' It was in the published snapshot at the time of that check.'
         rows += (f'<li class="coverage-gap-row"><span class="tried-chip unresolved">{e(label)}</span>'
                  f'<strong>{e(names)}</strong> '
                  f'<span class="tiny muted">{e(fixture.get("competition") or "Unverified tournament")}</span> '
@@ -1152,13 +1309,15 @@ def live_coverage_gaps(data, prefix):
     return (
         f'<section class="content-section" id="live-coverage-gaps">'
         f'<div class="section-heading"><div>'
-        f'<p class="eyebrow">Unresolved for this snapshot</p>'
+        f'<p class="eyebrow">Dated lobby coverage check</p>'
         f'<h2>Live Hotspawn fixtures missing from this snapshot</h2></div>'
-        f'<span class="muted small">{len(missing)} not in this build</span></div>'
+        f'<span class="muted small">{len(missing)} missing at that observation</span></div>'
         f'<p class="section-intro">Compared the live '
         f'{external("https://play.hotspawn.com/lobby", "Hotspawn lobby")} against this page\'s snapshot '
-        f'at {observed}. These cards are on Hotspawn right now and have no pick <em>in this build</em> '
-        f'because they were scheduled after the last successful collect, or the collect could not run. '
+        f'at {observed}. This is a dated observation, not a live claim: a card that has since been '
+        f'collected — or that now carries a pick in the complete list — drops out of the count above. '
+        f'A listed card is missing <em>from that observation</em> because it was scheduled after the '
+        f'last successful collect, or the collect could not run. '
         f'HLTV was checked first for identity; a ranking/form page is not converted into a win probability. '
         f'Hotspawn crowd percentages are not used. '
         f'<a class="internal-link" href="{prefix}data/{e(record.get("_record_path", "research/9fd5fbf1/live-coverage.json"))}">Dated record (JSON) ↓</a> '
@@ -1373,7 +1532,7 @@ def unresolved_page(data, prefix, now=None):
     return out
 
 
-def unresolved_register(data, prefix, title='Unresolved picks &amp; limitations'):
+def unresolved_register(data, prefix, title='Unresolved picks &amp; limitations', compact=False):
     """A separate, phone-first register of every fixture without a pick.
 
     The brief asked for the unresolved picks and their limitations to be a
@@ -1501,6 +1660,36 @@ def unresolved_register(data, prefix, title='Unresolved picks &amp; limitations'
                        f'<a class="internal-link" href="{prefix}origination/#match-{e(m.get("id"))}">Full trail {icon("arrow")}</a></p>'
                        '</li>')
         out.append('</ul>')
+    if compact:
+        # Phone-first summary. The full register (every stage, every source
+        # status, the dated sweep and the per-fixture research record) stays
+        # published on /unresolved/; the summary keeps the separate section the
+        # brief asks for and links straight to that evidence rather than
+        # reproducing ~40 KB of tables above the picks.
+        out.append(no_line_digest(data, prefix))
+        # The dated per-fixture research record stays on the summary: it is the
+        # evidence behind each no-line blocker and the cross-session audit
+        # (scripts/eea4c104_audit.py) requires the block here. It is compact;
+        # the 22-surface sweep and the source-probe matrix stay on /unresolved/.
+        out.append(no_line_research_block(data, prefix))
+        observed = complete.get('generated_at') or data.get('generated_at')
+        out.append('<div class="limitations-callout unresolved-limits"><strong>Limitations that apply to every row above</strong>'
+                   '<ul>'
+                   '<li>Only a two-sided first-party price or an official published rating can produce a number. '
+                   'Hotspawn participation percentages and HLTV fan votes are never inputs.</li>'
+                   '<li>Thin or wide books are recorded but rejected as picks; a 403 or an outage is not evidence '
+                   'that no market exists.</li>'
+                   '<li>The rating models are explicitly uncalibrated and are used only when no money source '
+                   'resolves a fixture — they are picks, not betting prices.</li>'
+                   '<li>Every four-hour refresh retries every source, so this list shrinks when a market opens. '
+                   'Reload the page rather than treating a row here as permanent.</li>'
+                   '</ul></div>')
+        out.append(f'<p class="tiny muted">Snapshot {local_time(observed)}. '
+                   f'<a class="internal-link" href="{prefix}unresolved/#unresolved-register">Full register: every source '
+                   'status, the dated sweep and each per-fixture trial →</a> '
+                   f'<a class="internal-link" href="{prefix}methodology/">How a pick is chosen →</a></p>')
+        out.append('</section>')
+        return ''.join(out)
     out.append(no_line_register(data, prefix))
     out.append(source_probe_block(data, prefix))
     out.append(line_sources_block(data, prefix))
@@ -1541,7 +1730,7 @@ def summary(data, prefix, now=None):
     out += glance(data, prefix, now=now)
     out += live_coverage_gaps(data, prefix)
     out += exec_banner(data, prefix)
-    out += unresolved_register(data, prefix)
+    out += unresolved_register(data, prefix, compact=True)
     if complete:
         if not data['coverage_complete']:
             coverage_label = 'Picks in the retained snapshot'
@@ -1858,7 +2047,7 @@ def coverage(data, prefix, now=None):
             detail = e(detail)
         out += f'<tr><th scope="row">{e(title)}</th><td>{detail}</td><td>{external(url, label)}</td></tr>'
     reconciliation = '<a href="' + prefix + 'data/evidence/hotspawn-context.json">Inventory reconciliation ↓</a>' if data.get('inventory_observed_at') else ''
-    out += '</tbody></table></div><div class="inline-links downloads"><a href="' + prefix + 'data/latest.json">Full snapshot JSON ↓</a>' + reconciliation + '<a href="' + prefix + 'data/picks.csv">Picks CSV ↓</a>' + '<a href="' + prefix + 'data/acceptance-audit.md">Brief-line acceptance audit ↓</a></div></section>'
+    out += '</tbody></table></div><div class="inline-links downloads"><a href="' + prefix + 'snapshot.json">Full snapshot JSON ↓</a>' + reconciliation + '<a href="' + prefix + 'data/picks.csv">Picks CSV ↓</a>' + '<a href="' + prefix + 'data/acceptance-audit.md">Brief-line acceptance audit ↓</a></div></section>'
     out += f'<section class="content-section" id="archive"><div class="section-heading"><div><p class="eyebrow">Preserved, not misrepresented</p><h2>Past-start source archive <span class="heading-count">{c["archived"]}</span></h2></div></div><p class="section-intro">These records still exist in Hotspawn’s scheduled feed, but their scheduled starts are in the past. “Scheduled” is the source’s value, not a verified present status. Results, current picks and retrospective probabilities are not invented.</p><div class="table-scroll"><table class="simple-table archive-table"><caption class="sr-only">Every past-start CS2 record retained from the original Hotspawn feed</caption><thead><tr><th>Match / tournament</th><th>Scheduled start</th><th>Source status</th><th>Original source</th></tr></thead><tbody>'
     for m in data['matches']:
         if m['availability'] != 'past':
@@ -1989,10 +2178,10 @@ def shell(data, key, body, prefix, now=None):
         extra_css += f'<script src="{prefix}assets/glance-lock.js" defer></script>'
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{e(title)} · Spawn Scout</title><meta name="description" content="Every Hotspawn CS2 match, independent probabilities, clear picks and original evidence. Mobile-friendly, read-only analysis with visible coverage gaps."><meta name="theme-color" content="#142534"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'"><link rel="icon" href="{prefix}assets/scout-mark.svg" type="image/svg+xml"><link rel="stylesheet" href="{prefix}assets/scout.css">{extra_css}<script src="{prefix}assets/scout.js" defer></script></head>
-<body {safety_attrs} data-page="{key}" data-inventory-time="{e(inventory)}" data-inventory-complete="{str(data['coverage_complete']).lower()}" data-snapshot-generated="{e(data['generated_at'])}" data-data-url="{prefix}data/latest.json"><a class="skip-link" href="#main">Skip to content</a>
+<body {safety_attrs} data-page="{key}" data-inventory-time="{e(inventory)}" data-inventory-complete="{str(data['coverage_complete']).lower()}" data-snapshot-generated="{e(data['generated_at'])}" data-data-url="{prefix}snapshot.json"><a class="skip-link" href="#main">Skip to content</a>
 <aside class="sidebar"><a class="brand" href="{prefix}index.html" aria-label="Spawn Scout home"><span class="brand-mark"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M5 4h9v9H5zM17 4h7v7h-7zM5 16h7v8H5z"/><path d="m16 17 8-4v11h-8z"/></svg></span><span>spawn<span class="brand-light">scout</span><small>CS2 MATCH INTELLIGENCE</small></span></a><p class="nav-label">YOUR DASHBOARD</p><nav aria-label="Main navigation">{nav}</nav><div class="sidebar-bottom"><div class="sidebar-note"><span class="status-dot"></span><strong>Independent analysis</strong><p>Hotspawn tells us who plays.<br>External sources inform the pick.</p></div>{external(LOBBY, 'Open Hotspawn lobby', 'sidebar-external')}<a class="sidebar-repo" href="{REPO}">Open-source &amp; auditable {icon('external')}</a></div></aside>
 <div class="workspace"><header class="topbar"><div class="mobile-brand"><a href="{prefix}index.html">spawn<strong>scout</strong><span>CS2</span></a></div><div class="desktop-crumb">Workspace <span>/</span> <strong>{e(title)}</strong></div><div class="topbar-tools"><span class="refresh-pill">{icon('clock')} Checks every 4h</span><label class="timezone-control"><span class="sr-only">Display timezone</span><select id="timezone"><option value="Europe/Malta">Malta time</option><option value="UTC">UTC</option><option value="local">Device time</option></select></label></div></header>
-<main id="main" tabindex="-1">{mobile_status}<div class="snapshot-line"><span class="freshness-label" data-freshness><span class="status-dot"></span>{freshness}</span><span>Inventory checked {local_time(data.get('inventory_observed_at'))} <span data-zone-label>Malta</span></span></div><div id="stale-warning" class="stale-warning" role="status" {'' if stale else 'hidden'}><strong>Do not treat these as current picks.</strong> The inventory check failed or the successful snapshot is older than eight hours. Original timestamps are preserved. <a href="{prefix}coverage/">Check source status →</a></div><div id="new-snapshot" class="new-snapshot" hidden>A newer verified snapshot is available. <button type="button" id="load-update">Load updated picks →</button></div>{crosscheck_note}{body}<footer class="footer"><div><strong>Better context. Clearer picks.</strong><p>Independent Hotspawn CS2 research · Not affiliated with Hotspawn, HLTV, Valve or any betting provider.</p><p>Estimates, not guarantees. No bets or picks are placed. Informational use only. 18+ where applicable.</p></div><div><a href="{prefix}methodology/">Methodology</a><a href="{prefix}review/">Flagged for Review</a><a href="{prefix}data/latest.json">Open data ↓</a><span class="tiny muted">Built {local_time(data['generated_at'])}</span></div></footer></main></div><nav class="mobile-nav" aria-label="Mobile navigation">{mobile}</nav></body></html>'''
+<main id="main" tabindex="-1">{mobile_status}<div class="snapshot-line"><span class="freshness-label" data-freshness><span class="status-dot"></span>{freshness}</span><span>Inventory checked {local_time(data.get('inventory_observed_at'))} <span data-zone-label>Malta</span></span></div><div id="stale-warning" class="stale-warning" role="status" {'' if stale else 'hidden'}><strong>Do not treat these as current picks.</strong> The inventory check failed or the successful snapshot is older than eight hours. Original timestamps are preserved. <a href="{prefix}coverage/">Check source status →</a></div><div id="new-snapshot" class="new-snapshot" hidden>A newer verified snapshot is available. <button type="button" id="load-update">Load updated picks →</button></div>{crosscheck_note}{body}<footer class="footer"><div><strong>Better context. Clearer picks.</strong><p>Independent Hotspawn CS2 research · Not affiliated with Hotspawn, HLTV, Valve or any betting provider.</p><p>Estimates, not guarantees. No bets or picks are placed. Informational use only. 18+ where applicable.</p></div><div><a href="{prefix}methodology/">Methodology</a><a href="{prefix}review/">Flagged for Review</a><a href="{prefix}snapshot.json">Open data ↓</a><span class="tiny muted">Built {local_time(data['generated_at'])}</span></div></footer></main></div><nav class="mobile-nav" aria-label="Mobile navigation">{mobile}</nav></body></html>'''
 
 
 def picks_csv(data):
@@ -2093,6 +2282,12 @@ def build(source: Path, output: Path, now=None):
     # unresolved" while the page said "0", and both were true of different
     # lists. A reader must never have to guess which list a number belongs to.
     write_reconciled_snapshot(output / 'data/latest.json', data)
+    # The downloadable snapshot every page links to. `data/latest.json` is also
+    # the repository's CI replay fixture, so scripts.root_publish must never copy
+    # it into the branch root; this byte-identical top-level copy is a build
+    # output instead, and the root publisher carries it so both publishers serve
+    # the same observation (see scripts/root_publish.py).
+    shutil.copyfile(output / 'data/latest.json', output / 'snapshot.json')
     (output / '.nojekyll').touch()
     from scripts import build as _self
     from scripts.build_edge import edge_review

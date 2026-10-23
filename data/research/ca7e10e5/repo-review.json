@@ -1,0 +1,160 @@
+{
+ "session": "arena-ca7e10e5",
+ "scope": "Published site read as a visitor from a GitHub runner (index.html, origination/index.html, picks/index.html, data/latest.json), coverage of every active Hotspawn CS2 fixture against both published feeds, HLTV-first then esportsbook/exchange line research for fixtures only a research model resolves, and the executive summary's phone route to the updated picks.",
+ "review_clock_utc": "2026-10-23T10:00:00Z",
+ "method": "Read-only. scripts/ca7e10e5_probe.py fetches the public site and records HTTP status, the data-snapshot-generated stamp, the downloaded snapshot's generated_at, the rendered counts and the page-vs-JSON gap; it then audits every active fixture in the freshly collected snapshot against data/latest.json and data/origination.json for team names, a two-value probability pair inside (0,1) summing to 1, a pick pointing at the more likely team, an https source and a known method. scripts/3a5448de_probe.py (already reviewed) re-probes HLTV and the esportsbooks for the fixtures the featured method cannot resolve. Every finding below is reproducible from the dated files under data/research/ca7e10e5/.",
+ "items": [
+  {
+   "id": "CA-R01",
+   "area": "Published picks: coverage, arithmetic and sources",
+   "status": "verified",
+   "finding": "At 2026-10-23T09:51:40Z the public site served 30 active Hotspawn CS2 fixtures, 30 directional picks and 0 explicitly unresolved. All 30 rendered rows in origination/index.html carry both teams' percentages, they sum to 100.0 and none carries an estimate without an https source link; the glance list on the executive summary has the same 30 ids, the same picks and the same percentages as the full table (0 mismatches).",
+   "handling": "Published as verified. The check is permanent: scripts/ca7e10e5_probe.py records the rendered rows and the reconcile between page, table and feeds on every runner pass, and tests/test_ca7e10e5_snapshot.py pins the download/link contract.",
+   "evidence": [
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
+     "detail": "The 30-row audited table: both percentages per row, one pick per row, an official source link per row."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/data/research/ca7e10e5/published-and-coverage.md",
+     "detail": "Dated runner record of the same read: page stamp, snapshot age, rendered counts and the per-fixture audit."
+    },
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+     "detail": "Executive summary: 30 active, 30 with a directional pick, 0 explicitly unresolved, plus the in-site links to the full list."
+    }
+   ]
+  },
+  {
+   "id": "CA-R02",
+   "area": "Executive summary: live-coverage gap register",
+   "status": "fixed",
+   "finding": "The published executive summary listed 'JiJieHao vs Eternal Fire — Not in this snapshot. No probability is invented.' while the same snapshot resolves that fixture (1081606, open, market line). The block compared Hotspawn ids only, and the research record for that card carried a blank id, so the same match was published as both covered and missing.",
+   "handling": "scripts/build.py::live_coverage_gaps now also skips a lobby card when this build already carries the same pairing, compared case-, order- and punctuation-insensitively. tests/test_ca7e10e5_live_gaps.py pins the blank-id case, the punctuation case, the genuinely-different-pairing case and the header count.",
+   "evidence": [
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/data/research/9fd5fbf1/live-coverage.json",
+     "detail": "The research record whose JiJieHao–Eternal Fire entry has no Hotspawn id (\"Rendered on the Hotspawn lobby Closing Soon list without a View Match permalink\")."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/data/research/ca7e10e5/live/published-index.html.txt",
+     "detail": "The published page captured verbatim in the same runner pass, showing both the gap entry and the resolved row 1081606."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/scripts/build.py",
+     "detail": "The corrected live_coverage_gaps implementation."
+    }
+   ]
+  },
+  {
+   "id": "CA-R03",
+   "area": "Executive summary: freshness wording",
+   "status": "fixed",
+   "finding": "The same block described a 04:58Z research check as cards that are 'on Hotspawn right now', under a page whose snapshot was 09:23Z — 4.9 hours newer. A dated check was presented as a live observation.",
+   "handling": "The block now prints the record's own observation time and, when that record predates the snapshot, states that the snapshot is newer and that a listed card may have started or been delisted since. The words 'right now' no longer appear in the section.",
+   "evidence": [
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/scripts/build.py",
+     "detail": "live_coverage_gaps compares record observed_at with the snapshot generated_at and chooses the wording from that comparison."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/tests/test_ca7e10e5_live_gaps.py",
+     "detail": "Tests for the older-record, newer-record and never-'right now' cases."
+    }
+   ]
+  },
+  {
+   "id": "CA-R04",
+   "area": "Build integrity: captured evidence vs the link checker",
+   "status": "fixed",
+   "finding": "This session's own first runner pass saved the fetched public pages as data/research/ca7e10e5/live/index.html. scripts.build copies data/ into site/data/ and scripts.validate.check_links walks every *.html under the site, so the captured page was parsed as one of ours and the build failed with: site/data/research/ca7e10e5/live/index.html: broken local link ./assets/scout-mark.svg.",
+   "handling": "Captures are saved as *.html.txt and *.json; tests/test_ca7e10e5_live_gaps.py fails if any .html file reappears under data/. Rebuilt: replay PASS, 703 rows, 0 without a source, 807 internal links PASS.",
+   "evidence": [
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/scripts/validate.py",
+     "detail": "check_links iterates site.rglob('*.html'), which is why a captured page inside data/ is treated as a page of this site."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/scripts/ca7e10e5_probe.py",
+     "detail": "Evidence capture now writes published-index.html.txt, published-origination.html.txt, published-picks.html.txt and published-latest.json."
+    }
+   ]
+  },
+  {
+   "id": "CA-R05",
+   "area": "Publication: the downloadable snapshot disagreed with the page",
+   "status": "fixed",
+   "finding": "Runner read at 2026-10-23T09:58:24Z: the page carried data-snapshot-generated 2026-10-23T09:23:57Z while the deployed /data/latest.json carried 2026-10-15T08:36:13Z — 192.8 hours apart. GitHub Pages is in legacy mode, so a push to main makes the platform republish the checked-in branch root, and that root's data/latest.json is the CI replay fixture. The site therefore offered an eight-day-old observation under a current page. The same mismatch disables the republish guard, which compares a candidate build against the live /data/latest.json.",
+   "handling": "The build now writes a byte-identical top-level snapshot.json, every page links and fetches ./snapshot.json, scripts.root_publish carries snapshot.json into the branch root (never data/*, which stays the replay fixture), and both scripts/verify_live.py and scripts/acceptance_audit.py read snapshot.json first with data/latest.json only as a fallback. tests/test_ca7e10e5_snapshot.py covers the build output, the publisher's path list, the refusal to publish data/, the monotonic guard, the acceptance check and the rendered link targets.",
+   "evidence": [
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/data/research/ca7e10e5/published-and-coverage.md",
+     "detail": "Both reads side by side: 09:51:40Z showed a 0.0 h page/JSON gap, 09:58:24Z showed 192.8 h."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/scripts/root_publish.py",
+     "detail": "TOP_EXTRA publishes snapshot.json; SKIP_DIRS still excludes data/; LIVE_SNAPSHOT_URL now points at snapshot.json."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/scripts/build.py",
+     "detail": "write_reconciled_snapshot writes data/latest.json and the identical snapshot.json; the body attribute and both download links point at snapshot.json."
+    }
+   ]
+  },
+  {
+   "id": "CA-R06",
+   "area": "Low-tier fixtures: no external betting line",
+   "status": "needs review",
+   "finding": "8 of the 30 active fixtures in the 09:50:31Z snapshot carry a pick from a research model, not from a money line: Phantom Academy–Banda chuya, LPH–WBT Academy, Acend–UNiTY, Metizport–BakS, Color–ex-Zero Tenacity, Rooster–Abyssal, 5star–1WIN and one bo3.gg-relayed row. For these, no two-sided prematch price was readable on any surface probed in this pass. Recorded status codes, not conclusions: HLTV 403 (Cloudflare challenge), DraftKings league feed 403, 1xBet line feed 203 (challenge), FanDuel content page 404, SofaScore 403, Kalshi open-markets API 200 but no CS2 match market bound to these pairings, and the reviewed esportsbook probe returned the same result for the same fixtures.",
+   "handling": "Left as labelled research estimates with their model named and their limitations printed on the executive summary and the unresolved page. No probability, price or pick was invented, and no 50/50 was substituted. Published here for manual review so the limitation is visible next to the picks.",
+   "evidence": [
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/data/research/ca7e10e5/published-and-coverage.md",
+     "detail": "Per-fixture method table plus the surface matrix with HTTP status and team-name hits for this pass."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/data/research/ca7e10e5/line-sources/live-research.md",
+     "detail": "The reviewed HLTV-first/esportsbook probe re-run against the same eight fixtures."
+    },
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/#unresolved-register",
+     "detail": "The published register of picks without a betting line and their limitations."
+    }
+   ]
+  },
+  {
+   "id": "CA-R07",
+   "area": "HLTV source access",
+   "status": "platform limitation",
+   "finding": "HLTV answered HTTP 403 with a Cloudflare challenge to the GitHub runner in this pass, exactly as it has for earlier sessions. HLTV is therefore used for identity and ranking through the collector's own captures, and never converted into a price. This is a source-access limitation, not a data defect.",
+   "handling": "Recorded with the HTTP status and the challenge token in the dated probe output. Nothing is inferred from a blocked page, and the fan vote remains excluded from every probability.",
+   "evidence": [
+    {
+     "url": "https://www.hltv.org/matches",
+     "detail": "The source itself: official match listing. The runner's response in this pass was 403 with a challenge page."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/data/research/ca7e10e5/published-and-coverage.md",
+     "detail": "Section 3 records the status, the challenge token and a verbatim snippet around the first team-name hit."
+    }
+   ]
+  },
+  {
+   "id": "CA-R08",
+   "area": "Publication platform",
+   "status": "platform limitation",
+   "finding": "The repository's Pages site is configured in the platform's legacy build mode (GET /repos/.../pages reports build_type legacy, source main//). Every push to main makes the platform republish the checked-in branch root, which can land after this project's artifact deploy. Switching the source requires PUT /pages, which answers 403 to a workflow token.",
+   "handling": "Mitigated rather than eliminated: the root now carries the same rendered pages and the current snapshot.json, so both publishers serve a consistent observation, and pages.yml re-deploys the verified artifact if the post-deploy verification fails. Recorded here because the race itself cannot be closed from this repository.",
+   "evidence": [
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/.github/workflows/pages.yml",
+     "detail": "The root-sync, wait-for-legacy-build and re-deploy steps, with the historical run ids that motivated them."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/ca7e10e5-maltaproj3/scripts/root_publish.py",
+     "detail": "The publisher's guards: no backwards move, no snapshot older than twelve hours, data/ never overwritten."
+    }
+   ]
+  }
+ ]
+}
