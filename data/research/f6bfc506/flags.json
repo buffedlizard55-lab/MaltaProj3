@@ -1,0 +1,75 @@
+[
+  {
+    "id": "f6bfc506-four-hour-refresh-restored",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "The four-hour refresh had been dead for six scheduled runs; the first step was failing, so nothing was collected or published",
+    "detail": "Six consecutive scheduled runs of 'Refresh and deploy CS2 dashboard' failed at 'Regression tests (repository fixtures, before any cache restore)' on commit cdd77b5: 39807044948 (2026-10-22T15:40:30Z), 39845991470 (20:06:48Z), 39861117407 (21:55:48Z), 39871371551 (23:22:44Z), 39881298806 (2026-10-23T00:58:37Z) and 39902353982 (04:49:13Z). Every step after the regression gate - inventory refresh, line research, row reconciliation, build, deploy, root publish, live verification - was skipped, so the public executive summary kept serving the 2026-10-22T15:21 inventory while the brief asks for a refresh every 4-8 hours. The run annotations named exactly two tests: test_check_mode_reports_a_current_root_and_then_drift and test_only_the_bound_fixture_is_saved_with_its_quote. Both are date-bound (the code under test reads the wall clock; the fixtures were pinned to 2026-10-22), and both were repaired upstream by PR #191 (session 308fcaad); this session reproduced them locally (985 tests, 2 failures on the checkout of cdd77b5) and adopted those fixes rather than re-applying its own. Publisher run 39912686322 then completed every step including both live verifications, and the public site now reads 'Inventory checked 23 Oct 2026, 08:42' with 32 active fixtures, 32 directional picks and 0 unresolved.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39902353982",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39912686322",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/191",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/"
+    ]
+  },
+  {
+    "id": "f6bfc506-republish-could-have-regressed-the-site",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "The fast republish job could have restored a day-old snapshot over a fresher live one; it is now gated on the live value",
+    "detail": "republish-last-verified runs first in every publisher run and republishes the newest SUCCESSFUL run's artifact, so a reader never lands on the checked-in branch root while the fresh build is running. While six runs in a row failed, the newest success was from the previous day, so the job would have moved the live site backwards instead of forwards. This session added republish_regression() and --refuse-if-older-than-live to scripts/root_publish.py (exit 3 when the saved build predates the snapshot the public site already serves), gated every deploy step of that job on it, and made an unreadable live value fail open with a ::warning:: so a network problem can never block a publish. tests/test_f6bfc506_republish_guard.py pins the refused, allowed, exactly-equal, unreadable and CLI-exit-code cases.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/root_publish.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_f6bfc506_republish_guard.py"
+    ]
+  },
+  {
+    "id": "f6bfc506-data-json-path-still-serves-15-october",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json still serves the checked-in 2026-10-15 snapshot while the rendered pages are current",
+    "detail": "Read at 2026-10-23T07:05Z: that URL returns schema_version 1, generated_at 2026-10-15T08:36:13Z, inventory 80, upcoming 17 - the repository's checked-in replay fixture. This is by design, not a second outage: the root publisher deliberately never writes data/* into the git-tracked branch root (that is what keeps deterministic CI replay working), so GitHub's legacy Pages builder serves data/ from the branch, while the rendered HTML and the artifact-served data come from the deployed build. The consequence is real for a reader who follows the footer's 'Open data' link: the page under it is current and the JSON beside it is not. Nothing here is inferred from that file - every figure on this site comes from the deployed artifact. Recorded for review rather than silently narrowed, because the two paths disagree and a reader cannot tell which one they are looking at.",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/root_publish.py",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/"
+    ]
+  },
+  {
+    "id": "f6bfc506-fixtures-beyond-the-pickem-list",
+    "severity": "notice",
+    "match_ids": ["1082980", "1083025"],
+    "title": "Two of the 32 published fixtures were not visible in the rendered pick'em lobby list; one was confirmed on its own Hotspawn match page",
+    "detail": "At 2026-10-23T07:05Z the pick'em lobby (play.hotspawn.com/cs2-pickems) reported 197 matches this week and 93 fixtures in its tier filter, and the future fixtures I could read from it (30 of them, in the Closing Soon and Upcoming sections) all appear on the site with a pick. The site additionally publishes 1082980 (LPH vs WBT Academy, ESL Challenger League Season 52 Europe Cup #9) and 1083025 (Imperial vs paiN, Circuit X Curitiba #4). 1083025 was confirmed directly: https://www.hotspawn.com/matches/imperial-vs-pain-circuit-x-curitiba-4-1083025 renders 'Imperial vs paiN, 21:00, 23 OCT, Circuit X Curitiba #4' with its own Pick'Ems prompt. The site's inventory is the Hotspawn scheduled-fixture API, which is a superset of the fixtures rendered in the lobby list, so extra fixtures are additional coverage rather than a defect; the direction that would matter - a lobby fixture missing from the site - was not found. What could not be established from a text read is the complete lobby list, so this is recorded as a bounded observation, not a proof of set equality.",
+    "source_urls": [
+      "https://play.hotspawn.com/cs2-pickems",
+      "https://www.hotspawn.com/matches/imperial-vs-pain-circuit-x-curitiba-4-1083025",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/"
+    ]
+  },
+  {
+    "id": "f6bfc506-row-1083025-not-replayed",
+    "severity": "notice",
+    "match_ids": ["1083025"],
+    "title": "Imperial vs paiN (1083025): the published 60.5 / 39.5 was not replayed against its cited market in this pass",
+    "detail": "The row cites Polymarket event cs2-pain-imp11-2026-10-23 as its line. This session replayed one row end to end (1082901 Envy vs GamerLegion: Polymarket moneyline 48c / 55c, overround 3.0%, proportional normalisation 46.6 / 53.4 against the published 46.5 / 53.5 - confirmed) and did not open the market behind 1083025 before the publisher ran. The value is therefore left exactly as the pipeline published it and marked unverified here rather than re-derived or altered. The pipeline's own row-source audit reports 0 rows without an official source link.",
+    "source_urls": [
+      "https://polymarket.com/event/cs2-pain-imp11-2026-10-23",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1083025",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/row-source-audit.json"
+    ]
+  },
+  {
+    "id": "f6bfc506-review-environment-limits",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "This review ran in a sandbox with no general egress; live pages were read through a fetch tool and the runner's own evidence",
+    "detail": "curl to play.hotspawn.com, www.hltv.org, polymarket.com, bo3.gg and buffedlizard55-lab.github.io returns HTTP 000 from this sandbox (only github.com, api.github.com and package registries answer), so the lobby, the match page and the Polymarket market quoted above were read through the fetch tool at the timestamps shown, and everything else comes from GitHub Actions run evidence and the repository's own saved captures. The collector and every refresh step ran on GitHub's runner, which does have egress; no value here was inferred from a page this session could not open.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39912686322",
+      "https://play.hotspawn.com/cs2-pickems",
+      "https://polymarket.com/event/cs2-envy-gl1-2026-10-27"
+    ]
+  }
+]

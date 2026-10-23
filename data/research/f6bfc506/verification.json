@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "session": "arena-f6bfc506",
+  "title": "Four-hour refresh restored and verified against the public site, Hotspawn's pick'em lobby and the cited bookmaker pages",
+  "observed_at": "2026-10-23T07:05:00Z",
+  "branch_base": "cdd77b58133b6627ef8f6d4738d8784431eeac6b",
+  "problem": {
+    "summary": "Six consecutive scheduled publisher runs failed at their first gating step, so no fresh Hotspawn snapshot was collected, built or published. The public executive summary still served the 2026-10-22T15:21 inventory, and https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json still served the checked-in 2026-10-15T08:36:13Z copy.",
+    "failed_runs": [
+      {"run_id": 39807044948, "created_at": "2026-10-22T15:40:30Z", "head_sha": "cdd77b58", "event": "schedule", "conclusion": "failure"},
+      {"run_id": 39845991470, "created_at": "2026-10-22T20:06:48Z", "head_sha": "cdd77b58", "event": "schedule", "conclusion": "failure"},
+      {"run_id": 39861117407, "created_at": "2026-10-22T21:55:48Z", "head_sha": "cdd77b58", "event": "schedule", "conclusion": "failure"},
+      {"run_id": 39871371551, "created_at": "2026-10-22T23:22:44Z", "head_sha": "cdd77b58", "event": "schedule", "conclusion": "failure"},
+      {"run_id": 39881298806, "created_at": "2026-10-23T00:58:37Z", "head_sha": "cdd77b58", "event": "schedule", "conclusion": "failure"},
+      {"run_id": 39902353982, "created_at": "2026-10-23T04:49:13Z", "head_sha": "cdd77b58", "event": "schedule", "conclusion": "failure"}
+    ],
+    "failing_step": "Regression tests (repository fixtures, before any cache restore)",
+    "annotations_naming_the_failures": [
+      "FAIL: test_check_mode_reports_a_current_root_and_then_drift (test_96fbe295.PlanTests.test_check_mode_reports_a_current_root_and_then_drift)",
+      "FAIL: test_only_the_bound_fixture_is_saved_with_its_quote (test_15fc6bca_relay.RelayCollectionTest.test_only_the_bound_fixture_is_saved_with_its_quote)"
+    ],
+    "annotation_source": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39902353982",
+    "local_reproduction": "python -m unittest discover -s tests on the checkout of cdd77b5: Ran 985 tests, FAILED (failures=2), the same two."
+  },
+  "recovery": {
+    "publisher_run": {
+      "run_id": 39912686322,
+      "head_sha": "d2788544be569e5908643b7ac09f9a73d61ce654",
+      "created_at": "2026-10-23T06:38:00Z",
+      "completed_at": "2026-10-23T07:23:04Z",
+      "conclusion": "success",
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39912686322",
+      "steps_that_matter": {
+        "5_regression_tests": "success",
+        "9_refresh_all_hotspawn_cs2_records": "success",
+        "10_research_unresolved_picks": "success",
+        "15_reconcile_rows_replay_probabilities_build": "success",
+        "21_deploy": "success",
+        "22_verify_public_site": "success",
+        "26_publish_build_into_branch_root": "success",
+        "29_verify_public_site_after_redeploy": "success"
+      }
+    },
+    "root_publish_commit": "99c7b76",
+    "what_this_session_changed": [
+      "scripts/root_publish.py: republish_regression() + --refuse-if-older-than-live (exit 3) so the fast 'republish last verified' job can never restore an artifact older than the live snapshot; unreadable live value fails open with a warning.",
+      ".github/workflows/pages.yml: that guard gates every deploy step of republish-last-verified, and the job now checks out scripts/ before the artifact is extracted (checkout runs git clean -ffdx).",
+      "tests/test_f6bfc506_republish_guard.py: refused / allowed / equal / unreadable / CLI exit codes."
+    ],
+    "fixes_adopted_from_main_rather_than_duplicated": [
+      "PR #191 (session 308fcaad): root_publish.main(now=...) and the future-dated relay fixture — the two date-bound tests this session also failed on.",
+      "PR #193 (session 38c53ece): .ladder-list link underline for axe link-in-text-block, and the '% picked' sentence rewritten to 'community participation never enters our win estimates'."
+    ],
+    "pull_request": "https://github.com/buffedlizard55-lab/MaltaProj3/pull/199"
+  },
+  "public_site_verification": {
+    "url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+    "freshness_label": "Source snapshot available",
+    "inventory_checked": "23 Oct 2026, 08:42 Europe/Malta",
+    "snapshot_built": "23 Oct 2026, 08:42 Europe/Malta",
+    "executive_summary_statement": "32 active Hotspawn CS2 fixtures in this snapshot, 32 with a directional pick — 23 from an external betting line, 9 from a research model — and 0 explicitly unresolved.",
+    "glance_index_rows": 32,
+    "unresolved_register_statement": "No unresolved fixtures in this snapshot. All 32 active Hotspawn CS2 fixtures carry a sourced estimate as of 23 Oct 2026, 08:42.",
+    "internal_links_present": {
+      "updated_picks": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks",
+      "featured_picks_feed": "https://buffedlizard55-lab.github.io/MaltaProj3/picks/",
+      "unresolved_and_limitations": "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/",
+      "methodology": "https://buffedlizard55-lab.github.io/MaltaProj3/methodology/",
+      "coverage": "https://buffedlizard55-lab.github.io/MaltaProj3/coverage/",
+      "per_row_full_detail": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-<hotspawn id>"
+    },
+    "stale_banner": "The markup always contains #stale-warning; scripts/build.py renders the literal attribute 'hidden' whenever the snapshot is under eight hours old. The fetched text still shows the sentence because it is markup, not a visible banner. Not machine-verified as visually hidden from a text fetch — flagged, not claimed."
+  },
+  "hotspawn_cross_check": {
+    "source": "https://play.hotspawn.com/cs2-pickems",
+    "read_at": "2026-10-23T07:05:00Z",
+    "lobby_states": {"filter_count": 93, "week_count": 197, "text": "197 matches this week; Tier All tiers (93); resets in 2d 18h 21m 43s at first read"},
+    "lobby_shows_times_in_us_eastern": "Observed offset: lobby 'Oct 23, 04:00' equals the site's '23 Oct 2026, 10:00 Europe/Malta' and the match page's '21:00 / 23 OCT' for 1083025 equals the site's '23 Oct 2026, 23:00 Malta' (UTC+0 display on the match page). Timezone of the lobby rendering is therefore inferred from two pairs of matched fixtures, not from a published statement.",
+    "upcoming_fixtures_read_from_the_lobby": [
+      "1081149", "1079654", "1081605", "1081148", "1079655", "1081606", "1082926", "1083014",
+      "1082924", "1081150", "1079657", "1082693", "1082925", "1082923", "1079193", "1079195",
+      "1082996", "1079198", "1079199", "1079200", "1082858", "1082859", "1082860", "1082861",
+      "1082897", "1082898", "1082900", "1082901", "1082792", "1082793"
+    ],
+    "site_fixtures": [
+      "1079654", "1081149", "1079655", "1081148", "1081605", "1081606", "1082926", "1082980",
+      "1083014", "1082924", "1079657", "1081150", "1082693", "1082925", "1083025", "1082923",
+      "1079193", "1079195", "1082996", "1079198", "1079199", "1079200", "1082858", "1082859",
+      "1082860", "1082861", "1082897", "1082898", "1082900", "1082901", "1082792", "1082793"
+    ],
+    "every_lobby_fixture_found_on_the_site": true,
+    "site_fixtures_not_visible_in_the_rendered_lobby_list": ["1082980", "1083025"],
+    "second_fixture_independently_confirmed_as_a_real_hotspawn_cs2_match": {
+      "id": "1083025",
+      "teams": "Imperial vs paiN",
+      "tournament": "Circuit X Curitiba #4",
+      "page": "https://www.hotspawn.com/matches/imperial-vs-pain-circuit-x-curitiba-4-1083025",
+      "page_shows": "21:00 / 23 OCT, Circut X Curitiba #4, with its own Pick'Ems prompt",
+      "reading": "The site's inventory is the Hotspawn scheduled-fixture API, which is a superset of the fixtures rendered in the pick'em lobby list. Extra fixtures are therefore not a coverage gap; the reverse (a lobby fixture missing from the site) would be, and none was found."
+    }
+  },
+  "row_level_spot_checks": [
+    {
+      "hotspawn_id": "1082901",
+      "row_on_site": "Envy vs GamerLegion — 27 Oct 2026, 21:00 Malta — Pick GamerLegion 53.5% / Envy 46.5% — Market line — Polymarket",
+      "cited_source": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
+      "source_reading_at_2026-10-23T07:10Z": "Moneyline: envy 48c, gl1 55c ($302 volume)",
+      "replay": "implied 1/0.48 = 2.08333, 1/0.55 = 1.81818; overround 3.0%; proportional normalisation gives Envy 46.6% / GamerLegion 53.4%, which reproduces the published 46.5 / 53.5 within rounding of the two-cent display.",
+      "verdict": "confirmed"
+    },
+    {
+      "hotspawn_id": "1083025",
+      "row_on_site": "Imperial vs paiN — 23 Oct 2026, 23:00 Malta — Pick Imperial 60.5% / paiN 39.5% — Market line — Polymarket",
+      "cited_source": "https://polymarket.com/event/cs2-pain-imp11-2026-10-23",
+      "verdict": "not opened in this pass (the cited market URL was not fetched) — listed as unverified below"
+    }
+  ],
+  "phone_first_verification": {
+    "method": "Playwright against a local build of this branch (same renderer, same data contract), viewports 320x844 and 390x844, plus the 89-spec browser suite which includes the phone navigation and pick-safety specs.",
+    "measured_at_320px": {
+      "horizontal_overflow_px": 0,
+      "start_here_first_tap_top_px": 503,
+      "first_pick_row_top_px": 1256,
+      "link_count_on_summary": 309
+    },
+    "measured_at_390px": {
+      "horizontal_overflow_px": 0,
+      "start_here_first_tap_top_px": 485,
+      "first_pick_row_top_px": 1098
+    },
+    "reading": "The 'Start here · where the picks are' tiles sit under half a screen down and the first pick row starts about 1.3 screens down at 390px on the 17-fixture checked-in snapshot. Both teams' percentages, the pick and its basis badge are in the same row, and there is no horizontal scrolling on any of the seven pages measured. The live 32-fixture page was read after merge and shows the same order: glance rows first, then the exec banner linking the full pick pages."
+  },
+  "limitations": [
+    "This sandbox has no general egress: curl to play.hotspawn.com, hltv.org, polymarket.com, bo3.gg and github.io returns 000, so live pages were read through the fetch tool and the repository's own runner evidence. The collector and every refresh step ran on GitHub's runner, which does have egress.",
+    "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json is still the checked-in 2026-10-15T08:36:13Z copy in this observation window: the root publish deliberately never writes data/* into the git-tracked root, so that URL is served by GitHub's legacy builder from the repository, not from the deployed artifact. The rendered pages are current; that JSON path is not. Flagged below.",
+    "The pick'em lobby's rendered list is a subset of the fixtures API (93 in the tier filter at 07:05Z against 197 for the week), and the page is delivered in chunks; equality was established one way only (every future lobby fixture I could read is on the site).",
+    "Only one row was replayed against its cited bookmaker page in this pass; the other 31 rows keep the pipeline's own row-source audit, which found 0 rows without an official source."
+  ],
+  "tests_run_locally": {
+    "unittest": "Ran 1020 tests, OK (full suite, merged tree)",
+    "playwright": "89 passed (320/390/768/1440, no-JS, axe WCAG A/AA, pick-safety)",
+    "build": "PASS: 80 source rows replayed; row-source audit 673 rows / 654 with an official link / 9 flagged unverified / 0 without a source; PASS 802 internal links",
+    "targeted": "tests.test_f6bfc506_republish_guard (5), tests.test_96fbe295 + tests.test_15fc6bca_relay (53), tests.test_f4eb8ae3 (9)"
+  }
+}
