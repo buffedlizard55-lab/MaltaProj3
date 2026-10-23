@@ -162,6 +162,53 @@ def load_snapshot_time(data_file: Path) -> datetime:
     return stamp
 
 
+#: The public snapshot a republish would overwrite.
+LIVE_SNAPSHOT_URL = "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json"
+
+
+def published_snapshot_time(url: str = LIVE_SNAPSHOT_URL, *, session=None, timeout: int = 20):
+    """Return the ``generated_at`` the public site currently serves, or ``None``.
+
+    ``None`` means the live value could not be read (network error, non-200, or
+    an unparseable body); callers must treat that as "unknown", never as "older".
+    """
+    if session is None:
+        import requests
+
+        session = requests.Session()
+    response = session.get(url, timeout=timeout, headers={"Cache-Control": "no-cache"})
+    status = getattr(response, "status_code", 200)
+    if status != 200:
+        return None
+    try:
+        payload = response.json()
+    except ValueError:
+        return None
+    return _snapshot_time(payload)
+
+
+def republish_regression(candidate: Path, *, url: str = LIVE_SNAPSHOT_URL, session=None) -> str:
+    """Refuse to republish a "last good" build that is older than what is live.
+
+    The fast republish job exists so the site never regresses to the checked-in
+    branch root while a ten-minute build runs. It can only do that if the
+    artifact it restores is *newer* than the live snapshot: on 2026-10-23 the
+    newest successful publish was from the previous day, so restoring it would
+    have moved the live site backwards. Returns a human-readable reason when the
+    republish must be skipped, or ``""`` when it may proceed.
+    """
+    live = published_snapshot_time(url, session=session)
+    if live is None:
+        return ""  # cannot prove a regression; the republish proceeds as before
+    candidate_time = load_snapshot_time(Path(candidate) / "data/latest.json")
+    if candidate_time < live:
+        return (
+            f"the last verified build was generated {candidate_time.isoformat()} but the live site "
+            f"already serves {live.isoformat()}; republishing it would move the site backwards"
+        )
+    return ""
+
+
 def build_plan(
     output: Path,
     root: Path,
@@ -297,7 +344,25 @@ def main(argv: list[str] | None = None) -> int:
         "--wait-legacy-sha",
         help="wait for GitHub's legacy Pages build on this commit SHA before returning",
     )
+    parser.add_argument(
+        "--refuse-if-older-than-live",
+        action="store_true",
+        help="exit 3 when the build is older than the snapshot the public site already serves",
+    )
+    parser.add_argument("--live-url", default=LIVE_SNAPSHOT_URL, help="public snapshot URL for that guard")
     args = parser.parse_args(argv)
+
+    if args.refuse_if_older_than_live:
+        try:
+            reason = republish_regression(args.output, url=args.live_url)
+        except Exception as exc:  # a network problem must never block a publish
+            print(f"::warning::republish guard could not read the live snapshot ({type(exc).__name__}: {exc})")
+            reason = ""
+        if reason:
+            print(f"republish refused: {reason}")
+            return 3
+        print("republish guard: the build is not older than the live snapshot")
+        return 0
 
     if args.wait_legacy_sha:
         repo = os.environ.get("GITHUB_REPOSITORY", "")

@@ -88,16 +88,39 @@ jobs:
           snapshot = json.load(open('site/data/latest.json'))
           print('republishing snapshot generated_at', snapshot['generated_at'], snapshot['counts'])
           PY
-      - uses: actions/configure-pages@v6
+      # Never republish an artifact that is older than what the public site
+      # already serves. On 2026-10-23 the six most recent scheduled runs had
+      # failed at their regression step, so the newest *successful* publish was
+      # from the previous day: this job would have restored a day-old snapshot
+      # over a fresher live one. `--refuse-if-older-than-live` exits 3 in that
+      # case and the step below is skipped, so the live site is left untouched
+      # and the fresh build still publishes normally.
+      - name: Check the last verified build is not older than the live site
+        id: guard
         if: steps.previous.outputs.skip == 'false'
+        run: |
+          if python -m scripts.root_publish --output site --refuse-if-older-than-live; then
+            echo "proceed=true" >> "$GITHUB_OUTPUT"
+          else
+            code=$?
+            if [ "$code" -eq 3 ]; then
+              echo "proceed=false" >> "$GITHUB_OUTPUT"
+              echo "::notice title=Republish skipped::the saved build is older than the live snapshot"
+            else
+              echo "proceed=true" >> "$GITHUB_OUTPUT"
+              echo "::warning::republish guard exited $code; letting the republish proceed"
+            fi
+          fi
+      - uses: actions/configure-pages@v6
+        if: steps.previous.outputs.skip == 'false' && steps.guard.outputs.proceed == 'true'
       - id: upload
         uses: actions/upload-pages-artifact@v5
-        if: steps.previous.outputs.skip == 'false'
+        if: steps.previous.outputs.skip == 'false' && steps.guard.outputs.proceed == 'true'
         with:
           name: github-pages-interim
           path: site
       - id: deployment
-        if: steps.previous.outputs.skip == 'false'
+        if: steps.previous.outputs.skip == 'false' && steps.guard.outputs.proceed == 'true'
         uses: actions/deploy-pages@v5
         with:
           artifact_name: github-pages-interim
@@ -107,7 +130,7 @@ jobs:
       # artifact name without needing `actions: write`, and best-effort cleanup
       # removes it after deployment returns.
       - name: Remove the republished artifact before the fresh publish
-        if: always() && steps.previous.outputs.skip == 'false'
+        if: always() && steps.previous.outputs.skip == 'false' && steps.guard.outputs.proceed == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ARTIFACT_ID: ${{ steps.upload.outputs.artifact_id }}

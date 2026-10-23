@@ -131,8 +131,16 @@ class PlanTests(unittest.TestCase):
         self.assertEqual(len(plan.unchanged), len(first))
 
     def test_check_mode_reports_a_current_root_and_then_drift(self):
-        self.publish()
-        self.assertEqual(main(["--output", str(self.output), "--root", str(self.root), "--check"]), 0)
+        # `main()` takes no clock argument: `--check` stamps the root against the
+        # wall clock. Publishing a fixture stamped with the hardcoded NOW made
+        # this test report an *expired* snapshot (exit 3) rather than the drift
+        # it exists to detect, from 2026-10-22T21:00Z on — which is what blocked
+        # every scheduled publisher run. Stamp the miniature site against the
+        # same clock `--check` reads, then assert current → 0 and drift → 2.
+        now = datetime.now(timezone.utc)
+        output = make_site(self.tmp, when=now - timedelta(minutes=5))
+        root_publish.apply_plan(build_plan(output, self.root, now=now), self.root)
+        self.assertEqual(main(["--output", str(output), "--root", str(self.root), "--check"]), 0)
         _write(self.root / "picks/index.html", "<title>stale hand edit</title>")
         self.assertEqual(main(["--output", str(self.output), "--root", str(self.root), "--check"]), 2)
 
