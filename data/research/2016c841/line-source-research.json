@@ -3,12 +3,12 @@
  "schema_version": 1,
  "environment": "github-actions-runner",
  "purpose": "Dated, source-linked research for Hotspawn CS2 fixtures the published ladder leaves as a research model (no external betting line). HLTV is tried first for identity, then the Smarkets exchange, bo3.gg (which relays Thunderpick prices) and the esportsbook/aggregator surfaces.",
- "observed_at": "2026-10-23T10:20:15Z",
+ "observed_at": "2026-10-23T10:29:23Z",
  "policy": "Evidence only. A joined bo3.gg row is a lead, not a pick: this script writes no probability, no pick and no alias. Only a two-sided, active, prematch bookmaker quote is recorded as a lead, copied verbatim. Smarkets raw 1/10000 quotes are copied verbatim and never divided out here. An HTTP 200 on a book landing page is never treated as a price.",
  "hotspawn_source": {
   "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
   "method": "GET",
-  "observed_at": "2026-10-23T10:20:15Z",
+  "observed_at": "2026-10-23T10:29:23Z",
   "http_status": 200,
   "content_type": "application/json; charset=utf-8",
   "bytes": 71803,
@@ -18,33 +18,33 @@
   "source": "live",
   "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
   "http_status": 200,
-  "fixtures": 30,
-  "generated_at": "2026-10-23T10:14:39Z"
+  "fixtures": 17,
+  "generated_at": "2026-10-15T09:31:24Z"
  },
  "bo3_pages": [
   {
    "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=100&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&with=teams,tournament",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:16Z",
+   "observed_at": "2026-10-23T10:29:23Z",
    "http_status": 200,
    "content_type": "application/json; charset=utf-8",
-   "bytes": 237624
+   "bytes": 236337
   },
   {
    "url": "https://api.bo3.gg/api/v1/matches?page[offset]=100&page[limit]=100&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&with=teams,tournament",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:16Z",
+   "observed_at": "2026-10-23T10:29:24Z",
    "http_status": 200,
    "content_type": "application/json; charset=utf-8",
-   "bytes": 207085
+   "bytes": 207007
   },
   {
    "url": "https://api.bo3.gg/api/v1/matches?page[offset]=200&page[limit]=100&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&with=teams,tournament",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:17Z",
+   "observed_at": "2026-10-23T10:29:24Z",
    "http_status": 200,
    "content_type": "application/json; charset=utf-8",
-   "bytes": 217445
+   "bytes": 214113
   }
  ],
  "smarkets_board": {
@@ -52,47 +52,47 @@
   "events_attempt": {
    "url": "https://api.smarkets.com/v3/events/?type=csgo_match&states=upcoming&limit=200&sort=start_datetime,id",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:50Z",
+   "observed_at": "2026-10-23T10:29:36Z",
    "http_status": 200,
    "content_type": "application/json",
    "bytes": 23640
   },
   "markets_attempt": {
-   "url": "https://api.smarkets.com/v3/events/45396333/markets/",
+   "url": "https://api.smarkets.com/v3/events/45394269,45396218,45396158,45396221,45394414,45396225,45396231,45394415,45396232,45396121,45396122,45396333/markets/",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:50Z",
+   "observed_at": "2026-10-23T10:29:37Z",
    "http_status": 200,
    "content_type": "application/json",
-   "bytes": 526
+   "bytes": 6167
   },
   "contracts_attempt": {
-   "url": "https://api.smarkets.com/v3/markets/172960355/contracts/",
+   "url": "https://api.smarkets.com/v3/markets/172758569,172908288,172920666,172920665,172923332,172923322,172921981,172923333,172921914,172923335,172891843,172960355/contracts/",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:50Z",
+   "observed_at": "2026-10-23T10:29:37Z",
    "http_status": 200,
    "content_type": "application/json",
-   "bytes": 677
+   "bytes": 7978
   },
   "quotes_attempt": {
-   "url": "https://api.smarkets.com/v3/markets/172960355/quotes/",
+   "url": "https://api.smarkets.com/v3/markets/172758569,172908288,172920666,172920665,172923332,172923322,172921981,172923333,172921914,172923335,172891843,172960355/quotes/",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:51Z",
+   "observed_at": "2026-10-23T10:29:37Z",
    "http_status": 200,
    "content_type": "application/json",
-   "bytes": 226
+   "bytes": 3205
   },
   "events_seen": 34,
-  "bound": 1,
+  "bound": 12,
   "errors": []
  },
  "counts": {
   "hotspawn_fixtures": 92,
-  "no_external_line": 8,
-  "two_sided_lead": 0,
-  "smarkets_two_sided": 1,
-  "still_unresolved": 8,
+  "no_external_line": 30,
+  "two_sided_lead": 17,
+  "smarkets_two_sided": 11,
+  "still_unresolved": 13,
   "skipped_past_start": 62,
-  "bo3_rows_fetched": 299
+  "bo3_rows_fetched": 297
  },
  "sources_tried": [
   {
@@ -194,8 +194,8 @@
   {
    "label": "DraftKings CS2",
    "url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
-   "http_status": 200,
-   "note": "page reachable; no fixture price read"
+   "http_status": 404,
+   "note": "blocked"
   },
   {
    "label": "OddsPortal CS2",
@@ -250,7 +250,7 @@
   {
    "url": "https://www.hltv.org/matches",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:36Z",
+   "observed_at": "2026-10-23T10:29:24Z",
    "http_status": 403,
    "content_type": "text/html; charset=UTF-8",
    "bytes": 5605,
@@ -260,7 +260,7 @@
   {
    "url": "https://www.hltv.org/ranking/teams",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:36Z",
+   "observed_at": "2026-10-23T10:29:25Z",
    "http_status": 403,
    "content_type": "text/html; charset=UTF-8",
    "bytes": 5644,
@@ -270,7 +270,7 @@
   {
    "url": "https://thunderpick.io/esports/counter-strike",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:37Z",
+   "observed_at": "2026-10-23T10:29:25Z",
    "http_status": 200,
    "content_type": "text/html",
    "bytes": 14610,
@@ -280,7 +280,7 @@
   {
    "url": "https://gg.bet/en/counter-strike",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:37Z",
+   "observed_at": "2026-10-23T10:29:25Z",
    "http_status": 403,
    "content_type": "text/plain",
    "bytes": 126,
@@ -290,7 +290,7 @@
   {
    "url": "https://stake.com/sports/esports/cs2",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:38Z",
+   "observed_at": "2026-10-23T10:29:26Z",
    "http_status": 403,
    "content_type": "text/html; charset=UTF-8",
    "bytes": 5656,
@@ -300,7 +300,7 @@
   {
    "url": "https://bc.game/sports/esports",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:38Z",
+   "observed_at": "2026-10-23T10:29:26Z",
    "http_status": 200,
    "content_type": "text/html; charset=utf-8",
    "bytes": 10680,
@@ -310,7 +310,7 @@
   {
    "url": "https://www.bet365.com/",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:39Z",
+   "observed_at": "2026-10-23T10:29:26Z",
    "http_status": 403,
    "content_type": "text/html; charset=UTF-8",
    "bytes": 5586,
@@ -320,7 +320,7 @@
   {
    "url": "https://www.rivalry.com/esports/csgo-betting",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:39Z",
+   "observed_at": "2026-10-23T10:29:27Z",
    "http_status": 200,
    "content_type": "text/html;charset=utf-8",
    "bytes": 60850,
@@ -330,7 +330,7 @@
   {
    "url": "https://betano.com/",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:39Z",
+   "observed_at": "2026-10-23T10:29:27Z",
    "http_status": 200,
    "content_type": "text/html; charset=utf-8",
    "bytes": 29481,
@@ -340,7 +340,7 @@
   {
    "url": "https://www.betsson.com/en",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:40Z",
+   "observed_at": "2026-10-23T10:29:28Z",
    "http_status": 202,
    "content_type": "text/html; charset=UTF-8",
    "bytes": 0,
@@ -350,7 +350,7 @@
   {
    "url": "https://www.unibet.com/betting#filter/esports",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:40Z",
+   "observed_at": "2026-10-23T10:29:28Z",
    "http_status": 503,
    "content_type": "text/html",
    "bytes": 592,
@@ -360,47 +360,47 @@
   {
    "url": "https://22bet.com/line/esports",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:41Z",
+   "observed_at": "2026-10-23T10:29:29Z",
    "http_status": 203,
    "content_type": "text/html; charset=UTF-8",
-   "bytes": 26544,
+   "bytes": 26543,
    "challenge_page": false,
    "label": "22bet esports"
   },
   {
    "url": "https://betboom.ru/sport/cs2",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:42Z",
+   "observed_at": "2026-10-23T10:29:30Z",
    "http_status": 401,
    "content_type": "text/html",
-   "bytes": 1802,
+   "bytes": 1801,
    "challenge_page": true,
    "label": "BetBoom CS2"
   },
   {
    "url": "https://1xbet.com/en/line/counter-strike-2",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:43Z",
+   "observed_at": "2026-10-23T10:29:30Z",
    "http_status": 203,
    "content_type": "text/html;charset=utf-8",
-   "bytes": 2622,
+   "bytes": 2621,
    "challenge_page": true,
    "label": "1xBet CS2"
   },
   {
    "url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:43Z",
+   "observed_at": "2026-10-23T10:29:31Z",
    "http_status": 403,
    "content_type": "text/html; charset=UTF-8",
-   "bytes": 5490,
+   "bytes": 5489,
    "challenge_page": true,
    "label": "Marathonbet CS2"
   },
   {
    "url": "https://www.betway.com/en/sports/esports/counter-strike-2",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:44Z",
+   "observed_at": "2026-10-23T10:29:31Z",
    "http_status": 404,
    "content_type": "text/html; charset=utf-8",
    "bytes": 6690,
@@ -410,17 +410,17 @@
   {
    "url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:44Z",
-   "http_status": 200,
+   "observed_at": "2026-10-23T10:29:31Z",
+   "http_status": 404,
    "content_type": "text/html; charset=utf-8",
-   "bytes": 1666003,
+   "bytes": 257263,
    "challenge_page": false,
    "label": "DraftKings CS2"
   },
   {
    "url": "https://www.oddsportal.com/esports/counter-strike/",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:45Z",
+   "observed_at": "2026-10-23T10:29:32Z",
    "http_status": 200,
    "content_type": "text/html; charset=utf-8",
    "bytes": 337979,
@@ -430,27 +430,27 @@
   {
    "url": "https://oddspedia.com/esports/cs-go",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:47Z",
+   "observed_at": "2026-10-23T10:29:33Z",
    "http_status": 410,
    "content_type": "text/html; charset=utf-8",
-   "bytes": 340011,
+   "bytes": 340008,
    "challenge_page": false,
    "label": "Oddspedia CS2"
   },
   {
    "url": "https://egamersworld.com/counterstrike/matches",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:47Z",
+   "observed_at": "2026-10-23T10:29:34Z",
    "http_status": 403,
    "content_type": "text/html; charset=UTF-8",
-   "bytes": 5777,
+   "bytes": 5776,
    "challenge_page": true,
    "label": "EGamersWorld CS2 matches"
   },
   {
    "url": "https://www.pinnacle.com/en/esports/counter-strike-2",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:47Z",
+   "observed_at": "2026-10-23T10:29:34Z",
    "http_status": 404,
    "content_type": "text/html",
    "bytes": 307,
@@ -460,7 +460,7 @@
   {
    "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXCS2GAME",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:48Z",
+   "observed_at": "2026-10-23T10:29:35Z",
    "http_status": 200,
    "content_type": "application/json",
    "bytes": 2061,
@@ -470,17 +470,17 @@
   {
    "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=1",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:49Z",
+   "observed_at": "2026-10-23T10:29:35Z",
    "http_status": 200,
    "content_type": "application/json",
-   "bytes": 5950,
+   "bytes": 5952,
    "challenge_page": false,
    "label": "Polymarket CS2 tag"
   },
   {
    "url": "https://api.smarkets.com/v3/events/?type=csgo_match&states=upcoming&limit=1&sort=start_datetime,id",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:49Z",
+   "observed_at": "2026-10-23T10:29:36Z",
    "http_status": 200,
    "content_type": "application/json",
    "bytes": 971,
@@ -490,7 +490,7 @@
   {
    "url": "https://api.bo3.gg/api/v1/matches?page[limit]=1&filter[matches.discipline_id][eq]=1",
    "method": "GET",
-   "observed_at": "2026-10-23T10:20:50Z",
+   "observed_at": "2026-10-23T10:29:36Z",
    "http_status": 200,
    "content_type": "application/json; charset=utf-8",
    "bytes": 1275,
@@ -508,10 +508,10 @@
    "competition": "CCT Europe 2026 Challengers #8",
    "starts_at": "2026-10-23T11:00:00Z",
    "tier": "c",
-   "published_method": "model",
-   "published_label": "Valve-rating research estimate",
+   "published_method": null,
+   "published_label": null,
    "published_probability": null,
-   "published_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "published_source_url": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/phantom-academy-vs-banda-chuya-cct-europe-2026-challengers-8-1081605",
    "bo3": null,
    "bo3_near_misses": [
@@ -560,6 +560,1945 @@
    "lead": false
   },
   {
+   "hotspawn_id": "1081148",
+   "teams": [
+    "Inner Circle Academy",
+    "Spirit Academy"
+   ],
+   "competition": "CCT Europe 2026 Series #12",
+   "starts_at": "2026-10-23T11:00:00Z",
+   "tier": "b",
+   "published_method": null,
+   "published_label": null,
+   "published_probability": null,
+   "published_source_url": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/inner-circle-academy-vs-spirit-academy-cct-europe-2026-series-12-1081148",
+   "bo3": {
+    "slug": "inner-circle-academy-vs-spirit-academy-23-10-2026",
+    "url": "https://bo3.gg/matches/inner-circle-academy-vs-spirit-academy-23-10-2026",
+    "start": "2026-10-23T11:00:00.000+00:00",
+    "start_delta_sec": 0,
+    "tier": "b",
+    "quote": {
+     "provider": "thunderpick",
+     "book_url": "https://thunderpick.io/match/2868069",
+     "markets_count": 13,
+     "sides": {
+      "team_1": {
+       "name": "Inner Circle Academy",
+       "coeff": 2.3,
+       "active": true,
+       "team_id": 22737
+      },
+      "team_2": {
+       "name": "Spirit Academy",
+       "coeff": 1.55,
+       "active": true,
+       "team_id": 1309
+      }
+     },
+     "two_sided_price": true
+    }
+   },
+   "bo3_near_misses": [
+    {
+     "slug": "spirit-academy-vs-lavked-24-10-2026",
+     "teams": [
+      "Lavked",
+      "Spirit Academy"
+     ],
+     "start": "2026-10-24T11:00:00.000+00:00",
+     "start_delta_sec": 86400,
+     "status": "one shared side only"
+    }
+   ],
+   "smarkets": {
+    "event_id": "45394269",
+    "event_name": "Inner Circle Academy vs Spirit Academy",
+    "event_url": "https://smarkets.com/sport/esports/cs-go/cct-europe/group-stage/2026/10/23/11-00/inner-circle-academy-vs-spirit-academy",
+    "start_datetime": "2026-10-23T11:00:00Z",
+    "markets_verbatim": [
+     {
+      "bet_delay": 0,
+      "cashout_enabled": true,
+      "categories": [
+       "winner"
+      ],
+      "category": "winner",
+      "complete": true,
+      "contract_selections": null,
+      "created": "2026-10-22T07:13:57.162Z",
+      "description": "",
+      "display_order": 0,
+      "display_type": "default",
+      "event_id": "45394269",
+      "hidden": false,
+      "id": "172758569",
+      "info": {
+       "reason": ""
+      },
+      "inplay_enabled": false,
+      "market_type": {
+       "name": "WINNER_2_WAY"
+      },
+      "modified": "2026-10-23T01:07:07.119Z",
+      "name": "Winner",
+      "slug": "winner-two-way",
+      "state": "open",
+      "winner_count": 1
+     }
+    ],
+    "quotes": {
+     "476641252": {
+      "bids": [
+       {
+        "price": 3788,
+        "quantity": 1781944
+       },
+       {
+        "price": 3650,
+        "quantity": 1849314
+       },
+       {
+        "price": 3497,
+        "quantity": 1930224
+       }
+      ],
+      "offers": [
+       {
+        "price": 5025,
+        "quantity": 1356783
+       },
+       {
+        "price": 5236,
+        "quantity": 1416876
+       }
+      ]
+     },
+     "476641253": {
+      "bids": [
+       {
+        "price": 4950,
+        "quantity": 1363638
+       }
+      ],
+      "offers": [
+       {
+        "price": 6211,
+        "quantity": 1781477
+       },
+       {
+        "price": 6536,
+        "quantity": 1948614
+       }
+      ]
+     }
+    },
+    "two_sided": true,
+    "market_id": "172758569",
+    "contracts_verbatim": [
+     {
+      "competitor_id": 28618960,
+      "contract_type": {
+       "name": "HOME"
+      },
+      "created": "2026-10-22T07:13:57.164Z",
+      "display_order": 0,
+      "hidden": false,
+      "id": "476641252",
+      "info": {},
+      "market_id": "172758569",
+      "modified": "2026-10-22T07:13:57.164Z",
+      "name": "Inner Circle Academy",
+      "outcome_timestamp": null,
+      "slug": "home",
+      "state_or_outcome": "open"
+     },
+     {
+      "competitor_id": 19553487,
+      "contract_type": {
+       "name": "AWAY"
+      },
+      "created": "2026-10-22T07:13:57.164Z",
+      "display_order": 100,
+      "hidden": false,
+      "id": "476641253",
+      "info": {},
+      "market_id": "172758569",
+      "modified": "2026-10-22T07:13:57.164Z",
+      "name": "Spirit Academy",
+      "outcome_timestamp": null,
+      "slug": "away",
+      "state_or_outcome": "open"
+     }
+    ]
+   },
+   "lead": true
+  },
+  {
+   "hotspawn_id": "1079655",
+   "teams": [
+    "Nuclear TigeRES",
+    "ILLYRIANS"
+   ],
+   "competition": "CCT Europe 2026 Series #11",
+   "starts_at": "2026-10-23T11:00:00Z",
+   "tier": "b",
+   "published_method": null,
+   "published_label": null,
+   "published_probability": null,
+   "published_source_url": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-illyrians-cct-europe-2026-series-11-1079655",
+   "bo3": {
+    "slug": "nuclear-tigeres-vs-illyrians-23-10-2026",
+    "url": "https://bo3.gg/matches/nuclear-tigeres-vs-illyrians-23-10-2026",
+    "start": "2026-10-23T11:00:00.000+00:00",
+    "start_delta_sec": 0,
+    "tier": "b",
+    "quote": null
+   },
+   "bo3_near_misses": [
+    {
+     "slug": "nuclear-tigeres-vs-forze-reload-24-10-2026",
+     "teams": [
+      "FORZE Reload",
+      "Nuclear TigeRES"
+     ],
+     "start": "2026-10-24T14:00:00.000+00:00",
+     "start_delta_sec": 97200,
+     "status": "one shared side only"
+    },
+    {
+     "slug": "illyrians-vs-esuba-cs-go-25-10-2026",
+     "teams": [
+      "Illyrians",
+      "eSuba"
+     ],
+     "start": "2026-10-25T11:30:00.000+00:00",
+     "start_delta_sec": 174600,
+     "status": "one shared side only"
+    }
+   ],
+   "smarkets": {
+    "event_id": "45396218",
+    "event_name": "Nuclear TigeRES vs ILLYRIANS",
+    "event_url": "https://smarkets.com/sport/esports/cs-go/cct-europe/playoffs/2026/10/23/11-00/nuclear-tigeres-vs-illyrians",
+    "start_datetime": "2026-10-23T11:00:00Z",
+    "markets_verbatim": [
+     {
+      "bet_delay": 0,
+      "cashout_enabled": true,
+      "categories": [
+       "winner"
+      ],
+      "category": "winner",
+      "complete": true,
+      "contract_selections": null,
+      "created": "2026-10-22T23:00:00.147Z",
+      "description": "",
+      "display_order": 0,
+      "display_type": "default",
+      "event_id": "45396218",
+      "hidden": false,
+      "id": "172908288",
+      "info": {
+       "reason": ""
+      },
+      "inplay_enabled": false,
+      "market_type": {
+       "name": "WINNER_2_WAY"
+      },
+      "modified": "2026-10-23T01:25:59.386Z",
+      "name": "Winner",
+      "slug": "winner-two-way",
+      "state": "open",
+      "winner_count": 1
+     }
+    ],
+    "quotes": {
+     "477013306": {
+      "bids": [
+       {
+        "price": 8000,
+        "quantity": 843749
+       }
+      ],
+      "offers": [
+       {
+        "price": 9259,
+        "quantity": 9109311
+       }
+      ]
+     },
+     "477013307": {
+      "bids": [
+       {
+        "price": 1042,
+        "quantity": 3652000
+       },
+       {
+        "price": 769,
+        "quantity": 8777635
+       }
+      ],
+      "offers": [
+       {
+        "price": 2000,
+        "quantity": 843750
+       }
+      ]
+     }
+    },
+    "two_sided": true,
+    "market_id": "172908288",
+    "contracts_verbatim": [
+     {
+      "competitor_id": 22471413,
+      "contract_type": {
+       "name": "HOME"
+      },
+      "created": "2026-10-22T23:00:00.149Z",
+      "display_order": 0,
+      "hidden": false,
+      "id": "477013306",
+      "info": {},
+      "market_id": "172908288",
+      "modified": "2026-10-22T23:00:00.149Z",
+      "name": "Nuclear TigeRES",
+      "outcome_timestamp": null,
+      "slug": "home",
+      "state_or_outcome": "open"
+     },
+     {
+      "competitor_id": 19550417,
+      "contract_type": {
+       "name": "AWAY"
+      },
+      "created": "2026-10-22T23:00:00.149Z",
+      "display_order": 100,
+      "hidden": false,
+      "id": "477013307",
+      "info": {},
+      "market_id": "172908288",
+      "modified": "2026-10-22T23:00:00.149Z",
+      "name": "ILLYRIANS",
+      "outcome_timestamp": null,
+      "slug": "away",
+      "state_or_outcome": "open"
+     }
+    ]
+   },
+   "lead": false
+  },
+  {
+   "hotspawn_id": "1081606",
+   "teams": [
+    "JiJieHao",
+    "Eternal Fire"
+   ],
+   "competition": "DraculaN Season 7",
+   "starts_at": "2026-10-23T13:00:00Z",
+   "tier": "b",
+   "published_method": null,
+   "published_label": null,
+   "published_probability": null,
+   "published_source_url": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/jijiehao-vs-eternal-fire-draculan-season-7-1081606",
+   "bo3": {
+    "slug": "jijiehao-vs-eternal-fire-23-10-2026",
+    "url": "https://bo3.gg/matches/jijiehao-vs-eternal-fire-23-10-2026",
+    "start": "2026-10-23T13:00:00.000+00:00",
+    "start_delta_sec": 0,
+    "tier": "b",
+    "quote": {
+     "provider": "thunderpick",
+     "book_url": "https://thunderpick.io/match/2872901",
+     "markets_count": 427,
+     "sides": {
+      "team_1": {
+       "name": "Eternal Fire",
+       "coeff": 1.78,
+       "active": true,
+       "team_id": 1527
+      },
+      "team_2": {
+       "name": "JiJieHao",
+       "coeff": 1.93,
+       "active": true,
+       "team_id": 3869
+      }
+     },
+     "two_sided_price": true
+    }
+   },
+   "bo3_near_misses": [
+    {
+     "slug": "mibr-vs-eternal-fire-27-10-2026",
+     "teams": [
+      "Eternal Fire",
+      "MIBR"
+     ],
+     "start": "2026-10-27T18:30:00.000+00:00",
+     "start_delta_sec": 365400,
+     "status": "one shared side only"
+    }
+   ],
+   "smarkets": {
+    "event_id": "45396158",
+    "event_name": "JiJieHao vs Eternal Fire",
+    "event_url": "https://smarkets.com/sport/esports/cs-go/draculan/playoffs/2026/10/23/13-00/jijiehao-vs-eternal-fire",
+    "start_datetime": "2026-10-23T13:00:00Z",
+    "markets_verbatim": [
+     {
+      "bet_delay": 0,
+      "cashout_enabled": true,
+      "categories": [
+       "winner"
+      ],
+      "category": "winner",
+      "complete": true,
+      "contract_selections": null,
+      "created": "2026-10-23T01:00:01.985Z",
+      "description": "",
+      "display_order": 0,
+      "display_type": "default",
+      "event_id": "45396158",
+      "hidden": false,
+      "id": "172920666",
+      "info": {
+       "reason": ""
+      },
+      "inplay_enabled": false,
+      "market_type": {
+       "name": "WINNER_2_WAY"
+      },
+      "modified": "2026-10-23T01:00:01.985Z",
+      "name": "Winner",
+      "slug": "winner-two-way",
+      "state": "open",
+      "winner_count": 1
+     }
+    ],
+    "quotes": {
+     "477042876": {
+      "bids": [
+       {
+        "price": 4098,
+        "quantity": 1647146
+       }
+      ],
+      "offers": [
+       {
+        "price": 4762,
+        "quantity": 13636600
+       },
+       {
+        "price": 5319,
+        "quantity": 1441999
+       }
+      ]
+     },
+     "477042877": {
+      "bids": [
+       {
+        "price": 4673,
+        "quantity": 1444469
+       }
+      ],
+      "offers": [
+       {
+        "price": 5917,
+        "quantity": 1653200
+       }
+      ]
+     }
+    },
+    "two_sided": true,
+    "market_id": "172920666",
+    "contracts_verbatim": [
+     {
+      "competitor_id": 19729431,
+      "contract_type": {
+       "name": "HOME"
+      },
+      "created": "2026-10-23T01:00:01.988Z",
+      "display_order": 0,
+      "hidden": false,
+      "id": "477042876",
+      "info": {},
+      "market_id": "172920666",
+      "modified": "2026-10-23T01:00:01.988Z",
+      "name": "JiJieHao",
+      "outcome_timestamp": null,
+      "slug": "home",
+      "state_or_outcome": "open"
+     },
+     {
+      "competitor_id": 19778695,
+      "contract_type": {
+       "name": "AWAY"
+      },
+      "created": "2026-10-23T01:00:01.988Z",
+      "display_order": 100,
+      "hidden": false,
+      "id": "477042877",
+      "info": {},
+      "market_id": "172920666",
+      "modified": "2026-10-23T01:00:01.988Z",
+      "name": "Eternal Fire",
+      "outcome_timestamp": null,
+      "slug": "away",
+      "state_or_outcome": "open"
+     }
+    ]
+   },
+   "lead": true
+  },
+  {
+   "hotspawn_id": "1082926",
+   "teams": [
+    "Isurus",
+    "Hacha"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-23T13:00:00Z",
+   "tier": "c",
+   "published_method": null,
+   "published_label": null,
+   "published_probability": null,
+   "published_source_url": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926",
+   "bo3": {
+    "slug": "isurus-gaming-cs-go-vs-hacha-esports-23-10-2026",
+    "url": "https://bo3.gg/matches/isurus-gaming-cs-go-vs-hacha-esports-23-10-2026",
+    "start": "2026-10-23T13:00:00.000+00:00",
+    "start_delta_sec": 0,
+    "tier": "b",
+    "quote": {
+     "provider": "thunderpick",
+     "book_url": "https://thunderpick.io/match/2870814",
+     "markets_count": 7,
+     "sides": {
+      "team_1": {
+       "name": "Isurus",
+       "coeff": 1.22,
+       "active": true,
+       "team_id": 591
+      },
+      "team_2": {
+       "name": "Hacha",
+       "coeff": 3.8,
+       "active": true,
+       "team_id": 9764
+      }
+     },
+     "two_sided_price": true
+    }
+   },
+   "bo3_near_misses": [],
+   "smarkets": null,
+   "lead": true
+  },
+  {
+   "hotspawn_id": "1082980",
+   "teams": [
+    "LPH",
+    "WBT Academy"
+   ],
+   "competition": "ESL Challenger League Season 52: Europe - Cup #9",
+   "starts_at": "2026-10-23T13:00:00Z",
+   "tier": "c",
+   "published_method": null,
+   "published_label": null,
+   "published_probability": null,
+   "published_source_url": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/lph-vs-wbt-academy-esl-challenger-league-season-52-europe-cup-9-1082980",
+   "bo3": {
+    "slug": "lph-gaming-vs-wbt-academy-23-10-2026",
+    "url": "https://bo3.gg/matches/lph-gaming-vs-wbt-academy-23-10-2026",
+    "start": "2026-10-23T13:00:00.000+00:00",
+    "start_delta_sec": 0,
+    "tier": "c",
+    "quote": {
+     "provider": "thunderpick",
+     "book_url": "https://thunderpick.io/match/2872919",
+     "markets_count": 206,
+     "sides": {
+      "team_1": {
+       "name": "WBT Academy",
+       "coeff": 1.49,
+       "active": true,
+       "team_id": 24929
+      },
+      "team_2": {
+       "name": "LPH",
+       "coeff": 2.45,
+       "active": true,
+       "team_id": 20582
+      }
+     },
+     "two_sided_price": true
+    }
+   },
+   "bo3_near_misses": [
+    {
+     "slug": "dnk-vs-lph-gaming-26-10-2026",
+     "teams": [
+      "DNK",
+      "LPH"
+     ],
+     "start": "2026-10-26T18:00:00.000+00:00",
+     "start_delta_sec": 277200,
+     "status": "one shared side only"
+    },
+    {
+     "slug": "lph-gaming-vs-los-kogutos-27-10-2026",
+     "teams": [
+      "LPH",
+      "los kogutos"
+     ],
+     "start": "2026-10-27T18:00:00.000+00:00",
+     "start_delta_sec": 363600,
+     "status": "one shared side only"
+    },
+    {
+     "slug": "lph-gaming-vs-phantom-academy-06-11-2026",
+     "teams": [
+      "LPH",
+      "Phantom Academy"
+     ],
+     "start": "2026-11-06T18:00:00.000+00:00",
+     "start_delta_sec": 1227600,
+     "status": "one shared side only"
+    }
+   ],
+   "smarkets": null,
+   "lead": true
+  },
+  {
+   "hotspawn_id": "1083014",
+   "teams": [
+    "K27",
+    "Virtus.pro"
+   ],
+   "competition": "CIS LAN Championship #9",
+   "starts_at": "2026-10-23T13:00:00Z",
+   "tier": "c",
+   "published_method": null,
+   "published_label": null,
+   "published_probability": null,
+   "published_source_url": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/k27-vs-virtus-pro-cis-lan-championship-9-1083014",
+   "bo3": null,
+   "bo3_near_misses": [
+    {
+     "slug": "b8-vs-k27-27-10-2026",
+     "teams": [
+      "B8",
+      "K27"
+     ],
+     "start": "2026-10-27T08:00:00.000+00:00",
+     "start_delta_sec": 327600,
+     "status": "one shared side only"
+    }
+   ],
+   "smarkets": {
+    "event_id": "45396221",
+    "event_name": "K27 vs Virtus.pro",
+    "event_url": "https://smarkets.com/sport/esports/cs-go/cis-lan-championship/playoffs/2026/10/23/13-00/k27-vs-virtus-pro",
+    "start_datetime": "2026-10-23T13:00:00Z",
+    "markets_verbatim": [
+     {
+      "bet_delay": 0,
+      "cashout_enabled": true,
+      "categories": [
+       "winner"
+      ],
+      "category": "winner",
+      "complete": true,
+      "contract_selections": null,
+      "created": "2026-10-23T01:00:01.792Z",
+      "description": "",
+      "display_order": 0,
+      "display_type": "default",
+      "event_id": "45396221",
+      "hidden": false,
+      "id": "172920665",
+      "info": {
+       "reason": ""
+      },
+      "inplay_enabled": false,
+      "market_type": {
+       "name": "WINNER_2_WAY"
+      },
+      "modified": "2026-10-23T01:00:01.792Z",
+      "name": "Winner",
+      "slug": "winner-two-way",
+      "state": "open",
+      "winner_count": 1
+     }
+    ],
+    "quotes": {
+     "477042874": {
+      "bids": [
+       {
+        "price": 4673,
+        "quantity": 1444469
+       }
+      ],
+      "offers": [
+       {
+        "price": 5917,
+        "quantity": 1653200
+       }
+      ]
+     },
+     "477042875": {
+      "bids": [
+       {
+        "price": 4098,
+        "quantity": 1647146
+       }
+      ],
+      "offers": [
+       {
+        "price": 5000,
+        "quantity": 7128000
+       },
+       {
+        "price": 5319,
+        "quantity": 1441999
+       }
+      ]
+     }
+    },
+    "two_sided": true,
+    "market_id": "172920665",
+    "contracts_verbatim": [
+     {
+      "competitor_id": 21620908,
+      "contract_type": {
+       "name": "HOME"
+      },
+      "created": "2026-10-23T01:00:01.795Z",
+      "display_order": 0,
+      "hidden": false,
+      "id": "477042874",
+      "info": {},
+      "market_id": "172920665",
+      "modified": "2026-10-23T01:00:01.795Z",
+      "name": "K27",
+      "outcome_timestamp": null,
+      "slug": "home",
+      "state_or_outcome": "open"
+     },
+     {
+      "competitor_id": 19524177,
+      "contract_type": {
+       "name": "AWAY"
+      },
+      "created": "2026-10-23T01:00:01.795Z",
+      "display_order": 100,
+      "hidden": false,
+      "id": "477042875",
+      "info": {},
+      "market_id": "172920665",
+      "modified": "2026-10-23T01:00:01.795Z",
+      "name": "Virtus.pro",
+      "outcome_timestamp": null,
+      "slug": "away",
+      "state_or_outcome": "open"
+     }
+    ]
+   },
+   "lead": false
+  },
+  {
+   "hotspawn_id": "1082924",
+   "teams": [
+    "BORRACHEIROS",
+    "QUINTESSÊNCIA"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-23T16:00:00Z",
+   "tier": "c",
+   "published_method": null,
+   "published_label": null,
+   "published_probability": null,
+   "published_source_url": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/borracheiros-vs-quintess-ncia-cct-south-america-2026-series-7-1082924",
+   "bo3": {
+    "slug": "borracheiros-vs-quintessencia-23-10-2026",
+    "url": "https://bo3.gg/matches/borracheiros-vs-quintessencia-23-10-2026",
+    "start": "2026-10-23T16:00:00.000+00:00",
+    "start_delta_sec": 0,
+    "tier": "b",
+    "quote": {
+     "provider": "thunderpick",
+     "book_url": "https://thunderpick.io/match/2870808",
+     "markets_count": 7,
+     "sides": {
+      "team_1": {
+       "name": "BORRACHEIROS",
+       "coeff": 1.52,
+       "active": true,
+       "team_id": 24668
+      },
+      "team_2": {
+       "name": "QUINTESSÊNCIA",
+       "coeff": 2.35,
+       "active": true,
+       "team_id": 23217
+      }
+     },
+     "two_sided_price": true
+    }
+   },
+   "bo3_near_misses": [
+    {
+     "slug": "quintessencia-vs-meia-noite-26-10-2026",
+     "teams": [
+      "MEIA NOITE",
+      "QUINTESSÊNCIA"
+     ],
+     "start": "2026-10-26T21:00:00.000+00:00",
+     "start_delta_sec": 277200,
+     "status": "one shared side only"
+    }
+   ],
+   "smarkets": {
+    "event_id": "45394414",
+    "event_name": "BORRACHEIROS vs QUINTESSÊNCIA",
+    "event_url": "https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/23/16-00/borracheiros-vs-quintessencia",
+    "start_datetime": "2026-10-23T16:00:00Z",
+    "markets_verbatim": [
+     {
+      "bet_delay": 0,
+      "cashout_enabled": true,
+      "categories": [
+       "winner"
+      ],
+      "category": "winner",
+      "complete": true,
+      "contract_selections": null,
+      "created": "2026-10-23T01:27:00.471Z",
+      "description": "",
+      "display_order": 0,
+      "display_type": "default",
+      "event_id": "45394414",
+      "hidden": false,
+      "id": "172923332",
+      "info": {
+       "reason": ""
+      },
+      "inplay_enabled": false,
+      "market_type": {
+       "name": "WINNER_2_WAY"
+      },
+      "modified": "2026-10-23T01:27:00.471Z",
+      "name": "Winner",
+      "slug": "winner-two-way",
+      "state": "open",
+      "winner_count": 1
+     }
+    ],
+    "quotes": {
+     "477055186": {
+      "bids": [
+       {
+        "price": 5682,
+        "quantity": 1187961
+       },
+       {
+        "price": 5435,
+        "quantity": 1241949
+       }
+      ],
+      "offers": [
+       {
+        "price": 6944,
+        "quantity": 2208769
+       }
+      ]
+     },
+     "477055187": {
+      "bids": [
+       {
+        "price": 3077,
+        "quantity": 2193694
+       }
+      ],
+      "offers": [
+       {
+        "price": 4310,
+        "quantity": 1186291
+       },
+       {
+        "price": 4587,
+        "quantity": 1246997
+       }
+      ]
+     }
+    },
+    "two_sided": true,
+    "market_id": "172923332",
+    "contracts_verbatim": [
+     {
+      "competitor_id": 32375309,
+      "contract_type": {
+       "name": "HOME"
+      },
+      "created": "2026-10-23T01:27:00.473Z",
+      "display_order": 0,
+      "hidden": false,
+      "id": "477055186",
+      "info": {},
+      "market_id": "172923332",
+      "modified": "2026-10-23T01:27:00.473Z",
+      "name": "BORRACHEIROS",
+      "outcome_timestamp": null,
+      "slug": "home",
+      "state_or_outcome": "open"
+     },
+     {
+      "competitor_id": 30218567,
+      "contract_type": {
+       "name": "AWAY"
+      },
+      "created": "2026-10-23T01:27:00.473Z",
+      "display_order": 100,
+      "hidden": false,
+      "id": "477055187",
+      "info": {},
+      "market_id": "172923332",
+      "modified": "2026-10-23T01:27:00.473Z",
+      "name": "QUINTESSÊNCIA",
+      "outcome_timestamp": null,
+      "slug": "away",
+      "state_or_outcome": "open"
+     }
+    ]
+   },
+   "lead": true
+  },
+  {
+   "hotspawn_id": "1081150",
+   "teams": [
+    "ex-RUSTEC",
+    "Saint Sinners"
+   ],
+   "competition": "CCT Europe 2026 Series #12",
+   "starts_at": "2026-10-23T17:00:00Z",
+   "tier": "b",
+   "published_method": null,
+   "published_label": null,
+   "published_probability": null,
+   "published_source_url": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/ex-rustec-vs-saint-sinners-cct-europe-2026-series-12-1081150",
+   "bo3": {
+    "slug": "ex-rustec-vs-saint-sinners-23-10-2026",
+    "url": "https://bo3.gg/matches/ex-rustec-vs-saint-sinners-23-10-2026",
+    "start": "2026-10-23T17:00:00.000+00:00",
+    "start_delta_sec": 0,
+    "tier": "b",
+    "quote": null
+   },
+   "bo3_near_misses": [],
+   "smarkets": {
+    "event_id": "45396225",
+    "event_name": "ex-RUSTEC vs Saint Sinners",
+    "event_url": "https://smarkets.com/sport/esports/cs-go/cct-europe/group-stage/2026/10/23/17-00/ex-rustec-vs-saint-sinners",
+    "start_datetime": "2026-10-23T17:00:00Z",
+    "markets_verbatim": [
+     {
+      "bet_delay": 0,
+      "cashout_enabled": true,
+      "categories": [
+       "winner"
+      ],
+      "category": "winner",
+      "complete": true,
+      "contract_selections": null,
+      "created": "2026-10-23T01:26:41.669Z",
+      "description": "",
+      "display_order": 0,
+      "display_type": "default",
+      "event_id": "45396225",
+      "hidden": false,
+      "id": "172923322",
+      "info": {
+       "reason": ""
+      },
+      "inplay_enabled": false,
+      "market_type": {
+       "name": "WINNER_2_WAY"
+      },
+      "modified": "2026-10-23T01:26:41.669Z",
+      "name": "Winner",
+      "slug": "winner-two-way",
+      "state": "open",
+      "winner_count": 1
+     }
+    ],
+    "quotes": {
+     "477055166": {
+      "bids": [],
+      "offers": []
+     },
+     "477055167": {
+      "bids": [
+       {
+        "price": 2632,
+        "quantity": 691800
+       }
+      ],
+      "offers": [
+       {
+        "price": 6250,
+        "quantity": 552900
+       }
+      ]
+     }
+    },
+    "two_sided": false,
+    "market_id": "172923322",
+    "contracts_verbatim": [
+     {
+      "competitor_id": 33319495,
+      "contract_type": {
+       "name": "HOME"
+      },
+      "created": "2026-10-23T01:26:41.672Z",
+      "display_order": 0,
+      "hidden": false,
+      "id": "477055166",
+      "info": {},
+      "market_id": "172923322",
+      "modified": "2026-10-23T01:26:41.672Z",
+      "name": "ex-RUSTEC",
+      "outcome_timestamp": null,
+      "slug": "home",
+      "state_or_outcome": "open"
+     },
+     {
+      "competitor_id": 34544179,
+      "contract_type": {
+       "name": "AWAY"
+      },
+      "created": "2026-10-23T01:26:41.672Z",
+      "display_order": 100,
+      "hidden": false,
+      "id": "477055167",
+      "info": {},
+      "market_id": "172923322",
+      "modified": "2026-10-23T01:26:41.672Z",
+      "name": "Saint Sinners",
+      "outcome_timestamp": null,
+      "slug": "away",
+      "state_or_outcome": "open"
+     }
+    ]
+   },
+   "lead": false
+  },
+  {
+   "hotspawn_id": "1079657",
+   "teams": [
+    "BakS",
+    "BRUTE"
+   ],
+   "competition": "CCT Europe 2026 Series #11",
+   "starts_at": "2026-10-23T17:00:00Z",
+   "tier": "b",
+   "published_method": null,
+   "published_label": null,
+   "published_probability": null,
+   "published_source_url": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/baks-vs-brute-cct-europe-2026-series-11-1079657",
+   "bo3": {
+    "slug": "brute-vs-baks-esports-23-10-2026",
+    "url": "https://bo3.gg/matches/brute-vs-baks-esports-23-10-2026",
+    "start": "2026-10-23T17:00:00.000+00:00",
+    "start_delta_sec": 0,
+    "tier": "b",
+    "quote": {
+     "provider": "thunderpick",
+     "book_url": "https://thunderpick.io/match/2870933",
+     "markets_count": 229,
+     "sides": {
+      "team_1": {
+       "name": "BRUTE",
+       "coeff": 1.71,
+       "active": true,
+       "team_id": 370
+      },
+      "team_2": {
+       "name": "BAKS",
+       "coeff": 2.02,
+       "active": true,
+       "team_id": 2924
+      }
+     },
+     "two_sided_price": true
+    }
+   },
+   "bo3_near_misses": [
+    {
+     "slug": "metizport-vs-baks-esports-25-10-2026",
+     "teams": [
+      "BAKS",
+      "Metizport"
+     ],
+     "start": "2026-10-25T12:00:00.000+00:00",
+     "start_delta_sec": 154800,
+     "status": "one shared side only"
+    },
+    {
+     "slug": "infinite-gaming-vs-brute-25-10-2026",
+     "teams": [
+      "BRUTE",
+      "INFINITE"
+     ],
+     "start": "2026-10-25T15:00:00.000+00:00",
+     "start_delta_sec": 165600,
+     "status": "one shared side only"
+    }
+   ],
+   "smarkets": null,
+   "lead": true
+  },
+  {
+   "hotspawn_id": "1082693",
+   "teams": [
+    "BESTIA",
+    "Galorys"
+   ],
+   "competition": "Circuit X Curitiba #4",
+   "starts_at": "2026-10-23T18:00:00Z",
+   "tier": "c",
+   "published_method": null,
+   "published_label": null,
+   "published_probability": null,
+   "published_source_url": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/bestia-vs-galorys-circuit-x-curitiba-4-1082693",
+   "bo3": {
+    "slug": "bestia-vs-galorys-cs-23-10-2026",
+    "url": "https://bo3.gg/matches/bestia-vs-galorys-cs-23-10-2026",
+    "start": "2026-10-23T18:00:00.000+00:00",
+    "start_delta_sec": 0,
+    "tier": "c",
+    "quote": {
+     "provider": "thunderpick",
+     "book_url": "https://thunderpick.io/match/2873215",
+     "markets_count": 229,
+     "sides": {
+      "team_1": {
+       "name": "BESTIA",
+       "coeff": 1.62,
+       "active": true,
+       "team_id": 5701
+      },
+      "team_2": {
+       "name": "Galorys",
+       "coeff": 2.15,
+       "active": true,
+       "team_id": 10049
+      }
+     },
+     "two_sided_price": true
+    }
+   },
+   "bo3_near_misses": [],
+   "smarkets": {
+    "event_id": "45396231",
+    "event_name": "BESTIA vs Galorys",
+    "event_url": "https://smarkets.com/sport/esports/cs-go/circuit-x/playoffs/2026/10/23/18-00/bestia-vs-galorys",
+    "start_datetime": "2026-10-23T18:00:00Z",
+    "markets_verbatim": [
+     {
+      "bet_delay": 0,
+      "cashout_enabled": true,
+      "categories": [
+       "winner"
+      ],
+      "category": "winner",
+      "complete": true,
+      "contract_selections": null,
+      "created": "2026-10-23T01:08:59.530Z",
+      "description": "",
+      "display_order": 0,
+      "display_type": "default",
+      "event_id": "45396231",
+      "hidden": false,
+      "id": "172921981",
+      "info": {
+       "reason": ""
+      },
+      "inplay_enabled": false,
+      "market_type": {
+       "name": "WINNER_2_WAY"
+      },
+      "modified": "2026-10-23T01:08:59.530Z",
+      "name": "Winner",
+      "slug": "winner-two-way",
+      "state": "open",
+      "winner_count": 1
+     }
+    ],
+    "quotes": {
+     "477052084": {
+      "bids": [
+       {
+        "price": 5208,
+        "quantity": 1296085
+       },
+       {
+        "price": 5076,
+        "quantity": 1329788
+       }
+      ],
+      "offers": [
+       {
+        "price": 6410,
+        "quantity": 1880227
+       },
+       {
+        "price": 6452,
+        "quantity": 1902480
+       }
+      ]
+     },
+     "477052085": {
+      "bids": [
+       {
+        "price": 3571,
+        "quantity": 1890228
+       }
+      ],
+      "offers": [
+       {
+        "price": 4808,
+        "quantity": 1300079
+       },
+       {
+        "price": 5102,
+        "quantity": 1378116
+       }
+      ]
+     }
+    },
+    "two_sided": true,
+    "market_id": "172921981",
+    "contracts_verbatim": [
+     {
+      "competitor_id": 19524153,
+      "contract_type": {
+       "name": "HOME"
+      },
+      "created": "2026-10-23T01:08:59.533Z",
+      "display_order": 0,
+      "hidden": false,
+      "id": "477052084",
+      "info": {},
+      "market_id": "172921981",
+      "modified": "2026-10-23T01:08:59.533Z",
+      "name": "BESTIA",
+      "outcome_timestamp": null,
+      "slug": "home",
+      "state_or_outcome": "open"
+     },
+     {
+      "competitor_id": 19793441,
+      "contract_type": {
+       "name": "AWAY"
+      },
+      "created": "2026-10-23T01:08:59.533Z",
+      "display_order": 100,
+      "hidden": false,
+      "id": "477052085",
+      "info": {},
+      "market_id": "172921981",
+      "modified": "2026-10-23T01:08:59.533Z",
+      "name": "Galorys",
+      "outcome_timestamp": null,
+      "slug": "away",
+      "state_or_outcome": "open"
+     }
+    ]
+   },
+   "lead": true
+  },
+  {
+   "hotspawn_id": "1082925",
+   "teams": [
+    "BESTIA Academy",
+    "RED Canids Academy"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-23T19:00:00Z",
+   "tier": "c",
+   "published_method": null,
+   "published_label": null,
+   "published_probability": null,
+   "published_source_url": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/bestia-academy-vs-red-canids-academy-cct-south-america-2026-series-7-1082925",
+   "bo3": {
+    "slug": "bestia-academy-vs-red-canids-academy-23-10-2026",
+    "url": "https://bo3.gg/matches/bestia-academy-vs-red-canids-academy-23-10-2026",
+    "start": "2026-10-23T19:00:00.000+00:00",
+    "start_delta_sec": 0,
+    "tier": "b",
+    "quote": {
+     "provider": "thunderpick",
+     "book_url": "https://thunderpick.io/match/2870811",
+     "markets_count": 7,
+     "sides": {
+      "team_1": {
+       "name": "BESTIA Academy",
+       "coeff": 2.7,
+       "active": true,
+       "team_id": 18461
+      },
+      "team_2": {
+       "name": "RED Canids Academy",
+       "coeff": 1.4,
+       "active": true,
+       "team_id": 16743
+      }
+     },
+     "two_sided_price": true
+    }
+   },
+   "bo3_near_misses": [
+    {
+     "slug": "pain-gaming-academy-vs-bestia-academy-26-10-2026",
+     "teams": [
+      "BESTIA Academy",
+      "paiN Academy"
+     ],
+     "start": "2026-10-26T21:00:00.000+00:00",
+     "start_delta_sec": 266400,
+     "status": "one shared side only"
+    }
+   ],
+   "smarkets": {
+    "event_id": "45394415",
+    "event_name": "BESTIA Academy vs RED Canids Academy",
+    "event_url": "https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/23/19-00/bestia-academy-vs-red-canids-academy",
+    "start_datetime": "2026-10-23T19:00:00Z",
+    "markets_verbatim": [
+     {
+      "bet_delay": 0,
+      "cashout_enabled": true,
+      "categories": [
+       "winner"
+      ],
+      "category": "winner",
+      "complete": true,
+      "contract_selections": null,
+      "created": "2026-10-23T01:27:01.251Z",
+      "description": "",
+      "display_order": 0,
+      "display_type": "default",
+      "event_id": "45394415",
+      "hidden": false,
+      "id": "172923333",
+      "info": {
+       "reason": ""
+      },
+      "inplay_enabled": false,
+      "market_type": {
+       "name": "WINNER_2_WAY"
+      },
+      "modified": "2026-10-23T01:27:01.251Z",
+      "name": "Winner",
+      "slug": "winner-two-way",
+      "state": "open",
+      "winner_count": 1
+     }
+    ],
+    "quotes": {
+     "477055188": {
+      "bids": [
+       {
+        "price": 2817,
+        "quantity": 2396169
+       }
+      ],
+      "offers": [
+       {
+        "price": 4032,
+        "quantity": 1131032
+       },
+       {
+        "price": 4630,
+        "quantity": 13301400
+       }
+      ]
+     },
+     "477055189": {
+      "bids": [
+       {
+        "price": 5952,
+        "quantity": 1134073
+       }
+      ],
+      "offers": [
+       {
+        "price": 7194,
+        "quantity": 2405567
+       }
+      ]
+     }
+    },
+    "two_sided": true,
+    "market_id": "172923333",
+    "contracts_verbatim": [
+     {
+      "competitor_id": 22608173,
+      "contract_type": {
+       "name": "HOME"
+      },
+      "created": "2026-10-23T01:27:01.253Z",
+      "display_order": 0,
+      "hidden": false,
+      "id": "477055188",
+      "info": {},
+      "market_id": "172923333",
+      "modified": "2026-10-23T01:27:01.253Z",
+      "name": "BESTIA Academy",
+      "outcome_timestamp": null,
+      "slug": "home",
+      "state_or_outcome": "open"
+     },
+     {
+      "competitor_id": 22153393,
+      "contract_type": {
+       "name": "AWAY"
+      },
+      "created": "2026-10-23T01:27:01.253Z",
+      "display_order": 100,
+      "hidden": false,
+      "id": "477055189",
+      "info": {},
+      "market_id": "172923333",
+      "modified": "2026-10-23T01:27:01.253Z",
+      "name": "RED Canids Academy",
+      "outcome_timestamp": null,
+      "slug": "away",
+      "state_or_outcome": "open"
+     }
+    ]
+   },
+   "lead": true
+  },
+  {
+   "hotspawn_id": "1083025",
+   "teams": [
+    "paiN",
+    "Imperial"
+   ],
+   "competition": "Circuit X Curitiba #4",
+   "starts_at": "2026-10-23T21:00:00Z",
+   "tier": "c",
+   "published_method": null,
+   "published_label": null,
+   "published_probability": null,
+   "published_source_url": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/pain-vs-imperial-circuit-x-curitiba-4-1083025",
+   "bo3": {
+    "slug": "pain-gaming-vs-imperial-23-10-2026",
+    "url": "https://bo3.gg/matches/pain-gaming-vs-imperial-23-10-2026",
+    "start": "2026-10-23T21:00:00.000+00:00",
+    "start_delta_sec": 0,
+    "tier": "c",
+    "quote": {
+     "provider": "thunderpick",
+     "book_url": "https://thunderpick.io/match/2873224",
+     "markets_count": 227,
+     "sides": {
+      "team_1": {
+       "name": "paiN",
+       "coeff": 2.4,
+       "active": true,
+       "team_id": 637
+      },
+      "team_2": {
+       "name": "Imperial",
+       "coeff": 1.5,
+       "active": true,
+       "team_id": 1430
+      }
+     },
+     "two_sided_price": true
+    }
+   },
+   "bo3_near_misses": [],
+   "smarkets": {
+    "event_id": "45396232",
+    "event_name": "paiN vs Imperial",
+    "event_url": "https://smarkets.com/sport/esports/cs-go/circuit-x/playoffs/2026/10/23/21-00/pain-vs-imperial",
+    "start_datetime": "2026-10-23T21:00:00Z",
+    "markets_verbatim": [
+     {
+      "bet_delay": 0,
+      "cashout_enabled": true,
+      "categories": [
+       "winner"
+      ],
+      "category": "winner",
+      "complete": true,
+      "contract_selections": null,
+      "created": "2026-10-23T01:08:14.078Z",
+      "description": "",
+      "display_order": 0,
+      "display_type": "default",
+      "event_id": "45396232",
+      "hidden": false,
+      "id": "172921914",
+      "info": {
+       "reason": ""
+      },
+      "inplay_enabled": false,
+      "market_type": {
+       "name": "WINNER_2_WAY"
+      },
+      "modified": "2026-10-23T01:08:14.078Z",
+      "name": "Winner",
+      "slug": "winner-two-way",
+      "state": "open",
+      "winner_count": 1
+     }
+    ],
+    "quotes": {
+     "477051932": {
+      "bids": [
+       {
+        "price": 3077,
+        "quantity": 2193698
+       }
+      ],
+      "offers": [
+       {
+        "price": 4310,
+        "quantity": 1186291
+       }
+      ]
+     },
+     "477051933": {
+      "bids": [
+       {
+        "price": 5682,
+        "quantity": 1187963
+       }
+      ],
+      "offers": [
+       {
+        "price": 6897,
+        "quantity": 2175321
+       }
+      ]
+     }
+    },
+    "two_sided": true,
+    "market_id": "172921914",
+    "contracts_verbatim": [
+     {
+      "competitor_id": 19761148,
+      "contract_type": {
+       "name": "HOME"
+      },
+      "created": "2026-10-23T01:08:14.080Z",
+      "display_order": 0,
+      "hidden": false,
+      "id": "477051932",
+      "info": {},
+      "market_id": "172921914",
+      "modified": "2026-10-23T01:08:14.080Z",
+      "name": "paiN",
+      "outcome_timestamp": null,
+      "slug": "home",
+      "state_or_outcome": "open"
+     },
+     {
+      "competitor_id": 19768890,
+      "contract_type": {
+       "name": "AWAY"
+      },
+      "created": "2026-10-23T01:08:14.080Z",
+      "display_order": 100,
+      "hidden": false,
+      "id": "477051933",
+      "info": {},
+      "market_id": "172921914",
+      "modified": "2026-10-23T01:08:14.080Z",
+      "name": "Imperial",
+      "outcome_timestamp": null,
+      "slug": "away",
+      "state_or_outcome": "open"
+     }
+    ]
+   },
+   "lead": true
+  },
+  {
+   "hotspawn_id": "1082923",
+   "teams": [
+    "Alka",
+    "LOS NINOS"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-23T22:00:00Z",
+   "tier": "c",
+   "published_method": null,
+   "published_label": null,
+   "published_probability": null,
+   "published_source_url": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/alka-vs-los-ninos-cct-south-america-2026-series-7-1082923",
+   "bo3": null,
+   "bo3_near_misses": [
+    {
+     "slug": "alka-vs-los-ninos-23-10-2026",
+     "teams": [
+      "ALKA",
+      "Los Niños"
+     ],
+     "start": "2026-10-23T22:00:00.000+00:00",
+     "start_delta_sec": 0,
+     "status": "one shared side only"
+    }
+   ],
+   "smarkets": null,
+   "lead": false
+  },
+  {
+   "hotspawn_id": "1079193",
+   "teams": [
+    "FOKUS",
+    "ex-6666"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at": "2026-10-24T08:00:00Z",
+   "tier": "b",
+   "published_method": null,
+   "published_label": null,
+   "published_probability": null,
+   "published_source_url": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/fokus-vs-ex-6666-nodwin-clutch-series-13-1079193",
+   "bo3": {
+    "slug": "fokus-cs-vs-ex-6666-24-10-2026",
+    "url": "https://bo3.gg/matches/fokus-cs-vs-ex-6666-24-10-2026",
+    "start": "2026-10-24T08:00:00.000+00:00",
+    "start_delta_sec": 0,
+    "tier": "b",
+    "quote": {
+     "provider": "thunderpick",
+     "book_url": "https://thunderpick.io/match/2872398",
+     "markets_count": 7,
+     "sides": {
+      "team_1": {
+       "name": "FOKUS",
+       "coeff": 1.22,
+       "active": true,
+       "team_id": 22184
+      },
+      "team_2": {
+       "name": "ex-6666",
+       "coeff": 3.8,
+       "active": true,
+       "team_id": 25508
+      }
+     },
+     "two_sided_price": true
+    }
+   },
+   "bo3_near_misses": [],
+   "smarkets": {
+    "event_id": "45396121",
+    "event_name": "FOKUS vs ex-6666",
+    "event_url": "https://smarkets.com/sport/esports/cs-go/nodwin-clutch-series/playoffs/2026/10/24/08-00/fokus-vs-ex-6666",
+    "start_datetime": "2026-10-24T08:00:00Z",
+    "markets_verbatim": [
+     {
+      "bet_delay": 0,
+      "cashout_enabled": true,
+      "categories": [
+       "winner"
+      ],
+      "category": "winner",
+      "complete": true,
+      "contract_selections": null,
+      "created": "2026-10-23T01:27:03.473Z",
+      "description": "",
+      "display_order": 0,
+      "display_type": "default",
+      "event_id": "45396121",
+      "hidden": false,
+      "id": "172923335",
+      "info": {
+       "reason": ""
+      },
+      "inplay_enabled": true,
+      "market_type": {
+       "name": "WINNER_2_WAY"
+      },
+      "modified": "2026-10-23T01:27:03.473Z",
+      "name": "Winner",
+      "slug": "winner-two-way",
+      "state": "open",
+      "winner_count": 1
+     }
+    ],
+    "quotes": {
+     "477055192": {
+      "bids": [
+       {
+        "price": 7092,
+        "quantity": 951780
+       }
+      ],
+      "offers": [
+       {
+        "price": 8772,
+        "quantity": 5496786
+       }
+      ]
+     },
+     "477055193": {
+      "bids": [
+       {
+        "price": 1282,
+        "quantity": 5265232
+       }
+      ],
+      "offers": [
+       {
+        "price": 2899,
+        "quantity": 950571
+       }
+      ]
+     }
+    },
+    "two_sided": true,
+    "market_id": "172923335",
+    "contracts_verbatim": [
+     {
+      "competitor_id": 27004618,
+      "contract_type": {
+       "name": "HOME"
+      },
+      "created": "2026-10-23T01:27:03.476Z",
+      "display_order": 0,
+      "hidden": false,
+      "id": "477055192",
+      "info": {},
+      "market_id": "172923335",
+      "modified": "2026-10-23T01:27:03.476Z",
+      "name": "FOKUS",
+      "outcome_timestamp": null,
+      "slug": "home",
+      "state_or_outcome": "open"
+     },
+     {
+      "competitor_id": 36425534,
+      "contract_type": {
+       "name": "AWAY"
+      },
+      "created": "2026-10-23T01:27:03.476Z",
+      "display_order": 100,
+      "hidden": false,
+      "id": "477055193",
+      "info": {},
+      "market_id": "172923335",
+      "modified": "2026-10-23T01:27:03.476Z",
+      "name": "ex-6666",
+      "outcome_timestamp": null,
+      "slug": "away",
+      "state_or_outcome": "open"
+     }
+    ]
+   },
+   "lead": true
+  },
+  {
+   "hotspawn_id": "1079195",
+   "teams": [
+    "Nuclear TigeRES",
+    "FORZE Reload"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at": "2026-10-24T14:00:00Z",
+   "tier": "b",
+   "published_method": null,
+   "published_label": null,
+   "published_probability": null,
+   "published_source_url": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-forze-reload-nodwin-clutch-series-13-1079195",
+   "bo3": {
+    "slug": "nuclear-tigeres-vs-forze-reload-24-10-2026",
+    "url": "https://bo3.gg/matches/nuclear-tigeres-vs-forze-reload-24-10-2026",
+    "start": "2026-10-24T14:00:00.000+00:00",
+    "start_delta_sec": 0,
+    "tier": "b",
+    "quote": {
+     "provider": "thunderpick",
+     "book_url": "https://thunderpick.io/match/2872440",
+     "markets_count": 227,
+     "sides": {
+      "team_1": {
+       "name": "Nuclear TigeRES",
+       "coeff": 1.58,
+       "active": true,
+       "team_id": 18539
+      },
+      "team_2": {
+       "name": "FORZE Reload",
+       "coeff": 2.2,
+       "active": true,
+       "team_id": 10703
+      }
+     },
+     "two_sided_price": true
+    }
+   },
+   "bo3_near_misses": [
+    {
+     "slug": "nuclear-tigeres-vs-illyrians-23-10-2026",
+     "teams": [
+      "Illyrians",
+      "Nuclear TigeRES"
+     ],
+     "start": "2026-10-23T11:00:00.000+00:00",
+     "start_delta_sec": 97200,
+     "status": "one shared side only"
+    },
+    {
+     "slug": "acend-cs2-vs-forze-reload-24-10-2026",
+     "teams": [
+      "Acend",
+      "FORZE Reload"
+     ],
+     "start": "2026-10-24T14:00:00.000+00:00",
+     "start_delta_sec": 0,
+     "status": "one shared side only"
+    }
+   ],
+   "smarkets": {
+    "event_id": "45396122",
+    "event_name": "Nuclear TigeRES vs FORZE Reload",
+    "event_url": "https://smarkets.com/sport/esports/cs-go/nodwin-clutch-series/playoffs/2026/10/24/14-00/nuclear-tigeres-vs-forze-reload",
+    "start_datetime": "2026-10-24T14:00:00Z",
+    "markets_verbatim": [
+     {
+      "bet_delay": 0,
+      "cashout_enabled": true,
+      "categories": [
+       "winner"
+      ],
+      "category": "winner",
+      "complete": true,
+      "contract_selections": null,
+      "created": "2026-10-22T20:09:02.750Z",
+      "description": "",
+      "display_order": 0,
+      "display_type": "default",
+      "event_id": "45396122",
+      "hidden": false,
+      "id": "172891843",
+      "info": {
+       "reason": ""
+      },
+      "inplay_enabled": true,
+      "market_type": {
+       "name": "WINNER_2_WAY"
+      },
+      "modified": "2026-10-22T20:09:02.750Z",
+      "name": "Winner",
+      "slug": "winner-two-way",
+      "state": "open",
+      "winner_count": 1
+     }
+    ],
+    "quotes": {
+     "476973393": {
+      "bids": [
+       {
+        "price": 5208,
+        "quantity": 1296083
+       },
+       {
+        "price": 5076,
+        "quantity": 1329789
+       }
+      ],
+      "offers": [
+       {
+        "price": 6849,
+        "quantity": 2142177
+       }
+      ]
+     },
+     "476973394": {
+      "bids": [
+       {
+        "price": 3125,
+        "quantity": 2160001
+       }
+      ],
+      "offers": [
+       {
+        "price": 4808,
+        "quantity": 1300079
+       },
+       {
+        "price": 4950,
+        "quantity": 1336633
+       }
+      ]
+     }
+    },
+    "two_sided": true,
+    "market_id": "172891843",
+    "contracts_verbatim": [
+     {
+      "competitor_id": 22471413,
+      "contract_type": {
+       "name": "HOME"
+      },
+      "created": "2026-10-22T20:09:02.753Z",
+      "display_order": 0,
+      "hidden": false,
+      "id": "476973393",
+      "info": {},
+      "market_id": "172891843",
+      "modified": "2026-10-22T20:09:02.753Z",
+      "name": "Nuclear TigeRES",
+      "outcome_timestamp": null,
+      "slug": "home",
+      "state_or_outcome": "open"
+     },
+     {
+      "competitor_id": 21090143,
+      "contract_type": {
+       "name": "AWAY"
+      },
+      "created": "2026-10-22T20:09:02.753Z",
+      "display_order": 100,
+      "hidden": false,
+      "id": "476973394",
+      "info": {},
+      "market_id": "172891843",
+      "modified": "2026-10-22T20:09:02.753Z",
+      "name": "FORZE Reload",
+      "outcome_timestamp": null,
+      "slug": "away",
+      "state_or_outcome": "open"
+     }
+    ]
+   },
+   "lead": true
+  },
+  {
    "hotspawn_id": "1082996",
    "teams": [
     "Acend",
@@ -568,10 +2507,10 @@
    "competition": "NODWIN Clutch Series #13",
    "starts_at": "2026-10-25T09:00:00Z",
    "tier": "b",
-   "published_method": "model",
-   "published_label": "Valve-rating research estimate",
+   "published_method": null,
+   "published_label": null,
    "published_probability": null,
-   "published_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "published_source_url": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
    "bo3": {
     "slug": "acend-cs2-vs-unity-25-10-2026",
@@ -582,16 +2521,6 @@
     "quote": null
    },
    "bo3_near_misses": [
-    {
-     "slug": "unity-vs-ence-prospects-23-10-2026",
-     "teams": [
-      "ENCE Prospects",
-      "UNiTY"
-     ],
-     "start": "2026-10-23T10:30:00.000+00:00",
-     "start_delta_sec": 167400,
-     "status": "one shared side only"
-    },
     {
      "slug": "acend-cs2-vs-forze-reload-24-10-2026",
      "teams": [
@@ -615,10 +2544,10 @@
    "competition": "NODWIN Clutch Series #13",
    "starts_at": "2026-10-25T12:00:00Z",
    "tier": "b",
-   "published_method": "model",
-   "published_label": "Valve-rating research estimate",
+   "published_method": null,
+   "published_label": null,
    "published_probability": null,
-   "published_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "published_source_url": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198",
    "bo3": {
     "slug": "metizport-vs-baks-esports-25-10-2026",
@@ -644,6 +2573,43 @@
    "lead": false
   },
   {
+   "hotspawn_id": "1079199",
+   "teams": [
+    "Infinite",
+    "BRUTE"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at": "2026-10-25T15:00:00Z",
+   "tier": "b",
+   "published_method": null,
+   "published_label": null,
+   "published_probability": null,
+   "published_source_url": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/infinite-vs-brute-nodwin-clutch-series-13-1079199",
+   "bo3": {
+    "slug": "infinite-gaming-vs-brute-25-10-2026",
+    "url": "https://bo3.gg/matches/infinite-gaming-vs-brute-25-10-2026",
+    "start": "2026-10-25T15:00:00.000+00:00",
+    "start_delta_sec": 0,
+    "tier": "b",
+    "quote": null
+   },
+   "bo3_near_misses": [
+    {
+     "slug": "brute-vs-baks-esports-23-10-2026",
+     "teams": [
+      "BAKS",
+      "BRUTE"
+     ],
+     "start": "2026-10-23T17:00:00.000+00:00",
+     "start_delta_sec": 165600,
+     "status": "one shared side only"
+    }
+   ],
+   "smarkets": null,
+   "lead": false
+  },
+  {
    "hotspawn_id": "1079200",
    "teams": [
     "Color",
@@ -652,10 +2618,10 @@
    "competition": "NODWIN Clutch Series #13",
    "starts_at": "2026-10-25T18:00:00Z",
    "tier": "b",
-   "published_method": "model",
-   "published_label": "Valve-rating research estimate",
+   "published_method": null,
+   "published_label": null,
    "published_probability": null,
-   "published_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "published_source_url": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/color-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079200",
    "bo3": {
     "slug": "color-vs-ex-zero-tenacity-25-10-2026",
@@ -688,10 +2654,10 @@
    "competition": "DFRAG Invitational 2026",
    "starts_at": "2026-10-26T03:00:00Z",
    "tier": "b",
-   "published_method": "model",
-   "published_label": "Research model estimate (HLTV world ranking)",
+   "published_method": null,
+   "published_label": null,
    "published_probability": null,
-   "published_source_url": "https://www.hltv.org/ranking/teams",
+   "published_source_url": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
    "bo3": {
     "slug": "ground-zero-vs-off-chops-26-10-2026",
@@ -810,6 +2776,96 @@
    "lead": false
   },
   {
+   "hotspawn_id": "1082859",
+   "teams": [
+    "NEXVOID",
+    "Alter Ego"
+   ],
+   "competition": "DFRAG Invitational 2026",
+   "starts_at": "2026-10-26T03:00:00Z",
+   "tier": "b",
+   "published_method": null,
+   "published_label": null,
+   "published_probability": null,
+   "published_source_url": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/nexvoid-vs-alter-ego-dfrag-invitational-2026-1082859",
+   "bo3": {
+    "slug": "nexvoid-vs-alter-ego-26-10-2026",
+    "url": "https://bo3.gg/matches/nexvoid-vs-alter-ego-26-10-2026",
+    "start": "2026-10-26T03:00:00.000+00:00",
+    "start_delta_sec": 0,
+    "tier": "b",
+    "quote": {
+     "provider": "thunderpick",
+     "book_url": "https://thunderpick.io/match/2870940",
+     "markets_count": 183,
+     "sides": {
+      "team_1": {
+       "name": "NEXVOID",
+       "coeff": 1.6,
+       "active": true,
+       "team_id": 22560
+      },
+      "team_2": {
+       "name": "Alter Ego",
+       "coeff": 2.17,
+       "active": true,
+       "team_id": 4170
+      }
+     },
+     "two_sided_price": true
+    }
+   },
+   "bo3_near_misses": [],
+   "smarkets": null,
+   "lead": true
+  },
+  {
+   "hotspawn_id": "1082860",
+   "teams": [
+    "FlyQuest",
+    "Staqued"
+   ],
+   "competition": "DFRAG Invitational 2026",
+   "starts_at": "2026-10-27T03:00:00Z",
+   "tier": "b",
+   "published_method": null,
+   "published_label": null,
+   "published_probability": null,
+   "published_source_url": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
+   "bo3": {
+    "slug": "flyquest-vs-staqued-27-10-2026",
+    "url": "https://bo3.gg/matches/flyquest-vs-staqued-27-10-2026",
+    "start": "2026-10-27T03:00:00.000+00:00",
+    "start_delta_sec": 0,
+    "tier": "b",
+    "quote": {
+     "provider": "thunderpick",
+     "book_url": "https://thunderpick.io/match/2872333",
+     "markets_count": 7,
+     "sides": {
+      "team_1": {
+       "name": "FlyQuest",
+       "coeff": 1.001,
+       "active": true,
+       "team_id": 10398
+      },
+      "team_2": {
+       "name": "Staqued",
+       "coeff": 12.0,
+       "active": true,
+       "team_id": 25258
+      }
+     },
+     "two_sided_price": true
+    }
+   },
+   "bo3_near_misses": [],
+   "smarkets": null,
+   "lead": true
+  },
+  {
    "hotspawn_id": "1082861",
    "teams": [
     "Rooster",
@@ -818,10 +2874,10 @@
    "competition": "DFRAG Invitational 2026",
    "starts_at": "2026-10-27T03:00:00Z",
    "tier": "b",
-   "published_method": "model",
-   "published_label": "Valve-rating research estimate",
+   "published_method": null,
+   "published_label": null,
    "published_probability": null,
-   "published_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "published_source_url": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
    "bo3": {
     "slug": "rooster-vs-abyssal-27-10-2026",
@@ -836,6 +2892,208 @@
    "lead": false
   },
   {
+   "hotspawn_id": "1082897",
+   "teams": [
+    "B8",
+    "K27"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T08:00:00Z",
+   "tier": "b",
+   "published_method": null,
+   "published_label": null,
+   "published_probability": null,
+   "published_source_url": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/b8-vs-k27-tesla-cup-2026-1082897",
+   "bo3": {
+    "slug": "b8-vs-k27-27-10-2026",
+    "url": "https://bo3.gg/matches/b8-vs-k27-27-10-2026",
+    "start": "2026-10-27T08:00:00.000+00:00",
+    "start_delta_sec": 0,
+    "tier": "b",
+    "quote": {
+     "provider": "thunderpick",
+     "book_url": "https://thunderpick.io/match/2865386",
+     "markets_count": 233,
+     "sides": {
+      "team_1": {
+       "name": "B8",
+       "coeff": 1.65,
+       "active": true,
+       "team_id": 1539
+      },
+      "team_2": {
+       "name": "K27",
+       "coeff": 2.1,
+       "active": true,
+       "team_id": 10718
+      }
+     },
+     "two_sided_price": true
+    }
+   },
+   "bo3_near_misses": [
+    {
+     "slug": "heroic-vs-b8-02-11-2026",
+     "teams": [
+      "B8",
+      "HEROIC"
+     ],
+     "start": "2026-11-02T07:00:00.000+00:00",
+     "start_delta_sec": 514800,
+     "status": "one shared side only"
+    }
+   ],
+   "smarkets": null,
+   "lead": true
+  },
+  {
+   "hotspawn_id": "1082898",
+   "teams": [
+    "Alliance",
+    "FaZe"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T11:00:00Z",
+   "tier": "b",
+   "published_method": null,
+   "published_label": null,
+   "published_probability": null,
+   "published_source_url": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/alliance-vs-faze-tesla-cup-2026-1082898",
+   "bo3": {
+    "slug": "alliance-cs-vs-faze-27-10-2026",
+    "url": "https://bo3.gg/matches/alliance-cs-vs-faze-27-10-2026",
+    "start": "2026-10-27T11:00:00.000+00:00",
+    "start_delta_sec": 0,
+    "tier": "b",
+    "quote": {
+     "provider": "thunderpick",
+     "book_url": "https://thunderpick.io/match/2865383",
+     "markets_count": 225,
+     "sides": {
+      "team_1": {
+       "name": "Alliance",
+       "coeff": 2.5,
+       "active": true,
+       "team_id": 8221
+      },
+      "team_2": {
+       "name": "FaZe",
+       "coeff": 1.48,
+       "active": true,
+       "team_id": 791
+      }
+     },
+     "two_sided_price": true
+    }
+   },
+   "bo3_near_misses": [
+    {
+     "slug": "furia-vs-faze-02-11-2026",
+     "teams": [
+      "FURIA",
+      "FaZe"
+     ],
+     "start": "2026-11-02T07:00:00.000+00:00",
+     "start_delta_sec": 504000,
+     "status": "one shared side only"
+    }
+   ],
+   "smarkets": null,
+   "lead": true
+  },
+  {
+   "hotspawn_id": "1082900",
+   "teams": [
+    "Luminosity",
+    "HOTU"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T17:00:00Z",
+   "tier": "b",
+   "published_method": null,
+   "published_label": null,
+   "published_probability": null,
+   "published_source_url": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/luminosity-vs-hotu-tesla-cup-2026-1082900",
+   "bo3": {
+    "slug": "luminosity-cs-go-vs-hotu-27-10-2026",
+    "url": "https://bo3.gg/matches/luminosity-cs-go-vs-hotu-27-10-2026",
+    "start": "2026-10-27T17:00:00.000+00:00",
+    "start_delta_sec": 0,
+    "tier": "b",
+    "quote": {
+     "provider": "thunderpick",
+     "book_url": "https://thunderpick.io/match/2865384",
+     "markets_count": 229,
+     "sides": {
+      "team_1": {
+       "name": "Luminosity",
+       "coeff": 1.72,
+       "active": true,
+       "team_id": 776
+      },
+      "team_2": {
+       "name": "HOTU",
+       "coeff": 2.0,
+       "active": true,
+       "team_id": 2720
+      }
+     },
+     "two_sided_price": true
+    }
+   },
+   "bo3_near_misses": [],
+   "smarkets": null,
+   "lead": true
+  },
+  {
+   "hotspawn_id": "1082901",
+   "teams": [
+    "Envy",
+    "GamerLegion"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T20:00:00Z",
+   "tier": "b",
+   "published_method": null,
+   "published_label": null,
+   "published_probability": null,
+   "published_source_url": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/envy-vs-gamerlegion-tesla-cup-2026-1082901",
+   "bo3": {
+    "slug": "envyus-vs-gamerlegion-27-10-2026",
+    "url": "https://bo3.gg/matches/envyus-vs-gamerlegion-27-10-2026",
+    "start": "2026-10-27T20:00:00.000+00:00",
+    "start_delta_sec": 0,
+    "tier": "b",
+    "quote": {
+     "provider": "thunderpick",
+     "book_url": "https://thunderpick.io/match/2865385",
+     "markets_count": 229,
+     "sides": {
+      "team_1": {
+       "name": "Envy",
+       "coeff": 2.0,
+       "active": true,
+       "team_id": 781
+      },
+      "team_2": {
+       "name": "GamerLegion",
+       "coeff": 1.72,
+       "active": true,
+       "team_id": 594
+      }
+     },
+     "two_sided_price": true
+    }
+   },
+   "bo3_near_misses": [],
+   "smarkets": null,
+   "lead": true
+  },
+  {
    "hotspawn_id": "1082792",
    "teams": [
     "HOTU",
@@ -844,10 +3102,10 @@
    "competition": "Moscow Cyber Games 2026",
    "starts_at": "2026-10-31T09:00:00Z",
    "tier": "b",
-   "published_method": "model",
-   "published_label": "Research model estimate (Valve official ratings)",
+   "published_method": null,
+   "published_label": null,
    "published_probability": null,
-   "published_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "published_source_url": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
    "bo3": null,
    "bo3_near_misses": [
@@ -874,10 +3132,10 @@
    "competition": "Moscow Cyber Games 2026",
    "starts_at": "2026-10-31T13:00:00Z",
    "tier": "b",
-   "published_method": "model",
-   "published_label": "Valve-rating research estimate",
+   "published_method": null,
+   "published_label": null,
    "published_probability": null,
-   "published_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "published_source_url": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
    "bo3": null,
    "bo3_near_misses": [],
@@ -885,7 +3143,1066 @@
    "lead": false
   }
  ],
- "leads": [],
+ "leads": [
+  {
+   "id": "1081148",
+   "teams": [
+    "Inner Circle Academy",
+    "Spirit Academy"
+   ],
+   "competition": "CCT Europe 2026 Series #12",
+   "starts_at": "2026-10-23T11:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/inner-circle-academy-vs-spirit-academy-cct-europe-2026-series-12-1081148",
+   "bo3_bound_url": "https://bo3.gg/matches/inner-circle-academy-vs-spirit-academy-23-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2868069",
+    "team_1": {
+     "name": "Inner Circle Academy",
+     "coeff": 2.3,
+     "active": true,
+     "team_id": 22737
+    },
+    "team_2": {
+     "name": "Spirit Academy",
+     "coeff": 1.55,
+     "active": true,
+     "team_id": 1309
+    }
+   },
+   "smarkets_evidence": {
+    "event_url": "https://smarkets.com/sport/esports/cs-go/cct-europe/group-stage/2026/10/23/11-00/inner-circle-academy-vs-spirit-academy",
+    "event_name": "Inner Circle Academy vs Spirit Academy",
+    "quotes_verbatim": {
+     "476641252": {
+      "bids": [
+       {
+        "price": 3788,
+        "quantity": 1781944
+       },
+       {
+        "price": 3650,
+        "quantity": 1849314
+       },
+       {
+        "price": 3497,
+        "quantity": 1930224
+       }
+      ],
+      "offers": [
+       {
+        "price": 5025,
+        "quantity": 1356783
+       },
+       {
+        "price": 5236,
+        "quantity": 1416876
+       }
+      ]
+     },
+     "476641253": {
+      "bids": [
+       {
+        "price": 4950,
+        "quantity": 1363638
+       }
+      ],
+      "offers": [
+       {
+        "price": 6211,
+        "quantity": 1781477
+       },
+       {
+        "price": 6536,
+        "quantity": 1948614
+       }
+      ]
+     }
+    },
+    "two_sided": true
+   },
+   "money_line_lead": true,
+   "near_misses": [
+    {
+     "slug": "spirit-academy-vs-lavked-24-10-2026",
+     "teams": [
+      "Lavked",
+      "Spirit Academy"
+     ],
+     "start": "2026-10-24T11:00:00.000+00:00",
+     "start_delta_sec": 86400,
+     "status": "one shared side only"
+    }
+   ],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1081606",
+   "teams": [
+    "JiJieHao",
+    "Eternal Fire"
+   ],
+   "competition": "DraculaN Season 7",
+   "starts_at": "2026-10-23T13:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/jijiehao-vs-eternal-fire-draculan-season-7-1081606",
+   "bo3_bound_url": "https://bo3.gg/matches/jijiehao-vs-eternal-fire-23-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2872901",
+    "team_1": {
+     "name": "Eternal Fire",
+     "coeff": 1.78,
+     "active": true,
+     "team_id": 1527
+    },
+    "team_2": {
+     "name": "JiJieHao",
+     "coeff": 1.93,
+     "active": true,
+     "team_id": 3869
+    }
+   },
+   "smarkets_evidence": {
+    "event_url": "https://smarkets.com/sport/esports/cs-go/draculan/playoffs/2026/10/23/13-00/jijiehao-vs-eternal-fire",
+    "event_name": "JiJieHao vs Eternal Fire",
+    "quotes_verbatim": {
+     "477042876": {
+      "bids": [
+       {
+        "price": 4098,
+        "quantity": 1647146
+       }
+      ],
+      "offers": [
+       {
+        "price": 4762,
+        "quantity": 13636600
+       },
+       {
+        "price": 5319,
+        "quantity": 1441999
+       }
+      ]
+     },
+     "477042877": {
+      "bids": [
+       {
+        "price": 4673,
+        "quantity": 1444469
+       }
+      ],
+      "offers": [
+       {
+        "price": 5917,
+        "quantity": 1653200
+       }
+      ]
+     }
+    },
+    "two_sided": true
+   },
+   "money_line_lead": true,
+   "near_misses": [
+    {
+     "slug": "mibr-vs-eternal-fire-27-10-2026",
+     "teams": [
+      "Eternal Fire",
+      "MIBR"
+     ],
+     "start": "2026-10-27T18:30:00.000+00:00",
+     "start_delta_sec": 365400,
+     "status": "one shared side only"
+    }
+   ],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1082926",
+   "teams": [
+    "Isurus",
+    "Hacha"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-23T13:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926",
+   "bo3_bound_url": "https://bo3.gg/matches/isurus-gaming-cs-go-vs-hacha-esports-23-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2870814",
+    "team_1": {
+     "name": "Isurus",
+     "coeff": 1.22,
+     "active": true,
+     "team_id": 591
+    },
+    "team_2": {
+     "name": "Hacha",
+     "coeff": 3.8,
+     "active": true,
+     "team_id": 9764
+    }
+   },
+   "smarkets_evidence": null,
+   "money_line_lead": true,
+   "near_misses": [],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1082980",
+   "teams": [
+    "LPH",
+    "WBT Academy"
+   ],
+   "competition": "ESL Challenger League Season 52: Europe - Cup #9",
+   "starts_at": "2026-10-23T13:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/lph-vs-wbt-academy-esl-challenger-league-season-52-europe-cup-9-1082980",
+   "bo3_bound_url": "https://bo3.gg/matches/lph-gaming-vs-wbt-academy-23-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2872919",
+    "team_1": {
+     "name": "WBT Academy",
+     "coeff": 1.49,
+     "active": true,
+     "team_id": 24929
+    },
+    "team_2": {
+     "name": "LPH",
+     "coeff": 2.45,
+     "active": true,
+     "team_id": 20582
+    }
+   },
+   "smarkets_evidence": null,
+   "money_line_lead": true,
+   "near_misses": [
+    {
+     "slug": "dnk-vs-lph-gaming-26-10-2026",
+     "teams": [
+      "DNK",
+      "LPH"
+     ],
+     "start": "2026-10-26T18:00:00.000+00:00",
+     "start_delta_sec": 277200,
+     "status": "one shared side only"
+    },
+    {
+     "slug": "lph-gaming-vs-los-kogutos-27-10-2026",
+     "teams": [
+      "LPH",
+      "los kogutos"
+     ],
+     "start": "2026-10-27T18:00:00.000+00:00",
+     "start_delta_sec": 363600,
+     "status": "one shared side only"
+    },
+    {
+     "slug": "lph-gaming-vs-phantom-academy-06-11-2026",
+     "teams": [
+      "LPH",
+      "Phantom Academy"
+     ],
+     "start": "2026-11-06T18:00:00.000+00:00",
+     "start_delta_sec": 1227600,
+     "status": "one shared side only"
+    }
+   ],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1082924",
+   "teams": [
+    "BORRACHEIROS",
+    "QUINTESSÊNCIA"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-23T16:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/borracheiros-vs-quintess-ncia-cct-south-america-2026-series-7-1082924",
+   "bo3_bound_url": "https://bo3.gg/matches/borracheiros-vs-quintessencia-23-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2870808",
+    "team_1": {
+     "name": "BORRACHEIROS",
+     "coeff": 1.52,
+     "active": true,
+     "team_id": 24668
+    },
+    "team_2": {
+     "name": "QUINTESSÊNCIA",
+     "coeff": 2.35,
+     "active": true,
+     "team_id": 23217
+    }
+   },
+   "smarkets_evidence": {
+    "event_url": "https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/23/16-00/borracheiros-vs-quintessencia",
+    "event_name": "BORRACHEIROS vs QUINTESSÊNCIA",
+    "quotes_verbatim": {
+     "477055186": {
+      "bids": [
+       {
+        "price": 5682,
+        "quantity": 1187961
+       },
+       {
+        "price": 5435,
+        "quantity": 1241949
+       }
+      ],
+      "offers": [
+       {
+        "price": 6944,
+        "quantity": 2208769
+       }
+      ]
+     },
+     "477055187": {
+      "bids": [
+       {
+        "price": 3077,
+        "quantity": 2193694
+       }
+      ],
+      "offers": [
+       {
+        "price": 4310,
+        "quantity": 1186291
+       },
+       {
+        "price": 4587,
+        "quantity": 1246997
+       }
+      ]
+     }
+    },
+    "two_sided": true
+   },
+   "money_line_lead": true,
+   "near_misses": [
+    {
+     "slug": "quintessencia-vs-meia-noite-26-10-2026",
+     "teams": [
+      "MEIA NOITE",
+      "QUINTESSÊNCIA"
+     ],
+     "start": "2026-10-26T21:00:00.000+00:00",
+     "start_delta_sec": 277200,
+     "status": "one shared side only"
+    }
+   ],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1079657",
+   "teams": [
+    "BakS",
+    "BRUTE"
+   ],
+   "competition": "CCT Europe 2026 Series #11",
+   "starts_at": "2026-10-23T17:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/baks-vs-brute-cct-europe-2026-series-11-1079657",
+   "bo3_bound_url": "https://bo3.gg/matches/brute-vs-baks-esports-23-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2870933",
+    "team_1": {
+     "name": "BRUTE",
+     "coeff": 1.71,
+     "active": true,
+     "team_id": 370
+    },
+    "team_2": {
+     "name": "BAKS",
+     "coeff": 2.02,
+     "active": true,
+     "team_id": 2924
+    }
+   },
+   "smarkets_evidence": null,
+   "money_line_lead": true,
+   "near_misses": [
+    {
+     "slug": "metizport-vs-baks-esports-25-10-2026",
+     "teams": [
+      "BAKS",
+      "Metizport"
+     ],
+     "start": "2026-10-25T12:00:00.000+00:00",
+     "start_delta_sec": 154800,
+     "status": "one shared side only"
+    },
+    {
+     "slug": "infinite-gaming-vs-brute-25-10-2026",
+     "teams": [
+      "BRUTE",
+      "INFINITE"
+     ],
+     "start": "2026-10-25T15:00:00.000+00:00",
+     "start_delta_sec": 165600,
+     "status": "one shared side only"
+    }
+   ],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1082693",
+   "teams": [
+    "BESTIA",
+    "Galorys"
+   ],
+   "competition": "Circuit X Curitiba #4",
+   "starts_at": "2026-10-23T18:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/bestia-vs-galorys-circuit-x-curitiba-4-1082693",
+   "bo3_bound_url": "https://bo3.gg/matches/bestia-vs-galorys-cs-23-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2873215",
+    "team_1": {
+     "name": "BESTIA",
+     "coeff": 1.62,
+     "active": true,
+     "team_id": 5701
+    },
+    "team_2": {
+     "name": "Galorys",
+     "coeff": 2.15,
+     "active": true,
+     "team_id": 10049
+    }
+   },
+   "smarkets_evidence": {
+    "event_url": "https://smarkets.com/sport/esports/cs-go/circuit-x/playoffs/2026/10/23/18-00/bestia-vs-galorys",
+    "event_name": "BESTIA vs Galorys",
+    "quotes_verbatim": {
+     "477052084": {
+      "bids": [
+       {
+        "price": 5208,
+        "quantity": 1296085
+       },
+       {
+        "price": 5076,
+        "quantity": 1329788
+       }
+      ],
+      "offers": [
+       {
+        "price": 6410,
+        "quantity": 1880227
+       },
+       {
+        "price": 6452,
+        "quantity": 1902480
+       }
+      ]
+     },
+     "477052085": {
+      "bids": [
+       {
+        "price": 3571,
+        "quantity": 1890228
+       }
+      ],
+      "offers": [
+       {
+        "price": 4808,
+        "quantity": 1300079
+       },
+       {
+        "price": 5102,
+        "quantity": 1378116
+       }
+      ]
+     }
+    },
+    "two_sided": true
+   },
+   "money_line_lead": true,
+   "near_misses": [],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1082925",
+   "teams": [
+    "BESTIA Academy",
+    "RED Canids Academy"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-23T19:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/bestia-academy-vs-red-canids-academy-cct-south-america-2026-series-7-1082925",
+   "bo3_bound_url": "https://bo3.gg/matches/bestia-academy-vs-red-canids-academy-23-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2870811",
+    "team_1": {
+     "name": "BESTIA Academy",
+     "coeff": 2.7,
+     "active": true,
+     "team_id": 18461
+    },
+    "team_2": {
+     "name": "RED Canids Academy",
+     "coeff": 1.4,
+     "active": true,
+     "team_id": 16743
+    }
+   },
+   "smarkets_evidence": {
+    "event_url": "https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/23/19-00/bestia-academy-vs-red-canids-academy",
+    "event_name": "BESTIA Academy vs RED Canids Academy",
+    "quotes_verbatim": {
+     "477055188": {
+      "bids": [
+       {
+        "price": 2817,
+        "quantity": 2396169
+       }
+      ],
+      "offers": [
+       {
+        "price": 4032,
+        "quantity": 1131032
+       },
+       {
+        "price": 4630,
+        "quantity": 13301400
+       }
+      ]
+     },
+     "477055189": {
+      "bids": [
+       {
+        "price": 5952,
+        "quantity": 1134073
+       }
+      ],
+      "offers": [
+       {
+        "price": 7194,
+        "quantity": 2405567
+       }
+      ]
+     }
+    },
+    "two_sided": true
+   },
+   "money_line_lead": true,
+   "near_misses": [
+    {
+     "slug": "pain-gaming-academy-vs-bestia-academy-26-10-2026",
+     "teams": [
+      "BESTIA Academy",
+      "paiN Academy"
+     ],
+     "start": "2026-10-26T21:00:00.000+00:00",
+     "start_delta_sec": 266400,
+     "status": "one shared side only"
+    }
+   ],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1083025",
+   "teams": [
+    "paiN",
+    "Imperial"
+   ],
+   "competition": "Circuit X Curitiba #4",
+   "starts_at": "2026-10-23T21:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/pain-vs-imperial-circuit-x-curitiba-4-1083025",
+   "bo3_bound_url": "https://bo3.gg/matches/pain-gaming-vs-imperial-23-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2873224",
+    "team_1": {
+     "name": "paiN",
+     "coeff": 2.4,
+     "active": true,
+     "team_id": 637
+    },
+    "team_2": {
+     "name": "Imperial",
+     "coeff": 1.5,
+     "active": true,
+     "team_id": 1430
+    }
+   },
+   "smarkets_evidence": {
+    "event_url": "https://smarkets.com/sport/esports/cs-go/circuit-x/playoffs/2026/10/23/21-00/pain-vs-imperial",
+    "event_name": "paiN vs Imperial",
+    "quotes_verbatim": {
+     "477051932": {
+      "bids": [
+       {
+        "price": 3077,
+        "quantity": 2193698
+       }
+      ],
+      "offers": [
+       {
+        "price": 4310,
+        "quantity": 1186291
+       }
+      ]
+     },
+     "477051933": {
+      "bids": [
+       {
+        "price": 5682,
+        "quantity": 1187963
+       }
+      ],
+      "offers": [
+       {
+        "price": 6897,
+        "quantity": 2175321
+       }
+      ]
+     }
+    },
+    "two_sided": true
+   },
+   "money_line_lead": true,
+   "near_misses": [],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1079193",
+   "teams": [
+    "FOKUS",
+    "ex-6666"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at": "2026-10-24T08:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/fokus-vs-ex-6666-nodwin-clutch-series-13-1079193",
+   "bo3_bound_url": "https://bo3.gg/matches/fokus-cs-vs-ex-6666-24-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2872398",
+    "team_1": {
+     "name": "FOKUS",
+     "coeff": 1.22,
+     "active": true,
+     "team_id": 22184
+    },
+    "team_2": {
+     "name": "ex-6666",
+     "coeff": 3.8,
+     "active": true,
+     "team_id": 25508
+    }
+   },
+   "smarkets_evidence": {
+    "event_url": "https://smarkets.com/sport/esports/cs-go/nodwin-clutch-series/playoffs/2026/10/24/08-00/fokus-vs-ex-6666",
+    "event_name": "FOKUS vs ex-6666",
+    "quotes_verbatim": {
+     "477055192": {
+      "bids": [
+       {
+        "price": 7092,
+        "quantity": 951780
+       }
+      ],
+      "offers": [
+       {
+        "price": 8772,
+        "quantity": 5496786
+       }
+      ]
+     },
+     "477055193": {
+      "bids": [
+       {
+        "price": 1282,
+        "quantity": 5265232
+       }
+      ],
+      "offers": [
+       {
+        "price": 2899,
+        "quantity": 950571
+       }
+      ]
+     }
+    },
+    "two_sided": true
+   },
+   "money_line_lead": true,
+   "near_misses": [],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1079195",
+   "teams": [
+    "Nuclear TigeRES",
+    "FORZE Reload"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at": "2026-10-24T14:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-forze-reload-nodwin-clutch-series-13-1079195",
+   "bo3_bound_url": "https://bo3.gg/matches/nuclear-tigeres-vs-forze-reload-24-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2872440",
+    "team_1": {
+     "name": "Nuclear TigeRES",
+     "coeff": 1.58,
+     "active": true,
+     "team_id": 18539
+    },
+    "team_2": {
+     "name": "FORZE Reload",
+     "coeff": 2.2,
+     "active": true,
+     "team_id": 10703
+    }
+   },
+   "smarkets_evidence": {
+    "event_url": "https://smarkets.com/sport/esports/cs-go/nodwin-clutch-series/playoffs/2026/10/24/14-00/nuclear-tigeres-vs-forze-reload",
+    "event_name": "Nuclear TigeRES vs FORZE Reload",
+    "quotes_verbatim": {
+     "476973393": {
+      "bids": [
+       {
+        "price": 5208,
+        "quantity": 1296083
+       },
+       {
+        "price": 5076,
+        "quantity": 1329789
+       }
+      ],
+      "offers": [
+       {
+        "price": 6849,
+        "quantity": 2142177
+       }
+      ]
+     },
+     "476973394": {
+      "bids": [
+       {
+        "price": 3125,
+        "quantity": 2160001
+       }
+      ],
+      "offers": [
+       {
+        "price": 4808,
+        "quantity": 1300079
+       },
+       {
+        "price": 4950,
+        "quantity": 1336633
+       }
+      ]
+     }
+    },
+    "two_sided": true
+   },
+   "money_line_lead": true,
+   "near_misses": [
+    {
+     "slug": "nuclear-tigeres-vs-illyrians-23-10-2026",
+     "teams": [
+      "Illyrians",
+      "Nuclear TigeRES"
+     ],
+     "start": "2026-10-23T11:00:00.000+00:00",
+     "start_delta_sec": 97200,
+     "status": "one shared side only"
+    },
+    {
+     "slug": "acend-cs2-vs-forze-reload-24-10-2026",
+     "teams": [
+      "Acend",
+      "FORZE Reload"
+     ],
+     "start": "2026-10-24T14:00:00.000+00:00",
+     "start_delta_sec": 0,
+     "status": "one shared side only"
+    }
+   ],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1082859",
+   "teams": [
+    "NEXVOID",
+    "Alter Ego"
+   ],
+   "competition": "DFRAG Invitational 2026",
+   "starts_at": "2026-10-26T03:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/nexvoid-vs-alter-ego-dfrag-invitational-2026-1082859",
+   "bo3_bound_url": "https://bo3.gg/matches/nexvoid-vs-alter-ego-26-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2870940",
+    "team_1": {
+     "name": "NEXVOID",
+     "coeff": 1.6,
+     "active": true,
+     "team_id": 22560
+    },
+    "team_2": {
+     "name": "Alter Ego",
+     "coeff": 2.17,
+     "active": true,
+     "team_id": 4170
+    }
+   },
+   "smarkets_evidence": null,
+   "money_line_lead": true,
+   "near_misses": [],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1082860",
+   "teams": [
+    "FlyQuest",
+    "Staqued"
+   ],
+   "competition": "DFRAG Invitational 2026",
+   "starts_at": "2026-10-27T03:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
+   "bo3_bound_url": "https://bo3.gg/matches/flyquest-vs-staqued-27-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2872333",
+    "team_1": {
+     "name": "FlyQuest",
+     "coeff": 1.001,
+     "active": true,
+     "team_id": 10398
+    },
+    "team_2": {
+     "name": "Staqued",
+     "coeff": 12.0,
+     "active": true,
+     "team_id": 25258
+    }
+   },
+   "smarkets_evidence": null,
+   "money_line_lead": true,
+   "near_misses": [],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1082897",
+   "teams": [
+    "B8",
+    "K27"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T08:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/b8-vs-k27-tesla-cup-2026-1082897",
+   "bo3_bound_url": "https://bo3.gg/matches/b8-vs-k27-27-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2865386",
+    "team_1": {
+     "name": "B8",
+     "coeff": 1.65,
+     "active": true,
+     "team_id": 1539
+    },
+    "team_2": {
+     "name": "K27",
+     "coeff": 2.1,
+     "active": true,
+     "team_id": 10718
+    }
+   },
+   "smarkets_evidence": null,
+   "money_line_lead": true,
+   "near_misses": [
+    {
+     "slug": "heroic-vs-b8-02-11-2026",
+     "teams": [
+      "B8",
+      "HEROIC"
+     ],
+     "start": "2026-11-02T07:00:00.000+00:00",
+     "start_delta_sec": 514800,
+     "status": "one shared side only"
+    }
+   ],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1082898",
+   "teams": [
+    "Alliance",
+    "FaZe"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T11:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/alliance-vs-faze-tesla-cup-2026-1082898",
+   "bo3_bound_url": "https://bo3.gg/matches/alliance-cs-vs-faze-27-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2865383",
+    "team_1": {
+     "name": "Alliance",
+     "coeff": 2.5,
+     "active": true,
+     "team_id": 8221
+    },
+    "team_2": {
+     "name": "FaZe",
+     "coeff": 1.48,
+     "active": true,
+     "team_id": 791
+    }
+   },
+   "smarkets_evidence": null,
+   "money_line_lead": true,
+   "near_misses": [
+    {
+     "slug": "furia-vs-faze-02-11-2026",
+     "teams": [
+      "FURIA",
+      "FaZe"
+     ],
+     "start": "2026-11-02T07:00:00.000+00:00",
+     "start_delta_sec": 504000,
+     "status": "one shared side only"
+    }
+   ],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1082900",
+   "teams": [
+    "Luminosity",
+    "HOTU"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T17:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/luminosity-vs-hotu-tesla-cup-2026-1082900",
+   "bo3_bound_url": "https://bo3.gg/matches/luminosity-cs-go-vs-hotu-27-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2865384",
+    "team_1": {
+     "name": "Luminosity",
+     "coeff": 1.72,
+     "active": true,
+     "team_id": 776
+    },
+    "team_2": {
+     "name": "HOTU",
+     "coeff": 2.0,
+     "active": true,
+     "team_id": 2720
+    }
+   },
+   "smarkets_evidence": null,
+   "money_line_lead": true,
+   "near_misses": [],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1082901",
+   "teams": [
+    "Envy",
+    "GamerLegion"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T20:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/envy-vs-gamerlegion-tesla-cup-2026-1082901",
+   "bo3_bound_url": "https://bo3.gg/matches/envyus-vs-gamerlegion-27-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2865385",
+    "team_1": {
+     "name": "Envy",
+     "coeff": 2.0,
+     "active": true,
+     "team_id": 781
+    },
+    "team_2": {
+     "name": "GamerLegion",
+     "coeff": 1.72,
+     "active": true,
+     "team_id": 594
+    }
+   },
+   "smarkets_evidence": null,
+   "money_line_lead": true,
+   "near_misses": [],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  }
+ ],
  "per_fixture": [
   {
    "id": "1081605",
@@ -895,8 +4212,8 @@
    ],
    "competition": "CCT Europe 2026 Challengers #8",
    "starts_at": "2026-10-23T11:00:00Z",
-   "current_method": "model",
-   "current_label": "Valve-rating research estimate",
+   "current_method": null,
+   "current_label": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/phantom-academy-vs-banda-chuya-cct-europe-2026-challengers-8-1081605",
    "bo3_bound_url": null,
    "bo3_start_delta_sec": null,
@@ -939,6 +4256,1055 @@
    "verdict": "No two-sided prematch price found on any probed surface; the research-model pick and its limitation stand."
   },
   {
+   "id": "1081148",
+   "teams": [
+    "Inner Circle Academy",
+    "Spirit Academy"
+   ],
+   "competition": "CCT Europe 2026 Series #12",
+   "starts_at": "2026-10-23T11:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/inner-circle-academy-vs-spirit-academy-cct-europe-2026-series-12-1081148",
+   "bo3_bound_url": "https://bo3.gg/matches/inner-circle-academy-vs-spirit-academy-23-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2868069",
+    "team_1": {
+     "name": "Inner Circle Academy",
+     "coeff": 2.3,
+     "active": true,
+     "team_id": 22737
+    },
+    "team_2": {
+     "name": "Spirit Academy",
+     "coeff": 1.55,
+     "active": true,
+     "team_id": 1309
+    }
+   },
+   "smarkets_evidence": {
+    "event_url": "https://smarkets.com/sport/esports/cs-go/cct-europe/group-stage/2026/10/23/11-00/inner-circle-academy-vs-spirit-academy",
+    "event_name": "Inner Circle Academy vs Spirit Academy",
+    "quotes_verbatim": {
+     "476641252": {
+      "bids": [
+       {
+        "price": 3788,
+        "quantity": 1781944
+       },
+       {
+        "price": 3650,
+        "quantity": 1849314
+       },
+       {
+        "price": 3497,
+        "quantity": 1930224
+       }
+      ],
+      "offers": [
+       {
+        "price": 5025,
+        "quantity": 1356783
+       },
+       {
+        "price": 5236,
+        "quantity": 1416876
+       }
+      ]
+     },
+     "476641253": {
+      "bids": [
+       {
+        "price": 4950,
+        "quantity": 1363638
+       }
+      ],
+      "offers": [
+       {
+        "price": 6211,
+        "quantity": 1781477
+       },
+       {
+        "price": 6536,
+        "quantity": 1948614
+       }
+      ]
+     }
+    },
+    "two_sided": true
+   },
+   "money_line_lead": true,
+   "near_misses": [
+    {
+     "slug": "spirit-academy-vs-lavked-24-10-2026",
+     "teams": [
+      "Lavked",
+      "Spirit Academy"
+     ],
+     "start": "2026-10-24T11:00:00.000+00:00",
+     "start_delta_sec": 86400,
+     "status": "one shared side only"
+    }
+   ],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1079655",
+   "teams": [
+    "Nuclear TigeRES",
+    "ILLYRIANS"
+   ],
+   "competition": "CCT Europe 2026 Series #11",
+   "starts_at": "2026-10-23T11:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-illyrians-cct-europe-2026-series-11-1079655",
+   "bo3_bound_url": "https://bo3.gg/matches/nuclear-tigeres-vs-illyrians-23-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": false,
+   "bo3_bet": null,
+   "smarkets_evidence": {
+    "event_url": "https://smarkets.com/sport/esports/cs-go/cct-europe/playoffs/2026/10/23/11-00/nuclear-tigeres-vs-illyrians",
+    "event_name": "Nuclear TigeRES vs ILLYRIANS",
+    "quotes_verbatim": {
+     "477013306": {
+      "bids": [
+       {
+        "price": 8000,
+        "quantity": 843749
+       }
+      ],
+      "offers": [
+       {
+        "price": 9259,
+        "quantity": 9109311
+       }
+      ]
+     },
+     "477013307": {
+      "bids": [
+       {
+        "price": 1042,
+        "quantity": 3652000
+       },
+       {
+        "price": 769,
+        "quantity": 8777635
+       }
+      ],
+      "offers": [
+       {
+        "price": 2000,
+        "quantity": 843750
+       }
+      ]
+     }
+    },
+    "two_sided": true
+   },
+   "money_line_lead": false,
+   "near_misses": [
+    {
+     "slug": "nuclear-tigeres-vs-forze-reload-24-10-2026",
+     "teams": [
+      "FORZE Reload",
+      "Nuclear TigeRES"
+     ],
+     "start": "2026-10-24T14:00:00.000+00:00",
+     "start_delta_sec": 97200,
+     "status": "one shared side only"
+    },
+    {
+     "slug": "illyrians-vs-esuba-cs-go-25-10-2026",
+     "teams": [
+      "Illyrians",
+      "eSuba"
+     ],
+     "start": "2026-10-25T11:30:00.000+00:00",
+     "start_delta_sec": 174600,
+     "status": "one shared side only"
+    }
+   ],
+   "verdict": "The Smarkets exchange lists this fixture with a two-sided quote (raw evidence attached); the reviewed ladder replays that first-party source itself on the next refresh, so this sweep creates no pick here."
+  },
+  {
+   "id": "1081606",
+   "teams": [
+    "JiJieHao",
+    "Eternal Fire"
+   ],
+   "competition": "DraculaN Season 7",
+   "starts_at": "2026-10-23T13:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/jijiehao-vs-eternal-fire-draculan-season-7-1081606",
+   "bo3_bound_url": "https://bo3.gg/matches/jijiehao-vs-eternal-fire-23-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2872901",
+    "team_1": {
+     "name": "Eternal Fire",
+     "coeff": 1.78,
+     "active": true,
+     "team_id": 1527
+    },
+    "team_2": {
+     "name": "JiJieHao",
+     "coeff": 1.93,
+     "active": true,
+     "team_id": 3869
+    }
+   },
+   "smarkets_evidence": {
+    "event_url": "https://smarkets.com/sport/esports/cs-go/draculan/playoffs/2026/10/23/13-00/jijiehao-vs-eternal-fire",
+    "event_name": "JiJieHao vs Eternal Fire",
+    "quotes_verbatim": {
+     "477042876": {
+      "bids": [
+       {
+        "price": 4098,
+        "quantity": 1647146
+       }
+      ],
+      "offers": [
+       {
+        "price": 4762,
+        "quantity": 13636600
+       },
+       {
+        "price": 5319,
+        "quantity": 1441999
+       }
+      ]
+     },
+     "477042877": {
+      "bids": [
+       {
+        "price": 4673,
+        "quantity": 1444469
+       }
+      ],
+      "offers": [
+       {
+        "price": 5917,
+        "quantity": 1653200
+       }
+      ]
+     }
+    },
+    "two_sided": true
+   },
+   "money_line_lead": true,
+   "near_misses": [
+    {
+     "slug": "mibr-vs-eternal-fire-27-10-2026",
+     "teams": [
+      "Eternal Fire",
+      "MIBR"
+     ],
+     "start": "2026-10-27T18:30:00.000+00:00",
+     "start_delta_sec": 365400,
+     "status": "one shared side only"
+    }
+   ],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1082926",
+   "teams": [
+    "Isurus",
+    "Hacha"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-23T13:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926",
+   "bo3_bound_url": "https://bo3.gg/matches/isurus-gaming-cs-go-vs-hacha-esports-23-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2870814",
+    "team_1": {
+     "name": "Isurus",
+     "coeff": 1.22,
+     "active": true,
+     "team_id": 591
+    },
+    "team_2": {
+     "name": "Hacha",
+     "coeff": 3.8,
+     "active": true,
+     "team_id": 9764
+    }
+   },
+   "smarkets_evidence": null,
+   "money_line_lead": true,
+   "near_misses": [],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1082980",
+   "teams": [
+    "LPH",
+    "WBT Academy"
+   ],
+   "competition": "ESL Challenger League Season 52: Europe - Cup #9",
+   "starts_at": "2026-10-23T13:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/lph-vs-wbt-academy-esl-challenger-league-season-52-europe-cup-9-1082980",
+   "bo3_bound_url": "https://bo3.gg/matches/lph-gaming-vs-wbt-academy-23-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2872919",
+    "team_1": {
+     "name": "WBT Academy",
+     "coeff": 1.49,
+     "active": true,
+     "team_id": 24929
+    },
+    "team_2": {
+     "name": "LPH",
+     "coeff": 2.45,
+     "active": true,
+     "team_id": 20582
+    }
+   },
+   "smarkets_evidence": null,
+   "money_line_lead": true,
+   "near_misses": [
+    {
+     "slug": "dnk-vs-lph-gaming-26-10-2026",
+     "teams": [
+      "DNK",
+      "LPH"
+     ],
+     "start": "2026-10-26T18:00:00.000+00:00",
+     "start_delta_sec": 277200,
+     "status": "one shared side only"
+    },
+    {
+     "slug": "lph-gaming-vs-los-kogutos-27-10-2026",
+     "teams": [
+      "LPH",
+      "los kogutos"
+     ],
+     "start": "2026-10-27T18:00:00.000+00:00",
+     "start_delta_sec": 363600,
+     "status": "one shared side only"
+    },
+    {
+     "slug": "lph-gaming-vs-phantom-academy-06-11-2026",
+     "teams": [
+      "LPH",
+      "Phantom Academy"
+     ],
+     "start": "2026-11-06T18:00:00.000+00:00",
+     "start_delta_sec": 1227600,
+     "status": "one shared side only"
+    }
+   ],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1083014",
+   "teams": [
+    "K27",
+    "Virtus.pro"
+   ],
+   "competition": "CIS LAN Championship #9",
+   "starts_at": "2026-10-23T13:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/k27-vs-virtus-pro-cis-lan-championship-9-1083014",
+   "bo3_bound_url": null,
+   "bo3_start_delta_sec": null,
+   "bo3_bet_two_sided": false,
+   "bo3_bet": null,
+   "smarkets_evidence": {
+    "event_url": "https://smarkets.com/sport/esports/cs-go/cis-lan-championship/playoffs/2026/10/23/13-00/k27-vs-virtus-pro",
+    "event_name": "K27 vs Virtus.pro",
+    "quotes_verbatim": {
+     "477042874": {
+      "bids": [
+       {
+        "price": 4673,
+        "quantity": 1444469
+       }
+      ],
+      "offers": [
+       {
+        "price": 5917,
+        "quantity": 1653200
+       }
+      ]
+     },
+     "477042875": {
+      "bids": [
+       {
+        "price": 4098,
+        "quantity": 1647146
+       }
+      ],
+      "offers": [
+       {
+        "price": 5000,
+        "quantity": 7128000
+       },
+       {
+        "price": 5319,
+        "quantity": 1441999
+       }
+      ]
+     }
+    },
+    "two_sided": true
+   },
+   "money_line_lead": false,
+   "near_misses": [
+    {
+     "slug": "b8-vs-k27-27-10-2026",
+     "teams": [
+      "B8",
+      "K27"
+     ],
+     "start": "2026-10-27T08:00:00.000+00:00",
+     "start_delta_sec": 327600,
+     "status": "one shared side only"
+    }
+   ],
+   "verdict": "The Smarkets exchange lists this fixture with a two-sided quote (raw evidence attached); the reviewed ladder replays that first-party source itself on the next refresh, so this sweep creates no pick here."
+  },
+  {
+   "id": "1082924",
+   "teams": [
+    "BORRACHEIROS",
+    "QUINTESSÊNCIA"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-23T16:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/borracheiros-vs-quintess-ncia-cct-south-america-2026-series-7-1082924",
+   "bo3_bound_url": "https://bo3.gg/matches/borracheiros-vs-quintessencia-23-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2870808",
+    "team_1": {
+     "name": "BORRACHEIROS",
+     "coeff": 1.52,
+     "active": true,
+     "team_id": 24668
+    },
+    "team_2": {
+     "name": "QUINTESSÊNCIA",
+     "coeff": 2.35,
+     "active": true,
+     "team_id": 23217
+    }
+   },
+   "smarkets_evidence": {
+    "event_url": "https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/23/16-00/borracheiros-vs-quintessencia",
+    "event_name": "BORRACHEIROS vs QUINTESSÊNCIA",
+    "quotes_verbatim": {
+     "477055186": {
+      "bids": [
+       {
+        "price": 5682,
+        "quantity": 1187961
+       },
+       {
+        "price": 5435,
+        "quantity": 1241949
+       }
+      ],
+      "offers": [
+       {
+        "price": 6944,
+        "quantity": 2208769
+       }
+      ]
+     },
+     "477055187": {
+      "bids": [
+       {
+        "price": 3077,
+        "quantity": 2193694
+       }
+      ],
+      "offers": [
+       {
+        "price": 4310,
+        "quantity": 1186291
+       },
+       {
+        "price": 4587,
+        "quantity": 1246997
+       }
+      ]
+     }
+    },
+    "two_sided": true
+   },
+   "money_line_lead": true,
+   "near_misses": [
+    {
+     "slug": "quintessencia-vs-meia-noite-26-10-2026",
+     "teams": [
+      "MEIA NOITE",
+      "QUINTESSÊNCIA"
+     ],
+     "start": "2026-10-26T21:00:00.000+00:00",
+     "start_delta_sec": 277200,
+     "status": "one shared side only"
+    }
+   ],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1081150",
+   "teams": [
+    "ex-RUSTEC",
+    "Saint Sinners"
+   ],
+   "competition": "CCT Europe 2026 Series #12",
+   "starts_at": "2026-10-23T17:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/ex-rustec-vs-saint-sinners-cct-europe-2026-series-12-1081150",
+   "bo3_bound_url": "https://bo3.gg/matches/ex-rustec-vs-saint-sinners-23-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": false,
+   "bo3_bet": null,
+   "smarkets_evidence": {
+    "event_url": "https://smarkets.com/sport/esports/cs-go/cct-europe/group-stage/2026/10/23/17-00/ex-rustec-vs-saint-sinners",
+    "event_name": "ex-RUSTEC vs Saint Sinners",
+    "quotes_verbatim": {
+     "477055166": {
+      "bids": [],
+      "offers": []
+     },
+     "477055167": {
+      "bids": [
+       {
+        "price": 2632,
+        "quantity": 691800
+       }
+      ],
+      "offers": [
+       {
+        "price": 6250,
+        "quantity": 552900
+       }
+      ]
+     }
+    },
+    "two_sided": false
+   },
+   "money_line_lead": false,
+   "near_misses": [],
+   "verdict": "No two-sided prematch price found on any probed surface; the research-model pick and its limitation stand."
+  },
+  {
+   "id": "1079657",
+   "teams": [
+    "BakS",
+    "BRUTE"
+   ],
+   "competition": "CCT Europe 2026 Series #11",
+   "starts_at": "2026-10-23T17:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/baks-vs-brute-cct-europe-2026-series-11-1079657",
+   "bo3_bound_url": "https://bo3.gg/matches/brute-vs-baks-esports-23-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2870933",
+    "team_1": {
+     "name": "BRUTE",
+     "coeff": 1.71,
+     "active": true,
+     "team_id": 370
+    },
+    "team_2": {
+     "name": "BAKS",
+     "coeff": 2.02,
+     "active": true,
+     "team_id": 2924
+    }
+   },
+   "smarkets_evidence": null,
+   "money_line_lead": true,
+   "near_misses": [
+    {
+     "slug": "metizport-vs-baks-esports-25-10-2026",
+     "teams": [
+      "BAKS",
+      "Metizport"
+     ],
+     "start": "2026-10-25T12:00:00.000+00:00",
+     "start_delta_sec": 154800,
+     "status": "one shared side only"
+    },
+    {
+     "slug": "infinite-gaming-vs-brute-25-10-2026",
+     "teams": [
+      "BRUTE",
+      "INFINITE"
+     ],
+     "start": "2026-10-25T15:00:00.000+00:00",
+     "start_delta_sec": 165600,
+     "status": "one shared side only"
+    }
+   ],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1082693",
+   "teams": [
+    "BESTIA",
+    "Galorys"
+   ],
+   "competition": "Circuit X Curitiba #4",
+   "starts_at": "2026-10-23T18:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/bestia-vs-galorys-circuit-x-curitiba-4-1082693",
+   "bo3_bound_url": "https://bo3.gg/matches/bestia-vs-galorys-cs-23-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2873215",
+    "team_1": {
+     "name": "BESTIA",
+     "coeff": 1.62,
+     "active": true,
+     "team_id": 5701
+    },
+    "team_2": {
+     "name": "Galorys",
+     "coeff": 2.15,
+     "active": true,
+     "team_id": 10049
+    }
+   },
+   "smarkets_evidence": {
+    "event_url": "https://smarkets.com/sport/esports/cs-go/circuit-x/playoffs/2026/10/23/18-00/bestia-vs-galorys",
+    "event_name": "BESTIA vs Galorys",
+    "quotes_verbatim": {
+     "477052084": {
+      "bids": [
+       {
+        "price": 5208,
+        "quantity": 1296085
+       },
+       {
+        "price": 5076,
+        "quantity": 1329788
+       }
+      ],
+      "offers": [
+       {
+        "price": 6410,
+        "quantity": 1880227
+       },
+       {
+        "price": 6452,
+        "quantity": 1902480
+       }
+      ]
+     },
+     "477052085": {
+      "bids": [
+       {
+        "price": 3571,
+        "quantity": 1890228
+       }
+      ],
+      "offers": [
+       {
+        "price": 4808,
+        "quantity": 1300079
+       },
+       {
+        "price": 5102,
+        "quantity": 1378116
+       }
+      ]
+     }
+    },
+    "two_sided": true
+   },
+   "money_line_lead": true,
+   "near_misses": [],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1082925",
+   "teams": [
+    "BESTIA Academy",
+    "RED Canids Academy"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-23T19:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/bestia-academy-vs-red-canids-academy-cct-south-america-2026-series-7-1082925",
+   "bo3_bound_url": "https://bo3.gg/matches/bestia-academy-vs-red-canids-academy-23-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2870811",
+    "team_1": {
+     "name": "BESTIA Academy",
+     "coeff": 2.7,
+     "active": true,
+     "team_id": 18461
+    },
+    "team_2": {
+     "name": "RED Canids Academy",
+     "coeff": 1.4,
+     "active": true,
+     "team_id": 16743
+    }
+   },
+   "smarkets_evidence": {
+    "event_url": "https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/23/19-00/bestia-academy-vs-red-canids-academy",
+    "event_name": "BESTIA Academy vs RED Canids Academy",
+    "quotes_verbatim": {
+     "477055188": {
+      "bids": [
+       {
+        "price": 2817,
+        "quantity": 2396169
+       }
+      ],
+      "offers": [
+       {
+        "price": 4032,
+        "quantity": 1131032
+       },
+       {
+        "price": 4630,
+        "quantity": 13301400
+       }
+      ]
+     },
+     "477055189": {
+      "bids": [
+       {
+        "price": 5952,
+        "quantity": 1134073
+       }
+      ],
+      "offers": [
+       {
+        "price": 7194,
+        "quantity": 2405567
+       }
+      ]
+     }
+    },
+    "two_sided": true
+   },
+   "money_line_lead": true,
+   "near_misses": [
+    {
+     "slug": "pain-gaming-academy-vs-bestia-academy-26-10-2026",
+     "teams": [
+      "BESTIA Academy",
+      "paiN Academy"
+     ],
+     "start": "2026-10-26T21:00:00.000+00:00",
+     "start_delta_sec": 266400,
+     "status": "one shared side only"
+    }
+   ],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1083025",
+   "teams": [
+    "paiN",
+    "Imperial"
+   ],
+   "competition": "Circuit X Curitiba #4",
+   "starts_at": "2026-10-23T21:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/pain-vs-imperial-circuit-x-curitiba-4-1083025",
+   "bo3_bound_url": "https://bo3.gg/matches/pain-gaming-vs-imperial-23-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2873224",
+    "team_1": {
+     "name": "paiN",
+     "coeff": 2.4,
+     "active": true,
+     "team_id": 637
+    },
+    "team_2": {
+     "name": "Imperial",
+     "coeff": 1.5,
+     "active": true,
+     "team_id": 1430
+    }
+   },
+   "smarkets_evidence": {
+    "event_url": "https://smarkets.com/sport/esports/cs-go/circuit-x/playoffs/2026/10/23/21-00/pain-vs-imperial",
+    "event_name": "paiN vs Imperial",
+    "quotes_verbatim": {
+     "477051932": {
+      "bids": [
+       {
+        "price": 3077,
+        "quantity": 2193698
+       }
+      ],
+      "offers": [
+       {
+        "price": 4310,
+        "quantity": 1186291
+       }
+      ]
+     },
+     "477051933": {
+      "bids": [
+       {
+        "price": 5682,
+        "quantity": 1187963
+       }
+      ],
+      "offers": [
+       {
+        "price": 6897,
+        "quantity": 2175321
+       }
+      ]
+     }
+    },
+    "two_sided": true
+   },
+   "money_line_lead": true,
+   "near_misses": [],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1082923",
+   "teams": [
+    "Alka",
+    "LOS NINOS"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-23T22:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/alka-vs-los-ninos-cct-south-america-2026-series-7-1082923",
+   "bo3_bound_url": null,
+   "bo3_start_delta_sec": null,
+   "bo3_bet_two_sided": false,
+   "bo3_bet": null,
+   "smarkets_evidence": null,
+   "money_line_lead": false,
+   "near_misses": [
+    {
+     "slug": "alka-vs-los-ninos-23-10-2026",
+     "teams": [
+      "ALKA",
+      "Los Niños"
+     ],
+     "start": "2026-10-23T22:00:00.000+00:00",
+     "start_delta_sec": 0,
+     "status": "one shared side only"
+    }
+   ],
+   "verdict": "No two-sided prematch price found on any probed surface; the research-model pick and its limitation stand."
+  },
+  {
+   "id": "1079193",
+   "teams": [
+    "FOKUS",
+    "ex-6666"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at": "2026-10-24T08:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/fokus-vs-ex-6666-nodwin-clutch-series-13-1079193",
+   "bo3_bound_url": "https://bo3.gg/matches/fokus-cs-vs-ex-6666-24-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2872398",
+    "team_1": {
+     "name": "FOKUS",
+     "coeff": 1.22,
+     "active": true,
+     "team_id": 22184
+    },
+    "team_2": {
+     "name": "ex-6666",
+     "coeff": 3.8,
+     "active": true,
+     "team_id": 25508
+    }
+   },
+   "smarkets_evidence": {
+    "event_url": "https://smarkets.com/sport/esports/cs-go/nodwin-clutch-series/playoffs/2026/10/24/08-00/fokus-vs-ex-6666",
+    "event_name": "FOKUS vs ex-6666",
+    "quotes_verbatim": {
+     "477055192": {
+      "bids": [
+       {
+        "price": 7092,
+        "quantity": 951780
+       }
+      ],
+      "offers": [
+       {
+        "price": 8772,
+        "quantity": 5496786
+       }
+      ]
+     },
+     "477055193": {
+      "bids": [
+       {
+        "price": 1282,
+        "quantity": 5265232
+       }
+      ],
+      "offers": [
+       {
+        "price": 2899,
+        "quantity": 950571
+       }
+      ]
+     }
+    },
+    "two_sided": true
+   },
+   "money_line_lead": true,
+   "near_misses": [],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1079195",
+   "teams": [
+    "Nuclear TigeRES",
+    "FORZE Reload"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at": "2026-10-24T14:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-forze-reload-nodwin-clutch-series-13-1079195",
+   "bo3_bound_url": "https://bo3.gg/matches/nuclear-tigeres-vs-forze-reload-24-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2872440",
+    "team_1": {
+     "name": "Nuclear TigeRES",
+     "coeff": 1.58,
+     "active": true,
+     "team_id": 18539
+    },
+    "team_2": {
+     "name": "FORZE Reload",
+     "coeff": 2.2,
+     "active": true,
+     "team_id": 10703
+    }
+   },
+   "smarkets_evidence": {
+    "event_url": "https://smarkets.com/sport/esports/cs-go/nodwin-clutch-series/playoffs/2026/10/24/14-00/nuclear-tigeres-vs-forze-reload",
+    "event_name": "Nuclear TigeRES vs FORZE Reload",
+    "quotes_verbatim": {
+     "476973393": {
+      "bids": [
+       {
+        "price": 5208,
+        "quantity": 1296083
+       },
+       {
+        "price": 5076,
+        "quantity": 1329789
+       }
+      ],
+      "offers": [
+       {
+        "price": 6849,
+        "quantity": 2142177
+       }
+      ]
+     },
+     "476973394": {
+      "bids": [
+       {
+        "price": 3125,
+        "quantity": 2160001
+       }
+      ],
+      "offers": [
+       {
+        "price": 4808,
+        "quantity": 1300079
+       },
+       {
+        "price": 4950,
+        "quantity": 1336633
+       }
+      ]
+     }
+    },
+    "two_sided": true
+   },
+   "money_line_lead": true,
+   "near_misses": [
+    {
+     "slug": "nuclear-tigeres-vs-illyrians-23-10-2026",
+     "teams": [
+      "Illyrians",
+      "Nuclear TigeRES"
+     ],
+     "start": "2026-10-23T11:00:00.000+00:00",
+     "start_delta_sec": 97200,
+     "status": "one shared side only"
+    },
+    {
+     "slug": "acend-cs2-vs-forze-reload-24-10-2026",
+     "teams": [
+      "Acend",
+      "FORZE Reload"
+     ],
+     "start": "2026-10-24T14:00:00.000+00:00",
+     "start_delta_sec": 0,
+     "status": "one shared side only"
+    }
+   ],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
    "id": "1082996",
    "teams": [
     "Acend",
@@ -946,8 +5312,8 @@
    ],
    "competition": "NODWIN Clutch Series #13",
    "starts_at": "2026-10-25T09:00:00Z",
-   "current_method": "model",
-   "current_label": "Valve-rating research estimate",
+   "current_method": null,
+   "current_label": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
    "bo3_bound_url": "https://bo3.gg/matches/acend-cs2-vs-unity-25-10-2026",
    "bo3_start_delta_sec": 0,
@@ -956,16 +5322,6 @@
    "smarkets_evidence": null,
    "money_line_lead": false,
    "near_misses": [
-    {
-     "slug": "unity-vs-ence-prospects-23-10-2026",
-     "teams": [
-      "ENCE Prospects",
-      "UNiTY"
-     ],
-     "start": "2026-10-23T10:30:00.000+00:00",
-     "start_delta_sec": 167400,
-     "status": "one shared side only"
-    },
     {
      "slug": "acend-cs2-vs-forze-reload-24-10-2026",
      "teams": [
@@ -987,8 +5343,8 @@
    ],
    "competition": "NODWIN Clutch Series #13",
    "starts_at": "2026-10-25T12:00:00Z",
-   "current_method": "model",
-   "current_label": "Valve-rating research estimate",
+   "current_method": null,
+   "current_label": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198",
    "bo3_bound_url": "https://bo3.gg/matches/metizport-vs-baks-esports-25-10-2026",
    "bo3_start_delta_sec": 0,
@@ -1011,6 +5367,37 @@
    "verdict": "No two-sided prematch price found on any probed surface; the research-model pick and its limitation stand."
   },
   {
+   "id": "1079199",
+   "teams": [
+    "Infinite",
+    "BRUTE"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at": "2026-10-25T15:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/infinite-vs-brute-nodwin-clutch-series-13-1079199",
+   "bo3_bound_url": "https://bo3.gg/matches/infinite-gaming-vs-brute-25-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": false,
+   "bo3_bet": null,
+   "smarkets_evidence": null,
+   "money_line_lead": false,
+   "near_misses": [
+    {
+     "slug": "brute-vs-baks-esports-23-10-2026",
+     "teams": [
+      "BAKS",
+      "BRUTE"
+     ],
+     "start": "2026-10-23T17:00:00.000+00:00",
+     "start_delta_sec": 165600,
+     "status": "one shared side only"
+    }
+   ],
+   "verdict": "No two-sided prematch price found on any probed surface; the research-model pick and its limitation stand."
+  },
+  {
    "id": "1079200",
    "teams": [
     "Color",
@@ -1018,8 +5405,8 @@
    ],
    "competition": "NODWIN Clutch Series #13",
    "starts_at": "2026-10-25T18:00:00Z",
-   "current_method": "model",
-   "current_label": "Valve-rating research estimate",
+   "current_method": null,
+   "current_label": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/color-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079200",
    "bo3_bound_url": "https://bo3.gg/matches/color-vs-ex-zero-tenacity-25-10-2026",
    "bo3_start_delta_sec": 0,
@@ -1048,8 +5435,8 @@
    ],
    "competition": "DFRAG Invitational 2026",
    "starts_at": "2026-10-26T03:00:00Z",
-   "current_method": "model",
-   "current_label": "Research model estimate (HLTV world ranking)",
+   "current_method": null,
+   "current_label": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
    "bo3_bound_url": "https://bo3.gg/matches/ground-zero-vs-off-chops-26-10-2026",
    "bo3_start_delta_sec": 0,
@@ -1095,6 +5482,76 @@
    "verdict": "The Smarkets exchange lists this fixture with a two-sided quote (raw evidence attached); the reviewed ladder replays that first-party source itself on the next refresh, so this sweep creates no pick here."
   },
   {
+   "id": "1082859",
+   "teams": [
+    "NEXVOID",
+    "Alter Ego"
+   ],
+   "competition": "DFRAG Invitational 2026",
+   "starts_at": "2026-10-26T03:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/nexvoid-vs-alter-ego-dfrag-invitational-2026-1082859",
+   "bo3_bound_url": "https://bo3.gg/matches/nexvoid-vs-alter-ego-26-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2870940",
+    "team_1": {
+     "name": "NEXVOID",
+     "coeff": 1.6,
+     "active": true,
+     "team_id": 22560
+    },
+    "team_2": {
+     "name": "Alter Ego",
+     "coeff": 2.17,
+     "active": true,
+     "team_id": 4170
+    }
+   },
+   "smarkets_evidence": null,
+   "money_line_lead": true,
+   "near_misses": [],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1082860",
+   "teams": [
+    "FlyQuest",
+    "Staqued"
+   ],
+   "competition": "DFRAG Invitational 2026",
+   "starts_at": "2026-10-27T03:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
+   "bo3_bound_url": "https://bo3.gg/matches/flyquest-vs-staqued-27-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2872333",
+    "team_1": {
+     "name": "FlyQuest",
+     "coeff": 1.001,
+     "active": true,
+     "team_id": 10398
+    },
+    "team_2": {
+     "name": "Staqued",
+     "coeff": 12.0,
+     "active": true,
+     "team_id": 25258
+    }
+   },
+   "smarkets_evidence": null,
+   "money_line_lead": true,
+   "near_misses": [],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
    "id": "1082861",
    "teams": [
     "Rooster",
@@ -1102,8 +5559,8 @@
    ],
    "competition": "DFRAG Invitational 2026",
    "starts_at": "2026-10-27T03:00:00Z",
-   "current_method": "model",
-   "current_label": "Valve-rating research estimate",
+   "current_method": null,
+   "current_label": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
    "bo3_bound_url": "https://bo3.gg/matches/rooster-vs-abyssal-27-10-2026",
    "bo3_start_delta_sec": 0,
@@ -1115,6 +5572,168 @@
    "verdict": "No two-sided prematch price found on any probed surface; the research-model pick and its limitation stand."
   },
   {
+   "id": "1082897",
+   "teams": [
+    "B8",
+    "K27"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T08:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/b8-vs-k27-tesla-cup-2026-1082897",
+   "bo3_bound_url": "https://bo3.gg/matches/b8-vs-k27-27-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2865386",
+    "team_1": {
+     "name": "B8",
+     "coeff": 1.65,
+     "active": true,
+     "team_id": 1539
+    },
+    "team_2": {
+     "name": "K27",
+     "coeff": 2.1,
+     "active": true,
+     "team_id": 10718
+    }
+   },
+   "smarkets_evidence": null,
+   "money_line_lead": true,
+   "near_misses": [
+    {
+     "slug": "heroic-vs-b8-02-11-2026",
+     "teams": [
+      "B8",
+      "HEROIC"
+     ],
+     "start": "2026-11-02T07:00:00.000+00:00",
+     "start_delta_sec": 514800,
+     "status": "one shared side only"
+    }
+   ],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1082898",
+   "teams": [
+    "Alliance",
+    "FaZe"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T11:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/alliance-vs-faze-tesla-cup-2026-1082898",
+   "bo3_bound_url": "https://bo3.gg/matches/alliance-cs-vs-faze-27-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2865383",
+    "team_1": {
+     "name": "Alliance",
+     "coeff": 2.5,
+     "active": true,
+     "team_id": 8221
+    },
+    "team_2": {
+     "name": "FaZe",
+     "coeff": 1.48,
+     "active": true,
+     "team_id": 791
+    }
+   },
+   "smarkets_evidence": null,
+   "money_line_lead": true,
+   "near_misses": [
+    {
+     "slug": "furia-vs-faze-02-11-2026",
+     "teams": [
+      "FURIA",
+      "FaZe"
+     ],
+     "start": "2026-11-02T07:00:00.000+00:00",
+     "start_delta_sec": 504000,
+     "status": "one shared side only"
+    }
+   ],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1082900",
+   "teams": [
+    "Luminosity",
+    "HOTU"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T17:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/luminosity-vs-hotu-tesla-cup-2026-1082900",
+   "bo3_bound_url": "https://bo3.gg/matches/luminosity-cs-go-vs-hotu-27-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2865384",
+    "team_1": {
+     "name": "Luminosity",
+     "coeff": 1.72,
+     "active": true,
+     "team_id": 776
+    },
+    "team_2": {
+     "name": "HOTU",
+     "coeff": 2.0,
+     "active": true,
+     "team_id": 2720
+    }
+   },
+   "smarkets_evidence": null,
+   "money_line_lead": true,
+   "near_misses": [],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
+   "id": "1082901",
+   "teams": [
+    "Envy",
+    "GamerLegion"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T20:00:00Z",
+   "current_method": null,
+   "current_label": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/envy-vs-gamerlegion-tesla-cup-2026-1082901",
+   "bo3_bound_url": "https://bo3.gg/matches/envyus-vs-gamerlegion-27-10-2026",
+   "bo3_start_delta_sec": 0,
+   "bo3_bet_two_sided": true,
+   "bo3_bet": {
+    "provider": "thunderpick",
+    "path": "https://thunderpick.io/match/2865385",
+    "team_1": {
+     "name": "Envy",
+     "coeff": 2.0,
+     "active": true,
+     "team_id": 781
+    },
+    "team_2": {
+     "name": "GamerLegion",
+     "coeff": 1.72,
+     "active": true,
+     "team_id": 594
+    }
+   },
+   "smarkets_evidence": null,
+   "money_line_lead": true,
+   "near_misses": [],
+   "verdict": "A two-sided, active prematch bookmaker quote is published for this fixture; it is a lead for the reviewed ladder, not a pick made here."
+  },
+  {
    "id": "1082792",
    "teams": [
     "HOTU",
@@ -1122,8 +5741,8 @@
    ],
    "competition": "Moscow Cyber Games 2026",
    "starts_at": "2026-10-31T09:00:00Z",
-   "current_method": "model",
-   "current_label": "Research model estimate (Valve official ratings)",
+   "current_method": null,
+   "current_label": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
    "bo3_bound_url": null,
    "bo3_start_delta_sec": null,
@@ -1153,8 +5772,8 @@
    ],
    "competition": "Moscow Cyber Games 2026",
    "starts_at": "2026-10-31T13:00:00Z",
-   "current_method": "model",
-   "current_label": "Valve-rating research estimate",
+   "current_method": null,
+   "current_label": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
    "bo3_bound_url": null,
    "bo3_start_delta_sec": null,

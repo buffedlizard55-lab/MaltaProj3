@@ -1,36 +1,36 @@
-# Live Hotspawn lobby vs published snapshot — 2026-10-23T10:20:15Z
+# Live Hotspawn lobby vs published snapshot — 2026-10-23T10:29:23Z
 
-Published `latest.json` generated `2026-10-23T10:14:24Z`; 30 future fixtures compared, 0 missing from the published snapshot.
+Published `latest.json` generated `2026-10-15T08:36:13Z`; 30 future fixtures compared, 30 missing from the published snapshot.
 
 | Fixture | Start (UTC) | In published snapshot | Published pick |
 | --- | --- | --- | --- |
-| [Phantom Academy vs Banda chuya](https://www.hotspawn.com/matches/phantom-academy-vs-banda-chuya-cct-europe-2026-challengers-8-1081605) | 2026-10-23T11:00:00Z | yes | — |
-| [Inner Circle Academy vs Spirit Academy](https://www.hotspawn.com/matches/inner-circle-academy-vs-spirit-academy-cct-europe-2026-series-12-1081148) | 2026-10-23T11:00:00Z | yes | — |
-| [Nuclear TigeRES vs ILLYRIANS](https://www.hotspawn.com/matches/nuclear-tigeres-vs-illyrians-cct-europe-2026-series-11-1079655) | 2026-10-23T11:00:00Z | yes | — |
-| [JiJieHao vs Eternal Fire](https://www.hotspawn.com/matches/jijiehao-vs-eternal-fire-draculan-season-7-1081606) | 2026-10-23T13:00:00Z | yes | — |
-| [Isurus vs Hacha](https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926) | 2026-10-23T13:00:00Z | yes | — |
-| [LPH vs WBT Academy](https://www.hotspawn.com/matches/lph-vs-wbt-academy-esl-challenger-league-season-52-europe-cup-9-1082980) | 2026-10-23T13:00:00Z | yes | — |
-| [K27 vs Virtus.pro](https://www.hotspawn.com/matches/k27-vs-virtus-pro-cis-lan-championship-9-1083014) | 2026-10-23T13:00:00Z | yes | — |
-| [BORRACHEIROS vs QUINTESSÊNCIA](https://www.hotspawn.com/matches/borracheiros-vs-quintess-ncia-cct-south-america-2026-series-7-1082924) | 2026-10-23T16:00:00Z | yes | — |
-| [ex-RUSTEC vs Saint Sinners](https://www.hotspawn.com/matches/ex-rustec-vs-saint-sinners-cct-europe-2026-series-12-1081150) | 2026-10-23T17:00:00Z | yes | — |
-| [BakS vs BRUTE](https://www.hotspawn.com/matches/baks-vs-brute-cct-europe-2026-series-11-1079657) | 2026-10-23T17:00:00Z | yes | — |
-| [BESTIA vs Galorys](https://www.hotspawn.com/matches/bestia-vs-galorys-circuit-x-curitiba-4-1082693) | 2026-10-23T18:00:00Z | yes | — |
-| [BESTIA Academy vs RED Canids Academy](https://www.hotspawn.com/matches/bestia-academy-vs-red-canids-academy-cct-south-america-2026-series-7-1082925) | 2026-10-23T19:00:00Z | yes | — |
-| [paiN vs Imperial](https://www.hotspawn.com/matches/pain-vs-imperial-circuit-x-curitiba-4-1083025) | 2026-10-23T21:00:00Z | yes | — |
-| [Alka vs LOS NINOS](https://www.hotspawn.com/matches/alka-vs-los-ninos-cct-south-america-2026-series-7-1082923) | 2026-10-23T22:00:00Z | yes | — |
-| [FOKUS vs ex-6666](https://www.hotspawn.com/matches/fokus-vs-ex-6666-nodwin-clutch-series-13-1079193) | 2026-10-24T08:00:00Z | yes | — |
-| [Nuclear TigeRES vs FORZE Reload](https://www.hotspawn.com/matches/nuclear-tigeres-vs-forze-reload-nodwin-clutch-series-13-1079195) | 2026-10-24T14:00:00Z | yes | — |
-| [Acend vs UNiTY](https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996) | 2026-10-25T09:00:00Z | yes | — |
-| [Metizport vs BakS](https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198) | 2026-10-25T12:00:00Z | yes | — |
-| [Infinite vs BRUTE](https://www.hotspawn.com/matches/infinite-vs-brute-nodwin-clutch-series-13-1079199) | 2026-10-25T15:00:00Z | yes | — |
-| [Color vs ex-Zero Tenacity](https://www.hotspawn.com/matches/color-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079200) | 2026-10-25T18:00:00Z | yes | — |
-| [Ground Zero vs Off Chops](https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858) | 2026-10-26T03:00:00Z | yes | — |
-| [NEXVOID vs Alter Ego](https://www.hotspawn.com/matches/nexvoid-vs-alter-ego-dfrag-invitational-2026-1082859) | 2026-10-26T03:00:00Z | yes | — |
-| [FlyQuest vs Staqued](https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860) | 2026-10-27T03:00:00Z | yes | — |
-| [Rooster vs Abyssal](https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861) | 2026-10-27T03:00:00Z | yes | — |
-| [B8 vs K27](https://www.hotspawn.com/matches/b8-vs-k27-tesla-cup-2026-1082897) | 2026-10-27T08:00:00Z | yes | — |
-| [Alliance vs FaZe](https://www.hotspawn.com/matches/alliance-vs-faze-tesla-cup-2026-1082898) | 2026-10-27T11:00:00Z | yes | — |
-| [Luminosity vs HOTU](https://www.hotspawn.com/matches/luminosity-vs-hotu-tesla-cup-2026-1082900) | 2026-10-27T17:00:00Z | yes | — |
-| [Envy vs GamerLegion](https://www.hotspawn.com/matches/envy-vs-gamerlegion-tesla-cup-2026-1082901) | 2026-10-27T20:00:00Z | yes | — |
-| [HOTU vs The Huns](https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792) | 2026-10-31T09:00:00Z | yes | — |
-| [5star vs 1WIN](https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793) | 2026-10-31T13:00:00Z | yes | — |
+| [Phantom Academy vs Banda chuya](https://www.hotspawn.com/matches/phantom-academy-vs-banda-chuya-cct-europe-2026-challengers-8-1081605) | 2026-10-23T11:00:00Z | NO | — |
+| [Inner Circle Academy vs Spirit Academy](https://www.hotspawn.com/matches/inner-circle-academy-vs-spirit-academy-cct-europe-2026-series-12-1081148) | 2026-10-23T11:00:00Z | NO | — |
+| [Nuclear TigeRES vs ILLYRIANS](https://www.hotspawn.com/matches/nuclear-tigeres-vs-illyrians-cct-europe-2026-series-11-1079655) | 2026-10-23T11:00:00Z | NO | — |
+| [JiJieHao vs Eternal Fire](https://www.hotspawn.com/matches/jijiehao-vs-eternal-fire-draculan-season-7-1081606) | 2026-10-23T13:00:00Z | NO | — |
+| [Isurus vs Hacha](https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926) | 2026-10-23T13:00:00Z | NO | — |
+| [LPH vs WBT Academy](https://www.hotspawn.com/matches/lph-vs-wbt-academy-esl-challenger-league-season-52-europe-cup-9-1082980) | 2026-10-23T13:00:00Z | NO | — |
+| [K27 vs Virtus.pro](https://www.hotspawn.com/matches/k27-vs-virtus-pro-cis-lan-championship-9-1083014) | 2026-10-23T13:00:00Z | NO | — |
+| [BORRACHEIROS vs QUINTESSÊNCIA](https://www.hotspawn.com/matches/borracheiros-vs-quintess-ncia-cct-south-america-2026-series-7-1082924) | 2026-10-23T16:00:00Z | NO | — |
+| [ex-RUSTEC vs Saint Sinners](https://www.hotspawn.com/matches/ex-rustec-vs-saint-sinners-cct-europe-2026-series-12-1081150) | 2026-10-23T17:00:00Z | NO | — |
+| [BakS vs BRUTE](https://www.hotspawn.com/matches/baks-vs-brute-cct-europe-2026-series-11-1079657) | 2026-10-23T17:00:00Z | NO | — |
+| [BESTIA vs Galorys](https://www.hotspawn.com/matches/bestia-vs-galorys-circuit-x-curitiba-4-1082693) | 2026-10-23T18:00:00Z | NO | — |
+| [BESTIA Academy vs RED Canids Academy](https://www.hotspawn.com/matches/bestia-academy-vs-red-canids-academy-cct-south-america-2026-series-7-1082925) | 2026-10-23T19:00:00Z | NO | — |
+| [paiN vs Imperial](https://www.hotspawn.com/matches/pain-vs-imperial-circuit-x-curitiba-4-1083025) | 2026-10-23T21:00:00Z | NO | — |
+| [Alka vs LOS NINOS](https://www.hotspawn.com/matches/alka-vs-los-ninos-cct-south-america-2026-series-7-1082923) | 2026-10-23T22:00:00Z | NO | — |
+| [FOKUS vs ex-6666](https://www.hotspawn.com/matches/fokus-vs-ex-6666-nodwin-clutch-series-13-1079193) | 2026-10-24T08:00:00Z | NO | — |
+| [Nuclear TigeRES vs FORZE Reload](https://www.hotspawn.com/matches/nuclear-tigeres-vs-forze-reload-nodwin-clutch-series-13-1079195) | 2026-10-24T14:00:00Z | NO | — |
+| [Acend vs UNiTY](https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996) | 2026-10-25T09:00:00Z | NO | — |
+| [Metizport vs BakS](https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198) | 2026-10-25T12:00:00Z | NO | — |
+| [Infinite vs BRUTE](https://www.hotspawn.com/matches/infinite-vs-brute-nodwin-clutch-series-13-1079199) | 2026-10-25T15:00:00Z | NO | — |
+| [Color vs ex-Zero Tenacity](https://www.hotspawn.com/matches/color-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079200) | 2026-10-25T18:00:00Z | NO | — |
+| [Ground Zero vs Off Chops](https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858) | 2026-10-26T03:00:00Z | NO | — |
+| [NEXVOID vs Alter Ego](https://www.hotspawn.com/matches/nexvoid-vs-alter-ego-dfrag-invitational-2026-1082859) | 2026-10-26T03:00:00Z | NO | — |
+| [FlyQuest vs Staqued](https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860) | 2026-10-27T03:00:00Z | NO | — |
+| [Rooster vs Abyssal](https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861) | 2026-10-27T03:00:00Z | NO | — |
+| [B8 vs K27](https://www.hotspawn.com/matches/b8-vs-k27-tesla-cup-2026-1082897) | 2026-10-27T08:00:00Z | NO | — |
+| [Alliance vs FaZe](https://www.hotspawn.com/matches/alliance-vs-faze-tesla-cup-2026-1082898) | 2026-10-27T11:00:00Z | NO | — |
+| [Luminosity vs HOTU](https://www.hotspawn.com/matches/luminosity-vs-hotu-tesla-cup-2026-1082900) | 2026-10-27T17:00:00Z | NO | — |
+| [Envy vs GamerLegion](https://www.hotspawn.com/matches/envy-vs-gamerlegion-tesla-cup-2026-1082901) | 2026-10-27T20:00:00Z | NO | — |
+| [HOTU vs The Huns](https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792) | 2026-10-31T09:00:00Z | NO | — |
+| [5star vs 1WIN](https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793) | 2026-10-31T13:00:00Z | NO | — |
