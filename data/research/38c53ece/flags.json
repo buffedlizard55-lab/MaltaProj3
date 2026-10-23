@@ -1,0 +1,28 @@
+[
+  {
+    "id": "38c53ece-current-coverage-audit",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Dated live coverage and no-line source audit (23 October)",
+    "detail": "Dated audit 2026-10-23T05:16:32.618732+00:00: runner-collected (not deployed) snapshot 2026-10-23T05:15:40Z; 30 active records, 30 complete rows, 30 directional picks, 0 unresolved, 9 without an external betting line. HLTV was probed first, then esportsbooks. HTTP success or a team mention is not a verified price. Relay responses are leads only, never new picks. Consult current pick cards, not this historical audit. ",
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://www.hltv.org/matches",
+      "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/38c53ece/audit.json"
+    ]
+  },
+  {
+    "id": "38c53ece-publication-drift",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "Historical publication incident: public JSON lagged fresh official inventory on 23 October",
+    "detail": "At 2026-10-23T05:15:05Z public data/latest.json returned the October 15 snapshot (188+ hours old), while the official Hotspawn API returned 92 records. Separately, the 05:15:40Z runner collection reconciled all 92 official records and produced 30 active picks, nine model-only. These are separate observations, not a deployment-success claim. The clock-dependent publishing regression was fixed by merged PR #191. Legacy Pages configuration cannot be changed by this integration token (HTTP 403); the workflow must still wait for the legacy build and redeploy its verified artifact. This dated incident is retained even after a later successful deployment.",
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/191",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/38c53ece/publication-drift/audit.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39904094215"
+    ]
+  }
+]
