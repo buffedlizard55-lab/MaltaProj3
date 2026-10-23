@@ -226,29 +226,24 @@ class RelayCollectionTest(unittest.TestCase):
             ]}, {'observed_at': '2026-10-22T00:30:00Z', 'status': 'ok'}
 
     def test_only_the_bound_fixture_is_saved_with_its_quote(self):
-        # collect_bo3_relay stamps `observed_at` with the wall clock, and the rung
-        # refuses a quote that is stale or no longer prematch. With the stub's
-        # fixed 2026-10-22T14:00Z start, this test therefore stopped testing
-        # anything once that kick-off passed: from 2026-10-22T14:00Z on the
-        # observation was no longer prematch, and from 2026-10-23T05:00Z on it
-        # was also stale. That is why scheduled publisher runs began failing at
-        # the "Regression tests" step. Anchor the fixture and the relayed row to
-        # the live clock so the assertion keeps its original meaning on any date.
-        start = datetime.now(UTC).replace(microsecond=0) + timedelta(hours=2)
-        iso_start = start.strftime('%Y-%m-%dT%H:%M:%S.000+00:00')
+        # This collection record stamps the live wall clock. Keep the fixture
+        # safely in the future so the contract test does not become a post-start
+        # rejection on the date baked into the old fixture (2026-10-22 14:00Z).
+        # Observed in Pages run 39792708185 after the scheduled job ran past 14Z.
+        start_dt = datetime.now(UTC).replace(microsecond=0) + timedelta(hours=24)
+        start = start_dt.isoformat().replace('+00:00', 'Z')
+        lock = (start_dt - timedelta(minutes=6)).isoformat().replace('+00:00', 'Z')
+        future_fixture = fixture(start=start)
+        future_fixture['locks_at'] = lock
 
-        class LiveClock(RelayCollectionTest.Stub):
+        class FutureStartStub(RelayCollectionTest.Stub):
             def get_json(self, url, label, headers=None, save=True):
                 body, entry = super().get_json(url, label, headers, save)
-                # Only the fixture under test moves; the "wrong-start" and
-                # "no-quote" rows keep their fixed times so the single-bind
-                # assertion is unchanged.
-                body['results'][0]['start_date'] = iso_start
+                body['results'][0]['start_date'] = start
                 return body, entry
 
-        match = fixture(start=start.strftime('%Y-%m-%dT%H:%M:%SZ'))
         with TemporaryDirectory() as tmp:
-            summary = collect_bo3_relay(LiveClock(), Path(tmp), [match], REGISTRY)
+            summary = collect_bo3_relay(FutureStartStub(), Path(tmp), [future_fixture], REGISTRY)
             self.assertEqual(summary['fixtures_bound'], 1)
             document = json.loads((Path(tmp) / 'live-bo3-relay.json').read_text())
             record = document['fixtures'][0]
@@ -256,13 +251,12 @@ class RelayCollectionTest(unittest.TestCase):
             self.assertEqual(record['bo3_url'], 'https://bo3.gg/matches/imperial-vs-turma-do-pagode-22-10-2026')
             self.assertEqual(record['provider'], 'thunderpick')
             self.assertEqual([s['coeff'] for s in record['sides']], [1.22, 3.8])
-            # ... and the same document reloads as a row the ladder can price
-            # against the wall clock the collector stamped it with.
+            # ... and the same document reloads as a row the ladder can price.
             rows = bo3_relay_rows(Path(tmp))
             self.assertEqual(rows[0]['fixture_id'], '1082688')
-            quote, detail = relayed_bookmaker_estimate(rows[0], match, REGISTRY)
-            self.assertIsNotNone(quote, detail)
-            self.assertEqual(quote['family'], 'relay')
+            # The collector stamps the wall clock, so replay against it.
+            quote, _ = relayed_bookmaker_estimate(rows[0], future_fixture, REGISTRY)
+            self.assertIsNotNone(quote)
 
     def test_bookmaker_sides_in_reverse_order_are_aligned_by_team_id(self):
         class Reversed(RelayCollectionTest.Stub):

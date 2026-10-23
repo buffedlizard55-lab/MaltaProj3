@@ -330,7 +330,7 @@ def wait_for_legacy_pages_build(
     raise TimeoutError(f"Legacy Pages build for {sha} did not complete within {attempts * pause:.0f}s")
 
 
-def main(argv: list[str] | None = None) -> int:
+def main(argv: list[str] | None = None, *, now: datetime | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--output", type=Path, default=Path("site"), help="built site directory")
     parser.add_argument("--root", type=Path, default=Path("."), help="repository root to publish into")
@@ -378,6 +378,7 @@ def main(argv: list[str] | None = None) -> int:
         plan = build_plan(
             args.output,
             args.root,
+            now=now,
             max_age_hours=args.max_age_hours,
             allow_stale=args.allow_stale,
             monotonic=not args.no_monotonic,
