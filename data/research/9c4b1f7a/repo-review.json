@@ -1,155 +1,243 @@
 {
-  "session": "arena-9c4b1f7a",
-  "scope": "Line-by-line re-verification of the published 2026-10-23T09:23:57Z Hotspawn CS2 snapshot (inventory, pick coverage, ratings-model arithmetic, money-line provenance), the mobile summary's new observed-price chip, and the provider metadata irregularities found while checking it.",
-  "review_clock_utc": "2026-10-23T10:02:31Z",
-  "method": "First-party Hotspawn fixture API and both rendered lobbies read through the agent's page fetcher; Valve's official 2026-10-05 global standings read from api.github.com with its blob SHA and commit date; two Polymarket series events opened directly and compared with the snapshot; the checked-in build replayed locally (scripts.build) and the 115 summary/glance/row-source tests plus this session's 11 new tests run against it.",
-  "items": [
+ "session": "arena-9c4b1f7a",
+ "scope": "Line-by-line re-verification of the published 2026-10-23 Hotspawn CS2 snapshot (inventory, pick coverage, ratings-model arithmetic, money-line provenance, mobile summary labels) and the refresh-resilience fix made after the runner's fixture-API request was refused with HTTP 403.",
+ "review_clock_utc": "2026-10-23T10:02:31Z",
+ "method": "First-party Hotspawn fixture API and both rendered lobbies read through the agent's page fetcher; Valve's official 2026-10-05 global standings read from api.github.com with its blob SHA and commit date; two Polymarket series events opened directly and compared with the snapshot; the checked-in build replayed locally (scripts.build) and the 115 summary/glance/row-source tests plus this session's 11 new tests run against it.",
+ "items": [
+  {
+   "id": "9C4-R01",
+   "area": "Hotspawn inventory and lobby reconciliation",
+   "status": "verified",
+   "finding": "The published snapshot (generated 2026-10-23T09:23:57Z; inventory 92, upcoming 30, archived 62) matches what Hotspawn renders now. Both /lobby and /cs2-pickems showed 30 future CS2 cards at 09:42Z-09:47Z. Twenty-nine carry a View Match permalink and those 29 IDs are exactly the build's 30 active IDs minus 1081606; the thirtieth card (JiJieHao vs Eternal Fire, DraculaN Season 7) has no permalink, and Hotspawn's own fixture array gives id 1081606 for that pairing at 2026-10-23T13:00:00Z. Nothing on the lobby is missing from the site and nothing on the site is invented.",
+   "handling": "No data change was needed. The two fixtures that the earlier 06:58Z snapshot-gap banner listed (1081149, 1081872) are absent from the scheduled feed read at 09:52Z, so that banner has nothing left to report and the next four-hour collect will drop it. The full ID-by-ID comparison is retained in data/research/9c4b1f7a/verification-2026-10-23.json.",
+   "evidence": [
     {
-      "id": "9C4-R01",
-      "area": "Hotspawn inventory and lobby reconciliation",
-      "status": "verified",
-      "finding": "The published snapshot (generated 2026-10-23T09:23:57Z; inventory 92, upcoming 30, archived 62) matches what Hotspawn renders now. Both /lobby and /cs2-pickems showed 30 future CS2 cards at 09:42Z-09:47Z. Twenty-nine carry a View Match permalink and those 29 IDs are exactly the build's 30 active IDs minus 1081606; the thirtieth card (JiJieHao vs Eternal Fire, DraculaN Season 7) has no permalink, and Hotspawn's own fixture array gives id 1081606 for that pairing at 2026-10-23T13:00:00Z. Nothing on the lobby is missing from the site and nothing on the site is invented.",
-      "handling": "No data change was needed. The two fixtures that the earlier 06:58Z snapshot-gap banner listed (1081149, 1081872) are absent from the scheduled feed read at 09:52Z, so that banner has nothing left to report and the next four-hour collect will drop it. The full ID-by-ID comparison is retained in data/research/9c4b1f7a/verification-2026-10-23.json.",
-      "evidence": [
-        {
-          "url": "https://play.hotspawn.com/lobby",
-          "detail": "Rendered 30 future cards with lock countdowns; tier filter All tiers (94), 203 matches this week."
-        },
-        {
-          "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-          "detail": "First-party fixture array: 1081606 JiJieHao vs Eternal Fire (DraculaN Season 7) at 1792760400000 ms; 1082792/1082793 close the array."
-        },
-        {
-          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
-          "detail": "Published snapshot timestamps and counts as quoted."
-        }
-      ]
+     "url": "https://play.hotspawn.com/lobby",
+     "detail": "Rendered 30 future cards with lock countdowns; tier filter All tiers (94), 203 matches this week."
     },
     {
-      "id": "9C4-R02",
-      "area": "Pick coverage for every Hotspawn CS2 fixture",
-      "status": "verified",
-      "finding": "The brief's central requirement — a pick, or an explicit source-linked reason, for every listed match — holds on the published build: 30 active fixtures, 30 directional picks, 22 money-backed (16 market, 3 bookmaker, 3 consensus) and 8 labelled research models, 0 blank. The phone summary renders both teams' probabilities for all 30 rows, and the unresolved page keeps the per-fixture ladder and blocker for the four fixtures the featured method could not price.",
-      "handling": "No change. The invariant is already enforced by scripts/coverage_audit.py and re-run against the public data by scripts.verify_live after every deploy, so a future silent blank fails the publisher rather than reaching phones.",
-      "evidence": [
-        {
-          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
-          "detail": "counts: active 30, resolved 30, with_pick 30, unresolved 0; 8 model-backed rows listed under the no-line register."
-        },
-        {
-          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/",
-          "detail": "States every active fixture has a pick and publishes the research trail of each featured-method gap."
-        },
-        {
-          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/coverage_audit.py",
-          "detail": "Resolved-or-explicitly-unresolved invariant, argmax pick check, https source check."
-        }
-      ]
+     "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+     "detail": "First-party fixture array: 1081606 JiJieHao vs Eternal Fire (DraculaN Season 7) at 1792760400000 ms; 1082792/1082793 close the array."
     },
     {
-      "id": "9C4-R03",
-      "area": "Ratings-model arithmetic",
-      "status": "verified",
-      "finding": "Every ratings-only pick reproduces from Valve's official 2026-10-05 global standings with the published fixed rating deviation of 75. Recomputed from the cited rows: Phantom Academy 783 vs Banda Chuya 801 -> 47.5/52.5; Acend 1197 vs UNiTY 1167 -> 54.2/45.8; Metizport 1290 vs BAKS 1044 -> 79.9/20.1; Color 1249 vs ex-Zero Tenacity 1066 -> 73.6/26.4; Rooster 718 vs Abyssal 734 -> 47.8/52.2; HOTU 1437 vs The Huns 944 -> 94.1/5.9. The Huns' 944-point row (position 122) is the one the site selects through its documented four-of-five roster join; the 701-point same-name row is a different roster and is not used. Banda Chuya's two-player remnant row (402 points) is correctly excluded before the uniqueness test.",
-      "handling": "No change. The formula constant g = 0.972821 was recomputed from Valve's own fit example rather than taken on trust; the file's blob SHA (2aa2805394fbc68f36a5752a5b16026f2ab2fed5) and commit time (2026-10-05T16:36:11Z) are recorded in the dossier so the snapshot can be re-read later.",
-      "evidence": [
-        {
-          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-          "detail": "Official standings file used for every input above."
-        },
-        {
-          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js",
-          "detail": "Published fixed-RD example behind the 75-point assumption."
-        },
-        {
-          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082792",
-          "detail": "HOTU vs The Huns card: both inputs, roster join and limitation."
-        }
-      ]
-    },
-    {
-      "id": "9C4-R04",
-      "area": "Money-line provenance",
-      "status": "verified",
-      "finding": "Two money rows were re-derived from the prices the site itself stores, not from the summary. Isurus vs Hacha: Polymarket mid 0.670/0.330, Thunderpick 1.22/3.80, Bovada 1.210526/4.15, Pinnacle 1.1927/3.93; median 0.762, published 76.2/23.8 — exact. Nuclear TigeRES vs ILLYRIANS: stored Polymarket midpoints 84.0-85.0c and 15.0-16.0c, published 84.5/15.5; the live event read at 09:58Z showed 86c/16c, consistent drift. Lock times also reconcile: Hotspawn renders 11:00 UTC for the CCT Europe fixture and the page publishes 13:00 Europe/Malta; the lobby's 07:00 is US Eastern for the same instant.",
-      "handling": "No change. A new phone-summary chip now prints the observed price beside each money-backed estimate so this check is visible without opening the audit card; ratings rows print nothing rather than an implied line.",
-      "evidence": [
-        {
-          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/picks/",
-          "detail": "Per-row source observations with provider, event ID and raw prices."
-        },
-        {
-          "url": "https://polymarket.com/event/cs2-isg-hachae-2026-10-23",
-          "detail": "Live series moneyline 69c/32c at 09:58Z, $15.1K volume."
-        },
-        {
-          "url": "https://polymarket.com/event/cs2-ntr-ill4-2026-10-23",
-          "detail": "Live series moneyline 86c/16c at 09:58Z."
-        },
-        {
-          "url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-illyrians-cct-europe-2026-series-11-1079655",
-          "detail": "Hotspawn page start 11:00 on 23 OCT, matching 13:00 Europe/Malta."
-        }
-      ]
-    },
-    {
-      "id": "9C4-R05",
-      "area": "Phone summary: the betting line is now visible",
-      "status": "fixed",
-      "finding": "The summary showed a method badge ('Market line', 'Bookmaker') but not the price that produced the number, so a phone reader had to open the audit card to see any betting line. That undercut the brief's 'analysis of the betting lines' requirement even though the underlying data was present.",
-      "handling": "Added scripts.build.observed_price_label and a muted .glance-line chip on each money-backed row: prediction-market rows print both sides' bid/ask in cents, esportsbook rows print the two decimal prices, consensus rows print 'median of N books', and research models print nothing. The chip restates the stored quote only; it never re-prices, never changes a probability and never names a provider the record does not carry. The fixture link is also relabelled 'Hotspawn fixture' so it cannot be mistaken for a probability source. Pinned by 11 new tests; the 115 existing summary/glance/row-source tests still pass and the local replay build passes.",
-      "evidence": [
-        {
-          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_9c4b1f7a_glance_lines.py",
-          "detail": "Unit tests for both quote shapes, the consensus rung, models, malformed odds and the rendered chip."
-        },
-        {
-          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
-          "detail": "observed_price_label and its use in glance()."
-        }
-      ]
-    },
-    {
-      "id": "9C4-R06",
-      "area": "Provider metadata that disagrees with itself",
-      "status": "needs review",
-      "finding": "Two provider-side inconsistencies are now published rather than worked around silently. (1) Polymarket's Isurus-Hacha rule text says the fixture was 'initially scheduled ... 6:00 PM ET', while its own countdown, the Hotspawn card and the Hotspawn API all give 13:00Z (09:00 ET). (2) The DraculaN card JiJieHao vs Eternal Fire is rendered without a View Match permalink, so no first-party match URL exists to link; a guessed slug returns Hotspawn's 404 page.",
-      "handling": "Neither is converted into a value. The market was joined on the API start time and the event slug, not on the rule sentence, and the row links the pick'ems anchor (#fixture-1081606) instead of an invented URL. Both are listed on Flagged for Review with their sources; if Polymarket corrects its text or Hotspawn adds the permalink, the flags can be superseded.",
-      "evidence": [
-        {
-          "url": "https://polymarket.com/event/cs2-isg-hachae-2026-10-23",
-          "detail": "Rule text naming 6:00 PM ET while the page countdown and event slug point at the 13:00Z fixture."
-        },
-        {
-          "url": "https://www.hotspawn.com/matches/jijiehao-vs-eternal-fire-draculan-season-7-1081606",
-          "detail": "A reconstructed slug; Hotspawn answers 'Page Not Found', which is why no such link is published."
-        },
-        {
-          "url": "https://play.hotspawn.com/cs2-pickems",
-          "detail": "Card rendered without a View Match permalink."
-        }
-      ]
-    },
-    {
-      "id": "9C4-R07",
-      "area": "Review environment limits",
-      "status": "platform limitation",
-      "finding": "Shell egress to Hotspawn, HLTV, Polymarket and Azure artifact storage is unavailable in this environment (TLS handshake failures, HTTP 000; gh run download EOF). Only github.com and api.github.com answer from the shell.",
-      "handling": "Every non-GitHub page quoted here was read through the agent's page-retrieval tool and reproduced in the dossier; no value was inferred from a page that could not be opened, and no live collection was attempted from the shell. The scheduled publisher in GitHub Actions, which has normal egress, remains the only writer of live data.",
-      "evidence": [
-        {
-          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-          "detail": "Read directly from api.github.com, which is reachable, including its blob SHA."
-        },
-        {
-          "url": "https://play.hotspawn.com/lobby",
-          "detail": "Read through the page fetcher; content reproduced in the dossier."
-        },
-        {
-          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
-          "detail": "Read through the page fetcher to confirm the deployed snapshot."
-        }
-      ]
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+     "detail": "Published snapshot timestamps and counts as quoted."
     }
-  ]
+   ]
+  },
+  {
+   "id": "9C4-R02",
+   "area": "Pick coverage for every Hotspawn CS2 fixture",
+   "status": "verified",
+   "finding": "The brief's central requirement \u2014 a pick, or an explicit source-linked reason, for every listed match \u2014 holds on the published build: 30 active fixtures, 30 directional picks, 22 money-backed (16 market, 3 bookmaker, 3 consensus) and 8 labelled research models, 0 blank. The phone summary renders both teams' probabilities for all 30 rows, and the unresolved page keeps the per-fixture ladder and blocker for the four fixtures the featured method could not price.",
+   "handling": "No change. The invariant is already enforced by scripts/coverage_audit.py and re-run against the public data by scripts.verify_live after every deploy, so a future silent blank fails the publisher rather than reaching phones.",
+   "evidence": [
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+     "detail": "counts: active 30, resolved 30, with_pick 30, unresolved 0; 8 model-backed rows listed under the no-line register."
+    },
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/",
+     "detail": "States every active fixture has a pick and publishes the research trail of each featured-method gap."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/coverage_audit.py",
+     "detail": "Resolved-or-explicitly-unresolved invariant, argmax pick check, https source check."
+    }
+   ]
+  },
+  {
+   "id": "9C4-R03",
+   "area": "Ratings-model arithmetic",
+   "status": "verified",
+   "finding": "Every ratings-only pick reproduces from Valve's official 2026-10-05 global standings with the published fixed rating deviation of 75. Recomputed from the cited rows: Phantom Academy 783 vs Banda Chuya 801 -> 47.5/52.5; Acend 1197 vs UNiTY 1167 -> 54.2/45.8; Metizport 1290 vs BAKS 1044 -> 79.9/20.1; Color 1249 vs ex-Zero Tenacity 1066 -> 73.6/26.4; Rooster 718 vs Abyssal 734 -> 47.8/52.2; HOTU 1437 vs The Huns 944 -> 94.1/5.9. The Huns' 944-point row (position 122) is the one the site selects through its documented four-of-five roster join; the 701-point same-name row is a different roster and is not used. Banda Chuya's two-player remnant row (402 points) is correctly excluded before the uniqueness test.",
+   "handling": "No change. The formula constant g = 0.972821 was recomputed from Valve's own fit example rather than taken on trust; the file's blob SHA (2aa2805394fbc68f36a5752a5b16026f2ab2fed5) and commit time (2026-10-05T16:36:11Z) are recorded in the dossier so the snapshot can be re-read later.",
+   "evidence": [
+    {
+     "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail": "Official standings file used for every input above."
+    },
+    {
+     "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js",
+     "detail": "Published fixed-RD example behind the 75-point assumption."
+    },
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082792",
+     "detail": "HOTU vs The Huns card: both inputs, roster join and limitation."
+    }
+   ]
+  },
+  {
+   "id": "9C4-R04",
+   "area": "Money-line provenance",
+   "status": "verified",
+   "finding": "Two money rows were re-derived from the prices the site itself stores, not from the summary. Isurus vs Hacha: Polymarket mid 0.670/0.330, Thunderpick 1.22/3.80, Bovada 1.210526/4.15, Pinnacle 1.1927/3.93; median 0.762, published 76.2/23.8 \u2014 exact. Nuclear TigeRES vs ILLYRIANS: stored Polymarket midpoints 84.0-85.0c and 15.0-16.0c, published 84.5/15.5; the live event read at 09:58Z showed 86c/16c, consistent drift. Lock times also reconcile: Hotspawn renders 11:00 UTC for the CCT Europe fixture and the page publishes 13:00 Europe/Malta; the lobby's 07:00 is US Eastern for the same instant.",
+   "handling": "No change. A new phone-summary chip now prints the observed price beside each money-backed estimate so this check is visible without opening the audit card; ratings rows print nothing rather than an implied line.",
+   "evidence": [
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/picks/",
+     "detail": "Per-row source observations with provider, event ID and raw prices."
+    },
+    {
+     "url": "https://polymarket.com/event/cs2-isg-hachae-2026-10-23",
+     "detail": "Live series moneyline 69c/32c at 09:58Z, $15.1K volume."
+    },
+    {
+     "url": "https://polymarket.com/event/cs2-ntr-ill4-2026-10-23",
+     "detail": "Live series moneyline 86c/16c at 09:58Z."
+    },
+    {
+     "url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-illyrians-cct-europe-2026-series-11-1079655",
+     "detail": "Hotspawn page start 11:00 on 23 OCT, matching 13:00 Europe/Malta."
+    }
+   ]
+  },
+  {
+   "id": "9C4-R05",
+   "area": "Phone summary: the betting line is now visible",
+   "status": "fixed",
+   "finding": "The summary showed a method badge ('Market line', 'Bookmaker') but not the price that produced the number, so a phone reader had to open the audit card to see any betting line. That undercut the brief's 'analysis of the betting lines' requirement even though the underlying data was present.",
+   "handling": "Added scripts.build.observed_price_label and a muted .glance-line chip on each money-backed row: prediction-market rows print both sides' bid/ask in cents, esportsbook rows print the two decimal prices, consensus rows print 'median of N books', and research models print nothing. The chip restates the stored quote only; it never re-prices, never changes a probability and never names a provider the record does not carry. The fixture link is also relabelled 'Hotspawn fixture' so it cannot be mistaken for a probability source. Pinned by 11 new tests; the 115 existing summary/glance/row-source tests still pass and the local replay build passes.",
+   "evidence": [
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_9c4b1f7a_glance_lines.py",
+     "detail": "Unit tests for both quote shapes, the consensus rung, models, malformed odds and the rendered chip."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+     "detail": "observed_price_label and its use in glance()."
+    }
+   ]
+  },
+  {
+   "id": "9C4-R06",
+   "area": "Provider metadata that disagrees with itself",
+   "status": "needs review",
+   "finding": "Two provider-side inconsistencies are now published rather than worked around silently. (1) Polymarket's Isurus-Hacha rule text says the fixture was 'initially scheduled ... 6:00 PM ET', while its own countdown, the Hotspawn card and the Hotspawn API all give 13:00Z (09:00 ET). (2) The DraculaN card JiJieHao vs Eternal Fire is rendered without a View Match permalink, so no first-party match URL exists to link; a guessed slug returns Hotspawn's 404 page.",
+   "handling": "Neither is converted into a value. The market was joined on the API start time and the event slug, not on the rule sentence, and the row links the pick'ems anchor (#fixture-1081606) instead of an invented URL. Both are listed on Flagged for Review with their sources; if Polymarket corrects its text or Hotspawn adds the permalink, the flags can be superseded.",
+   "evidence": [
+    {
+     "url": "https://polymarket.com/event/cs2-isg-hachae-2026-10-23",
+     "detail": "Rule text naming 6:00 PM ET while the page countdown and event slug point at the 13:00Z fixture."
+    },
+    {
+     "url": "https://www.hotspawn.com/matches/jijiehao-vs-eternal-fire-draculan-season-7-1081606",
+     "detail": "A reconstructed slug; Hotspawn answers 'Page Not Found', which is why no such link is published."
+    },
+    {
+     "url": "https://play.hotspawn.com/cs2-pickems",
+     "detail": "Card rendered without a View Match permalink."
+    }
+   ]
+  },
+  {
+   "id": "9C4-R07",
+   "area": "Review environment limits",
+   "status": "platform limitation",
+   "finding": "Shell egress to Hotspawn, HLTV, Polymarket and Azure artifact storage is unavailable in this environment (TLS handshake failures, HTTP 000; gh run download EOF). Only github.com and api.github.com answer from the shell.",
+   "handling": "Every non-GitHub page quoted here was read through the agent's page-retrieval tool and reproduced in the dossier; no value was inferred from a page that could not be opened, and no live collection was attempted from the shell. The scheduled publisher in GitHub Actions, which has normal egress, remains the only writer of live data.",
+   "evidence": [
+    {
+     "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail": "Read directly from api.github.com, which is reachable, including its blob SHA."
+    },
+    {
+     "url": "https://play.hotspawn.com/lobby",
+     "detail": "Read through the page fetcher; content reproduced in the dossier."
+    },
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+     "detail": "Read through the page fetcher to confirm the deployed snapshot."
+    }
+   ]
+  },
+  {
+   "id": "9C4-R08",
+   "area": "Refresh resilience: Hotspawn fixture API vs rendered lobby",
+   "status": "fixed",
+   "finding": "The collector treated a refused fixture API (HTTP 403 at 2026-10-23T10:43Z) as a total inventory failure even though both rendered lobby pages still embedded the same public /api/v1/fixtures array. The site kept a 29-minute-old snapshot, set coverage_complete=false and displayed 'Do not treat these as current picks' on every page.",
+   "handling": "hotspawn() now falls back to the readable page payload, saves it as data/evidence/hotspawn-rendered-fixtures.json, records inventory_source='rendered-lobby' plus a visible 'inventory-api-unavailable' flag, and publishes crosscheck 'rendered' (both pages agree) or 'rendered-partial' (one page). Two disagreeing pages and an empty page still fail closed. validate.check_inventory() replays that saved payload and refuses any API-row claim in rendered mode. Eleven new tests cover the collector and the validator paths.",
+   "evidence": [
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/coverage/",
+     "detail": "Deployed coverage page at 10:43Z showing 'Retained snapshot only: 92 CS2 IDs; current coverage is unverified' with the 403 recorded against the fixture API."
+    },
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/sources.json",
+     "detail": "Request manifest with the failed hotspawn-fixtures attempt and its HTTP status."
+    },
+    {
+     "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+     "detail": "The same public array answered 200 from the review environment minutes later, confirming an access failure rather than a schema or empty-feed change."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/sources.py",
+     "detail": "hotspawn(): retry, rendered-page fallback, evidence save and the rendered / rendered-partial markers."
+    }
+   ]
+  },
+  {
+   "id": "9C4-R09",
+   "area": "Pick coverage of the published snapshot",
+   "status": "verified",
+   "finding": "Every one of the 30 active Hotspawn CS2 fixtures in the 2026-10-23T10:14Z inventory carries both probabilities and a directional pick: 22 from market/bookmaker lines, 8 from labelled research models, 0 unresolved. Four fixtures failed the featured exact-name method and were resolved by the published ladder (2 consensus medians, 1 Valve rating, 1 bo3.gg network model).",
+   "handling": "Counted from the deployed unresolved page and the published data/origination.json (active 30, with_pick 30, unresolved 0) and cross-checked against the 30 IDs in the rendered snapshot. No value was re-priced. The 8 model-only rows stay flagged as research estimates, not betting prices.",
+   "evidence": [
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/",
+     "detail": "Published counts: 30 active, 30 with a pick, 0 without; the four featured-method gaps and their fallback methods."
+    },
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+     "detail": "Machine-readable picks with per-row source and limitation."
+    },
+    {
+     "url": "https://play.hotspawn.com/cs2-pickems",
+     "detail": "Official CS2 lobby the inventory is compared against."
+    }
+   ]
+  },
+  {
+   "id": "9C4-R10",
+   "area": "Valve rating arithmetic in the research-model rows",
+   "status": "verified",
+   "finding": "All six rating rows reproduce with g = 1/sqrt(1+3(ln10/400)^2 RD^2/pi^2) at RD = 75 and P = 1/(1+10^(g*dPts/400)): Banda chuya 52.5 (801 vs 783), Acend 54.2 (1197 vs 1167), Metizport 79.9 (1290 vs 1044), Color 73.6 (1249 vs 1066), 1WIN 82.2 (1383 vs 1110), HOTU 94.1 (1437 vs 944).",
+   "handling": "Points were read from Valve's official 2026-10-05 global standings and every published percentage was recomputed. The HOTU row uses the 944-point 'The Huns' record joined on its documented four-of-five roster core, not the 701-point record; the Banda chuya row excludes the two-player 402-point remnant. Both joins keep their published limitations.",
+   "evidence": [
+    {
+     "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail": "Official points and rosters used as inputs."
+    },
+    {
+     "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js",
+     "detail": "Valve's own example behind the fixed RD = 75 assumption."
+    },
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082792",
+     "detail": "Published HOTU vs The Huns card with its roster-join evidence."
+    }
+   ]
+  },
+  {
+   "id": "9C4-R11",
+   "area": "Rendered-card identity for the permalink-less DraculaN fixture",
+   "status": "platform limitation",
+   "finding": "JiJieHao vs Eternal Fire (DraculaN Season 7, 13:00Z) is rendered on the lobby's Closing Soon list without a View Match permalink. The fixture id 1081606 used on the dashboard comes from the scheduled-fixture API, not from the rendered card.",
+   "handling": "Published with the id, competition and start time from the API and a lobby anchor (cs2-pickems#fixture-1081606) instead of a fabricated match URL. Its probability comes from the market lines, not from Hotspawn. The limitation is listed in the review register so a reviewer can confirm the pairing on Hotspawn directly.",
+   "evidence": [
+    {
+     "url": "https://play.hotspawn.com/cs2-pickems",
+     "detail": "Closing Soon card for JiJieHao vs Eternal Fire, rendered without a View Match link."
+    },
+    {
+     "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+     "detail": "Fixture 1081606 with the DraculaN Season 7 competition id."
+    },
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1081606",
+     "detail": "Published row and the anchor used for the fixture."
+    }
+   ]
+  }
+ ]
 }

@@ -6695,3 +6695,62 @@ checked again here and only the first is true of the file:
 
 No file owned by 5bf31a25 was edited; this note is a record correction with its
 source, not a re-claim of their task.
+
+## Session arena-9c4b1f7a — pass 2: a refused fixture API no longer disowns a good snapshot (2026-10-23T11:00Z)
+
+**Claim.** Branch `arena/1045efed-maltaproj3`. File scope: `scripts/sources.py`,
+`scripts/collect.py`, `scripts/validate.py`, `scripts/build.py`,
+`tests/test_lobby_freshness.py`, `tests/test_9c4b1f7a_inventory_fallback.py` (new),
+`data/research/9c4b1f7a/` (this session's dossier) and this section. No edit to
+`scripts/originate.py`, `data/origination/**`, `data/latest.json`,
+`data/origination.json`, `archive/`, or any other session's `data/research/<id>/`.
+
+| Task | Status | Owner | Scope |
+| --- | --- | --- | --- |
+| 9C4-4 PR #221 merged after both required checks passed | done | arena-9c4b1f7a | merge commit `74e16f1`; checks: `Rows, build, links, mobile and accessibility` 23m07s pass, `originate` 2m44s pass |
+| 9C4-5 Rebase onto `main` after PR #220/#222/#223 and keep both review registers | done | arena-9c4b1f7a | `scripts/review_register.py` keeps `81c1058a` and `9c4b1f7a`; `COORDINATION.md` keeps every section |
+| 9C4-6 Trace the 10:43Z "do not trust these picks" banner to the refused fixture API | done | arena-9c4b1f7a | `data/research/9c4b1f7a/inventory-fallback.json` |
+| 9C4-7 Fall back to the rendered lobby array when the API refuses; fail closed on disagreement | done | arena-9c4b1f7a | `scripts/sources.py`, `scripts/collect.py`, `scripts/validate.py`, `scripts/build.py`, 11 new tests |
+| 9C4-8 PR, merge, confirm the deploy carries `rendered` / `rendered-partial` labels | in progress | arena-9c4b1f7a | PR |
+
+### What happened at 10:43Z
+
+The 10:14:05Z collection succeeded (92 CS2 records, 30 active, 30 with a pick).
+The next build, triggered by the merge of PR #221, asked the same fixture API
+again and was answered **403 Forbidden**. `hotspawn()` treated that as a total
+inventory failure, so the site kept the 29-minute-old snapshot, set
+`coverage_complete=false` and rendered *"Do not treat these as current picks"* on
+every page — beside 30 picks whose timestamps and values were never touched. The
+same URL answered 200 from the review environment minutes later: one surface was
+refused, the feed had not changed.
+
+### What changed
+
+* `hotspawn()` still fetches the API and both rendered pages in the same round. If
+  the API is refused and at least one page is readable, that page's embedded
+  `ng-state` fixture array — the identical `/api/v1/fixtures` body — becomes the
+  inventory. It is saved as `data/evidence/hotspawn-rendered-fixtures.json`, the
+  failed attempt stays in the request manifest, and `inventory_source` is
+  published as `rendered-lobby`.
+* Cross-check markers gain `rendered` (both pages agree) and `rendered-partial`
+  (one page read). Two readable pages that disagree, an empty page, or an
+  all-refused round still fail closed with the reason.
+* `validate.check_inventory()` replays a rendered snapshot from the saved page
+  payload, refuses any claim of API rows, and keeps the original API-evidence
+  contract for every other snapshot. The ledger and hero text distinguish
+  "API refused, lobby pages agree" from "API healthy, HTML unavailable".
+* Nothing is re-priced, re-stamped or invented: the fallback changes which public
+  surface supplies the same official array.
+
+### Verification
+
+| Check | Result | Command / source |
+| --- | --- | --- |
+| Collector fallback paths | 5 new cases: both pages agree, one readable, pages disagree (fails closed), nothing readable (fails closed), empty page refused | `.venv/bin/python -m unittest tests.test_lobby_freshness` |
+| Validator replay in rendered mode | 6 new cases incl. refusing an API-row claim and a marker that misdescribes the pages read | `.venv/bin/python -m unittest tests.test_9c4b1f7a_inventory_fallback` |
+| Build replayed locally | PASS, 80 source rows reconciled, 0 rows without a source | `.venv/bin/python -m scripts.build` |
+| Full suite | see the PR body | `.venv/bin/python -m unittest discover -s tests` |
+
+Handoff: if the API and both rendered pages are refused in one round, the
+dashboard still keeps its last-good snapshot with the stale warning. That is
+deliberate; do not "fix" it by reconstructing an inventory from memory.

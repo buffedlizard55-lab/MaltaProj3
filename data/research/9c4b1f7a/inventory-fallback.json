@@ -1,0 +1,49 @@
+{
+ "session": "arena-9c4b1f7a",
+ "pass": 2,
+ "observed_at": "2026-10-23T10:52:00Z",
+ "subject": "Hotspawn fixture API refused with HTTP 403 while the rendered lobby still served the same public array",
+ "published_snapshot_under_review": {
+  "generated_at": "2026-10-23T10:43:14Z",
+  "inventory_observed_at": "2026-10-23T10:14:05Z",
+  "coverage_complete": false,
+  "inventory_records": 92,
+  "active_fixtures": 30,
+  "active_with_pick": 30,
+  "featured_method_unresolved": 4,
+  "researched_fallbacks_used": 4,
+  "source": "https://buffedlizard55-lab.github.io/MaltaProj3/coverage/"
+ },
+ "observation": [
+  {
+   "at": "2026-10-23T10:14:05Z",
+   "what": "Successful collection. The public scheduled-fixture API answered 200 with 92 CS2 records and the site published them.",
+   "evidence": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json"
+  },
+  {
+   "at": "2026-10-23T10:43:14Z",
+   "what": "The next build (triggered by the merge of PR #221) attempted a refresh 29 minutes later. The same API answered 403 Forbidden to the hosted runner.",
+   "evidence": "https://buffedlizard55-lab.github.io/MaltaProj3/data/sources.json"
+  },
+  {
+   "at": "2026-10-23T10:43:14Z",
+   "what": "The refresh failed closed: the last-good snapshot was retained with its original timestamps, coverage_complete was set false, and every page rendered the warning 'Do not treat these as current picks' next to 30 fixtures that did carry sourced picks.",
+   "evidence": "https://buffedlizard55-lab.github.io/MaltaProj3/"
+  },
+  {
+   "at": "2026-10-23T10:47:00Z",
+   "what": "The same API URL answered 200 from the review environment minutes later, so the refusal was an access failure on the runner path, not evidence that the fixture array had changed or emptied.",
+   "evidence": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
+  }
+ ],
+ "root_cause": "scripts/sources.py:hotspawn() treated a refused fixture API as a total inventory failure. The rendered lobby pages embed the identical /api/v1/fixtures body in their ng-state block, but they were only ever used as a cross-check of the API, never as a substitute for it.",
+ "change": {
+  "scripts/sources.py": "A refused API call no longer aborts the refresh. The rendered pages are still fetched in the same round; when at least one is readable, its embedded public array becomes the inventory, saved as data/evidence/hotspawn-rendered-fixtures.json with the failed API attempt kept in the request manifest. Two readable pages that disagree still fail closed, and an empty page is never accepted as a feed.",
+  "scripts/collect.py": "The snapshot records inventory_source and a visible warning flag (inventory-api-unavailable) instead of silently claiming a three-response reconciliation.",
+  "scripts/validate.py": "check_inventory() replays a rendered-mode snapshot from the saved page payload, refuses any claim of API rows, requires the failed attempt in the manifest, and keeps the original API-evidence contract for every other snapshot.",
+  "scripts/build.py": "The hero kicker, coverage summary, verification ledger and cross-check notice distinguish 'API refused, lobby pages agree' from 'API healthy, HTML cross-check unavailable'.",
+  "tests": "tests/test_lobby_freshness.py: five new cases (both pages agree, one page readable, pages disagree, nothing readable, empty page). tests/test_9c4b1f7a_inventory_fallback.py: six replay cases for the validator."
+ },
+ "residual_limit": "If the API and both rendered pages are refused in the same round, the refresh still fails closed and the last-good snapshot keeps its own timestamps with the stale warning visible. That is intentional: no inventory is reconstructed from memory. The difference is that one refused surface no longer blanks a readable one.",
+ "no_invention": "No fixture, probability, pick or timestamp was added, re-priced or restamped by this change. The fallback reads the same official array through a different public surface."
+}
