@@ -1,4 +1,4 @@
-# Live Hotspawn lobby vs published snapshot — 2026-10-23T12:14:37Z
+# Live Hotspawn lobby vs published snapshot — 2026-10-23T12:17:56Z
 
 Published `latest.json` generated `2026-10-23T11:18:01Z`; 28 future fixtures compared, 1 missing from the published snapshot.
 
