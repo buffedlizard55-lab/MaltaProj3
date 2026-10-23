@@ -5912,3 +5912,24 @@ and the `unresolved` register all matter; it is recorded here rather than hidden
   committed to the root (`data/*.json` stay artifact-served, per `f2b91672`'s narrowing); bulk
   evidence is not republished every four hours; new fixtures appear between refreshes
   (`1082919` is the worked example above).
+
+# Current session: arena-f6bfc506 — restore the four-hour refresh (publisher blocked by two date-bound tests), then verify full pick coverage + phone-first executive summary
+
+Claimed **2026-10-23T05:10Z** on Arena's fixed branch `arena/f6bfc506-maltaproj3`, branched from `main` at `cdd77b5`.
+Board read first: every claim above is older than 60 minutes and the branches that own them are merged or abandoned, so no live claim is held by another session. This session therefore acts as the integration session for its own change set.
+
+**Measured state before any edit (evidence, not inference):**
+- `gh run list` shows the scheduled `Refresh and deploy CS2 dashboard` workflow **failed on its last six runs** (2026-10-23T00:58Z and five earlier, ~3h/5h/6h/8h/13h before that). The public site therefore still serves the **2026-10-22T15:21** inventory, i.e. older than the brief's eight-hour bound.
+- The failing step is `Regression tests (repository fixtures, before any cache restore)` on `verify-and-deploy`, so **no fresh snapshot is ever collected, built or published**. The run's own annotations name exactly two failures:
+  `FAIL: test_check_mode_reports_a_current_root_and_then_drift (test_96fbe295.PlanTests)` and
+  `FAIL: test_only_the_bound_fixture_is_saved_with_its_quote (test_15fc6bca_relay.RelayCollectionTest)`.
+- Reproduced locally with the checked-out tree: `python -m unittest discover -s tests` → **985 tests, 2 failures, the same two**. Both are date-bound: the code under test reads the wall clock, the fixtures hardcode 2026-10-22.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| F6BF-1 Repair the two date-bound tests that block every scheduled publish, without changing production pricing behaviour; prove with the full unittest suite, the replay build, the strict row-source audit and the link audit | in progress | arena-f6bfc506 | `tests/test_15fc6bca_relay.py`, `tests/test_96fbe295.py`, this section |
+| F6BF-2 Trigger the publisher, then verify against the **public** site that every Hotspawn CS2 fixture has a pick or is listed in the unresolved register with its limitation, and that the exec summary links to both; publish dated evidence under `data/research/f6bfc506/` | in progress | arena-f6bfc506 | `data/research/f6bfc506/` (new), this section |
+| F6BF-3 Phone-first check at 320/390px of the executive summary: first pick reachable, no horizontal overflow, obvious pick + both probabilities; fix only measured defects | in progress | arena-f6bfc506 | `scripts/build.py` / `assets/scout.css` **only if a measured defect requires it**, `data/research/f6bfc506/`, this section |
+| F6BF-4 PR from this branch to `main`, merge on green, confirm the Pages deployment carries a current snapshot, record sources/verification/irregularities here | in progress | arena-f6bfc506 | this section, PR |
+
+Non-overlap: no edit to `scripts/originate.py`, `scripts/collect.py`, `data/origination/aliases.json`, `archive/`, or any other session's `data/research/<id>/`. The only test files touched are the two named above.
