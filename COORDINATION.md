@@ -6411,3 +6411,35 @@ Non-overlap: no edit to `scripts/originate.py`, `scripts/collect.py`, `data/orig
 1. The publisher is healthy and gated in the right order; if a scheduled run fails again, read the `Regression tests` annotations first — they name the failing test, which is how this outage was found.
 2. `https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json` still serves the checked-in 2026-10-15 snapshot by design (root publish never writes `data/*`). Do not use it to judge freshness; use the page's `data-snapshot-generated` stamp or the `github-pages` artifact.
 3. `republish-last-verified` now refuses to restore a build older than the live snapshot; if a future session sees `Republish skipped` notices, that is the guard working, not a failure.
+
+# Current session: arena-5bf31a25 — verify the built dashboard, flag the stale-data irregularity, and close out PR/merge/Pages
+
+Claimed **2026-10-23T09:44Z** on Arena's fixed branch `arena/5bf31a25-maltaproj3`, branched from `main` at `d120d2f`. Board read: the prior session (arena-f6bfc506) marked all its tasks done and merged; no live claim is held by another session on the files in my scope.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 5BF-1 Verify the built dashboard (build, links, summary, unresolved, mobile) | **done** | arena-5bf31a25 | `scripts.build`, `tests/test_*.py`, root HTML views |
+| 5BF-2 Flag irregularities: stale data/latest.json (10-15) vs current root HTML; Hotspawn/unreachable egress prevents in-session refresh; root_publish refuses >12h-stale data | **done** | arena-5bf31a25 | `COORDINATION.md` (record only), `data/latest.json` (read-only review) |
+| 5BF-3 PR from `arena/5bf31a25-maltaproj3` to main, merge, confirm GitHub Pages deploy, record result | in progress | arena-5bf31a25 | this branch, PR, Pages deployment |
+
+Non-overlap: no edit to `scripts/collect.py`, `scripts/domain.py`, `scripts/sources.py`, `data/latest.json`, `data/origination.json`, `archive/`, `docs/`, `.github/workflows/pages.yml`, or any other session's `data/research/<id>/`. No probability, pick or alias was changed.
+
+### 5BF-1 result — verification
+
+- `scripts.build` PASS: 80 source rows reconciled; every published probability and pick replayed from first-party evidence. Row-source audit: 704 rows, 685 with an official link, 9 flagged unverified, 0 without a source. Acceptance audit: 9 pass, 1 info, 0 fail of 10 brief-line checks. **807 internal links/assets/anchors OK** — no broken links.
+- Targeted unit tests **80 passed**: `test_build`, `test_summary`, `test_mobile_picks_nav`, `test_unresolved_summary`, `test_pick_presentation_safety`, `test_build_hardening`, `test_review_flags`, `test_row_sources`.
+- The executive summary (`index.html`) already places the updated-pick entry points above the fold: a "Start here · where the picks are" block (Picks on this page / All match picks / Leaderboard plan / Unresolved / Blanks in this summary) plus a thumb-friendly executive banner (Updated picks · Featured picks feed · Unresolved & limitations). Every active fixture shows both teams' win probability, the obvious pick, a method badge (Market/Bookmaker/Model/Researched) and source links. Unresolved fixtures stay blank with a dated limitation and are listed in the separate "Unresolved picks & limitations" register.
+- Mobile: first tap targets at 485–503 px; prior session measured **0 px horizontal overflow** at 320/390 px widths on seven pages. Pick rows render at 1098–1256 px down the page on phone.
+- Picks cover every active Hotspawn CS2 fixture in the snapshot (each with a pick or an explicit blank + limitation); picks originate from external lines only (Polymarket/Thunderpick/Bovada/Kalshi/bo3.gg) or the Valve research model — never Hotspawn "% picked".
+
+### 5BF-2 result — irregularities (flagged, not blocking)
+
+- `data/latest.json` is generated **2026-10-15T08:36:13Z** (~193h old), beyond the 8h stale bound and the 12h root-publish limit. `scripts.root_publish --check` refuses to publish it (exit 3: "snapshot ... is 193.2h old (limit 12.0h)").
+- Hotspawn's scheduled-fixture API (`phpstack-1372681-6459848.cloudwaysapps.com`) and `play.hotspawn.com` are **unreachable from this sandbox** (TLS connection closed). Outbound egress is limited to `github.com`, `codeload.github.com`, `api.github.com`, `registry.npmjs.org`, `pypi.org`, `files.pythonhosted.org`, so no in-session refresh of Hotspawn, Polymarket, HLTV, Thunderpick, Bovada or Kalshi is possible.
+- Because of the above, a push-to-main Pages run would collect stale/degraded data. The root HTML views on the branch remain the last verified (10-23) snapshot; `data/*` is intentionally never overwritten by root publish. A repository owner with general egress (or a Pages admin to switch `build_type` from legacy to workflow) is needed to run a fresh collection and clear the stale-data flag.
+
+### Handoff notes for the next session
+
+1. Do not treat `data/latest.json` as current; judge freshness by the page's `data-snapshot-generated` stamp or the `github-pages` artifact.
+2. If the Pages workflow runs, `scripts.collect` will fail on Hotspawn and retain the Oct 15 snapshot with a visible stale warning — this is the designed degraded mode, not a crash.
+3. The next session should run a fresh Hotspawn collection from an environment with general egress, then re-run `scripts.build` and `scripts.root_publish`, then merge and confirm Pages serves a sub-8-hour snapshot.
