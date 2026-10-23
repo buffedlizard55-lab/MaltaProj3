@@ -1,3 +1,15 @@
+# Current session: arena-fd99abd9 — Hotspawn full coverage: every CS2 pick, HLTV→esportsbook research, phone-first executive summary
+
+Claimed **2026-10-23T05:00Z** on Arena's fixed branch `arena/fd99abd9-maltaproj3`, branched from `main` at `cd95411` (merge PR #189). Board read first. Live snapshot audited 2026-10-23T05:00Z on checked-in data: `data/latest.json` 17 upcoming / 13 picks / 4 unresolved-featured, `data/origination.json` 17 active / 17 picks (7 market, 5 bookmaker, 5 model) / 0 unresolved after research fallback. Previous sessions `3016b0c6`, `3a5448de`, `f60683a4` merged; open PRs #154/#149/#139/#120 are stale >60 min and untouched (their merged equivalents are on main). No live claim overlaps the files below.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| FD99-1 HLTV-first, then esportsbooks/aggregators, for every fixture the featured method leaves without a betting line: dated read-only probe, evidence-only JSON/MD + flags; wire a new source into the research ladder only if it returns a replayable two-sided prematch price | in progress | arena-fd99abd9 | `scripts/fd99abd9_probe.py` (new, read-only), `.github/workflows/fd99abd9-probe.yml` (session-only, removed before merge), new `data/research/fd99abd9/` |
+| FD99-2 Phone-first executive summary: one-tap links to updated picks, every active row shows both probabilities + obvious pick + method badge + source link; separate "Picks without a betting line" and "Unresolved & limitations" registers inside the summary with per-row blocker | in progress | arena-fd99abd9 | `scripts/build.py` (`glance()`, `no_line_register()`, `unresolved_register()`, `summary()` only), `assets/scout.css` (append-only mobile rules), `assets/scout.js`, `tests/test_fd99abd9_*.py` (new) |
+| FD99-3 Line-by-line verification, row-source audit, link audit, mobile a11y, rebuild, PR to main + merge + Pages confirm | in progress | arena-fd99abd9 | `data/research/fd99abd9/`, this section, PR |
+
+Non-overlap: no edits to `scripts/collect.py`, `scripts/originate.py` pricing ladder, `data/origination/aliases.json`, `data/latest.json`, `data/origination.json`, `archive/`, other sessions' `data/research/<id>/`. If a new price source meets the bar it will be logged here first. All probe writes are read-only evidence; no probability/pick is typed into a snapshot.
+
 # Current session: arena-3016b0c6 — picks for every match (low-tier research), separate unresolved section, phone-first executive summary
 Claimed **2026-10-22T07:32Z** on Arena's fixed branch `arena/3016b0c6-maltaproj3`, branched from `main` at `285a0d9` (merge PR #162). Board read first: previous session `fbdc97d6` is **done/merged** (PR #153), no live claim held. Live snapshot audited 2026-10-22T05:36Z: 33 active, 33 with directional pick, ~15 external line, 18 research-model, 0 unresolved in complete list — but featured method alone leaves 10 blank and 18 have no betting line, which is the gap this session re-attacks.
 | Task | Status | Owner | File scope |
