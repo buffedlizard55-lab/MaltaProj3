@@ -19,6 +19,10 @@ A mobile-first, source-linked GitHub Pages dashboard covering **every CS2 record
 
 The observation times and counts on the live site are authoritative for that published snapshot. For scale, the first fully replayed snapshot on **14 October 2026** contained **88 records: 28 future starts and 60 past-start records**, with **9 Polymarket estimates, 4 original bookmaker estimates, 8 Valve-model estimates and 7 unresolved future matches**. Past starts still labeled `scheduled` are retained as source anomalies, not invented results.
 
+### Published snapshot file (session ca7e10e5)
+
+Every page links and fetches **`/snapshot.json`**, a byte-identical build output of the same observation that is rendered on the page. The tracked `data/latest.json` in this repository is the CI replay fixture; it is deliberately never copied into the published branch root, because rewriting it would break the deterministic replay and the regression tests that assert against it. On 2026-10-23 a legacy root build served that fixture (2026-10-15) under a current page (2026-10-23) — 192.8 hours apart — so the downloadable file was split out and is now carried into the root by `scripts/root_publish.py`. The evidence for that read is in [`data/research/ca7e10e5/`](data/research/ca7e10e5/published-and-coverage.md).
+
 ## Source and probability rules
 
 1. **Complete inventory first, and keep a valid official inventory usable.** The public scheduled-fixture API used by Hotspawn’s own client is the authoritative scheduled inventory. The rendered [Hotspawn lobby](https://play.hotspawn.com/lobby) and [CS2 lobby](https://play.hotspawn.com/cs2-pickems) hydration states are an independent cross-check; when either page is readable it must agree with the API exactly, and a readable page that disagrees still fails the refresh closed. When *no* rendered page can be read (observed HTTP 403 on both pages at 07:16Z on 17 October 2026, while the same API had answered 200 four hours earlier), the validated, duplicate-free API array is published with `inventory_crosscheck: "unavailable"`, a visible notice and a review flag instead of a reconciliation claim, so source-backed picks are not discarded over a secondary page. No pagination was present in the inspected client. A changed schema, duplicate IDs or an empty array still invalidates the refresh; it is never accepted as an empty or partial successful feed. New matches are rediscovered on every successful refresh.
@@ -33,7 +37,7 @@ The observation times and counts on the live site are authoritative for that pub
 
 HLTV directory research supports its observed split time/team links, joined only by the exact match URL. Repeated pinned cards are deduplicated; conflicting observations are rejected. Original HTML is retained as evidence. This confirms identities, not odds. For remaining gaps, each match now records the actual GG.BET, Pinnacle and Rivalry access-check limitations, not merely a global source-health warning. Unknown-start fixtures appear in the executive summary’s unresolved section, separate from the future-match count.
 
-Every row links an official Hotspawn source. Every estimate links the original market, bookmaker or Valve record. [Full public snapshot](https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json), [request manifest](https://buffedlizard55-lab.github.io/MaltaProj3/data/sources.json), [contrarian review evidence](https://buffedlizard55-lab.github.io/MaltaProj3/data/contrarian.json), saved first-party JSON evidence, and [CSV](https://buffedlizard55-lab.github.io/MaltaProj3/data/picks.csv) allow manual review and calculation replay. POST request payloads, observation times and response hashes are recorded without credentials.
+Every row links an official Hotspawn source. Every estimate links the original market, bookmaker or Valve record. [Full public snapshot](https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json), [request manifest](https://buffedlizard55-lab.github.io/MaltaProj3/data/sources.json), [contrarian review evidence](https://buffedlizard55-lab.github.io/MaltaProj3/data/contrarian.json), saved first-party JSON evidence, and [CSV](https://buffedlizard55-lab.github.io/MaltaProj3/data/picks.csv) allow manual review and calculation replay. POST request payloads, observation times and response hashes are recorded without credentials.
 
 ## 15 October day-one review: the HLTV-reported 9z–Aurora upset
 
@@ -419,7 +423,7 @@ listed with its reason rather than a default 50/50.
 - `Refresh and deploy CS2 dashboard` and `pages build and deployment` both
   completed successfully for `0318219`, and the deployed artifacts were then
   fetched directly rather than trusting the job status.
-- Live [`data/latest.json`](https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json)
+- Live [`snapshot.json`](https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json) (the downloadable build output every page links to)
   was generated at `2026-10-17T10:49:22Z` with `coverage_complete: true`,
   `inventory_crosscheck: "complete"`, 93 fixtures (32 upcoming), 24 priced with
   probabilities and 8 explicitly unresolved. Production therefore exercised the

@@ -1173,10 +1173,22 @@ def no_line_research_block(data, prefix):
 def live_coverage_gaps(data, prefix):
     """Live Hotspawn lobby fixtures that this snapshot does not contain.
 
-    Session 9fd5fbf1. Dated inventory research only: each missing row keeps its
-    official Hotspawn and HLTV links. No probability, pick or 50/50 is added.
-    When the next four-hour collect includes the id, the row drops out of this
-    list automatically.
+    Session 9fd5fbf1, corrected by sessions 9c4b1f7a and ca7e10e5. Dated
+    inventory research only: each missing row keeps its official Hotspawn and
+    HLTV links. No probability, pick or 50/50 is added.
+
+    Two rules keep the section honest, because a stale checklist is worse than
+    none:
+
+    * a lobby card is skipped when this build already resolves the same match,
+      even under a blank Hotspawn id — the research record left the
+      JiJieHao–Eternal Fire id blank, so an id-only comparison published it as
+      "not in this snapshot" while the very same page carried its pick
+      (ca7e10e5 reproduced this from the published page; the merged fix reads
+      both feeds and matches the exact team pair);
+    * the section never claims the cards are live "right now": it prints the
+      record's own observation time and states that the list is a dated
+      observation, not a live claim.
     """
     record = data.get('_live_coverage') or {}
     live = record.get('live_fixtures') or []
@@ -1219,6 +1231,8 @@ def live_coverage_gaps(data, prefix):
         if fixture.get('hltv_analytics_url'):
             links += external(fixture['hltv_analytics_url'], 'HLTV analytics')
         note = fixture.get('note') or 'Not in this snapshot. No probability is invented.'
+        if fixture.get('in_published_snapshot') and not fixture.get('note'):
+            note += ' It was in the published snapshot at the time of that check.'
         rows += (f'<li class="coverage-gap-row"><span class="tried-chip unresolved">{e(label)}</span>'
                  f'<strong>{e(names)}</strong> '
                  f'<span class="tiny muted">{e(fixture.get("competition") or "Unverified tournament")}</span> '
@@ -1960,7 +1974,7 @@ def coverage(data, prefix, now=None):
             detail = e(detail)
         out += f'<tr><th scope="row">{e(title)}</th><td>{detail}</td><td>{external(url, label)}</td></tr>'
     reconciliation = '<a href="' + prefix + 'data/evidence/hotspawn-context.json">Inventory reconciliation ↓</a>' if data.get('inventory_observed_at') else ''
-    out += '</tbody></table></div><div class="inline-links downloads"><a href="' + prefix + 'data/latest.json">Full snapshot JSON ↓</a>' + reconciliation + '<a href="' + prefix + 'data/picks.csv">Picks CSV ↓</a>' + '<a href="' + prefix + 'data/acceptance-audit.md">Brief-line acceptance audit ↓</a></div></section>'
+    out += '</tbody></table></div><div class="inline-links downloads"><a href="' + prefix + 'snapshot.json">Full snapshot JSON ↓</a>' + reconciliation + '<a href="' + prefix + 'data/picks.csv">Picks CSV ↓</a>' + '<a href="' + prefix + 'data/acceptance-audit.md">Brief-line acceptance audit ↓</a></div></section>'
     out += f'<section class="content-section" id="archive"><div class="section-heading"><div><p class="eyebrow">Preserved, not misrepresented</p><h2>Past-start source archive <span class="heading-count">{c["archived"]}</span></h2></div></div><p class="section-intro">These records still exist in Hotspawn’s scheduled feed, but their scheduled starts are in the past. “Scheduled” is the source’s value, not a verified present status. Results, current picks and retrospective probabilities are not invented.</p><div class="table-scroll"><table class="simple-table archive-table"><caption class="sr-only">Every past-start CS2 record retained from the original Hotspawn feed</caption><thead><tr><th>Match / tournament</th><th>Scheduled start</th><th>Source status</th><th>Original source</th></tr></thead><tbody>'
     for m in data['matches']:
         if m['availability'] != 'past':
@@ -2091,10 +2105,10 @@ def shell(data, key, body, prefix, now=None):
         extra_css += f'<script src="{prefix}assets/glance-lock.js" defer></script>'
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{e(title)} · Spawn Scout</title><meta name="description" content="Every Hotspawn CS2 match, independent probabilities, clear picks and original evidence. Mobile-friendly, read-only analysis with visible coverage gaps."><meta name="theme-color" content="#142534"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'"><link rel="icon" href="{prefix}assets/scout-mark.svg" type="image/svg+xml"><link rel="stylesheet" href="{prefix}assets/scout.css">{extra_css}<script src="{prefix}assets/scout.js" defer></script></head>
-<body {safety_attrs} data-page="{key}" data-inventory-time="{e(inventory)}" data-inventory-complete="{str(data['coverage_complete']).lower()}" data-snapshot-generated="{e(data['generated_at'])}" data-data-url="{prefix}data/latest.json"><a class="skip-link" href="#main">Skip to content</a>
+<body {safety_attrs} data-page="{key}" data-inventory-time="{e(inventory)}" data-inventory-complete="{str(data['coverage_complete']).lower()}" data-snapshot-generated="{e(data['generated_at'])}" data-data-url="{prefix}snapshot.json"><a class="skip-link" href="#main">Skip to content</a>
 <aside class="sidebar"><a class="brand" href="{prefix}index.html" aria-label="Spawn Scout home"><span class="brand-mark"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M5 4h9v9H5zM17 4h7v7h-7zM5 16h7v8H5z"/><path d="m16 17 8-4v11h-8z"/></svg></span><span>spawn<span class="brand-light">scout</span><small>CS2 MATCH INTELLIGENCE</small></span></a><p class="nav-label">YOUR DASHBOARD</p><nav aria-label="Main navigation">{nav}</nav><div class="sidebar-bottom"><div class="sidebar-note"><span class="status-dot"></span><strong>Independent analysis</strong><p>Hotspawn tells us who plays.<br>External sources inform the pick.</p></div>{external(LOBBY, 'Open Hotspawn lobby', 'sidebar-external')}<a class="sidebar-repo" href="{REPO}">Open-source &amp; auditable {icon('external')}</a></div></aside>
 <div class="workspace"><header class="topbar"><div class="mobile-brand"><a href="{prefix}index.html">spawn<strong>scout</strong><span>CS2</span></a></div><div class="desktop-crumb">Workspace <span>/</span> <strong>{e(title)}</strong></div><div class="topbar-tools"><span class="refresh-pill">{icon('clock')} Checks every 4h</span><label class="timezone-control"><span class="sr-only">Display timezone</span><select id="timezone"><option value="Europe/Malta">Malta time</option><option value="UTC">UTC</option><option value="local">Device time</option></select></label></div></header>
-<main id="main" tabindex="-1">{mobile_status}<div class="snapshot-line"><span class="freshness-label" data-freshness><span class="status-dot"></span>{freshness}</span><span>Inventory checked {local_time(data.get('inventory_observed_at'))} <span data-zone-label>Malta</span></span></div><div id="stale-warning" class="stale-warning" role="status" {'' if stale else 'hidden'}><strong>Do not treat these as current picks.</strong> The inventory check failed or the successful snapshot is older than eight hours. Original timestamps are preserved. <a href="{prefix}coverage/">Check source status →</a></div><div id="new-snapshot" class="new-snapshot" hidden>A newer verified snapshot is available. <button type="button" id="load-update">Load updated picks →</button></div>{crosscheck_note}{body}<footer class="footer"><div><strong>Better context. Clearer picks.</strong><p>Independent Hotspawn CS2 research · Not affiliated with Hotspawn, HLTV, Valve or any betting provider.</p><p>Estimates, not guarantees. No bets or picks are placed. Informational use only. 18+ where applicable.</p></div><div><a href="{prefix}methodology/">Methodology</a><a href="{prefix}review/">Flagged for Review</a><a href="{prefix}data/latest.json">Open data ↓</a><span class="tiny muted">Built {local_time(data['generated_at'])}</span></div></footer></main></div><nav class="mobile-nav" aria-label="Mobile navigation">{mobile}</nav></body></html>'''
+<main id="main" tabindex="-1">{mobile_status}<div class="snapshot-line"><span class="freshness-label" data-freshness><span class="status-dot"></span>{freshness}</span><span>Inventory checked {local_time(data.get('inventory_observed_at'))} <span data-zone-label>Malta</span></span></div><div id="stale-warning" class="stale-warning" role="status" {'' if stale else 'hidden'}><strong>Do not treat these as current picks.</strong> The inventory check failed or the successful snapshot is older than eight hours. Original timestamps are preserved. <a href="{prefix}coverage/">Check source status →</a></div><div id="new-snapshot" class="new-snapshot" hidden>A newer verified snapshot is available. <button type="button" id="load-update">Load updated picks →</button></div>{crosscheck_note}{body}<footer class="footer"><div><strong>Better context. Clearer picks.</strong><p>Independent Hotspawn CS2 research · Not affiliated with Hotspawn, HLTV, Valve or any betting provider.</p><p>Estimates, not guarantees. No bets or picks are placed. Informational use only. 18+ where applicable.</p></div><div><a href="{prefix}methodology/">Methodology</a><a href="{prefix}review/">Flagged for Review</a><a href="{prefix}snapshot.json">Open data ↓</a><span class="tiny muted">Built {local_time(data['generated_at'])}</span></div></footer></main></div><nav class="mobile-nav" aria-label="Mobile navigation">{mobile}</nav></body></html>'''
 
 
 def picks_csv(data):
@@ -2197,6 +2211,12 @@ def build(source: Path, output: Path, now=None):
     # unresolved" while the page said "0", and both were true of different
     # lists. A reader must never have to guess which list a number belongs to.
     write_reconciled_snapshot(output / 'data/latest.json', data)
+    # The downloadable snapshot every page links to. `data/latest.json` is also
+    # the repository's CI replay fixture, so scripts.root_publish must never copy
+    # it into the branch root; this byte-identical top-level copy is a build
+    # output instead, and the root publisher carries it so both publishers serve
+    # the same observation (see scripts/root_publish.py).
+    shutil.copyfile(output / 'data/latest.json', output / 'snapshot.json')
     (output / '.nojekyll').touch()
     from scripts import build as _self
     from scripts.build_edge import edge_review

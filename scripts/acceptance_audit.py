@@ -465,11 +465,18 @@ def check_snapshot_consistency(site: Path) -> Check:
     soup = _page(site, 'index.html')
     stamp_node = soup.select_one('[data-snapshot-generated]') if soup else None
     branch_root = _is_branch_root(site)
-    latest = site / 'data/latest.json'
+    # The downloadable snapshot every page links to is `snapshot.json` (session
+    # ca7e10e5); `data/latest.json` is the tracked CI replay fixture and is the
+    # fallback for trees built before the split.
+    latest = site / 'snapshot.json'
+    if not latest.exists():
+        latest = site / 'data/latest.json'
     if stamp_node is None:
         return check.fail('index.html carries no data-snapshot-generated stamp to compare against.')
     page_stamp = stamp_node.get('data-snapshot-generated')
-    if branch_root:
+    if branch_root and not (site / 'snapshot.json').exists():
+        # Before session ca7e10e5 the shipped root carried no downloadable copy of
+        # the current observation, so only the rendered pages could be compared.
         built_latest = site / 'site/data/latest.json'
         if built_latest.exists():
             try:
@@ -503,12 +510,12 @@ def check_snapshot_consistency(site: Path) -> Check:
         return check.fail(f'Unparseable timestamps: page {page_stamp!r}, JSON {json_stamp!r}.')
     drift = abs((page_time - json_time).total_seconds())
     if drift > 600:
-        return check.fail(f'The page shows snapshot {page_stamp} but data/latest.json carries {json_stamp} '
+        return check.fail(f'The page shows snapshot {page_stamp} but {latest.name} carries {json_stamp} '
                           f'({drift / 3600:.1f} h apart): a reader who downloads the JSON sees a different '
                           'observation from the one printed on the page.',
-                          f'{site}/index.html', f'{site}/data/latest.json')
-    return check.ok(f'Page stamp and data/latest.json agree ({page_stamp}).',
-                    f'{site}/index.html', f'{site}/data/latest.json')
+                          f'{site}/index.html', str(latest))
+    return check.ok(f'Page stamp and {latest.name} agree ({page_stamp}).',
+                    f'{site}/index.html', str(latest))
 
 
 def check_unresolved_page(site: Path) -> Check:
