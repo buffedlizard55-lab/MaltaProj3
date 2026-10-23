@@ -6128,3 +6128,13 @@ Full integrated suite: **997 tests, one failure**, `test_f4eb8ae3.ExecutiveSumma
 ### 38C final gates before merge
 - Final wording repair preserves the policy (community participation excluded), avoids claiming absence of a retrieved market proves no market exists, and links the actual Glicko methodology rather than displaying an incomplete formula. The formerly failing summary contract plus current-audit/current-summary/mobile-glance suites: **30 tests passed**. Full integrated run previously had 996 passing tests and only this newly fixed wording failure; a complete repaired rerun is underway.
 - Current main integrated through #200 with no discarded parallel work. Latest full build: **652 rows, 0 missing-source violations, 801 internal links**; all saved probabilities replay. Browser suite after underline repair **89/89 passed**; final prose-only gate rerunning. PR #193 contains all 38C code/reports, only named integration fixes to shared files, and no production data/odds changes.
+
+## Session arena-f7a94082 — 2026-10-23 live 94-fixture runner audit, Smarkets/Pinnacle/BO3 multi-source sweep, WCAG 2.5.8 target sizing & 3.5x test/replay speedup
+
+Board read before work and re-read across merges through PR #203 (`47933cba`). Working strictly on Arena's fixed branch `arena/f7a94082-maltaproj3`.
+
+| Task | Status | Owner | Files |
+| --- | --- | --- | --- |
+| F7A9-1 Live 94-fixture runner sweep (HLTV first -> Polymarket/Kalshi/Thunderpick/Bovada/Pinnacle Sport 12/Smarkets v3/bo3.gg relay + 15 web books/aggregators) & dated research artifacts | in progress | arena-f7a94082 | `scripts/f7a94082_probe.py`, `data/research/f7a94082/`, `scripts/review_register.py`, `tests/test_f7a94082_verification.py` |
+| F7A9-2 Symmetric Hotspawn SSR hydration failover (`len(read) == 2`), `pages.yml` interim freshness guard, WCAG 2.2 SC 2.5.8 24x24 target sizing, and SHA-256 memoized replay speedup | in progress | arena-f7a94082 | `scripts/sources.py`, `scripts/originate.py`, `scripts/validate.py`, `scripts/twc_lines.py`, `scripts/twc_research.py`, `assets/{scout,origination,strategy}.css`, `.github/workflows/{checks,origination,pages}.yml` |
+
