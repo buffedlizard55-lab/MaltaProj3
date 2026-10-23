@@ -71,6 +71,14 @@ jobs:
           Path('data/research/19de9c79/capture-summary.json').write_text(json.dumps(summary,indent=2)+'\n')
           print('::notice title=19de9c79 fresh capture::'+json.dumps(summary))
           PY
+      - name: Retain evidence even if the optional Git write is refused
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: 19de9c79-fresh-coverage-${{ github.run_id }}
+          path: data/research/19de9c79/
+          if-no-files-found: error
+          retention-days: 7
       - name: Commit only this session's research evidence
         env:
           BRANCH: arena/19de9c79-maltaproj3
@@ -83,5 +91,7 @@ jobs:
             exit 0
           fi
           git commit -m 'research: capture fresh Hotspawn pick coverage [skip ci]'
-          git pull --rebase origin "$BRANCH"
+          # This is the only writer in the capture concurrency group. A
+          # non-fast-forward is safer than rebasing or replacing another push;
+          # the artifact above preserves the evidence either way.
           git push origin "HEAD:$BRANCH"
