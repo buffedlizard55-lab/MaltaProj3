@@ -513,8 +513,9 @@ def resolve(fixture: dict, bound: dict, ratings, valve_meta, registry: dict,
     pn = bound.get('pinnacle') or {}
     if pn.get('matchup') and isinstance(pn['matchup'], dict):
         m = pn['matchup']
-        odds = m.get('odds') or m.get('prices')
-        names = m.get('names') or fixture['teams']
+        # pinnacle_lines.quote returns participants/decimal; tolerate odds/names too
+        odds = m.get('decimal') or m.get('odds') or m.get('prices')
+        names = m.get('participants') or m.get('names') or fixture['teams']
         if isinstance(odds, list) and len(odds) == 2:
             row = {
                 'provider': 'Pinnacle', 'names': list(names), 'odds': [float(o) for o in odds],

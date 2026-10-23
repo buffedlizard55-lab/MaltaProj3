@@ -181,6 +181,101 @@ class GapRendering(unittest.TestCase):
         self.assertNotIn('50.0%', html)
 
 
+
+class NoLineEvidenceStages(unittest.TestCase):
+    """Every no-line row documents the HLTV-first + book sweep it actually ran."""
+
+    def test_no_line_rows_carry_source_linked_research_stages(self):
+        mod = _gap_mod
+        facts = {
+            'hltv': {'match_url': 'https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya',
+                     'match_status': 403, 'detail': 'Team pages readable'},
+            'books': [{'name': 'Thunderpick', 'url': 'https://thunderpick.io', 'http_status': 200,
+                       'teams_listed': []},
+                      {'name': 'bo3.gg relay', 'url': 'https://bo3.gg', 'http_status': 404,
+                       'teams_listed': [], 'error': 'HTTP 404'}],
+            'thunderpick': {'bound': False, 'error': 'no two-sided price'},
+            'smarkets': {'bound': False, 'url': 'https://smarkets.com/list/sport/esports/csgo'},
+            'pinnacle': {'bound': False, 'url': 'https://www.pinnacle.com/en/esports'},
+        }
+        stages = mod.evidence_stages(facts)
+        kinds = [s['stage'] for s in stages]
+        self.assertIn('HLTV first (identity & state)', kinds)
+        self.assertIn('Esportsbooks & betting-line sweep', kinds)
+        for s in stages:
+            self.assertTrue(s.get('source_url'))
+            self.assertIn(s['status'], ('checked', 'resolved', 'unresolved', 'unavailable'))
+        book_stage = next(s for s in stages if s['stage'].startswith('Esportsbooks'))
+        self.assertIn('1 of 2', book_stage['detail'])
+        self.assertIn('no readable two-sided pair', book_stage['detail'])
+        self.assertIn('not evidence that no market exists', book_stage['detail'])
+
+
+class PinnacleContract(unittest.TestCase):
+    """pinnacle_lines.quote returns [quote_or_None, error_or_None]: never treat the
+    container as the answer — an error list is truthy and must not read as 'bound'."""
+
+    def test_error_list_is_not_a_bound_matchup(self):
+        import types
+        mod = _gap_mod
+        stub = types.ModuleType('scripts.pinnacle_lines')
+        stub.quote = lambda a, b, c, now=None: [None, 'Pinnacle guest board unavailable: boom']
+        import sys
+        sys.modules['scripts.pinnacle_lines'] = stub
+        try:
+            res = mod.probe_pinnacle({'teams': ['Acend', 'UNiTY'],
+                                      'starts_at': '2026-10-25T01:30:00+00:00'},
+                                     '2026-10-23T11:00:00+00:00')
+        finally:
+            sys.modules.pop('scripts.pinnacle_lines', None)
+        self.assertFalse(res['bound'])
+        self.assertIsNone(res['matchup'])
+        self.assertIn('unavailable', res['error'])
+        stages = mod.evidence_stages({'pinnacle': res})
+        self.assertEqual(stages[-1]['status'], 'unresolved')
+
+    def test_real_matchup_binds_and_feeds_the_pick(self):
+        import types
+        mod = _gap_mod
+        stub = types.ModuleType('scripts.pinnacle_lines')
+        stub.quote = lambda a, b, c, now=None: (
+            {'participants': ['Acend', 'UNiTY'], 'decimal': [1.85, 1.95],
+             'american': [-118, -105], 'observed_at': '2026-10-23T11:00:00+00:00',
+             'source_url': 'https://www.pinnacle.com/en/esports'},
+            None)
+        import sys
+        sys.modules['scripts.pinnacle_lines'] = stub
+        try:
+            res = mod.probe_pinnacle({'teams': ['Acend', 'UNiTY'],
+                                      'starts_at': '2026-10-25T01:30:00+00:00'},
+                                     '2026-10-23T11:00:00+00:00')
+        finally:
+            sys.modules.pop('scripts.pinnacle_lines', None)
+        self.assertTrue(res['bound'])
+        stages = mod.evidence_stages({'pinnacle': res})
+        self.assertEqual(stages[-1]['status'], 'resolved')
+        # a bound Pinnacle series moneyline prices the fixture: it is a money line,
+        # so the no-line row must carry a bookmaker pick, not a model estimate
+        inventory = {'fixtures': [{'id': '7', 'teams': ['Acend', 'UNiTY'],
+                                   'competition': 'Test Cup',
+                                   'starts_at': '2026-10-25T01:30:00Z', 'started': False,
+                                   'score': [None, None],
+                                   'hotspawn_url': 'https://www.hotspawn.com/matches/x'}],
+                     'lobby_url': 'https://play.hotspawn.com/lobby'}
+        published = {'latest_generated_at': '2026-10-23T09:23:57Z',
+                     'origination_generated_at': '2026-10-23T09:24:00Z',
+                     'ids': set(), 'pairs': set(), 'rows': {}, 'origination_rows': {}}
+        bound = {'7': {'pinnacle': res}}
+        gap, _ = build_record(inventory, published, bound, [], None, {'aliases': []},
+                              '2026-10-23T11:00:00Z',
+                              'github-actions-runner')
+        row = gap['lobby_fixtures'][0]
+        self.assertEqual(row['pick']['pick_team'], 'Acend')
+        self.assertEqual(row['pick']['method'], 'bookmaker')
+        self.assertTrue(row['limitation'].startswith('Researched pick'))
+        self.assertEqual(gap['counts']['lobby_resolved_picks'], 1)
+
+
 class RecordConstruction(unittest.TestCase):
     def _published(self):
         return {
