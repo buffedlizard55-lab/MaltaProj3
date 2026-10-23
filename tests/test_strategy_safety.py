@@ -1,6 +1,9 @@
 """Fail closed on unsupported contrarian eligibility; retain sourced estimates."""
 import unittest
-from test_strategy import NOW, inputs, match
+try:
+    from tests.test_strategy import NOW, inputs, match
+except ImportError:  # direct module runs with tests/ on sys.path
+    from test_strategy import NOW, inputs, match
 from scripts.build_strategy import plan
 
 
