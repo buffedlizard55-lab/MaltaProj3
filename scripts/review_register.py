@@ -22,6 +22,8 @@ REGISTERS = (
     'research/7e8bed83/repo-review.json',
     'research/416d93ee/repo-review.json',
     'research/df80ab9f/repo-review.json',
+    'research/52aee465/repo-review.json',
+    'research/92a3e9fb/repo-review.json',
 )
 STATUS = {
     'fixed': ('Fixed', 'green'),

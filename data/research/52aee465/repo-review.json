@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "session": "arena-52aee465",
+  "review_clock_utc": "2026-10-23T05:15:00Z",
+  "scope": "End-to-end verification of live 2026-10-23 Hotspawn CS2 inventory (92 scheduled API rows, 30 active upcoming fixtures), all 9 model-tier fixtures against HLTV match pages + Polymarket Gamma + Bovada + Pinnacle + Valve 2026-10-05 global standings + bo3.gg, 17 competition-scoped alias joins in data/origination/aliases.json, deterministic 2026-10-15 replay fixtures, and mobile executive-summary / row-source HTML audits.",
+  "method": "Every table row and fixture input was checked directly against first-party publishers (Hotspawn API & /lobby, HLTV match/event pages, Polymarket Gamma CLOB, Kalshi CS2 API, Bovada CS2 coupon API, Pinnacle Arcadia API, Valve regional standings repository, and bo3.gg). Zero Hotspawn crowd pick percentages or HLTV fan votes are used; unconfirmed fields remain null and are published here on Flagged for Review.",
+  "items": [
+    {
+      "id": "52aee465-01",
+      "area": "Provider alias joins (CCT EU #12, CCT SA #7, NODWIN #13, Tesla Cup 2026, PGL Bucharest 2026)",
+      "status": "fixed",
+      "finding": "Thirteen provider display-name and diacritic-stripped variants across Bovada and Pinnacle plus three competition-scope gaps prevented multi-book consensus joins on upcoming fixtures 1081149 (Sokerorg -> LFO 10), 1082924 (Quintessencia -> QUINTESSÊNCIA), 1082925 (RED Academy -> RED Canids Academy), 1079193 (FokuS Esports -> FOKUS), 1082996 (UNiTY esports -> UNiTY), 1079198 (BakS eSports -> BakS), 1082898 (FaZe Clan -> FaZe in Tesla Cup 2026), and PGL Masters Bucharest 2026 (Team AURORA, FUT Esports, Team Spirit, BB Team, Team Liquid, 9Z Globant, Nemiga Gaming, G2 Esports, FURIA Esports).",
+      "handling": "Added 13 competition-scoped alias entries with must_not_match academy/main-roster guards and extended 3 existing entries in data/origination/aliases.json, each backed by 2-4 official first-party URLs and verified by unit tests in tests/test_52aee465_audit.py.",
+      "evidence": [
+        {
+          "url": "https://www.bovada.lv/esports/counter-strike-2/cct-europe/series-12/forze-reload-sokerorg-202610230400",
+          "detail": "Bovada event 32630179 lists 'Forze Reload vs Sokerorg' (1.181818 / 4.50) at 2026-10-23T08:00:00Z, upgrading fixture 1081149 from single-source Polymarket to Polymarket + Bovada consensus."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399909/borracheiros-vs-quintessncia-cct-2026-south-america-series-7",
+          "detail": "HLTV match 2399909 confirms 'BORRACHEIROS vs QUINTESSÊNCIA' at 2026-10-23T16:00:00Z against Bovada 32606587 and Pinnacle 1638942963 ('Quintessencia')."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399867/alliance-vs-faze-rlg-tesla-cup-2026",
+          "detail": "HLTV match 2399867 confirms 'Alliance vs FaZe' at 2026-10-27T11:00:00Z for Hotspawn fixture 1082898 in Tesla Cup 2026."
+        },
+        {
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/258576/matchups",
+          "detail": "Pinnacle league 258576 and Bovada league 31791607 confirm PGL Masters Bucharest 2026 display variants."
+        }
+      ]
+    },
+    {
+      "id": "52aee465-02",
+      "area": "Hotspawn pick-percentage isolation & deterministic replay audit",
+      "status": "verified",
+      "finding": "Verified all 30 rows in data/latest.json (17 active, 13 past) and all 17 rows in data/origination.json against committed raw captures, plus live CI origination run 39903082746 (92 scheduled API records, 30 active upcoming CS2 fixtures at 2026-10-23T05:10:27Z).",
+      "handling": "Confirmed zero usage of Hotspawn participants1_picked_percent / participants2_picked_percent or HLTV fan votes across scripts/sources.py, scripts/collect.py, scripts/originate.py, and rendered HTML/JS; every published probability pair normalizes to 1.000000 and links an allow-listed primary source.",
+      "evidence": [
+        {
+          "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+          "detail": "Hotspawn CS2 fixtures API (92 scheduled records; crowd picked_percent fields explicitly stripped during ingestion)."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39903082746",
+          "detail": "Live Origination source audit check-run 120248800850 passed all replay and source-integrity checks (30/30 active fixtures resolved, 0 unresolved)."
+        }
+      ]
+    },
+    {
+      "id": "52aee465-03",
+      "area": "Low-tier / model-rung roster drift (1081605 Phantom Academy vs Banda chuya; 1082861 Rooster vs Abyssal)",
+      "status": "needs review",
+      "finding": "All 9 model-tier fixtures in the 2026-10-23T05:11Z origination snapshot lack compliant moneyline quotes on Polymarket, Kalshi, Thunderpick, Bovada, Pinnacle, and HLTV. On 1081605, both rosters swapped 1/5 players since Valve's 2026-10-05 snapshot and live HLTV VRS flipped (#167 vs #169 against Oct-5 #172 vs #165). On 1082861, both DFRAG LAN lineups retain only 3/5 Oct-5 starters (with foggers standing in on Rooster).",
+      "handling": "Kept model estimates transparent rather than fabricating manual overrides, and published match-specific warnings (52aee465-model-roster-drift-1081605 and 52aee465-model-roster-drift-1082861) with HLTV lineup and Valve VRS evidence.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8",
+          "detail": "HLTV match 2399699 confirms La1roN on Phantom Academy (#174, VRS #167) and mwlky on Banda Chuya (Unranked, VRS #169) with zero bookmaker odds."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+          "detail": "HLTV match 2399891 confirms TjP [Sub] and foggers [Sub] on Rooster vs Forleks and zune on Abyssal, with zero bookmaker odds."
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "Valve 2026-10-05 global standings (#165 Banda Chuya 801, #172 Phantom Academy 783, #195 Abyssal 734, #205 Rooster 718)."
+        }
+      ]
+    },
+    {
+      "id": "52aee465-04",
+      "area": "DFRAG network-model & wide Polymarket CLOB check (1082858 Ground Zero vs Off Chops)",
+      "status": "verified",
+      "finding": "Off Chops has no 2026-10-05 Valve VRS row; Polymarket event 1237427 market 6066508 prices Off Chops 72.5% ($2,424.81 liquidity) at a 0.43 bid-ask spread (0.06/0.49), above MAX_ACCEPTED_SPREAD (0.25).",
+      "handling": "Verified that originate.py rejects the 0.43-spread CLOB from the market tier and resolves 1082858 via network-bt-1 (44.5% Ground Zero / 55.5% Off Chops, low_confidence: true), agreeing directionally with Polymarket and Off Chops's 2026-10-16 2:1 LAN win over Ground Zero.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+          "detail": "HLTV match 2399888 lists Ground Zero (tucks [Sub]) vs Off Chops (viridian, dexter, Liazz, Gratisfaction, damyo) and Oct-16 2:1 LAN head-to-head."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/events/1237427",
+          "detail": "Polymarket event 1237427 market 6066508 ($2,424.81 liquidity, bestBid 0.06, bestAsk 0.49, spread 0.43)."
+        },
+        {
+          "url": "https://bo3.gg/teams/25492",
+          "detail": "bo3.gg finished-series record for Off Chops (team 25492, 6 series in 120-day graph)."
+        }
+      ]
+    },
+    {
+      "id": "52aee465-05",
+      "area": "Hotspawn upstream null best_of & /lobby missing permalink on 1081606",
+      "status": "platform limitation",
+      "finding": "All 92 scheduled records returned by Hotspawn's CS2 fixtures API set best_of to null, and /lobby SSR HTML omits a /matches/... View Match anchor on fixture 1081606 (JiJieHao vs Eternal Fire).",
+      "handling": "Left Hotspawn best_of blank (null) rather than inferring series length, and linked HLTV match 2399638 for 1081606 format verification (BO3).",
+      "evidence": [
+        {
+          "url": "https://play.hotspawn.com/lobby",
+          "detail": "Hotspawn lobby SSR page omitting the View Match href on fixture 1081606."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399638/jijiehao-vs-eternal-fire-digital-crusade-draculan-season-7",
+          "detail": "HLTV match 2399638 confirming BO3 Playoffs series for JiJieHao vs Eternal Fire at 2026-10-23T13:00:00Z."
+        }
+      ]
+    },
+    {
+      "id": "52aee465-06",
+      "area": "Phone-first executive summary, internal anchors & strict row-source audit",
+      "status": "verified",
+      "finding": "Checked rendered HTML across index.html, picks/, unresolved/, origination/, coverage/, methodology/, and review/ for mobile navigation, two-sided probability percentages, unresolved-limitations disclosure, and official per-row source links.",
+      "handling": "Verified 0 row-source violations under scripts.audit_rows --strict, valid internal anchors (#start-here, #picks-at-a-glance, origination/#picks, picks/, origination/#unresolved, #unresolved-register, #no-line-register), and responsive phone viewports (320px/390px/768px/1440px + WCAG A/AA).",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+          "detail": "Executive summary, mobile navigation landmarks, and Flagged-for-Review renderer in scripts/build.py."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/checks.yml",
+          "detail": "CI browser & strict row-source verification workflow across 320px, 390px, 768px, and 1440px viewports."
+        }
+      ]
+    }
+  ]
+}

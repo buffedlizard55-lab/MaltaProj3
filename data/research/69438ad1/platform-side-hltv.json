@@ -1,0 +1,51 @@
+{
+  "session": "arena-69438ad1",
+  "schema_version": 1,
+  "observed_at": "2026-10-23T05:12:00Z",
+  "captured_by": "Arena platform-side page fetch of the official pages (markdown extraction). Raw HTML is not stored in-repo; every URL below is exact so a human can re-open the same page and re-check each field.",
+  "why_not_the_runner": "GitHub runners recorded HTTP 403 (Cloudflare challenge) on hltv.org in sessions 3016b0c6, 3a5448de, ca4d2a02 and others. This session's egress reads HLTV successfully, so the claims 'HLTV publishes no two-sided prematch price' and 'the current weekly ranking publication is X' are verified here from a working read instead of from a blocked request.",
+  "policy": "No probability, pick or alias is derived from anything in this file. HLTV fan votes are community participation and are excluded by the project's source rules. Rank positions are identity/strength context only; the project's HLTV rung reads the official ranking pages itself on the runner.",
+  "findings": [
+    {
+      "fixture": "NEXVOID vs Rare Atom",
+      "hotspawn_fixture_id": "1081872",
+      "hotspawn_url": "https://www.hotspawn.com/matches/nexvoid-vs-rare-atom-void-autumn-cup-2026-1081872",
+      "hltv_match_url": "https://www.hltv.org/matches/2399587/nexvoid-vs-rare-atom-macemedia-void-autumn-cup-2026",
+      "hltv_event": "MaceMedia VOID Autumn Cup 2026",
+      "hltv_event_url": "https://www.hltv.org/events/9435/macemedia-void-autumn-cup-2026",
+      "format_on_hltv": "Best of 3 (LAN), lower bracket final",
+      "hltv_ranking_publication": "2026-10-19",
+      "teams": [
+        {
+          "name": "NEXVOID",
+          "hltv_world_rank": 77,
+          "hltv_rank_url": "https://www.hltv.org/ranking/teams/2026/october/19/13667",
+          "valve_vrs_rank_via_hltv": 71,
+          "valve_vrs_url": "https://www.hltv.org/valve-ranking/teams?teamId=13667",
+          "lineup_on_match_page": ["AccuracyTG", "xerolte", "erkaSt", "Zesta", "MiQ"]
+        },
+        {
+          "name": "Rare Atom",
+          "hltv_world_rank": 127,
+          "hltv_rank_url": "https://www.hltv.org/ranking/teams/2026/october/19/11514",
+          "valve_vrs_rank_via_hltv": 135,
+          "valve_vrs_url": "https://www.hltv.org/valve-ranking/teams?teamId=11514",
+          "lineup_on_match_page": ["kaze", "Summer", "ChildKing", "L1haNg", "3gl"]
+        }
+      ],
+      "fan_vote_observed": {"NEXVOID": 74.5, "Rare Atom": 25.5, "handling": "excluded, never a probability"},
+      "betting_block": {
+        "present": true,
+        "contents": "bookmaker affiliate promos (Stake) and a link to HLTV's analytics centre; no decimal odds or two-sided price are published in the page",
+        "conclusion": "HLTV publishes no two-sided prematch price for this fixture; the project's 'HLTV first, then books' order therefore means HLTV contributes identity, format, lineup and ranking context, and the price must come from a market or esportsbook"
+      }
+    },
+    {
+      "fixture": "HLTV weekly world ranking publication date",
+      "hltv_match_url": "https://www.hltv.org/matches/2399587/nexvoid-vs-rare-atom-macemedia-void-autumn-cup-2026",
+      "hltv_ranking_publication": "2026-10-19",
+      "evidence": "the official rank links on the live match page point at /ranking/teams/2026/october/19/<teamId>; the project's HLTV rung accepts publications up to 14 days old and reads the canonical /ranking/teams redirect, so a runner fetch on or after 2026-10-19 uses this publication",
+      "note": "An older rendered page in the repository (docs build of 12 October) predates this publication; any row still citing 2026-10-12 was priced from the publication that was current when its evidence was saved, and the four-hour ladder re-reads the ranking on every successful run"
+    }
+  ]
+}

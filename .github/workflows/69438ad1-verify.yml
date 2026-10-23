@@ -1,0 +1,70 @@
+# Session arena-69438ad1 — independent published-vs-live verification and HLTV-first
+# research re-run. Dispatch/push only: never scheduled, never deploys, never writes
+# canonical data into Git.
+#
+# The coding sandbox has no egress to Hotspawn, HLTV or any bookmaker; the GitHub
+# runner does. This job therefore (1) collects the live inventory with the
+# repository's own collectors, (2) resolves every fixture with the published
+# research ladder, (3) re-runs session arena-3a5448de's read-only HLTV-first /
+# esportsbook probe for the fixtures the featured method cannot resolve, and
+# (4) reconciles what a reader currently gets on GitHub Pages against the live
+# Hotspawn source, row by row.
+#
+# Only dated reports under data/research/69438ad1/ are committed. Canonical
+# data files are restored before the commit so nothing published can change here.
+# The push guard skips runs whose head commit is this job's own report commit,
+# so a report push can never retrigger the job in a loop.
+name: 69438ad1 independent verification probe (never deploys)
+on:
+  workflow_dispatch:
+  push:
+    branches: ['arena/69438ad1-maltaproj3']
+permissions:
+  contents: write
+concurrency:
+  group: 69438ad1-verify
+  cancel-in-progress: true
+jobs:
+  verify:
+    if: github.event_name == 'workflow_dispatch' || !startsWith(github.event.head_commit.message, 'verify(69438ad1)')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Collect the live Hotspawn inventory and featured external lines
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -m scripts.collect || echo "::warning::collect failed; the probe continues on the checked-in snapshot"
+      - name: Resolve every fixture with the published research ladder
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -m scripts.originate --live || echo "::warning::originate failed; the probe continues on the checked-in origination"
+      - name: HLTV-first then esportsbook research for every featured-blank fixture (read-only)
+        run: |
+          python -m scripts.3a5448de_probe --out data/research/69438ad1/probe \
+            || echo "::warning::HLTV-first probe failed; the reconciliation still runs"
+      - name: Reconcile the published site against the live source and audit every active row
+        run: python -m scripts.69438ad1_verify --live --out data/research/69438ad1
+      - name: Restore every tracked data file so only the reports are committed
+        run: |
+          git checkout -- data/latest.json data/sources.json data/origination.json 2>/dev/null || true
+          git checkout -- data/evidence 2>/dev/null || true
+          git checkout -- data/origination 2>/dev/null || true
+          git checkout -- data/research/twc-current 2>/dev/null || true
+          git clean -fd data/evidence data/origination data/research/twc-current >/dev/null 2>&1 || true
+      - name: Commit the dated reports to this session branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/69438ad1/
+          git diff --cached --quiet && echo 'no report change' && exit 0
+          git commit -m 'verify(69438ad1): dated published-vs-live reconciliation and HLTV-first research reports'
+          git pull --rebase origin arena/69438ad1-maltaproj3
+          git push origin arena/69438ad1-maltaproj3
