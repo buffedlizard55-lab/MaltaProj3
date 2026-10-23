@@ -512,8 +512,8 @@
   .exec-banner h3{font-size:15px}
 }
 /* Obvious pick highlight — green left border for market lines, purple for model */
-.glance-row[data-method=\"market\"], .glance-row[data-method=\"bookmaker\"], .glance-row[data-method=\"consensus\"]{border-left-color:#b5d5c5}
-.glance-row[data-method=\"model\"]{border-left-color:#d9c8f0}
+.glance-row[data-method="market"], .glance-row[data-method="bookmaker"], .glance-row[data-method="consensus"]{border-left-color:#b5d5c5}
+.glance-row[data-method="model"]{border-left-color:#d9c8f0}
 .glance-pick-label{background:#18715b;color:#fff;font-weight:800;letter-spacing:.6px;padding:4px 8px;border-radius:6px;font-size:10px}
 .glance-pick-label.unresolved-text{background:#926019;color:#fff}
 .glance-pick-label.is-closed{background:#4f5b66;color:#fff}
@@ -527,9 +527,15 @@
 @media(max-width:700px){
   .simple-table>tbody>tr{border-radius:12px;margin-bottom:8px;box-shadow:0 1px 3px rgba(20,37,52,.05)}
 }
-
-/* Source links in explanatory prose must not rely on color alone (WCAG 1.4.1). */
-.ladder-list a {
+/* Source links in explanatory prose must not rely on color alone (WCAG 1.4.1),
+   and inline text/source links maintain >=24px target height (WCAG 2.2 SC 2.5.8). */
+.ladder-list a, .prose a {
   text-decoration: underline;
   text-underline-offset: .16em;
+}
+.internal-link, .source-link, .stale-banner a, .prose a, .ladder-list a, .glance-meta a, .row-source a, .source-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  min-width: 24px;
 }

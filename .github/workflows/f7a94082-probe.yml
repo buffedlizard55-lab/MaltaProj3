@@ -1,0 +1,40 @@
+name: f7a94082 live multi-source research & verification
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - arena/f7a94082-maltaproj3
+    paths:
+      - scripts/f7a94082_probe.py
+      - .github/workflows/f7a94082-probe.yml
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/f7a94082-maltaproj3
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Run full read-only live audit & raw-board discovery
+        run: python -m scripts.f7a94082_probe --full-audit /tmp/f7a94082-work --out data/research/f7a94082
+
+      - name: Commit verified research artifacts to arena/f7a94082-maltaproj3
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin arena/f7a94082-maltaproj3
+          git add data/research/f7a94082
+          git diff --cached --quiet || git commit -m "data(research): live multi-source sweep & raw-board audit (f7a94082) [skip ci]"
+          git push origin arena/f7a94082-maltaproj3

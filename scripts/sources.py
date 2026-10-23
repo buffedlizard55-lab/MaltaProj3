@@ -168,18 +168,49 @@ def hotspawn(client: Client):
             raise SourceError(f'{label}: readable page violates the inventory contract: {exc}') from exc
         return {'html': html, 'req': req, 'rows': rows, 'ids': page_ids, 'links': links, 'error': None}
 
+    api_unavailable = None
     for attempt in range(2):
         # Observe the API and both rendered pages in the same round so a
         # fixture added between them is a real disagreement, not a stale read.
-        api_rows, api_req = client.json(FIXTURES_API, 'hotspawn-fixtures')
-        if not isinstance(api_rows, list):
-            raise SourceError('Fixture API is no longer an unpaginated array; refusing partial coverage')
-        official_ids = ids(api_rows)
-        if not official_ids:
-            raise SourceError('Fixture API returned no CS2 fixtures; refusing an empty inventory claim')
+        api_unavailable = None
+        try:
+            api_rows, api_req = client.json(FIXTURES_API, 'hotspawn-fixtures')
+        except SourceError as api_exc:
+            # Transient Cloudways WAF 403/5xx on the raw PHP origin observed on
+            # 2026-10-23 (04:56Z, 05:10Z). Retry once politely; if still refused,
+            # allow readable SSR lobby hydration (same unpaginated /api/v1/fixtures
+            # array) to supply the official array rather than discarding the run.
+            time.sleep(2)
+            try:
+                api_rows, api_req = client.json(FIXTURES_API, 'hotspawn-fixtures')
+            except SourceError as retry_exc:
+                api_rows, api_req = None, None
+                api_unavailable = str(retry_exc)
+        if api_rows is not None:
+            if not isinstance(api_rows, list):
+                raise SourceError('Fixture API is no longer an unpaginated array; refusing partial coverage')
+            official_ids = ids(api_rows)
+            if not official_ids:
+                raise SourceError('Fixture API returned no CS2 fixtures; refusing an empty inventory claim')
         lobby = page(LOBBY, 'hotspawn-lobby')
         cs2 = page(CS2_LOBBY, 'hotspawn-cs2')
         read = [(name, record) for name, record in (('lobby', lobby), ('cs2', cs2)) if record['ids'] is not None]
+        if api_rows is None:
+            if not read:
+                raise SourceError(f'Hotspawn fixture API and both lobby pages were unavailable ({api_unavailable})')
+            first_record = read[0][1]
+            if any(record['ids'] != first_record['ids'] for _, record in read[1:]):
+                if attempt == 0:
+                    time.sleep(5)
+                    continue
+                raise SourceError('Rendered Hotspawn lobby pages disagree while fixture API is unavailable')
+            if not first_record['ids']:
+                raise SourceError('Rendered Hotspawn lobby hydration returned no CS2 fixtures; refusing an empty inventory claim')
+            api_rows = first_record['rows']
+            api_req = first_record['req'] or {'observed_at': iso(datetime.now(timezone.utc))}
+            official_ids = first_record['ids']
+            client.save('hotspawn-fixtures', api_rows)
+            break
         if not read:
             # API-only mode. A retry here would only repeat a refused HTML
             # request; the API response is already a complete official array.
@@ -197,10 +228,19 @@ def hotspawn(client: Client):
     for record in (lobby, cs2):
         links.update(record['links'])
     verified_pages = [name for name, record in (('lobby', lobby), ('cs2', cs2)) if record['ids'] is not None]
-    crosscheck = 'complete' if len(verified_pages) == 2 else ('partial' if verified_pages else 'unavailable')
-    unavailable = [f'{name}: {record["error"]}' for name, record in (('lobby', lobby), ('cs2', cs2)) if record['ids'] is None]
+    if api_unavailable:
+        crosscheck = 'partial'
+    else:
+        crosscheck = 'complete' if len(verified_pages) == 2 else ('partial' if verified_pages else 'unavailable')
+    unavailable = ([f'api: {api_unavailable}'] if api_unavailable else []) + [
+        f'{name}: {record["error"]}' for name, record in (('lobby', lobby), ('cs2', cs2)) if record['ids'] is None
+    ]
     if crosscheck == 'complete':
         detail = 'All CS2 fixture IDs reconciled across the lobby, CS2 lobby and public fixture array. No client-side pagination is used by the inspected public client.'
+    elif api_unavailable:
+        detail = ('The direct scheduled-fixture origin was unavailable (' + api_unavailable
+                  + '), so the identical unpaginated /api/v1/fixtures array hydrated into '
+                  + ', '.join(verified_pages) + ' was verified and published. No three-response reconciliation is claimed.')
     elif crosscheck == 'partial':
         detail = ('The public scheduled-fixture API returned a valid, duplicate-free CS2 array and agrees with the rendered page(s) that could be read ('
                   + ', '.join(verified_pages) + '). The other rendered page was unavailable: ' + '; '.join(unavailable)
