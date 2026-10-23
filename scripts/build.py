@@ -1015,7 +1015,21 @@ def no_line_research_block(data, prefix):
     record = data.get('_no_line_research') or {}
     fixtures = record.get('per_fixture') or []
     if not fixtures:
-        return ''
+        # Session arena-2016c841: with the newest-wins loader a sweep recorded
+        # during the legacy Pages branch-root race can be dropped before it ever
+        # renders, leaving NO eligible dated record behind. Anchor availability
+        # must never depend on that: state plainly that all retained sweeps are
+        # superseded by the current card rather than emitting nothing.
+        return ('<div class="line-sources" id="no-line-research">'
+                '<h3>Fixtures without a betting line — latest dated research</h3>'
+                '<p class="tiny">No retained dated sweep currently qualifies to render: retained records '
+                'are runner-verified observations with a matching rundown, and the newest of them was '
+                'captured while the public site served its stale legacy branch-root build, so it was '
+                'dropped rather than published as if dated. The sweep is re-run on the next healthy '
+                'publish; the live unresolved register and the current cards stay authoritative here. '
+                f'<a class="internal-link" href="{prefix}#unresolved-register">Blanks in this summary ↓</a> '
+                f'<a class="internal-link" href="{prefix}unresolved/">Unresolved picks &amp; limitations →</a></p>'
+                '</div>')
     record_path = record.get('_record_path', 'research/3016b0c6/line-source-research.json')
     markdown_path = str(Path(record_path).with_suffix('.md'))
     leads = [f for f in fixtures if f.get('money_line_lead')]
