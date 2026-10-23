@@ -13,7 +13,7 @@ Dated, source-linked observations only. **No probability in this folder is a pic
 2. For every Closing Soon / Upcoming CS2 card, record Hotspawn id + permalink when the lobby published one.
 3. Try [HLTV matches](https://www.hltv.org/matches) first for identity (and analytics pages where they exist). HLTV ranking/form is **not** converted into a win probability here.
 4. Then look for a two-sided prematch price on Polymarket Gamma (exact slug lookups) and bo3.gg match pages. A missing or affiliate-only block is recorded as a limitation, never as “no market exists”.
-5. Hotspawn “% picked” and HLTV fan votes are excluded.
+5. Hotspawn crowd participation and HLTV fan votes are excluded.
 
 ## Result (2026-10-23T04:58Z)
 

@@ -35,7 +35,7 @@
     "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
     "lobby_week_matches": 197,
     "lobby_cs2_filter": 92,
-    "note": "Lobby filter All tiers (92) is the CS2 subset of the weekly 197-match counter. The API still returns June-2026 rows marked scheduled; those are past-start, not current pick'ems. Crowd '% picked' is recorded only as lobby text and is never a win probability."
+    "note": "Lobby filter All tiers (92) is the CS2 subset of the weekly 197-match counter. The API still returns June-2026 rows marked scheduled; those are past-start, not current pick'ems. Lobby crowd participation figures are recorded only as lobby text and are never a win probability."
   },
   "live_fixtures": [
     {
@@ -239,7 +239,7 @@
   ],
   "limitations": [
     "HLTV match pages are readable by a person; they are not a two-sided prematch odds feed. Analytics pages publish ranking/form, not executable moneylines.",
-    "Hotspawn '% picked' is crowd participation and is never used as a win probability.",
+    "Hotspawn crowd participation figures are never used as a win probability.",
     "The four-hour GitHub Pages publisher has been failing since 2026-10-22T14:05Z at the repository-fixture regression step; concurrent session arena-19de9c79 owns that test repair.",
     "A missing snapshot row is a coverage gap, not proof that no market exists.",
     "JiJieHao vs Eternal Fire is listed on the lobby without a permalink in this observation, so its Hotspawn id is unverified and left blank."
