@@ -19,26 +19,32 @@ from __future__ import annotations
 import json
 import tempfile
 import unittest
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from scripts import originate, smarkets_lines
 from scripts.domain import iso
 
 UTC = timezone.utc
-NOW = datetime(2026, 10, 23, 5, 0, tzinfo=UTC)
+# The collector stamps the live wall clock on its observation and the ladder
+# enforces the prematch rule against it, so these tests derive both instants from
+# the wall clock instead of pinning a date: a pinned date turns into a
+# "future-dated observation" or a "post-start quote" as soon as it passes.
+NOW = datetime.now(UTC).replace(microsecond=0)
+START = (NOW + timedelta(hours=8)).isoformat().replace('+00:00', 'Z')
+LOCK = (NOW + timedelta(hours=8) - timedelta(minutes=6)).isoformat().replace('+00:00', 'Z')
 
 
-def fixture(*, names=('Ryvex', 'TitanFlow'), start='2026-10-23T13:45:00Z', ident='999001'):
+def fixture(*, names=('Ryvex', 'TitanFlow'), start=None, ident='999001'):
     return {'id': ident, 'availability': 'open',
             'teams': [{'id': '1', 'name': names[0]}, {'id': '2', 'name': names[1]}],
-            'starts_at': start, 'locks_at': '2026-10-23T13:39:00Z',
+            'starts_at': start or START, 'locks_at': LOCK,
             'competition': 'CCT Europe 2026 Series #12',
             'source_url': 'https://www.hotspawn.com/matches/ryvex-vs-titanflow-999001'}
 
 
 EVENT = {'id': '45396219', 'name': 'Ryvex vs TitanFlow', 'state': 'upcoming', 'bettable': True,
-         'start_datetime': '2026-10-23T13:45:00Z', 'type': 'csgo_match',
+         'start_datetime': START, 'type': 'csgo_match',
          'full_slug': '/sport/esports/cs-go/cct-europe/2026/10/23/13-45/ryvex-vs-titanflow'}
 MARKET = {'id': '172923329', 'event_id': '45396219', 'state': 'open', 'hidden': False,
           'market_type': {'name': 'WINNER_2_WAY'}}
@@ -83,9 +89,11 @@ class JoinTests(unittest.TestCase):
         self.assertFalse(smarkets_lines.binds(EVENT, fixture(names=('Ryvex', 'Titan Flow'))))
 
     def test_a_shifted_start_is_not_a_join(self):
-        self.assertFalse(smarkets_lines.binds(EVENT, fixture(start='2026-10-23T13:47:00Z')))
+        shifted = (NOW + timedelta(hours=8, minutes=2)).isoformat().replace('+00:00', 'Z')
+        inside = (NOW + timedelta(hours=8, seconds=30)).isoformat().replace('+00:00', 'Z')
+        self.assertFalse(smarkets_lines.binds(EVENT, fixture(start=shifted)))
         # ... and the tolerance is the project-wide 60-second money window.
-        self.assertTrue(smarkets_lines.binds(EVENT, fixture(start='2026-10-23T13:45:30Z')))
+        self.assertTrue(smarkets_lines.binds(EVENT, fixture(start=inside)))
         self.assertEqual(smarkets_lines.START_TOLERANCE_SEC, 60)
 
     def test_event_url_is_a_public_page_not_an_api_url(self):
