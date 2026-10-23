@@ -132,3 +132,47 @@ class Loader(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class LineResearchSection(unittest.TestCase):
+    """The dated HLTV-first search behind the research-model rows."""
+
+    def record(self):
+        return {
+            'observed_at': '2026-10-23T10:19:06Z',
+            'surfaces': [{'name': 'HLTV match listing', 'url': 'https://www.hltv.org/matches',
+                          'http_status': 200},
+                         {'name': 'GG.BET esportsbook', 'url': 'https://gg.bet/x', 'http_status': 403}],
+            'conclusions': {'bo3_relay_two_sided': 0},
+            'fixtures': [{
+                'hotspawn_id': '1081605',
+                'teams': ['Phantom Academy', 'Banda chuya'],
+                'competition': 'CCT Europe 2026 Challengers #8',
+                'hotspawn_url': 'https://www.hotspawn.com/matches/phantom-academy-vs-banda-chuya-cct-europe-2026-challengers-8-1081605',
+                'bo3_relay_two_sided_quote_present': False,
+                'sources_tried_from_published_trail': [
+                    {'stage': 'HLTV research', 'status': 'checked',
+                     'source_url': 'https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya',
+                     'detail': 'Exact teams/time confirmed on HLTV. No prematch price published.'},
+                    {'stage': 'Original esportsbook lines', 'status': 'unresolved',
+                     'source_url': 'https://thunderpick.io/esports/counter-strike',
+                     'detail': 'No unique validated pair of original bookmaker odds available.'},
+                ],
+            }],
+        }
+
+    def test_absent_without_a_record(self):
+        from scripts.build import line_research_section
+        self.assertEqual(line_research_section({}, ''), '')
+
+    def test_each_row_keeps_its_own_sources_and_says_no_price_was_taken(self):
+        from scripts.build import line_research_section
+        html = line_research_section({'_line_research': self.record()}, '')
+        self.assertIn('id="no-line-line-research"', html)
+        self.assertIn('Phantom Academy vs Banda chuya', html)
+        self.assertIn('https://www.hltv.org/matches/2399699/', html)
+        self.assertIn('no two-sided quote published', html)
+        self.assertIn('Reachability is not a price', html)
+        self.assertIn('1 of 2 probed surfaces answered', html)
+        # No probability is introduced by this section.
+        self.assertNotIn('%', html)

@@ -9,6 +9,9 @@
 #      endpoint or cited URL for the price) — scripts/3a010437_verify.py;
 #   3. compares the audited snapshot with the live Hotspawn fixture API and
 #      records any fixture the snapshot does not contain;
+#   3b. re-runs the already-reviewed HLTV-first, then esportsbook probe
+#      (scripts/3a5448de_probe.py, read-only) for every row that is not a
+#      money line, so the limitations behind those estimates are dated;
 #   4. commits ONLY the dated report under data/research/3a010437/.
 #
 # It never edits a pick, a probability, an alias or a deployed file, and it
@@ -38,6 +41,13 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Re-read every published row against the source it cites
         run: python -m scripts.3a010437_verify --published --out data/research/3a010437
+      - name: HLTV first, then esportsbooks, for every row that is not a money line
+        continue-on-error: true
+        run: >-
+          python -m scripts.3a5448de_probe
+          --data data/research/3a010437/published-snapshot
+          --out data/research/3a010437/line-research
+          --timeout 15
       - name: Refuse to commit a report without rows
         run: |
           python - <<'PY'

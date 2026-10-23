@@ -1730,6 +1730,63 @@ def verification_section(data, prefix):
     )
 
 
+#: Session 3a010437's dated HLTV-first / esportsbook probe for rows that are
+#: not money lines. Read-only evidence, never a price.
+LINE_RESEARCH = 'research/3a010437/line-research/live-research.json'
+
+
+def line_research_section(data, prefix):
+    """The dated record of what was actually tried for the model-only rows."""
+    record = data.get('_line_research') or {}
+    fixtures = record.get('fixtures') or []
+    if not fixtures:
+        return ''
+    observed = local_time(record.get('observed_at')) if record.get('observed_at') else blank()
+    surfaces = record.get('surfaces') or []
+    answered = [s for s in surfaces if s.get('http_status') == 200]
+    conclusions = record.get('conclusions') or {}
+    rows = ''
+    for fixture in fixtures:
+        teams = ' vs '.join(fixture.get('teams') or []) or 'Unverified pairing'
+        stages = ''
+        for stage in fixture.get('sources_tried_from_published_trail') or []:
+            status = str(stage.get('status') or '')
+            tone = 'resolved' if status == 'resolved' else 'unresolved'
+            url = stage.get('source_url')
+            link = external(url, e(stage.get('stage') or 'Source')) if url else e(stage.get('stage') or 'Source')
+            stages += (f'<li><span class="tried-chip {tone}">{e(status or "recorded")}</span> '
+                       f'{link}<span class="line-source-note">{e(stage.get("detail") or "")}</span></li>')
+        extra = ''
+        if fixture.get('bo3_relay_two_sided_quote_present') is False:
+            extra += '<span class="tiny muted">bo3.gg relay: no two-sided quote published for this fixture.</span>'
+        links = ''
+        if fixture.get('hotspawn_url'):
+            links += external(fixture['hotspawn_url'], 'Hotspawn fixture')
+        rows += (f'<tr><th scope="row">{e(teams)}<small>{e(fixture.get("competition") or "")}</small></th>'
+                 f'<td><ul class="line-source-list">{stages}</ul>{extra}</td>'
+                 f'<td>{links}</td></tr>')
+    return (
+        f'<section class="content-section" id="no-line-line-research">'
+        f'<div class="section-heading"><div><p class="eyebrow">Second source search</p>'
+        f'<h2>What was tried for rows without a betting line</h2></div>'
+        f'<span class="muted small">{len(fixtures)} rows · {observed}</span></div>'
+        f'<p class="section-intro">These rows are published as research estimates, so this page also shows '
+        f'the search behind them: HLTV first (identity and ranking; HLTV publishes no prematch price and its '
+        f'fan vote is never used), then the esportsbooks and relay surfaces. '
+        f'{len(answered)} of {len(surfaces)} probed surfaces answered at that observation time; a blocked or '
+        f'answering page is never read as proof that no market exists, and no price is scraped from a '
+        f'rendered page. No row here gained a probability from this pass. '
+        f'<a class="internal-link" href="{prefix}data/{e(LINE_RESEARCH)}">Dated record (JSON) ↓</a></p>'
+        f'<div class="table-scroll"><table class="simple-table"><caption class="sr-only">Every source tried for '
+        f'each fixture that has no betting line, with the outcome</caption>'
+        f'<thead><tr><th scope="col">Match</th><th scope="col">Sources tried, in order</th>'
+        f'<th scope="col">Fixture</th></tr></thead><tbody>{rows}</tbody></table></div>'
+        f'<p class="tiny muted">Reachability is not a price. A new money line is published only when '
+        f'<code>scripts/originate.py</code> validates a two-sided prematch series price against the ladder '
+        f'contract; this record changes no pick.</p></section>'
+    )
+
+
 def summary(data, prefix, now=None):
     c = data['counts']
     active = [m for m in data['matches'] if m['availability'] in {'open', 'locked', 'unknown_lock'}]
@@ -2075,6 +2132,7 @@ def coverage(data, prefix, now=None):
     # closes. Appending it before the closing tags put a <section> inside the
     # ledger's <tbody>, which is invalid markup and rendered nested.
     out += verification_section(data, prefix)
+    out += line_research_section(data, prefix)
     out += f'<section class="content-section" id="archive"><div class="section-heading"><div><p class="eyebrow">Preserved, not misrepresented</p><h2>Past-start source archive <span class="heading-count">{c["archived"]}</span></h2></div></div><p class="section-intro">These records still exist in Hotspawn’s scheduled feed, but their scheduled starts are in the past. “Scheduled” is the source’s value, not a verified present status. Results, current picks and retrospective probabilities are not invented.</p><div class="table-scroll"><table class="simple-table archive-table"><caption class="sr-only">Every past-start CS2 record retained from the original Hotspawn feed</caption><thead><tr><th>Match / tournament</th><th>Scheduled start</th><th>Source status</th><th>Original source</th></tr></thead><tbody>'
     for m in data['matches']:
         if m['availability'] != 'past':
@@ -2251,6 +2309,12 @@ def build(source: Path, output: Path, now=None):
     # A local blocked probe must not replace newer runner-verified observations.
     data['_no_line_research'] = load_no_line_research(source)
     data['_verification'] = load_verification(source)
+    line_research_path = source / LINE_RESEARCH
+    if line_research_path.exists():
+        try:
+            data['_line_research'] = json.loads(line_research_path.read_text())
+        except ValueError:
+            data['_line_research'] = None
     live_coverage_path = source / 'research/9fd5fbf1/live-coverage.json'
     if live_coverage_path.exists():
         try:
