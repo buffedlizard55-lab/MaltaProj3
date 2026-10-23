@@ -13,6 +13,15 @@
 name: 46ade650 line-source research (dispatch only)
 on:
   workflow_dispatch:
+  # workflow_dispatch needs the file on the default branch, so the session
+  # trigger is a push scoped to this branch and to the two files below. The
+  # evidence commit this job makes only touches data/research/46ade650, which is
+  # outside the path filter and cannot retrigger the probe.
+  push:
+    branches: ['arena/46ade650-maltaproj3']
+    paths:
+      - '.github/workflows/46ade650-probe.yml'
+      - 'scripts/46ade650_probe.py'
 permissions:
   contents: write
 concurrency:
