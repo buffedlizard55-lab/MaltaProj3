@@ -278,7 +278,7 @@ def build_flags(report: dict, rows: list[dict], research_dir: str) -> list[dict]
                        + '; '.join(f"{row['id']} {row['teams'][0]} vs {row['teams'][1]}: {', '.join(row['problems'])}"
                                    for row in bad[:12])),
             'title': f"{len(bad)} active published row(s) fail the pick/probability/source contract",
-            'source_urls': [f'{PAGES}/origination/', f'{PAGES}/{research_dir}/row-audit.json'],
+            'source_urls': [LOBBY, f'{PAGES}/origination/', f'{PAGES}/{research_dir}/row-audit.json'],
         })
     elif not rows:
         flags.append({
@@ -289,7 +289,7 @@ def build_flags(report: dict, rows: list[dict], research_dir: str) -> list[dict]
             'detail': (f"The published complete-picks feed read at {report['observed_at']} yielded no active rows, so "
                        "the row-level reading contract could not be checked. Absence of rows is reported as an audit "
                        "failure, never as a clean result."),
-            'source_urls': [f'{PAGES}/data/origination.json'],
+            'source_urls': [FIXTURES_API, f'{PAGES}/data/origination.json'],
         })
     else:
         flags.append({
@@ -301,7 +301,11 @@ def build_flags(report: dict, rows: list[dict], research_dir: str) -> list[dict]
                        "side), a method badge and an https official source link each. See the session dossier for the "
                        "per-row table."),
             'title': f'Independent row audit: {len(rows)} active rows, 0 missing pick/probability/source',
-            'source_urls': [f'{PAGES}/origination/', f'{PAGES}/{research_dir}/row-audit.json'],
+            # The built site's row-source audit requires every rendered row to link an
+            # allow-listed official source; a self-referential finding would itself
+            # become a violation (CI run 39905107686), so the live source this
+            # reconciliation read is always linked beside the project URLs.
+            'source_urls': [FIXTURES_API, f'{PAGES}/origination/', f'{PAGES}/{research_dir}/row-audit.json'],
         })
     return flags
 

@@ -179,3 +179,16 @@ class FlagSourceContractTests(unittest.TestCase):
         for flag in flags:
             official = [u for u in flag['source_urls'] if is_official(u)]
             self.assertTrue(official, f"{flag['id']} has no allow-listed official source: {flag['source_urls']}")
+
+    def test_generated_reconciliation_flags_always_link_an_official_source(self):
+        from scripts.audit_rows import is_official
+        report = {'observed_at': NOW_ISO,
+                  'published': {'age_hours': 9.0, 'generated_at': iso(NOW - timedelta(hours=9)),
+                                'inventory_observed_at': iso(NOW - timedelta(hours=9)),
+                                'coverage_complete': True, 'run_status': 'ok', 'stale': True},
+                  'missing_from_active_list': [], 'published_active_not_in_live_source': []}
+        for rows in ([], [{'id': '1', 'teams': ['A', 'B'], 'problems': []}],
+                     [{'id': '1', 'teams': ['A', 'B'], 'problems': ['no pick']}]):
+            for flag in mod.build_flags(report, rows, 'data/research/69438ad1'):
+                official = [u for u in flag['source_urls'] if is_official(u)]
+                self.assertTrue(official, f"{flag['id']} generated without an official link")
