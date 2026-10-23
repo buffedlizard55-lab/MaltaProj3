@@ -3,14 +3,21 @@
     "id": "fd99abd9-hltv-and-book-access-limitations",
     "severity": "notice",
     "match_ids": [
-      "1080202",
-      "1080203",
-      "1080282",
-      "1080284",
-      "1081120"
+      "1081600",
+      "1082882",
+      "1081872",
+      "1079655",
+      "1081149",
+      "1082924",
+      "1081150",
+      "1082858",
+      "1082860",
+      "1082861",
+      "1082792",
+      "1082793"
     ],
     "title": "Runner access limitations: HLTV and several esportsbook pages refuse automated requests",
-    "detail": "The 2026-10-23T05:00:19+00:00 sweep for 5 active fixture(s) with no betting line was read-only. HLTV matches/ranking returned None, None with Cloudflare markers; 0 of 16 book/aggregator pages refused or redirected. Pinnacle guest API returned 0 rows with 0 hits for target fixtures; bo3.gg bound 0 of 5 fixtures. These are access/extraction limitations, not proof no market exists; all model-only rows remain labelled as research estimates and are retried on the scheduled refresh. Per-source responses are in the linked JSON.",
+    "detail": "The 2026-10-23T05:21:21+00:00 sweep for 12 active fixture(s) with no betting line was read-only. HLTV matches/ranking returned 403, 403 with Cloudflare markers; 10 of 16 book/aggregator pages refused or redirected. Pinnacle guest API returned 20409 rows with 0 hits for target fixtures; bo3.gg bound 7 of 12 fixtures. These are access/extraction limitations, not proof no market exists; all model-only rows remain labelled as research estimates and are retried on the scheduled refresh. Per-source responses are in the linked JSON.",
     "source_urls": [
       "https://www.hltv.org/matches",
       "https://www.hltv.org/ranking/teams",
@@ -21,22 +28,31 @@
     ]
   },
   {
-    "id": "fd99abd9-no-new-money-line-lead",
+    "id": "fd99abd9-lead-1082924",
     "severity": "notice",
     "match_ids": [
-      "1080202",
-      "1080203",
-      "1080282",
-      "1080284",
-      "1081120"
+      "1082924"
     ],
-    "title": "No new two-sided price found for 5 model-only fixture(s) on this sweep",
-    "detail": "On 2026-10-23T05:00:19+00:00 every active fixture carrying only a research-model pick (5) was re-checked: HLTV first (identity/ranking, no price — blocked with 403), then GG.BET, BetBoom, Stake, BC.Game, 1xBet, Marathonbet, Betway, DraftKings, OddsPortal, EGamersWorld, Pinnacle, Rivalry, Thunderpick, Bovada and the bo3.gg relay. No two-sided prematch price was found on any reachable surface, so model picks and limitations stand. A later market can still close these rows on the next four-hour refresh.",
+    "title": "Dated relay lead for BORRACHEIROS vs QUINTESSÊNCIA (1082924) — replay needed before pick changes",
+    "detail": "At 2026-10-23T05:21:21+00:00 bo3.gg bound this fixture at https://bo3.gg/matches/borracheiros-vs-quintessencia-23-10-2026 and published a bookmaker block: BORRACHEIROS 1.52 / QUINTESSÊNCIA 2.35 via thunderpick (event https://thunderpick.io/match/2870808). This is second-hand relay evidence, not a direct capture. The reviewed ladder must replay it as a first-party quote before any pick changes; the current match card is authoritative.",
     "source_urls": [
-      "https://www.hltv.org/matches",
-      "https://www.hltv.org/ranking/teams",
-      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/fd99abd9/line-source-research.json",
-      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/fd99abd9/line-source-research.md"
+      "https://www.hotspawn.com/matches/borracheiros-vs-quintessencia-cct-south-america-2026-series-7-1082924",
+      "https://bo3.gg/matches/borracheiros-vs-quintessencia-23-10-2026",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/fd99abd9/line-source-research.json"
+    ]
+  },
+  {
+    "id": "fd99abd9-lead-1082860",
+    "severity": "notice",
+    "match_ids": [
+      "1082860"
+    ],
+    "title": "Dated relay lead for FlyQuest vs Staqued (1082860) — replay needed before pick changes",
+    "detail": "At 2026-10-23T05:21:21+00:00 bo3.gg bound this fixture at https://bo3.gg/matches/flyquest-vs-staqued-27-10-2026 and published a bookmaker block: FlyQuest 1.001 / Staqued 12.0 via thunderpick (event https://thunderpick.io/match/2872333). This is second-hand relay evidence, not a direct capture. The reviewed ladder must replay it as a first-party quote before any pick changes; the current match card is authoritative.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
+      "https://bo3.gg/matches/flyquest-vs-staqued-27-10-2026",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/fd99abd9/line-source-research.json"
     ]
   }
 ]
