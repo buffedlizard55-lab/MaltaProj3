@@ -221,39 +221,69 @@ class RenderedBlock(unittest.TestCase):
 
 
 class ScopeLinksCannotBreak(unittest.TestCase):
-    """A live manifest can name fixtures the replayed snapshot predates."""
+    """A fixture can be active in the inventory and absent from the origination feed.
 
-    def data(self, rendered_ids):
-        return {'_direct_observations': record(fixture_scope=[
-            {'hotspawn_id': '1083014', 'teams': ['K27', 'Virtus.pro'],
-             'competition': 'CIS LAN Championship #9', 'starts_at': '2026-10-23T13:00:00Z',
-             'published_method': 'Market line'},
-            {'hotspawn_id': '9999999', 'teams': ['Not In', 'This Snapshot'],
-             'competition': 'Future Series', 'starts_at': '2026-11-01T10:00:00Z',
-             'published_method': 'Valve-rating research estimate'},
-        ]),
-            'matches': [{'id': i} for i in rendered_ids],
-            'complete_picks': {'matches': []}}
+    Regression for the live-build failure CI caught on this PR: gating on
+    ``data['matches']`` published ``./origination/#match-1081605`` with no anchor
+    behind it, because those ``id="match-<id>"`` articles are rendered by
+    ``scripts/build_origination.py`` from the *complete-picks* feed only, which is
+    a narrower set than the inventory. ``scripts.validate.check_links`` rejected
+    it, correctly.
+    """
 
-    def test_a_rendered_fixture_is_linked(self):
-        html = direct_observation_block(self.data(['1083014']), '../')
+    SCOPE = [
+        {'hotspawn_id': '1083014', 'teams': ['K27', 'Virtus.pro'],
+         'competition': 'CIS LAN Championship #9', 'starts_at': '2026-10-23T13:00:00Z',
+         'published_method': 'Market line'},
+        {'hotspawn_id': '1081605', 'teams': ['Phantom Academy', 'Banda chuya'],
+         'competition': 'CCT Europe 2026 Challengers #8', 'starts_at': '2026-10-23T11:00:00Z',
+         'published_method': 'Valve-rating research estimate'},
+    ]
+
+    def data(self, origination_ids, inventory_ids=None):
+        return {'_direct_observations': record(fixture_scope=self.SCOPE),
+                'matches': [{'id': i} for i in (inventory_ids or origination_ids)],
+                'complete_picks': {'matches': [{'id': i} for i in origination_ids]}}
+
+    def test_a_fixture_the_origination_page_rendered_is_linked(self):
+        html = direct_observation_block(self.data(['1083014', '1081605']), '../')
         self.assertIn('../origination/#match-1083014', html)
+        self.assertIn('../origination/#match-1081605', html)
 
-    def test_an_absent_fixture_is_never_linked_so_no_anchor_can_dangle(self):
-        html = direct_observation_block(self.data(['1083014']), '../')
-        self.assertNotIn('match-9999999', html)
-        self.assertIn('Not In vs This Snapshot', html)
+    def test_a_fixture_only_in_the_inventory_is_never_linked(self):
+        """The exact CI failure: active in latest.json, absent from origination.json."""
+        html = direct_observation_block(
+            self.data(['1083014'], inventory_ids=['1083014', '1081605']), '../')
+        self.assertIn('../origination/#match-1083014', html)
+        self.assertNotIn('match-1081605', html)
+        # The fixture is still listed as evidence, just not linked.
+        self.assertIn('Phantom Academy vs Banda chuya', html)
 
-    def test_a_fixture_in_the_complete_picks_feed_also_counts_as_rendered(self):
-        data = self.data([])
-        data['complete_picks'] = {'matches': [{'id': '1083014'}]}
-        self.assertIn('../origination/#match-1083014', direct_observation_block(data, '../'))
+    def test_no_link_at_all_when_the_origination_feed_is_empty(self):
+        html = direct_observation_block(self.data([], inventory_ids=['1083014']), '../')
+        self.assertNotIn('origination/#match-', html)
+        self.assertIn('K27 vs Virtus.pro', html)
 
     def test_no_scope_list_at_all_when_the_record_has_none(self):
         html = direct_observation_block({'_direct_observations': record(fixture_scope=[]),
                                          'matches': [], 'complete_picks': None}, '../')
         self.assertNotIn('direct-scope', html)
         self.assertNotIn('In scope:', html)
+
+    def test_a_missing_complete_picks_feed_is_not_an_error(self):
+        html = direct_observation_block({'_direct_observations': record(fixture_scope=self.SCOPE),
+                                         'matches': [{'id': '1083014'}],
+                                         'complete_picks': None}, '../')
+        self.assertNotIn('origination/#match-', html)
+        self.assertIn('K27 vs Virtus.pro', html)
+
+    def test_a_scope_entry_without_an_id_is_rendered_as_text_not_a_broken_link(self):
+        scope = [{'teams': ['No Id', 'Here'], 'competition': 'X', 'starts_at': '', 'published_method': ''}]
+        html = direct_observation_block({'_direct_observations': record(fixture_scope=scope),
+                                         'matches': [], 'complete_picks': {'matches': []}}, '../')
+        self.assertIn('No Id vs Here', html)
+        self.assertNotIn('#match-"', html)
+        self.assertNotIn('#match-<', html)
 
 
 class CheckedInRecord(unittest.TestCase):

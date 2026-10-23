@@ -1334,12 +1334,17 @@ def direct_observation_block(data, prefix):
             + '</li>')
 
     scope_rows = ''
-    # Only link a fixture that this build actually rendered. The live manifest
-    # can name fixtures the checked-in replay snapshot predates, and an in-site
-    # link to a missing anchor is a broken link, not a convenience.
-    rendered_ids = {str(m.get('id')) for m in (data.get('matches') or [])}
-    rendered_ids |= {str(m.get('id'))
-                     for m in ((data.get('complete_picks') or {}).get('matches') or [])}
+    # Only link a fixture the ORIGINATION page actually rendered an anchor for.
+    # Those `id="match-<id>"` articles come from the complete-picks feed
+    # (scripts/build_origination.py), which is a *narrower* set than the
+    # inventory: a fixture can be active in data/latest.json and already absent
+    # from data/origination.json when the two feeds are collected seconds apart
+    # or the fixture locks. Gating on data['matches'] therefore published
+    # ./origination/#match-1081605 on the live build with no anchor behind it,
+    # which scripts.validate.check_links correctly rejected. This mirrors the
+    # gate no_line_research_block already uses.
+    rendered_ids = {str(m.get('id'))
+                    for m in ((data.get('complete_picks') or {}).get('matches') or [])}
     for f in scope:
         fid = str(f.get('hotspawn_id') or '')
         label = ' vs '.join(f.get('teams') or [])
