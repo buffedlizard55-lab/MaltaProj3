@@ -1,4 +1,4 @@
-# Session arena-ca7e10e5 — published-state verification (2026-10-23T09:58:24Z)
+# Session arena-ca7e10e5 — published-state verification (2026-10-23T10:18:23Z)
 
 Read-only. No probability, pick or alias is written by this probe.
 
@@ -6,8 +6,8 @@ Read-only. No probability, pick or alias is written by this probe.
 
 | What | Value |
 | --- | --- |
-| Page `data-snapshot-generated` | `2026-10-23T09:23:57Z` (age 0.57 h) |
-| `data/latest.json` `generated_at` | `2026-10-15T08:36:13Z` (age 193.37 h) |
+| Page `data-snapshot-generated` | `2026-10-23T09:23:57Z` (age 0.91 h) |
+| `data/latest.json` `generated_at` | `2026-10-15T08:36:13Z` (age 193.7 h) |
 | Page vs JSON gap | 192.8 h |
 | Rendered active fixtures / picks / unresolved | 30 / 30 / 0 |
 | Rendered `origination` rows | 30 |
@@ -15,35 +15,35 @@ Read-only. No probability, pick or alias is written by this probe.
 
 ## 2. Coverage of the freshly collected snapshot
 
-Snapshot `2026-10-23T09:56:55Z`: **30** active fixtures, **30** with a pick and two probabilities, **21** from a money line, **9** from a research model, **0** with a problem, and **4** blank in the featured feed but resolved by the complete researched list.
+Snapshot `2026-10-23T10:16:59Z`: **30** active fixtures, **30** with a pick and two probabilities, **21** from a money line, **9** from a research model, **0** with a problem, and **4** blank in the featured feed but resolved by the complete researched list.
 
 | Fixture | Competition | Feed | Method | Pick | Probabilities | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| Nuclear TigeRES vs ILLYRIANS | CCT Europe 2026 Series #11 | featured | market | Nuclear TigeRES | 84.5% / 15.5% | [Polymarket](https://polymarket.com/event/cs2-ntr-ill4-2026-10-23) |
-| Inner Circle Academy vs Spirit Academy | CCT Europe 2026 Series #12 | featured | market | Spirit Academy | 43.5% / 56.5% | [Polymarket](https://polymarket.com/event/cs2-innerc-tsa-2026-10-23) |
+| Nuclear TigeRES vs ILLYRIANS | CCT Europe 2026 Series #11 | featured | market | Nuclear TigeRES | 85.0% / 15.0% | [Polymarket](https://polymarket.com/event/cs2-ntr-ill4-2026-10-23) |
+| Inner Circle Academy vs Spirit Academy | CCT Europe 2026 Series #12 | featured | market | Spirit Academy | 44.5% / 55.5% | [Polymarket](https://polymarket.com/event/cs2-innerc-tsa-2026-10-23) |
 | Phantom Academy vs Banda chuya | CCT Europe 2026 Challengers #8 | featured | model | Banda chuya | 47.5% / 52.5% | [Valve official standings](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md) |
-| JiJieHao vs Eternal Fire | DraculaN Season 7 | featured | market | Eternal Fire | 44.5% / 55.5% | [Polymarket](https://polymarket.com/event/cs2-jjh-ef1-2026-10-23) |
-| Isurus vs Hacha | CCT South America 2026 Series #7 | complete list | consensus | Isurus | 75.9% / 24.1% | [Polymarket + Thunderpick + Bovada + Pinnacle](https://polymarket.com/event/cs2-isg-hachae-2026-10-23) |
+| JiJieHao vs Eternal Fire | DraculaN Season 7 | featured | market | Eternal Fire | 42.5% / 57.5% | [Polymarket](https://polymarket.com/event/cs2-jjh-ef1-2026-10-23) |
+| Isurus vs Hacha | CCT South America 2026 Series #7 | complete list | consensus | Isurus | 75.3% / 24.7% | [Polymarket + Thunderpick + Bovada + Pinnacle](https://polymarket.com/event/cs2-isg-hachae-2026-10-23) |
 | LPH vs WBT Academy | ESL Challenger League Season 52: Europe - Cup #9 | featured | model | WBT Academy | 41.7% / 58.3% | [Valve official standings](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md) |
 | K27 vs Virtus.pro | CIS LAN Championship #9 | featured | market | K27 | 56.0% / 44.0% | [Polymarket](https://polymarket.com/event/cs2-k271-vp-2026-10-23) |
 | BORRACHEIROS vs QUINTESSÊNCIA | CCT South America 2026 Series #7 | featured | market | BORRACHEIROS | 64.0% / 36.0% | [Polymarket](https://polymarket.com/event/cs2-chama-quin-2026-10-23) |
 | BakS vs BRUTE | CCT Europe 2026 Series #11 | complete list | consensus | BRUTE | 49.3% / 50.7% | [Polymarket + Kalshi + Thunderpick + Bovada + Pinnacle](https://polymarket.com/event/cs2-brute-baks-2026-10-23) |
-| ex-RUSTEC vs Saint Sinners | CCT Europe 2026 Series #12 | featured | market | ex-RUSTEC | 65.5% / 34.5% | [Polymarket](https://polymarket.com/event/cs2-rustec-ssins-2026-10-23) |
+| ex-RUSTEC vs Saint Sinners | CCT Europe 2026 Series #12 | featured | market | ex-RUSTEC | 66.0% / 34.0% | [Polymarket](https://polymarket.com/event/cs2-rustec-ssins-2026-10-23) |
 | BESTIA vs Galorys | Circuit X Curitiba #4 | featured | market | BESTIA | 56.5% / 43.5% | [Polymarket](https://polymarket.com/event/cs2-bst-gls1-2026-10-23) |
 | BESTIA Academy vs RED Canids Academy | CCT South America 2026 Series #7 | featured | market | RED Canids Academy | 40.5% / 59.5% | [Polymarket](https://polymarket.com/event/cs2-bsta-reda-2026-10-23) |
-| paiN vs Imperial | Circuit X Curitiba #4 | featured | market | Imperial | 33.0% / 67.0% | [Polymarket](https://polymarket.com/event/cs2-pain-imp11-2026-10-23) |
+| paiN vs Imperial | Circuit X Curitiba #4 | featured | market | Imperial | 30.0% / 70.0% | [Polymarket](https://polymarket.com/event/cs2-pain-imp11-2026-10-23) |
 | Alka vs LOS NINOS | CCT South America 2026 Series #7 | featured | bookmaker | Alka | 71.1% / 28.9% | [Thunderpick](https://thunderpick.io/api/matches) |
 | FOKUS vs ex-6666 | NODWIN Clutch Series #13 | featured | market | FOKUS | 76.5% / 23.5% | [Polymarket](https://polymarket.com/event/cs2-fokus-66661-2026-10-24) |
-| Nuclear TigeRES vs FORZE Reload | NODWIN Clutch Series #13 | featured | market | Nuclear TigeRES | 59.5% / 40.5% | [Polymarket](https://polymarket.com/event/cs2-ntr-forzer-2026-10-24) |
+| Nuclear TigeRES vs FORZE Reload | NODWIN Clutch Series #13 | featured | market | Nuclear TigeRES | 62.0% / 38.0% | [Polymarket](https://polymarket.com/event/cs2-ntr-forzer-2026-10-24) |
 | Acend vs UNiTY | NODWIN Clutch Series #13 | featured | model | Acend | 54.2% / 45.8% | [Valve official standings](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md) |
 | Metizport vs BakS | NODWIN Clutch Series #13 | featured | model | Metizport | 79.9% / 20.1% | [Valve official standings](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md) |
 | Infinite vs BRUTE | NODWIN Clutch Series #13 | featured | market | BRUTE | 44.5% / 55.5% | [Polymarket](https://polymarket.com/event/cs2-inf6-brute-2026-10-25) |
 | Color vs ex-Zero Tenacity | NODWIN Clutch Series #13 | featured | model | Color | 73.6% / 26.4% | [Valve official standings](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md) |
-| Ground Zero vs Off Chops | DFRAG Invitational 2026 | complete list | model | Off Chops | 45.0% / 55.0% | [Own network model (bo3.gg results graph)](https://bo3.gg/matches) |
+| Ground Zero vs Off Chops | DFRAG Invitational 2026 | complete list | model | Off Chops | 44.9% / 55.1% | [Own network model (bo3.gg results graph)](https://bo3.gg/matches) |
 | NEXVOID vs Alter Ego | DFRAG Invitational 2026 | featured | bookmaker | NEXVOID | 57.6% / 42.4% | [Thunderpick](https://thunderpick.io/api/matches) |
 | FlyQuest vs Staqued | DFRAG Invitational 2026 | featured | bookmaker | FlyQuest | 92.3% / 7.7% | [Thunderpick](https://thunderpick.io/api/matches) |
 | Rooster vs Abyssal | DFRAG Invitational 2026 | featured | model | Abyssal | 47.8% / 52.2% | [Valve official standings](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md) |
-| B8 vs K27 | Tesla Cup 2026 | featured | market | B8 | 62.0% / 38.0% | [Polymarket](https://polymarket.com/event/cs2-b8-k271-2026-10-27) |
+| B8 vs K27 | Tesla Cup 2026 | featured | market | B8 | 62.5% / 37.5% | [Polymarket](https://polymarket.com/event/cs2-b8-k271-2026-10-27) |
 | Alliance vs FaZe | Tesla Cup 2026 | featured | market | FaZe | 34.0% / 66.0% | [Polymarket](https://polymarket.com/event/cs2-all-faze-2026-10-27) |
 | Luminosity vs HOTU | Tesla Cup 2026 | featured | market | Luminosity | 55.0% / 45.0% | [Polymarket](https://polymarket.com/event/cs2-lg6-hotu-2026-10-27) |
 | Envy vs GamerLegion | Tesla Cup 2026 | featured | market | GamerLegion | 46.5% / 53.5% | [Polymarket](https://polymarket.com/event/cs2-envy-gl1-2026-10-27) |
@@ -73,6 +73,6 @@ blob:; form-action http: https:; base-uri &#39;self&#39;"><style>*{box-sizing:bo
 **Kalshi open CS2 markets** — `https://api.elections.kalshi.com/trade-api/v2/markets?status=open&limit=1000`
 
 ```
-47.632666Z","custom_strike":{"Associated Events":"KXCS2GAME-26OCT240600TLMOUZ,KXCS2GAME-26OCT2409009ZVIT,KXCS2GAME-26OCT241200DENFURIA,KXDOTA2GAME-26OCT230400OG1WIN,KXDOTA2GAME-26OCT231300LEGPARI,KXDOTA2GAME-26OCT240400GL1WIN,KXLOLGAME-26OCT231800T1LOS,KXUFCFIGHT-26OCT24KRYYAK,KXUFCFIGHT-26OCT24LUCCAL,KXUFCFIGHT-26OCT24THICHO,KXUFCFIGHT-26OCT24VOLEVL,KXUFCFIGHT-26OCT24YANDVA","Associated Market Si
+7:59.320043Z","custom_strike":{"Associated Events":"KXALEAGUEGAME-26OCT23BRRPER,KXCS2GAME-26OCT240600TLMOUZ,KXCS2GAME-26OCT2409009ZVIT,KXDOTA2GAME-26OCT230400OG1WIN,KXDOTA2GAME-26OCT231300LEGPARI,KXDOTA2GAME-26OCT240400GL1WIN,KXEPLGAME-26OCT24ARSEVE,KXLALIGAGAME-26OCT24ATMDEP,KXLOLGAME-26OCT231800T1LOS,KXMLBSPREAD-26OCT232000TBMIL,KXNBAGAME-26OCT23LACLAL,KXNBAGAME-26OCT23PORSAC,KXSAUDIPLGAME-26OCT
 ```
 
