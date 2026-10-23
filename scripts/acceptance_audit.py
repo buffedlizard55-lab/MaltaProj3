@@ -421,6 +421,49 @@ def check_freshness(site: Path, snapshot: dict) -> Check:
     return check.ok(detail, evidence)
 
 
+def check_snapshot_consistency(site: Path) -> Check:
+    """The page a reader sees and the JSON they download must be the same snapshot.
+
+    The legacy Pages build republishes the branch root (rendered pages plus the
+    checked-in ``data/`` fixture) on every push to ``main``, while the artifact
+    deploy serves the fresh ``data/`` tree. When the two disagree, a reader who
+    downloads ``data/latest.json`` sees a different date from the one printed on
+    the page. That happened on 2026-10-22/23 (page 2026-10-22T14:05:35Z, JSON
+    2026-10-15T08:36:13Z), so it is checked rather than assumed.
+    """
+    check = Check('snapshot_consistency',
+                  'The rendered page and the downloadable snapshot are the same observation',
+                  'It should be up to date and list the probabilities for each match based upon known betting lines')
+    soup = _page(site, 'index.html')
+    stamp_node = soup.select_one('[data-snapshot-generated]') if soup else None
+    latest = site / 'data/latest.json'
+    if stamp_node is None:
+        return check.fail('index.html carries no data-snapshot-generated stamp to compare against.')
+    page_stamp = stamp_node.get('data-snapshot-generated')
+    if not latest.exists():
+        return check.info('This tree carries rendered pages only, so there is no downloadable snapshot to compare.',
+                          str(site))
+    try:
+        json_stamp = json.loads(latest.read_text()).get('generated_at')
+    except ValueError:
+        return check.fail(f'{latest} is not valid JSON.')
+    if not json_stamp:
+        return check.fail(f'{latest} carries no generated_at.')
+    try:
+        page_time = datetime.fromisoformat(page_stamp.replace('Z', '+00:00'))
+        json_time = datetime.fromisoformat(json_stamp.replace('Z', '+00:00'))
+    except ValueError:
+        return check.fail(f'Unparseable timestamps: page {page_stamp!r}, JSON {json_stamp!r}.')
+    drift = abs((page_time - json_time).total_seconds())
+    if drift > 600:
+        return check.fail(f'The page shows snapshot {page_stamp} but data/latest.json carries {json_stamp} '
+                          f'({drift / 3600:.1f} h apart): a reader who downloads the JSON sees a different '
+                          'observation from the one printed on the page.',
+                          f'{site}/index.html', f'{site}/data/latest.json')
+    return check.ok(f'Page stamp and data/latest.json agree ({page_stamp}).',
+                    f'{site}/index.html', f'{site}/data/latest.json')
+
+
 def check_unresolved_page(site: Path) -> Check:
     check = Check('unresolved_page', 'The dedicated unresolved page exists and lists limitations',
                   'Create a separate section for any unresolved picks and the limitations')
@@ -453,6 +496,7 @@ def audit(repo: Path, site: Path | None = None) -> dict:
                    check_cadence(repo, snapshot),
                    check_row_sources(site),
                    check_freshness(site, snapshot),
+                   check_snapshot_consistency(site),
                    check_unresolved_page(site)]
     failed = [c for c in checks if c.status == 'fail']
     return {

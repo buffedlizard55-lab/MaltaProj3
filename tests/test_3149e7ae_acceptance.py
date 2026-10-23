@@ -44,9 +44,11 @@ def glance_row(first='Alpha', second='Beta', pick='Alpha', probs=('61.5', '38.5'
 
 
 def summary_page(rows=None, active=1, register=True, limits=5, exec_link='./origination/#picks',
-                 coverage_link='./picks/', unresolved_link='./unresolved/') -> str:
+                 coverage_link='./picks/', unresolved_link='./unresolved/', stamp=None) -> str:
     rows = rows if rows is not None else glance_row()
-    parts = ['<!doctype html><html><head>' + VIEWPORT + '<title>Summary</title></head><body>']
+    body_attr = f' data-snapshot-generated="{stamp}"' if stamp else ''
+    parts = ['<!doctype html><html><head>' + VIEWPORT + '<title>Summary</title></head>'
+             f'<body{body_attr}>']
     parts.append('<section id="picks-at-a-glance"><h2>Picks at a glance</h2>'
                  f'<p class="section-intro"><strong>{active}</strong> active Hotspawn CS2 fixtures in this snapshot, '
                  '<strong>1</strong> with a directional pick.</p><ol class="glance-list">' + rows + '</ol></section>')
@@ -83,6 +85,7 @@ class AcceptanceAuditTests(unittest.TestCase):
         (self.root / '.github/workflows').mkdir(parents=True)
         (self.root / '.github/workflows/pages.yml').write_text(PAGES_WORKFLOW)
         now = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+        self.now = now
         (self.site / 'data/latest.json').write_text(json.dumps({
             'generated_at': now, 'coverage_complete': True,
             'refresh_interval_hours': 4, 'stale_after_hours': 8}))
@@ -102,6 +105,7 @@ class AcceptanceAuditTests(unittest.TestCase):
         self.ctx.cleanup()
 
     def write_summary(self, **kwargs):
+        kwargs.setdefault('stamp', self.now)
         (self.site / 'index.html').write_text(summary_page(**kwargs))
 
     def check(self, report, key):
@@ -239,6 +243,32 @@ class AcceptanceAuditTests(unittest.TestCase):
             'refresh_interval_hours': 4, 'stale_after_hours': 8}))
         report = audit(self.root, self.site)
         self.assertEqual(self.check(report, 'freshness')['status'], 'info')
+
+    def test_a_downloadable_snapshot_from_another_observation_fails(self):
+        (self.site / 'data/latest.json').write_text(json.dumps({
+            'generated_at': '2026-10-15T08:36:13Z', 'coverage_complete': True,
+            'refresh_interval_hours': 4, 'stale_after_hours': 8}))
+        report = audit(self.root, self.site)
+        check = self.check(report, 'snapshot_consistency')
+        self.assertEqual(check['status'], 'fail')
+        self.assertIn('h apart', check['detail'])
+        self.assertIn('2026-10-15T08:36:13Z', check['detail'])
+
+    def test_a_page_without_a_snapshot_stamp_fails(self):
+        (self.site / 'index.html').write_text(summary_page(stamp=None))
+        report = audit(self.root, self.site)
+        self.assertEqual(self.check(report, 'snapshot_consistency')['status'], 'fail')
+
+    def test_a_rendered_only_tree_reports_no_downloadable_snapshot(self):
+        (self.site / 'data/latest.json').unlink()
+        report = audit(self.root, self.site)
+        self.assertEqual(self.check(report, 'snapshot_consistency')['status'], 'info')
+
+    def test_a_fresh_downloadable_snapshot_passes(self):
+        report = audit(self.root, self.site)
+        check = self.check(report, 'snapshot_consistency')
+        self.assertEqual(check['status'], 'pass')
+        self.assertIn('agree', check['detail'])
 
     def test_a_missing_build_is_a_single_loud_failure(self):
         (self.site / 'index.html').unlink()
