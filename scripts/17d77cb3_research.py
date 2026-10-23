@@ -164,6 +164,7 @@ def published_methods(session, local: Path | None = None) -> tuple[dict, dict]:
             origin = match.get('origination') or {}
             methods[str(match.get('hotspawn_id') or match.get('id'))] = {
                 'method': origin.get('method'),
+                'label': origin.get('label'),
                 'featured': bool(match.get('featured_method')),
                 'probability': origin.get('probability'),
                 'source_url': origin.get('source_url'),
@@ -172,6 +173,21 @@ def published_methods(session, local: Path | None = None) -> tuple[dict, dict]:
                          'fixtures': len(methods),
                          'generated_at': payload.get('generated_at')}
     return {}, last
+
+
+def hotspawn_match_url(teams: list, competition, fixture_id: str) -> str:
+    """The public Hotspawn match URL for a fixture, in Hotspawn's own slug form.
+
+    Hotspawn's fixture feed returns no URL, so the slug is built exactly as the
+    site does: lowercased team names, " vs ", competition, then the fixture id,
+    with every non-alphanumeric run collapsed to one hyphen
+    (observed: BC.Game -> bc-game, Stake Pulse Beat III -> stake-pulse-beat-iii).
+    """
+    def slug(text) -> str:
+        return re.sub(r'-+', '-', re.sub(r'[^a-z0-9]+', '-', str(text or '').casefold())).strip('-')
+    parts = [slug(teams[0]) if len(teams) > 0 else '', 'vs',
+             slug(teams[1]) if len(teams) > 1 else '', slug(competition), str(fixture_id)]
+    return 'https://www.hotspawn.com/matches/' + '-'.join(p for p in parts if p)
 
 
 def bo3_upcoming(session, pages: int = 3) -> tuple[list, list]:
@@ -271,23 +287,56 @@ def main(argv: list[str] | None = None) -> int:
             continue
         bound, near = bind(fixture['teams'], start, rows)
         quote = relay_block(bound) if bound else None
+        bo3 = ({'slug': bound.get('slug'),
+                'url': 'https://bo3.gg/matches/' + str(bound.get('slug')),
+                'start': bound.get('start_date'),
+                'start_delta_sec': int(abs((stamp(bound.get('start_date')) - start).total_seconds())),
+                'tier': bound.get('tier'), 'quote': quote}
+               if bound else None)
+        lead = bool(quote and quote.get('two_sided_price'))
         record = {'hotspawn_id': fixture['id'], 'teams': fixture['teams'],
                   'competition': fixture['competition'], 'starts_at': fixture['starts_at'],
                   'tier': fixture['tier'], 'published_method': method,
+                  'published_label': published.get('label'),
                   'published_probability': published.get('probability'),
-                  'bo3': ({'slug': bound.get('slug'),
-                           'url': 'https://bo3.gg/matches/' + str(bound.get('slug')),
-                           'start': bound.get('start_date'),
-                           'start_delta_sec': int(abs((stamp(bound.get('start_date')) - start).total_seconds())),
-                           'tier': bound.get('tier'), 'quote': quote}
-                          if bound else None),
+                  'hotspawn_url': hotspawn_match_url(fixture['teams'], fixture['competition'],
+                                                     fixture['id']),
+                  'bo3': bo3,
                   'bo3_near_misses': near,
-                  'lead': bool(quote and quote.get('two_sided_price'))}
+                  'lead': lead}
         findings.append(record)
         if not record['lead']:
             unresolved.append(record)
         if args.per_fixture_delay:
             time.sleep(args.per_fixture_delay)
+
+    def compatible(record: dict) -> dict:
+        """The published dated-research block's schema, from this probe's record.
+
+        Keys are the ones ``scripts.build.no_line_research_block`` renders; the
+        values are copied, never re-derived, and a lead stays a lead.
+        """
+        bo3 = record.get('bo3') or {}
+        quote = bo3.get('quote') or None
+        return {'id': record['hotspawn_id'], 'teams': record['teams'],
+                'competition': record['competition'], 'starts_at': record['starts_at'],
+                'current_method': record['published_method'],
+                'current_label': record.get('published_label'),
+                'hotspawn_url': record.get('hotspawn_url'),
+                'bo3_bound_url': bo3.get('url'),
+                'bo3_start_delta_sec': bo3.get('start_delta_sec'),
+                'bo3_bet_two_sided': bool(quote and quote.get('two_sided_price')),
+                'bo3_bet': ({'provider': quote.get('provider'), 'path': quote.get('book_url'),
+                             'team_1': (quote.get('sides') or {}).get('team_1'),
+                             'team_2': (quote.get('sides') or {}).get('team_2')}
+                            if quote else None),
+                'money_line_lead': record['lead'],
+                'near_misses': record['bo3_near_misses'][:3],
+                'verdict': ('A two-sided, active prematch bookmaker quote is published for this fixture; '
+                            'it is a lead for the reviewed ladder, not a pick made here.'
+                            if record['lead'] else
+                            'No two-sided prematch price found on any probed surface; the research-model '
+                            'pick and its limitation stand.')}
 
     document = {
         'session': 'arena-17d77cb3',
@@ -307,8 +356,16 @@ def main(argv: list[str] | None = None) -> int:
                    'two_sided_lead': sum(1 for f in findings if f['lead']),
                    'still_unresolved': len(unresolved),
                    'bo3_rows_fetched': len(rows)},
+        'sources_tried': [{'label': p['label'], 'url': p['url'],
+                           'http_status': p.get('http_status'),
+                           'note': ('challenge page' if p.get('challenge_page') else
+                                    p.get('error') or ('page reachable; no fixture price read'
+                                                       if p.get('http_status') == 200 else 'blocked'))}
+                          for p in providers],
         'providers': providers,
         'fixtures': findings,
+        # Rendered by the executive summary's planned dated-research block.
+        'per_fixture': [compatible(record) for record in findings],
     }
     (args.out / 'line-source-research.json').write_text(
         json.dumps(document, indent=1, ensure_ascii=False) + '\n')
