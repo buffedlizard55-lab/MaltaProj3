@@ -2,640 +2,145 @@
   "schema_version": 1,
   "session": "arena-3a010437",
   "role": "Independent re-read of every published row against the original source that row cites. Audit only: no probability, pick or alias is written or corrected here.",
-  "started_at": "2026-10-23T10:06:24Z",
-  "finished_at": "2026-10-23T10:06:26Z",
+  "started_at": "2026-10-23T10:50:03Z",
+  "finished_at": "2026-10-23T10:50:14Z",
   "snapshot": {
-    "inventory_generated_at": "2026-10-15T08:36:13Z",
-    "inventory_observed_at": "2026-10-15T08:36:04Z",
-    "complete_source_snapshot_at": "2026-10-15T08:36:04Z",
-    "active_rows": 17
+    "inventory_generated_at": "2026-10-23T10:43:14Z",
+    "inventory_observed_at": "2026-10-23T10:14:05Z",
+    "complete_source_snapshot_at": "2026-10-23T10:14:05Z",
+    "active_rows": 30
   },
   "thresholds": {
     "drift_ok": 0.05,
     "note": "A published observation is a snapshot; a later price within 0.05 of it is reported as confirmed agreement, a larger drift as a move. Only a price that now favours the other side is a conflict."
   },
   "totals": {
-    "identity_mismatch": 12,
-    "model_not_a_line": 5
+    "confirmed": 16,
+    "model_not_a_line": 8,
+    "source_reachable": 6
   },
   "inconclusive": false,
   "inconclusive_reason": null,
   "rows": [
     {
-      "id": "1079440",
+      "id": "1079655",
       "teams": [
-        "MIBR",
-        "BC.Game"
+        "Nuclear TigeRES",
+        "ILLYRIANS"
       ],
-      "competition": "Stake Pulse Beat III",
-      "starts_at": "2026-10-15T10:00:00Z",
-      "availability": "open",
-      "method": "bookmaker",
-      "source": "Thunderpick",
-      "source_url": "https://thunderpick.io/api/matches",
-      "published_probabilities": [
-        0.54959786,
-        0.45040214
-      ],
-      "published_pick_index": 0,
-      "published_observed_at": "2026-10-15T08:36:11Z",
-      "hotspawn_url": "https://www.hotspawn.com/matches/mibr-vs-bc-game-stake-pulse-beat-iii-1079440",
-      "in_inventory_snapshot": true,
-      "arithmetic": {
-        "probabilities": [
-          0.54959786,
-          0.45040214
-        ],
-        "sum": 1.0,
-        "sums_to_one": true,
-        "pick_index": 0,
-        "pick_team": "MIBR",
-        "pick_is_larger": true
-      },
-      "identity": {
-        "source": "official Hotspawn fixtures API",
-        "fixture_id": "1079440",
-        "published_start": "2026-10-15T10:00:00Z",
-        "api_observed_at": "2026-10-23T10:06:24Z",
-        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-        "checked": true,
-        "status": "not_in_inventory",
-        "reason": "fixture id is not in the official scheduled-fixture API response"
-      },
-      "price": {
-        "checked": true,
-        "url": "https://thunderpick.io/api/matches",
-        "observed_at": "2026-10-23T10:06:24Z",
-        "http_status": 200,
-        "bytes": 50,
-        "error": null,
-        "price_reverified": false,
-        "note": "Reachability only. This audit does not parse a price from a rendered page, so the row's own quote record remains the price evidence."
-      },
-      "verdict": "identity_mismatch"
-    },
-    {
-      "id": "1079442",
-      "teams": [
-        "Heroic",
-        "Envy"
-      ],
-      "competition": "Stake Pulse Beat III",
-      "starts_at": "2026-10-15T10:00:00Z",
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-23T11:00:00Z",
       "availability": "open",
       "method": "market",
       "source": "Polymarket",
-      "source_url": "https://polymarket.com/event/cs2-hero-envy-2026-10-15",
+      "source_url": "https://polymarket.com/event/cs2-ntr-ill4-2026-10-23",
       "published_probabilities": [
-        0.635,
-        0.365
+        0.85,
+        0.15
       ],
       "published_pick_index": 0,
-      "published_observed_at": "2026-10-15T08:36:05Z",
-      "hotspawn_url": "https://www.hotspawn.com/matches/heroic-vs-envy-stake-pulse-beat-iii-1079442",
+      "published_observed_at": "2026-10-23T10:14:09Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-illyrians-cct-europe-2026-series-11-1079655",
       "in_inventory_snapshot": true,
       "arithmetic": {
         "probabilities": [
-          0.635,
-          0.365
+          0.85,
+          0.15
         ],
         "sum": 1.0,
         "sums_to_one": true,
         "pick_index": 0,
-        "pick_team": "Heroic",
+        "pick_team": "Nuclear TigeRES",
         "pick_is_larger": true
       },
       "identity": {
         "source": "official Hotspawn fixtures API",
-        "fixture_id": "1079442",
-        "published_start": "2026-10-15T10:00:00Z",
-        "api_observed_at": "2026-10-23T10:06:24Z",
+        "fixture_id": "1079655",
+        "published_start": "2026-10-23T11:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
         "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
         "checked": true,
-        "status": "not_in_inventory",
-        "reason": "fixture id is not in the official scheduled-fixture API response"
-      },
-      "price": {
-        "checked": true,
-        "api": "https://gamma-api.polymarket.com/events/1140039",
-        "observed_at": "2026-10-23T10:06:25Z",
-        "http_status": 200,
-        "error": null,
-        "event_title": "Counter-Strike: Heroic vs Envy (BO3) - Stake Pulse Beat III Group D",
-        "event_volume": 353637.9004899999,
-        "market_question": "Counter-Strike: Heroic vs Envy (BO3) - Stake Pulse Beat III Group D",
-        "outcomes": [
-          "Heroic",
-          "Envy"
+        "api_teams": [
+          "Nuclear TigeRES",
+          "ILLYRIANS"
         ],
-        "outcome_prices": [
-          1.0,
-          0.0
-        ],
-        "best_bid": 0.999,
-        "best_ask": 1,
-        "volume": "237231.92175199988",
-        "comparisons": [
+        "api_start": "2026-10-23T11:00:00Z",
+        "teams": [
           {
-            "outcome": "Heroic",
-            "price": 1.0,
-            "matched_team": "Heroic",
-            "published": 0.635,
-            "delta": 0.365
+            "team": "Nuclear TigeRES",
+            "present": true
           },
           {
-            "outcome": "Envy",
-            "price": 0.0,
-            "matched_team": "Envy",
-            "published": 0.365,
-            "delta": -0.365
+            "team": "ILLYRIANS",
+            "present": true
           }
         ],
-        "max_abs_delta": 0.365,
-        "price_survives": false,
-        "pick_still_favoured": true
-      },
-      "verdict": "identity_mismatch"
-    },
-    {
-      "id": "1080280",
-      "teams": [
-        "ENCE",
-        "BOJONG"
-      ],
-      "competition": "Elisa BreakOut Series #2",
-      "starts_at": "2026-10-15T10:00:00Z",
-      "availability": "open",
-      "method": "market",
-      "source": "Polymarket",
-      "source_url": "https://polymarket.com/event/cs2-ence-bojong-2026-10-15",
-      "published_probabilities": [
-        0.745,
-        0.255
-      ],
-      "published_pick_index": 0,
-      "published_observed_at": "2026-10-15T08:36:06Z",
-      "hotspawn_url": "https://www.hotspawn.com/matches/ence-vs-bojong-elisa-breakout-series-2-1080280",
-      "in_inventory_snapshot": true,
-      "arithmetic": {
-        "probabilities": [
-          0.745,
-          0.255
-        ],
-        "sum": 1.0,
-        "sums_to_one": true,
-        "pick_index": 0,
-        "pick_team": "ENCE",
-        "pick_is_larger": true
-      },
-      "identity": {
-        "source": "official Hotspawn fixtures API",
-        "fixture_id": "1080280",
-        "published_start": "2026-10-15T10:00:00Z",
-        "api_observed_at": "2026-10-23T10:06:24Z",
-        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-        "checked": true,
-        "status": "not_in_inventory",
-        "reason": "fixture id is not in the official scheduled-fixture API response"
+        "competition": "CCT Europe 2026 Series #11",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
       },
       "price": {
         "checked": true,
-        "api": "https://gamma-api.polymarket.com/events/1173312",
-        "observed_at": "2026-10-23T10:06:25Z",
+        "api": "https://gamma-api.polymarket.com/events/1233761",
+        "observed_at": "2026-10-23T10:50:03Z",
         "http_status": 200,
         "error": null,
-        "event_title": "Counter-Strike: ENCE vs BOJONG (BO1) - Elisa BreakOut Series #2 Group A",
-        "event_volume": 12296.431616000002,
-        "market_question": "Counter-Strike: ENCE vs BOJONG (BO1) - Elisa BreakOut Series #2 Group A",
+        "event_title": "Counter-Strike: Nuclear TigeRES vs ILLYRIANS (BO3) - CCT Europe Series #11 Playoffs",
+        "event_volume": 474.993241,
+        "market_question": "Counter-Strike: Nuclear TigeRES vs ILLYRIANS (BO3) - CCT Europe Series #11 Playoffs",
         "outcomes": [
-          "ENCE",
-          "BOJONG"
+          "Nuclear TigeRES",
+          "ILLYRIANS"
         ],
         "outcome_prices": [
-          1.0,
-          0.0
+          0.845,
+          0.155
         ],
-        "best_bid": 0.999,
-        "best_ask": 1,
-        "volume": "12296.431616000002",
+        "best_bid": 0.84,
+        "best_ask": 0.85,
+        "volume": "474.993241",
         "comparisons": [
           {
-            "outcome": "ENCE",
-            "price": 1.0,
-            "matched_team": "ENCE",
-            "published": 0.745,
-            "delta": 0.255
+            "outcome": "Nuclear TigeRES",
+            "price": 0.845,
+            "matched_team": "Nuclear TigeRES",
+            "published": 0.85,
+            "delta": -0.005
           },
           {
-            "outcome": "BOJONG",
-            "price": 0.0,
-            "matched_team": "BOJONG",
-            "published": 0.255,
-            "delta": -0.255
+            "outcome": "ILLYRIANS",
+            "price": 0.155,
+            "matched_team": "ILLYRIANS",
+            "published": 0.15,
+            "delta": 0.005
           }
         ],
-        "max_abs_delta": 0.255,
-        "price_survives": false,
+        "max_abs_delta": 0.005,
+        "price_survives": true,
         "pick_still_favoured": true
       },
-      "verdict": "identity_mismatch"
+      "verdict": "confirmed"
     },
     {
-      "id": "1080202",
+      "id": "1081148",
       "teams": [
-        "9z",
-        "Falcons"
+        "Inner Circle Academy",
+        "Spirit Academy"
       ],
-      "competition": "Thunderpick World Championship 2026",
-      "starts_at": "2026-10-15T11:00:00Z",
-      "availability": "open",
-      "method": "model",
-      "source": "Valve official standings",
-      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "published_probabilities": [
-        0.15709516,
-        0.84290484
-      ],
-      "published_pick_index": 1,
-      "published_observed_at": "2026-10-15T08:36:13Z",
-      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080202",
-      "in_inventory_snapshot": true,
-      "arithmetic": {
-        "probabilities": [
-          0.15709516,
-          0.84290484
-        ],
-        "sum": 1.0,
-        "sums_to_one": true,
-        "pick_index": 1,
-        "pick_team": "Falcons",
-        "pick_is_larger": true
-      },
-      "identity": {
-        "source": "official Hotspawn fixtures API",
-        "fixture_id": "1080202",
-        "published_start": "2026-10-15T11:00:00Z",
-        "api_observed_at": "2026-10-23T10:06:24Z",
-        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-        "checked": true,
-        "status": "not_in_inventory",
-        "reason": "fixture id is not in the official scheduled-fixture API response"
-      },
-      "price": {
-        "checked": false,
-        "reason": "research-model estimate: there is no published price to re-read"
-      },
-      "verdict": "model_not_a_line"
-    },
-    {
-      "id": "1080281",
-      "teams": [
-        "WROTBERRY",
-        "ENCE"
-      ],
-      "competition": "Elisa BreakOut Series #2",
-      "starts_at": "2026-10-15T12:00:00Z",
-      "availability": "open",
-      "method": "bookmaker",
-      "source": "Thunderpick",
-      "source_url": "https://thunderpick.io/esports/counter-strike",
-      "published_probabilities": [
-        0.61538462,
-        0.38461538
-      ],
-      "published_pick_index": 0,
-      "published_observed_at": "2026-10-15T08:36:11Z",
-      "hotspawn_url": "https://www.hotspawn.com/matches/wrotberry-vs-ence-elisa-breakout-series-2-1080281",
-      "in_inventory_snapshot": true,
-      "arithmetic": {
-        "probabilities": [
-          0.61538462,
-          0.38461538
-        ],
-        "sum": 1.0,
-        "sums_to_one": true,
-        "pick_index": 0,
-        "pick_team": "WROTBERRY",
-        "pick_is_larger": true
-      },
-      "identity": {
-        "source": "official Hotspawn fixtures API",
-        "fixture_id": "1080281",
-        "published_start": "2026-10-15T12:00:00Z",
-        "api_observed_at": "2026-10-23T10:06:24Z",
-        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-        "checked": true,
-        "status": "not_in_inventory",
-        "reason": "fixture id is not in the official scheduled-fixture API response"
-      },
-      "price": {
-        "checked": true,
-        "url": "https://thunderpick.io/esports/counter-strike",
-        "observed_at": "2026-10-23T10:06:25Z",
-        "http_status": 200,
-        "bytes": 14971,
-        "error": null,
-        "price_reverified": false,
-        "note": "Reachability only. This audit does not parse a price from a rendered page, so the row's own quote record remains the price evidence."
-      },
-      "verdict": "identity_mismatch"
-    },
-    {
-      "id": "1080203",
-      "teams": [
-        "PARIVISION",
-        "BetBoom"
-      ],
-      "competition": "Thunderpick World Championship 2026",
-      "starts_at": "2026-10-15T13:30:00Z",
-      "availability": "open",
-      "method": "model",
-      "source": "Valve official standings",
-      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "published_probabilities": [
-        0.26192226,
-        0.73807774
-      ],
-      "published_pick_index": 1,
-      "published_observed_at": "2026-10-15T08:36:13Z",
-      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080203",
-      "in_inventory_snapshot": true,
-      "arithmetic": {
-        "probabilities": [
-          0.26192226,
-          0.73807774
-        ],
-        "sum": 1.0,
-        "sums_to_one": true,
-        "pick_index": 1,
-        "pick_team": "BetBoom",
-        "pick_is_larger": true
-      },
-      "identity": {
-        "source": "official Hotspawn fixtures API",
-        "fixture_id": "1080203",
-        "published_start": "2026-10-15T13:30:00Z",
-        "api_observed_at": "2026-10-23T10:06:24Z",
-        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-        "checked": true,
-        "status": "not_in_inventory",
-        "reason": "fixture id is not in the official scheduled-fixture API response"
-      },
-      "price": {
-        "checked": false,
-        "reason": "research-model estimate: there is no published price to re-read"
-      },
-      "verdict": "model_not_a_line"
-    },
-    {
-      "id": "1080282",
-      "teams": [
-        "EAC",
-        "BOJONG"
-      ],
-      "competition": "Elisa BreakOut Series #2",
-      "starts_at": "2026-10-15T14:00:00Z",
-      "availability": "open",
-      "method": "model",
-      "source": "Valve official standings",
-      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "published_probabilities": [
-        0.96095469,
-        0.03904531
-      ],
-      "published_pick_index": 0,
-      "published_observed_at": "2026-10-15T08:36:13Z",
-      "hotspawn_url": "https://www.hotspawn.com/matches/eac-vs-bojong-elisa-breakout-series-2-1080282",
-      "in_inventory_snapshot": true,
-      "arithmetic": {
-        "probabilities": [
-          0.96095469,
-          0.03904531
-        ],
-        "sum": 1.0,
-        "sums_to_one": true,
-        "pick_index": 0,
-        "pick_team": "EAC",
-        "pick_is_larger": true
-      },
-      "identity": {
-        "source": "official Hotspawn fixtures API",
-        "fixture_id": "1080282",
-        "published_start": "2026-10-15T14:00:00Z",
-        "api_observed_at": "2026-10-23T10:06:24Z",
-        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-        "checked": true,
-        "status": "not_in_inventory",
-        "reason": "fixture id is not in the official scheduled-fixture API response"
-      },
-      "price": {
-        "checked": false,
-        "reason": "research-model estimate: there is no published price to re-read"
-      },
-      "verdict": "model_not_a_line"
-    },
-    {
-      "id": "1080204",
-      "teams": [
-        "Legacy",
-        "FURIA"
-      ],
-      "competition": "Thunderpick World Championship 2026",
-      "starts_at": "2026-10-15T16:00:00Z",
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-23T11:00:00Z",
       "availability": "open",
       "method": "market",
       "source": "Polymarket",
-      "source_url": "https://polymarket.com/event/cs2-lgc-furia-2026-10-15",
-      "published_probabilities": [
-        0.435,
-        0.565
-      ],
-      "published_pick_index": 1,
-      "published_observed_at": "2026-10-15T08:36:06Z",
-      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080204",
-      "in_inventory_snapshot": true,
-      "arithmetic": {
-        "probabilities": [
-          0.435,
-          0.565
-        ],
-        "sum": 1.0,
-        "sums_to_one": true,
-        "pick_index": 1,
-        "pick_team": "FURIA",
-        "pick_is_larger": true
-      },
-      "identity": {
-        "source": "official Hotspawn fixtures API",
-        "fixture_id": "1080204",
-        "published_start": "2026-10-15T16:00:00Z",
-        "api_observed_at": "2026-10-23T10:06:24Z",
-        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-        "checked": true,
-        "status": "not_in_inventory",
-        "reason": "fixture id is not in the official scheduled-fixture API response"
-      },
-      "price": {
-        "checked": true,
-        "api": "https://gamma-api.polymarket.com/events/1190748",
-        "observed_at": "2026-10-23T10:06:26Z",
-        "http_status": 200,
-        "error": null,
-        "event_title": "Counter-Strike: Legacy vs FURIA (BO3) - Thunderpick World Championship Group B",
-        "event_volume": 2848693.705355005,
-        "market_question": "Counter-Strike: Legacy vs FURIA (BO3) - Thunderpick World Championship Group B",
-        "outcomes": [
-          "Legacy",
-          "FURIA"
-        ],
-        "outcome_prices": [
-          0.0,
-          1.0
-        ],
-        "best_bid": null,
-        "best_ask": 0.001,
-        "volume": "2023726.7029420044",
-        "comparisons": [
-          {
-            "outcome": "Legacy",
-            "price": 0.0,
-            "matched_team": "Legacy",
-            "published": 0.435,
-            "delta": -0.435
-          },
-          {
-            "outcome": "FURIA",
-            "price": 1.0,
-            "matched_team": "FURIA",
-            "published": 0.565,
-            "delta": 0.435
-          }
-        ],
-        "max_abs_delta": 0.435,
-        "price_survives": false,
-        "pick_still_favoured": true
-      },
-      "verdict": "identity_mismatch"
-    },
-    {
-      "id": "1080283",
-      "teams": [
-        "WROTBERRY",
-        "BOJONG"
-      ],
-      "competition": "Elisa BreakOut Series #2",
-      "starts_at": "2026-10-15T16:00:00Z",
-      "availability": "open",
-      "method": "bookmaker",
-      "source": "Thunderpick",
-      "source_url": "https://thunderpick.io/esports/counter-strike",
-      "published_probabilities": [
-        0.76923077,
-        0.23076923
-      ],
-      "published_pick_index": 0,
-      "published_observed_at": "2026-10-15T08:36:11Z",
-      "hotspawn_url": "https://www.hotspawn.com/matches/wrotberry-vs-bojong-elisa-breakout-series-2-1080283",
-      "in_inventory_snapshot": true,
-      "arithmetic": {
-        "probabilities": [
-          0.76923077,
-          0.23076923
-        ],
-        "sum": 1.0,
-        "sums_to_one": true,
-        "pick_index": 0,
-        "pick_team": "WROTBERRY",
-        "pick_is_larger": true
-      },
-      "identity": {
-        "source": "official Hotspawn fixtures API",
-        "fixture_id": "1080283",
-        "published_start": "2026-10-15T16:00:00Z",
-        "api_observed_at": "2026-10-23T10:06:24Z",
-        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-        "checked": true,
-        "status": "not_in_inventory",
-        "reason": "fixture id is not in the official scheduled-fixture API response"
-      },
-      "price": {
-        "checked": true,
-        "url": "https://thunderpick.io/esports/counter-strike",
-        "observed_at": "2026-10-23T10:06:26Z",
-        "http_status": 200,
-        "bytes": 14971,
-        "error": null,
-        "price_reverified": false,
-        "note": "Reachability only. This audit does not parse a price from a rendered page, so the row's own quote record remains the price evidence."
-      },
-      "verdict": "identity_mismatch"
-    },
-    {
-      "id": "1080284",
-      "teams": [
-        "EAC",
-        "ENCE"
-      ],
-      "competition": "Elisa BreakOut Series #2",
-      "starts_at": "2026-10-15T18:00:00Z",
-      "availability": "open",
-      "method": "model",
-      "source": "Valve official standings",
-      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "published_probabilities": [
-        0.51399636,
-        0.48600364
-      ],
-      "published_pick_index": 0,
-      "published_observed_at": "2026-10-15T08:36:13Z",
-      "hotspawn_url": "https://www.hotspawn.com/matches/eac-vs-ence-elisa-breakout-series-2-1080284",
-      "in_inventory_snapshot": true,
-      "arithmetic": {
-        "probabilities": [
-          0.51399636,
-          0.48600364
-        ],
-        "sum": 1.0,
-        "sums_to_one": true,
-        "pick_index": 0,
-        "pick_team": "EAC",
-        "pick_is_larger": true
-      },
-      "identity": {
-        "source": "official Hotspawn fixtures API",
-        "fixture_id": "1080284",
-        "published_start": "2026-10-15T18:00:00Z",
-        "api_observed_at": "2026-10-23T10:06:24Z",
-        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-        "checked": true,
-        "status": "not_in_inventory",
-        "reason": "fixture id is not in the official scheduled-fixture API response"
-      },
-      "price": {
-        "checked": false,
-        "reason": "research-model estimate: there is no published price to re-read"
-      },
-      "verdict": "model_not_a_line"
-    },
-    {
-      "id": "1080285",
-      "teams": [
-        "Voca",
-        "Phantom"
-      ],
-      "competition": "Elisa BreakOut Series #2",
-      "starts_at": "2026-10-16T08:00:00Z",
-      "availability": "open",
-      "method": "market",
-      "source": "Polymarket",
-      "source_url": "https://polymarket.com/event/cs2-voc-pha-2026-10-16",
+      "source_url": "https://polymarket.com/event/cs2-innerc-tsa-2026-10-23",
       "published_probabilities": [
         0.445,
         0.555
       ],
       "published_pick_index": 1,
-      "published_observed_at": "2026-10-15T08:36:07Z",
-      "hotspawn_url": "https://www.hotspawn.com/matches/voca-vs-phantom-elisa-breakout-series-2-1080285",
+      "published_observed_at": "2026-10-23T10:14:10Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/inner-circle-academy-vs-spirit-academy-cct-europe-2026-series-12-1081148",
       "in_inventory_snapshot": true,
       "arithmetic": {
         "probabilities": [
@@ -645,320 +150,135 @@
         "sum": 1.0,
         "sums_to_one": true,
         "pick_index": 1,
-        "pick_team": "Phantom",
+        "pick_team": "Spirit Academy",
         "pick_is_larger": true
       },
       "identity": {
         "source": "official Hotspawn fixtures API",
-        "fixture_id": "1080285",
-        "published_start": "2026-10-16T08:00:00Z",
-        "api_observed_at": "2026-10-23T10:06:24Z",
+        "fixture_id": "1081148",
+        "published_start": "2026-10-23T11:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
         "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
         "checked": true,
-        "status": "not_in_inventory",
-        "reason": "fixture id is not in the official scheduled-fixture API response"
+        "api_teams": [
+          "Inner Circle Academy",
+          "Spirit Academy"
+        ],
+        "api_start": "2026-10-23T11:00:00Z",
+        "teams": [
+          {
+            "team": "Inner Circle Academy",
+            "present": true
+          },
+          {
+            "team": "Spirit Academy",
+            "present": true
+          }
+        ],
+        "competition": "CCT Europe 2026 Series #12",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
       },
       "price": {
         "checked": true,
-        "api": "https://gamma-api.polymarket.com/events/1173317",
-        "observed_at": "2026-10-23T10:06:26Z",
+        "api": "https://gamma-api.polymarket.com/events/1232959",
+        "observed_at": "2026-10-23T10:50:03Z",
         "http_status": 200,
         "error": null,
-        "event_title": "Counter-Strike: Voca vs Phantom (BO1) - Elisa BreakOut Series #2 Group B",
-        "event_volume": 27418.705217,
-        "market_question": "Counter-Strike: Voca vs Phantom (BO1) - Elisa BreakOut Series #2 Group B",
+        "event_title": "Counter-Strike: Inner Circle Academy vs Spirit Academy (BO3) - CCT Europe Series #12 Group Stage",
+        "event_volume": 20865.889438000006,
+        "market_question": "Counter-Strike: Inner Circle Academy vs Spirit Academy (BO3) - CCT Europe Series #12 Group Stage",
         "outcomes": [
-          "Voca",
-          "Phantom"
+          "Inner Circle Academy",
+          "Spirit Academy"
         ],
         "outcome_prices": [
-          0.0,
-          1.0
+          0.445,
+          0.555
         ],
-        "best_bid": null,
-        "best_ask": 0.001,
-        "volume": "27418.705217",
+        "best_bid": 0.44,
+        "best_ask": 0.45,
+        "volume": "20441.129665000004",
         "comparisons": [
           {
-            "outcome": "Voca",
-            "price": 0.0,
-            "matched_team": "Voca",
+            "outcome": "Inner Circle Academy",
+            "price": 0.445,
+            "matched_team": "Inner Circle Academy",
             "published": 0.445,
-            "delta": -0.445
+            "delta": 0.0
           },
           {
-            "outcome": "Phantom",
-            "price": 1.0,
-            "matched_team": "Phantom",
+            "outcome": "Spirit Academy",
+            "price": 0.555,
+            "matched_team": "Spirit Academy",
             "published": 0.555,
-            "delta": 0.445
+            "delta": 0.0
           }
         ],
-        "max_abs_delta": 0.445,
-        "price_survives": false,
+        "max_abs_delta": 0.0,
+        "price_survives": true,
         "pick_still_favoured": true
       },
-      "verdict": "identity_mismatch"
+      "verdict": "confirmed"
     },
     {
-      "id": "1080286",
+      "id": "1081605",
       "teams": [
-        "HAVU",
-        "RoundsGG"
+        "Phantom Academy",
+        "Banda chuya"
       ],
-      "competition": "Elisa BreakOut Series #2",
-      "starts_at": "2026-10-16T10:00:00Z",
-      "availability": "open",
-      "method": "bookmaker",
-      "source": "Thunderpick",
-      "source_url": "https://thunderpick.io/esports/counter-strike",
-      "published_probabilities": [
-        0.76923077,
-        0.23076923
-      ],
-      "published_pick_index": 0,
-      "published_observed_at": "2026-10-15T08:36:11Z",
-      "hotspawn_url": "https://www.hotspawn.com/matches/havu-vs-roundsgg-elisa-breakout-series-2-1080286",
-      "in_inventory_snapshot": true,
-      "arithmetic": {
-        "probabilities": [
-          0.76923077,
-          0.23076923
-        ],
-        "sum": 1.0,
-        "sums_to_one": true,
-        "pick_index": 0,
-        "pick_team": "HAVU",
-        "pick_is_larger": true
-      },
-      "identity": {
-        "source": "official Hotspawn fixtures API",
-        "fixture_id": "1080286",
-        "published_start": "2026-10-16T10:00:00Z",
-        "api_observed_at": "2026-10-23T10:06:24Z",
-        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-        "checked": true,
-        "status": "not_in_inventory",
-        "reason": "fixture id is not in the official scheduled-fixture API response"
-      },
-      "price": {
-        "checked": true,
-        "url": "https://thunderpick.io/esports/counter-strike",
-        "observed_at": "2026-10-23T10:06:26Z",
-        "http_status": 200,
-        "bytes": 14971,
-        "error": null,
-        "price_reverified": false,
-        "note": "Reachability only. This audit does not parse a price from a rendered page, so the row's own quote record remains the price evidence."
-      },
-      "verdict": "identity_mismatch"
-    },
-    {
-      "id": "1080287",
-      "teams": [
-        "Voca",
-        "HAVU"
-      ],
-      "competition": "Elisa BreakOut Series #2",
-      "starts_at": "2026-10-16T12:00:00Z",
-      "availability": "open",
-      "method": "market",
-      "source": "Polymarket",
-      "source_url": "https://polymarket.com/event/cs2-voc-havu-2026-10-16",
-      "published_probabilities": [
-        0.655,
-        0.345
-      ],
-      "published_pick_index": 0,
-      "published_observed_at": "2026-10-15T08:36:08Z",
-      "hotspawn_url": "https://www.hotspawn.com/matches/voca-vs-havu-elisa-breakout-series-2-1080287",
-      "in_inventory_snapshot": true,
-      "arithmetic": {
-        "probabilities": [
-          0.655,
-          0.345
-        ],
-        "sum": 1.0,
-        "sums_to_one": true,
-        "pick_index": 0,
-        "pick_team": "Voca",
-        "pick_is_larger": true
-      },
-      "identity": {
-        "source": "official Hotspawn fixtures API",
-        "fixture_id": "1080287",
-        "published_start": "2026-10-16T12:00:00Z",
-        "api_observed_at": "2026-10-23T10:06:24Z",
-        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-        "checked": true,
-        "status": "not_in_inventory",
-        "reason": "fixture id is not in the official scheduled-fixture API response"
-      },
-      "price": {
-        "checked": true,
-        "api": "https://gamma-api.polymarket.com/events/1173319",
-        "observed_at": "2026-10-23T10:06:26Z",
-        "http_status": 200,
-        "error": null,
-        "event_title": "Counter-Strike: Voca vs HAVU (BO1) - Elisa BreakOut Series #2 Group B",
-        "event_volume": 93396.22420299999,
-        "market_question": "Counter-Strike: Voca vs HAVU (BO1) - Elisa BreakOut Series #2 Group B",
-        "outcomes": [
-          "Voca",
-          "HAVU"
-        ],
-        "outcome_prices": [
-          0.0,
-          1.0
-        ],
-        "best_bid": null,
-        "best_ask": 0.001,
-        "volume": "93396.22420299999",
-        "comparisons": [
-          {
-            "outcome": "Voca",
-            "price": 0.0,
-            "matched_team": "Voca",
-            "published": 0.655,
-            "delta": -0.655
-          },
-          {
-            "outcome": "HAVU",
-            "price": 1.0,
-            "matched_team": "HAVU",
-            "published": 0.345,
-            "delta": 0.655
-          }
-        ],
-        "max_abs_delta": 0.655,
-        "price_survives": false,
-        "pick_still_favoured": false
-      },
-      "verdict": "identity_mismatch"
-    },
-    {
-      "id": "1080288",
-      "teams": [
-        "Phantom",
-        "RoundsGG"
-      ],
-      "competition": "Elisa BreakOut Series #2",
-      "starts_at": "2026-10-16T14:00:00Z",
-      "availability": "open",
-      "method": "market",
-      "source": "Polymarket",
-      "source_url": "https://polymarket.com/event/cs2-pha-rgg-2026-10-16",
-      "published_probabilities": [
-        0.92,
-        0.08
-      ],
-      "published_pick_index": 0,
-      "published_observed_at": "2026-10-15T08:36:09Z",
-      "hotspawn_url": "https://www.hotspawn.com/matches/phantom-vs-roundsgg-elisa-breakout-series-2-1080288",
-      "in_inventory_snapshot": true,
-      "arithmetic": {
-        "probabilities": [
-          0.92,
-          0.08
-        ],
-        "sum": 1.0,
-        "sums_to_one": true,
-        "pick_index": 0,
-        "pick_team": "Phantom",
-        "pick_is_larger": true
-      },
-      "identity": {
-        "source": "official Hotspawn fixtures API",
-        "fixture_id": "1080288",
-        "published_start": "2026-10-16T14:00:00Z",
-        "api_observed_at": "2026-10-23T10:06:24Z",
-        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-        "checked": true,
-        "status": "not_in_inventory",
-        "reason": "fixture id is not in the official scheduled-fixture API response"
-      },
-      "price": {
-        "checked": true,
-        "api": "https://gamma-api.polymarket.com/events/1173321",
-        "observed_at": "2026-10-23T10:06:26Z",
-        "http_status": 200,
-        "error": null,
-        "event_title": "Counter-Strike: Phantom vs RoundsGG (BO1) - Elisa BreakOut Series #2 Group B",
-        "event_volume": 11247.564048999999,
-        "market_question": "Counter-Strike: Phantom vs RoundsGG (BO1) - Elisa BreakOut Series #2 Group B",
-        "outcomes": [
-          "Phantom",
-          "RoundsGG"
-        ],
-        "outcome_prices": [
-          1.0,
-          0.0
-        ],
-        "best_bid": 0.999,
-        "best_ask": 1,
-        "volume": "11247.564048999999",
-        "comparisons": [
-          {
-            "outcome": "Phantom",
-            "price": 1.0,
-            "matched_team": "Phantom",
-            "published": 0.92,
-            "delta": 0.08
-          },
-          {
-            "outcome": "RoundsGG",
-            "price": 0.0,
-            "matched_team": "RoundsGG",
-            "published": 0.08,
-            "delta": -0.08
-          }
-        ],
-        "max_abs_delta": 0.08,
-        "price_survives": false,
-        "pick_still_favoured": true
-      },
-      "verdict": "identity_mismatch"
-    },
-    {
-      "id": "1081120",
-      "teams": [
-        "mellren",
-        "Privateer"
-      ],
-      "competition": "CCT Europe 2026 Series #12 Play-In",
-      "starts_at": "2026-10-16T14:00:00Z",
+      "competition": "CCT Europe 2026 Challengers #8",
+      "starts_at": "2026-10-23T11:00:00Z",
       "availability": "open",
       "method": "model",
       "source": "Valve official standings",
       "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "published_probabilities": [
-        0.85989312,
-        0.14010688
+        0.47482128,
+        0.52517872
       ],
-      "published_pick_index": 0,
-      "published_observed_at": "2026-10-15T08:36:13Z",
-      "hotspawn_url": "https://www.hotspawn.com/matches/mellren-vs-privateer-cct-europe-2026-series-12-play-in-1081120",
+      "published_pick_index": 1,
+      "published_observed_at": "2026-10-23T10:14:24Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/phantom-academy-vs-banda-chuya-cct-europe-2026-challengers-8-1081605",
       "in_inventory_snapshot": true,
       "arithmetic": {
         "probabilities": [
-          0.85989312,
-          0.14010688
+          0.47482128,
+          0.52517872
         ],
         "sum": 1.0,
         "sums_to_one": true,
-        "pick_index": 0,
-        "pick_team": "mellren",
+        "pick_index": 1,
+        "pick_team": "Banda chuya",
         "pick_is_larger": true
       },
       "identity": {
         "source": "official Hotspawn fixtures API",
-        "fixture_id": "1081120",
-        "published_start": "2026-10-16T14:00:00Z",
-        "api_observed_at": "2026-10-23T10:06:24Z",
+        "fixture_id": "1081605",
+        "published_start": "2026-10-23T11:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
         "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
         "checked": true,
-        "status": "not_in_inventory",
-        "reason": "fixture id is not in the official scheduled-fixture API response"
+        "api_teams": [
+          "Phantom Academy",
+          "Banda chuya"
+        ],
+        "api_start": "2026-10-23T11:00:00Z",
+        "teams": [
+          {
+            "team": "Phantom Academy",
+            "present": true
+          },
+          {
+            "team": "Banda chuya",
+            "present": true
+          }
+        ],
+        "competition": "CCT Europe 2026 Challengers #8",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
       },
       "price": {
         "checked": false,
@@ -967,446 +287,2298 @@
       "verdict": "model_not_a_line"
     },
     {
-      "id": "1080289",
+      "id": "1081606",
       "teams": [
-        "RoundsGG",
-        "Voca"
+        "JiJieHao",
+        "Eternal Fire"
       ],
-      "competition": "Elisa BreakOut Series #2",
-      "starts_at": "2026-10-16T16:00:00Z",
+      "competition": "DraculaN Season 7",
+      "starts_at": "2026-10-23T13:00:00Z",
       "availability": "open",
-      "method": "bookmaker",
-      "source": "Thunderpick",
-      "source_url": "https://thunderpick.io/esports/counter-strike",
+      "method": "market",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-jjh-ef1-2026-10-23",
       "published_probabilities": [
-        0.15942029,
-        0.84057971
+        0.425,
+        0.575
       ],
       "published_pick_index": 1,
-      "published_observed_at": "2026-10-15T08:36:11Z",
-      "hotspawn_url": "https://www.hotspawn.com/matches/roundsgg-vs-voca-elisa-breakout-series-2-1080289",
+      "published_observed_at": "2026-10-23T10:14:11Z",
+      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081606",
       "in_inventory_snapshot": true,
       "arithmetic": {
         "probabilities": [
-          0.15942029,
-          0.84057971
+          0.425,
+          0.575
         ],
         "sum": 1.0,
         "sums_to_one": true,
         "pick_index": 1,
-        "pick_team": "Voca",
+        "pick_team": "Eternal Fire",
         "pick_is_larger": true
       },
       "identity": {
         "source": "official Hotspawn fixtures API",
-        "fixture_id": "1080289",
-        "published_start": "2026-10-16T16:00:00Z",
-        "api_observed_at": "2026-10-23T10:06:24Z",
+        "fixture_id": "1081606",
+        "published_start": "2026-10-23T13:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
         "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
         "checked": true,
-        "status": "not_in_inventory",
-        "reason": "fixture id is not in the official scheduled-fixture API response"
+        "api_teams": [
+          "JiJieHao",
+          "Eternal Fire"
+        ],
+        "api_start": "2026-10-23T13:00:00Z",
+        "teams": [
+          {
+            "team": "JiJieHao",
+            "present": true
+          },
+          {
+            "team": "Eternal Fire",
+            "present": true
+          }
+        ],
+        "competition": "DraculaN Season 7",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
       },
       "price": {
         "checked": true,
-        "url": "https://thunderpick.io/esports/counter-strike",
-        "observed_at": "2026-10-23T10:06:26Z",
+        "api": "https://gamma-api.polymarket.com/events/1237407",
+        "observed_at": "2026-10-23T10:50:03Z",
         "http_status": 200,
-        "bytes": 14971,
         "error": null,
-        "price_reverified": false,
-        "note": "Reachability only. This audit does not parse a price from a rendered page, so the row's own quote record remains the price evidence."
+        "event_title": "Counter-Strike: JiJieHao vs Eternal Fire (BO3) - DraculaN Playoffs",
+        "event_volume": 108398.877417,
+        "market_question": "Counter-Strike: JiJieHao vs Eternal Fire (BO3) - DraculaN Playoffs",
+        "outcomes": [
+          "JiJieHao",
+          "Eternal Fire"
+        ],
+        "outcome_prices": [
+          0.435,
+          0.565
+        ],
+        "best_bid": 0.43,
+        "best_ask": 0.44,
+        "volume": "107683.21428399999",
+        "comparisons": [
+          {
+            "outcome": "JiJieHao",
+            "price": 0.435,
+            "matched_team": "JiJieHao",
+            "published": 0.425,
+            "delta": 0.01
+          },
+          {
+            "outcome": "Eternal Fire",
+            "price": 0.565,
+            "matched_team": "Eternal Fire",
+            "published": 0.575,
+            "delta": -0.01
+          }
+        ],
+        "max_abs_delta": 0.01,
+        "price_survives": true,
+        "pick_still_favoured": true
       },
-      "verdict": "identity_mismatch"
+      "verdict": "confirmed"
     },
     {
-      "id": "1080290",
+      "id": "1082926",
       "teams": [
-        "Phantom",
-        "HAVU"
+        "Isurus",
+        "Hacha"
       ],
-      "competition": "Elisa BreakOut Series #2",
-      "starts_at": "2026-10-16T18:00:00Z",
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-23T13:00:00Z",
       "availability": "open",
-      "method": "market",
-      "source": "Polymarket",
-      "source_url": "https://polymarket.com/event/cs2-pha-havu-2026-10-16",
+      "method": "consensus",
+      "source": "Polymarket + Thunderpick + Bovada + Pinnacle",
+      "source_url": "https://polymarket.com/event/cs2-isg-hachae-2026-10-23",
       "published_probabilities": [
-        0.705,
-        0.295
+        0.75481756,
+        0.24518244
       ],
       "published_pick_index": 0,
-      "published_observed_at": "2026-10-15T08:36:10Z",
-      "hotspawn_url": "https://www.hotspawn.com/matches/phantom-vs-havu-elisa-breakout-series-2-1080290",
+      "published_observed_at": "2026-10-23T10:43:33Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926",
       "in_inventory_snapshot": true,
       "arithmetic": {
         "probabilities": [
-          0.705,
-          0.295
+          0.75481756,
+          0.24518244
         ],
         "sum": 1.0,
         "sums_to_one": true,
         "pick_index": 0,
-        "pick_team": "Phantom",
+        "pick_team": "Isurus",
         "pick_is_larger": true
       },
       "identity": {
         "source": "official Hotspawn fixtures API",
-        "fixture_id": "1080290",
-        "published_start": "2026-10-16T18:00:00Z",
-        "api_observed_at": "2026-10-23T10:06:24Z",
+        "fixture_id": "1082926",
+        "published_start": "2026-10-23T13:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
         "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
         "checked": true,
-        "status": "not_in_inventory",
-        "reason": "fixture id is not in the official scheduled-fixture API response"
+        "api_teams": [
+          "Isurus",
+          "Hacha"
+        ],
+        "api_start": "2026-10-23T13:00:00Z",
+        "teams": [
+          {
+            "team": "Isurus",
+            "present": true
+          },
+          {
+            "team": "Hacha",
+            "present": true
+          }
+        ],
+        "competition": "CCT South America 2026 Series #7",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
       },
       "price": {
         "checked": true,
-        "api": "https://gamma-api.polymarket.com/events/1173323",
-        "observed_at": "2026-10-23T10:06:26Z",
+        "url": "https://polymarket.com/event/cs2-isg-hachae-2026-10-23",
+        "observed_at": "2026-10-23T10:50:03Z",
         "http_status": 200,
+        "bytes": 627972,
         "error": null,
-        "event_title": "Counter-Strike: Phantom vs HAVU (BO1) - Elisa BreakOut Series #2 Group B",
-        "event_volume": 67475.49581900002,
-        "market_question": "Counter-Strike: Phantom vs HAVU (BO1) - Elisa BreakOut Series #2 Group B",
-        "outcomes": [
-          "Phantom",
-          "HAVU"
+        "price_reverified": false,
+        "note": "Reachability only: this row publishes no Polymarket event endpoint, so its price is not re-read here."
+      },
+      "verdict": "source_reachable"
+    },
+    {
+      "id": "1082980",
+      "teams": [
+        "LPH",
+        "WBT Academy"
+      ],
+      "competition": "ESL Challenger League Season 52: Europe - Cup #9",
+      "starts_at": "2026-10-23T13:00:00Z",
+      "availability": "open",
+      "method": "bookmaker",
+      "source": "Thunderpick (relayed by bo3.gg)",
+      "source_url": "https://bo3.gg/matches/lph-gaming-vs-wbt-academy-23-10-2026",
+      "published_probabilities": [
+        0.37817259,
+        0.62182741
+      ],
+      "published_pick_index": 1,
+      "published_observed_at": "2026-10-23T10:43:48Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/lph-vs-wbt-academy-esl-challenger-league-season-52-europe-cup-9-1082980",
+      "in_inventory_snapshot": true,
+      "arithmetic": {
+        "probabilities": [
+          0.37817259,
+          0.62182741
         ],
-        "outcome_prices": [
-          1.0,
-          0.0
+        "sum": 1.0,
+        "sums_to_one": true,
+        "pick_index": 1,
+        "pick_team": "WBT Academy",
+        "pick_is_larger": true
+      },
+      "identity": {
+        "source": "official Hotspawn fixtures API",
+        "fixture_id": "1082980",
+        "published_start": "2026-10-23T13:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
+        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "checked": true,
+        "api_teams": [
+          "LPH",
+          "WBT Academy"
         ],
-        "best_bid": 0.999,
-        "best_ask": 1,
-        "volume": "67475.49581900002",
-        "comparisons": [
+        "api_start": "2026-10-23T13:00:00Z",
+        "teams": [
           {
-            "outcome": "Phantom",
-            "price": 1.0,
-            "matched_team": "Phantom",
-            "published": 0.705,
-            "delta": 0.295
+            "team": "LPH",
+            "present": true
           },
           {
-            "outcome": "HAVU",
-            "price": 0.0,
-            "matched_team": "HAVU",
-            "published": 0.295,
-            "delta": -0.295
+            "team": "WBT Academy",
+            "present": true
           }
         ],
-        "max_abs_delta": 0.295,
-        "price_survives": false,
+        "competition": "ESL Challenger League Season 52: Europe - Cup #9",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
+      },
+      "price": {
+        "checked": true,
+        "url": "https://bo3.gg/matches/lph-gaming-vs-wbt-academy-23-10-2026",
+        "observed_at": "2026-10-23T10:50:07Z",
+        "http_status": 200,
+        "bytes": 13150,
+        "error": null,
+        "price_reverified": false,
+        "note": "Reachability only. This audit does not parse a price from a rendered page, so the row's own quote record remains the price evidence."
+      },
+      "verdict": "source_reachable"
+    },
+    {
+      "id": "1083014",
+      "teams": [
+        "K27",
+        "Virtus.pro"
+      ],
+      "competition": "CIS LAN Championship #9",
+      "starts_at": "2026-10-23T13:00:00Z",
+      "availability": "open",
+      "method": "market",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-k271-vp-2026-10-23",
+      "published_probabilities": [
+        0.56,
+        0.44
+      ],
+      "published_pick_index": 0,
+      "published_observed_at": "2026-10-23T10:14:11Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/k27-vs-virtus-pro-cis-lan-championship-9-1083014",
+      "in_inventory_snapshot": true,
+      "arithmetic": {
+        "probabilities": [
+          0.56,
+          0.44
+        ],
+        "sum": 1.0,
+        "sums_to_one": true,
+        "pick_index": 0,
+        "pick_team": "K27",
+        "pick_is_larger": true
+      },
+      "identity": {
+        "source": "official Hotspawn fixtures API",
+        "fixture_id": "1083014",
+        "published_start": "2026-10-23T13:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
+        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "checked": true,
+        "api_teams": [
+          "K27",
+          "Virtus.pro"
+        ],
+        "api_start": "2026-10-23T13:00:00Z",
+        "teams": [
+          {
+            "team": "K27",
+            "present": true
+          },
+          {
+            "team": "Virtus.pro",
+            "present": true
+          }
+        ],
+        "competition": "CIS LAN Championship #9",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
+      },
+      "price": {
+        "checked": true,
+        "api": "https://gamma-api.polymarket.com/events/1237740",
+        "observed_at": "2026-10-23T10:50:08Z",
+        "http_status": 200,
+        "error": null,
+        "event_title": "Counter-Strike: K27 vs Virtus.pro (BO3) - CIS LAN Championship Playoffs",
+        "event_volume": 5188.272916999999,
+        "market_question": "Counter-Strike: K27 vs Virtus.pro (BO3) - CIS LAN Championship Playoffs",
+        "outcomes": [
+          "K27",
+          "Virtus.pro"
+        ],
+        "outcome_prices": [
+          0.545,
+          0.455
+        ],
+        "best_bid": 0.54,
+        "best_ask": 0.55,
+        "volume": "5180.547425999999",
+        "comparisons": [
+          {
+            "outcome": "K27",
+            "price": 0.545,
+            "matched_team": "K27",
+            "published": 0.56,
+            "delta": -0.015
+          },
+          {
+            "outcome": "Virtus.pro",
+            "price": 0.455,
+            "matched_team": "Virtus.pro",
+            "published": 0.44,
+            "delta": 0.015
+          }
+        ],
+        "max_abs_delta": 0.015,
+        "price_survives": true,
         "pick_still_favoured": true
       },
-      "verdict": "identity_mismatch"
+      "verdict": "confirmed"
+    },
+    {
+      "id": "1082924",
+      "teams": [
+        "BORRACHEIROS",
+        "QUINTESSÊNCIA"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-23T16:00:00Z",
+      "availability": "open",
+      "method": "market",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-chama-quin-2026-10-23",
+      "published_probabilities": [
+        0.64179104,
+        0.35820896
+      ],
+      "published_pick_index": 0,
+      "published_observed_at": "2026-10-23T10:14:12Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/borracheiros-vs-quintessencia-cct-south-america-2026-series-7-1082924",
+      "in_inventory_snapshot": true,
+      "arithmetic": {
+        "probabilities": [
+          0.64179104,
+          0.35820896
+        ],
+        "sum": 1.0,
+        "sums_to_one": true,
+        "pick_index": 0,
+        "pick_team": "BORRACHEIROS",
+        "pick_is_larger": true
+      },
+      "identity": {
+        "source": "official Hotspawn fixtures API",
+        "fixture_id": "1082924",
+        "published_start": "2026-10-23T16:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
+        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "checked": true,
+        "api_teams": [
+          "BORRACHEIROS",
+          "QUINTESSÊNCIA"
+        ],
+        "api_start": "2026-10-23T16:00:00Z",
+        "teams": [
+          {
+            "team": "BORRACHEIROS",
+            "present": true
+          },
+          {
+            "team": "QUINTESSÊNCIA",
+            "present": true
+          }
+        ],
+        "competition": "CCT South America 2026 Series #7",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
+      },
+      "price": {
+        "checked": true,
+        "api": "https://gamma-api.polymarket.com/events/1233764",
+        "observed_at": "2026-10-23T10:50:08Z",
+        "http_status": 200,
+        "error": null,
+        "event_title": "Counter-Strike: BORRACHEIROS vs QUINTESSÊNCIA (BO3) - CCT South America Series 7 Playoffs",
+        "event_volume": 36,
+        "market_question": "Counter-Strike: BORRACHEIROS vs QUINTESSÊNCIA (BO3) - CCT South America Series 7 Playoffs",
+        "outcomes": [
+          "BORRACHEIROS",
+          "QUINTESSÊNCIA"
+        ],
+        "outcome_prices": [
+          0.64,
+          0.36
+        ],
+        "best_bid": 0.63,
+        "best_ask": 0.65,
+        "volume": "20",
+        "comparisons": [
+          {
+            "outcome": "BORRACHEIROS",
+            "price": 0.64,
+            "matched_team": "BORRACHEIROS",
+            "published": 0.64179104,
+            "delta": -0.0018
+          },
+          {
+            "outcome": "QUINTESSÊNCIA",
+            "price": 0.36,
+            "matched_team": "QUINTESSÊNCIA",
+            "published": 0.35820896,
+            "delta": 0.0018
+          }
+        ],
+        "max_abs_delta": 0.0018,
+        "price_survives": true,
+        "pick_still_favoured": true
+      },
+      "verdict": "confirmed"
+    },
+    {
+      "id": "1079657",
+      "teams": [
+        "BakS",
+        "BRUTE"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-23T17:00:00Z",
+      "availability": "open",
+      "method": "consensus",
+      "source": "Polymarket + Kalshi + Thunderpick + Bovada + Pinnacle",
+      "source_url": "https://polymarket.com/event/cs2-brute-baks-2026-10-23",
+      "published_probabilities": [
+        0.495,
+        0.505
+      ],
+      "published_pick_index": 1,
+      "published_observed_at": "2026-10-23T10:43:33Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/brute-vs-baks-cct-europe-2026-series-11-1079657",
+      "in_inventory_snapshot": true,
+      "arithmetic": {
+        "probabilities": [
+          0.495,
+          0.505
+        ],
+        "sum": 1.0,
+        "sums_to_one": true,
+        "pick_index": 1,
+        "pick_team": "BRUTE",
+        "pick_is_larger": true
+      },
+      "identity": {
+        "source": "official Hotspawn fixtures API",
+        "fixture_id": "1079657",
+        "published_start": "2026-10-23T17:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
+        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "checked": true,
+        "api_teams": [
+          "BakS",
+          "BRUTE"
+        ],
+        "api_start": "2026-10-23T17:00:00Z",
+        "teams": [
+          {
+            "team": "BakS",
+            "present": true
+          },
+          {
+            "team": "BRUTE",
+            "present": true
+          }
+        ],
+        "competition": "CCT Europe 2026 Series #11",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
+      },
+      "price": {
+        "checked": true,
+        "url": "https://polymarket.com/event/cs2-brute-baks-2026-10-23",
+        "observed_at": "2026-10-23T10:50:08Z",
+        "http_status": 200,
+        "bytes": 627888,
+        "error": null,
+        "price_reverified": false,
+        "note": "Reachability only: this row publishes no Polymarket event endpoint, so its price is not re-read here."
+      },
+      "verdict": "source_reachable"
+    },
+    {
+      "id": "1081150",
+      "teams": [
+        "ex-RUSTEC",
+        "Saint Sinners"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-23T17:00:00Z",
+      "availability": "open",
+      "method": "market",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-rustec-ssins-2026-10-23",
+      "published_probabilities": [
+        0.66,
+        0.34
+      ],
+      "published_pick_index": 0,
+      "published_observed_at": "2026-10-23T10:14:12Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ex-rustec-vs-saint-sinners-cct-europe-2026-series-12-1081150",
+      "in_inventory_snapshot": true,
+      "arithmetic": {
+        "probabilities": [
+          0.66,
+          0.34
+        ],
+        "sum": 1.0,
+        "sums_to_one": true,
+        "pick_index": 0,
+        "pick_team": "ex-RUSTEC",
+        "pick_is_larger": true
+      },
+      "identity": {
+        "source": "official Hotspawn fixtures API",
+        "fixture_id": "1081150",
+        "published_start": "2026-10-23T17:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
+        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "checked": true,
+        "api_teams": [
+          "ex-RUSTEC",
+          "Saint Sinners"
+        ],
+        "api_start": "2026-10-23T17:00:00Z",
+        "teams": [
+          {
+            "team": "ex-RUSTEC",
+            "present": true
+          },
+          {
+            "team": "Saint Sinners",
+            "present": true
+          }
+        ],
+        "competition": "CCT Europe 2026 Series #12",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
+      },
+      "price": {
+        "checked": true,
+        "api": "https://gamma-api.polymarket.com/events/1233765",
+        "observed_at": "2026-10-23T10:50:12Z",
+        "http_status": 200,
+        "error": null,
+        "event_title": "Counter-Strike: ex-RUSTEC vs Saint Sinners (BO3) - CCT Europe Series #12 Group Stage",
+        "event_volume": 1702.1643629999999,
+        "market_question": "Counter-Strike: ex-RUSTEC vs Saint Sinners (BO3) - CCT Europe Series #12 Group Stage",
+        "outcomes": [
+          "ex-RUSTEC",
+          "Saint Sinners"
+        ],
+        "outcome_prices": [
+          0.665,
+          0.335
+        ],
+        "best_bid": 0.66,
+        "best_ask": 0.67,
+        "volume": "1683.1643629999999",
+        "comparisons": [
+          {
+            "outcome": "ex-RUSTEC",
+            "price": 0.665,
+            "matched_team": "ex-RUSTEC",
+            "published": 0.66,
+            "delta": 0.005
+          },
+          {
+            "outcome": "Saint Sinners",
+            "price": 0.335,
+            "matched_team": "Saint Sinners",
+            "published": 0.34,
+            "delta": -0.005
+          }
+        ],
+        "max_abs_delta": 0.005,
+        "price_survives": true,
+        "pick_still_favoured": true
+      },
+      "verdict": "confirmed"
+    },
+    {
+      "id": "1082693",
+      "teams": [
+        "BESTIA",
+        "Galorys"
+      ],
+      "competition": "Circuit X Curitiba #4",
+      "starts_at": "2026-10-23T18:00:00Z",
+      "availability": "open",
+      "method": "market",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-bst-gls1-2026-10-23",
+      "published_probabilities": [
+        0.565,
+        0.435
+      ],
+      "published_pick_index": 0,
+      "published_observed_at": "2026-10-23T10:14:13Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/bestia-vs-galorys-circuit-x-curitiba-4-1082693",
+      "in_inventory_snapshot": true,
+      "arithmetic": {
+        "probabilities": [
+          0.565,
+          0.435
+        ],
+        "sum": 1.0,
+        "sums_to_one": true,
+        "pick_index": 0,
+        "pick_team": "BESTIA",
+        "pick_is_larger": true
+      },
+      "identity": {
+        "source": "official Hotspawn fixtures API",
+        "fixture_id": "1082693",
+        "published_start": "2026-10-23T18:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
+        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "checked": true,
+        "api_teams": [
+          "BESTIA",
+          "Galorys"
+        ],
+        "api_start": "2026-10-23T18:00:00Z",
+        "teams": [
+          {
+            "team": "BESTIA",
+            "present": true
+          },
+          {
+            "team": "Galorys",
+            "present": true
+          }
+        ],
+        "competition": "Circuit X Curitiba #4",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
+      },
+      "price": {
+        "checked": true,
+        "api": "https://gamma-api.polymarket.com/events/1237874",
+        "observed_at": "2026-10-23T10:50:12Z",
+        "http_status": 200,
+        "error": null,
+        "event_title": "Counter-Strike: BESTIA vs Galorys (BO3) - Circuit X Curitiba Playoffs",
+        "event_volume": 4771.070984000001,
+        "market_question": "Counter-Strike: BESTIA vs Galorys (BO3) - Circuit X Curitiba Playoffs",
+        "outcomes": [
+          "BESTIA",
+          "Galorys"
+        ],
+        "outcome_prices": [
+          0.565,
+          0.435
+        ],
+        "best_bid": 0.56,
+        "best_ask": 0.57,
+        "volume": "4625.480680000001",
+        "comparisons": [
+          {
+            "outcome": "BESTIA",
+            "price": 0.565,
+            "matched_team": "BESTIA",
+            "published": 0.565,
+            "delta": 0.0
+          },
+          {
+            "outcome": "Galorys",
+            "price": 0.435,
+            "matched_team": "Galorys",
+            "published": 0.435,
+            "delta": 0.0
+          }
+        ],
+        "max_abs_delta": 0.0,
+        "price_survives": true,
+        "pick_still_favoured": true
+      },
+      "verdict": "confirmed"
+    },
+    {
+      "id": "1082925",
+      "teams": [
+        "BESTIA Academy",
+        "RED Canids Academy"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-23T19:00:00Z",
+      "availability": "open",
+      "method": "market",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-bsta-reda-2026-10-23",
+      "published_probabilities": [
+        0.405,
+        0.595
+      ],
+      "published_pick_index": 1,
+      "published_observed_at": "2026-10-23T10:14:14Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/bestia-academy-vs-red-canids-academy-cct-south-america-2026-series-7-1082925",
+      "in_inventory_snapshot": true,
+      "arithmetic": {
+        "probabilities": [
+          0.405,
+          0.595
+        ],
+        "sum": 1.0,
+        "sums_to_one": true,
+        "pick_index": 1,
+        "pick_team": "RED Canids Academy",
+        "pick_is_larger": true
+      },
+      "identity": {
+        "source": "official Hotspawn fixtures API",
+        "fixture_id": "1082925",
+        "published_start": "2026-10-23T19:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
+        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "checked": true,
+        "api_teams": [
+          "BESTIA Academy",
+          "RED Canids Academy"
+        ],
+        "api_start": "2026-10-23T19:00:00Z",
+        "teams": [
+          {
+            "team": "BESTIA Academy",
+            "present": true
+          },
+          {
+            "team": "RED Canids Academy",
+            "present": true
+          }
+        ],
+        "competition": "CCT South America 2026 Series #7",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
+      },
+      "price": {
+        "checked": true,
+        "api": "https://gamma-api.polymarket.com/events/1233767",
+        "observed_at": "2026-10-23T10:50:12Z",
+        "http_status": 200,
+        "error": null,
+        "event_title": "Counter-Strike: BESTIA Academy vs RED Canids Academy (BO3) - CCT South America Series 7 Playoffs",
+        "event_volume": 506.42131299999994,
+        "market_question": "Counter-Strike: BESTIA Academy vs RED Canids Academy (BO3) - CCT South America Series 7 Playoffs",
+        "outcomes": [
+          "BESTIA Academy",
+          "RED Canids Academy"
+        ],
+        "outcome_prices": [
+          0.405,
+          0.595
+        ],
+        "best_bid": 0.4,
+        "best_ask": 0.41,
+        "volume": "472.09539399999994",
+        "comparisons": [
+          {
+            "outcome": "BESTIA Academy",
+            "price": 0.405,
+            "matched_team": "BESTIA Academy",
+            "published": 0.405,
+            "delta": 0.0
+          },
+          {
+            "outcome": "RED Canids Academy",
+            "price": 0.595,
+            "matched_team": "RED Canids Academy",
+            "published": 0.595,
+            "delta": 0.0
+          }
+        ],
+        "max_abs_delta": 0.0,
+        "price_survives": true,
+        "pick_still_favoured": true
+      },
+      "verdict": "confirmed"
+    },
+    {
+      "id": "1083025",
+      "teams": [
+        "paiN",
+        "Imperial"
+      ],
+      "competition": "Circuit X Curitiba #4",
+      "starts_at": "2026-10-23T21:00:00Z",
+      "availability": "open",
+      "method": "market",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-pain-imp11-2026-10-23",
+      "published_probabilities": [
+        0.31,
+        0.69
+      ],
+      "published_pick_index": 1,
+      "published_observed_at": "2026-10-23T10:14:14Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/imperial-vs-pain-circuit-x-curitiba-4-1083025",
+      "in_inventory_snapshot": true,
+      "arithmetic": {
+        "probabilities": [
+          0.31,
+          0.69
+        ],
+        "sum": 1.0,
+        "sums_to_one": true,
+        "pick_index": 1,
+        "pick_team": "Imperial",
+        "pick_is_larger": true
+      },
+      "identity": {
+        "source": "official Hotspawn fixtures API",
+        "fixture_id": "1083025",
+        "published_start": "2026-10-23T21:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
+        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "checked": true,
+        "api_teams": [
+          "paiN",
+          "Imperial"
+        ],
+        "api_start": "2026-10-23T21:00:00Z",
+        "teams": [
+          {
+            "team": "paiN",
+            "present": true
+          },
+          {
+            "team": "Imperial",
+            "present": true
+          }
+        ],
+        "competition": "Circuit X Curitiba #4",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
+      },
+      "price": {
+        "checked": true,
+        "api": "https://gamma-api.polymarket.com/events/1237875",
+        "observed_at": "2026-10-23T10:50:12Z",
+        "http_status": 200,
+        "error": null,
+        "event_title": "Counter-Strike: paiN vs Imperial (BO3) - Circuit X Curitiba Playoffs",
+        "event_volume": 3038.3092189999998,
+        "market_question": "Counter-Strike: paiN vs Imperial (BO3) - Circuit X Curitiba Playoffs",
+        "outcomes": [
+          "paiN",
+          "Imperial"
+        ],
+        "outcome_prices": [
+          0.33,
+          0.67
+        ],
+        "best_bid": 0.32,
+        "best_ask": 0.34,
+        "volume": "2472.475299",
+        "comparisons": [
+          {
+            "outcome": "paiN",
+            "price": 0.33,
+            "matched_team": "paiN",
+            "published": 0.31,
+            "delta": 0.02
+          },
+          {
+            "outcome": "Imperial",
+            "price": 0.67,
+            "matched_team": "Imperial",
+            "published": 0.69,
+            "delta": -0.02
+          }
+        ],
+        "max_abs_delta": 0.02,
+        "price_survives": true,
+        "pick_still_favoured": true
+      },
+      "verdict": "confirmed"
+    },
+    {
+      "id": "1082923",
+      "teams": [
+        "Alka",
+        "LOS NINOS"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-23T22:00:00Z",
+      "availability": "open",
+      "method": "bookmaker",
+      "source": "Thunderpick",
+      "source_url": "https://thunderpick.io/api/matches",
+      "published_probabilities": [
+        0.71111111,
+        0.28888889
+      ],
+      "published_pick_index": 0,
+      "published_observed_at": "2026-10-23T10:14:22Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/alka-vs-los-ninos-cct-south-america-2026-series-7-1082923",
+      "in_inventory_snapshot": true,
+      "arithmetic": {
+        "probabilities": [
+          0.71111111,
+          0.28888889
+        ],
+        "sum": 1.0,
+        "sums_to_one": true,
+        "pick_index": 0,
+        "pick_team": "Alka",
+        "pick_is_larger": true
+      },
+      "identity": {
+        "source": "official Hotspawn fixtures API",
+        "fixture_id": "1082923",
+        "published_start": "2026-10-23T22:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
+        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "checked": true,
+        "api_teams": [
+          "Alka",
+          "LOS NINOS"
+        ],
+        "api_start": "2026-10-23T22:00:00Z",
+        "teams": [
+          {
+            "team": "Alka",
+            "present": true
+          },
+          {
+            "team": "LOS NINOS",
+            "present": true
+          }
+        ],
+        "competition": "CCT South America 2026 Series #7",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
+      },
+      "price": {
+        "checked": true,
+        "url": "https://thunderpick.io/api/matches",
+        "observed_at": "2026-10-23T10:50:12Z",
+        "http_status": 200,
+        "bytes": 50,
+        "error": null,
+        "price_reverified": false,
+        "note": "Reachability only. This audit does not parse a price from a rendered page, so the row's own quote record remains the price evidence."
+      },
+      "verdict": "source_reachable"
+    },
+    {
+      "id": "1079193",
+      "teams": [
+        "FOKUS",
+        "ex-6666"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-24T08:00:00Z",
+      "availability": "open",
+      "method": "market",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-fokus-66661-2026-10-24",
+      "published_probabilities": [
+        0.765,
+        0.235
+      ],
+      "published_pick_index": 0,
+      "published_observed_at": "2026-10-23T10:14:15Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/fokus-vs-ex-6666-nodwin-clutch-series-13-1079193",
+      "in_inventory_snapshot": true,
+      "arithmetic": {
+        "probabilities": [
+          0.765,
+          0.235
+        ],
+        "sum": 1.0,
+        "sums_to_one": true,
+        "pick_index": 0,
+        "pick_team": "FOKUS",
+        "pick_is_larger": true
+      },
+      "identity": {
+        "source": "official Hotspawn fixtures API",
+        "fixture_id": "1079193",
+        "published_start": "2026-10-24T08:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
+        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "checked": true,
+        "api_teams": [
+          "FOKUS",
+          "ex-6666"
+        ],
+        "api_start": "2026-10-24T08:00:00Z",
+        "teams": [
+          {
+            "team": "FOKUS",
+            "present": true
+          },
+          {
+            "team": "ex-6666",
+            "present": true
+          }
+        ],
+        "competition": "NODWIN Clutch Series #13",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
+      },
+      "price": {
+        "checked": true,
+        "api": "https://gamma-api.polymarket.com/events/1237193",
+        "observed_at": "2026-10-23T10:50:13Z",
+        "http_status": 200,
+        "error": null,
+        "event_title": "Counter-Strike: FOKUS vs ex-6666 (BO3) - NODWIN Clutch Series Playoffs",
+        "event_volume": 12.5,
+        "market_question": "Counter-Strike: FOKUS vs ex-6666 (BO3) - NODWIN Clutch Series Playoffs",
+        "outcomes": [
+          "FOKUS",
+          "ex-6666"
+        ],
+        "outcome_prices": [
+          0.76,
+          0.24
+        ],
+        "best_bid": 0.75,
+        "best_ask": 0.77,
+        "volume": "12.5",
+        "comparisons": [
+          {
+            "outcome": "FOKUS",
+            "price": 0.76,
+            "matched_team": "FOKUS",
+            "published": 0.765,
+            "delta": -0.005
+          },
+          {
+            "outcome": "ex-6666",
+            "price": 0.24,
+            "matched_team": "ex-6666",
+            "published": 0.235,
+            "delta": 0.005
+          }
+        ],
+        "max_abs_delta": 0.005,
+        "price_survives": true,
+        "pick_still_favoured": true
+      },
+      "verdict": "confirmed"
+    },
+    {
+      "id": "1079195",
+      "teams": [
+        "Nuclear TigeRES",
+        "FORZE Reload"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-24T14:00:00Z",
+      "availability": "open",
+      "method": "market",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-ntr-forzer-2026-10-24",
+      "published_probabilities": [
+        0.62,
+        0.38
+      ],
+      "published_pick_index": 0,
+      "published_observed_at": "2026-10-23T10:14:15Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-forze-reload-nodwin-clutch-series-13-1079195",
+      "in_inventory_snapshot": true,
+      "arithmetic": {
+        "probabilities": [
+          0.62,
+          0.38
+        ],
+        "sum": 1.0,
+        "sums_to_one": true,
+        "pick_index": 0,
+        "pick_team": "Nuclear TigeRES",
+        "pick_is_larger": true
+      },
+      "identity": {
+        "source": "official Hotspawn fixtures API",
+        "fixture_id": "1079195",
+        "published_start": "2026-10-24T14:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
+        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "checked": true,
+        "api_teams": [
+          "Nuclear TigeRES",
+          "FORZE Reload"
+        ],
+        "api_start": "2026-10-24T14:00:00Z",
+        "teams": [
+          {
+            "team": "Nuclear TigeRES",
+            "present": true
+          },
+          {
+            "team": "FORZE Reload",
+            "present": true
+          }
+        ],
+        "competition": "NODWIN Clutch Series #13",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
+      },
+      "price": {
+        "checked": true,
+        "api": "https://gamma-api.polymarket.com/events/1237195",
+        "observed_at": "2026-10-23T10:50:13Z",
+        "http_status": 200,
+        "error": null,
+        "event_title": "Counter-Strike: Nuclear TigeRES vs FORZE Reload (BO3) - NODWIN Clutch Series Playoffs",
+        "event_volume": 8.886605,
+        "market_question": "Counter-Strike: Nuclear TigeRES vs FORZE Reload (BO3) - NODWIN Clutch Series Playoffs",
+        "outcomes": [
+          "Nuclear TigeRES",
+          "FORZE Reload"
+        ],
+        "outcome_prices": [
+          0.61,
+          0.39
+        ],
+        "best_bid": 0.6,
+        "best_ask": 0.62,
+        "volume": "8.886605",
+        "comparisons": [
+          {
+            "outcome": "Nuclear TigeRES",
+            "price": 0.61,
+            "matched_team": "Nuclear TigeRES",
+            "published": 0.62,
+            "delta": -0.01
+          },
+          {
+            "outcome": "FORZE Reload",
+            "price": 0.39,
+            "matched_team": "FORZE Reload",
+            "published": 0.38,
+            "delta": 0.01
+          }
+        ],
+        "max_abs_delta": 0.01,
+        "price_survives": true,
+        "pick_still_favoured": true
+      },
+      "verdict": "confirmed"
+    },
+    {
+      "id": "1082996",
+      "teams": [
+        "Acend",
+        "UNiTY"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T09:00:00Z",
+      "availability": "open",
+      "method": "model",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "published_probabilities": [
+        0.54190155,
+        0.45809845
+      ],
+      "published_pick_index": 0,
+      "published_observed_at": "2026-10-23T10:14:24Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
+      "in_inventory_snapshot": true,
+      "arithmetic": {
+        "probabilities": [
+          0.54190155,
+          0.45809845
+        ],
+        "sum": 1.0,
+        "sums_to_one": true,
+        "pick_index": 0,
+        "pick_team": "Acend",
+        "pick_is_larger": true
+      },
+      "identity": {
+        "source": "official Hotspawn fixtures API",
+        "fixture_id": "1082996",
+        "published_start": "2026-10-25T09:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
+        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "checked": true,
+        "api_teams": [
+          "Acend",
+          "UNiTY"
+        ],
+        "api_start": "2026-10-25T09:00:00Z",
+        "teams": [
+          {
+            "team": "Acend",
+            "present": true
+          },
+          {
+            "team": "UNiTY",
+            "present": true
+          }
+        ],
+        "competition": "NODWIN Clutch Series #13",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
+      },
+      "price": {
+        "checked": false,
+        "reason": "research-model estimate: there is no published price to re-read"
+      },
+      "verdict": "model_not_a_line"
+    },
+    {
+      "id": "1079198",
+      "teams": [
+        "Metizport",
+        "BakS"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T12:00:00Z",
+      "availability": "open",
+      "method": "model",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "published_probabilities": [
+        0.79860558,
+        0.20139442
+      ],
+      "published_pick_index": 0,
+      "published_observed_at": "2026-10-23T10:14:24Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198",
+      "in_inventory_snapshot": true,
+      "arithmetic": {
+        "probabilities": [
+          0.79860558,
+          0.20139442
+        ],
+        "sum": 1.0,
+        "sums_to_one": true,
+        "pick_index": 0,
+        "pick_team": "Metizport",
+        "pick_is_larger": true
+      },
+      "identity": {
+        "source": "official Hotspawn fixtures API",
+        "fixture_id": "1079198",
+        "published_start": "2026-10-25T12:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
+        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "checked": true,
+        "api_teams": [
+          "Metizport",
+          "BakS"
+        ],
+        "api_start": "2026-10-25T12:00:00Z",
+        "teams": [
+          {
+            "team": "Metizport",
+            "present": true
+          },
+          {
+            "team": "BakS",
+            "present": true
+          }
+        ],
+        "competition": "NODWIN Clutch Series #13",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
+      },
+      "price": {
+        "checked": false,
+        "reason": "research-model estimate: there is no published price to re-read"
+      },
+      "verdict": "model_not_a_line"
+    },
+    {
+      "id": "1079199",
+      "teams": [
+        "Infinite",
+        "BRUTE"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T15:00:00Z",
+      "availability": "open",
+      "method": "market",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-inf6-brute-2026-10-25",
+      "published_probabilities": [
+        0.445,
+        0.555
+      ],
+      "published_pick_index": 1,
+      "published_observed_at": "2026-10-23T10:14:16Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/infinite-vs-brute-nodwin-clutch-series-13-1079199",
+      "in_inventory_snapshot": true,
+      "arithmetic": {
+        "probabilities": [
+          0.445,
+          0.555
+        ],
+        "sum": 1.0,
+        "sums_to_one": true,
+        "pick_index": 1,
+        "pick_team": "BRUTE",
+        "pick_is_larger": true
+      },
+      "identity": {
+        "source": "official Hotspawn fixtures API",
+        "fixture_id": "1079199",
+        "published_start": "2026-10-25T15:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
+        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "checked": true,
+        "api_teams": [
+          "Infinite",
+          "BRUTE"
+        ],
+        "api_start": "2026-10-25T15:00:00Z",
+        "teams": [
+          {
+            "team": "Infinite",
+            "present": true
+          },
+          {
+            "team": "BRUTE",
+            "present": true
+          }
+        ],
+        "competition": "NODWIN Clutch Series #13",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
+      },
+      "price": {
+        "checked": true,
+        "api": "https://gamma-api.polymarket.com/events/1238706",
+        "observed_at": "2026-10-23T10:50:13Z",
+        "http_status": 200,
+        "error": null,
+        "event_title": "Counter-Strike: Infinite vs Brute (BO3) - NODWIN Clutch Series Playoffs",
+        "event_volume": 19.2,
+        "market_question": "Counter-Strike: Infinite vs Brute (BO3) - NODWIN Clutch Series Playoffs",
+        "outcomes": [
+          "Infinite",
+          "Brute"
+        ],
+        "outcome_prices": [
+          0.445,
+          0.555
+        ],
+        "best_bid": 0.44,
+        "best_ask": 0.45,
+        "volume": "19.2",
+        "comparisons": [
+          {
+            "outcome": "Infinite",
+            "price": 0.445,
+            "matched_team": "Infinite",
+            "published": 0.445,
+            "delta": 0.0
+          },
+          {
+            "outcome": "Brute",
+            "price": 0.555,
+            "matched_team": "BRUTE",
+            "published": 0.555,
+            "delta": 0.0
+          }
+        ],
+        "max_abs_delta": 0.0,
+        "price_survives": true,
+        "pick_still_favoured": true
+      },
+      "verdict": "confirmed"
+    },
+    {
+      "id": "1079200",
+      "teams": [
+        "Color",
+        "ex-Zero Tenacity"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T18:00:00Z",
+      "availability": "open",
+      "method": "model",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "published_probabilities": [
+        0.7359068,
+        0.2640932
+      ],
+      "published_pick_index": 0,
+      "published_observed_at": "2026-10-23T10:14:24Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/color-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079200",
+      "in_inventory_snapshot": true,
+      "arithmetic": {
+        "probabilities": [
+          0.7359068,
+          0.2640932
+        ],
+        "sum": 1.0,
+        "sums_to_one": true,
+        "pick_index": 0,
+        "pick_team": "Color",
+        "pick_is_larger": true
+      },
+      "identity": {
+        "source": "official Hotspawn fixtures API",
+        "fixture_id": "1079200",
+        "published_start": "2026-10-25T18:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
+        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "checked": true,
+        "api_teams": [
+          "Color",
+          "ex-Zero Tenacity"
+        ],
+        "api_start": "2026-10-25T18:00:00Z",
+        "teams": [
+          {
+            "team": "Color",
+            "present": true
+          },
+          {
+            "team": "ex-Zero Tenacity",
+            "present": true
+          }
+        ],
+        "competition": "NODWIN Clutch Series #13",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
+      },
+      "price": {
+        "checked": false,
+        "reason": "research-model estimate: there is no published price to re-read"
+      },
+      "verdict": "model_not_a_line"
+    },
+    {
+      "id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "availability": "open",
+      "method": "model",
+      "source": "Own network model (bo3.gg results graph)",
+      "source_url": "https://bo3.gg/matches",
+      "published_probabilities": [
+        0.4492308690416069,
+        0.5507691309583931
+      ],
+      "published_pick_index": 1,
+      "published_observed_at": "2026-10-23T10:43:30Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
+      "in_inventory_snapshot": true,
+      "arithmetic": {
+        "probabilities": [
+          0.4492308690416069,
+          0.5507691309583931
+        ],
+        "sum": 1.0,
+        "sums_to_one": true,
+        "pick_index": 1,
+        "pick_team": "Off Chops",
+        "pick_is_larger": true
+      },
+      "identity": {
+        "source": "official Hotspawn fixtures API",
+        "fixture_id": "1082858",
+        "published_start": "2026-10-26T03:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
+        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "checked": true,
+        "api_teams": [
+          "Ground Zero",
+          "Off Chops"
+        ],
+        "api_start": "2026-10-26T03:00:00Z",
+        "teams": [
+          {
+            "team": "Ground Zero",
+            "present": true
+          },
+          {
+            "team": "Off Chops",
+            "present": true
+          }
+        ],
+        "competition": "DFRAG Invitational 2026",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
+      },
+      "price": {
+        "checked": false,
+        "reason": "research-model estimate: there is no published price to re-read"
+      },
+      "verdict": "model_not_a_line"
+    },
+    {
+      "id": "1082859",
+      "teams": [
+        "NEXVOID",
+        "Alter Ego"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "availability": "open",
+      "method": "bookmaker",
+      "source": "Thunderpick",
+      "source_url": "https://thunderpick.io/api/matches",
+      "published_probabilities": [
+        0.57559682,
+        0.42440318
+      ],
+      "published_pick_index": 0,
+      "published_observed_at": "2026-10-23T10:14:22Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/nexvoid-vs-alter-ego-dfrag-invitational-2026-1082859",
+      "in_inventory_snapshot": true,
+      "arithmetic": {
+        "probabilities": [
+          0.57559682,
+          0.42440318
+        ],
+        "sum": 1.0,
+        "sums_to_one": true,
+        "pick_index": 0,
+        "pick_team": "NEXVOID",
+        "pick_is_larger": true
+      },
+      "identity": {
+        "source": "official Hotspawn fixtures API",
+        "fixture_id": "1082859",
+        "published_start": "2026-10-26T03:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
+        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "checked": true,
+        "api_teams": [
+          "NEXVOID",
+          "Alter Ego"
+        ],
+        "api_start": "2026-10-26T03:00:00Z",
+        "teams": [
+          {
+            "team": "NEXVOID",
+            "present": true
+          },
+          {
+            "team": "Alter Ego",
+            "present": true
+          }
+        ],
+        "competition": "DFRAG Invitational 2026",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
+      },
+      "price": {
+        "checked": true,
+        "url": "https://thunderpick.io/api/matches",
+        "observed_at": "2026-10-23T10:50:13Z",
+        "http_status": 200,
+        "bytes": 50,
+        "error": null,
+        "price_reverified": false,
+        "note": "Reachability only. This audit does not parse a price from a rendered page, so the row's own quote record remains the price evidence."
+      },
+      "verdict": "source_reachable"
+    },
+    {
+      "id": "1082860",
+      "teams": [
+        "FlyQuest",
+        "Staqued"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "availability": "open",
+      "method": "bookmaker",
+      "source": "Thunderpick",
+      "source_url": "https://thunderpick.io/api/matches",
+      "published_probabilities": [
+        0.92300592,
+        0.07699408
+      ],
+      "published_pick_index": 0,
+      "published_observed_at": "2026-10-23T10:14:22Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
+      "in_inventory_snapshot": true,
+      "arithmetic": {
+        "probabilities": [
+          0.92300592,
+          0.07699408
+        ],
+        "sum": 1.0,
+        "sums_to_one": true,
+        "pick_index": 0,
+        "pick_team": "FlyQuest",
+        "pick_is_larger": true
+      },
+      "identity": {
+        "source": "official Hotspawn fixtures API",
+        "fixture_id": "1082860",
+        "published_start": "2026-10-27T03:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
+        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "checked": true,
+        "api_teams": [
+          "FlyQuest",
+          "Staqued"
+        ],
+        "api_start": "2026-10-27T03:00:00Z",
+        "teams": [
+          {
+            "team": "FlyQuest",
+            "present": true
+          },
+          {
+            "team": "Staqued",
+            "present": true
+          }
+        ],
+        "competition": "DFRAG Invitational 2026",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
+      },
+      "price": {
+        "checked": true,
+        "url": "https://thunderpick.io/api/matches",
+        "observed_at": "2026-10-23T10:50:13Z",
+        "http_status": 200,
+        "bytes": 50,
+        "error": null,
+        "price_reverified": false,
+        "note": "Reachability only. This audit does not parse a price from a rendered page, so the row's own quote record remains the price evidence."
+      },
+      "verdict": "source_reachable"
+    },
+    {
+      "id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "availability": "open",
+      "method": "model",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "published_probabilities": [
+        0.47761494,
+        0.52238506
+      ],
+      "published_pick_index": 1,
+      "published_observed_at": "2026-10-23T10:14:24Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
+      "in_inventory_snapshot": true,
+      "arithmetic": {
+        "probabilities": [
+          0.47761494,
+          0.52238506
+        ],
+        "sum": 1.0,
+        "sums_to_one": true,
+        "pick_index": 1,
+        "pick_team": "Abyssal",
+        "pick_is_larger": true
+      },
+      "identity": {
+        "source": "official Hotspawn fixtures API",
+        "fixture_id": "1082861",
+        "published_start": "2026-10-27T03:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
+        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "checked": true,
+        "api_teams": [
+          "Rooster",
+          "Abyssal"
+        ],
+        "api_start": "2026-10-27T03:00:00Z",
+        "teams": [
+          {
+            "team": "Rooster",
+            "present": true
+          },
+          {
+            "team": "Abyssal",
+            "present": true
+          }
+        ],
+        "competition": "DFRAG Invitational 2026",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
+      },
+      "price": {
+        "checked": false,
+        "reason": "research-model estimate: there is no published price to re-read"
+      },
+      "verdict": "model_not_a_line"
+    },
+    {
+      "id": "1082897",
+      "teams": [
+        "B8",
+        "K27"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T08:00:00Z",
+      "availability": "open",
+      "method": "market",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
+      "published_probabilities": [
+        0.62,
+        0.38
+      ],
+      "published_pick_index": 0,
+      "published_observed_at": "2026-10-23T10:14:19Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/b8-vs-k27-tesla-cup-2026-1082897",
+      "in_inventory_snapshot": true,
+      "arithmetic": {
+        "probabilities": [
+          0.62,
+          0.38
+        ],
+        "sum": 1.0,
+        "sums_to_one": true,
+        "pick_index": 0,
+        "pick_team": "B8",
+        "pick_is_larger": true
+      },
+      "identity": {
+        "source": "official Hotspawn fixtures API",
+        "fixture_id": "1082897",
+        "published_start": "2026-10-27T08:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
+        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "checked": true,
+        "api_teams": [
+          "B8",
+          "K27"
+        ],
+        "api_start": "2026-10-27T08:00:00Z",
+        "teams": [
+          {
+            "team": "B8",
+            "present": true
+          },
+          {
+            "team": "K27",
+            "present": true
+          }
+        ],
+        "competition": "Tesla Cup 2026",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
+      },
+      "price": {
+        "checked": true,
+        "api": "https://gamma-api.polymarket.com/events/1231333",
+        "observed_at": "2026-10-23T10:50:14Z",
+        "http_status": 200,
+        "error": null,
+        "event_title": "Counter-Strike: B8 vs K27 (BO3) - Tesla Cup Group A",
+        "event_volume": 920.501081,
+        "market_question": "Counter-Strike: B8 vs K27 (BO3) - Tesla Cup Group A",
+        "outcomes": [
+          "B8",
+          "K27"
+        ],
+        "outcome_prices": [
+          0.625,
+          0.375
+        ],
+        "best_bid": 0.61,
+        "best_ask": 0.64,
+        "volume": "920.501081",
+        "comparisons": [
+          {
+            "outcome": "B8",
+            "price": 0.625,
+            "matched_team": "B8",
+            "published": 0.62,
+            "delta": 0.005
+          },
+          {
+            "outcome": "K27",
+            "price": 0.375,
+            "matched_team": "K27",
+            "published": 0.38,
+            "delta": -0.005
+          }
+        ],
+        "max_abs_delta": 0.005,
+        "price_survives": true,
+        "pick_still_favoured": true
+      },
+      "verdict": "confirmed"
+    },
+    {
+      "id": "1082898",
+      "teams": [
+        "Alliance",
+        "FaZe"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T11:00:00Z",
+      "availability": "open",
+      "method": "market",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
+      "published_probabilities": [
+        0.34,
+        0.66
+      ],
+      "published_pick_index": 1,
+      "published_observed_at": "2026-10-23T10:14:20Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/alliance-vs-faze-tesla-cup-2026-1082898",
+      "in_inventory_snapshot": true,
+      "arithmetic": {
+        "probabilities": [
+          0.34,
+          0.66
+        ],
+        "sum": 1.0,
+        "sums_to_one": true,
+        "pick_index": 1,
+        "pick_team": "FaZe",
+        "pick_is_larger": true
+      },
+      "identity": {
+        "source": "official Hotspawn fixtures API",
+        "fixture_id": "1082898",
+        "published_start": "2026-10-27T11:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
+        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "checked": true,
+        "api_teams": [
+          "Alliance",
+          "FaZe"
+        ],
+        "api_start": "2026-10-27T11:00:00Z",
+        "teams": [
+          {
+            "team": "Alliance",
+            "present": true
+          },
+          {
+            "team": "FaZe",
+            "present": true
+          }
+        ],
+        "competition": "Tesla Cup 2026",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
+      },
+      "price": {
+        "checked": true,
+        "api": "https://gamma-api.polymarket.com/events/1231334",
+        "observed_at": "2026-10-23T10:50:14Z",
+        "http_status": 200,
+        "error": null,
+        "event_title": "Counter-Strike: Alliance vs FaZe (BO3) - Tesla Cup Group A",
+        "event_volume": null,
+        "market_question": "Counter-Strike: Alliance vs FaZe (BO3) - Tesla Cup Group A",
+        "outcomes": [
+          "Alliance",
+          "FaZe"
+        ],
+        "outcome_prices": [
+          0.345,
+          0.655
+        ],
+        "best_bid": 0.31,
+        "best_ask": 0.38,
+        "volume": null,
+        "comparisons": [
+          {
+            "outcome": "Alliance",
+            "price": 0.345,
+            "matched_team": "Alliance",
+            "published": 0.34,
+            "delta": 0.005
+          },
+          {
+            "outcome": "FaZe",
+            "price": 0.655,
+            "matched_team": "FaZe",
+            "published": 0.66,
+            "delta": -0.005
+          }
+        ],
+        "max_abs_delta": 0.005,
+        "price_survives": true,
+        "pick_still_favoured": true
+      },
+      "verdict": "confirmed"
+    },
+    {
+      "id": "1082900",
+      "teams": [
+        "Luminosity",
+        "HOTU"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T17:00:00Z",
+      "availability": "open",
+      "method": "market",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
+      "published_probabilities": [
+        0.55,
+        0.45
+      ],
+      "published_pick_index": 0,
+      "published_observed_at": "2026-10-23T10:14:20Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/luminosity-vs-hotu-tesla-cup-2026-1082900",
+      "in_inventory_snapshot": true,
+      "arithmetic": {
+        "probabilities": [
+          0.55,
+          0.45
+        ],
+        "sum": 1.0,
+        "sums_to_one": true,
+        "pick_index": 0,
+        "pick_team": "Luminosity",
+        "pick_is_larger": true
+      },
+      "identity": {
+        "source": "official Hotspawn fixtures API",
+        "fixture_id": "1082900",
+        "published_start": "2026-10-27T17:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
+        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "checked": true,
+        "api_teams": [
+          "Luminosity",
+          "HOTU"
+        ],
+        "api_start": "2026-10-27T17:00:00Z",
+        "teams": [
+          {
+            "team": "Luminosity",
+            "present": true
+          },
+          {
+            "team": "HOTU",
+            "present": true
+          }
+        ],
+        "competition": "Tesla Cup 2026",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
+      },
+      "price": {
+        "checked": true,
+        "api": "https://gamma-api.polymarket.com/events/1231335",
+        "observed_at": "2026-10-23T10:50:14Z",
+        "http_status": 200,
+        "error": null,
+        "event_title": "Counter-Strike: Luminosity vs HOTU (BO3) - Tesla Cup Group B",
+        "event_volume": 7.25,
+        "market_question": "Counter-Strike: Luminosity vs HOTU (BO3) - Tesla Cup Group B",
+        "outcomes": [
+          "Luminosity",
+          "HOTU"
+        ],
+        "outcome_prices": [
+          0.55,
+          0.45
+        ],
+        "best_bid": 0.54,
+        "best_ask": 0.56,
+        "volume": "7.25",
+        "comparisons": [
+          {
+            "outcome": "Luminosity",
+            "price": 0.55,
+            "matched_team": "Luminosity",
+            "published": 0.55,
+            "delta": 0.0
+          },
+          {
+            "outcome": "HOTU",
+            "price": 0.45,
+            "matched_team": "HOTU",
+            "published": 0.45,
+            "delta": 0.0
+          }
+        ],
+        "max_abs_delta": 0.0,
+        "price_survives": true,
+        "pick_still_favoured": true
+      },
+      "verdict": "confirmed"
+    },
+    {
+      "id": "1082901",
+      "teams": [
+        "Envy",
+        "GamerLegion"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T20:00:00Z",
+      "availability": "open",
+      "method": "market",
+      "source": "Polymarket",
+      "source_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
+      "published_probabilities": [
+        0.465,
+        0.535
+      ],
+      "published_pick_index": 1,
+      "published_observed_at": "2026-10-23T10:14:21Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/envy-vs-gamerlegion-tesla-cup-2026-1082901",
+      "in_inventory_snapshot": true,
+      "arithmetic": {
+        "probabilities": [
+          0.465,
+          0.535
+        ],
+        "sum": 1.0,
+        "sums_to_one": true,
+        "pick_index": 1,
+        "pick_team": "GamerLegion",
+        "pick_is_larger": true
+      },
+      "identity": {
+        "source": "official Hotspawn fixtures API",
+        "fixture_id": "1082901",
+        "published_start": "2026-10-27T20:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
+        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "checked": true,
+        "api_teams": [
+          "Envy",
+          "GamerLegion"
+        ],
+        "api_start": "2026-10-27T20:00:00Z",
+        "teams": [
+          {
+            "team": "Envy",
+            "present": true
+          },
+          {
+            "team": "GamerLegion",
+            "present": true
+          }
+        ],
+        "competition": "Tesla Cup 2026",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
+      },
+      "price": {
+        "checked": true,
+        "api": "https://gamma-api.polymarket.com/events/1233851",
+        "observed_at": "2026-10-23T10:50:14Z",
+        "http_status": 200,
+        "error": null,
+        "event_title": "Counter-Strike: Envy vs GamerLegion (BO3) - Tesla Cup Group B",
+        "event_volume": 302.14720600000004,
+        "market_question": "Counter-Strike: Envy vs GamerLegion (BO3) - Tesla Cup Group B",
+        "outcomes": [
+          "Envy",
+          "GamerLegion"
+        ],
+        "outcome_prices": [
+          0.465,
+          0.535
+        ],
+        "best_bid": 0.45,
+        "best_ask": 0.48,
+        "volume": "302.14720600000004",
+        "comparisons": [
+          {
+            "outcome": "Envy",
+            "price": 0.465,
+            "matched_team": "Envy",
+            "published": 0.465,
+            "delta": 0.0
+          },
+          {
+            "outcome": "GamerLegion",
+            "price": 0.535,
+            "matched_team": "GamerLegion",
+            "published": 0.535,
+            "delta": 0.0
+          }
+        ],
+        "max_abs_delta": 0.0,
+        "price_survives": true,
+        "pick_still_favoured": true
+      },
+      "verdict": "confirmed"
+    },
+    {
+      "id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "availability": "open",
+      "method": "model",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "published_probabilities": [
+        0.94052062,
+        0.05947938
+      ],
+      "published_pick_index": 0,
+      "published_observed_at": "2026-10-23T10:43:46Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+      "in_inventory_snapshot": true,
+      "arithmetic": {
+        "probabilities": [
+          0.94052062,
+          0.05947938
+        ],
+        "sum": 1.0,
+        "sums_to_one": true,
+        "pick_index": 0,
+        "pick_team": "HOTU",
+        "pick_is_larger": true
+      },
+      "identity": {
+        "source": "official Hotspawn fixtures API",
+        "fixture_id": "1082792",
+        "published_start": "2026-10-31T09:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
+        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "checked": true,
+        "api_teams": [
+          "HOTU",
+          "The Huns"
+        ],
+        "api_start": "2026-10-31T09:00:00Z",
+        "teams": [
+          {
+            "team": "HOTU",
+            "present": true
+          },
+          {
+            "team": "The Huns",
+            "present": true
+          }
+        ],
+        "competition": "Moscow Cyber Games 2026",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
+      },
+      "price": {
+        "checked": false,
+        "reason": "research-model estimate: there is no published price to re-read"
+      },
+      "verdict": "model_not_a_line"
+    },
+    {
+      "id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T13:00:00Z",
+      "availability": "open",
+      "method": "model",
+      "source": "Valve official standings",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "published_probabilities": [
+        0.17816902,
+        0.82183098
+      ],
+      "published_pick_index": 1,
+      "published_observed_at": "2026-10-23T10:14:24Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
+      "in_inventory_snapshot": true,
+      "arithmetic": {
+        "probabilities": [
+          0.17816902,
+          0.82183098
+        ],
+        "sum": 1.0,
+        "sums_to_one": true,
+        "pick_index": 1,
+        "pick_team": "1WIN",
+        "pick_is_larger": true
+      },
+      "identity": {
+        "source": "official Hotspawn fixtures API",
+        "fixture_id": "1082793",
+        "published_start": "2026-10-31T13:00:00Z",
+        "api_observed_at": "2026-10-23T10:50:02Z",
+        "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "checked": true,
+        "api_teams": [
+          "5star",
+          "1WIN"
+        ],
+        "api_start": "2026-10-31T13:00:00Z",
+        "teams": [
+          {
+            "team": "5star",
+            "present": true
+          },
+          {
+            "team": "1WIN",
+            "present": true
+          }
+        ],
+        "competition": "Moscow Cyber Games 2026",
+        "start_matches": true,
+        "both_present": true,
+        "status": "confirmed"
+      },
+      "price": {
+        "checked": false,
+        "reason": "research-model estimate: there is no published price to re-read"
+      },
+      "verdict": "model_not_a_line"
     }
   ],
   "hotspawn_inventory": {
     "checked": true,
     "api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-    "observed_at": "2026-10-23T10:06:24Z",
+    "observed_at": "2026-10-23T10:50:02Z",
     "http_status": 200,
     "records": 92
   },
   "page_probe": {
-    "url": "https://www.hotspawn.com/matches/mibr-vs-bc-game-stake-pulse-beat-iii-1079440",
-    "observed_at": "2026-10-23T10:06:26Z",
+    "url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-illyrians-cct-europe-2026-series-11-1079655",
+    "observed_at": "2026-10-23T10:50:14Z",
     "http_status": 200,
-    "title": "MIBR Vs BC.Game Counter-Strike 2 Match At Stake Pulse Beat III - 1079440 - Hotspawn",
+    "title": "Nuclear TigeRES Vs ILLYRIANS Counter-Strike 2 Match At CCT Europe 2026 Series #11 - 1079655 - Hotspawn",
     "challenge": false,
     "readable": true
   },
   "live_inventory": {
     "checked": true,
     "api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-    "observed_at": "2026-10-23T10:06:28Z",
+    "observed_at": "2026-10-23T10:50:14Z",
     "http_status": 200,
     "official_records": 92,
-    "snapshot_records": 80,
-    "active_in_audited_snapshot": 17,
-    "not_in_snapshot": [
-      {
-        "id": "1079654",
-        "teams": [
-          "ex-Zero Tenacity",
-          "ex-RUSTEC"
-        ],
-        "competition": "CCT Europe 2026 Series #11",
-        "starts_at": "1792742400000"
-      },
-      {
-        "id": "1081605",
-        "teams": [
-          "Phantom Academy",
-          "Banda chuya"
-        ],
-        "competition": "CCT Europe 2026 Challengers #8",
-        "starts_at": "1792753200000"
-      },
-      {
-        "id": "1081148",
-        "teams": [
-          "Inner Circle Academy",
-          "Spirit Academy"
-        ],
-        "competition": "CCT Europe 2026 Series #12",
-        "starts_at": "1792753200000"
-      },
-      {
-        "id": "1079655",
-        "teams": [
-          "Nuclear TigeRES",
-          "ILLYRIANS"
-        ],
-        "competition": "CCT Europe 2026 Series #11",
-        "starts_at": "1792753200000"
-      },
-      {
-        "id": "1081606",
-        "teams": [
-          "JiJieHao",
-          "Eternal Fire"
-        ],
-        "competition": "DraculaN Season 7",
-        "starts_at": "1792760400000"
-      },
-      {
-        "id": "1082926",
-        "teams": [
-          "Isurus",
-          "Hacha"
-        ],
-        "competition": "CCT South America 2026 Series #7",
-        "starts_at": "1792760400000"
-      },
-      {
-        "id": "1082980",
-        "teams": [
-          "LPH",
-          "WBT Academy"
-        ],
-        "competition": "ESL Challenger League Season 52: Europe - Cup #9",
-        "starts_at": "1792760400000"
-      },
-      {
-        "id": "1083014",
-        "teams": [
-          "K27",
-          "Virtus.pro"
-        ],
-        "competition": "CIS LAN Championship #9",
-        "starts_at": "1792760400000"
-      },
-      {
-        "id": "1082924",
-        "teams": [
-          "BORRACHEIROS",
-          "QUINTESSÊNCIA"
-        ],
-        "competition": "CCT South America 2026 Series #7",
-        "starts_at": "1792771200000"
-      },
-      {
-        "id": "1081150",
-        "teams": [
-          "ex-RUSTEC",
-          "Saint Sinners"
-        ],
-        "competition": "CCT Europe 2026 Series #12",
-        "starts_at": "1792774800000"
-      },
-      {
-        "id": "1079657",
-        "teams": [
-          "BakS",
-          "BRUTE"
-        ],
-        "competition": "CCT Europe 2026 Series #11",
-        "starts_at": "1792774800000"
-      },
-      {
-        "id": "1082693",
-        "teams": [
-          "BESTIA",
-          "Galorys"
-        ],
-        "competition": "Circuit X Curitiba #4",
-        "starts_at": "1792778400000"
-      },
-      {
-        "id": "1082925",
-        "teams": [
-          "BESTIA Academy",
-          "RED Canids Academy"
-        ],
-        "competition": "CCT South America 2026 Series #7",
-        "starts_at": "1792782000000"
-      },
-      {
-        "id": "1083025",
-        "teams": [
-          "paiN",
-          "Imperial"
-        ],
-        "competition": "Circuit X Curitiba #4",
-        "starts_at": "1792789200000"
-      },
-      {
-        "id": "1082923",
-        "teams": [
-          "Alka",
-          "LOS NINOS"
-        ],
-        "competition": "CCT South America 2026 Series #7",
-        "starts_at": "1792792800000"
-      },
-      {
-        "id": "1079193",
-        "teams": [
-          "FOKUS",
-          "ex-6666"
-        ],
-        "competition": "NODWIN Clutch Series #13",
-        "starts_at": "1792828800000"
-      },
-      {
-        "id": "1079195",
-        "teams": [
-          "Nuclear TigeRES",
-          "FORZE Reload"
-        ],
-        "competition": "NODWIN Clutch Series #13",
-        "starts_at": "1792850400000"
-      },
-      {
-        "id": "1082996",
-        "teams": [
-          "Acend",
-          "UNiTY"
-        ],
-        "competition": "NODWIN Clutch Series #13",
-        "starts_at": "1792918800000"
-      },
-      {
-        "id": "1079198",
-        "teams": [
-          "Metizport",
-          "BakS"
-        ],
-        "competition": "NODWIN Clutch Series #13",
-        "starts_at": "1792929600000"
-      },
-      {
-        "id": "1079199",
-        "teams": [
-          "Infinite",
-          "BRUTE"
-        ],
-        "competition": "NODWIN Clutch Series #13",
-        "starts_at": "1792940400000"
-      },
-      {
-        "id": "1079200",
-        "teams": [
-          "Color",
-          "ex-Zero Tenacity"
-        ],
-        "competition": "NODWIN Clutch Series #13",
-        "starts_at": "1792951200000"
-      },
-      {
-        "id": "1082858",
-        "teams": [
-          "Ground Zero",
-          "Off Chops"
-        ],
-        "competition": "DFRAG Invitational 2026",
-        "starts_at": "1792983600000"
-      },
-      {
-        "id": "1082859",
-        "teams": [
-          "NEXVOID",
-          "Alter Ego"
-        ],
-        "competition": "DFRAG Invitational 2026",
-        "starts_at": "1792983600000"
-      },
-      {
-        "id": "1082860",
-        "teams": [
-          "FlyQuest",
-          "Staqued"
-        ],
-        "competition": "DFRAG Invitational 2026",
-        "starts_at": "1793070000000"
-      },
-      {
-        "id": "1082861",
-        "teams": [
-          "Rooster",
-          "Abyssal"
-        ],
-        "competition": "DFRAG Invitational 2026",
-        "starts_at": "1793070000000"
-      },
-      {
-        "id": "1082897",
-        "teams": [
-          "B8",
-          "K27"
-        ],
-        "competition": "Tesla Cup 2026",
-        "starts_at": "1793088000000"
-      },
-      {
-        "id": "1082898",
-        "teams": [
-          "Alliance",
-          "FaZe"
-        ],
-        "competition": "Tesla Cup 2026",
-        "starts_at": "1793098800000"
-      },
-      {
-        "id": "1082900",
-        "teams": [
-          "Luminosity",
-          "HOTU"
-        ],
-        "competition": "Tesla Cup 2026",
-        "starts_at": "1793120400000"
-      },
-      {
-        "id": "1082901",
-        "teams": [
-          "Envy",
-          "GamerLegion"
-        ],
-        "competition": "Tesla Cup 2026",
-        "starts_at": "1793131200000"
-      },
-      {
-        "id": "1082792",
-        "teams": [
-          "HOTU",
-          "The Huns"
-        ],
-        "competition": "Moscow Cyber Games 2026",
-        "starts_at": "1793437200000"
-      },
-      {
-        "id": "1082793",
-        "teams": [
-          "5star",
-          "1WIN"
-        ],
-        "competition": "Moscow Cyber Games 2026",
-        "starts_at": "1793451600000"
-      }
-    ],
+    "snapshot_records": 92,
+    "active_in_audited_snapshot": 30,
+    "not_in_snapshot": [],
     "note": "Raw official inventory is an observation later than the published snapshot. A difference is a dated coverage finding, not proof that a row was missed at collection time."
   }
 }
