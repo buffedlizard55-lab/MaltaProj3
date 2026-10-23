@@ -1,20 +1,20 @@
 {
  "schema_version": 1,
  "session": "arena-1531ecf1",
- "observed_at": "2026-10-23T11:21:12Z",
+ "observed_at": "2026-10-23T13:00:24Z",
  "environment": "github-actions-runner",
  "role": "Dated research and gap picks. Only a bound two-sided prematch price or the documented Valve-rating research model may produce the probabilities recorded here. Hotspawn crowd percentages and HLTV fan votes are never inputs.",
  "policy": "HLTV first (identity, format, started/finished state only), then esportsbooks and esports betting-line services (bo3.gg bookmaker relay, Smarkets, Thunderpick, Pinnacle guest board, book-surface sweep). Resolution reuses scripts/originate.py’s reviewed ladder. An even estimate never receives an invented side.",
  "inventory": {
   "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
   "lobby_url": "https://play.hotspawn.com/lobby",
-  "observed_at": "2026-10-23T11:21:12Z",
+  "observed_at": "2026-10-23T13:00:24Z",
   "http_status": 200,
-  "fixtures_seen": 90
+  "fixtures_seen": 0
  },
  "published": {
-  "latest_generated_at": "2026-10-23T11:20:08Z",
-  "origination_generated_at": "2026-10-23T11:20:19Z",
+  "latest_generated_at": "2026-10-23T12:59:37Z",
+  "origination_generated_at": "2026-10-23T12:59:38Z",
   "upcoming_ids": [
    "1051301",
    "1051339",
@@ -75,475 +75,37 @@
    "1053471",
    "1053679",
    "1055478",
-   "1079193",
-   "1079195",
-   "1079198",
-   "1079199",
-   "1079200",
+   "1079440",
+   "1079442",
    "1079621",
-   "1079654",
-   "1079657",
+   "1080201",
+   "1080202",
+   "1080203",
+   "1080204",
+   "1080279",
+   "1080280",
+   "1080281",
+   "1080282",
+   "1080283",
+   "1080284",
+   "1080285",
+   "1080286",
+   "1080287",
+   "1080288",
+   "1080289",
+   "1080290",
    "1081105",
-   "1081150",
-   "1081605",
-   "1081606",
-   "1082693",
-   "1082792",
-   "1082793",
-   "1082858",
-   "1082859",
-   "1082860",
-   "1082861",
-   "1082897",
-   "1082898",
-   "1082900",
-   "1082901",
-   "1082923",
-   "1082924",
-   "1082925",
-   "1082926",
-   "1082980",
-   "1082996",
-   "1083014",
-   "1083025"
+   "1081120"
   ]
  },
  "lobby_fixtures": [],
- "no_line_fixtures": [
-  {
-   "id": "1082996",
-   "teams": [
-    "Acend",
-    "UNiTY"
-   ],
-   "competition": "NODWIN Clutch Series #13",
-   "starts_at": "2026-10-25T09:00:00Z",
-   "hotspawn_url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
-   "status": "open",
-   "covered_as": null,
-   "research": [
-    {
-     "stage": "HLTV first (identity & state)",
-     "source_url": "https://www.hltv.org/matches",
-     "status": "unavailable",
-     "detail": "teams not seen on the fetched HLTV matches page"
-    },
-    {
-     "stage": "Esportsbooks & betting-line sweep",
-     "source_url": "https://gg.bet/esports/counter-strike",
-     "status": "checked",
-     "detail": "3 of 16 esportsbook/aggregator surfaces answered HTTP 200; no probed page named either team. A reachable page is never a price: no readable two-sided pair on any surface. Some surfaces refused or timed out; a refusal is not evidence that no market exists."
-    },
-    {
-     "stage": "Thunderpick original prices",
-     "source_url": "https://thunderpick.io/api/matches",
-     "status": "unresolved",
-     "detail": "fixture not on the reachable Thunderpick board (HTTP 403)"
-    },
-    {
-     "stage": "Exchange market (Smarkets CS2 match winner)",
-     "source_url": "https://smarkets.com/sport/esports/cs-go",
-     "status": "unresolved",
-     "detail": "no exchange event bound to this fixture"
-    },
-    {
-     "stage": "Exchange market (Pinnacle guest board)",
-     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
-     "status": "unresolved",
-     "detail": "no bound matchup on the guest board (No Pinnacle CS2 matchup lists exactly these two teams.)"
-    },
-    {
-     "stage": "Valve-rating research model",
-     "status": "resolved",
-     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
-    }
-   ],
-   "pick": null,
-   "limitation": "No two-sided prematch price on any probed surface; the published research estimate and its limitation stand until the next refresh.",
-   "extra_pages": [],
-   "current_estimate": {
-    "label": "Valve-rating research estimate",
-    "probabilities": [
-     0.54190155,
-     0.45809845
-    ],
-    "source": "Valve official standings",
-    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
-   }
-  },
-  {
-   "id": "1079198",
-   "teams": [
-    "Metizport",
-    "BakS"
-   ],
-   "competition": "NODWIN Clutch Series #13",
-   "starts_at": "2026-10-25T12:00:00Z",
-   "hotspawn_url": "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198",
-   "status": "open",
-   "covered_as": null,
-   "research": [
-    {
-     "stage": "HLTV first (identity & state)",
-     "source_url": "https://www.hltv.org/matches",
-     "status": "unavailable",
-     "detail": "teams not seen on the fetched HLTV matches page"
-    },
-    {
-     "stage": "Esportsbooks & betting-line sweep",
-     "source_url": "https://gg.bet/esports/counter-strike",
-     "status": "checked",
-     "detail": "3 of 16 esportsbook/aggregator surfaces answered HTTP 200; no probed page named either team. A reachable page is never a price: no readable two-sided pair on any surface. Some surfaces refused or timed out; a refusal is not evidence that no market exists."
-    },
-    {
-     "stage": "Thunderpick original prices",
-     "source_url": "https://thunderpick.io/api/matches",
-     "status": "unresolved",
-     "detail": "fixture not on the reachable Thunderpick board (HTTP 403)"
-    },
-    {
-     "stage": "Exchange market (Smarkets CS2 match winner)",
-     "source_url": "https://smarkets.com/sport/esports/cs-go",
-     "status": "unresolved",
-     "detail": "no exchange event bound to this fixture"
-    },
-    {
-     "stage": "Exchange market (Pinnacle guest board)",
-     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
-     "status": "unresolved",
-     "detail": "no bound matchup on the guest board (No Pinnacle CS2 matchup lists exactly these two teams.)"
-    },
-    {
-     "stage": "Valve-rating research model",
-     "status": "resolved",
-     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
-    }
-   ],
-   "pick": null,
-   "limitation": "No two-sided prematch price on any probed surface; the published research estimate and its limitation stand until the next refresh.",
-   "extra_pages": [],
-   "current_estimate": {
-    "label": "Valve-rating research estimate",
-    "probabilities": [
-     0.79860558,
-     0.20139442
-    ],
-    "source": "Valve official standings",
-    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
-   }
-  },
-  {
-   "id": "1079200",
-   "teams": [
-    "Color",
-    "ex-Zero Tenacity"
-   ],
-   "competition": "NODWIN Clutch Series #13",
-   "starts_at": "2026-10-25T18:00:00Z",
-   "hotspawn_url": "https://www.hotspawn.com/matches/color-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079200",
-   "status": "open",
-   "covered_as": null,
-   "research": [
-    {
-     "stage": "HLTV first (identity & state)",
-     "source_url": "https://www.hltv.org/matches",
-     "status": "unavailable",
-     "detail": "teams not seen on the fetched HLTV matches page"
-    },
-    {
-     "stage": "Esportsbooks & betting-line sweep",
-     "source_url": "https://gg.bet/esports/counter-strike",
-     "status": "checked",
-     "detail": "3 of 16 esportsbook/aggregator surfaces answered HTTP 200; no probed page named either team. A reachable page is never a price: no readable two-sided pair on any surface. Some surfaces refused or timed out; a refusal is not evidence that no market exists."
-    },
-    {
-     "stage": "Thunderpick original prices",
-     "source_url": "https://thunderpick.io/api/matches",
-     "status": "unresolved",
-     "detail": "fixture not on the reachable Thunderpick board (HTTP 403)"
-    },
-    {
-     "stage": "Exchange market (Smarkets CS2 match winner)",
-     "source_url": "https://smarkets.com/sport/esports/cs-go",
-     "status": "unresolved",
-     "detail": "no exchange event bound to this fixture"
-    },
-    {
-     "stage": "Exchange market (Pinnacle guest board)",
-     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
-     "status": "unresolved",
-     "detail": "no bound matchup on the guest board (No Pinnacle CS2 matchup lists exactly these two teams.)"
-    },
-    {
-     "stage": "Valve-rating research model",
-     "status": "resolved",
-     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
-    }
-   ],
-   "pick": null,
-   "limitation": "No two-sided prematch price on any probed surface; the published research estimate and its limitation stand until the next refresh.",
-   "extra_pages": [],
-   "current_estimate": {
-    "label": "Valve-rating research estimate",
-    "probabilities": [
-     0.7359068,
-     0.2640932
-    ],
-    "source": "Valve official standings",
-    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
-   }
-  },
-  {
-   "id": "1082858",
-   "teams": [
-    "Ground Zero",
-    "Off Chops"
-   ],
-   "competition": "DFRAG Invitational 2026",
-   "starts_at": "2026-10-26T03:00:00Z",
-   "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
-   "status": "open",
-   "covered_as": null,
-   "research": [
-    {
-     "stage": "HLTV first (identity & state)",
-     "source_url": "https://www.hltv.org/matches",
-     "status": "unavailable",
-     "detail": "teams not seen on the fetched HLTV matches page"
-    },
-    {
-     "stage": "Esportsbooks & betting-line sweep",
-     "source_url": "https://gg.bet/esports/counter-strike",
-     "status": "checked",
-     "detail": "3 of 16 esportsbook/aggregator surfaces answered HTTP 200; no probed page named either team. A reachable page is never a price: no readable two-sided pair on any surface. Some surfaces refused or timed out; a refusal is not evidence that no market exists."
-    },
-    {
-     "stage": "Thunderpick original prices",
-     "source_url": "https://thunderpick.io/api/matches",
-     "status": "unresolved",
-     "detail": "fixture not on the reachable Thunderpick board (HTTP 403)"
-    },
-    {
-     "stage": "Exchange market (Smarkets CS2 match winner)",
-     "source_url": "https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-a/2026/10/26/03-00/ground-zero-vs-off-chops",
-     "status": "resolved",
-     "detail": "event bound by both names and the 60-second start window"
-    },
-    {
-     "stage": "Exchange market (Pinnacle guest board)",
-     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
-     "status": "unresolved",
-     "detail": "no bound matchup on the guest board (No Pinnacle CS2 matchup lists exactly these two teams.)"
-    },
-    {
-     "stage": "Valve-rating research model",
-     "status": "unresolved",
-     "detail": "Off Chops: no Valve rating row found (including registry aliases)"
-    }
-   ],
-   "pick": null,
-   "limitation": "No two-sided prematch price on any probed surface; the published research estimate and its limitation stand until the next refresh.",
-   "extra_pages": [],
-   "current_estimate": {
-    "label": "Own network estimate (bo3.gg results graph)",
-    "probabilities": [
-     0.4492308690416069,
-     0.5507691309583931
-    ],
-    "source": "Own network model (bo3.gg results graph)",
-    "source_url": "https://bo3.gg/matches"
-   }
-  },
-  {
-   "id": "1082861",
-   "teams": [
-    "Rooster",
-    "Abyssal"
-   ],
-   "competition": "DFRAG Invitational 2026",
-   "starts_at": "2026-10-27T03:00:00Z",
-   "hotspawn_url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
-   "status": "open",
-   "covered_as": null,
-   "research": [
-    {
-     "stage": "HLTV first (identity & state)",
-     "source_url": "https://www.hltv.org/matches",
-     "status": "unavailable",
-     "detail": "teams not seen on the fetched HLTV matches page"
-    },
-    {
-     "stage": "Esportsbooks & betting-line sweep",
-     "source_url": "https://gg.bet/esports/counter-strike",
-     "status": "checked",
-     "detail": "3 of 16 esportsbook/aggregator surfaces answered HTTP 200; no probed page named either team. A reachable page is never a price: no readable two-sided pair on any surface. Some surfaces refused or timed out; a refusal is not evidence that no market exists."
-    },
-    {
-     "stage": "Thunderpick original prices",
-     "source_url": "https://thunderpick.io/api/matches",
-     "status": "unresolved",
-     "detail": "fixture not on the reachable Thunderpick board (HTTP 403)"
-    },
-    {
-     "stage": "Exchange market (Smarkets CS2 match winner)",
-     "source_url": "https://smarkets.com/sport/esports/cs-go",
-     "status": "unresolved",
-     "detail": "no exchange event bound to this fixture"
-    },
-    {
-     "stage": "Exchange market (Pinnacle guest board)",
-     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
-     "status": "unresolved",
-     "detail": "no bound matchup on the guest board (No Pinnacle CS2 matchup lists exactly these two teams.)"
-    },
-    {
-     "stage": "Valve-rating research model",
-     "status": "resolved",
-     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
-    }
-   ],
-   "pick": null,
-   "limitation": "No two-sided prematch price on any probed surface; the published research estimate and its limitation stand until the next refresh.",
-   "extra_pages": [],
-   "current_estimate": {
-    "label": "Valve-rating research estimate",
-    "probabilities": [
-     0.47761494,
-     0.52238506
-    ],
-    "source": "Valve official standings",
-    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
-   }
-  },
-  {
-   "id": "1082792",
-   "teams": [
-    "HOTU",
-    "The Huns"
-   ],
-   "competition": "Moscow Cyber Games 2026",
-   "starts_at": "2026-10-31T09:00:00Z",
-   "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
-   "status": "open",
-   "covered_as": null,
-   "research": [
-    {
-     "stage": "HLTV first (identity & state)",
-     "source_url": "https://www.hltv.org/matches",
-     "status": "unavailable",
-     "detail": "teams not seen on the fetched HLTV matches page"
-    },
-    {
-     "stage": "Esportsbooks & betting-line sweep",
-     "source_url": "https://gg.bet/esports/counter-strike",
-     "status": "checked",
-     "detail": "3 of 16 esportsbook/aggregator surfaces answered HTTP 200; no probed page named either team. A reachable page is never a price: no readable two-sided pair on any surface. Some surfaces refused or timed out; a refusal is not evidence that no market exists."
-    },
-    {
-     "stage": "Thunderpick original prices",
-     "source_url": "https://thunderpick.io/api/matches",
-     "status": "unresolved",
-     "detail": "fixture not on the reachable Thunderpick board (HTTP 403)"
-    },
-    {
-     "stage": "Exchange market (Smarkets CS2 match winner)",
-     "source_url": "https://smarkets.com/sport/esports/cs-go",
-     "status": "unresolved",
-     "detail": "no exchange event bound to this fixture"
-    },
-    {
-     "stage": "Exchange market (Pinnacle guest board)",
-     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
-     "status": "unresolved",
-     "detail": "no bound matchup on the guest board (No Pinnacle CS2 matchup lists exactly these two teams.)"
-    },
-    {
-     "stage": "Valve-rating research model",
-     "status": "unresolved",
-     "detail": "The Huns: multiple Valve rosters share this name; no unique exact-five-player HLTV proof"
-    }
-   ],
-   "pick": null,
-   "limitation": "No two-sided prematch price on any probed surface; the published research estimate and its limitation stand until the next refresh.",
-   "extra_pages": [],
-   "current_estimate": {
-    "label": "Research model estimate (Valve official ratings)",
-    "probabilities": [
-     0.94052062,
-     0.05947938
-    ],
-    "source": "Valve official standings",
-    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
-   }
-  },
-  {
-   "id": "1082793",
-   "teams": [
-    "5star",
-    "1WIN"
-   ],
-   "competition": "Moscow Cyber Games 2026",
-   "starts_at": "2026-10-31T13:00:00Z",
-   "hotspawn_url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
-   "status": "open",
-   "covered_as": null,
-   "research": [
-    {
-     "stage": "HLTV first (identity & state)",
-     "source_url": "https://www.hltv.org/matches",
-     "status": "unavailable",
-     "detail": "teams not seen on the fetched HLTV matches page"
-    },
-    {
-     "stage": "Esportsbooks & betting-line sweep",
-     "source_url": "https://gg.bet/esports/counter-strike",
-     "status": "checked",
-     "detail": "3 of 16 esportsbook/aggregator surfaces answered HTTP 200; no probed page named either team. A reachable page is never a price: no readable two-sided pair on any surface. Some surfaces refused or timed out; a refusal is not evidence that no market exists."
-    },
-    {
-     "stage": "Thunderpick original prices",
-     "source_url": "https://thunderpick.io/api/matches",
-     "status": "unresolved",
-     "detail": "fixture not on the reachable Thunderpick board (HTTP 403)"
-    },
-    {
-     "stage": "Exchange market (Smarkets CS2 match winner)",
-     "source_url": "https://smarkets.com/sport/esports/cs-go",
-     "status": "unresolved",
-     "detail": "no exchange event bound to this fixture"
-    },
-    {
-     "stage": "Exchange market (Pinnacle guest board)",
-     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
-     "status": "unresolved",
-     "detail": "no bound matchup on the guest board (No Pinnacle CS2 matchup lists exactly these two teams.)"
-    },
-    {
-     "stage": "Valve-rating research model",
-     "status": "resolved",
-     "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
-    }
-   ],
-   "pick": null,
-   "limitation": "No two-sided prematch price on any probed surface; the published research estimate and its limitation stand until the next refresh.",
-   "extra_pages": [],
-   "current_estimate": {
-    "label": "Valve-rating research estimate",
-    "probabilities": [
-     0.17816902,
-     0.82183098
-    ],
-    "source": "Valve official standings",
-    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
-   }
-  }
- ],
+ "no_line_fixtures": [],
  "counts": {
   "lobby_missing": 0,
   "lobby_closed": 0,
   "lobby_resolved_picks": 0,
   "lobby_unresolved": 0,
-  "no_line_targets": 7,
+  "no_line_targets": 0,
   "no_line_money_leads": 0
  }
 }
