@@ -1,33 +1,33 @@
 {
   "schema_version": 1,
   "session": "arena-f8736556",
-  "observed_at": "2026-10-23T10:00:08Z",
+  "observed_at": "2026-10-23T10:55:02Z",
   "environment": "github-actions-runner",
   "policy": "Read-only. Plain public URLs are authoritative for parity. Hotspawn is fixture identity only. HLTV is identity/ranking context, not a price. No probability, pick, alias or 50/50 default is created by this audit.",
   "target_source": {
     "source_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
     "source": "plain published complete-picks snapshot",
-    "snapshot_generated_at": "2026-10-15T09:31:24Z",
-    "targets": 5,
-    "active": 17
+    "snapshot_generated_at": "2026-10-23T10:43:30Z",
+    "targets": 8,
+    "active": 30
   },
   "targets": [
     {
-      "id": "1080202",
+      "id": "1081605",
       "teams": [
-        "9z",
-        "Falcons"
+        "Phantom Academy",
+        "Banda chuya"
       ],
-      "competition": "Thunderpick World Championship 2026",
-      "starts_at": "2026-10-15T11:00:00Z",
+      "competition": "CCT Europe 2026 Challengers #8",
+      "starts_at": "2026-10-23T11:00:00Z",
       "current_method": "model",
       "current_label": "Valve-rating research estimate",
       "current_probabilities": [
-        0.15709516,
-        0.84290484
+        0.47482128,
+        0.52517872
       ],
       "current_pick_index": 1,
-      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080202",
+      "hotspawn_url": "https://www.hotspawn.com/matches/phantom-academy-vs-banda-chuya-cct-europe-2026-challengers-8-1081605",
       "current_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "limitations": [
         "Hotspawn best-of format is unverified; left blank.",
@@ -37,7 +37,7 @@
       ],
       "research_source_urls": [
         "https://polymarket.com/esports/cs2",
-        "https://www.hltv.org/matches/2399409/9z-vs-falcons-thunderpick-world-championship-2026",
+        "https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8",
         "https://thunderpick.io/esports/counter-strike",
         "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
         "https://www.pinnacle.com/en/esports-hub/cs2",
@@ -47,21 +47,157 @@
       ]
     },
     {
-      "id": "1080203",
+      "id": "1082996",
       "teams": [
-        "PARIVISION",
-        "BetBoom"
+        "Acend",
+        "UNiTY"
       ],
-      "competition": "Thunderpick World Championship 2026",
-      "starts_at": "2026-10-15T13:30:00Z",
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T09:00:00Z",
       "current_method": "model",
       "current_label": "Valve-rating research estimate",
       "current_probabilities": [
-        0.26192226,
-        0.73807774
+        0.54190155,
+        0.45809845
+      ],
+      "current_pick_index": 0,
+      "hotspawn_url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
+      "current_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "Research model, not observed betting odds or a verified true win probability.",
+        "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
+        "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
+      ],
+      "research_source_urls": [
+        "https://polymarket.com/esports/cs2",
+        "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
+        "https://thunderpick.io/esports/counter-strike",
+        "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
+        "https://www.pinnacle.com/en/esports-hub/cs2",
+        "https://www.rivalry.com/esports/counter-strike-betting",
+        "https://stake.com/sports/esports/counter-strike",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ]
+    },
+    {
+      "id": "1079198",
+      "teams": [
+        "Metizport",
+        "BakS"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T12:00:00Z",
+      "current_method": "model",
+      "current_label": "Valve-rating research estimate",
+      "current_probabilities": [
+        0.79860558,
+        0.20139442
+      ],
+      "current_pick_index": 0,
+      "hotspawn_url": "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198",
+      "current_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "Research model, not observed betting odds or a verified true win probability.",
+        "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
+        "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
+      ],
+      "research_source_urls": [
+        "https://polymarket.com/esports/cs2",
+        "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13",
+        "https://thunderpick.io/esports/counter-strike",
+        "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
+        "https://www.pinnacle.com/en/esports-hub/cs2",
+        "https://www.rivalry.com/esports/counter-strike-betting",
+        "https://stake.com/sports/esports/counter-strike",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ]
+    },
+    {
+      "id": "1079200",
+      "teams": [
+        "Color",
+        "ex-Zero Tenacity"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T18:00:00Z",
+      "current_method": "model",
+      "current_label": "Valve-rating research estimate",
+      "current_probabilities": [
+        0.7359068,
+        0.2640932
+      ],
+      "current_pick_index": 0,
+      "hotspawn_url": "https://www.hotspawn.com/matches/color-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079200",
+      "current_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "Research model, not observed betting odds or a verified true win probability.",
+        "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
+        "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
+      ],
+      "research_source_urls": [
+        "https://polymarket.com/event/cs2-color-zerote-2026-10-25",
+        "https://www.hltv.org/matches/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+        "https://thunderpick.io/esports/counter-strike",
+        "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
+        "https://www.pinnacle.com/en/esports-hub/cs2",
+        "https://www.rivalry.com/esports/counter-strike-betting",
+        "https://stake.com/sports/esports/counter-strike",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ]
+    },
+    {
+      "id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "current_method": "model",
+      "current_label": "Own network estimate (bo3.gg results graph)",
+      "current_probabilities": [
+        0.4492308690416069,
+        0.5507691309583931
       ],
       "current_pick_index": 1,
-      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080203",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
+      "current_source_url": "https://bo3.gg/matches",
+      "limitations": [
+        "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4683 finished bo3.gg series, anchored on Valve's official points for 268 teams; the rating-difference one-sigma interval is 156.9 points (probability interval 0.118-0.833). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only."
+      ],
+      "research_source_urls": [
+        "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+        "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25",
+        "https://kalshi.com/markets/kxcs2game/counterstrike-2-game",
+        "https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-a/2026/10/26/03-00/ground-zero-vs-off-chops",
+        "https://thunderpick.io/esports/counter-strike",
+        "https://www.bovada.lv/sports",
+        "https://www.pinnacle.com/en/esports/counter-strike-2",
+        "https://bo3.gg/matches",
+        "https://egamersworld.com/counterstrike/matches",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "https://www.hltv.org/ranking/teams"
+      ]
+    },
+    {
+      "id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "current_method": "model",
+      "current_label": "Valve-rating research estimate",
+      "current_probabilities": [
+        0.47761494,
+        0.52238506
+      ],
+      "current_pick_index": 1,
+      "hotspawn_url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
       "current_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "limitations": [
         "Hotspawn best-of format is unverified; left blank.",
@@ -70,8 +206,8 @@
         "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
       ],
       "research_source_urls": [
-        "https://polymarket.com/esports/cs2",
-        "https://www.hltv.org/matches/2399410/parivision-vs-betboom-thunderpick-world-championship-2026",
+        "https://polymarket.com/event/cs2-rstr-abyssa-2026-10-26",
+        "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
         "https://thunderpick.io/esports/counter-strike",
         "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
         "https://www.pinnacle.com/en/esports-hub/cs2",
@@ -81,55 +217,56 @@
       ]
     },
     {
-      "id": "1080282",
+      "id": "1082792",
       "teams": [
-        "EAC",
-        "BOJONG"
+        "HOTU",
+        "The Huns"
       ],
-      "competition": "Elisa BreakOut Series #2",
-      "starts_at": "2026-10-15T14:00:00Z",
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T09:00:00Z",
       "current_method": "model",
-      "current_label": "Valve-rating research estimate",
+      "current_label": "Research model estimate (Valve official ratings)",
       "current_probabilities": [
-        0.96095469,
-        0.03904531
+        0.94052062,
+        0.05947938
       ],
       "current_pick_index": 0,
-      "hotspawn_url": "https://www.hotspawn.com/matches/eac-vs-bojong-elisa-breakout-series-2-1080282",
+      "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
       "current_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "limitations": [
-        "Hotspawn best-of format is unverified; left blank.",
-        "Research model, not observed betting odds or a verified true win probability.",
-        "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
-        "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
+        "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified.",
+        "The Huns: the current HLTV lineup shares four of five players with the selected historical Valve row; the one-player change is not quantified."
       ],
       "research_source_urls": [
+        "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
         "https://polymarket.com/esports/cs2",
-        "https://www.hltv.org/matches/2399421/eac-vs-bojong-elisa-breakout-series-2",
+        "https://kalshi.com/markets/kxcs2game/counterstrike-2-game",
+        "https://smarkets.com/sport/esports/cs-go",
         "https://thunderpick.io/esports/counter-strike",
-        "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
-        "https://www.pinnacle.com/en/esports-hub/cs2",
-        "https://www.rivalry.com/esports/counter-strike-betting",
-        "https://stake.com/sports/esports/counter-strike",
-        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+        "https://www.bovada.lv/sports",
+        "https://www.pinnacle.com/en/esports/counter-strike-2",
+        "https://bo3.gg/matches",
+        "https://egamersworld.com/counterstrike/matches",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "https://www.hltv.org/ranking/teams"
       ]
     },
     {
-      "id": "1080284",
+      "id": "1082793",
       "teams": [
-        "EAC",
-        "ENCE"
+        "5star",
+        "1WIN"
       ],
-      "competition": "Elisa BreakOut Series #2",
-      "starts_at": "2026-10-15T18:00:00Z",
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T13:00:00Z",
       "current_method": "model",
       "current_label": "Valve-rating research estimate",
       "current_probabilities": [
-        0.51399636,
-        0.48600364
+        0.17816902,
+        0.82183098
       ],
-      "current_pick_index": 0,
-      "hotspawn_url": "https://www.hotspawn.com/matches/eac-vs-ence-elisa-breakout-series-2-1080284",
+      "current_pick_index": 1,
+      "hotspawn_url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
       "current_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "limitations": [
         "Hotspawn best-of format is unverified; left blank.",
@@ -139,41 +276,7 @@
       ],
       "research_source_urls": [
         "https://polymarket.com/esports/cs2",
-        "https://www.hltv.org/matches/2399423/eac-vs-ence-elisa-breakout-series-2",
-        "https://thunderpick.io/esports/counter-strike",
-        "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
-        "https://www.pinnacle.com/en/esports-hub/cs2",
-        "https://www.rivalry.com/esports/counter-strike-betting",
-        "https://stake.com/sports/esports/counter-strike",
-        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
-      ]
-    },
-    {
-      "id": "1081120",
-      "teams": [
-        "mellren",
-        "Privateer"
-      ],
-      "competition": "CCT Europe 2026 Series #12 Play-In",
-      "starts_at": "2026-10-16T14:00:00Z",
-      "current_method": "model",
-      "current_label": "Valve-rating research estimate",
-      "current_probabilities": [
-        0.85989312,
-        0.14010688
-      ],
-      "current_pick_index": 0,
-      "hotspawn_url": "https://www.hotspawn.com/matches/mellren-vs-privateer-cct-europe-2026-series-12-play-in-1081120",
-      "current_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "limitations": [
-        "Hotspawn best-of format is unverified; left blank.",
-        "Research model, not observed betting odds or a verified true win probability.",
-        "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
-        "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
-      ],
-      "research_source_urls": [
-        "https://polymarket.com/esports/cs2",
-        "https://www.hltv.org/matches/2399471/mellren-vs-privateer-cct-2026-europe-series-12-closed-qualifier",
+        "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
         "https://thunderpick.io/esports/counter-strike",
         "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
         "https://www.pinnacle.com/en/esports-hub/cs2",
@@ -195,7 +298,9 @@
         "challenge-platform",
         "enable javascript and cookies"
       ],
-      "teams_found": []
+      "teams_found": [
+        "Color"
+      ]
     },
     {
       "name": "HLTV world ranking",
@@ -208,7 +313,9 @@
         "challenge-platform",
         "enable javascript and cookies"
       ],
-      "teams_found": []
+      "teams_found": [
+        "Color"
+      ]
     },
     {
       "name": "GG.BET CS2",
@@ -224,13 +331,11 @@
       "url": "https://betboom.ru/sport/cs2",
       "status": 401,
       "final_url": "https://betboom.ru/sport/cs2",
-      "bytes": 1800,
+      "bytes": 1801,
       "challenge_markers": [
         "captcha"
       ],
-      "teams_found": [
-        "BetBoom"
-      ]
+      "teams_found": []
     },
     {
       "name": "Stake CS2",
@@ -243,7 +348,9 @@
         "challenge-platform",
         "enable javascript and cookies"
       ],
-      "teams_found": []
+      "teams_found": [
+        "Color"
+      ]
     },
     {
       "name": "BC.Game CS2",
@@ -254,14 +361,16 @@
       "challenge_markers": [
         "challenge-platform"
       ],
-      "teams_found": []
+      "teams_found": [
+        "Color"
+      ]
     },
     {
       "name": "1xBet CS2",
       "url": "https://1xbet.com/en/line/counter-strike-2",
       "status": 203,
       "final_url": "https://1xbet.com/en/block",
-      "bytes": 2620,
+      "bytes": 2621,
       "challenge_markers": [
         "challenge-platform"
       ],
@@ -272,7 +381,7 @@
       "url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
       "status": 403,
       "final_url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
-      "bytes": 5488,
+      "bytes": 5489,
       "challenge_markers": [
         "challenge-platform",
         "attention required",
@@ -287,34 +396,40 @@
       "final_url": "https://betway.com/g/en/sports/esports/counter-strike-2",
       "bytes": 6690,
       "challenge_markers": [],
-      "teams_found": []
+      "teams_found": [
+        "Color"
+      ]
     },
     {
       "name": "DraftKings CS2",
       "url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
       "status": 404,
       "final_url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
-      "bytes": 257729,
+      "bytes": 257263,
       "challenge_markers": [],
-      "teams_found": []
+      "teams_found": [
+        "Color"
+      ]
     },
     {
       "name": "OddsPortal CS2",
       "url": "https://www.oddsportal.com/esports/counter-strike/",
       "status": 200,
       "final_url": "https://www.oddsportal.com/esports/counter-strike/",
-      "bytes": 338938,
+      "bytes": 338117,
       "challenge_markers": [
         "captcha"
       ],
-      "teams_found": []
+      "teams_found": [
+        "Color"
+      ]
     },
     {
       "name": "EGamersWorld CS2 matches",
       "url": "https://egamersworld.com/counterstrike/matches",
       "status": 403,
       "final_url": "https://egamersworld.com/counterstrike/matches",
-      "bytes": 5775,
+      "bytes": 5776,
       "challenge_markers": [
         "challenge-platform",
         "attention required",
@@ -340,7 +455,9 @@
       "challenge_markers": [
         "challenge-platform"
       ],
-      "teams_found": []
+      "teams_found": [
+        "Color"
+      ]
     },
     {
       "name": "Betano CS2",
@@ -351,7 +468,9 @@
       "challenge_markers": [
         "challenge-platform"
       ],
-      "teams_found": []
+      "teams_found": [
+        "Color"
+      ]
     },
     {
       "name": "Betsson CS2",
@@ -376,19 +495,21 @@
       "url": "https://oddspedia.com/esports/counter-strike",
       "status": 410,
       "final_url": "https://oddspedia.com/esports/counter-strike",
-      "bytes": 340025,
+      "bytes": 340006,
       "challenge_markers": [
         "challenge-platform",
         "captcha"
       ],
-      "teams_found": []
+      "teams_found": [
+        "Color"
+      ]
     },
     {
       "name": "22bet CS2",
       "url": "https://22bet.com/line/counter-strike-2",
       "status": 203,
       "final_url": "https://22bet.com/line/counter-strike-2",
-      "bytes": 27145,
+      "bytes": 27146,
       "challenge_markers": [
         "captcha",
         "access denied"
@@ -406,20 +527,24 @@
         "challenge-platform",
         "enable javascript and cookies"
       ],
-      "teams_found": []
+      "teams_found": [
+        "Color"
+      ]
     },
     {
       "name": "HLTV search endpoint",
       "url": "https://www.hltv.org/search?query=counter-strike",
       "status": 403,
       "final_url": "https://www.hltv.org/search?query=counter-strike",
-      "bytes": 5722,
+      "bytes": 5743,
       "challenge_markers": [
         "just a moment",
         "challenge-platform",
         "enable javascript and cookies"
       ],
-      "teams_found": []
+      "teams_found": [
+        "Color"
+      ]
     },
     {
       "name": "bo3.gg matches",
@@ -430,14 +555,16 @@
       "challenge_markers": [
         "captcha"
       ],
-      "teams_found": []
+      "teams_found": [
+        "Color"
+      ]
     },
     {
       "name": "EGamersWorld CS2 odds",
       "url": "https://egamersworld.com/counter-strike/betting",
       "status": 403,
       "final_url": "https://egamersworld.com/counter-strike/betting",
-      "bytes": 5775,
+      "bytes": 5776,
       "challenge_markers": [
         "challenge-platform",
         "attention required",
@@ -448,163 +575,255 @@
   ],
   "pinnacle_guest_api": {
     "api": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
-    "matchups_seen": 22207,
+    "matchups_seen": 22411,
     "fixture_hits": []
   },
   "bo3": [
     {
-      "id": "1080202",
+      "id": "1081605",
       "teams": [
-        "9z",
-        "Falcons"
+        "Phantom Academy",
+        "Banda chuya"
       ],
       "bound": null,
       "bet": null,
       "lookup": [
         {
-          "name": "9z",
+          "name": "Phantom Academy",
           "matches": 1,
           "exact": 1,
-          "id": 324,
-          "slug": "9z",
-          "rank": 17
+          "id": 22009,
+          "slug": "phantom-academy",
+          "rank": 173
         },
         {
-          "name": "Falcons",
-          "matches": 1,
-          "exact": 1,
-          "id": 2713,
-          "slug": "falcons-esports",
-          "rank": 6
+          "name": "Banda chuya",
+          "matches": 0,
+          "exact": 0
         }
       ]
     },
     {
-      "id": "1080203",
+      "id": "1082996",
       "teams": [
-        "PARIVISION",
-        "BetBoom"
+        "Acend",
+        "UNiTY"
       ],
-      "bound": null,
+      "bound": {
+        "slug": "acend-cs2-vs-unity-25-10-2026",
+        "start_date": "2026-10-25T09:00:00.000+00:00",
+        "url": "https://bo3.gg/matches/acend-cs2-vs-unity-25-10-2026"
+      },
       "bet": null,
       "lookup": [
         {
-          "name": "PARIVISION",
+          "name": "Acend",
           "matches": 1,
           "exact": 1,
-          "id": 8171,
-          "slug": "parivision",
-          "rank": 36
+          "id": 21980,
+          "slug": "acend-cs2",
+          "rank": 63
         },
         {
-          "name": "BetBoom",
+          "name": "UNiTY",
           "matches": 1,
           "exact": 1,
-          "id": 7498,
-          "slug": "betboom-team",
-          "rank": 11
+          "id": 3829,
+          "slug": "unity",
+          "rank": 69
         }
       ]
     },
     {
-      "id": "1080282",
+      "id": "1079198",
       "teams": [
-        "EAC",
-        "BOJONG"
+        "Metizport",
+        "BakS"
       ],
-      "bound": null,
+      "bound": {
+        "slug": "metizport-vs-baks-esports-25-10-2026",
+        "start_date": "2026-10-25T12:00:00.000+00:00",
+        "url": "https://bo3.gg/matches/metizport-vs-baks-esports-25-10-2026"
+      },
       "bet": null,
       "lookup": [
         {
-          "name": "EAC",
+          "name": "Metizport",
           "matches": 1,
           "exact": 1,
-          "id": 23942,
-          "slug": "esport-academy-copenhagen",
-          "rank": 103
+          "id": 1578,
+          "slug": "metizport",
+          "rank": 53
         },
         {
-          "name": "BOJONG",
-          "matches": 1,
-          "exact": 1,
-          "id": 22898,
-          "slug": "bojong",
-          "rank": 363
+          "name": "BakS",
+          "matches": 0,
+          "exact": 0
         }
       ]
     },
     {
-      "id": "1080284",
+      "id": "1079200",
       "teams": [
-        "EAC",
-        "ENCE"
+        "Color",
+        "ex-Zero Tenacity"
       ],
-      "bound": null,
+      "bound": {
+        "slug": "color-vs-ex-zero-tenacity-25-10-2026",
+        "start_date": "2026-10-25T18:00:00.000+00:00",
+        "url": "https://bo3.gg/matches/color-vs-ex-zero-tenacity-25-10-2026"
+      },
       "bet": null,
       "lookup": [
         {
-          "name": "EAC",
+          "name": "Color",
           "matches": 1,
           "exact": 1,
-          "id": 23942,
-          "slug": "esport-academy-copenhagen",
-          "rank": 103
+          "id": 25159,
+          "slug": "color",
+          "rank": 57
         },
         {
-          "name": "ENCE",
+          "name": "ex-Zero Tenacity",
           "matches": 1,
           "exact": 1,
-          "id": 754,
-          "slug": "ence",
-          "rank": 105
+          "id": 22185,
+          "slug": "ex-zero-tenacity",
+          "rank": 93
         }
       ]
     },
     {
-      "id": "1081120",
+      "id": "1082858",
       "teams": [
-        "mellren",
-        "Privateer"
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "bound": {
+        "slug": "ground-zero-vs-off-chops-26-10-2026",
+        "start_date": "2026-10-26T03:00:00.000+00:00",
+        "url": "https://bo3.gg/matches/ground-zero-vs-off-chops-26-10-2026"
+      },
+      "bet": null,
+      "lookup": [
+        {
+          "name": "Ground Zero",
+          "matches": 1,
+          "exact": 1,
+          "id": 584,
+          "slug": "ground-zero",
+          "rank": 136
+        },
+        {
+          "name": "Off Chops",
+          "matches": 1,
+          "exact": 1,
+          "id": 25492,
+          "slug": "off-chops",
+          "rank": null
+        }
+      ]
+    },
+    {
+      "id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "bound": {
+        "slug": "rooster-vs-abyssal-27-10-2026",
+        "start_date": "2026-10-27T03:00:00.000+00:00",
+        "url": "https://bo3.gg/matches/rooster-vs-abyssal-27-10-2026"
+      },
+      "bet": null,
+      "lookup": [
+        {
+          "name": "Rooster",
+          "matches": 1,
+          "exact": 1,
+          "id": 151,
+          "slug": "rooster",
+          "rank": 205
+        },
+        {
+          "name": "Abyssal",
+          "matches": 1,
+          "exact": 1,
+          "id": 22732,
+          "slug": "abyssal",
+          "rank": 195
+        }
+      ]
+    },
+    {
+      "id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
       ],
       "bound": null,
       "bet": null,
       "lookup": [
         {
-          "name": "mellren",
+          "name": "HOTU",
           "matches": 1,
           "exact": 1,
-          "id": 23102,
-          "slug": "mellren",
-          "rank": 125
+          "id": 2720,
+          "slug": "hotu",
+          "rank": 31
         },
         {
-          "name": "Privateer",
+          "name": "The Huns",
           "matches": 1,
           "exact": 1,
-          "id": 23433,
-          "slug": "privateer-gaming",
-          "rank": 273
+          "id": 9127,
+          "slug": "the-huns-esports",
+          "rank": 122
+        }
+      ]
+    },
+    {
+      "id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "bound": null,
+      "bet": null,
+      "lookup": [
+        {
+          "name": "5star",
+          "matches": 1,
+          "exact": 1,
+          "id": 23051,
+          "slug": "5star-esports",
+          "rank": 80
+        },
+        {
+          "name": "1WIN",
+          "matches": 0,
+          "exact": 0
         }
       ]
     }
   ],
   "per_fixture": [
     {
-      "id": "1080202",
+      "id": "1081605",
       "teams": [
-        "9z",
-        "Falcons"
+        "Phantom Academy",
+        "Banda chuya"
       ],
-      "competition": "Thunderpick World Championship 2026",
-      "starts_at": "2026-10-15T11:00:00Z",
+      "competition": "CCT Europe 2026 Challengers #8",
+      "starts_at": "2026-10-23T11:00:00Z",
       "current_method": "model",
       "current_label": "Valve-rating research estimate",
       "current_probabilities": [
-        0.15709516,
-        0.84290484
+        0.47482128,
+        0.52517872
       ],
       "current_pick_index": 1,
-      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080202",
+      "hotspawn_url": "https://www.hotspawn.com/matches/phantom-academy-vs-banda-chuya-cct-europe-2026-challengers-8-1081605",
       "current_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "limitations": [
         "Hotspawn best-of format is unverified; left blank.",
@@ -614,7 +833,7 @@
       ],
       "research_source_urls": [
         "https://polymarket.com/esports/cs2",
-        "https://www.hltv.org/matches/2399409/9z-vs-falcons-thunderpick-world-championship-2026",
+        "https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8",
         "https://thunderpick.io/esports/counter-strike",
         "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
         "https://www.pinnacle.com/en/esports-hub/cs2",
@@ -631,21 +850,21 @@
       "verdict": "No fixture-bound two-sided price was readable on the surfaces probed; the published research estimate or blank limitation stands"
     },
     {
-      "id": "1080203",
+      "id": "1082996",
       "teams": [
-        "PARIVISION",
-        "BetBoom"
+        "Acend",
+        "UNiTY"
       ],
-      "competition": "Thunderpick World Championship 2026",
-      "starts_at": "2026-10-15T13:30:00Z",
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T09:00:00Z",
       "current_method": "model",
       "current_label": "Valve-rating research estimate",
       "current_probabilities": [
-        0.26192226,
-        0.73807774
+        0.54190155,
+        0.45809845
       ],
-      "current_pick_index": 1,
-      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080203",
+      "current_pick_index": 0,
+      "hotspawn_url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
       "current_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "limitations": [
         "Hotspawn best-of format is unverified; left blank.",
@@ -655,7 +874,7 @@
       ],
       "research_source_urls": [
         "https://polymarket.com/esports/cs2",
-        "https://www.hltv.org/matches/2399410/parivision-vs-betboom-thunderpick-world-championship-2026",
+        "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
         "https://thunderpick.io/esports/counter-strike",
         "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
         "https://www.pinnacle.com/en/esports-hub/cs2",
@@ -663,32 +882,167 @@
         "https://stake.com/sports/esports/counter-strike",
         "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
       ],
-      "bo3_bound_url": null,
+      "bo3_bound_url": "https://bo3.gg/matches/acend-cs2-vs-unity-25-10-2026",
+      "bo3_bet_two_sided": false,
+      "bo3_bet": null,
+      "pinnacle_matchup": null,
+      "pages_listing_a_team": [],
+      "money_line_lead": false,
+      "verdict": "No fixture-bound two-sided price was readable on the surfaces probed; the published research estimate or blank limitation stands"
+    },
+    {
+      "id": "1079198",
+      "teams": [
+        "Metizport",
+        "BakS"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T12:00:00Z",
+      "current_method": "model",
+      "current_label": "Valve-rating research estimate",
+      "current_probabilities": [
+        0.79860558,
+        0.20139442
+      ],
+      "current_pick_index": 0,
+      "hotspawn_url": "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198",
+      "current_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "Research model, not observed betting odds or a verified true win probability.",
+        "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
+        "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
+      ],
+      "research_source_urls": [
+        "https://polymarket.com/esports/cs2",
+        "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13",
+        "https://thunderpick.io/esports/counter-strike",
+        "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
+        "https://www.pinnacle.com/en/esports-hub/cs2",
+        "https://www.rivalry.com/esports/counter-strike-betting",
+        "https://stake.com/sports/esports/counter-strike",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ],
+      "bo3_bound_url": "https://bo3.gg/matches/metizport-vs-baks-esports-25-10-2026",
+      "bo3_bet_two_sided": false,
+      "bo3_bet": null,
+      "pinnacle_matchup": null,
+      "pages_listing_a_team": [],
+      "money_line_lead": false,
+      "verdict": "No fixture-bound two-sided price was readable on the surfaces probed; the published research estimate or blank limitation stands"
+    },
+    {
+      "id": "1079200",
+      "teams": [
+        "Color",
+        "ex-Zero Tenacity"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T18:00:00Z",
+      "current_method": "model",
+      "current_label": "Valve-rating research estimate",
+      "current_probabilities": [
+        0.7359068,
+        0.2640932
+      ],
+      "current_pick_index": 0,
+      "hotspawn_url": "https://www.hotspawn.com/matches/color-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079200",
+      "current_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "Research model, not observed betting odds or a verified true win probability.",
+        "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
+        "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
+      ],
+      "research_source_urls": [
+        "https://polymarket.com/event/cs2-color-zerote-2026-10-25",
+        "https://www.hltv.org/matches/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+        "https://thunderpick.io/esports/counter-strike",
+        "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
+        "https://www.pinnacle.com/en/esports-hub/cs2",
+        "https://www.rivalry.com/esports/counter-strike-betting",
+        "https://stake.com/sports/esports/counter-strike",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ],
+      "bo3_bound_url": "https://bo3.gg/matches/color-vs-ex-zero-tenacity-25-10-2026",
       "bo3_bet_two_sided": false,
       "bo3_bet": null,
       "pinnacle_matchup": null,
       "pages_listing_a_team": [
-        "BetBoom CS2"
+        "HLTV match listing",
+        "HLTV world ranking",
+        "Stake CS2",
+        "BC.Game CS2",
+        "Betway esports",
+        "DraftKings CS2",
+        "OddsPortal CS2",
+        "Rivalry CS2",
+        "Betano CS2",
+        "Oddspedia CS2",
+        "Bet365 esports",
+        "HLTV search endpoint",
+        "bo3.gg matches"
       ],
       "money_line_lead": false,
       "verdict": "No fixture-bound two-sided price was readable on the surfaces probed; the published research estimate or blank limitation stands"
     },
     {
-      "id": "1080282",
+      "id": "1082858",
       "teams": [
-        "EAC",
-        "BOJONG"
+        "Ground Zero",
+        "Off Chops"
       ],
-      "competition": "Elisa BreakOut Series #2",
-      "starts_at": "2026-10-15T14:00:00Z",
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "current_method": "model",
+      "current_label": "Own network estimate (bo3.gg results graph)",
+      "current_probabilities": [
+        0.4492308690416069,
+        0.5507691309583931
+      ],
+      "current_pick_index": 1,
+      "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
+      "current_source_url": "https://bo3.gg/matches",
+      "limitations": [
+        "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4683 finished bo3.gg series, anchored on Valve's official points for 268 teams; the rating-difference one-sigma interval is 156.9 points (probability interval 0.118-0.833). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only."
+      ],
+      "research_source_urls": [
+        "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+        "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25",
+        "https://kalshi.com/markets/kxcs2game/counterstrike-2-game",
+        "https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-a/2026/10/26/03-00/ground-zero-vs-off-chops",
+        "https://thunderpick.io/esports/counter-strike",
+        "https://www.bovada.lv/sports",
+        "https://www.pinnacle.com/en/esports/counter-strike-2",
+        "https://bo3.gg/matches",
+        "https://egamersworld.com/counterstrike/matches",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "https://www.hltv.org/ranking/teams"
+      ],
+      "bo3_bound_url": "https://bo3.gg/matches/ground-zero-vs-off-chops-26-10-2026",
+      "bo3_bet_two_sided": false,
+      "bo3_bet": null,
+      "pinnacle_matchup": null,
+      "pages_listing_a_team": [],
+      "money_line_lead": false,
+      "verdict": "No fixture-bound two-sided price was readable on the surfaces probed; the published research estimate or blank limitation stands"
+    },
+    {
+      "id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
       "current_method": "model",
       "current_label": "Valve-rating research estimate",
       "current_probabilities": [
-        0.96095469,
-        0.03904531
+        0.47761494,
+        0.52238506
       ],
-      "current_pick_index": 0,
-      "hotspawn_url": "https://www.hotspawn.com/matches/eac-vs-bojong-elisa-breakout-series-2-1080282",
+      "current_pick_index": 1,
+      "hotspawn_url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
       "current_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "limitations": [
         "Hotspawn best-of format is unverified; left blank.",
@@ -697,14 +1051,56 @@
         "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
       ],
       "research_source_urls": [
-        "https://polymarket.com/esports/cs2",
-        "https://www.hltv.org/matches/2399421/eac-vs-bojong-elisa-breakout-series-2",
+        "https://polymarket.com/event/cs2-rstr-abyssa-2026-10-26",
+        "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
         "https://thunderpick.io/esports/counter-strike",
         "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
         "https://www.pinnacle.com/en/esports-hub/cs2",
         "https://www.rivalry.com/esports/counter-strike-betting",
         "https://stake.com/sports/esports/counter-strike",
         "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ],
+      "bo3_bound_url": "https://bo3.gg/matches/rooster-vs-abyssal-27-10-2026",
+      "bo3_bet_two_sided": false,
+      "bo3_bet": null,
+      "pinnacle_matchup": null,
+      "pages_listing_a_team": [],
+      "money_line_lead": false,
+      "verdict": "No fixture-bound two-sided price was readable on the surfaces probed; the published research estimate or blank limitation stands"
+    },
+    {
+      "id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "current_method": "model",
+      "current_label": "Research model estimate (Valve official ratings)",
+      "current_probabilities": [
+        0.94052062,
+        0.05947938
+      ],
+      "current_pick_index": 0,
+      "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+      "current_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "limitations": [
+        "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified.",
+        "The Huns: the current HLTV lineup shares four of five players with the selected historical Valve row; the one-player change is not quantified."
+      ],
+      "research_source_urls": [
+        "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+        "https://polymarket.com/esports/cs2",
+        "https://kalshi.com/markets/kxcs2game/counterstrike-2-game",
+        "https://smarkets.com/sport/esports/cs-go",
+        "https://thunderpick.io/esports/counter-strike",
+        "https://www.bovada.lv/sports",
+        "https://www.pinnacle.com/en/esports/counter-strike-2",
+        "https://bo3.gg/matches",
+        "https://egamersworld.com/counterstrike/matches",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "https://www.hltv.org/ranking/teams"
       ],
       "bo3_bound_url": null,
       "bo3_bet_two_sided": false,
@@ -715,21 +1111,21 @@
       "verdict": "No fixture-bound two-sided price was readable on the surfaces probed; the published research estimate or blank limitation stands"
     },
     {
-      "id": "1080284",
+      "id": "1082793",
       "teams": [
-        "EAC",
-        "ENCE"
+        "5star",
+        "1WIN"
       ],
-      "competition": "Elisa BreakOut Series #2",
-      "starts_at": "2026-10-15T18:00:00Z",
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T13:00:00Z",
       "current_method": "model",
       "current_label": "Valve-rating research estimate",
       "current_probabilities": [
-        0.51399636,
-        0.48600364
+        0.17816902,
+        0.82183098
       ],
-      "current_pick_index": 0,
-      "hotspawn_url": "https://www.hotspawn.com/matches/eac-vs-ence-elisa-breakout-series-2-1080284",
+      "current_pick_index": 1,
+      "hotspawn_url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
       "current_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "limitations": [
         "Hotspawn best-of format is unverified; left blank.",
@@ -739,48 +1135,7 @@
       ],
       "research_source_urls": [
         "https://polymarket.com/esports/cs2",
-        "https://www.hltv.org/matches/2399423/eac-vs-ence-elisa-breakout-series-2",
-        "https://thunderpick.io/esports/counter-strike",
-        "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
-        "https://www.pinnacle.com/en/esports-hub/cs2",
-        "https://www.rivalry.com/esports/counter-strike-betting",
-        "https://stake.com/sports/esports/counter-strike",
-        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
-      ],
-      "bo3_bound_url": null,
-      "bo3_bet_two_sided": false,
-      "bo3_bet": null,
-      "pinnacle_matchup": null,
-      "pages_listing_a_team": [],
-      "money_line_lead": false,
-      "verdict": "No fixture-bound two-sided price was readable on the surfaces probed; the published research estimate or blank limitation stands"
-    },
-    {
-      "id": "1081120",
-      "teams": [
-        "mellren",
-        "Privateer"
-      ],
-      "competition": "CCT Europe 2026 Series #12 Play-In",
-      "starts_at": "2026-10-16T14:00:00Z",
-      "current_method": "model",
-      "current_label": "Valve-rating research estimate",
-      "current_probabilities": [
-        0.85989312,
-        0.14010688
-      ],
-      "current_pick_index": 0,
-      "hotspawn_url": "https://www.hotspawn.com/matches/mellren-vs-privateer-cct-europe-2026-series-12-play-in-1081120",
-      "current_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-      "limitations": [
-        "Hotspawn best-of format is unverified; left blank.",
-        "Research model, not observed betting odds or a verified true win probability.",
-        "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
-        "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
-      ],
-      "research_source_urls": [
-        "https://polymarket.com/esports/cs2",
-        "https://www.hltv.org/matches/2399471/mellren-vs-privateer-cct-2026-europe-series-12-closed-qualifier",
+        "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
         "https://thunderpick.io/esports/counter-strike",
         "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
         "https://www.pinnacle.com/en/esports-hub/cs2",
