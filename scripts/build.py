@@ -1138,14 +1138,14 @@ def no_line_research_block(data, prefix):
     reviewed ladder must replay on the next refresh before a pick can change.
     Coefficients are quoted verbatim as evidence, never converted here.
     """
-    record = data.get('_no_line_research') or {}
-    fixtures = record.get('per_fixture') or []
-    if not fixtures:
+    if '_no_line_research' in data and not data.get('_no_line_research'):
         # Session arena-2016c841: with the newest-wins loader a sweep recorded
         # during the legacy Pages branch-root race can be dropped before it ever
-        # renders, leaving NO eligible dated record behind. Anchor availability
-        # must never depend on that: state plainly that all retained sweeps are
-        # superseded by the current card rather than emitting nothing.
+        # renders, leaving EVERY retained dated record ineligible. Historically
+        # that silently removed the whole block (main pages run 39945068191
+        # failed regression on the missing anchor), so render a dated-records
+        # note instead. The legacy empty-data behaviour stays: with no loader
+        # result key at all, emit nothing (3016b0c6's absence contract).
         return ('<div class="line-sources" id="no-line-research">'
                 '<h3>Fixtures without a betting line — latest dated research</h3>'
                 '<p class="tiny">No retained dated sweep currently qualifies to render: retained records '
@@ -1156,6 +1156,10 @@ def no_line_research_block(data, prefix):
                 f'<a class="internal-link" href="{prefix}#unresolved-register">Blanks in this summary ↓</a> '
                 f'<a class="internal-link" href="{prefix}unresolved/">Unresolved picks &amp; limitations →</a></p>'
                 '</div>')
+    record = data.get('_no_line_research') or {}
+    fixtures = record.get('per_fixture') or []
+    if not fixtures:
+        return ''
     record_path = record.get('_record_path', 'research/3016b0c6/line-source-research.json')
     markdown_path = str(Path(record_path).with_suffix('.md'))
     leads = [f for f in fixtures if f.get('money_line_lead')]
