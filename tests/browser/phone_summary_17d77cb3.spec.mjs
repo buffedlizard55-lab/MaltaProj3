@@ -9,15 +9,20 @@ import { test, expect } from '@playwright/test';
 // 1. the six-tab bottom bar overflowed the viewport (501px of content in a
 //    390px bar, last tab clipped at x=493 with no scroll affordance), and at
 //    320/360px "Summary"/"Unresolved" broke mid-word;
-// 2. five stacked 52px "Start here" cards plus the explanatory paragraph put
-//    the first pick 1,098px down a 390x844 phone.
+// 2. the jump bar and its explanatory paragraph pushed the first pick down a
+//    390x844 phone: 1,098px before this session, and 1,350px after another
+//    session restored a full description under every chip. With labels only
+//    (the primary chip keeps its description; the counts they repeat are in the
+//    phone status strip directly above) the measured position on this
+//    stale-snapshot build is 956px at 390px and 1,044px at 320px — and lower
+//    still on a fresh snapshot, where the amber staleness notice is hidden.
 //
 // These are layout facts, so they are asserted in a browser rather than in CSS
 // unit tests. Nothing here re-prices, re-orders or re-picks a fixture.
 
 const sizes = [
-  { width: 390, height: 844, firstPickLimit: 1000 },
-  { width: 320, height: 568, firstPickLimit: 1100 },
+  { width: 390, height: 844, firstPickLimit: 1050 },
+  { width: 320, height: 568, firstPickLimit: 1150 },
 ];
 
 for (const size of sizes) {

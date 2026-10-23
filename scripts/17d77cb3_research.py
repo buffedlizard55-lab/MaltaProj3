@@ -33,6 +33,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import time
 from datetime import datetime, timezone
@@ -74,6 +75,17 @@ PAGES = [
 ]
 CHALLENGE = ('just a moment', 'cf-chl', 'challenge-platform', 'attention required',
              'enable javascript and cookies', 'captcha', 'access denied')
+
+
+def environment_name() -> str:
+    """Where this sweep ran.
+
+    ``scripts.build.load_no_line_research`` only promotes a sweep that ran on a
+    GitHub runner (``github-actions-runner``) with a sibling Markdown record, so
+    a local, possibly network-blocked probe can never replace runner-verified
+    evidence. Reporting the real environment is what keeps that rule honest.
+    """
+    return 'github-actions-runner' if os.environ.get('GITHUB_ACTIONS') == 'true' else 'local checkout'
 
 
 def iso(moment: datetime) -> str:
@@ -340,6 +352,8 @@ def main(argv: list[str] | None = None) -> int:
 
     document = {
         'session': 'arena-17d77cb3',
+        'schema_version': 1,
+        'environment': environment_name(),
         'purpose': ('Dated, source-linked research for Hotspawn CS2 fixtures the published ladder leaves '
                     'as a research model (no external betting line). HLTV is tried first for identity, '
                     'then bo3.gg (which relays Thunderpick prices) and the esportsbook/aggregator surfaces.'),
@@ -365,6 +379,7 @@ def main(argv: list[str] | None = None) -> int:
         'providers': providers,
         'fixtures': findings,
         # Rendered by the executive summary's planned dated-research block.
+        'leads': [compatible(record) for record in findings if record['lead']],
         'per_fixture': [compatible(record) for record in findings],
     }
     (args.out / 'line-source-research.json').write_text(
