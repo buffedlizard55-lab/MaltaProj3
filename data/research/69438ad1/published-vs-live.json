@@ -1,8 +1,8 @@
 {
-  "observed_at": "2026-10-23T06:21:09Z",
+  "observed_at": "2026-10-23T07:27:12Z",
   "published": {
-    "generated_at": "2026-10-23T06:17:47Z",
-    "inventory_observed_at": "2026-10-23T06:17:26Z",
+    "generated_at": "2026-10-23T07:08:13Z",
+    "inventory_observed_at": "2026-10-23T07:07:52Z",
     "coverage_complete": true,
     "run_status": "partial-picks",
     "counts": {
@@ -18,12 +18,12 @@
       "no_edge": 0
     },
     "active_published": 32,
-    "age_hours": 0.06,
-    "inventory_age_hours": 0.06,
+    "age_hours": 0.32,
+    "inventory_age_hours": 0.32,
     "stale": false
   },
   "live": {
-    "source_records": 94,
+    "source_records": 93,
     "upcoming": 32
   },
   "missing_from_published": [],
@@ -31,57 +31,57 @@
   "published_active_not_in_live_source": [],
   "sources": {
     "published_latest": {
-      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json?cb=1792736469",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json?cb=1792740432",
       "http_status": 200,
       "ok": true,
-      "sha256": "cd7d1a47c4d6d31c7b4a3da44ae506b99c8aa8132b2e44b9d85f12775797aca3",
+      "sha256": "e274b666897c7c8d237e6c3cba183ade9b72ce06cdb66ca4822edabc3b5a23f4",
       "x_cache": "MISS",
-      "observed_at": "2026-10-23T06:21:09Z",
+      "observed_at": "2026-10-23T07:27:12Z",
       "error": null
     },
     "published_origination": {
-      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json?cb=1792736469",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json?cb=1792740432",
       "http_status": 200,
       "ok": true,
-      "sha256": "bdb73a0048c2fa7782fe8245984a8a7e732a3d2b592163b9e04417201e765fdf",
+      "sha256": "ef8201429043a1fae2d422f4d74d08d190824e99b646accf304c6b7d22c712d9",
       "x_cache": "MISS",
-      "observed_at": "2026-10-23T06:21:10Z",
+      "observed_at": "2026-10-23T07:27:12Z",
       "error": null
     },
     "published_row_audit": {
-      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/row-source-audit.json?cb=1792736469",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/row-source-audit.json?cb=1792740432",
       "http_status": 200,
       "ok": true,
-      "sha256": "72fbb62e25ee3fdb24dcda9d2f0b95e42950d1e6ef4e3052ebed8ee676fc9004",
+      "sha256": "8f18e34407b42b401c6a74cfe49d9bd4f77276c05573dfb5961aa569e359414c",
       "x_cache": "MISS",
-      "observed_at": "2026-10-23T06:21:10Z",
+      "observed_at": "2026-10-23T07:27:12Z",
       "error": null
     },
     "live_lobby": {
-      "url": "https://play.hotspawn.com/lobby?cb=1792736469",
+      "url": "https://play.hotspawn.com/lobby?cb=1792740432",
       "http_status": 200,
       "ok": true,
-      "sha256": "9c19e407e041c802632065d4118700024fe13ebc43b2a71645577d90fe2a9faa",
+      "sha256": "d45eddf020770389296da94c99567b2a1752d4b29d3223990b4f635b44e6d68c",
       "x_cache": "MISS",
-      "observed_at": "2026-10-23T06:21:10Z",
+      "observed_at": "2026-10-23T07:27:13Z",
       "error": null
     },
     "live_cs2_lobby": {
-      "url": "https://play.hotspawn.com/cs2-pickems?cb=1792736469",
+      "url": "https://play.hotspawn.com/cs2-pickems?cb=1792740432",
       "http_status": 200,
       "ok": true,
-      "sha256": "1feb09581cedef194b4092dd83060fb0c844773cdafb8c1b9923e414204cf7e8",
+      "sha256": "be886b52370484d5803438e191b9175d523c7758918334004a7e8fe8ada3301a",
       "x_cache": "MISS",
-      "observed_at": "2026-10-23T06:21:11Z",
+      "observed_at": "2026-10-23T07:27:14Z",
       "error": null
     },
     "live_fixtures_api": {
       "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "http_status": 200,
       "ok": true,
-      "sha256": "4f08ea11e16d9755dac8c9aa51a3c95a144d186ae5e8bff96278890de4704ad1",
+      "sha256": "7309d2a1f6f4da2d59fb338ea6011bbef202fdf96f709db49e9d9c561e78584b",
       "x_cache": null,
-      "observed_at": "2026-10-23T06:21:13Z",
+      "observed_at": "2026-10-23T07:27:15Z",
       "error": null
     }
   },
@@ -91,8 +91,8 @@
     "even_no_side": 0,
     "problems": 0,
     "published_row_source_audit": {
-      "rows": 777,
-      "ok": 758,
+      "rows": 806,
+      "ok": 787,
       "flagged": 9,
       "navigation": 10,
       "violation": 0

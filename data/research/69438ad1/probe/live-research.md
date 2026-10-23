@@ -1,7 +1,7 @@
 # arena-3a5448de — research for fixtures the featured method cannot resolve
 
-Observed: 2026-10-23T06:21:09Z (GitHub Actions runner)
-Snapshot: latest 2026-10-23T06:19:36Z · origination 2026-10-23T06:19:46Z · counts {'active': 32, 'resolved': 32, 'unresolved': 0, 'with_pick': 32, 'consensus': 2, 'market': 16, 'bookmaker': 5, 'reference': 0, 'model': 9, 'network': 1, 'relay': 1, 'guidance': 0, 'alias_joined': 3}
+Observed: 2026-10-23T07:27:11Z (GitHub Actions runner)
+Snapshot: latest 2026-10-23T07:25:34Z · origination 2026-10-23T07:25:45Z · counts {'active': 32, 'resolved': 32, 'unresolved': 0, 'with_pick': 32, 'consensus': 2, 'market': 16, 'bookmaker': 5, 'reference': 0, 'model': 9, 'network': 1, 'relay': 1, 'guidance': 0, 'alias_joined': 3}
 Targets (featured-blank or non-money resolution): 9
 
 ## Surfaces (HLTV first, then esportsbooks/aggregators)
@@ -63,10 +63,10 @@ Targets (featured-blank or non-money resolution): 9
 
 ### Ground Zero vs Off Chops (DFRAG Invitational 2026, 2026-10-26T03:00:00Z)
 - Hotspawn: https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858
-- Featured method: None · current: model Own network estimate (bo3.gg results graph) pick_index=1 probs=[0.44481971954143495, 0.555180280458565]
+- Featured method: None · current: model Own network estimate (bo3.gg results graph) pick_index=1 probs=[0.44496188285730187, 0.5550381171426981]
 - Unresolved stages: Betting market (Polymarket series winner), Exchange market (Kalshi CS2 match winner), Esportsbook line (Thunderpick original prices), Esportsbook line (Bovada original prices), Esportsbook line (Pinnacle original prices), Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes), Aggregated bookmaker reference (EGamersWorld), Research model cross-check (Valve official ratings), Results model (own, bo3.gg series results)
 - bo3.gg bound: 1 · two-sided relay quote: False
-- Limitations: Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4677 finished bo3.gg series, anchored on Valve's official points for 268 teams; the rating-difference one-sigma interval is 157.2 points (probability interval 0.116-0.830). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only.
+- Limitations: Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4678 finished bo3.gg series, anchored on Valve's official points for 268 teams; the rating-difference one-sigma interval is 157.2 points (probability interval 0.116-0.831). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only.
 
 ### Rooster vs Abyssal (DFRAG Invitational 2026, 2026-10-27T03:00:00Z)
 - Hotspawn: https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861
