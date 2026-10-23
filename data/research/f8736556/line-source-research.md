@@ -1,6 +1,6 @@
 # Fixtures without a betting line — dated HLTV/esportsbook research (f8736556)
 
-Observed 2026-10-23T12:07:06Z in github-actions-runner. This record covers only 7 published fixture(s) that did not already carry an external money line. HLTV was probed first for identity/context, then esportsbook and aggregator surfaces. A reachable page, a team mention or a fan vote is not a price, and nothing here changes a published probability or pick.
+Observed 2026-10-23T12:09:25Z in github-actions-runner. This record covers only 7 published fixture(s) that did not already carry an external money line. HLTV was probed first for identity/context, then esportsbook and aggregator surfaces. A reachable page, a team mention or a fan vote is not a price, and nothing here changes a published probability or pick.
 
 | Fixture | Starts (UTC) | Current basis | bo3.gg bound | Two-sided relay coefficients | Pinnacle matchup | Verdict |
 | --- | --- | --- | --- | --- | --- | --- |

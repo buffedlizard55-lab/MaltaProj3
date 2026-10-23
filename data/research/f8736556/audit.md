@@ -1,6 +1,6 @@
 # Public Hotspawn CS2 publication and pick-coverage audit — 23 October 2026
 
-Observed 2026-10-23T12:07:06Z (github-actions-runner). This is a dated audit, not a replacement picks feed. Use the live executive summary and complete picks list for current picks.
+Observed 2026-10-23T12:09:25Z (github-actions-runner). This is a dated audit, not a replacement picks feed. Use the live executive summary and complete picks list for current picks.
 
 ## Where the updated picks are
 
@@ -18,7 +18,7 @@ Observed 2026-10-23T12:07:06Z (github-actions-runner). This is a dated audit, no
 | page_and_plain_latest_are_one_snapshot | pass | executive-summary stamp='2026-10-23T11:18:01Z'; plain data/latest.json generated_at='2026-10-23T11:18:01Z' |
 | complete_picks_cite_this_inventory_generation | pass | complete-picks source_generated_at='2026-10-23T11:18:01Z'; data/latest.json generated_at='2026-10-23T11:18:01Z' |
 | complete_picks_cite_this_inventory_observation | pass | complete-picks source_snapshot_at='2026-10-23T11:17:42Z'; data/latest.json observed_at='2026-10-23T11:17:42Z' |
-| published_inventory_is_inside_eight_hours | pass | data/latest.json age at audit=0.818 hours |
+| published_inventory_is_inside_eight_hours | pass | data/latest.json age at audit=0.857 hours |
 | collector_asserts_complete_inventory | pass | coverage_complete=True in data/latest.json |
 
 Duplicate-slash/query reads are recorded in `audit.json` as cache diagnostics only. They do not turn a failing plain URL into a pass.

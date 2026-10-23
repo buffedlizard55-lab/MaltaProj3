@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "session": "arena-f8736556",
-  "observed_at": "2026-10-23T12:07:06Z",
+  "observed_at": "2026-10-23T12:09:25Z",
   "environment": "github-actions-runner",
   "policy": "Read-only. Plain public URLs are authoritative for parity. Hotspawn is fixture identity only. HLTV is identity/ranking context, not a price. No probability, pick, alias or 50/50 default is created by this audit.",
   "publication": {
@@ -11,7 +11,7 @@
         "label": "plain executive summary",
         "requested_url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
         "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
-        "observed_at": "2026-10-23T12:07:06Z",
+        "observed_at": "2026-10-23T12:09:25Z",
         "http_status": 200,
         "bytes": 209557,
         "sha256": "a5ef5839b187cfae248faada7c94b16e606e832a8b4f84a22dfe3b66df215f35",
@@ -27,7 +27,7 @@
         "label": "plain data/latest.json",
         "requested_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
         "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
-        "observed_at": "2026-10-23T12:07:06Z",
+        "observed_at": "2026-10-23T12:09:26Z",
         "http_status": 200,
         "bytes": 257360,
         "sha256": "15d8765b8dfee543b0ff61ce84eee0dde280fe91db24deb7de00657d243e7b1f",
@@ -59,7 +59,7 @@
         "label": "plain data/origination.json",
         "requested_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
         "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
-        "observed_at": "2026-10-23T12:07:06Z",
+        "observed_at": "2026-10-23T12:09:26Z",
         "http_status": 200,
         "bytes": 275482,
         "sha256": "17ae6feb294348eaa2f8693d5bb41dc1627082a6728d4883bb3aa124ee571097",
@@ -89,14 +89,20 @@
           "guidance": 0,
           "alias_joined": 2
         }
+      },
+      {
+        "label": "plain snapshot.json",
+        "requested_url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+        "error": "HTTPError: 404 Client Error: Not Found for url: https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json"
       }
     ],
+    "inventory_used_for_row_audit": "data/latest.json",
     "cache_diagnostics_not_used_for_pass": [
       {
         "label": "data//latest.json diagnostic",
         "requested_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
         "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
-        "observed_at": "2026-10-23T12:07:06Z",
+        "observed_at": "2026-10-23T12:09:26Z",
         "http_status": 200,
         "bytes": 257360,
         "sha256": "15d8765b8dfee543b0ff61ce84eee0dde280fe91db24deb7de00657d243e7b1f",
@@ -128,7 +134,7 @@
         "label": "data//origination.json diagnostic",
         "requested_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
         "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
-        "observed_at": "2026-10-23T12:07:06Z",
+        "observed_at": "2026-10-23T12:09:26Z",
         "http_status": 200,
         "bytes": 275482,
         "sha256": "17ae6feb294348eaa2f8693d5bb41dc1627082a6728d4883bb3aa124ee571097",
@@ -163,7 +169,7 @@
         "label": "data/latest.json?snapshot=<page stamp> diagnostic",
         "requested_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json?snapshot=2026-10-23T11%3A18%3A01Z",
         "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json?snapshot=2026-10-23T11%3A18%3A01Z",
-        "observed_at": "2026-10-23T12:07:06Z",
+        "observed_at": "2026-10-23T12:09:26Z",
         "http_status": 200,
         "bytes": 257360,
         "sha256": "15d8765b8dfee543b0ff61ce84eee0dde280fe91db24deb7de00657d243e7b1f",
@@ -211,7 +217,7 @@
       {
         "key": "published_inventory_is_inside_eight_hours",
         "status": "pass",
-        "detail": "data/latest.json age at audit=0.818 hours"
+        "detail": "data/latest.json age at audit=0.857 hours"
       },
       {
         "key": "collector_asserts_complete_inventory",
@@ -243,7 +249,7 @@
       "label": "Hotspawn scheduled-fixtures API",
       "requested_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "final_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-      "observed_at": "2026-10-23T12:07:07Z",
+      "observed_at": "2026-10-23T12:09:27Z",
       "http_status": 200,
       "bytes": 71013,
       "sha256": "302cffe3a0ecf4473bdaa3a4f92c8d3ca441e965a35726619bf6c3f4e22bd74d",
@@ -1802,7 +1808,7 @@
         "url": "https://www.hltv.org/ranking/teams",
         "status": 403,
         "final_url": "https://www.hltv.org/ranking/teams",
-        "bytes": 5665,
+        "bytes": 5644,
         "challenge_markers": [
           "just a moment",
           "challenge-platform",
@@ -1826,7 +1832,7 @@
         "url": "https://betboom.ru/sport/cs2",
         "status": 401,
         "final_url": "https://betboom.ru/sport/cs2",
-        "bytes": 1800,
+        "bytes": 1799,
         "challenge_markers": [
           "captcha"
         ],
@@ -1865,7 +1871,7 @@
         "url": "https://1xbet.com/en/line/counter-strike-2",
         "status": 203,
         "final_url": "https://1xbet.com/en/block",
-        "bytes": 2620,
+        "bytes": 2619,
         "challenge_markers": [
           "challenge-platform"
         ],
@@ -1876,7 +1882,7 @@
         "url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
         "status": 403,
         "final_url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
-        "bytes": 5488,
+        "bytes": 5487,
         "challenge_markers": [
           "challenge-platform",
           "attention required",
@@ -1900,7 +1906,7 @@
         "url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
         "status": 200,
         "final_url": "https://sportsbook.draftkings.com/sports/esports",
-        "bytes": 1685430,
+        "bytes": 1667067,
         "challenge_markers": [],
         "teams_found": [
           "Color"
@@ -1924,7 +1930,7 @@
         "url": "https://egamersworld.com/counterstrike/matches",
         "status": 403,
         "final_url": "https://egamersworld.com/counterstrike/matches",
-        "bytes": 5775,
+        "bytes": 5774,
         "challenge_markers": [
           "challenge-platform",
           "attention required",
@@ -1990,7 +1996,7 @@
         "url": "https://oddspedia.com/esports/counter-strike",
         "status": 410,
         "final_url": "https://oddspedia.com/esports/counter-strike",
-        "bytes": 340005,
+        "bytes": 340009,
         "challenge_markers": [
           "challenge-platform",
           "captcha"
@@ -2004,7 +2010,7 @@
         "url": "https://22bet.com/line/counter-strike-2",
         "status": 203,
         "final_url": "https://22bet.com/line/counter-strike-2",
-        "bytes": 27145,
+        "bytes": 27144,
         "challenge_markers": [
           "captcha",
           "access denied"
@@ -2059,7 +2065,7 @@
         "url": "https://egamersworld.com/counter-strike/betting",
         "status": 403,
         "final_url": "https://egamersworld.com/counter-strike/betting",
-        "bytes": 5775,
+        "bytes": 5774,
         "challenge_markers": [
           "challenge-platform",
           "attention required",
