@@ -190,9 +190,25 @@
 .limitations-callout ul{margin:10px 0 0;padding-left:19px}
 .limitations-callout li{font-size:12px;line-height:1.9;margin-bottom:7px}
 @media(max-width:700px){
-  .start-here{padding:15px 16px;margin-bottom:20px}
-  .start-here ul{grid-template-columns:1fr;gap:9px}
-  .start-here a{min-height:52px;padding:12px 13px}
+  .start-here{padding:13px 14px;margin-bottom:18px}
+  /* Session 17d77cb3: five stacked 52 px cards pushed the first pick to 1,098 px
+     on a 390x844 phone. Two columns of named chips keep every destination and
+     its 48 px target visible while removing ~160 px of vertical stack. The
+     per-link descriptions stay on wider screens; the counts they repeat are in
+     the phone status strip directly above. */
+  .start-here ul{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .start-here a{min-height:48px;padding:9px 10px;align-items:center;gap:8px}
+  .start-here strong{font-size:12px}
+  .start-here span{display:none}
+  /* The glance list itself comes before its explanatory paragraph on a phone, so
+     the first team's probabilities are reachable sooner; the paragraph keeps its
+     place in the DOM (and on desktop) and is simply ordered after the list. */
+  #picks-at-a-glance{display:flex;flex-direction:column}
+  #picks-at-a-glance>.section-heading{order:0}
+  #picks-at-a-glance>.glance-finder{order:1}
+  #picks-at-a-glance>#glance-list{order:2}
+  #picks-at-a-glance>.section-intro{order:3;padding:0 16px}
+  #picks-at-a-glance>.glance-foot{order:4}
   .day-read{padding:0 16px 18px;grid-template-columns:1fr;gap:11px}
   .final-day-card{margin:0 16px 13px}
   .final-day-head{padding:15px 16px}
@@ -246,15 +262,21 @@
 .notice-inline{background:#f6f1e2;border-left:3px solid #b98b2f;padding:.5rem .65rem;border-radius:0 6px 6px 0}
 @media (max-width:620px){.sample-list li{flex-wrap:wrap}.notice-inline{font-size:.85rem}}
 
-/* 21 October (dbaf7692) — phone readability: the six-item bottom bar scrolls
-   horizontally at comfortable type and 44px targets instead of squeezing every
-   label to 7.5px. The active tab is centred on load by scout.js. */
+/* 21 October (dbaf7692) — phone bottom bar: six destinations.
+   Session 17d77cb3 measured the 21 October rule on a real 390 px viewport: the
+   bar scrolled 501 px wide, so the last tab ("Review") sat at x=493 — 103 px
+   past the right edge and clipped, with nothing indicating more tabs existed.
+   All six now share the width (flex:1 1 0, min-width:0) at 10-11 px labels and
+   46 px tap targets, so every destination is visible without a hidden
+   horizontal scroll. The active tab is still centred on load by scout.js. */
 @media (max-width:700px){
-  .mobile-nav{justify-content:flex-start;gap:4px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:8px 8px max(8px,env(safe-area-inset-bottom))}
+  .mobile-nav{justify-content:space-between;gap:2px;overflow:visible;scrollbar-width:none;padding:8px 6px max(8px,env(safe-area-inset-bottom))}
   .mobile-nav::-webkit-scrollbar{display:none}
-  .mobile-nav>a{flex:0 0 auto;min-width:76px;min-height:46px;padding:4px 10px;font-size:11px;line-height:1.25;gap:4px}
-  .mobile-nav .icon{width:20px;height:20px}
+  .mobile-nav>a{flex:1 1 0;min-width:0;min-height:46px;padding:4px 2px;font-size:10px;line-height:1.2;gap:3px;text-align:center}
+  .mobile-nav>a>span{overflow-wrap:anywhere;hyphens:auto}
+  .mobile-nav .icon{width:19px;height:19px}
 }
+@media (max-width:340px){.mobile-nav>a{font-size:9px;letter-spacing:-.1px}.mobile-nav .icon{width:17px;height:17px}}
 /* Session 541cd43a — phone status strip: the two questions a phone visitor asks
    ("where are the picks?" / "what is missing?") answered in one tap from any page. */
 .mobile-status{display:none}
@@ -537,4 +559,40 @@
 .ladder-list a {
   text-decoration: underline;
   text-underline-offset: .16em;
+}
+
+/* Session 17d77cb3 — phone bottom bar, final cascade.
+   Measured on the built site at 320/360/390 px before this block: the bar's
+   own rules left min-width:70px per tab (from the older ≤375 px rule), so six
+   tabs needed 436 px and the last one was clipped at 360 px and 320 px, while
+   "Summary"/"Unresolved" broke mid-word. Every tab now shares the width with
+   min-width:0 and a label size that fits; all six stay visible and tappable. */
+@media(max-width:700px){
+  .mobile-nav{justify-content:space-between;gap:2px;padding:8px 6px max(8px,env(safe-area-inset-bottom))}
+  .mobile-nav>a{flex:1 1 0;min-width:0;max-width:none;padding:4px 2px;font-size:10px;line-height:1.2;gap:3px}
+  .mobile-nav>a>span{overflow-wrap:normal;word-break:normal;hyphens:none;white-space:normal;font-size:inherit;letter-spacing:-.1px}
+  .mobile-nav .icon{width:19px;height:19px}
+}
+@media(max-width:400px){
+  .mobile-nav>a{font-size:9.5px;padding:4px 1px;gap:2px}
+  .mobile-nav .icon{width:18px;height:18px}
+}
+
+/* Session 17d77cb3 — keep the phone jump bar compact enough that the first pick
+   is close to the fold. Measured on the shipped build at 390x844 before this
+   block: the "Start here" bar rendered 496 px tall (five chips, each showing a
+   full description) and the first pick in "Picks at a glance" began at 1,350 px
+   — 1.6 screens down. Labels alone are self-describing and the phone status
+   strip directly above already carries the pick/unresolved counts, so only the
+   primary "Picks on this page" chip keeps its description on a phone. Every
+   destination keeps a >=48 px target and its full label. */
+@media(max-width:700px){
+  .start-here{padding:10px 12px;margin-bottom:12px}
+  .start-here ul{grid-template-columns:1fr 1fr;gap:6px}
+  .start-here a{min-height:48px;padding:8px 10px;gap:7px;flex-direction:row;align-items:center}
+  .start-here a span{display:none!important}
+  .start-here a strong{font-size:12px}
+  .start-here li:first-child a{min-height:52px;flex-direction:column;align-items:flex-start;gap:3px}
+  .start-here li:first-child a span{display:block!important;font-size:10.5px;line-height:1.35}
+  .start-here .tiny{display:none!important}
 }

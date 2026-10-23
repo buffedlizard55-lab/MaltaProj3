@@ -627,6 +627,23 @@ def validate_origination(data, source):
                 reference_odds.replay(entry, q)
                 values.append(q['probabilities'][0])
                 continue
+            if q.get('provider') == 'Smarkets':
+                # Session 46ade650: the public exchange board replays from its own
+                # saved API capture (events, markets, contracts, quotes), and the
+                # quote is rebuilt with the same market_estimate used live.
+                from scripts import smarkets_lines
+                from scripts.originate import market_estimate, pair_join
+                saved = [r for r in smarkets_lines.rows(source / 'origination/evidence')
+                         if str(r.get('fixture_id')) == str(m['id'])
+                         and pair_join(r['names'], r['start'], raw, registry)[2] == 'matched']
+                assert len(saved) == 1, 'Unique saved Smarkets quote missing for this fixture'
+                expected, reason = market_estimate(saved[0], raw, registry, timestamp(data['generated_at']))
+                assert expected is not None, 'Saved Smarkets book rejected on replay: ' + str(reason)
+                assert expected['probabilities'] == q['probabilities'], 'Smarkets probabilities differ from saved capture'
+                assert expected['bid'] == q['bid'] and expected['ask'] == q['ask'], 'Smarkets book changed'
+                assert expected['event_id'] == q['event_id'], 'Smarkets event identity changed'
+                values.append(q['probabilities'][0])
+                continue
             if q.get('provider') in {'Thunderpick', 'Kalshi', 'Bovada', 'Pinnacle'}:
                 from scripts.pipeline_audit import replay_provider_quote
                 values.append(replay_provider_quote(q, raw, registry, source, timestamp(data['generated_at'])))
