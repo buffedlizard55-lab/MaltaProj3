@@ -134,9 +134,21 @@ class GapListNeverClaimsAnUnverifiedState(unittest.TestCase):
         self.assertIn('data-time="2026-10-23T04:58:00Z"', html)
 
     def test_a_card_that_is_still_absent_keeps_its_own_note(self):
+        # This record's only card is the one the snapshot already resolves, so it
+        # is correctly dropped from the list above (that is the point of the
+        # preceding test). An absent card's own note has to survive, so add a
+        # second card that this build genuinely does not contain.
         self.data['_live_coverage']['live_fixtures'][0]['note'] = 'Lobby card had no permalink.'
+        self.data['_live_coverage']['live_fixtures'].append({
+            'id': None,
+            'teams': ['Some Other Team', 'Another Team'],
+            'competition': 'DraculaN Season 7',
+            'hltv_url': 'https://www.hltv.org/matches/1/x',
+            'note': 'Lobby card had no permalink.',
+        })
         body = text(section(live_coverage_gaps(self.data, '')))
         self.assertIn('Lobby card had no permalink.', body)
+        self.assertIn('Some Other Team vs Another Team', body)
 
     def test_no_probability_or_percent_is_ever_added(self):
         for html in (live_coverage_gaps(self.data, ''),

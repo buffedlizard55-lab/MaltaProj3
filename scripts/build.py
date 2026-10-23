@@ -317,14 +317,50 @@ PROVIDER_LABELS = (
 )
 
 
+#: Host fragments, keyed by the destination a row's link actually opens.
+HOST_LABELS = (
+    ('polymarket', 'Polymarket'),
+    ('kalshi', 'Kalshi'),
+    ('thunderpick', 'Thunderpick'),
+    ('bovada', 'Bovada'),
+    ('pinnacle', 'Pinnacle'),
+    ('smarkets', 'Smarkets'),
+    ('egamersworld', 'EGamersWorld'),
+    ('bo3.gg', 'bo3.gg'),
+)
+
+
+def _destination_label(url: str) -> str | None:
+    from urllib.parse import urlparse
+    host = urlparse(str(url or '')).netloc.casefold()
+    for needle, label in HOST_LABELS:
+        if needle in host:
+            return label
+    return None
+
+
+def _named_provider(text: str) -> str | None:
+    haystack = str(text or '').casefold()
+    for needle, label in PROVIDER_LABELS:
+        if needle in haystack:
+            return label
+    return None
+
+
 def analysis_source_label(analysis: dict) -> str:
     """Name the destination of a row's source link, from that row's own data.
 
     Session aae76fb3: the phone summary used a ternary chain that only handled
     market, model, reference and guidance, so every other money method — most
     visibly a median of two esportsbooks — was published as "Bookmaker" over a
-    single provider's URL. This helper reads the row's published ``source`` and
-    ``source_url`` and never guesses a provider the record does not name.
+    single provider's URL.
+
+    Session 3a010437: the label also has to name the page the link *opens*.
+    The 2026-10-23 build published a row whose source read
+    ``Thunderpick (relayed by bo3.gg)`` and whose ``source_url`` is a bo3.gg
+    match page as "Thunderpick" over a bo3.gg link. The provider is read from
+    the URL host first; when the row's own text names a different provider, the
+    label says it is a relay instead of choosing one of the two silently.
     """
     a = analysis or {}
     method = a.get('method')
@@ -335,10 +371,14 @@ def analysis_source_label(analysis: dict) -> str:
     if method == 'consensus':
         providers = [part.strip() for part in source.split('+') if part.strip()]
         return f'Consensus ({len(providers)} sources)' if len(providers) > 1 else 'Consensus'
-    haystack = f'{source} {url}'.casefold()
-    for needle, label in PROVIDER_LABELS:
-        if needle in haystack:
-            return label
+    destination = _destination_label(url)
+    named = _named_provider(source)
+    if destination and named and destination != named:
+        return f'{destination} ({named} relay)'
+    if destination:
+        return destination
+    if named:
+        return named
     return METHOD_BADGES.get(method, ('Source', 'green'))[0]
 
 
@@ -561,7 +601,7 @@ def exec_banner(data, prefix):
     model = (cc.get('model', 0) + cc.get('guidance', 0)) if complete else data['counts'].get('model', 0)
     generated = local_time(complete.get('generated_at')) if complete.get('generated_at') else local_time(data.get('inventory_observed_at'))
     gaps = (f' · <a href="{prefix}#live-coverage-gaps">live lobby gaps ↓</a>'
-            if data.get('_live_coverage') else '')
+            if (data.get('_live_coverage') or {}).get('live_fixtures') else '')
     return (
         f'<section class="exec-banner" aria-label="Where to find the updated picks">'
         f'<p class="exec-banner-label">Executive summary — start here on your phone</p>'
@@ -1240,46 +1280,38 @@ def no_line_research_block(data, prefix):
             + leads_html + exchange_html + '</div>')
 
 
-def live_coverage_gaps(data, prefix):
-    """Live Hotspawn lobby fixtures that this snapshot does not contain.
+def live_coverage_missing(data):
+    """(record, missing) for the dated lobby inventory.
 
-    Session 9fd5fbf1, corrected by sessions 9c4b1f7a and ca7e10e5. Dated
-    inventory research only: each missing row keeps its official Hotspawn and
-    HLTV links. No probability, pick or 50/50 is added.
+    Session 9fd5fbf1 created this register; session 3a010437 merged its two
+    refinements with the corrections sessions 9c4b1f7a and ca7e10e5 made, so
+    one rule set now answers "is this lobby card really a gap?":
 
-    Two rules keep the section honest, because a stale checklist is worse than
-    none:
-
-    * a lobby card is skipped when this build already resolves the same match,
-      even under a blank Hotspawn id — the research record left the
-      JiJieHao–Eternal Fire id blank, so an id-only comparison published it as
-      "not in this snapshot" while the very same page carried its pick
-      (ca7e10e5 reproduced this from the published page; the merged fix reads
-      both feeds and matches the exact team pair);
-    * the section never claims the cards are live "right now": it prints the
-      record's own observation time and states that the list is a dated
-      observation, not a live claim.
+    * a card the research record itself saw **inside a published snapshot**
+      (``in_published_snapshot: true``) was covered then, so it is not a gap
+      now: if the current build does not list it either, the card has left the
+      inventory (started or withdrawn) and no prematch pick can exist for it;
+    * the build's *complete researched list* counts as coverage, not only the
+      featured sub-list (ca7e10e5: JiJieHao vs Eternal Fire carried a pick on
+      the same page that called it "no pick in this build");
+    * a card whose Hotspawn id was never verified is matched to a published row
+      by its exact two team names — never by an alias, sponsor tag or fuzzy
+      match.
     """
     record = data.get('_live_coverage') or {}
     live = record.get('live_fixtures') or []
-    if not live:
-        return ''
-    known = {str(m.get('id')) for m in data.get('matches') or [] if m.get('id') is not None}
-    # The published picks are the complete researched list, not the featured
-    # sub-list. Checking only `data['matches']` left fixtures that DO carry a
-    # pick (for example JiJieHao vs Eternal Fire, resolved on a later refresh)
-    # advertised as "no pick in this build". Read both, plus a normalised team
-    # pair for a live card whose Hotspawn id was unverified.
     complete = data.get('complete_picks') or {}
+    rows = list(data.get('matches') or []) + list(complete.get('matches') or [])
+    known = {str(row.get('id')) for row in rows if row.get('id') is not None}
     known_pairs = set()
-    for row in list(data.get('matches') or []) + list(complete.get('matches') or []):
+    for row in rows:
         names = [name_key(t.get('name') or '') for t in row.get('teams') or []]
         if len(names) == 2 and all(names):
             known_pairs.add(frozenset(names))
-        if row.get('id') is not None:
-            known.add(str(row.get('id')))
     missing = []
     for fixture in live:
+        if fixture.get('in_published_snapshot') is True:
+            continue
         identity = fixture.get('id')
         if identity is not None and str(identity) in known:
             continue
@@ -1287,6 +1319,25 @@ def live_coverage_gaps(data, prefix):
         if len(teams) == 2 and all(teams) and frozenset(teams) in known_pairs:
             continue
         missing.append(fixture)
+    return record, missing
+
+
+def live_coverage_gaps(data, prefix):
+    """Live Hotspawn lobby fixtures that this snapshot does not contain.
+
+    Dated inventory research only: each missing row keeps its official Hotspawn
+    and HLTV links. No probability, pick or 50/50 is added.
+
+    The copy never claims the cards are live "right now" (3a010437: a five-hour
+    old read was published with the words "on Hotspawn right now"). It prints
+    the record's own observation time, says the list is a dated observation,
+    and says outright that a card which has started since has no prematch pick
+    left.
+    """
+    record, missing = live_coverage_missing(data)
+    live = record.get('live_fixtures') or []
+    if not live:
+        return ''
     observed = local_time(record.get('observed_at')) if record.get('observed_at') else blank()
     rows = ''
     for fixture in missing:
@@ -1301,8 +1352,6 @@ def live_coverage_gaps(data, prefix):
         if fixture.get('hltv_analytics_url'):
             links += external(fixture['hltv_analytics_url'], 'HLTV analytics')
         note = fixture.get('note') or 'Not in this snapshot. No probability is invented.'
-        if fixture.get('in_published_snapshot') and not fixture.get('note'):
-            note += ' It was in the published snapshot at the time of that check.'
         rows += (f'<li class="coverage-gap-row"><span class="tried-chip unresolved">{e(label)}</span>'
                  f'<strong>{e(names)}</strong> '
                  f'<span class="tiny muted">{e(fixture.get("competition") or "Unverified tournament")}</span> '
@@ -1320,8 +1369,9 @@ def live_coverage_gaps(data, prefix):
         f'{external("https://play.hotspawn.com/lobby", "Hotspawn lobby")} against this page\'s snapshot '
         f'at {observed}. This is a dated observation, not a live claim: a card that has since been '
         f'collected — or that now carries a pick in the complete list — drops out of the count above. '
-        f'A listed card is missing <em>from that observation</em> because it was scheduled after the '
-        f'last successful collect, or the collect could not run. '
+        f'A card that has already started has no prematch pick left, and the next four-hour collect is '
+        f'the authority. A listed card is missing <em>from that observation</em> because it was '
+        f'scheduled after the last successful collect, or the collect could not run. '
         f'HLTV was checked first for identity; a ranking/form page is not converted into a win probability. '
         f'Hotspawn crowd percentages are not used. '
         f'<a class="internal-link" href="{prefix}data/{e(record.get("_record_path", "research/9fd5fbf1/live-coverage.json"))}">Dated record (JSON) ↓</a> '
@@ -1712,6 +1762,247 @@ def unresolved_register(data, prefix, title='Unresolved picks &amp; limitations'
     return ''.join(out)
 
 
+#: Session 3a010437's dated, independent re-read of every published row. The
+#: renderer reads whichever run is newest and never recomputes a verdict here.
+VERIFICATION_GLOB = 'research/*/verification.json'
+
+
+def load_verification(source: Path):
+    """The newest independent-verification record, or None.
+
+    Only documents carrying this session's contract (per-row verdicts, a
+    drift threshold and a finish time) are eligible; other sessions' files with
+    the same name have a different schema and are ignored rather than guessed.
+    """
+    best = None
+    for path in sorted(source.glob(VERIFICATION_GLOB)):
+        try:
+            doc = json.loads(path.read_text())
+        except ValueError:
+            continue
+        if not isinstance(doc, dict) or not doc.get('rows') or not doc.get('totals'):
+            continue
+        if 'thresholds' not in doc or 'finished_at' not in doc:
+            continue
+        key = (doc.get('finished_at') or '', str(path))
+        if best is None or key > best[0]:
+            best = (key, path, doc)
+    if best is None:
+        return None
+    doc = dict(best[2])
+    path = best[1]
+    try:
+        relative = path.relative_to(source).as_posix()
+    except ValueError:
+        relative = path.as_posix()
+    doc['_path'] = 'data/' + relative
+    doc['_markdown'] = doc['_path'].replace('verification.json', 'verification.md')
+    return doc
+
+
+def _verification_snapshot_note(v: dict, data: dict) -> str:
+    """Say which snapshot the re-read covers, and whether it is this build's."""
+    audited = (v.get('snapshot') or {}).get('inventory_generated_at')
+    if not audited:
+        return ''
+    current = data.get('generated_at')
+    when = local_time(audited)
+    if current and audited == current:
+        return f'Audited snapshot: {when} (this build).'
+    return (f'Audited snapshot: {when}. This build\'s snapshot is {local_time(current)}; '
+            'the re-read describes the previous publication, not a value that changed since.')
+
+
+def _verification_figures(v: dict) -> dict:
+    rows = v.get('rows') or []
+    totals = v.get('totals') or {}
+    money = [r for r in rows if r.get('method') in {'market', 'bookmaker', 'consensus', 'reference', 'relay', 'network'}]
+    priced = [r for r in money if (r.get('price') or {}).get('comparisons')]
+    drifts = [r['price']['max_abs_delta'] for r in priced if r['price'].get('max_abs_delta') is not None]
+    identity = [r for r in rows if (r.get('identity') or {}).get('status') == 'confirmed']
+    live = v.get('live_inventory') or {}
+    return {
+        'rows': len(rows),
+        'money': len(money),
+        'priced': len(priced),
+        'max_drift': max(drifts) if drifts else None,
+        'identity': len(identity),
+        'model': totals.get('model_not_a_line', 0),
+        'reachable_only': totals.get('source_reachable', 0),
+        'missing_from_snapshot': len(live.get('not_in_snapshot') or []) if live.get('checked') else None,
+        'official_records': live.get('official_records'),
+        'conflicts': [r for r in rows if r.get('verdict') in {'identity_mismatch', 'arithmetic_error',
+                                                              'pick_disagrees', 'source_unreadable'}],
+    }
+
+
+def verification_strip(data, prefix):
+    """One compact, phone-sized strip on the executive summary.
+
+    It answers 'has anyone else checked these numbers?' with counts and a link
+    to the row-by-row record. It publishes no new probability and no new pick.
+    """
+    v = data.get('_verification')
+    if not v:
+        return ''
+    f = _verification_figures(v)
+    observed = local_time(v.get('finished_at'))
+    drift = f"{f['max_drift']:.3f}" if f['max_drift'] is not None else '—'
+    missing = f['missing_from_snapshot']
+    missing_text = ('every official fixture accounted for' if missing == 0 else
+                    (f'{missing} live fixtures not in the snapshot' if missing is not None else 'inventory not re-read'))
+    conflicts = len(f['conflicts'])
+    verdict_line = ('No row conflicts with its own source.' if conflicts == 0 else
+                    f'{conflicts} row(s) need review — see Flagged for Review.')
+    return (
+        f'<section class="content-section" id="independent-verification">'
+        f'<div class="section-heading"><div><p class="eyebrow">Dated second read</p>'
+        f'<h2>Independent re-read of every pick</h2></div>'
+        f'<span class="muted small">{observed}</span></div>'
+        f'<p class="section-intro">{_verification_snapshot_note(v, data)} A separate read opened each of the '
+        f'{f["rows"]} published rows against the '
+        f'source that row itself cites: the official Hotspawn fixture API for team identity and start time, '
+        f'then the row’s own market endpoint for the price. {verdict_line} '
+        f'<a class="internal-link" href="{prefix}coverage/#independent-verification">Row-by-row record →</a></p>'
+        f'<ul class="line-source-list">'
+        f'<li><span class="tried-chip resolved">identity</span><strong>{f["identity"]} / {f["rows"]}</strong> '
+        f'<span class="tiny muted">rows matched the official fixture id, both team names and scheduled start</span></li>'
+        f'<li><span class="tried-chip resolved">prices</span><strong>{f["priced"]}</strong> '
+        f'<span class="tiny muted">row prices re-read from the row’s own market endpoint; largest move {drift}</span></li>'
+        f'<li><span class="tried-chip unresolved">models</span><strong>{f["model"]}</strong> '
+        f'<span class="tiny muted">research estimates have no betting price to re-read (labelled, not filled)</span></li>'
+        f'<li><span class="tried-chip resolved">inventory</span><strong>{missing_text}</strong> '
+        f'<span class="tiny muted">{f["official_records"] or "—"} official CS2 records compared at the same clock</span></li>'
+        f'</ul></section>'
+    )
+
+
+def verification_section(data, prefix):
+    """The full row-by-row record on the coverage page."""
+    v = data.get('_verification')
+    if not v:
+        return ''
+    f = _verification_figures(v)
+    observed = local_time(v.get('finished_at'))
+    rows = ''
+    for row in v.get('rows') or []:
+        teams = row.get('teams') or ['Unverified', 'Unverified']
+        pick = row.get('published_pick_index')
+        pick_team = teams[pick] if pick in (0, 1) and len(teams) == 2 else 'No pick'
+        probs = row.get('published_probabilities') or []
+        published = ' / '.join(f'{p:.1%}' for p in probs) if len(probs) == 2 else 'blank'
+        identity = row.get('identity') or {}
+        identity_text = ('confirmed: id, both teams and start time' if identity.get('status') == 'confirmed'
+                         else identity.get('status') or 'not checked')
+        if identity.get('api_start'):
+            identity_text += f" ({identity['api_start']})"
+        if row.get('hotspawn_url'):
+            identity_text += ' ' + external(row['hotspawn_url'], 'Hotspawn match')
+        price = row.get('price') or {}
+        if price.get('comparisons'):
+            compared = '; '.join(
+                f"{c['outcome']} {c.get('price')} ({c.get('delta'):+.3f})"
+                if c.get('delta') is not None else f"{c['outcome']} {c.get('price')}"
+                for c in price['comparisons'])
+            price_text = compared + ' ' + external(price.get('api'), 'market endpoint')
+        elif price.get('checked'):
+            status = price.get('http_status') if price.get('http_status') is not None else 'no response'
+            price_text = f'{status} reachability only ' + external(price.get('api') or price.get('url'), 'cited source')
+        elif row.get('source_url'):
+            price_text = ('no price exists to re-read (research model) '
+                          + external(row['source_url'], 'cited model input'))
+        else:
+            price_text = 'no price exists to re-read (research model)'
+        verdict = row.get('verdict') or 'unchecked'
+        tone = 'green' if verdict in {'confirmed', 'model_not_a_line', 'source_reachable'} else 'amber'
+        rows += (f'<tr><th scope="row">{e(" vs ".join(teams))}<small>{e(row.get("competition") or "")}</small></th>'
+                 f'<td>{e(pick_team)}<small>{e(published)}</small></td>'
+                 f'<td>{e(identity_text)}</td><td>{price_text}</td>'
+                 f'<td>{badge(verdict.replace("_", " "), tone)}</td></tr>')
+    markdown_link = (f'<a class="internal-link" href="{prefix}{e(v["_markdown"])}">Dated markdown record ↓</a>'
+                     if v.get('_markdown') else '')
+    json_link = (f'<a class="internal-link" href="{prefix}{e(v["_path"])}">JSON ↓</a>'
+                 if v.get('_path') else '')
+    return (
+        f'<section class="content-section" id="independent-verification">'
+        f'<div class="section-heading"><div><p class="eyebrow">Dated second read</p>'
+        f'<h2>Independent re-read of every published pick</h2></div>'
+        f'<span class="muted small">{observed}</span></div>'
+        f'<p class="section-intro">{_verification_snapshot_note(v, data)} Every row was reopened against '
+        f'the source it cites. '
+        f'{f["identity"]} of {f["rows"]} rows matched the official Hotspawn fixture API on id, both team names '
+        f'and scheduled start time. {f["priced"]} row prices were re-read from their own market endpoint '
+        f'(largest move {f["max_drift"] if f["max_drift"] is not None else "—"}); '
+        f'{f["reachable_only"]} other money rows are confirmed as reachable only, because a rendered '
+        f'bookmaker page is not parsed into a price here; {f["model"]} research-model rows have no price to '
+        f're-read and are labelled as estimates. Nothing on this page rewrites a pick. {json_link} {markdown_link}</p>'
+        f'<div class="table-scroll"><table class="simple-table"><caption class="sr-only">Each published row, '
+        f'the identity and price re-read from its own source, and the verdict</caption>'
+        f'<thead><tr><th scope="col">Match</th><th scope="col">Published pick</th><th scope="col">Identity</th>'
+        f'<th scope="col">Price re-read</th><th scope="col">Verdict</th></tr></thead><tbody>{rows}</tbody></table></div>'
+        f'<p class="tiny muted">A move inside the drift band is reported as agreement; only a price that now '
+        f'favours the other side is a conflict. An unreadable page is never presented as proof that no market exists.</p>'
+        f'</section>'
+    )
+
+
+#: Session 3a010437's dated HLTV-first / esportsbook probe for rows that are
+#: not money lines. Read-only evidence, never a price.
+LINE_RESEARCH = 'research/3a010437/line-research/live-research.json'
+
+
+def line_research_section(data, prefix):
+    """The dated record of what was actually tried for the model-only rows."""
+    record = data.get('_line_research') or {}
+    fixtures = record.get('fixtures') or []
+    if not fixtures:
+        return ''
+    observed = local_time(record.get('observed_at')) if record.get('observed_at') else blank()
+    surfaces = record.get('surfaces') or []
+    answered = [s for s in surfaces if s.get('http_status') == 200]
+    conclusions = record.get('conclusions') or {}
+    rows = ''
+    for fixture in fixtures:
+        teams = ' vs '.join(fixture.get('teams') or []) or 'Unverified pairing'
+        stages = ''
+        for stage in fixture.get('sources_tried_from_published_trail') or []:
+            status = str(stage.get('status') or '')
+            tone = 'resolved' if status == 'resolved' else 'unresolved'
+            url = stage.get('source_url')
+            link = external(url, e(stage.get('stage') or 'Source')) if url else e(stage.get('stage') or 'Source')
+            stages += (f'<li><span class="tried-chip {tone}">{e(status or "recorded")}</span> '
+                       f'{link}<span class="line-source-note">{e(stage.get("detail") or "")}</span></li>')
+        extra = ''
+        if fixture.get('bo3_relay_two_sided_quote_present') is False:
+            extra += '<span class="tiny muted">bo3.gg relay: no two-sided quote published for this fixture.</span>'
+        links = ''
+        if fixture.get('hotspawn_url'):
+            links += external(fixture['hotspawn_url'], 'Hotspawn fixture')
+        rows += (f'<tr><th scope="row">{e(teams)}<small>{e(fixture.get("competition") or "")}</small></th>'
+                 f'<td><ul class="line-source-list">{stages}</ul>{extra}</td>'
+                 f'<td>{links}</td></tr>')
+    return (
+        f'<section class="content-section" id="no-line-line-research">'
+        f'<div class="section-heading"><div><p class="eyebrow">Second source search</p>'
+        f'<h2>What was tried for rows without a betting line</h2></div>'
+        f'<span class="muted small">{len(fixtures)} rows · {observed}</span></div>'
+        f'<p class="section-intro">These rows are published as research estimates, so this page also shows '
+        f'the search behind them: HLTV first (identity and ranking; HLTV publishes no prematch price and its '
+        f'fan vote is never used), then the esportsbooks and relay surfaces. '
+        f'{len(answered)} of {len(surfaces)} probed surfaces answered at that observation time; a blocked or '
+        f'answering page is never read as proof that no market exists, and no price is scraped from a '
+        f'rendered page. No row here gained a probability from this pass. '
+        f'<a class="internal-link" href="{prefix}data/{e(LINE_RESEARCH)}">Dated record (JSON) ↓</a></p>'
+        f'<div class="table-scroll"><table class="simple-table"><caption class="sr-only">Every source tried for '
+        f'each fixture that has no betting line, with the outcome</caption>'
+        f'<thead><tr><th scope="col">Match</th><th scope="col">Sources tried, in order</th>'
+        f'<th scope="col">Fixture</th></tr></thead><tbody>{rows}</tbody></table></div>'
+        f'<p class="tiny muted">Reachability is not a price. A new money line is published only when '
+        f'<code>scripts/originate.py</code> validates a two-sided prematch series price against the ladder '
+        f'contract; this record changes no pick.</p></section>'
+    )
+
+
 def summary(data, prefix, now=None):
     c = data['counts']
     active = [m for m in data['matches'] if m['availability'] in {'open', 'locked', 'unknown_lock'}]
@@ -1734,6 +2025,7 @@ def summary(data, prefix, now=None):
     out += glance(data, prefix, now=now)
     out += live_coverage_gaps(data, prefix)
     out += exec_banner(data, prefix)
+    out += verification_strip(data, prefix)
     out += unresolved_register(data, prefix, compact=True)
     # Session ca7e10e5: the dated no-line research block was rendered only on
     # /unresolved/, while scripts/eea4c104_audit.py (and its regression test)
@@ -2058,6 +2350,11 @@ def coverage(data, prefix, now=None):
         out += f'<tr><th scope="row">{e(title)}</th><td>{detail}</td><td>{external(url, label)}</td></tr>'
     reconciliation = '<a href="' + prefix + 'data/evidence/hotspawn-context.json">Inventory reconciliation ↓</a>' if data.get('inventory_observed_at') else ''
     out += '</tbody></table></div><div class="inline-links downloads"><a href="' + prefix + 'snapshot.json">Full snapshot JSON ↓</a>' + reconciliation + '<a href="' + prefix + 'data/picks.csv">Picks CSV ↓</a>' + '<a href="' + prefix + 'data/acceptance-audit.md">Brief-line acceptance audit ↓</a></div></section>'
+    # Session 3a010437: the dated re-read is its own section, after the ledger
+    # closes. Appending it before the closing tags put a <section> inside the
+    # ledger's <tbody>, which is invalid markup and rendered nested.
+    out += verification_section(data, prefix)
+    out += line_research_section(data, prefix)
     out += f'<section class="content-section" id="archive"><div class="section-heading"><div><p class="eyebrow">Preserved, not misrepresented</p><h2>Past-start source archive <span class="heading-count">{c["archived"]}</span></h2></div></div><p class="section-intro">These records still exist in Hotspawn’s scheduled feed, but their scheduled starts are in the past. “Scheduled” is the source’s value, not a verified present status. Results, current picks and retrospective probabilities are not invented.</p><div class="table-scroll"><table class="simple-table archive-table"><caption class="sr-only">Every past-start CS2 record retained from the original Hotspawn feed</caption><thead><tr><th>Match / tournament</th><th>Scheduled start</th><th>Source status</th><th>Original source</th></tr></thead><tbody>'
     for m in data['matches']:
         if m['availability'] != 'past':
@@ -2233,6 +2530,13 @@ def build(source: Path, output: Path, now=None):
             data['_line_sources'] = None
     # A local blocked probe must not replace newer runner-verified observations.
     data['_no_line_research'] = load_no_line_research(source)
+    data['_verification'] = load_verification(source)
+    line_research_path = source / LINE_RESEARCH
+    if line_research_path.exists():
+        try:
+            data['_line_research'] = json.loads(line_research_path.read_text())
+        except ValueError:
+            data['_line_research'] = None
     # Same newest-wins rule for the live-lobby coverage register (2016c841): any
     # session's dated record that compared a non-empty lobby can render, and the
     # dated-record links follow the record actually rendered.
