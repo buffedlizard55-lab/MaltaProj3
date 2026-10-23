@@ -4,7 +4,9 @@
     "severity": "notice",
     "title": "The summary listed a fixture as \"no pick in this build\" while the same build carried its pick",
     "detail": "The dated live-coverage-gaps block on the executive summary compared the live Hotspawn lobby only against the featured snapshot. JiJieHao vs Eternal Fire (fixture 1081606) was resolved on the complete researched list and appeared at row 4 of Picks at a glance with a 44.5/55.5 market estimate, yet the same page also listed it under \"Live Hotspawn fixtures missing from this snapshot — 3 not in this build\". A fixture whose lobby card had no permalink could never drop out either, because the check required an id. Fixed in scripts/build.py: the check now reads the complete researched list by Hotspawn id and by normalised team pair, the block is labelled a dated observation with its observation time, and the count is described as at that observation. Tests in tests/test_9fd5fbf1.py pin both the resolved-row and unmatched-pair cases. No probability, pick or source was changed by the fix.",
-    "match_ids": ["1081606"],
+    "match_ids": [
+      "1081606"
+    ],
     "source_urls": [
       "https://play.hotspawn.com/cs2-pickems",
       "https://www.hotspawn.com/matches/jijiehao-vs-eternal-fire-digital-crusade-draculan-season-7",
@@ -17,12 +19,33 @@
     "severity": "notice",
     "title": "Eight of 30 active fixtures still have no external two-sided line",
     "detail": "At the 2026-10-23T09:24Z snapshot, 22 of 30 active fixtures carried an external money line and 8 were published from a labelled research model: Phantom Academy–Banda chuya, Acend–UNiTY, Metizport–BakS, Color–ex-Zero Tenacity, Ground Zero–Off Chops, Rooster–Abyssal, HOTU–The Huns and 5star–1WIN. These are not blank rows and no probability is invented: each publishes an uncalibrated model estimate with its blocker. Two of them (Rooster–Abyssal, Ground Zero–Off Chops) have a Polymarket series book that is too wide or too thin to use as a price (Rooster–Abyssal read 0.50/0.50 on $116.52 liquidity at 2026-10-23T10:06Z), which is why the model is shown. Every four-hour refresh retries the sources; the register shrinks when a market opens.",
-    "match_ids": ["1081605", "1082996", "1079198", "1079200", "1082858", "1082861", "1082792", "1082793"],
+    "match_ids": [
+      "1081605",
+      "1082996",
+      "1079198",
+      "1079200",
+      "1082858",
+      "1082861",
+      "1082792",
+      "1082793"
+    ],
     "source_urls": [
       "https://play.hotspawn.com/cs2-pickems",
       "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/",
       "https://gamma-api.polymarket.com/markets?slug=cs2-rstr-abyssa-2026-10-26",
       "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    ]
+  },
+  {
+    "id": "42bfa8ea-board-block-dropped-in-merge",
+    "severity": "notice",
+    "title": "The arena-42bfa8ea block was dropped from COORDINATION.md by a concurrent merge",
+    "detail": "COORDINATION.md is a single file that every session prepends to, so concurrent merges conflict on it. Between PR #218 and PR #230 a session resolved that conflict by keeping its own copy, which deleted this session's entire block. The block is restored with its final results. This is a process irregularity, not a data error: no pick, probability, source or alias was affected. Suggested rule for the next integration session: never resolve a COORDINATION.md conflict by taking one side wholesale; concatenate both blocks (this session's resolution method) or move each session to data/research/<id>/board.md and keep only an index in COORDINATION.md.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/218",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/230",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/COORDINATION.md"
     ]
   }
 ]
