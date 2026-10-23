@@ -54,6 +54,15 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      # The republish guard needs the publisher code, and this job otherwise only
+      # downloads a previous artifact. Check out just scripts/ FIRST: checkout
+      # runs `git clean -ffdx` in the workspace, so doing it after the artifact is
+      # extracted would delete site/.
+      - uses: actions/checkout@v7
+        with:
+          sparse-checkout: scripts
+      - name: Install the guard's only dependency
+        run: python3 -m pip install --quiet requests==2.32.5
       - name: Find the most recent successful publish
         id: previous
         env:
@@ -99,7 +108,7 @@ jobs:
         id: guard
         if: steps.previous.outputs.skip == 'false'
         run: |
-          if python -m scripts.root_publish --output site --refuse-if-older-than-live; then
+          if python3 -m scripts.root_publish --output site --refuse-if-older-than-live; then
             echo "proceed=true" >> "$GITHUB_OUTPUT"
           else
             code=$?
