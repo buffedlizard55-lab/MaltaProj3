@@ -1,3 +1,35 @@
+# Current session: arena-97d4113b — WCAG accessibility fix, low-tier pick origination audit, official source verification, mobile executive summary — DONE/MERGED
+
+Claimed **2026-10-23T05:25Z** on Arena's fixed branch `arena/97d4113b-maltaproj3`, branched from `main` at `f474bcc`. Board read first: prior session `d866c786` merged PR #197 (`631db28`). Live lobby checked 2026-10-23: authoritative Hotspawn fixtures API provides 93 CS2 fixtures; complete researched origination resolves all active fixtures with directional picks, probabilities, or explicit unresolved documentation.
+
+### S97 Tasks & Status
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| S97-1 WCAG 1.4.1 accessibility fix: underline text links in `#low-tier-coverage` list | **done** — `.ladder-list a` underlined in `assets/scout.css`; 15/15 a11y tests & 89/89 browser tests pass | arena-97d4113b | `assets/scout.css` |
+| S97-2 Line-by-line official source & Hotspawn reverse engineering audit | **done** — verified Hotspawn scheduled API, Polymarket Gamma/CLOB, Thunderpick, Valve standings, bo3.gg, Kalshi, Bovada, Pinnacle guest, HLTV; documented in `data/research/97d4113b/verification.md` | arena-97d4113b | `data/research/97d4113b/`, `docs/` |
+| S97-3 Mobile executive summary verification: obvious pick indicators, both win probabilities, 1-tap links to picks, dedicated unresolved register | **done** — verified mobile layout at 320/390/768/1440px, >=48px touch targets, zero overflow, pick chip highlighted `#fff6ef` | arena-97d4113b | `site/`, `assets/scout.css` |
+| S97-4 Full suite test execution: replay build, row-source audit, Playwright browser suite, pick-presentation safety | **done** — build PASS 80 rows reconciled, 648 rows audited (629 official, 9 unverified, 10 site-map, 0 violations), 802 links OK; 89/89 browser specs OK; 106 safety assertions OK | arena-97d4113b | `tests/`, `site/` |
+| S97-5 Integration PR to main, merge, confirm Pages deployment, publish Flagged for Review page | **done** — PR #200 merged to main as commit b44595f, Pages refresh queued (run 39906078427) | arena-97d4113b | PR, `COORDINATION.md` |
+
+**Non-overlap pledge:** Edits strictly scoped to `assets/scout.css`, `COORDINATION.md`, and new session research directory `data/research/97d4113b/`. No conflicting modifications to other sessions' research archives or shared data fixtures.
+
+### S97 Results (2026-10-23)
+- **A11y Regression Fixed**: PR #197 introduced `#low-tier-coverage` list links without underline styling, failing axe `link-in-text-block` (contrast 2.6:1 < 3:1). Added `.ladder-list a` to the underlined inline links selector in `assets/scout.css`. Playwright accessibility tests (both 390px phone and 1440px desktop) now pass 100% (15/15 passing).
+- **Full Browser Suite**: All 89 Playwright specs pass without failure (`npm test`).
+- **Safety Audit**: `node tests/pick-safety-browser.mjs` passes 106 assertions (live expiry, lock transitions, clock rollback, no-JS, axe A/AA).
+- **Line-by-line Source Audit**:
+  - Hotspawn scheduled fixtures API (`https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1`) verified as primary authoritative source.
+  - Polymarket Gamma (`https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2`) and CLOB order books verified.
+  - Thunderpick client API (`https://thunderpick.io/api/matches`) verified.
+  - Valve regional standings repo (`https://github.com/ValveSoftware/counter-strike_regional_standings`) verified.
+  - bo3.gg relay and results network verified.
+  - Kalshi CFTC-regulated event contracts (`https://api.elections.kalshi.com/trade-api/v2/events`) verified.
+  - Bovada pre-match coupon and Pinnacle Arcadia guest API verified.
+  - HLTV matches (`https://www.hltv.org/matches`) and team rankings (`https://www.hltv.org/ranking/teams`) verified.
+- **No Hallucination Contract**: Every row in the site table links to its verified official source. Blanks remain unpopulated with reason documented in `#unresolved-register`.
+- **PR & Merge Confirmation**: PR #200 (https://github.com/buffedlizard55-lab/MaltaProj3/pull/200) successfully merged into `main` as commit `b44595f` via `gh pr merge 200 --merge`. Triggered GitHub Actions Pages workflow run `39906078427` (https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39906078427).
+
 # Current session: arena-d866c786 — full coverage, picks for every match, mobile-first executive summary, reverse-engineered Hotspawn — DONE/MERGED
 
 Claimed **2026-10-23T04:56Z** on Arena's fixed branch `arena/d866c786-maltaproj3`, branched from `main` at `cd95411`. Board read first: previous session `arena-3016b0c6` is **done/merged** per its own log, no live claim held (last update 2026-10-22). Live lobby checked 2026-10-23 via fetch: **93 CS2 fixtures** (92 filtered, 197 total matches this week). This session re-attacks the gap: featured method leaves blanks on low-tier/academy matches not covered on Polymarket, and ensures every match gets a researched pick via HLTV → esportsbooks ladder, with a separate unresolved & limitations section linked from executive summary. Mobile-first findability is the primary UX goal.
