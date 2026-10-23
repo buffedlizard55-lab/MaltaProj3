@@ -18,7 +18,9 @@ on:
       - '.github/workflows/7c0e457b-probe.yml'
   workflow_dispatch:
 permissions:
-  contents: read
+  # The report is the deliverable: it is committed back to the session branch so
+  # a reviewer can read the live result without an artifact download.
+  contents: write
 concurrency:
   group: 7c0e457b-probe-${{ github.ref }}
   cancel-in-progress: true
@@ -51,6 +53,16 @@ jobs:
           else
             echo 'The probe wrote no report (the ladder did not produce data/origination.json).' >> "$GITHUB_STEP_SUMMARY"
           fi
+      - name: Save the dated report on the branch
+        if: always()
+        run: |
+          if [ ! -d data/research/7c0e457b ]; then exit 0; fi
+          git config user.name 'arena-7c0e457b'
+          git config user.email 'arena@users.noreply.github.com'
+          git add data/research/7c0e457b
+          if git diff --cached --quiet; then echo 'no report change'; exit 0; fi
+          git commit -m "7c0e457b: live ladder report from run ${{ github.run_id }} [skip ci]"
+          git push
       - uses: actions/upload-artifact@v4
         if: always()
         with:

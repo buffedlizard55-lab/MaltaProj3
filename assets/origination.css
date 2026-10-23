@@ -218,3 +218,16 @@ footer .src { font-size: .82rem; }
 .line-time { font-size: .78rem; color: var(--muted); margin: 4px 0 8px; }
 .availability-summary { font-size: .92rem; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* Session arena-7c0e457b — near-time money line.
+   A real book or market price whose provider clock disagrees with Hotspawn's is
+   a different evidence class from an exact-time join. It gets its own badge and
+   prints both clocks on the card, so a reader can never mistake it for a
+   same-slot quote (scripts/gap_lines.py). */
+.badge.near { background: #fff4e5; color: #7a4a12; border: 1px solid #e7c79b; }
+.near-time { margin: 6px 0 0; font-size: 12px; line-height: 1.55; color: #7a4a12; }
+.card .near-time { padding: 8px 10px; background: #fff9f1; border: 1px solid #efe0c9; border-radius: 8px; }
+
+/* Session arena-7c0e457b — say plainly that a model row is not a betting line. */
+.no-market-note { margin: 6px 0 0; font-size: 12px; line-height: 1.55; color: #4a5a68;
+  padding: 8px 10px; background: #f4f7fa; border: 1px solid #dfe7ee; border-radius: 8px; }

@@ -87,11 +87,31 @@ def match_source_links(m, o):
     return links
 
 
+def near_time(o) -> bool:
+    return bool(o) and o.get('binding') == 'near-time' and bool(o.get('provider_start'))
+
+
+def near_caption(o) -> str:
+    """Both clocks for a near-time quote; never recomputed, never hidden."""
+    if not near_time(o):
+        return ''
+    delta = int(round(o.get('start_delta_sec') or 0))
+    minutes = abs(delta) / 60
+    direction = 'later' if delta > 0 else 'earlier'
+    return (f'Start times disagree: {o.get("source") or "provider"} lists {o.get("provider_start")} — '
+            f'{minutes:.0f} min {direction} than Hotspawn\'s {o.get("hotspawn_start")}. The two team names '
+            'match exactly (or through the reviewed alias registry) on the same UTC date, so this is a '
+            'near-time join, not an exact-clock join.')
+
+
 def basis_meta(o):
     money = o['method'] in {'market', 'bookmaker', 'consensus', 'reference'}
     kind = 'green' if money else 'purple'
     label = 'Money-backed line' if money else 'Research model'
     group = 'money' if money else 'model'
+    if near_time(o):
+        label = 'Near-time money line · start clocks disagree'
+        kind = 'near'
     if o.get('family') == 'relay':
         label = 'Relayed money line · bo3.gg bookmaker feed'
     if o['method'] == 'reference':
@@ -206,8 +226,19 @@ def pick_row(m, safety=None, now=None):
         else:
             out.append('<p class="pick-line">Pick: <strong>No directional edge</strong> <small>(equal estimate)</small></p>')
         out.append(f'<p class="line-time">Estimate observed {local_time(o.get("observed_at"))}.<span data-historical-only{historical_hidden}> Historical / unverified for current use.</span></p>')
-        label, kind, _ = basis_meta(o)
+        label, kind, group = basis_meta(o)
         out.append(f'<p class="basis">{badge(label, kind)} <span class="method">{e(method_label(o))}</span></p>')
+        if group == 'model':
+            # The brief asks for an explicit reason when no market priced a
+            # fixture. A bare "Research model" badge left readers unsure whether
+            # the row was a bet, a guess or a blank (arena-7c0e457b review).
+            out.append('<p class="no-market-note">No bookmaker or exchange listed this fixture at the '
+                       'observation time, so this is a <strong>research estimate</strong> — not a betting '
+                       'line and not a placeholder. The sources tried and every blocker are below.</p>')
+        if near_time(o):
+            # The disagreement is part of the evidence, so it is printed above the
+            # fold; the full sentence is repeated in the research trail.
+            out.append(f'<p class="near-time">{e(near_caption(o))}</p>')
         links = match_source_links(m, o)
         out.append('<p class="row-srcs">' + ' · '.join(links) + '</p>')
     else:

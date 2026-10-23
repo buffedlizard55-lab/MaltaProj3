@@ -1597,10 +1597,7 @@ def summary(data, prefix, now=None):
     out += '<nav class="briefing-links" aria-label="Briefing shortcuts"><a href="' + prefix + 'origination/#picks">Full updated picks</a><a href="' + prefix + 'strategy/">Leaderboard plan</a><a href="' + prefix + 'final-day/">Final day review</a><a href="#next-matches-section">Next matches</a><a href="#contrarian">Contrarian review</a><a href="' + prefix + 'edge/">Upset review &amp; edge</a><a href="' + prefix + 'edge/#day-five-card">Day 5 final-day picks</a><a href="' + prefix + 'twc-picks/">Day 5 pick guide</a><a href="#upset-watchlist">Market-backed alternatives</a><a href="#unresolved-register">Unresolved &amp; limitations</a></nav>'
     if data.get('_twc_day5') is not None:
         from scripts.day5 import summary as final_day_summary
-        out += fold_open('fold-twc', 'TWC final day · where the picks are',
-                         'Dated review · 18 October', 'Day-5 picks, Days 1–4 results')
         out += final_day_summary(data['_twc_day5'], prefix)
-        out += fold_close()
     day4 = data.get('_twc_day4')
     if day4 is not None:
         confirmed = len(day4['matches'])
@@ -1617,8 +1614,6 @@ def summary(data, prefix, now=None):
                            else 'in the retained Hotspawn snapshot; current coverage is unverified')
         tournament_link = (f'<a href="{prefix}twc-picks/#day-four-tournament-lines">Tournament-card lines →</a> '
                            if pending else '')
-        out += fold_open('fold-twc-day4', 'TWC final day · where the picks are',
-                         'Dated review · 18 October', 'Day-4 coverage and tournament-card lines')
         out += (f'<section class="limitations-callout" aria-label="TWC Day 4 coverage"><h2>TWC final day · where the picks are</h2>'
                 f'<p><a href="{prefix}edge/#day-five-card"><strong>Day-5 final-day picks (Sun 18 Oct) →</strong></a> '
                 f'<a href="{prefix}edge/#day-five-guidance">Days 1–4 reviewed → final-day strategy →</a> '
@@ -1630,7 +1625,6 @@ def summary(data, prefix, now=None):
                 f'<a href="{prefix}twc-picks/#day-four-picks">Day 4 picks &amp; fixture limitations →</a> '
                 f'{tournament_link}'
                 f'<a href="{prefix}twc-picks/#day-three-results">Day 3 source-checked results →</a></p></section>')
-        out += fold_close()
     if c['unknown_schedule']:
         out += f'<div class="limitations-callout"><strong>{c["unknown_schedule"]} additional matches have unverified schedules.</strong> They cannot safely be matched to betting lines and are not included in the future-match count. <a href="#unresolved-register">See unresolved schedules and limitations →</a></div>'
     out += fold_open('fold-metrics', 'Featured-method metrics and what to know before you pick',
@@ -1687,6 +1681,10 @@ def summary(data, prefix, now=None):
     out += f'<div class="limitations-callout"><strong>What the numbers cannot confirm</strong><p>HLTV or bookmakers can block unattended access. Provider team names can differ. Rating snapshots do not confirm today’s lineup or map vetoes. {c["archived"]} past-start Hotspawn records are preserved separately, not sold as current picks. Unverified best-of formats and source status conflicts are listed for review.</p><div class="inline-links"><a href="{prefix}coverage/">Coverage &amp; source status →</a><a href="{prefix}methodology/">How probabilities are calculated →</a><a href="{prefix}review/">Flagged for Review →</a></div></div></section>'
     out += fold_close()
     # D866 — explicit low-tier coverage explainer, required by brief: HLTV first, then esportsbooks, then model, with separate unresolved section.
+    # Session arena-7c0e457b: kept, but folded — a phone reader who wants the
+    # method opens it; a reader who wants a pick never scrolls through it.
+    out += fold_open('fold-low-tier', 'How every low-tier match gets a pick', 'Method',
+                     'HLTV → esportsbooks → official ratings → model')
     out += f'''<section class="content-section" id="low-tier-coverage" aria-label="How low-tier and academy matches get a pick">
       <div class="section-heading"><div><p class="eyebrow">Every match, even low-tier</p><h2>How we cover academy & low-tier fixtures</h2></div>{badge('HLTV → esportsbooks → model', 'purple')}</div>
       <p class="section-intro">Featured picks use strict exact-name joins against Polymarket and Thunderpick. Low-tier fixtures (CCT Play-In, Elisa BreakOut, DFRAG, VRS academy, Urban Riga, VOID Autumn Cup) may lack a verified market in the sources we can access. Absence of a retrieved line is not proof no market exists. For those, we research in order; community participation never enters our win estimates:</p>
@@ -1700,6 +1698,7 @@ def summary(data, prefix, now=None):
       <p class="tiny muted">If no source has the team (new roster, no Valve row, no HLTV rank, no bo3.gg results), the fixture stays in <a href="{prefix}unresolved/">Unresolved picks &amp; limitations</a> with every source tried and the exact blocker. Model-only rows are badged <span class="badge purple">Model</span> or <span class="badge amber">No line</span> and listed separately under <a href="#no-line-register">Picks without a betting line</a> in this executive summary. No probability is invented as 50/50; every row links its evidence (Hotspawn + line provider or Valve/HLTV).</p>
       <div class="inline-links"><a href="{prefix}origination/#picks">Complete match picks →</a><a href="{prefix}unresolved/">Unresolved &amp; limitations →</a><a href="{prefix}methodology/">Methodology →</a><a href="{prefix}coverage/">Coverage &amp; sources →</a><a href="https://play.hotspawn.com/lobby" target="_blank" rel="noopener noreferrer">Open Hotspawn lobby ↗</a></div>
     </section>'''
+    out += fold_close()
     out += fold_open('fold-fallback', 'Researched fallback picks', 'Background',
                      'Provider-name discrepancies and the fallback list')
     out += '<section class="content-section"><h2>Researched fallback picks</h2><p>Provider-name discrepancies can prevent exact-name market joins. <a style="text-decoration:underline" href="./origination/#picks">Open the full researched picks list</a> for featured picks plus independently sourced fallbacks. <a style="text-decoration:underline" href="./origination/#unresolved">Unresolved picks &amp; limitations</a> and <a style="text-decoration:underline" href="./origination/#aliases">identity evidence</a> remain visible. Featured money lines are preserved; a verified money line can replace a model-only estimate.</p></section>'

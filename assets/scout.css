@@ -597,35 +597,6 @@
   .start-here .tiny{display:none!important}
 }
 
-/* Session arena-7c0e457b — background on demand.
-   The executive summary carried eight sessions of dated reviews. Measured on the
-   shipped page at 390x844 before this block: 29,001 px tall, with the separate
-   unresolved/limitation register starting ~9,600 px down and roughly 9,600 px of
-   historical sections below it. Those blocks are now <details> elements, closed
-   by default, so the phone path is picks -> register -> everything else. Nothing
-   is deleted: the markup, the anchors and the text are unchanged. */
-.fold{border:1px solid var(--line,#dfe5ec);border-radius:14px;background:var(--surface,#fff);margin:14px 0;overflow:hidden}
-.fold>summary{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;padding:14px 16px;cursor:pointer;list-style:none;min-height:48px}
-.fold>summary::-webkit-details-marker{display:none}
-.fold>summary::marker{content:""}
-.fold>summary:focus-visible{outline:3px solid var(--focus,#1f6feb);outline-offset:-3px}
-.fold-kicker{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted,#5a6a7a)}
-.fold>summary strong{font-size:15px;color:var(--ink,#172c3d);flex:1 1 220px;line-height:1.3}
-.fold-hint{font-size:12px;color:var(--muted,#5a6a7a);flex:1 1 100%}
-.fold-action{font-size:12px;font-weight:700;color:var(--accent,#b9401b);border:1px solid currentColor;border-radius:999px;padding:4px 12px}
-.fold[open] .fold-action{color:var(--muted,#5a6a7a)}
-.fold[open]>summary{border-bottom:1px solid var(--line,#dfe5ec)}
-.fold-body{padding:2px 16px 16px}
-.fold-body>.content-section:first-child,.fold-body>.limitations-callout:first-child{margin-top:8px}
-@media(max-width:700px){
-  .fold{margin:12px 0;border-radius:12px}
-  .fold>summary{padding:13px 14px;gap:2px 8px}
-  .fold>summary strong{flex:1 1 100%;font-size:14px}
-  .fold-hint{font-size:11.5px}
-  .fold-action{padding:3px 10px;font-size:11px}
-  .fold-body{padding:0 12px 12px}
-}
-
 /* Session arena-7c0e457b — the near-time marker.
    A real market price whose published start time disagrees with Hotspawn's is a
    different evidence class from an exact-time line. It carries its own badge and
@@ -643,4 +614,54 @@
 @media(max-width:400px){
   .start-here-label{display:none}
   .page-heading .page-description{margin-top:9px}
+}
+
+/* Session arena-7c0e457b — one glance row, three short lines on a phone.
+   Measured at 390x844 before this block: each row was 189 px (42 match + 66
+   choice + 32 links + gaps). The two lines of links and the stacked pick line
+   were the cost. Rows are now match, pick+price+badge, sources; a 30-row live
+   board saves about 1,900 px without dropping a fixture, a probability or a
+   source link. Tap targets stay at or above the 24 px minimum. */
+@media(max-width:700px){
+  .glance-row{padding:9px 12px;gap:3px}
+  .glance-match>strong{font-size:13.5px;line-height:1.35}
+  .glance-time{font-size:9.5px;line-height:1.4}
+  .glance-choice{gap:4px 6px;font-size:11px;line-height:1.35;margin-top:0}
+  .glance-choice>strong{font-size:13px}
+  .glance-prob{font-size:13px}
+  .glance-other{font-size:10.5px}
+  .glance-pick-label{font-size:8.5px;padding:2px 5px}
+  .glance-links{gap:8px;margin-top:0}
+  .glance-links .source-link{font-size:9px;min-height:24px;line-height:1.3}
+}
+
+/* Session arena-7c0e457b — background on demand, not by default.
+   The executive summary carries eight sessions of dated reviews, audit trails
+   and source sweeps. At 390x844 the built page was 29,667 px tall and the
+   separate unresolved/limitation register began at 9,618 px, so a phone reader
+   scrolled ~20 screens of history to reach it. Each dated block is now a
+   <details> that starts closed: one tappable row with its title, its provenance
+   and a one-line description. Nothing is deleted; the full text, the ids and
+   every anchor stay in the document, and assets/scout.js opens the enclosing
+   block when a link points inside it. */
+.fold{margin:0 0 26px;border:1px solid var(--border);border-radius:var(--radius);background:var(--white);box-shadow:var(--shadow);overflow:clip}
+.fold>summary{display:flex;align-items:center;flex-wrap:wrap;gap:2px 14px;padding:17px 22px;cursor:pointer;list-style:none;min-height:56px}
+.fold>summary::-webkit-details-marker{display:none}
+.fold>summary::marker{content:""}
+.fold>summary:focus-visible{outline:3px solid var(--orange-dark);outline-offset:-3px}
+.fold-action{margin-left:auto;font-size:9px;letter-spacing:.8px;text-transform:uppercase;font-weight:700;color:var(--orange-dark);border:1px solid currentColor;border-radius:999px;padding:5px 11px;line-height:1.2}
+.fold[open] .fold-action{color:var(--muted);border-color:currentColor}
+.fold[open]>summary{border-bottom:1px solid var(--border)}
+.fold-kicker{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#576b79;font-weight:650;flex-basis:100%}
+.fold>summary strong{font-size:16px;color:var(--ink);letter-spacing:-.2px}
+.fold-hint{flex-basis:100%;font-size:11px;line-height:1.5;color:var(--muted)}
+.fold-body{padding:0 22px 18px}
+.fold-body>.content-section{margin-bottom:0}
+.fold-body>.content-section:first-child>.section-heading{padding-top:0}
+@media(max-width:700px){
+  .fold{margin-bottom:18px;border-radius:12px}
+  .fold>summary{padding:14px 16px;gap:1px 10px;min-height:52px}
+  .fold>summary strong{font-size:15px}
+  .fold-hint{font-size:10.5px}
+  .fold-body{padding:0 12px 12px}
 }

@@ -178,6 +178,47 @@ Read from [HLTV's official event results](https://www.hltv.org/results?event=893
   Evidence: [`data/research/46ade650/line-source-research.json`](data/research/46ade650/line-source-research.json),
   `.md`, and the exchange capture beside them.
 
+## 23 October session arena-7c0e457b: a phone-first summary, and a second low-tier book
+
+**The summary is now a page you can read on a phone.** Measured on the built site at 390x844 before this
+session: **29,667 px** tall, with the separate *Unresolved picks & limitations* register starting at **9,618 px**
+and the hero at 16,428 px. Nothing in it was wrong — eight sessions of dated reviews, audit trails and source
+sweeps were simply open all the time, between the picks and everything else.
+
+- The register now comes straight after the picks (start-here → glance → banner → **register** → live-gap cards),
+  so the section the brief asks for is the second thing a phone reader reaches, not the fifth screen.
+- Every dated review, audit trail, coverage-sweep or per-fixture research table is a closed
+  `<details class="fold">` with a one-line description. The content, the ids and the anchors stay in the HTML;
+  `assets/scout.js` opens the enclosing block when a link points inside it, so `#contrarian`,
+  `#upset-watchlist`, `#unresolved` and `#source-matrix` still land on their target.
+- Glance rows are one match line, one pick line and one source line on a phone: 189 px → **135 px** per row,
+  with both probabilities and every source link kept.
+- Result at 390x844 on the same data: **14,651 px** (−51%), register at **4,254 px**, first glance row at **985 px**
+  (the budget in `phone_summary_17d77cb3.spec.mjs` is 1,050). At 320x568: 16,429 px, first row 1,125 px (budget
+  1,150). `tests/test_7c0e457b_mobile.py` (14 tests) and `tests/browser/phone_summary_7c0e457b.spec.mjs` (5) pin
+  the fold contract, the reading order and the page-height budget.
+
+**A second first-party book for the low-tier fixtures: Unibet (Kambi).** The four-hour ladder already tries
+Polymarket, Kalshi, Smarkets, Thunderpick, Bovada, Pinnacle and the bo3.gg relay. `scripts/kambi_lines.py` adds
+the operator's own unauthenticated Kambi offering feed, which lists the CCT / United21 matches those sources
+skip. It reads CS2 `Match Odds` only, prematch only, both sides above 1.01, prices in thousandths, one brand
+only — every Kambi-powered book shares one liquidity pool, so counting two of them would double-count a single
+price. Verified by hand on 2026-10-23: Nuclear TigeRES 1.11 / ILLYRIANS 5.80 and Inner Circle Academy 2.06 /
+Spirit Academy 1.73, both fixtures the ladder had left on a research model.
+
+**A clock disagreement is published as its own evidence class, never as an exact join.** Some fixtures are not
+missing a market — the market simply disagrees about the start time (Metizport–BakS: Polymarket 12:00Z vs
+Hotspawn 11:00Z). `scripts/gap_lines.py` accepts a real two-sided price when both names match exactly (or
+through the reviewed alias registry), the UTC date is the same, and the clock difference is more than 60 seconds
+but no more than six hours. Such a quote is badged **Start time differs**, prints both clocks and the signed
+delta on the row and on the origination card, always loses to an exact-bound quote from the same provider, and is
+rejected outright if one provider sends two candidates. Fixtures with no two-sided book at all — the
+Metizport–BakS series book is 0.04/0.96, Ground Zero–Off Chops' only Smarkets book is crossed — keep their
+labelled research estimate rather than gaining an invented price.
+
+`scripts/7c0e457b_probe.py` and the session-only workflow [`7c0e457b-probe.yml`](.github/workflows/7c0e457b-probe.yml)
+run the live ladder and publish a read-only report of what it priced; they never deploy and never commit data.
+
 ## Automatic operation: one publisher, every four hours
 
 [`.github/workflows/pages.yml`](.github/workflows/pages.yml) runs on pushes to `main`, manual dispatch and at **00:17, 04:17, 08:17, 12:17, 16:17 and 20:17 UTC**, plus catch-up slots at **02:47, 06:47, 10:47, 14:47, 18:47 and 22:47 UTC**. GitHub may delay or drop scheduled jobs under load (on 15 Oct 2026 only 04:39, 13:26 and 19:53 UTC were delivered — an 8.8-hour gap), so the catch-up slots keep a single dropped run from pushing the data past the 8-hour bound. This is not a real-time feed.

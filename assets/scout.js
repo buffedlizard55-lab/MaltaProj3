@@ -257,3 +257,27 @@ checkForUpdate();
     }
   });
 })();
+
+// Session arena-7c0e457b: background blocks are collapsed, but every existing
+// #anchor inside them still has to work. A same-page link, a pasted URL with a
+// fragment, and the browser's back button all open the enclosing <details>
+// before the jump lands, so no navigation silently points into hidden text.
+(() => {
+  const reveal = (target) => {
+    for (let node = target; node; node = node.parentElement) {
+      if (node.tagName === 'DETAILS' && !node.open) node.open = true;
+    }
+  };
+  const fromHash = (hash) => {
+    if (!hash || hash.length < 2) return;
+    let target = null;
+    try { target = document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return; }
+    if (target) reveal(target);
+  };
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest?.('a[href^="#"]');
+    if (link) fromHash(link.getAttribute('href'));
+  });
+  window.addEventListener('hashchange', () => fromHash(window.location.hash));
+  fromHash(window.location.hash);
+})();
