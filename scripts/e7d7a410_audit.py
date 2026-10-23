@@ -87,29 +87,51 @@ def source_of(match: dict, analysis: dict) -> str:
     return ''
 
 
-def audit_fixture(match: dict, active_ids: set[str], featured: dict | None = None) -> dict:
-    analysis = analysis_of(match)
-    probabilities = (analysis or {}).get('probabilities')
-    ok, probability_problem = probabilities_ok(probabilities) if probabilities else (False, 'no probabilities')
-    pick_index = match.get('pick_index')
-    method = (analysis or {}).get('method')
-    problems = []
-    if not analysis:
-        problems.append('no resolution block')
+def audit_fixture(match: dict, completed_row: dict | None) -> dict:
+    """Audit one active fixture against the complete-picks feed it publishes.
+
+    The site's authoritative pick is the *complete-picks* resolution
+    (``data/origination.json`` → ``origination``), not the featured-only
+    ``analysis`` block in ``data/latest.json``; the featured block is the
+    first method and may legitimately be blank while a researched fallback
+    resolved the row. Reading the wrong feed here would report false gaps —
+    exactly the defect this audit exists to catch in the site, so the join is
+    done first and the two feeds are cross-checked for identity drift.
+    """
+    completed_row = completed_row or {}
+    featured = match.get('analysis') if isinstance(match.get('analysis'), dict) else None
+    resolution = completed_row.get('origination') if isinstance(completed_row.get('origination'), dict) else None
+    if not resolution:
+        resolution = featured
+    probabilities = (resolution or {}).get('probabilities')
+    method = (resolution or {}).get('method')
+    pick_index = completed_row.get('pick_index')
+    problems: list[str] = []
+    if not completed_row:
+        problems.append('active fixture missing from the complete-picks feed')
+    if not resolution:
+        problems.append('no resolution block in the complete-picks feed')
+    if probabilities:
+        ok, probability_problem = probabilities_ok(probabilities)
+    else:
+        ok, probability_problem = False, 'no probabilities'
     if not ok:
         problems.append(probability_problem)
     if ok:
         pick_issue = pick_problem(pick_index, probabilities)
         if pick_issue:
             problems.append(pick_issue)
-    source = source_of(match, analysis or {})
+    source = source_of(completed_row or match, resolution or {})
     if not source:
         problems.append('no official https source link')
     teams = [team.get('name') for team in match.get('teams') or []]
     if len(teams) != 2 or not all(teams):
         problems.append('both teams are not named')
-    if match.get('id') not in active_ids:
-        problems.append('active fixture missing from the complete-picks feed')
+    completed_teams = [team.get('name') for team in completed_row.get('teams') or []]
+    if completed_row and completed_teams != teams:
+        problems.append('team names differ between the inventory and the complete-picks feed')
+    if completed_row and completed_row.get('starts_at') != match.get('starts_at'):
+        problems.append('start time differs between the inventory and the complete-picks feed')
     return {
         'hotspawn_id': str(match.get('id')),
         'teams': teams,
@@ -117,17 +139,17 @@ def audit_fixture(match: dict, active_ids: set[str], featured: dict | None = Non
         'starts_at': match.get('starts_at'),
         'availability': match.get('availability'),
         'tier': match.get('tier'),
-        'featured_method': (featured or {}).get('featured_method'),
+        'featured_method': completed_row.get('featured_method'),
         'method': method,
         'method_family': 'money-line' if method in MONEY_METHODS else ('model' if method else None),
         'probabilities': probabilities,
         'pick': teams[pick_index] if pick_index in (0, 1) and len(teams) == 2 else None,
-        'pick_index': pick_index,
+        'pick_index': pick_index if pick_index in (0, 1) else None,
         'source_url': source,
-        'source': (analysis or {}).get('source'),
-        'observed_at': (analysis or {}).get('observed_at'),
+        'source': (resolution or {}).get('source'),
+        'observed_at': (resolution or {}).get('observed_at'),
         'hotspawn_url': match.get('source_url') if str(match.get('source_url', '')).startswith('https://www.hotspawn.com/') else None,
-        'limitations': (analysis or {}).get('limitations') or match.get('limitations') or [],
+        'limitations': (resolution or {}).get('limitations') or match.get('limitations') or [],
         'covered': not problems,
         'problems': problems,
     }
@@ -139,8 +161,7 @@ def build_report(data_dir: Path) -> dict:
     active = [m for m in latest.get('matches') or []
               if m.get('availability') in {'open', 'locked', 'unknown_lock'}]
     completed = {str(m.get('id')): m for m in origination.get('matches') or []}
-    active_ids = set(completed)
-    rows = [audit_fixture(match, active_ids, completed.get(str(match.get('id')))) for match in active]
+    rows = [audit_fixture(match, completed.get(str(match.get('id')))) for match in active]
 
     # An origination row with no matching live inventory row is a defect too.
     latest_ids = {str(m.get('id')) for m in latest.get('matches') or []}
