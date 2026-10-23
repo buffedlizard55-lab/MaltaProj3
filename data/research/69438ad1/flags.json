@@ -58,5 +58,29 @@
       "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
       "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/69438ad1/row-audit.json"
     ]
+  },
+  {
+    "id": "69438ad1-hotspawn-blocks-runner-egress",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "Hotspawn now answers GitHub-runner egress with HTTP 403 on both the fixture API and the lobby — fresh collection from runners is currently impossible",
+    "detail": "At 2026-10-23T05:10:39Z this session's runner probe recorded HTTP 403 for https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1 and for https://play.hotspawn.com/lobby (originals saved with sha256 269b3a43ad6c...). Six minutes earlier, at 05:02Z, the same lobby rendered fully from this session's platform-side egress (197 matches this week, CS2 filter 'All tiers (92)'), and the scheduled publisher collected successfully from runners as recently as 2026-10-22T13:21Z. The block is therefore new and egress-specific, not a source outage: absence of runner access must not be read as absence of fixtures. Consequence: until runner egress is accepted again, the four-hour pipeline can only republish its last verified snapshot pair; platform-side reads are the only current view of the live inventory. Recorded with the saved originals in data/research/69438ad1/originals/live-fixtures-api.json.",
+    "source_urls": [
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://play.hotspawn.com/lobby",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/69438ad1/originals/live-fixtures-api.json"
+    ]
+  },
+  {
+    "id": "69438ad1-public-site-rolled-back-to-oct15-root",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "Between 05:02Z and 05:10Z on 23 Oct the public site rolled back from the 22 Oct verified artifact to the 15 Oct checked-in root",
+    "detail": "This session read https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json at about 05:02Z and got generated_at 2026-10-22T14:05:35Z (37 active, 30 picks). The runner read the same URL at 05:10:39Z and got generated_at 2026-10-15T08:36:13Z (17 'active' rows whose starts are all in the past, run_status partial-picks, x-cache HIT). The trigger is the merge of PR #194 at 05:10:04Z: every push to main starts the legacy Pages build of the branch root, whose checked-in data/latest.json is the 15 October collector artifact, and the step that re-deploys the verified artifact over that root only runs inside a successful pages.yml run — which is currently failing at the regression-test step. A phone reader opening the site in this window sees played matches presented as current picks, mitigated only by the 'Snapshot needs attention' banner. This is the documented legacy-builder hazard (data/research/416d93ee) happening live; it self-heals on the next successful publisher run and is owned by whichever session unblocks the regression tests (PRs #190/#191 and session arena-19de9c79).",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/194",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/69438ad1/published-vs-live.json"
+    ]
   }
 ]
