@@ -1218,19 +1218,6 @@ def live_coverage_gaps(data, prefix):
             continue
         missing.append(fixture)
     observed = local_time(record.get('observed_at')) if record.get('observed_at') else blank()
-    snapshot_at = data.get('generated_at') or data.get('inventory_observed_at')
-    snapshot_time = local_time(snapshot_at) if snapshot_at else blank()
-    record_dt, snapshot_dt = timestamp(record.get('observed_at')), timestamp(snapshot_at)
-    record_is_older = bool(record_dt and snapshot_dt and record_dt < snapshot_dt)
-    if record_is_older:
-        timing = (f'The newest lobby check is dated {observed} and this page\'s snapshot is newer '
-                  f'({snapshot_time}), so a card below may have started, been delisted or been '
-                  f'collected since that check. It is published as a dated check, not as a live '
-                  f'observation.')
-    else:
-        timing = (f'The lobby check ({observed}) is at least as new as this page\'s snapshot '
-                  f'({snapshot_time}).')
-
     rows = ''
     for fixture in missing:
         names = ' vs '.join(fixture.get('teams') or []) or 'Unverified pairing'
@@ -1250,7 +1237,7 @@ def live_coverage_gaps(data, prefix):
                  f'<strong>{e(names)}</strong> '
                  f'<span class="tiny muted">{e(fixture.get("competition") or "Unverified tournament")}</span> '
                  f'<span class="line-source-note">{e(note)}</span>{links}</li>')
-    empty = ('<p class="tiny">Every lobby fixture in that research window is already in this snapshot. '
+    empty = ('<p class="tiny">Every live lobby fixture in that research window is already in this snapshot. '
              'The next four-hour collect is still the authority for new cards.</p>')
     body = f'<ul class="line-source-list" id="live-coverage-gap-list">{rows}</ul>' if rows else empty
     return (

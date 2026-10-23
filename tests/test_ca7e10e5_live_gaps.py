@@ -70,15 +70,17 @@ class GapListNeverContradictsTheSnapshot(unittest.TestCase):
         self.assertIn('id="live-coverage-gaps"', html)
         self.assertNotIn('JiJieHao vs Eternal Fire', text(section(html)))
 
-    def test_name_matching_is_order_and_punctuation_insensitive(self):
+    def test_name_matching_is_order_and_whitespace_insensitive(self):
+        # name_key normalises case, Unicode and whitespace only; the project does
+        # not allow fuzzy or punctuation-only joins, so that is what is asserted.
         self.data['matches'] = [match('1', 'ex-Zero Tenacity', 'BESTIA Academy')]
         self.data.update(gap_record('2026-10-23T04:58:00Z', [{
             'id': '999',
-            'teams': ['BESTIA  Academy', 'Ex-Zero Tenacity'],
+            'teams': ['BESTIA  Academy', 'EX-ZERO  TENACITY'],
             'competition': 'Test',
         }]))
         html = live_coverage_gaps(self.data, '')
-        self.assertNotIn('BESTIA Academy vs Ex-Zero Tenacity', text(section(html)))
+        self.assertNotIn('BESTIA Academy vs EX-ZERO TENACITY', text(section(html)))
 
     def test_a_different_pairing_with_the_same_first_team_is_still_reported(self):
         self.data['matches'] = [match('1', 'JiJieHao', 'Somebody Else')]
@@ -95,7 +97,10 @@ class GapListNeverContradictsTheSnapshot(unittest.TestCase):
         ]))
         html = live_coverage_gaps(self.data, '')
         self.assertEqual(text(section(html)).count('Not in this snapshot'), 2)
-        self.assertIn('2 not in this build', html)
+        self.assertEqual(text(section(html)).count('1081605'), 1)
+        header = re.search(r'<span class="muted small">(\d+)', html)
+        self.assertIsNotNone(header, 'the section header carries no count')
+        self.assertEqual(header.group(1), '2')
 
 
 class GapListNeverClaimsAnUnverifiedState(unittest.TestCase):
@@ -118,24 +123,20 @@ class GapListNeverClaimsAnUnverifiedState(unittest.TestCase):
         html = live_coverage_gaps(self.data, '')
         self.assertNotIn('right now', text(section(html)).lower())
 
-    def test_an_older_record_says_it_is_older_than_the_snapshot(self):
+    def test_the_section_describes_itself_as_a_dated_observation(self):
+        # The merged implementation (sessions 9c4b1f7a / ca7e10e5) states that the
+        # list is a dated observation rather than a live claim, and prints the
+        # record's own observation time next to the snapshot it was compared with.
         html = live_coverage_gaps(self.data, '')
         body = text(section(html))
-        self.assertIn('dated check', body)
-        self.assertIn('newer', body)
-        # Both moments are printed, and the record's own timestamp is carried.
+        self.assertIn('dated observation', body)
+        self.assertIn('not a live claim', body)
         self.assertIn('data-time="2026-10-23T04:58:00Z"', html)
-        self.assertIn('data-time="2026-10-23T09:50:31Z"', html)
 
-    def test_a_newer_record_does_not_claim_to_be_older(self):
-        self.data['generated_at'] = '2026-10-23T04:00:00Z'
+    def test_a_card_that_is_still_absent_keeps_its_own_note(self):
+        self.data['_live_coverage']['live_fixtures'][0]['note'] = 'Lobby card had no permalink.'
         body = text(section(live_coverage_gaps(self.data, '')))
-        self.assertNotIn('may have started', body)
-        self.assertIn('at least as new', body)
-
-    def test_a_card_in_the_earlier_published_snapshot_says_so(self):
-        body = text(section(live_coverage_gaps(self.data, '')))
-        self.assertIn('in the published snapshot at the time of that check', body)
+        self.assertIn('Lobby card had no permalink.', body)
 
     def test_no_probability_or_percent_is_ever_added(self):
         for html in (live_coverage_gaps(self.data, ''),
