@@ -1,7 +1,7 @@
 # arena-3a5448de — research for fixtures the featured method cannot resolve
 
-Observed: 2026-10-23T12:18:34Z (GitHub Actions runner)
-Snapshot: latest 2026-10-23T12:16:48Z · origination 2026-10-23T12:17:03Z · counts {'active': 28, 'resolved': 28, 'unresolved': 0, 'with_pick': 28, 'consensus': 2, 'market': 14, 'bookmaker': 4, 'reference': 0, 'model': 8, 'network': 1, 'relay': 1, 'guidance': 0, 'alias_joined': 2}
+Observed: 2026-10-23T13:26:45Z (GitHub Actions runner)
+Snapshot: latest 2026-10-23T13:25:28Z · origination 2026-10-23T13:25:43Z · counts {'active': 24, 'resolved': 24, 'unresolved': 0, 'with_pick': 24, 'consensus': 1, 'market': 12, 'bookmaker': 3, 'reference': 0, 'model': 8, 'network': 1, 'relay': 0, 'guidance': 0, 'alias_joined': 1}
 Targets (featured-blank or non-money resolution): 8
 
 ## Surfaces (HLTV first, then esportsbooks/aggregators)
@@ -11,7 +11,7 @@ Targets (featured-blank or non-money resolution): 8
 - **EGamersWorld CS2 matches** — HTTP 403 — https://egamersworld.com/counterstrike/matches — teams listed: —
 - **DraftKings CS2** — HTTP 404 — https://sportsbook.draftkings.com/leagues/esports/counter-strike-2 — teams listed: Color
 - **Stake CS2** — HTTP 403 — https://stake.com/sports/esports/counter-strike-2 — teams listed: Color
-- **OddsPortal CS2** — HTTP 200 — https://www.oddsportal.com/esports/counter-strike/ — teams listed: Color, UNiTY
+- **OddsPortal CS2** — HTTP 503 — https://www.oddsportal.com/esports/counter-strike/ — teams listed: —
 - **Rivalry CS2** — HTTP 200 — https://www.rivalry.com/esports/counter-strike-2-betting — teams listed: Color
 - **GG.BET CS** — HTTP 403 — https://gg.bet/en/counter-strike — teams listed: —
 - **BetBoom CS2** — HTTP 401 — https://betboom.ru/sport/cs2 — teams listed: —
@@ -56,10 +56,10 @@ Targets (featured-blank or non-money resolution): 8
 
 ### Ground Zero vs Off Chops (DFRAG Invitational 2026, 2026-10-26T03:00:00Z)
 - Hotspawn: https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858
-- Featured method: None · current: model Own network estimate (bo3.gg results graph) pick_index=1 probs=[0.4495157413356839, 0.5504842586643162]
+- Featured method: None · current: model Own network estimate (bo3.gg results graph) pick_index=1 probs=[0.4492308690416069, 0.5507691309583931]
 - Unresolved stages: Betting market (Polymarket series winner), Exchange market (Kalshi CS2 match winner), Exchange market (Smarkets CS2 match winner), Esportsbook line (Thunderpick original prices), Esportsbook line (Bovada original prices), Esportsbook line (Pinnacle original prices), Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes), Aggregated bookmaker reference (EGamersWorld), Research model cross-check (Valve official ratings), Results model (own, bo3.gg series results)
 - bo3.gg bound: 1 · two-sided relay quote: False
-- Limitations: Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4684 finished bo3.gg series, anchored on Valve's official points for 268 teams; the rating-difference one-sigma interval is 157.0 points (probability interval 0.118-0.833). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only.
+- Limitations: Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4687 finished bo3.gg series, anchored on Valve's official points for 268 teams; the rating-difference one-sigma interval is 157.0 points (probability interval 0.118-0.833). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only.
 
 ### Rooster vs Abyssal (DFRAG Invitational 2026, 2026-10-27T03:00:00Z)
 - Hotspawn: https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861

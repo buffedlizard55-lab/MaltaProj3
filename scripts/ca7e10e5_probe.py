@@ -146,7 +146,12 @@ def published_state(live_url: str, evidence_dir: Path | None = None) -> dict:
     stamp = now_iso().replace(':', '').replace('-', '')
     page = fetch(f'{live_url}/index.html?probe={stamp}')
     orig_page = fetch(f'{live_url}/origination/index.html?probe={stamp}')
-    data = fetch(f'{live_url}/data/latest.json?probe={stamp}')
+    # `snapshot.json` is the downloadable observation every page links to
+    # (session ca7e10e5). `data/latest.json` is read as well because it is the
+    # file earlier sessions published and the tracked CI replay fixture; when the
+    # two differ, the reader-visible one is `snapshot.json`.
+    data = fetch(f'{live_url}/snapshot.json?probe={stamp}')
+    legacy = fetch(f'{live_url}/data/latest.json?probe={stamp}')
     picks_page = fetch(f'{live_url}/picks/index.html?probe={stamp}')
 
     page_stamp = None
@@ -174,6 +179,12 @@ def published_state(live_url: str, evidence_dir: Path | None = None) -> dict:
             json_stamp = snapshot.get('generated_at')
             json_counts = snapshot.get('counts')
             json_status = snapshot.get('run_status')
+    legacy_stamp = None
+    if legacy['status'] == 200 and legacy['body']:
+        try:
+            legacy_stamp = json.loads(legacy['body']).get('generated_at')
+        except ValueError:
+            legacy_stamp = None
 
     rows = parse_rows(orig_page['body']) if orig_page['body'] else {}
     if evidence_dir is not None:
@@ -196,14 +207,18 @@ def published_state(live_url: str, evidence_dir: Path | None = None) -> dict:
                   'age_hours': age_hours(page_stamp), 'rendered': rendered},
         'origination_page': {'status': orig_page['status'], 'rows_rendered': len(rows)},
         'picks_page': {'status': picks_page['status'], 'bytes': picks_page['bytes']},
-        'data_latest_json': {'status': data['status'], 'error': data['error'],
-                             'generated_at': json_stamp, 'age_hours': age_hours(json_stamp),
-                             'counts': json_counts, 'run_status': json_status,
-                             'page_vs_json_hours': (
-                                 None if not (page_stamp and json_stamp) else
-                                 round((datetime.fromisoformat(page_stamp.replace('Z', '+00:00')) -
-                                        datetime.fromisoformat(json_stamp.replace('Z', '+00:00'))
-                                        ).total_seconds() / 3600, 2))},
+        'published_snapshot_json': {'status': data['status'], 'error': data['error'],
+                                    'generated_at': json_stamp, 'age_hours': age_hours(json_stamp),
+                                    'counts': json_counts, 'run_status': json_status,
+                                    'page_vs_json_hours': (
+                                        None if not (page_stamp and json_stamp) else
+                                        round((datetime.fromisoformat(page_stamp.replace('Z', '+00:00')) -
+                                               datetime.fromisoformat(json_stamp.replace('Z', '+00:00'))
+                                               ).total_seconds() / 3600, 2))},
+        'data_latest_json': {'status': legacy['status'], 'error': legacy['error'],
+                             'generated_at': legacy_stamp, 'age_hours': age_hours(legacy_stamp),
+                             'role': ('tracked CI replay fixture when it differs from snapshot.json; '
+                                      'no page links it any more')},
         'rendered_rows': rows,
     }
 
@@ -342,16 +357,20 @@ def markdown(document: dict) -> str:
         '| --- | --- |',
         f"| Page `data-snapshot-generated` | `{published['index']['data_snapshot_generated']}` "
         f"(age {published['index']['age_hours']} h) |",
-        f"| `data/latest.json` `generated_at` | `{published['data_latest_json']['generated_at']}` "
+        f"| `snapshot.json` `generated_at` (the file every page links to) | "
+        f"`{published['published_snapshot_json']['generated_at']}` "
+        f"(age {published['published_snapshot_json']['age_hours']} h) |",
+        f"| Page vs published snapshot gap | {published['published_snapshot_json']['page_vs_json_hours']} h |",
+        f"| `data/latest.json` (CI replay fixture when different) | "
+        f"`{published['data_latest_json']['generated_at']}` "
         f"(age {published['data_latest_json']['age_hours']} h) |",
-        f"| Page vs JSON gap | {published['data_latest_json']['page_vs_json_hours']} h |",
         f"| Rendered active fixtures / picks / unresolved | "
         f"{published['index']['rendered'].get('active')} / "
         f"{published['index']['rendered'].get('picks_ready')} / "
         f"{published['index']['rendered'].get('unresolved')} |",
         f"| Rendered `origination` rows | {published['origination_page']['rows_rendered']} |",
-        f"| HTTP status (index / origination / data) | {published['index']['status']} / "
-        f"{published['origination_page']['status']} / {published['data_latest_json']['status']} |",
+        f"| HTTP status (index / origination / snapshot.json) | {published['index']['status']} / "
+        f"{published['origination_page']['status']} / {published['published_snapshot_json']['status']} |",
         '',
         '## 2. Coverage of the freshly collected snapshot',
         '',

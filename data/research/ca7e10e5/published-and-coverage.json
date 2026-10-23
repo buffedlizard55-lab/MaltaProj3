@@ -1,153 +1,88 @@
 {
  "schema_version": 1,
  "session": "arena-ca7e10e5",
- "observed_at": "2026-10-23T12:18:18Z",
+ "observed_at": "2026-10-23T13:26:28Z",
  "environment": "github-actions-runner",
  "policy": "Read-only. Reads the public site and probes line sources; writes no probability, pick or alias. A reachable page is not a price.",
  "snapshot": {
-  "generated_at": "2026-10-23T12:16:48Z",
-  "inventory_observed_at": "2026-10-23T12:16:28Z",
+  "generated_at": "2026-10-23T13:25:28Z",
+  "inventory_observed_at": "2026-10-23T13:25:07Z",
   "coverage_complete": true,
   "run_status": "partial-picks",
   "counts": {
-   "inventory": 91,
-   "upcoming": 28,
-   "archived": 63,
+   "inventory": 90,
+   "upcoming": 24,
+   "archived": 66,
    "unknown_schedule": 0,
-   "market": 14,
+   "market": 12,
    "bookmaker": 3,
-   "model": 6,
-   "unresolved": 5,
-   "picks": 23,
+   "model": 5,
+   "unresolved": 4,
+   "picks": 20,
    "no_edge": 0
   }
  },
  "published": {
   "live_url": "https://buffedlizard55-lab.github.io/MaltaProj3",
-  "observed_at": "2026-10-23T12:18:19Z",
+  "observed_at": "2026-10-23T13:26:29Z",
   "index": {
    "status": 200,
    "error": null,
-   "data_snapshot_generated": "2026-10-23T11:18:01Z",
-   "age_hours": 1.01,
+   "data_snapshot_generated": "2026-10-23T13:07:24Z",
+   "age_hours": 0.32,
    "rendered": {
-    "picks_ready": 27,
-    "active": 27,
+    "picks_ready": 24,
+    "active": 24,
     "unresolved": 0,
     "model_only": 7,
-    "money_backed": 20
+    "money_backed": 17
    }
   },
   "origination_page": {
    "status": 200,
-   "rows_rendered": 27
+   "rows_rendered": 24
   },
   "picks_page": {
    "status": 200,
-   "bytes": 302099
+   "bytes": 274438
   },
-  "data_latest_json": {
+  "published_snapshot_json": {
    "status": 200,
    "error": null,
-   "generated_at": "2026-10-23T11:18:01Z",
-   "age_hours": 1.01,
+   "generated_at": "2026-10-23T13:07:24Z",
+   "age_hours": 0.32,
    "counts": {
-    "inventory": 90,
-    "upcoming": 27,
-    "archived": 63,
+    "inventory": 91,
+    "upcoming": 24,
+    "archived": 67,
     "unknown_schedule": 0,
-    "market": 14,
+    "market": 12,
     "bookmaker": 3,
-    "model": 6,
+    "model": 5,
     "unresolved": 4,
-    "picks": 23,
+    "picks": 20,
     "no_edge": 0
    },
    "run_status": "partial-picks",
    "page_vs_json_hours": 0.0
   },
+  "data_latest_json": {
+   "status": 200,
+   "error": null,
+   "generated_at": "2026-10-23T13:07:24Z",
+   "age_hours": 0.32,
+   "role": "tracked CI replay fixture when it differs from snapshot.json; no page links it any more"
+  },
   "rendered_sample": {
-   "1081606": {
-    "team_percentages": [
-     {
-      "team": "JiJieHao",
-      "percent": 44.5
-     },
-     {
-      "team": "Eternal Fire",
-      "percent": 55.5
-     }
-    ],
-    "rendered_pick": "✓ Eternal Fire",
-    "source_links": [
-     "https://play.hotspawn.com/cs2-pickems#fixture-1081606",
-     "https://polymarket.com/event/cs2-jjh-ef1-2026-10-23"
-    ]
-   },
-   "1082926": {
-    "team_percentages": [
-     {
-      "team": "Isurus",
-      "percent": 70.7
-     },
-     {
-      "team": "Hacha",
-      "percent": 29.3
-     }
-    ],
-    "rendered_pick": "✓ Isurus",
-    "source_links": [
-     "https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926",
-     "https://polymarket.com/event/cs2-isg-hachae-2026-10-23",
-     "https://www.bovada.lv/sports/esports/counter-strike-2/cct-league/south-america/isurus-hacha-esports-202610230900",
-     "https://www.pinnacle.com/en/esports/counter-strike-2"
-    ]
-   },
-   "1082980": {
-    "team_percentages": [
-     {
-      "team": "LPH",
-      "percent": 37.8
-     },
-     {
-      "team": "WBT Academy",
-      "percent": 62.2
-     }
-    ],
-    "rendered_pick": "✓ WBT Academy",
-    "source_links": [
-     "https://www.hotspawn.com/matches/lph-vs-wbt-academy-esl-challenger-league-season-52-europe-cup-9-1082980",
-     "https://bo3.gg/matches/lph-gaming-vs-wbt-academy-23-10-2026",
-     "https://thunderpick.io/match/2872919",
-     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
-    ]
-   },
-   "1083014": {
-    "team_percentages": [
-     {
-      "team": "K27",
-      "percent": 56.5
-     },
-     {
-      "team": "Virtus.pro",
-      "percent": 43.5
-     }
-    ],
-    "rendered_pick": "✓ K27",
-    "source_links": [
-     "https://www.hotspawn.com/matches/k27-vs-virtus-pro-cis-lan-championship-9-1083014",
-     "https://polymarket.com/event/cs2-k271-vp-2026-10-23"
-    ]
-   },
    "1082924": {
     "team_percentages": [
      {
       "team": "BORRACHEIROS",
-      "percent": 64.0
+      "percent": 68.0
      },
      {
       "team": "QUINTESSÊNCIA",
-      "percent": 36.0
+      "percent": 32.0
      }
     ],
     "rendered_pick": "✓ BORRACHEIROS",
@@ -183,11 +118,11 @@
     "team_percentages": [
      {
       "team": "ex-RUSTEC",
-      "percent": 66.0
+      "percent": 62.5
      },
      {
       "team": "Saint Sinners",
-      "percent": 34.0
+      "percent": 37.5
      }
     ],
     "rendered_pick": "✓ ex-RUSTEC",
@@ -217,11 +152,11 @@
     "team_percentages": [
      {
       "team": "BESTIA Academy",
-      "percent": 40.5
+      "percent": 39.0
      },
      {
       "team": "RED Canids Academy",
-      "percent": 59.5
+      "percent": 61.0
      }
     ],
     "rendered_pick": "✓ RED Canids Academy",
@@ -234,11 +169,11 @@
     "team_percentages": [
      {
       "team": "paiN",
-      "percent": 30.5
+      "percent": 33.5
      },
      {
       "team": "Imperial",
-      "percent": 69.5
+      "percent": 66.5
      }
     ],
     "rendered_pick": "✓ Imperial",
@@ -264,15 +199,32 @@
      "https://thunderpick.io/api/matches"
     ]
    },
+   "1083045": {
+    "team_percentages": [
+     {
+      "team": "Chinggis Warriors",
+      "percent": 73.0
+     },
+     {
+      "team": "Rare Atom",
+      "percent": 27.0
+     }
+    ],
+    "rendered_pick": "✓ Chinggis Warriors",
+    "source_links": [
+     "https://www.hotspawn.com/matches/chinggis-warriors-vs-rare-atom-void-autumn-cup-2026-1083045",
+     "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    ]
+   },
    "1079193": {
     "team_percentages": [
      {
       "team": "FOKUS",
-      "percent": 76.0
+      "percent": 75.0
      },
      {
       "team": "ex-6666",
-      "percent": 24.0
+      "percent": 25.0
      }
     ],
     "rendered_pick": "✓ FOKUS",
@@ -285,11 +237,11 @@
     "team_percentages": [
      {
       "team": "Nuclear TigeRES",
-      "percent": 61.0
+      "percent": 61.5
      },
      {
       "team": "FORZE Reload",
-      "percent": 39.0
+      "percent": 38.5
      }
     ],
     "rendered_pick": "✓ Nuclear TigeRES",
@@ -336,11 +288,11 @@
     "team_percentages": [
      {
       "team": "Infinite",
-      "percent": 45.5
+      "percent": 47.5
      },
      {
       "team": "BRUTE",
-      "percent": 54.5
+      "percent": 52.5
      }
     ],
     "rendered_pick": "✓ BRUTE",
@@ -353,16 +305,17 @@
     "team_percentages": [
      {
       "team": "Color",
-      "percent": 73.6
+      "percent": 53.5
      },
      {
       "team": "ex-Zero Tenacity",
-      "percent": 26.4
+      "percent": 46.5
      }
     ],
     "rendered_pick": "✓ Color",
     "source_links": [
      "https://www.hotspawn.com/matches/color-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079200",
+     "https://polymarket.com/event/cs2-color-zerote-2026-10-25",
      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
     ]
    },
@@ -370,19 +323,17 @@
     "team_percentages": [
      {
       "team": "Ground Zero",
-      "percent": 44.9
+      "percent": 50.0
      },
      {
       "team": "Off Chops",
-      "percent": 55.1
+      "percent": 50.0
      }
     ],
     "rendered_pick": "✓ Off Chops",
     "source_links": [
      "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
-     "https://bo3.gg/matches",
-     "https://bo3.gg/teams/584",
-     "https://bo3.gg/teams/25492"
+     "https://www.hltv.org/ranking/teams"
     ]
    },
    "1082859": {
@@ -457,11 +408,11 @@
     "team_percentages": [
      {
       "team": "Alliance",
-      "percent": 34.0
+      "percent": 34.5
      },
      {
       "team": "FaZe",
-      "percent": 66.0
+      "percent": 65.5
      }
     ],
     "rendered_pick": "✓ FaZe",
@@ -474,11 +425,11 @@
     "team_percentages": [
      {
       "team": "Luminosity",
-      "percent": 55.0
+      "percent": 52.5
      },
      {
       "team": "HOTU",
-      "percent": 45.0
+      "percent": 47.5
      }
     ],
     "rendered_pick": "✓ Luminosity",
@@ -541,197 +492,13 @@
   }
  },
  "coverage": {
-  "active_count": 28,
-  "covered_count": 28,
-  "money_backed_count": 19,
-  "model_only_count": 9,
-  "featured_blank_count": 5,
+  "active_count": 24,
+  "covered_count": 24,
+  "money_backed_count": 16,
+  "model_only_count": 8,
+  "featured_blank_count": 4,
   "problem_count": 0,
   "rows": [
-   {
-    "id": "1081606",
-    "teams": [
-     "JiJieHao",
-     "Eternal Fire"
-    ],
-    "competition": "DraculaN Season 7",
-    "starts_at": "2026-10-23T13:00:00Z",
-    "availability": "open",
-    "feed": "featured",
-    "method": "market",
-    "source": "Polymarket",
-    "source_url": "https://polymarket.com/event/cs2-jjh-ef1-2026-10-23",
-    "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081606",
-    "probabilities": [
-     0.445,
-     0.555
-    ],
-    "pick": "Eternal Fire",
-    "issues": [],
-    "money_backed": true,
-    "limitations": [
-     "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
-    ],
-    "featured_blank": false,
-    "research_stages": [
-     {
-      "stage": "Primary: Polymarket",
-      "status": "resolved"
-     }
-    ]
-   },
-   {
-    "id": "1082926",
-    "teams": [
-     "Isurus",
-     "Hacha"
-    ],
-    "competition": "CCT South America 2026 Series #7",
-    "starts_at": "2026-10-23T13:00:00Z",
-    "availability": "open",
-    "feed": "complete list",
-    "method": "consensus",
-    "source": "Polymarket + Bovada",
-    "source_url": "https://polymarket.com/event/cs2-isg-hachae-2026-10-23",
-    "hotspawn_url": "https://www.hotspawn.com/matches/isurus-vs-hacha-cct-south-america-2026-series-7-1082926",
-    "probabilities": [
-     0.61817166,
-     0.38182834
-    ],
-    "pick": "Isurus",
-    "issues": [],
-    "money_backed": true,
-    "limitations": [],
-    "featured_blank": true,
-    "research_stages": [
-     {
-      "stage": "Primary: Polymarket",
-      "status": "unresolved"
-     },
-     {
-      "stage": "HLTV research",
-      "status": "checked"
-     },
-     {
-      "stage": "Original esportsbook lines",
-      "status": "unresolved"
-     },
-     {
-      "stage": "GG.BET esportsbook",
-      "status": "unavailable"
-     },
-     {
-      "stage": "Pinnacle esportsbook",
-      "status": "unavailable"
-     },
-     {
-      "stage": "Rivalry esportsbook",
-      "status": "unavailable"
-     },
-     {
-      "stage": "Stake esportsbook",
-      "status": "unavailable"
-     },
-     {
-      "stage": "Valve research model",
-      "status": "unresolved"
-     }
-    ]
-   },
-   {
-    "id": "1082980",
-    "teams": [
-     "LPH",
-     "WBT Academy"
-    ],
-    "competition": "ESL Challenger League Season 52: Europe - Cup #9",
-    "starts_at": "2026-10-23T13:00:00Z",
-    "availability": "open",
-    "feed": "featured",
-    "method": "model",
-    "source": "Valve official standings",
-    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-    "hotspawn_url": "https://www.hotspawn.com/matches/lph-vs-wbt-academy-esl-challenger-league-season-52-europe-cup-9-1082980",
-    "probabilities": [
-     0.41678134,
-     0.58321866
-    ],
-    "pick": "WBT Academy",
-    "issues": [],
-    "money_backed": false,
-    "limitations": [
-     "Research model, not observed betting odds or a verified true win probability.",
-     "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
-     "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
-    ],
-    "featured_blank": false,
-    "research_stages": [
-     {
-      "stage": "Primary: Polymarket",
-      "status": "unresolved"
-     },
-     {
-      "stage": "HLTV research",
-      "status": "checked"
-     },
-     {
-      "stage": "Original esportsbook lines",
-      "status": "unresolved"
-     },
-     {
-      "stage": "GG.BET esportsbook",
-      "status": "unavailable"
-     },
-     {
-      "stage": "Pinnacle esportsbook",
-      "status": "unavailable"
-     },
-     {
-      "stage": "Rivalry esportsbook",
-      "status": "unavailable"
-     },
-     {
-      "stage": "Stake esportsbook",
-      "status": "unavailable"
-     },
-     {
-      "stage": "Valve research model",
-      "status": "resolved"
-     }
-    ]
-   },
-   {
-    "id": "1083014",
-    "teams": [
-     "K27",
-     "Virtus.pro"
-    ],
-    "competition": "CIS LAN Championship #9",
-    "starts_at": "2026-10-23T13:00:00Z",
-    "availability": "open",
-    "feed": "featured",
-    "method": "market",
-    "source": "Polymarket",
-    "source_url": "https://polymarket.com/event/cs2-k271-vp-2026-10-23",
-    "hotspawn_url": "https://www.hotspawn.com/matches/k27-vs-virtus-pro-cis-lan-championship-9-1083014",
-    "probabilities": [
-     0.555,
-     0.445
-    ],
-    "pick": "K27",
-    "issues": [],
-    "money_backed": true,
-    "limitations": [
-     "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
-    ],
-    "featured_blank": false,
-    "research_stages": [
-     {
-      "stage": "Primary: Polymarket",
-      "status": "resolved"
-     }
-    ]
-   },
    {
     "id": "1082924",
     "teams": [
@@ -747,8 +514,8 @@
     "source_url": "https://polymarket.com/event/cs2-chama-quin-2026-10-23",
     "hotspawn_url": "https://www.hotspawn.com/matches/borracheiros-vs-quintessencia-cct-south-america-2026-series-7-1082924",
     "probabilities": [
-     0.665,
-     0.335
+     0.68,
+     0.32
     ],
     "pick": "BORRACHEIROS",
     "issues": [],
@@ -837,8 +604,8 @@
     "source_url": "https://polymarket.com/event/cs2-rustec-ssins-2026-10-23",
     "hotspawn_url": "https://www.hotspawn.com/matches/ex-rustec-vs-saint-sinners-cct-europe-2026-series-12-1081150",
     "probabilities": [
-     0.665,
-     0.335
+     0.605,
+     0.395
     ],
     "pick": "ex-RUSTEC",
     "issues": [],
@@ -901,8 +668,8 @@
     "source_url": "https://polymarket.com/event/cs2-bsta-reda-2026-10-23",
     "hotspawn_url": "https://www.hotspawn.com/matches/bestia-academy-vs-red-canids-academy-cct-south-america-2026-series-7-1082925",
     "probabilities": [
-     0.405,
-     0.595
+     0.345,
+     0.655
     ],
     "pick": "RED Canids Academy",
     "issues": [],
@@ -933,8 +700,8 @@
     "source_url": "https://polymarket.com/event/cs2-pain-imp11-2026-10-23",
     "hotspawn_url": "https://www.hotspawn.com/matches/imperial-vs-pain-circuit-x-curitiba-4-1083025",
     "probabilities": [
-     0.31,
-     0.69
+     0.335,
+     0.665
     ],
     "pick": "Imperial",
     "issues": [],
@@ -1095,8 +862,8 @@
     "source_url": "https://polymarket.com/event/cs2-ntr-forzer-2026-10-24",
     "hotspawn_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-forze-reload-nodwin-clutch-series-13-1079195",
     "probabilities": [
-     0.61,
-     0.39
+     0.615,
+     0.385
     ],
     "pick": "Nuclear TigeRES",
     "issues": [],
@@ -1345,8 +1112,8 @@
     "source_url": "https://bo3.gg/matches",
     "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
     "probabilities": [
-     0.4495157413356839,
-     0.5504842586643162
+     0.4492308690416069,
+     0.5507691309583931
     ],
     "pick": "Off Chops",
     "issues": [],
@@ -1545,8 +1312,8 @@
     "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
     "hotspawn_url": "https://www.hotspawn.com/matches/b8-vs-k27-tesla-cup-2026-1082897",
     "probabilities": [
-     0.62,
-     0.38
+     0.625,
+     0.375
     ],
     "pick": "B8",
     "issues": [],
@@ -1577,8 +1344,8 @@
     "source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
     "hotspawn_url": "https://www.hotspawn.com/matches/alliance-vs-faze-tesla-cup-2026-1082898",
     "probabilities": [
-     0.34,
-     0.66
+     0.345,
+     0.655
     ],
     "pick": "FaZe",
     "issues": [],
@@ -1609,8 +1376,8 @@
     "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
     "hotspawn_url": "https://www.hotspawn.com/matches/luminosity-vs-hotu-tesla-cup-2026-1082900",
     "probabilities": [
-     0.53,
-     0.47
+     0.525,
+     0.475
     ],
     "pick": "Luminosity",
     "issues": [],
@@ -1782,7 +1549,6 @@
   "problems": []
  },
  "model_only_ids": [
-  "1082980",
   "1083045",
   "1082996",
   "1079198",
@@ -1798,10 +1564,10 @@
    "status": 403,
    "bytes": 5626,
    "error": null,
-   "observed_at": "2026-10-23T12:18:19Z",
+   "observed_at": "2026-10-23T13:26:29Z",
    "challenge": "just a moment",
    "surface": "HLTV matches (official)",
-   "team_names_probed": 18,
+   "team_names_probed": 16,
    "team_names_found": [
     "Color"
    ],
@@ -1814,10 +1580,10 @@
    "status": 200,
    "bytes": 16,
    "error": null,
-   "observed_at": "2026-10-23T12:18:19Z",
+   "observed_at": "2026-10-23T13:26:29Z",
    "challenge": null,
    "surface": "Kalshi esports series",
-   "team_names_probed": 18,
+   "team_names_probed": 16,
    "team_names_found": [],
    "hit_count": 0,
    "verbatim_snippet": null,
@@ -1826,18 +1592,17 @@
   {
    "url": "https://api.elections.kalshi.com/trade-api/v2/markets?status=open&limit=1000",
    "status": 200,
-   "bytes": 4685966,
+   "bytes": 4896953,
    "error": null,
-   "observed_at": "2026-10-23T12:18:19Z",
+   "observed_at": "2026-10-23T13:26:29Z",
    "challenge": null,
    "surface": "Kalshi open CS2 markets",
-   "team_names_probed": 18,
+   "team_names_probed": 16,
    "team_names_found": [
-    "Color",
-    "LPH"
+    "Color"
    ],
-   "hit_count": 2,
-   "verbatim_snippet": "scored,no Nice wins by more than 2.5 goals,yes Over 0.5 goals scored,yes Miami,no Atlanta wins by more than 2.5 goals,no Toronto wins by more than 2.5 goals,no Colorado wins by more than 2.5 goals,no San Jose wins by more than 2.5 goals,no Minnesota wins by more than 2.5 goals,no Montreal wins by more than 2.5 goals,no New York City wins by more than 2.5 goals,no New England wins by more than 2.5 ",
+   "hit_count": 1,
+   "verbatim_snippet": "icker\":\"KXNHLTOTAL-26OCT24CARSTL-6\",\"side\":\"yes\"}],\"no_ask_dollars\":\"1.0000\",\"no_bid_dollars\":\"1.0000\",\"no_sub_title\":\"yes Pittsburgh,yes Edmonton,yes Vegas,no Colorado wins by over 1.5 goals,no Utah wins by over 1.5 goals,yes Over 5.5 goals scored\",\"notional_value_dollars\":\"1.0000\",\"open_interest_fp\":\"0.00\",\"open_time\":\"2026-10-23T13:25:57Z\",\"previous_price_dollars\":\"0.0000\",\"previous_yes_ask_dol",
    "note": "verbatim evidence only; no price is parsed or converted into a probability"
   },
   {
@@ -1845,10 +1610,10 @@
    "status": 403,
    "bytes": 447,
    "error": null,
-   "observed_at": "2026-10-23T12:18:19Z",
+   "observed_at": "2026-10-23T13:26:29Z",
    "challenge": "access denied",
    "surface": "DraftKings CS2 league feed",
-   "team_names_probed": 18,
+   "team_names_probed": 16,
    "team_names_found": [],
    "hit_count": 0,
    "verbatim_snippet": null,
@@ -1859,10 +1624,10 @@
    "status": 404,
    "bytes": 14,
    "error": null,
-   "observed_at": "2026-10-23T12:18:19Z",
+   "observed_at": "2026-10-23T13:26:29Z",
    "challenge": null,
    "surface": "FanDuel esports content page",
-   "team_names_probed": 18,
+   "team_names_probed": 16,
    "team_names_found": [],
    "hit_count": 0,
    "verbatim_snippet": null,
@@ -1871,12 +1636,12 @@
   {
    "url": "https://1xbet.com/LineFeed/Get1x2_VZip?sports=14&count=100&lng=en&mode=4&country=1&partner=51&getEmpty=true",
    "status": 203,
-   "bytes": 2621,
+   "bytes": 2620,
    "error": null,
-   "observed_at": "2026-10-23T12:18:19Z",
+   "observed_at": "2026-10-23T13:26:29Z",
    "challenge": "challenge-platform",
    "surface": "1xBet CS2 line feed",
-   "team_names_probed": 18,
+   "team_names_probed": 16,
    "team_names_found": [],
    "hit_count": 0,
    "verbatim_snippet": null,
@@ -1887,10 +1652,10 @@
    "status": 403,
    "bytes": 48,
    "error": null,
-   "observed_at": "2026-10-23T12:18:20Z",
+   "observed_at": "2026-10-23T13:26:30Z",
    "challenge": null,
    "surface": "SofaScore esports schedule (identity only)",
-   "team_names_probed": 18,
+   "team_names_probed": 16,
    "team_names_found": [],
    "hit_count": 0,
    "verbatim_snippet": null,
