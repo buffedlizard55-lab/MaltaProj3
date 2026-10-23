@@ -115,6 +115,13 @@ def fetch(url: str, timeout: int = 20) -> dict:
 # 1. What is published right now
 # --------------------------------------------------------------------------
 
+def flatten(html: str) -> str:
+    """Visible text of a page with tags removed and whitespace collapsed."""
+    text = re.sub(r'<(script|style)[^>]*>.*?</\1>', ' ', html, flags=re.S)
+    text = re.sub(r'<[^>]+>', ' ', text)
+    return re.sub(r'\s+', ' ', text).strip()
+
+
 ROW_RE = re.compile(r'<tr id="row-(\d+)"(.*?)</tr>', re.S)
 PROB_RE = re.compile(r'<span class="tbl-prob[^"]*">\s*([^:<]+?):\s*<strong>([\d.]+)%</strong>')
 PICK_RE = re.compile(r'<strong class="tbl-pick">[^<]*?([^<]+)</strong>')
@@ -135,7 +142,7 @@ def parse_rows(html: str) -> dict[str, dict]:
     return rows
 
 
-def published_state(live_url: str) -> dict:
+def published_state(live_url: str, evidence_dir: Path | None = None) -> dict:
     stamp = now_iso().replace(':', '').replace('-', '')
     page = fetch(f'{live_url}/index.html?probe={stamp}')
     orig_page = fetch(f'{live_url}/origination/index.html?probe={stamp}')
@@ -147,14 +154,15 @@ def published_state(live_url: str) -> dict:
     if page['body']:
         found = re.search(r'data-snapshot-generated="([^"]+)"', page['body'])
         page_stamp = found.group(1) if found else None
-        for key, pattern in (('picks_ready', r'(\d+)\s*</strong>?\s*picks ready'),
-                             ('active', r'(\d+)\s*</strong>?\s*active Hotspawn CS2 fixtures')):
-            found = re.search(pattern, page['body'])
+        text = flatten(page['body'])
+        for key, pattern in (('picks_ready', r'(\d+)\s*picks ready'),
+                             ('active', r'(\d+)\s*active Hotspawn CS2 fixtures'),
+                             ('unresolved', r'(\d+)\s*unresolved'),
+                             ('model_only', r'(\d+)\s*from a research model'),
+                             ('money_backed', r'(\d+)\s*from an external betting line')):
+            found = re.search(pattern, text)
             if found:
                 rendered[key] = int(found.group(1))
-        counts = re.findall(r'<strong>(\d+)</strong>\s*unresolved', page['body'])
-        if counts:
-            rendered['unresolved'] = int(counts[0])
 
     json_stamp, json_counts, json_status = None, None, None
     if data['status'] == 200 and data['body']:
@@ -168,6 +176,12 @@ def published_state(live_url: str) -> dict:
             json_status = snapshot.get('run_status')
 
     rows = parse_rows(orig_page['body']) if orig_page['body'] else {}
+    if evidence_dir is not None:
+        evidence_dir.mkdir(parents=True, exist_ok=True)
+        for name, record in (('index.html', page), ('origination.html', orig_page),
+                             ('latest.json', data), ('picks.html', picks_page)):
+            if record['body']:
+                (evidence_dir / name).write_text(record['body'])
     return {
         'live_url': live_url,
         'observed_at': now_iso(),
@@ -193,20 +207,42 @@ def published_state(live_url: str) -> dict:
 # --------------------------------------------------------------------------
 
 
-def coverage(snapshot: dict) -> dict:
+def coverage(snapshot: dict, origination: dict | None = None) -> dict:
+    """Audit every active fixture against BOTH published feeds.
+
+    The dashboard renders two lists: the featured list in ``data/latest.json``
+    and the complete researched list in ``data/origination.json``. A fixture is
+    covered for a reader when *either* feed carries a two-value probability
+    pair and a pick; this function records which feed supplied it, because a
+    fixture that is blank in the featured feed is not a gap if the complete
+    list resolves it.
+    """
+    complete = {str(m.get('id')): (m.get('origination') or {})
+                for m in (origination or {}).get('matches') or []}
     active = [m for m in snapshot.get('matches') or []
               if m.get('availability') in ACTIVE]
     rows, problems = [], []
     for match in active:
+        fixture_id = str(match.get('id'))
         teams = [t.get('name') for t in match.get('teams') or []]
-        analysis = match.get('analysis') or match.get('origination') or {}
-        probs = analysis.get('probabilities')
-        pick = match.get('pick_index')
+        featured = match.get('analysis') or match.get('origination') or {}
+        research = complete.get(fixture_id) or {}
+        chosen, feed = None, None
+        for candidate, name in ((featured, 'featured'), (research, 'complete list')):
+            probs = candidate.get('probabilities')
+            if isinstance(probs, list) and len(probs) == 2:
+                chosen, feed = candidate, name
+                break
+        chosen = chosen or {}
+        probs = chosen.get('probabilities')
+        pick = match.get('pick_index') if feed == 'featured' else chosen.get('pick_index')
+        if pick is None and isinstance(probs, list) and len(probs) == 2:
+            pick = 0 if probs[0] >= probs[1] else 1
         issues = []
         if len(teams) < 2 or not all(teams[:2]):
             issues.append('a team name is missing')
         if not isinstance(probs, list) or len(probs) != 2:
-            issues.append('no two-value probability pair')
+            issues.append('no two-value probability pair in either feed')
         elif not all(isinstance(v, (int, float)) and 0 < v < 1 for v in probs):
             issues.append('a probability is outside (0,1)')
         elif abs(sum(probs) - 1) > EPSILON:
@@ -215,24 +251,29 @@ def coverage(snapshot: dict) -> dict:
             issues.append('no directional pick')
         elif isinstance(probs, list) and len(probs) == 2 and probs[pick] < probs[1 - pick]:
             issues.append('pick points at the less likely team')
-        source = analysis.get('source_url') or match.get('source_url')
+        source = chosen.get('source_url') or match.get('source_url')
         if not str(source).startswith('https://'):
             issues.append('no https source URL')
-        method = analysis.get('method')
+        method = chosen.get('method')
         if method not in MONEY_METHODS and method != 'model':
             issues.append(f'method {method!r} is neither money nor model')
         row = {
-            'id': str(match.get('id')), 'teams': teams, 'competition': match.get('competition'),
+            'id': fixture_id, 'teams': teams, 'competition': match.get('competition'),
             'starts_at': match.get('starts_at'), 'availability': match.get('availability'),
-            'method': method, 'source': analysis.get('source'),
-            'source_url': analysis.get('source_url'),
+            'feed': feed, 'method': method, 'source': chosen.get('source'),
+            'source_url': chosen.get('source_url'),
             'hotspawn_url': match.get('source_url'),
             'probabilities': probs,
             'pick': None if pick not in (0, 1) or not isinstance(probs, list) or len(probs) != 2
                     else teams[pick],
             'issues': issues,
             'money_backed': method in MONEY_METHODS,
-            'limitations': analysis.get('limitations') or [],
+            'limitations': chosen.get('limitations') or [],
+            'featured_blank': not (match.get('analysis') or {}).get('probabilities'),
+            'research_stages': [
+                {'stage': stage.get('stage'), 'status': stage.get('status')}
+                for stage in (match.get('research') or [])
+            ],
         }
         rows.append(row)
         if issues:
@@ -242,6 +283,7 @@ def coverage(snapshot: dict) -> dict:
         'covered_count': sum(1 for r in rows if not r['issues']),
         'money_backed_count': sum(1 for r in rows if r['money_backed'] and not r['issues']),
         'model_only_count': sum(1 for r in rows if not r['money_backed'] and not r['issues']),
+        'featured_blank_count': sum(1 for r in rows if r['featured_blank']),
         'problem_count': len(problems),
         'rows': rows, 'problems': problems,
     }
@@ -310,10 +352,12 @@ def markdown(document: dict) -> str:
         f"Snapshot `{document['snapshot']['generated_at']}`: **{cover['active_count']}** active "
         f"fixtures, **{cover['covered_count']}** with a pick and two probabilities, "
         f"**{cover['money_backed_count']}** from a money line, **{cover['model_only_count']}** "
-        f"from a research model, **{cover['problem_count']}** with a problem.",
+        f"from a research model, **{cover['problem_count']}** with a problem, and "
+        f"**{cover['featured_blank_count']}** blank in the featured feed but resolved by the "
+        f"complete researched list.",
         '',
-        '| Fixture | Competition | Method | Pick | Probabilities | Source |',
-        '| --- | --- | --- | --- | --- | --- |',
+        '| Fixture | Competition | Feed | Method | Pick | Probabilities | Source |',
+        '| --- | --- | --- | --- | --- | --- | --- |',
     ]
     for row in cover['rows']:
         probs = row['probabilities'] or []
@@ -322,12 +366,13 @@ def markdown(document: dict) -> str:
         label = row['source'] or 'source'
         source_text = f'[{label}]({source})' if source else '—'
         lines.append(f"| {' vs '.join(row['teams'][:2])} | {row['competition'] or ''} | "
-                     f"{row['method'] or '—'} | {row['pick'] or '**none**'} | {prob_text} | "
-                     f"{source_text} |")
+                     f"{row['feed'] or '**none**'} | {row['method'] or '—'} | "
+                     f"{row['pick'] or '**none**'} | {prob_text} | {source_text} |")
     if cover['problems']:
         lines += ['', '### Rows with a problem', '']
         for row in cover['problems']:
-            lines.append(f"- `{row['id']}` {' vs '.join(row['teams'][:2])}: "
+            lines.append(f"- `{row['id']}` {' vs '.join(row['teams'][:2])} "
+                         f"({row['competition'] or 'competition blank'}): "
                          f"{'; '.join(row['issues'])}")
 
     lines += ['', '## 3. Line research for fixtures resolved only by a research model', '',
@@ -356,7 +401,8 @@ def main(argv: list[str] | None = None) -> int:
     args.out.mkdir(parents=True, exist_ok=True)
 
     snapshot = json.loads((args.data / 'latest.json').read_text())
-    cover = coverage(snapshot)
+    origination = json.loads((args.data / 'origination.json').read_text())
+    cover = coverage(snapshot, origination)
     model_only = [row for row in cover['rows'] if not row['money_backed']]
     team_names = sorted({name for row in model_only for name in row['teams'][:2] if name})
 
@@ -374,7 +420,7 @@ def main(argv: list[str] | None = None) -> int:
             'run_status': snapshot.get('run_status'),
             'counts': snapshot.get('counts'),
         },
-        'published': published_state(args.live_url),
+        'published': published_state(args.live_url, args.out / 'live'),
         'coverage': cover,
         'model_only_ids': [row['id'] for row in model_only],
         'surfaces': probe_surfaces(team_names, args.timeout),
