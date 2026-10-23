@@ -51,3 +51,7 @@ class CurrentResearchSummaryTests(unittest.TestCase):
         self.assertEqual(len(summary['per_fixture']), 9)
         self.assertEqual(summary['observed_at'], audit['observed_at'])
         self.assertFalse(summary['leads'])
+
+    def test_explanatory_source_links_do_not_rely_on_color(self):
+        css = Path('assets/scout.css').read_text()
+        self.assertRegex(css, r'\.ladder-list a\s*\{[^}]*text-decoration:\s*underline')
