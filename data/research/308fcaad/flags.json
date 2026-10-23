@@ -1,0 +1,31 @@
+[
+  {
+    "id": "308fcaad-no-new-money-line-lead",
+    "severity": "notice",
+    "match_ids": ["1081605", "1082996", "1079198", "1079199", "1079200", "1082858", "1082861", "1082792", "1082793"],
+    "title": "Dated sweep of all 9 no-betting-line fixtures: no two-sided price found; HLTV readable from the sandbox client but priceless by design",
+    "detail": "On 2026-10-23T06:20Z-07:05Z (live snapshot generated_at 2026-10-23T06:17:47Z) every active fixture carrying only a research-model pick (9) was re-checked: HLTV first, then the bo3.gg/Thunderpick relay and Polymarket's event API. HLTV match pages are readable from the Arena sandbox client (the CI runner is 403-challenged) but publish no prematch odds and an excluded fan vote. bo3.gg lists the four NODWIN Oct 25 R16 fixtures and both checked DFRAG openers without odds while pricing their near-date siblings, so the relay rung will price them the moment a book does. Polymarket event 1238706 (Infinite-BRUTE) shows a 0.92-spread 0.04/0.96 book and event 1237427 (Ground Zero-Off Chops) a 0.87-spread 0.06/0.93 book; no Polymarket event exists for Phantom Academy vs Banda chuya. No probability, pick or alias changed. A later market can still close these rows on the next four-hour refresh.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399114/infinite-vs-brute-nodwin-clutch-series-13",
+      "https://bo3.gg/tournaments/nodwin-clutch-series-13/matches",
+      "https://bo3.gg/tournaments/dfrag-invitational-2026/matches",
+      "https://gamma-api.polymarket.com/events?slug=cs2-inf6-brute-2026-10-25",
+      "https://gamma-api.polymarket.com/events?slug=cs2-gz1-offcho-2026-10-25",
+      "https://gamma-api.polymarket.com/public-search?q=Phantom%20Academy",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/308fcaad/line-source-research.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/308fcaad/line-source-research.md"
+    ]
+  },
+  {
+    "id": "308fcaad-cdn-origination-json-cache-window",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Direct CDN read of /data/origination.json briefly returned the checked-in 15 October bytes while the rendered site served the fresh build",
+    "detail": "At ~07:00Z on 2026-10-23 a direct fetch of the public data/origination.json URL returned generated_at 2026-10-15T09:31:24Z, while the rendered origination page served the 06:17Z snapshot and the deploy run (39906935915) had passed scripts.verify_live, which cross-checks data/origination.json against the rendered rows (step 'Verify the public site after root-sync re-deploy', success). Recorded as a cache-window observation after the root-sync legacy-build race that pages.yml explicitly re-deploys over, not as a pipeline failure. The next scheduled refresh redeploys and re-verifies; if a reader ever sees stale JSON beside fresh pages, reload after the current refresh window.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39906935915",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/"
+    ]
+  }
+]
