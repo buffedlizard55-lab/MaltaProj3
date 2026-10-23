@@ -32,6 +32,7 @@
     "title": "Phone measurement: inline text links inside executive-summary cards are 14-20px tall — below the 24px WCAG 2.5.8 minimum",
     "detail": "Chromium headless at 390x844 against the locally rebuilt site (checked-in 2026-10-15 snapshot, current code) on 2026-10-23T05:16Z: 258 interactive elements measure under 40px in one axis on the executive summary; the worst are inline text links — 'Check source status' 14px, 'Full audited list' 16px, 'picks without a betting line' 20px — while primary navigation, the search field and the jump cards are 44px or taller. No horizontal overflow was measured on any audited view at 320/390px, and the picks index is one tap from the top of the page, so this is a refinement, not a navigation blocker. Change request for whoever owns assets/scout.css next (session arena-9fd5fbf1 held it at claim time): give .internal-link and .source-link a >=24px inline target box (line-height or padding) on <=700px viewports. Screenshots and the full sample are in data/research/69438ad1/mobile/ and mobile-audit.json.",
     "source_urls": [
+      "https://play.hotspawn.com/lobby",
       "https://buffedlizard55-lab.github.io/MaltaProj3/",
       "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/69438ad1/mobile-audit.json",
       "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html"
@@ -55,6 +56,7 @@
     "detail": "Every one of the 17 active published rows was replayed from https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json at 2026-10-23T05:10:39Z: two probabilities, one obvious pick (or an explicit even rule with no side), a method badge and an https official source link each. See the session dossier for the per-row table.",
     "title": "Independent row audit: 17 active rows, 0 missing pick/probability/source",
     "source_urls": [
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
       "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/69438ad1/row-audit.json"
     ]

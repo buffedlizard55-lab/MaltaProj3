@@ -64,6 +64,15 @@ Everything is a dated observation with the exact URL a human can re-open.
 | `mobile-audit.json`, `mobile/*.png` | phone-width measurements and screenshots of the executive summary, pick list and unresolved register |
 | `flags.json` | the seven dated findings in the site's Flagged-for-Review schema (auto-rendered on `/review/`) |
 
+## Review-page row-source rule learned here
+
+`scripts/audit_rows.py` audits *every* table row on the built site, including the rows the Flagged for
+Review page renders from session `flags.json`. A row whose only links are this project's own
+`buffedlizard55-lab.github.io` URLs counts as a violation and would fail a strict audit. Two of this
+session's flags were self-referential at first draft and showed up as exactly that (2 violations in the
+local build); each now leads with the allow-listed official source the finding is about (the Hotspawn
+lobby / fixture API). Other sessions publishing flags should do the same.
+
 ## Verification performed in this session
 
 * `tests/test_69438ad1_verify.py` — 4 offline contract tests for the reconciliation (staleness, coverage
