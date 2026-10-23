@@ -1,0 +1,38 @@
+[
+  {
+    "id": "69438ad1-hltv-no-two-sided-price",
+    "severity": "notice",
+    "match_ids": ["1081872"],
+    "title": "Verified from a working read: HLTV's match-page betting block carries affiliate promos and analytics only — no two-sided prematch price exists on HLTV",
+    "detail": "Session arena-69438ad1 read https://www.hltv.org/matches/2399587/nexvoid-vs-rare-atom-macemedia-void-autumn-cup-2026 at 2026-10-23T05:12Z from platform-side egress (GitHub runners receive HTTP 403 from HLTV, so earlier sessions could only record the block, never read it). The page's 'Betting' section contains bookmaker affiliate promos (Stake) and a link to HLTV's analytics centre; no decimal odds or two-sided market price is published anywhere on the page. The fan vote (74.5% / 25.5%) is present and is excluded by project policy. Consequence for the brief's 'try HLTV, then esportsbooks' order: HLTV contributes identity, format, lineup and ranking context; every probability still has to come from a market or esportsbook rung, or from a labelled research model. Dated extraction in data/research/69438ad1/platform-side-hltv.json.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399587/nexvoid-vs-rare-atom-macemedia-void-autumn-cup-2026",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/69438ad1/platform-side-hltv.json"
+    ]
+  },
+  {
+    "id": "69438ad1-hltv-ranking-publication-2026-10-19",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Current HLTV weekly world ranking publication is 2026-10-19; per-team ranks captured for a researched low-tier fixture",
+    "detail": "The official rank links on the live HLTV match page read at 2026-10-23T05:12Z point at /ranking/teams/2026/october/19/<teamId>: NEXVOID HLTV #77 (VRS #71), Rare Atom HLTV #127 (VRS #135), both with five-player lineups on the match page. The project's HLTV rung accepts publications up to 14 days old and follows the canonical /ranking/teams redirect, so a runner fetch after 2026-10-19 prices from this publication. Recorded so a reviewer can tell which publication a displayed HLTV-model row came from; no value here changes any published number.",
+    "source_urls": [
+      "https://www.hltv.org/ranking/teams/2026/october/19/13667",
+      "https://www.hltv.org/ranking/teams/2026/october/19/11514",
+      "https://www.hltv.org/valve-ranking/teams?teamId=13667",
+      "https://www.hltv.org/valve-ranking/teams?teamId=11514"
+    ]
+  },
+  {
+    "id": "69438ad1-phone-inline-link-targets",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "Phone measurement: inline text links inside executive-summary cards are 14-20px tall — below the 24px WCAG 2.5.8 minimum",
+    "detail": "Chromium headless at 390x844 against the locally rebuilt site (checked-in 2026-10-15 snapshot, current code) on 2026-10-23T05:16Z: 258 interactive elements measure under 40px in one axis on the executive summary; the worst are inline text links — 'Check source status' 14px, 'Full audited list' 16px, 'picks without a betting line' 20px — while primary navigation, the search field and the jump cards are 44px or taller. No horizontal overflow was measured on any audited view at 320/390px, and the picks index is one tap from the top of the page, so this is a refinement, not a navigation blocker. Change request for whoever owns assets/scout.css next (session arena-9fd5fbf1 held it at claim time): give .internal-link and .source-link a >=24px inline target box (line-height or padding) on <=700px viewports. Screenshots and the full sample are in data/research/69438ad1/mobile/ and mobile-audit.json.",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/69438ad1/mobile-audit.json",
+      "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html"
+    ]
+  }
+]

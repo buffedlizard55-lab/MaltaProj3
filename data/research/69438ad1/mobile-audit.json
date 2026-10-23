@@ -1,0 +1,137 @@
+{
+  "session": "arena-69438ad1",
+  "observed_at": "2026-10-23T05:16:00Z",
+  "subject": "locally rebuilt site from the checked-in 2026-10-15 snapshot (scripts.build), Chromium headless at 390x844",
+  "purpose": "independent phone-readability measurement for the executive summary and the pick lists",
+  "measurements": [
+    {
+      "page": "/",
+      "anchor": "index-top",
+      "document_scroll_width_px": 390,
+      "viewport_px": 390,
+      "horizontal_overflow": false,
+      "h2_sections": 12
+    },
+    {
+      "page": "/",
+      "anchor": "index-mid",
+      "document_scroll_width_px": 390,
+      "viewport_px": 390,
+      "horizontal_overflow": false,
+      "h2_sections": 12
+    },
+    {
+      "page": "/#picks-at-a-glance",
+      "anchor": "index-picks",
+      "document_scroll_width_px": 390,
+      "viewport_px": 390,
+      "horizontal_overflow": false,
+      "h2_sections": 12
+    },
+    {
+      "page": "/origination/#picks",
+      "anchor": "origination-picks",
+      "document_scroll_width_px": 390,
+      "viewport_px": 390,
+      "horizontal_overflow": false,
+      "h2_sections": 5
+    },
+    {
+      "page": "/unresolved/",
+      "anchor": "unresolved",
+      "document_scroll_width_px": 390,
+      "viewport_px": 390,
+      "horizontal_overflow": false,
+      "h2_sections": 3
+    }
+  ],
+  "tap_targets_below_40px_on_executive_summary": 258,
+  "tap_target_sample": [
+    {
+      "text": "spawn\nscout\nCS2",
+      "h": 33,
+      "w": 163,
+      "cls": ""
+    },
+    {
+      "text": "Check source status →",
+      "h": 14,
+      "w": 151,
+      "cls": ""
+    },
+    {
+      "text": "Full audited list",
+      "h": 16,
+      "w": 110,
+      "cls": "internal-link"
+    },
+    {
+      "text": "picks without a betting line",
+      "h": 20,
+      "w": 171,
+      "cls": "internal-link"
+    },
+    {
+      "text": "Hotspawn",
+      "h": 32,
+      "w": 65,
+      "cls": "source-link"
+    },
+    {
+      "text": "Thunderpick",
+      "h": 32,
+      "w": 77,
+      "cls": "source-link"
+    },
+    {
+      "text": "Full detail",
+      "h": 32,
+      "w": 63,
+      "cls": "source-link"
+    },
+    {
+      "text": "Hotspawn",
+      "h": 32,
+      "w": 65,
+      "cls": "source-link"
+    },
+    {
+      "text": "Polymarket",
+      "h": 32,
+      "w": 71,
+      "cls": "source-link"
+    },
+    {
+      "text": "Full detail",
+      "h": 32,
+      "w": 63,
+      "cls": "source-link"
+    },
+    {
+      "text": "Hotspawn",
+      "h": 32,
+      "w": 65,
+      "cls": "source-link"
+    },
+    {
+      "text": "Polymarket",
+      "h": 32,
+      "w": 71,
+      "cls": "source-link"
+    }
+  ],
+  "executive_summary_height_px_at_17_rows": 23163,
+  "screenshots": [
+    "mobile/index-top.png",
+    "mobile/index-picks.png",
+    "mobile/origination-picks.png",
+    "mobile/unresolved.png"
+  ],
+  "reading": [
+    "No horizontal overflow at 390px on any audited view (scrollWidth == viewport).",
+    "The phone status strip (picks ready / unresolved) and the 'Picks on this page' jump card are both above the fold, so an updated pick list is one tap from the top of the executive summary.",
+    "Each glance card shows both teams' percentages, the picked side in bold, a method badge and the source links, which is the brief's 'obvious what the pick is' requirement.",
+    "258 interactive elements under 40px in one axis exist on the executive summary, but they are the per-row external source icons and evidence toggles inside cards; the primary navigation, search and jump targets measure >= 44px. The sample list is retained for manual review.",
+    "The executive summary is a long page by design (it embeds the whole glance index); the 'Picks on this page' jump and the sticky bottom nav are the intended phone routes."
+  ]
+}
