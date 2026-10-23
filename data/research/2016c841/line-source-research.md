@@ -1,10 +1,10 @@
-# Line-source research — 2026-10-23T12:17:56Z
+# Line-source research — 2026-10-23T12:56:17Z
 
-Source snapshot: `https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json` (generated 2026-10-23T11:18:17Z); 91 Hotspawn fixtures, 8 with no external line.
+Source snapshot: `https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json` (generated 2026-10-23T12:48:20Z); 91 Hotspawn fixtures, 8 with no external line.
 
 | Fixture | Start (UTC) | Published method | HLTV | bo3.gg join | bo3 relay price | Smarkets exchange |
 | --- | --- | --- | --- | --- | --- | --- |
-| Chinggis Warriors vs Rare Atom | 2026-10-24T03:00:00Z | unresolved | HTTP 403 (Cloudflare) — platform-side reads in hltv-platform-sweep.md | [Chinggis Warriors vs Rare Atom](https://bo3.gg/matches/chinggis-warriors-vs-rare-atom-24-10-2026) · Δ0s | none published | not bound (no exact both-name + 60 s event match) |
+| Chinggis Warriors vs Rare Atom | 2026-10-24T03:00:00Z | model | HTTP 403 (Cloudflare) — platform-side reads in hltv-platform-sweep.md | [Chinggis Warriors vs Rare Atom](https://bo3.gg/matches/chinggis-warriors-vs-rare-atom-24-10-2026) · Δ0s | none published | not bound (no exact both-name + 60 s event match) |
 | Acend vs UNiTY | 2026-10-25T09:00:00Z | model | HTTP 403 (Cloudflare) — platform-side reads in hltv-platform-sweep.md | [Acend vs UNiTY](https://bo3.gg/matches/acend-cs2-vs-unity-25-10-2026) · Δ0s | none published | not bound (no exact both-name + 60 s event match) |
 | Metizport vs BakS | 2026-10-25T12:00:00Z | model | HTTP 403 (Cloudflare) — platform-side reads in hltv-platform-sweep.md | [Metizport vs BakS](https://bo3.gg/matches/metizport-vs-baks-esports-25-10-2026) · Δ0s | none published | not bound (no exact both-name + 60 s event match) |
 | Color vs ex-Zero Tenacity | 2026-10-25T18:00:00Z | model | HTTP 403 (Cloudflare) — platform-side reads in hltv-platform-sweep.md | [Color vs ex-Zero Tenacity](https://bo3.gg/matches/color-vs-ex-zero-tenacity-25-10-2026) · Δ0s | none published | not bound (no exact both-name + 60 s event match) |
