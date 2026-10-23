@@ -1,0 +1,65 @@
+[
+  {
+    "id": "3a010437-mislabelled-source-link",
+    "severity": "warning",
+    "title": "Fixed: a phone summary row labelled a bo3.gg link as Thunderpick",
+    "detail": "Found on the 2026-10-23 09:23Z build in the executive summary row LPH vs WBT Academy (fixture 1082980). The link opened https://bo3.gg/matches/lph-gaming-vs-wbt-academy-23-10-2026 while its text said Thunderpick, because the label helper searched the row's provider text before the link's own host. The row's origination record says 'Esportsbook line relayed by bo3.gg (Thunderpick, no-vig)', so both names are real: the price is Thunderpick's, relayed by bo3.gg. The helper now names the link destination first and prints 'bo3.gg (Thunderpick relay)' when the record's provider differs from the host, so a reader can never be sent to a page the label does not name. No probability or pick was changed.",
+    "match_ids": [
+      "1082980"
+    ],
+    "source_urls": [
+      "https://bo3.gg/matches/lph-gaming-vs-wbt-academy-23-10-2026",
+      "https://www.hotspawn.com/matches/lph-vs-wbt-academy-esl-challenger-league-season-52-europe-cup-9-1082980",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py"
+    ]
+  },
+  {
+    "id": "3a010437-dated-gap-claim",
+    "severity": "warning",
+    "title": "Fixed: a five-hour-old inventory read was published in the present tense",
+    "detail": "The executive summary section 'Live Hotspawn fixtures missing from this snapshot' rendered the 2026-10-23T04:58Z research record with the sentence 'These cards are on Hotspawn right now', and listed fixtures 1081872 (NEXVOID vs Rare Atom) and 1081149 (FORZE Reload vs LFO 10) that the record itself had already seen inside a published snapshot. At 09:53Z the official fixture API returns 92 records, the audited snapshot contains all 92, and none of those ids is missing. The section now speaks in the observation's own tense, says a card may have started since (in which case no prematch pick exists), skips cards the record saw in a published snapshot, and matches an id-less lobby card to a published row only by its exact two team names and competition.",
+    "match_ids": [
+      "1081872",
+      "1081149"
+    ],
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://www.hotspawn.com/matches/nexvoid-vs-rare-atom-void-autumn-cup-2026-1081872",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/9fd5fbf1/live-coverage.json"
+    ]
+  },
+  {
+    "id": "3a010437-model-rows-have-no-price",
+    "severity": "notice",
+    "title": "8 of 30 published picks are research estimates: there is no betting price to re-read",
+    "detail": "The 2026-10-23T09:53Z re-read reopened every row against the source it cites. 16 rows priced from a Polymarket series market were re-read from the row's own event endpoint and every one agreed within 0.025 (largest move: paiN vs Imperial, 0.025). 6 rows are money lines from a bookmaker, a relay or a median of several sources; their cited pages answered, but this audit does not parse a rendered bookmaker page into a price, so they are published as 'reachability only', not as re-verified. The remaining 8 rows are Valve-rating or bo3.gg results-network estimates. They are labelled Model on every page and have no betting price to confirm; they stay estimates, never bookmaker odds.",
+    "match_ids": [
+      "1081605",
+      "1082996",
+      "1079198",
+      "1079200",
+      "1082858",
+      "1082861",
+      "1082792",
+      "1082793"
+    ],
+    "source_urls": [
+      "https://github.com/ValveSoftware/counter-strike_regional_standings",
+      "https://bo3.gg/matches",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/3a010437/verification.md"
+    ]
+  },
+  {
+    "id": "3a010437-rendered-page-interstitial",
+    "severity": "notice",
+    "title": "A runner's first read of a Hotspawn match page was a bot-protection interstitial, not the match",
+    "detail": "During the 09:49Z pass, six of the first match-page requests answered HTTP 200 with the title 'One moment, please...' and named no team. A later probe of the same page at 09:53Z returned the real title. Identity is therefore verified against the official scheduled-fixture API (fixture id, both team names, scheduled start) rather than the rendered page, and an unreadable page is recorded as unverifiable — never as an identity mismatch. No challenge or access control was bypassed.",
+    "match_ids": [],
+    "source_urls": [
+      "https://www.hotspawn.com/matches/nuclear-tigeres-vs-illyrians-cct-europe-2026-series-11-1079655",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/3a010437/verification.json"
+    ]
+  }
+]
