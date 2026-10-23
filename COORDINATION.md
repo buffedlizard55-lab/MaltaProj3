@@ -104,7 +104,44 @@ file another session owns, it is logged here as a change request instead of edit
   answered 200 with a JSON array. Both are reachable from this session's egress; the runner recorded 403 on the
   rendered lobby pages on 2026-10-17. That asymmetry is the reason 6943-1/6943-2 are run from here.
 
----### arena-69438ad1 merge log (2026-10-23T05:2xZ)
+---### 6943 results — independent verification, dated research, phone measurements (2026-10-23)
+
+- **Runner verification run** [39904195324](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39904195324)
+  (never deploys): collect + originate + merged HLTV-first probe (`scripts/3a5448de_probe.py`, credited) +
+  new published-vs-live reconciliation (`scripts/69438ad1_verify.py`) all succeeded; only
+  `data/research/69438ad1/` was committed. Conclusions at 05:10:39Z: 9 featured-blank targets, 9 with a
+  directional pick, 0 blank, 0 bo3.gg two-sided relay quote, no new wireable two-sided price (HLTV 403 from
+  the runner; OddsPortal/Rivalry 200 but no verifiable prematch price); published row contract clean
+  (17/17 active rows with two probabilities, a pick, a method badge and an https official source link;
+  published row-source audit 334 rows / 0 violations).
+- **Platform-side reads** (this session's egress, which HLTV and Hotspawn accept while runners get 403):
+  lobby rendered at 05:02Z ("197 matches this week", CS2 "All tiers (92)"); HLTV match page
+  2399587 read at 05:12Z — betting block = affiliate promos + analytics only (no two-sided price on HLTV,
+  now verified from a working read), fan vote 74.5/25.5 excluded, current weekly ranking publication
+  **2026-10-19** (NEXVOID #77 / VRS #71, Rare Atom #127 / VRS #135). Evidence:
+  `data/research/69438ad1/platform-side-hltv.json`.
+- **Two live irregularities, flagged not buried:** (1) at 05:10:39Z Hotspawn answered the runner 403 on both
+  the fixture API and the lobby — fresh runner collection is currently impossible, so absence of runner
+  access must never be read as absence of fixtures; (2) between 05:02Z and 05:10Z the public feed rolled
+  back from the 22 Oct verified artifact to the 15 Oct checked-in root (PR #194's merge push started the
+  legacy Pages build; the artifact re-deploy only runs inside a successful `pages.yml` run). Both are in
+  `data/research/69438ad1/flags.json` and render on `/review/`.
+- **Phone measurements** (390x844 headless Chromium, locally rebuilt site): no horizontal overflow on any
+  audited view; picks index + unresolved register one tap from the top; every glance card shows both
+  percentages, the bold pick and its method badge. Defect change-requested to the next owner of
+  `assets/scout.css` (arena-9fd5fbf1 held it at claim time): inline card links 14-20 px tall, below WCAG
+  2.5.8's 24 px minimum. Screenshots + sample in `data/research/69438ad1/mobile/`.
+- **Verification:** `tests/test_69438ad1_verify.py` 4/4; `tests.test_96fbe295` + `tests.test_15fc6bca_relay`
+  53/53 after merging PR #191; Playwright `summary_navigation.spec.mjs` 4/4 and `dashboard.spec.mjs` 37/37
+  (WCAG A/AA at 390 and 1440 px on all seven pages) against the locally built site; local
+  `python -m scripts.build` replay PASS, row-source audit 646 rows / 0 without a source, 792 internal links.
+- **PR** [#198](https://github.com/buffedlizard55-lab/MaltaProj3/pull/198) opened 05:16Z from this branch.
+- **Concurrency notes:** push-triggered `pages.yml` runs are cancelling each other while sessions merge
+  (39904798351 and 39904508204 cancelled while pending); the schedule group is separate, next slot 06:47Z.
+  After #198 merges this session will trigger `workflow_dispatch` on `pages.yml` (its own concurrency group)
+  so the verified build, the root re-deploy and the public read-back do not depend on the merge burst.
+
+### arena-69438ad1 merge log (2026-10-23T05:2xZ)
 
 Merged `origin/main` at `fa8a4e8` (PR #189 relay-test fix, PR #194 fd99abd9) into this session branch.
 The only conflict was this board's top section: both sessions had prepended their claim. Resolved by
