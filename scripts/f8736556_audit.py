@@ -907,6 +907,20 @@ def build_flags(report: dict) -> list[dict]:
                 ],
             }
         )
+    incident = report.get("historical_publication_incident") or {}
+    if incident.get("id") and incident.get("summary"):
+        flags.append(
+            {
+                "id": incident["id"],
+                "severity": "warning",
+                "match_ids": [],
+                "title": incident.get(
+                    "title", "Historical legacy-Pages publication race (23 October)"
+                ),
+                "detail": incident["summary"],
+                "source_urls": incident.get("source_urls") or [],
+            }
+        )
     return flags
 
 
@@ -996,6 +1010,16 @@ def main(argv: list[str] | None = None) -> int:
         except (ValueError, TypeError) as exc:
             pages_configuration = {"error": f"{type(exc).__name__}: {exc}"[:200]}
 
+    incident_path = out / "publication-race-incident.json"
+    historical_incident: dict[str, Any] = {}
+    if incident_path.exists():
+        try:
+            loaded = json.loads(incident_path.read_text())
+            if isinstance(loaded, dict):
+                historical_incident = loaded
+        except (ValueError, TypeError) as exc:
+            historical_incident = {"error": f"{type(exc).__name__}: {exc}"[:200]}
+
     findings: list[str] = []
     findings.extend(
         f"Publication check failed: {item['key']} ({item['detail']})"
@@ -1052,6 +1076,7 @@ def main(argv: list[str] | None = None) -> int:
             "skipped": bool(line_research.get("skipped")),
         },
         "pages_configuration": pages_configuration,
+        "historical_publication_incident": historical_incident,
         "findings": findings,
         "sources": [
             {"name": "Published executive summary", "url": base},

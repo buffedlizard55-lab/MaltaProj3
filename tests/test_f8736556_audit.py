@@ -14,6 +14,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from scripts.f8736556_audit import (
+    build_flags,
     extract_page_stamp,
     public_summary_checks,
     publication_checks,
@@ -179,6 +180,31 @@ class F8736556AuditTests(unittest.TestCase):
         )
         self.assertIn("blank — unverified", markdown)
         self.assertIn("Unresolved picks & limitations", markdown)
+
+    def test_historical_publication_race_stays_on_flagged_for_review(self):
+        incident = json.loads(
+            (ROOT / "data/research/f8736556/publication-race-incident.json").read_text()
+        )
+        audit = row_audit(self.latest, self.complete)
+        report = {
+            "observed_at": "2026-10-23T10:00:08Z",
+            "publication": {
+                "checks": publication_checks(
+                    "2026-10-23T09:23:57Z", self.latest, self.complete, self.now
+                )
+            },
+            "row_audit": audit,
+            "line_research": {"per_fixture": [], "leads": []},
+            "pages_configuration": {"build_type": "legacy"},
+            "historical_publication_incident": incident,
+            "findings": [],
+        }
+        flags = build_flags(report)
+        historical = next(flag for flag in flags if flag["id"] == incident["id"])
+        self.assertEqual(historical["severity"], "warning")
+        self.assertIn("09:53:43Z", historical["detail"])
+        self.assertIn("10:00:08Z", historical["detail"])
+        self.assertTrue(all(url.startswith("https://") for url in historical["source_urls"]))
 
     def test_saved_pages_evidence_is_the_official_legacy_read(self):
         evidence = json.loads((ROOT / "data/research/f8736556/pages-before.json").read_text())
