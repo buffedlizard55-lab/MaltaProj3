@@ -78,11 +78,18 @@ def fetch(url):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out', type=Path, default=Path('data/research/38c53ece'))
+    parser.add_argument('--data', type=Path, help='Audit a freshly collected runner snapshot instead of the public deployment; never implicit.')
     args = parser.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
     now = datetime.now(timezone.utc)
-    latest, inventory_fetch = fetch(BASE + 'data/latest.json')
-    complete, picks_fetch = fetch(BASE + 'data/origination.json')
+    if args.data:
+        latest = json.loads((args.data / 'latest.json').read_text())
+        complete = json.loads((args.data / 'origination.json').read_text())
+        inventory_fetch = {'path': str(args.data / 'latest.json'), 'mode': 'explicit runner snapshot, NOT live publication'}
+        picks_fetch = {'path': str(args.data / 'origination.json'), 'mode': 'explicit runner snapshot, NOT live publication'}
+    else:
+        latest, inventory_fetch = fetch(BASE + 'data/latest.json')
+        complete, picks_fetch = fetch(BASE + 'data/origination.json')
     report = reconcile(latest, complete, now)
     report.update(observed_at=now.isoformat(), fetches=[inventory_fetch, picks_fetch],
                   policy='Read-only audit; no price inferred from reachability, votes, rankings or team mentions. Model probabilities are existing uncalibrated estimates, not official odds.')
@@ -123,7 +130,7 @@ def main():
     else:
         report['findings'].append('Published inventory has no source_api URL; fresh official check unavailable.')
     (args.out / 'audit.json').write_text(json.dumps(report, indent=2) + '\n')
-    details = (f"Dated audit {report['observed_at']}: published snapshot {report['inventory_generated_at']}; "
+    details = (f"Dated audit {report['observed_at']}: {'runner-collected (not deployed)' if args.data else 'published'} snapshot {report['inventory_generated_at']}; "
                f"{report['active_inventory']} active records, {report['complete_rows']} complete rows, "
                f"{report['directional_picks']} directional picks, {report['unresolved']} unresolved, "
                f"{len(targets)} without an external betting line. "
