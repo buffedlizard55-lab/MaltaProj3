@@ -1,22 +1,22 @@
 {
   "schema_version": 1,
   "session": "arena-3a5448de",
-  "observed_at": "2026-10-23T10:19:20Z",
+  "observed_at": "2026-10-23T11:41:06Z",
   "environment": "github-actions-runner",
   "policy": "Read-only research for fixtures the featured method did not resolve with a first-party money line. HLTV first (identity/ranking; no prematch price, fan vote excluded), then esportsbooks/betting lines. No probability, pick or alias is written here. HTML pages are reachability/name evidence only; no price is scraped from HTML.",
   "snapshot": {
-    "latest_generated_at": "2026-10-23T10:16:59Z",
-    "origination_generated_at": "2026-10-23T10:17:14Z",
+    "latest_generated_at": "2026-10-23T11:39:41Z",
+    "origination_generated_at": "2026-10-23T11:39:52Z",
     "counts": {
-      "active": 30,
-      "resolved": 30,
+      "active": 27,
+      "resolved": 27,
       "unresolved": 0,
-      "with_pick": 30,
+      "with_pick": 27,
       "consensus": 2,
-      "market": 16,
+      "market": 14,
       "bookmaker": 4,
       "reference": 0,
-      "model": 8,
+      "model": 7,
       "network": 1,
       "relay": 1,
       "guidance": 0,
@@ -24,12 +24,12 @@
     }
   },
   "target_definition": "active fixtures where featured_method is null, or the complete-list resolution is not a first-party money line (model/guidance/blank)",
-  "target_count": 8,
+  "target_count": 7,
   "surfaces": [
     {
       "name": "HLTV match listing",
       "url": "https://www.hltv.org/matches",
-      "observed_at": "2026-10-23T10:18:25+00:00",
+      "observed_at": "2026-10-23T11:40:50+00:00",
       "http_status": 403,
       "final_url": "https://www.hltv.org/matches",
       "bytes": 5626,
@@ -45,10 +45,10 @@
     {
       "name": "HLTV world ranking",
       "url": "https://www.hltv.org/ranking/teams",
-      "observed_at": "2026-10-23T10:18:25+00:00",
+      "observed_at": "2026-10-23T11:40:50+00:00",
       "http_status": 403,
       "final_url": "https://www.hltv.org/ranking/teams",
-      "bytes": 5665,
+      "bytes": 5644,
       "challenge_markers": [
         "just a moment",
         "challenge-platform",
@@ -61,10 +61,10 @@
     {
       "name": "EGamersWorld CS2 matches",
       "url": "https://egamersworld.com/counterstrike/matches",
-      "observed_at": "2026-10-23T10:18:25+00:00",
+      "observed_at": "2026-10-23T11:40:50+00:00",
       "http_status": 403,
       "final_url": "https://egamersworld.com/counterstrike/matches",
-      "bytes": 5776,
+      "bytes": 5774,
       "challenge_markers": [
         "challenge-platform",
         "attention required",
@@ -75,10 +75,10 @@
     {
       "name": "DraftKings CS2",
       "url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
-      "observed_at": "2026-10-23T10:18:25+00:00",
+      "observed_at": "2026-10-23T11:40:51+00:00",
       "http_status": 404,
       "final_url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
-      "bytes": 257263,
+      "bytes": 257729,
       "challenge_markers": [],
       "teams_listed": [
         "Color"
@@ -87,7 +87,7 @@
     {
       "name": "Stake CS2",
       "url": "https://stake.com/sports/esports/counter-strike-2",
-      "observed_at": "2026-10-23T10:18:26+00:00",
+      "observed_at": "2026-10-23T11:40:51+00:00",
       "http_status": 403,
       "final_url": "https://stake.com/sports/esports/counter-strike-2",
       "bytes": 5737,
@@ -103,10 +103,10 @@
     {
       "name": "OddsPortal CS2",
       "url": "https://www.oddsportal.com/esports/counter-strike/",
-      "observed_at": "2026-10-23T10:18:26+00:00",
+      "observed_at": "2026-10-23T11:40:51+00:00",
       "http_status": 200,
       "final_url": "https://www.oddsportal.com/esports/counter-strike/",
-      "bytes": 335087,
+      "bytes": 338117,
       "challenge_markers": [
         "captcha"
       ],
@@ -118,7 +118,7 @@
     {
       "name": "Rivalry CS2",
       "url": "https://www.rivalry.com/esports/counter-strike-2-betting",
-      "observed_at": "2026-10-23T10:18:27+00:00",
+      "observed_at": "2026-10-23T11:40:52+00:00",
       "http_status": 200,
       "final_url": "https://www.rivalry.com/",
       "bytes": 60850,
@@ -132,7 +132,7 @@
     {
       "name": "GG.BET CS",
       "url": "https://gg.bet/en/counter-strike",
-      "observed_at": "2026-10-23T10:18:27+00:00",
+      "observed_at": "2026-10-23T11:40:52+00:00",
       "http_status": 403,
       "final_url": "https://gg.bet/en/counter-strike",
       "bytes": 126,
@@ -142,10 +142,10 @@
     {
       "name": "BetBoom CS2",
       "url": "https://betboom.ru/sport/cs2",
-      "observed_at": "2026-10-23T10:18:27+00:00",
+      "observed_at": "2026-10-23T11:40:52+00:00",
       "http_status": 401,
       "final_url": "https://betboom.ru/sport/cs2",
-      "bytes": 1801,
+      "bytes": 1799,
       "challenge_markers": [
         "captcha"
       ],
@@ -154,10 +154,10 @@
     {
       "name": "1xBet CS2",
       "url": "https://1xbet.com/en/line/counter-strike-2",
-      "observed_at": "2026-10-23T10:18:27+00:00",
+      "observed_at": "2026-10-23T11:40:53+00:00",
       "http_status": 203,
       "final_url": "https://1xbet.com/en/block",
-      "bytes": 2621,
+      "bytes": 2619,
       "challenge_markers": [
         "challenge-platform"
       ],
@@ -166,10 +166,10 @@
     {
       "name": "Marathonbet CS2",
       "url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
-      "observed_at": "2026-10-23T10:18:27+00:00",
+      "observed_at": "2026-10-23T11:40:53+00:00",
       "http_status": 403,
       "final_url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
-      "bytes": 5489,
+      "bytes": 5487,
       "challenge_markers": [
         "challenge-platform",
         "attention required",
@@ -180,7 +180,7 @@
     {
       "name": "Betway CS2",
       "url": "https://www.betway.com/en/sports/esports/counter-strike-2",
-      "observed_at": "2026-10-23T10:18:28+00:00",
+      "observed_at": "2026-10-23T11:40:53+00:00",
       "http_status": 404,
       "final_url": "https://betway.com/g/en/sports/esports/counter-strike-2",
       "bytes": 6690,
@@ -192,17 +192,17 @@
     {
       "name": "Luckbox CS2",
       "url": "https://luckbox.com/esports/csgo",
-      "observed_at": "2026-10-23T10:18:28+00:00",
+      "observed_at": "2026-10-23T11:40:54+00:00",
       "http_status": null,
       "error": "ConnectionError: HTTPSConnectionPool(host='luckbox.com', port=443): Max retries exceeded with url: /esports/csgo (Caused by NameResolutionError(\"HTTPSConnection(host='luckbox.com', port=443): Failed to resolve 'luckbox.com' ([Errno -5] No address associated with hostname)\"))"
     },
     {
       "name": "Oddspedia CS2",
       "url": "https://www.oddspedia.com/esports/counter-strike-2",
-      "observed_at": "2026-10-23T10:18:28+00:00",
+      "observed_at": "2026-10-23T11:40:54+00:00",
       "http_status": 410,
       "final_url": "https://oddspedia.com/esports/counter-strike-2",
-      "bytes": 340030,
+      "bytes": 340009,
       "challenge_markers": [
         "challenge-platform",
         "captcha"
@@ -215,7 +215,7 @@
     {
       "name": "bo3.gg matches",
       "url": "https://bo3.gg/matches",
-      "observed_at": "2026-10-23T10:18:28+00:00",
+      "observed_at": "2026-10-23T11:40:54+00:00",
       "http_status": 200,
       "final_url": "https://bo3.gg/matches",
       "bytes": 12789,
@@ -229,7 +229,7 @@
     {
       "name": "bo3.gg teams",
       "url": "https://bo3.gg/teams",
-      "observed_at": "2026-10-23T10:18:29+00:00",
+      "observed_at": "2026-10-23T11:40:55+00:00",
       "http_status": 200,
       "final_url": "https://bo3.gg/teams",
       "bytes": 12789,
@@ -243,245 +243,18 @@
     {
       "name": "Pinnacle guest leagues (sport 12)",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues",
-      "observed_at": "2026-10-23T10:18:29+00:00",
+      "observed_at": "2026-10-23T11:40:55+00:00",
       "http_status": 200,
       "final_url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues",
-      "bytes": 10605,
+      "bytes": 10053,
       "challenge_markers": [],
       "teams_listed": []
     }
   ],
   "surface_errors": {},
-  "bo3_upcoming_rows": 299,
+  "bo3_upcoming_rows": 294,
   "bo3_error": null,
   "fixtures": [
-    {
-      "hotspawn_id": "1081605",
-      "teams": [
-        "Phantom Academy",
-        "Banda chuya"
-      ],
-      "competition": "CCT Europe 2026 Challengers #8",
-      "starts_at": "2026-10-23T11:00:00Z",
-      "hotspawn_url": "https://www.hotspawn.com/matches/phantom-academy-vs-banda-chuya-cct-europe-2026-challengers-8-1081605",
-      "featured_method": "model",
-      "current_resolution": {
-        "method": "model",
-        "label": "Valve-rating research estimate",
-        "source": "Valve official standings",
-        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-        "probabilities": [
-          0.47482128,
-          0.52517872
-        ],
-        "inputs": [
-          {
-            "name": "Phantom Academy",
-            "points": 783,
-            "rank": null,
-            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
-          },
-          {
-            "name": "Banda Chuya",
-            "points": 801,
-            "rank": null,
-            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
-          }
-        ],
-        "pick_index": 1,
-        "limitations": [
-          "Research model, not observed betting odds or a verified true win probability.",
-          "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
-          "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
-        ]
-      },
-      "sources_tried_from_published_trail": [
-        {
-          "stage": "Primary: Polymarket",
-          "status": "unresolved",
-          "source_url": "https://polymarket.com/esports/cs2",
-          "detail": "No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased."
-        },
-        {
-          "stage": "HLTV research",
-          "status": "checked",
-          "source_url": "https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8",
-          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
-        },
-        {
-          "stage": "Original esportsbook lines",
-          "status": "unresolved",
-          "source_url": "https://thunderpick.io/esports/counter-strike",
-          "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists."
-        },
-        {
-          "stage": "GG.BET esportsbook",
-          "status": "unavailable",
-          "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
-          "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
-        },
-        {
-          "stage": "Pinnacle esportsbook",
-          "status": "unavailable",
-          "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
-          "detail": "Redirected to a generic landing page; no match-level betting lines verified."
-        },
-        {
-          "stage": "Rivalry esportsbook",
-          "status": "unavailable",
-          "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
-          "detail": "Redirected to a generic landing page; no match-level betting lines verified."
-        },
-        {
-          "stage": "Stake esportsbook",
-          "status": "unavailable",
-          "source_url": "https://stake.com/sports/esports/counter-strike",
-          "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
-        },
-        {
-          "stage": "Valve research model",
-          "status": "resolved",
-          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-          "detail": "Unique exact-name five-player rating records. Explicitly uncalibrated model; no bookmaker odds claimed."
-        }
-      ],
-      "unresolved_stages": [
-        "Primary: Polymarket",
-        "Original esportsbook lines",
-        "GG.BET esportsbook",
-        "Pinnacle esportsbook",
-        "Rivalry esportsbook",
-        "Stake esportsbook"
-      ],
-      "bo3_fixture": {
-        "bound": [],
-        "near_time_mismatch": []
-      },
-      "bo3_relay_two_sided_quote_present": false,
-      "bo3_team_lookups": {
-        "Phantom Academy": {
-          "query_name": "Phantom Academy",
-          "matches": [
-            {
-              "id": 22009,
-              "name": "Phantom Academy",
-              "slug": "phantom-academy"
-            }
-          ],
-          "detail_keys": null,
-          "detail_sample": null,
-          "listing_keys": [
-            "acronym",
-            "avg_views",
-            "country_id",
-            "created_at",
-            "discipline_id",
-            "email",
-            "est_date",
-            "facebook",
-            "gallery_presence",
-            "icon_data",
-            "icon_url",
-            "icon_versions",
-            "id",
-            "image_data",
-            "image_url",
-            "image_versions",
-            "instagram_url",
-            "name",
-            "ps_id",
-            "rank",
-            "six_month_earned",
-            "slug",
-            "tshirt_image_data",
-            "tshirt_image_url",
-            "tshirt_image_versions",
-            "twitch_url",
-            "twitter",
-            "updated_at",
-            "website_url",
-            "youtube_url"
-          ],
-          "listing_sample": {
-            "acronym": " Phantom Academy",
-            "country_id": 42,
-            "created_at": "2025-11-09T05:44:41.089+00:00",
-            "discipline_id": 1,
-            "gallery_presence": false,
-            "id": 22009,
-            "image_data": "{\"id\":\"team/22009/image/d2ef1bef0558cb32c6498786593caa25\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"File name\",\"size\":31089,\"mime_type\":\"image/png\",\"width\":285,\"height\":348},\"derivatives\":{\"webp\":{\"id\":\"team/22009/image/webp-44ab6242fbaaccebd9b1d5eaa756366e.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20251109-1-wnbdik.webp\",\"size\":12850,\"mime_type\":null,\"width\":285,\"height\":348}},\"20x20\":{\"id\":\"team/22009/image/20x20-a96753bcd18b647d9ee00b21b26934a0.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20251109-1-hhppfg.webp\",\"size\":360,\"mime_type\":null,\"width\":16,\"height\":20}},\"50x50\":{\"id\":\"team/22009/image/50x50-4c81826f04dd2249b1e3587f0b3c679d.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20251109-1-g9se1d.webp\",\"size\":1174,\"mime_type\":null,\"width\":41,\"height\":50}},\"150x150\":{\"id\":\"team/22009/image/150x150-27f2647fffdb03476b6cbb7f022c4e85.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20251109-1-511ch5.webp\",\"size\":4932,\"mime_type\":null,\"width\":123,\"height\":150}},\"400x400\":{\"id\":\"team/22009/image/400x400-4eefd9a4ec32156b8e31488a7884413b.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20251109-1-7820g1.webp\",\"size\":12858,\"mime_type\":null,\"width\":285,\"height\":348}}}}",
-            "image_url": "https://files.bo3.gg/uploads/team/22009/image/webp-44ab6242fbaaccebd9b1d5eaa756366e.webp",
-            "name": "Phantom Academy",
-            "rank": 173,
-            "slug": "phantom-academy",
-            "updated_at": "2025-11-09T13:31:57.215+00:00"
-          },
-          "detail_errors": {
-            "id": "ReadTimeout: HTTPSConnectionPool(host='api.bo3.gg', port=443): Read timed out. (read timeout=25)"
-          },
-          "detail_by_slug": {
-            "keys": [
-              "achievements",
-              "acronym",
-              "alternative_names",
-              "avg_views",
-              "country",
-              "country_id",
-              "created_at",
-              "discipline_id",
-              "email",
-              "est_date",
-              "facebook",
-              "from_transfers",
-              "gallery_presence",
-              "icon_url",
-              "id",
-              "image_url",
-              "instagram_url",
-              "localized_teams_records",
-              "name",
-              "players",
-              "rank",
-              "rank_diff",
-              "six_month_earned",
-              "slug",
-              "staff_member_participants",
-              "tags",
-              "team_clans",
-              "tshirt_image_url",
-              "twitch_url",
-              "twitter",
-              "updated_at",
-              "website_url",
-              "youtube_url"
-            ],
-            "sample": {
-              "acronym": " Phantom Academy",
-              "country_id": 42,
-              "created_at": "2025-11-09T05:44:41.089+00:00",
-              "discipline_id": 1,
-              "gallery_presence": false,
-              "id": 22009,
-              "image_url": "https://files.bo3.gg/uploads/team/22009/image/webp-44ab6242fbaaccebd9b1d5eaa756366e.webp",
-              "name": "Phantom Academy",
-              "rank": 173,
-              "rank_diff": 46,
-              "slug": "phantom-academy",
-              "updated_at": "2025-11-09T13:31:57.215+00:00"
-            }
-          }
-        },
-        "Banda chuya": {
-          "query_name": "Banda chuya",
-          "matches": [],
-          "detail_keys": null,
-          "detail_sample": null
-        }
-      },
-      "limitations": [
-        "Hotspawn best-of format is unverified; left blank."
-      ]
-    },
     {
       "hotspawn_id": "1082996",
       "teams": [
@@ -1427,8 +1200,8 @@
         "source": "Own network model (bo3.gg results graph)",
         "source_url": "https://bo3.gg/matches",
         "probabilities": [
-          0.4492308690416069,
-          0.5507691309583931
+          0.4493733010376189,
+          0.5506266989623811
         ],
         "inputs": [
           {
@@ -1439,14 +1212,14 @@
           },
           {
             "name": "Off Chops",
-            "points": 902.1,
+            "points": 902.0,
             "rank": null,
             "source_url": "https://bo3.gg/teams/25492"
           }
         ],
         "pick_index": 1,
         "limitations": [
-          "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4682 finished bo3.gg series, anchored on Valve's official points for 268 teams; the rating-difference one-sigma interval is 156.9 points (probability interval 0.118-0.833). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only."
+          "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4683 finished bo3.gg series, anchored on Valve's official points for 268 teams; the rating-difference one-sigma interval is 156.9 points (probability interval 0.118-0.833). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only."
         ]
       },
       "sources_tried_from_published_trail": [
@@ -1460,7 +1233,7 @@
           "stage": "Betting market (Polymarket series winner)",
           "status": "unresolved",
           "source_url": "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25",
-          "detail": "Polymarket event 1237427: Order book spread 0.39 exceeds the 0.15 indicative ceiling (Ground Zero bid/ask 0.08/0.47, Off Chops bid/ask 0.53/0.92); observation recorded, not used as a pick input."
+          "detail": "Polymarket event 1237427: Order book spread 0.34 exceeds the 0.15 indicative ceiling (Ground Zero bid/ask 0.11/0.45, Off Chops bid/ask 0.55/0.89); observation recorded, not used as a pick input."
         },
         {
           "stage": "Exchange market (Kalshi CS2 match winner)",
@@ -1520,7 +1293,7 @@
           "stage": "Own network model (bo3.gg results graph)",
           "status": "resolved",
           "source_url": "https://bo3.gg/matches",
-          "detail": "Own Bradley–Terry network fit over 4682 bo3.gg finished series with 268 Valve-anchored teams; 6 series for the thinner side, rating-difference SD 156.9 points."
+          "detail": "Own Bradley–Terry network fit over 4683 bo3.gg finished series with 268 Valve-anchored teams; 6 series for the thinner side, rating-difference SD 156.9 points."
         },
         {
           "stage": "Research model cross-check (HLTV world ranking)",
@@ -1783,7 +1556,7 @@
         }
       },
       "limitations": [
-        "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4682 finished bo3.gg series, anchored on Valve's official points for 268 teams; the rating-difference one-sigma interval is 156.9 points (probability interval 0.118-0.833). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only."
+        "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley–Terry fit over 4683 finished bo3.gg series, anchored on Valve's official points for 268 teams; the rating-difference one-sigma interval is 156.9 points (probability interval 0.118-0.833). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only."
       ]
     },
     {
@@ -2733,7 +2506,7 @@
     }
   ],
   "conclusions": {
-    "with_directional_pick": 8,
+    "with_directional_pick": 7,
     "resolved_no_pick_even": 0,
     "still_blank": 0,
     "bo3_relay_two_sided": 0
