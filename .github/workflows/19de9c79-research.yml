@@ -1,0 +1,87 @@
+name: 19de9c79 fresh pick-coverage research
+# Session-only evidence capture. This never deploys and never changes canonical
+# data/latest.json or data/origination.json in Git. It is removed before merge.
+on:
+  push:
+    branches: [arena/19de9c79-maltaproj3]
+    paths:
+      - '.github/workflows/19de9c79-research.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: research-19de9c79
+  cancel-in-progress: false
+jobs:
+  capture:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Collect the complete current Hotspawn CS2 inventory
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect
+      - name: Resolve every fixture through the reviewed external-line ladder
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live
+      - name: Replay every live source row
+        run: python -m scripts.pipeline_audit --source data --output data/research/19de9c79/live-source-integrity-audit.json
+      - name: Research featured gaps HLTV first then esportsbooks
+        id: research
+        continue-on-error: true
+        run: python -m scripts.3a5448de_probe --data data --out data/research/19de9c79 --timeout 15
+      - name: Document any remaining blank and provider limitation
+        id: blanks
+        continue-on-error: true
+        run: python -m scripts.coverage_probe --data data --live --out data/research/19de9c79/unresolved-probe.json --timeout 15
+      - name: Build and audit the current snapshot without publishing it
+        run: |
+          python -m scripts.build
+          python -m scripts.audit_rows --site site --strict
+      - name: Retain the exact audited public snapshots and row audit
+        run: |
+          mkdir -p data/research/19de9c79/live
+          cp data/latest.json data/origination.json data/sources.json data/research/19de9c79/live/
+          cp data/row-source-audit.json data/research/19de9c79/live/
+          python - <<'PY'
+          import json
+          from datetime import datetime, timezone
+          from pathlib import Path
+          latest=json.loads(Path('data/latest.json').read_text())
+          originated=json.loads(Path('data/origination.json').read_text())
+          summary={
+            'captured_at': datetime.now(timezone.utc).isoformat(timespec='seconds').replace('+00:00','Z'),
+            'latest_generated_at': latest.get('generated_at'),
+            'inventory_observed_at': latest.get('inventory_observed_at'),
+            'coverage_complete': latest.get('coverage_complete'),
+            'inventory_crosscheck': latest.get('inventory_crosscheck'),
+            'featured_counts': latest.get('counts'),
+            'complete_counts': originated.get('counts'),
+            'unresolved_ids': originated.get('unresolved_ids'),
+            'source_snapshot_at': originated.get('source_snapshot_at'),
+            'origination_generated_at': originated.get('generated_at'),
+          }
+          Path('data/research/19de9c79/capture-summary.json').write_text(json.dumps(summary,indent=2)+'\n')
+          print('::notice title=19de9c79 fresh capture::'+json.dumps(summary))
+          PY
+      - name: Commit only this session's research evidence
+        env:
+          BRANCH: arena/19de9c79-maltaproj3
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/19de9c79
+          if git diff --cached --quiet; then
+            echo 'No evidence changes to commit.'
+            exit 0
+          fi
+          git commit -m 'research: capture fresh Hotspawn pick coverage [skip ci]'
+          git pull --rebase origin "$BRANCH"
+          git push origin "HEAD:$BRANCH"
