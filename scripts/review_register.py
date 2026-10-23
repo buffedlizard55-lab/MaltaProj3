@@ -29,6 +29,8 @@ REGISTERS = (
     # snapshot (inventory, coverage, ratings arithmetic, line provenance) plus
     # the observed-price chip added to the phone summary.
     'research/9c4b1f7a/repo-review.json',
+    # Session ca7e10e5: published-state verification and the snapshot.json split.
+    'research/ca7e10e5/repo-review.json',
 )
 STATUS = {
     'fixed': ('Fixed', 'green'),

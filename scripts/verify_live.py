@@ -154,7 +154,14 @@ def verify(url, expected):
         response.raise_for_status()
         return response
 
-    actual = get('data/latest.json').json()
+    # `snapshot.json` is the build output every page links to and the only file
+    # the branch-root publisher carries (session ca7e10e5). `data/latest.json` is
+    # the tracked CI replay fixture, so a legacy root build can serve an old one
+    # under a fresh page; it is the fallback for sites published before the split.
+    try:
+        actual = get('snapshot.json').json()
+    except Exception:  # noqa: BLE001 - 404 on an older deployment
+        actual = get('data/latest.json').json()
     if actual.get('generated_at') != expected['generated_at'] or actual.get('counts') != expected['counts']:
         raise ValueError('Public snapshot does not match this verified deployment yet')
     for route in ['', 'picks/', 'edge/', 'twc-picks/', 'coverage/', 'methodology/', 'review/']:
