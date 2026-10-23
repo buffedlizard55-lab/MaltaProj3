@@ -6,7 +6,7 @@ A mobile-first, source-linked GitHub Pages dashboard covering **every CS2 record
 
 | View | What it contains |
 | --- | --- |
-| [Executive summary](https://buffedlizard55-lab.github.io/MaltaProj3/) | **Picks at a glance** (a phone-first index above the fold: every active fixture with **both** teams' win probability, the obvious pick, a Market line / Model / Researched badge and links to its evidence), coverage, complete-pick counts, the separate **Picks without a betting line** register (each model-only pick with the money sources that failed and why), unresolved-pick limitations, upcoming matches, the Day 1 contrarian review and a map of every page |
+| [Executive summary](https://buffedlizard55-lab.github.io/MaltaProj3/) | **Picks at a glance** (a phone-first index above the fold: every active fixture with **both** teams' win probability, the obvious pick, the **observed price** behind it — bid/ask in cents for exchanges, decimal odds for bookmakers, "median of *N* books" for a consensus and nothing at all for a research model — a Market line / Model / Researched badge and links to its evidence), coverage, complete-pick counts, the separate **Picks without a betting line** register (each model-only pick with the money sources that failed and why), unresolved-pick limitations, upcoming matches, the Day 1 contrarian review and a map of every page |
 | [Complete match picks](https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks) | The phone-first list: every non-archived fixture with both probabilities, one obvious pick, lock times and expandable evidence |
 | [Leaderboard plan](https://buffedlizard55-lab.github.io/MaltaProj3/strategy/) | One plan pick per open fixture from our own external-line probabilities, the few underdogs worth an upset play (with their expected-point cost), a separate unresolved section, the Thunderpick tournament pick'em (team plus score), Hotspawn's verified scoring contract and Days 1–2 results cross-checked against Hotspawn's own API |
 | [All match picks](https://buffedlizard55-lab.github.io/MaltaProj3/picks/) | Both probabilities, suggested team, method badge, searchable/filterable rows, source links and expandable evidence. Every non-archived fixture shows a pick or an explicit blank: featured exact-name estimates first, then clearly badged **Researched fallback** estimates from the audited research ladder |
@@ -18,6 +18,10 @@ A mobile-first, source-linked GitHub Pages dashboard covering **every CS2 record
 | [Flagged for Review](https://buffedlizard55-lab.github.io/MaltaProj3/review/) | Missing inputs, failed source access, identity ambiguity, format/status conflicts and unresolved research trails |
 
 The observation times and counts on the live site are authoritative for that published snapshot. For scale, the first fully replayed snapshot on **14 October 2026** contained **88 records: 28 future starts and 60 past-start records**, with **9 Polymarket estimates, 4 original bookmaker estimates, 8 Valve-model estimates and 7 unresolved future matches**. Past starts still labeled `scheduled` are retained as source anomalies, not invented results.
+
+### Published snapshot file (session ca7e10e5)
+
+Every page links and fetches **`/snapshot.json`**, a byte-identical build output of the same observation that is rendered on the page. The tracked `data/latest.json` in this repository is the CI replay fixture; it is deliberately never copied into the published branch root, because rewriting it would break the deterministic replay and the regression tests that assert against it. On 2026-10-23 a legacy root build served that fixture (2026-10-15) under a current page (2026-10-23) — 192.8 hours apart — so the downloadable file was split out and is now carried into the root by `scripts/root_publish.py`. The evidence for that read is in [`data/research/ca7e10e5/`](data/research/ca7e10e5/published-and-coverage.md).
 
 ## Source and probability rules
 
@@ -33,7 +37,7 @@ The observation times and counts on the live site are authoritative for that pub
 
 HLTV directory research supports its observed split time/team links, joined only by the exact match URL. Repeated pinned cards are deduplicated; conflicting observations are rejected. Original HTML is retained as evidence. This confirms identities, not odds. For remaining gaps, each match now records the actual GG.BET, Pinnacle and Rivalry access-check limitations, not merely a global source-health warning. Unknown-start fixtures appear in the executive summary’s unresolved section, separate from the future-match count.
 
-Every row links an official Hotspawn source. Every estimate links the original market, bookmaker or Valve record. [Full public snapshot](https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json), [request manifest](https://buffedlizard55-lab.github.io/MaltaProj3/data/sources.json), [contrarian review evidence](https://buffedlizard55-lab.github.io/MaltaProj3/data/contrarian.json), saved first-party JSON evidence, and [CSV](https://buffedlizard55-lab.github.io/MaltaProj3/data/picks.csv) allow manual review and calculation replay. POST request payloads, observation times and response hashes are recorded without credentials.
+Every row links an official Hotspawn source. Every estimate links the original market, bookmaker or Valve record. [Full public snapshot](https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json), [request manifest](https://buffedlizard55-lab.github.io/MaltaProj3/data/sources.json), [contrarian review evidence](https://buffedlizard55-lab.github.io/MaltaProj3/data/contrarian.json), saved first-party JSON evidence, and [CSV](https://buffedlizard55-lab.github.io/MaltaProj3/data/picks.csv) allow manual review and calculation replay. POST request payloads, observation times and response hashes are recorded without credentials.
 
 ## 15 October day-one review: the HLTV-reported 9z–Aurora upset
 
@@ -419,7 +423,7 @@ listed with its reason rather than a default 50/50.
 - `Refresh and deploy CS2 dashboard` and `pages build and deployment` both
   completed successfully for `0318219`, and the deployed artifacts were then
   fetched directly rather than trusting the job status.
-- Live [`data/latest.json`](https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json)
+- Live [`snapshot.json`](https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json) (the downloadable build output every page links to)
   was generated at `2026-10-17T10:49:22Z` with `coverage_complete: true`,
   `inventory_crosscheck: "complete"`, 93 fixtures (32 upcoming), 24 priced with
   probabilities and 8 explicitly unresolved. Production therefore exercised the

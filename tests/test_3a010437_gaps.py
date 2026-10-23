@@ -14,6 +14,8 @@ The rules pinned here:
 * a fixture with no Hotspawn id is matched to a published row by the exact two
   team names (and the competition when both are known) before it is called
   missing — this is not an alias join;
+* the build's *complete researched list* counts as coverage too, not just the
+  featured sub-list (main's ca7e10e5 correction, preserved in the merge);
 * every rendered row still carries its own Hotspawn/HLTV link and no `%`;
 * the copy names the observation time and says the card may have started since.
 """
@@ -58,7 +60,8 @@ class DatedGapRegister(unittest.TestCase):
         html = live_coverage_gaps(data, '')
         self.assertNotIn('1081872', html)
         self.assertNotIn('1081149', html)
-        self.assertIn('already published in this snapshot', html)
+        self.assertIn('0 missing at that observation', html)
+        self.assertIn('already in this snapshot', html)
 
     def test_an_id_less_card_is_matched_by_its_two_team_names(self):
         data = {'matches': [match(1081606, 'JiJieHao', 'Eternal Fire', 'DraculaN Season 7')],
@@ -68,11 +71,20 @@ class DatedGapRegister(unittest.TestCase):
         _, missing = live_coverage_missing(data)
         self.assertEqual(missing, [])
 
-    def test_an_id_less_card_with_different_competition_stays_a_gap(self):
+    def test_an_id_less_card_is_matched_on_the_exact_team_pair(self):
+        """Main's ca7e10e5 rule: the exact pair is coverage, whatever the label."""
         data = {'matches': [match(1081606, 'JiJieHao', 'Eternal Fire', 'DraculaN Season 7')],
                 '_live_coverage': record(
                     {'id': None, 'teams': ['JiJieHao', 'Eternal Fire'],
                      'competition': 'Some Other Cup'})}
+        _, missing = live_coverage_missing(data)
+        self.assertEqual(missing, [])
+
+    def test_a_different_team_pair_is_still_a_gap(self):
+        data = {'matches': [match(1081606, 'JiJieHao', 'Eternal Fire', 'DraculaN Season 7')],
+                '_live_coverage': record(
+                    {'id': None, 'teams': ['JiJieHao', 'Some Other Team'],
+                     'competition': 'DraculaN Season 7'})}
         _, missing = live_coverage_missing(data)
         self.assertEqual(len(missing), 1)
 
@@ -98,8 +110,8 @@ class DatedGapRegister(unittest.TestCase):
         self.assertIn('at ', html)
         self.assertIn(str(observed.year), html)
         self.assertNotIn('right now', html.casefold())
-        self.assertIn('no prematch pick exists', html)
-        self.assertIn('not</strong> a claim that the card is on the lobby now', html)
+        self.assertIn('has no prematch pick left', html)
+        self.assertIn('dated observation, not a live claim', html)
 
 
 if __name__ == '__main__':

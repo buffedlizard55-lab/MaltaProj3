@@ -1,0 +1,44 @@
+[
+  {
+    "id": "103774c3-hltv-first-no-odds-eight-fixtures",
+    "severity": "notice",
+    "match_ids": ["1081605", "1082996", "1079198", "1079200", "1082858", "1082861", "1082792", "1082793"],
+    "title": "HLTV checked first for all 8 fixtures without a betting line (2026-10-23): identities and formats confirmed, but no two-sided odds on any HLTV match page",
+    "detail": "Read first-hand 2026-10-23T09:44Z-09:53Z through egress that reaches hltv.org (the automation runner still records HTTP 403, Cloudflare, for the same URLs). For each of the 8 active fixtures whose pick rests only on a labelled research model, the HLTV match page confirms the two teams, the event and the best-of-3 format, and its Betting block contains only a Stake US sweepstake promotion row ('No promocode available') with no decimal odds for either team. HLTV's fan poll was seen on every page and excluded by policy (a crowd poll, never a probability). Full per-fixture record: data/research/103774c3/hltv-first-research.json; runner sweep with every HTTP status: data/research/103774c3/line-source-research.json (observed 2026-10-23T09:51:39Z). This is why these 8 rows keep labelled model estimates rather than betting-line probabilities; the four-hour pipeline retries every source and upgrades a row automatically when a compliant line exists.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8",
+      "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
+      "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13",
+      "https://www.hltv.org/matches/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+      "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+      "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+      "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026"
+    ]
+  },
+  {
+    "id": "103774c3-ground-zero-off-chops-wide-smarkets-book",
+    "severity": "notice",
+    "match_ids": ["1082858"],
+    "title": "Ground Zero vs Off Chops has a live two-sided Smarkets book, but at ~0.184 spread it is wider than the ladder's 0.15 ceiling",
+    "detail": "Copied verbatim from the exchange's public API at 2026-10-23T09:52Z: market 172960355 (WINNER_2_WAY, event 45396333) quotes Ground Zero (contract 477141069) bid 1429 / offer 3279 and Off Chops (contract 477141070) bid 6711 / offer 8547, i.e. 0.1429/0.3279 (spread 0.1850) and 0.6711/0.8547 (spread 0.1836) in the API's 1/10000 units. The origination ladder rejects books wider than 0.15 (and labels anything above 0.12 thin), so the row correctly keeps its labelled network-model estimate for now; no probability was derived from these quotes by hand. The pipeline's own collection bound the same event at 09:51Z and made the same decision independently. If the book tightens inside the ceiling before the 2026-10-26T03:00:00Z start, a later four-hour refresh upgrades the row to a money-backed pick automatically.",
+    "source_urls": [
+      "https://api.smarkets.com/v3/markets/172960355/quotes/",
+      "https://api.smarkets.com/v3/markets/172960355/contracts/",
+      "https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-a/2026/10/26/03-00/ground-zero-vs-off-chops",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082858"
+    ]
+  },
+  {
+    "id": "103774c3-acend-unity-empty-smarkets-book",
+    "severity": "notice",
+    "match_ids": ["1082996"],
+    "title": "Acend vs UNiTY is listed on Smarkets but its winner market has an empty book (zero resting orders)",
+    "detail": "Read from the exchange's public API at 2026-10-23T09:52Z: event 45396351 'Acend vs UNiTY esports' (start 2026-10-25T09:00:00Z) has an open WINNER_2_WAY market 172971947 whose two contracts (Acend 477168991, UNiTY esports 477168992) both return empty bids and offers arrays, so no two-sided price exists to publish. The exchange names the away team 'UNiTY esports' where Hotspawn lists 'UNiTY'; the fixture was not among the ladder rung's bindings at 09:51Z, and with an empty book there was nothing to price regardless. The row keeps its labelled Valve-rating estimate; every refresh re-reads the exchange.",
+    "source_urls": [
+      "https://api.smarkets.com/v3/markets/172971947/quotes/",
+      "https://api.smarkets.com/v3/events/45396351/markets/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082996"
+    ]
+  }
+]
