@@ -317,7 +317,6 @@ def main(argv: list[str] | None = None, *, now: datetime | None = None) -> int:
             max_age_hours=args.max_age_hours,
             allow_stale=args.allow_stale,
             monotonic=not args.no_monotonic,
-            now=now,
         )
     except PublishRefused as exc:
         print(f"root publish refused: {exc}", file=sys.stderr)
