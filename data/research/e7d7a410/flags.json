@@ -1,0 +1,51 @@
+[
+  {
+    "id": "e7d7a410-publisher-stopped-on-a-date-bound-test",
+    "severity": "warning",
+    "match_ids": [
+      "1081605",
+      "1082926",
+      "1083014",
+      "1082693",
+      "1082925"
+    ],
+    "title": "The four-hour publisher stopped before collection on a date-bound regression test, so new Hotspawn fixtures were missing from the deployed picks",
+    "detail": "The last successful publish was 2026-10-22T13:21Z. From 2026-10-22T14:05Z the pages.yml job failed at its pre-collection regression step (runs 39792708185, 39807044948, 39845991470, 39861117407, 39871371551, 39881298806). The failing assertion was tests/test_96fbe295.py::test_check_mode_reports_a_current_root_and_then_drift: it published a build stamped 2026-10-22T08:40Z and then called the publisher with the real clock, so the publisher's correct twelve-hour age guard refused the fixture once the calendar passed the tolerance. The publisher was right; the test was date-dependent. Consequence on the public site: on 2026-10-23 the deployed snapshot still showed 37 fixtures from the previous day while a fresh runner collection found 30 active fixtures, six of today's having been listed after that snapshot - Phantom Academy vs Banda chuya (1081605), JiJieHao vs Eternal Fire, Isurus vs Hacha (1082926), K27 vs Virtus.pro (1083014), BESTIA vs Galorys and BESTIA Academy vs RED Canids. PR #190 (session arena-4ac63e41) makes the publisher clock injectable and pins the test; this session verified that head locally (31/31 tests) and did not edit it. The whole repository suite otherwise passes offline: 995 tests, 1 failure - exactly that test. Fix is upstream of the data; no probability, pick or source was changed here.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39881298806",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_96fbe295.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/190",
+      "https://play.hotspawn.com/cs2-pickems",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/e7d7a410/live-coverage-audit.md"
+    ]
+  },
+  {
+    "id": "e7d7a410-no-new-money-line-for-nine-fixtures",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Nine of thirty active fixtures still have no external betting line after the HLTV-first, esportsbook-second sweep",
+    "detail": "On the 2026-10-23T05:08:38Z runner sweep every active fixture carrying only a research-model pick was re-checked, HLTV first and then the esportsbooks/aggregators: HLTV match listing and ranking both returned 403 to the runner (HLTV publishes identity and ranking, not a prematch price, and its fan vote is never an input), EGamersWorld 403, DraftKings 404, Stake 403, OddsPortal 200 with the team names listed, Rivalry 200 with the names listed, GG.BET 403, BetBoom 401, 1xBet 203, Marathonbet 403, Betway 404, Oddspedia 410, the bo3.gg relay 200 with 8 of 9 fixtures bound by both names and start but a published two-sided quote for none, and Pinnacle's guest API 200 with no price for any target fixture. No two-sided prematch price existed, so no probability, pick or alias was changed: each of the nine keeps a labelled, uncalibrated model estimate (eight from Valve's official standings, one from the own bo3.gg results network) with its source link and limitation. A blocked page is recorded as an access limitation, never as proof that no market exists, and the next four-hour refresh retries all of them.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/e7d7a410/line-sources/live-research.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/e7d7a410/line-sources/live-research.md",
+      "https://www.hltv.org/matches",
+      "https://www.hltv.org/ranking/teams",
+      "https://www.oddsportal.com/esports/counter-strike/",
+      "https://bo3.gg/matches",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    ]
+  },
+  {
+    "id": "e7d7a410-first-audit-read-the-wrong-feed",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "The first version of this session's coverage audit read the featured feed and reported four false gaps (fixed before publication)",
+    "detail": "The audit initially read the featured-only analysis block in data/latest.json, where four fixtures in the checked-in 15 October fixture have no estimate, instead of the complete-picks resolution in data/origination.json. That produced a false '4 without a pick' result even though the published complete list resolves all four. The audit now joins the complete-picks feed by fixture ID, prefers its published resolution, cross-checks team names and start time between the two feeds, and treats an absent complete row as a defect. The false result was never published as a site claim; it was caught by comparing the audit against the built site's own 17/17 statement before the research commit, and is pinned by three regression tests. No site data was touched by the bug.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/e7d7a410_audit.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_e7d7a410_audit.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/e7d7a410/live-coverage-audit.json"
+    ]
+  }
+]
