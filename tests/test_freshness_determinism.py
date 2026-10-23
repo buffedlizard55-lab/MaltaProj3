@@ -52,6 +52,17 @@ TIME_SENSITIVE_MODULES = (
     'tests.test_twc',
     'tests.test_twc_day4',
     'tests.test_day5',
+    # 2026-10-23: these two modules broke the four-hour publisher while this
+    # guard passed. Both asserted against a fixed fixture date with the real
+    # clock, so their outcome moved with the calendar:
+    #   * tests.test_96fbe295 — the root publisher `--check` fixture ages past
+    #     the twelve-hour guard (Pages runs 39792708185 onward);
+    #   * tests.test_15f6bca_relay — a relay quote bound to a baked-in fixture
+    #     date becomes a post-start rejection once that date passes.
+    # A test that expires silently costs a whole deployment cycle, so both are
+    # now re-run here with the production clock pinned to absolute instants.
+    'tests.test_96fbe295',
+    'tests.test_15fc6bca_relay',
 )
 
 # Absolute reference times, not offsets. A guard that shifted the clock
