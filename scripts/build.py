@@ -1583,8 +1583,12 @@ def unresolved_register(data, prefix, title='Unresolved picks &amp; limitations'
         # status, the dated sweep and the per-fixture research record) stays
         # published on /unresolved/; the summary keeps the separate section the
         # brief asks for and links straight to that evidence rather than
-        # reproducing ~40 KB of tables above the picks.
+        # reproducing ~40 KB of tables above the picks. The compact dated
+        # research block itself stays here: it is the summary's dated,
+        # source-linked record of the newest HLTV-first sweep and only expands
+        # any lead rows, while the full source matrix remains on /unresolved/.
         out.append(no_line_digest(data, prefix))
+        out.append(no_line_research_block(data, prefix))
         observed = complete.get('generated_at') or data.get('generated_at')
         out.append('<div class="limitations-callout unresolved-limits"><strong>Limitations that apply to every row above</strong>'
                    '<ul>'
