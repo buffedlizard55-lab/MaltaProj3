@@ -74,6 +74,13 @@ jobs:
           mkdir -p data/research/19de9c79/live
           cp data/latest.json data/origination.json data/sources.json data/research/19de9c79/live/
           cp data/row-source-audit.json data/research/19de9c79/live/
+          # Keep original responses beside the derived rows so the committed
+          # capture can be replayed independently, not only on the runner.
+          rm -rf data/research/19de9c79/live/evidence data/research/19de9c79/live/origination
+          cp -a data/evidence data/research/19de9c79/live/evidence
+          mkdir -p data/research/19de9c79/live/origination
+          cp -a data/origination/evidence data/research/19de9c79/live/origination/evidence
+          cp data/origination/aliases.json data/research/19de9c79/live/origination/aliases.json
           python - <<'PY'
           import json
           from datetime import datetime, timezone
