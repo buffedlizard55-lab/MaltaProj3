@@ -2,7 +2,9 @@
   {
     "id": "69438ad1-hltv-no-two-sided-price",
     "severity": "notice",
-    "match_ids": ["1081872"],
+    "match_ids": [
+      "1081872"
+    ],
     "title": "Verified from a working read: HLTV's match-page betting block carries affiliate promos and analytics only — no two-sided prematch price exists on HLTV",
     "detail": "Session arena-69438ad1 read https://www.hltv.org/matches/2399587/nexvoid-vs-rare-atom-macemedia-void-autumn-cup-2026 at 2026-10-23T05:12Z from platform-side egress (GitHub runners receive HTTP 403 from HLTV, so earlier sessions could only record the block, never read it). The page's 'Betting' section contains bookmaker affiliate promos (Stake) and a link to HLTV's analytics centre; no decimal odds or two-sided market price is published anywhere on the page. The fan vote (74.5% / 25.5%) is present and is excluded by project policy. Consequence for the brief's 'try HLTV, then esportsbooks' order: HLTV contributes identity, format, lineup and ranking context; every probability still has to come from a market or esportsbook rung, or from a labelled research model. Dated extraction in data/research/69438ad1/platform-side-hltv.json.",
     "source_urls": [
@@ -33,6 +35,28 @@
       "https://buffedlizard55-lab.github.io/MaltaProj3/",
       "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/69438ad1/mobile-audit.json",
       "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html"
+    ]
+  },
+  {
+    "id": "69438ad1-published-snapshot-stale",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "Published snapshot is 188.57h old — readers see the explicit stale banner, not current picks",
+    "detail": "Independent read of https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json at 2026-10-23T05:10:39Z: generated_at 2026-10-15T08:36:13Z, inventory_observed_at 2026-10-15T08:36:04Z, coverage_complete True, run_status partial-picks. The site's own bound is 8h, so every page shows the 'Snapshot needs attention' banner. This is a publisher problem, not a data problem: the scheduled refresh runs failed before collection, so no newer snapshot exists to publish. The repair is owned by session arena-19de9c79 (task 19D-2); this session records the reader-visible consequence and re-checks after the next run.",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/pages.yml"
+    ]
+  },
+  {
+    "id": "69438ad1-row-contract-clean",
+    "severity": "notice",
+    "match_ids": [],
+    "detail": "Every one of the 17 active published rows was replayed from https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json at 2026-10-23T05:10:39Z: two probabilities, one obvious pick (or an explicit even rule with no side), a method badge and an https official source link each. See the session dossier for the per-row table.",
+    "title": "Independent row audit: 17 active rows, 0 missing pick/probability/source",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/69438ad1/row-audit.json"
     ]
   }
 ]
