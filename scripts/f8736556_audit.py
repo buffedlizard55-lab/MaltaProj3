@@ -82,46 +82,90 @@ def extract_page_stamp(html_bytes: bytes) -> str | None:
     return match.group(1).decode("utf-8", "replace") if match else None
 
 
-def publication_checks(page_stamp: str | None, latest: dict, complete: dict, now: datetime) -> list[dict]:
+def effective_inventory(
+    page_stamp: str | None, latest: dict, complete: dict, snapshot: dict | None = None
+) -> tuple[dict, str]:
+    """Choose the inventory the rendered page actually links to.
+
+    Newer builds publish a top-level ``snapshot.json`` beside the tracked CI
+    fixture at ``data/latest.json``. Use it for the row audit only when the
+    page, that linked snapshot and the complete-picks source clocks all agree;
+    otherwise retain the plain ``data/latest.json`` result and let the parity
+    checks report the mismatch.
+    """
+    if (
+        snapshot
+        and page_stamp
+        and snapshot.get("generated_at") == page_stamp
+        and complete.get("source_generated_at") == snapshot.get("generated_at")
+        and complete.get("source_snapshot_at") == snapshot.get("inventory_observed_at")
+    ):
+        return snapshot, "snapshot.json"
+    return latest, "data/latest.json"
+
+
+def publication_checks(
+    page_stamp: str | None,
+    latest: dict,
+    complete: dict,
+    now: datetime,
+    snapshot: dict | None = None,
+) -> list[dict]:
     """Plain-URL parity and freshness checks, with no cache-bypass credit."""
 
     def check(key: str, status: bool, detail: str) -> dict:
         return {"key": key, "status": "pass" if status else "fail", "detail": detail}
 
-    generated = latest.get("generated_at")
-    inventory_observed = latest.get("inventory_observed_at")
+    effective, effective_name = effective_inventory(page_stamp, latest, complete, snapshot)
+    generated = effective.get("generated_at")
+    inventory_observed = effective.get("inventory_observed_at")
     generated_dt = parse_time(generated)
     age_hours = None if generated_dt is None else (now - generated_dt).total_seconds() / 3600
-    return [
+    checks = [
         check(
             "page_and_plain_latest_are_one_snapshot",
-            bool(page_stamp and page_stamp == generated),
-            f"executive-summary stamp={page_stamp!r}; plain data/latest.json generated_at={generated!r}",
-        ),
-        check(
-            "complete_picks_cite_this_inventory_generation",
-            complete.get("source_generated_at") == generated,
-            "complete-picks source_generated_at="
-            f"{complete.get('source_generated_at')!r}; inventory generated_at={generated!r}",
-        ),
-        check(
-            "complete_picks_cite_this_inventory_observation",
-            complete.get("source_snapshot_at") == inventory_observed,
-            "complete-picks source_snapshot_at="
-            f"{complete.get('source_snapshot_at')!r}; inventory observed_at={inventory_observed!r}",
-        ),
-        check(
-            "published_inventory_is_inside_eight_hours",
-            age_hours is not None and 0 <= age_hours <= 8,
-            "inventory age at audit="
-            + (f"{age_hours:.3f} hours" if age_hours is not None else "unparseable"),
-        ),
-        check(
-            "collector_asserts_complete_inventory",
-            latest.get("coverage_complete") is True,
-            f"coverage_complete={latest.get('coverage_complete')!r}",
-        ),
+            bool(page_stamp and page_stamp == latest.get("generated_at")),
+            "executive-summary stamp="
+            f"{page_stamp!r}; plain data/latest.json generated_at={latest.get('generated_at')!r}",
+        )
     ]
+    if snapshot is not None:
+        checks.append(
+            check(
+                "page_and_linked_snapshot_are_one_snapshot",
+                bool(page_stamp and page_stamp == snapshot.get("generated_at")),
+                "executive-summary stamp="
+                f"{page_stamp!r}; plain snapshot.json generated_at={snapshot.get('generated_at')!r}",
+            )
+        )
+    checks.extend(
+        [
+            check(
+                "complete_picks_cite_this_inventory_generation",
+                complete.get("source_generated_at") == generated,
+                "complete-picks source_generated_at="
+                f"{complete.get('source_generated_at')!r}; {effective_name} generated_at={generated!r}",
+            ),
+            check(
+                "complete_picks_cite_this_inventory_observation",
+                complete.get("source_snapshot_at") == inventory_observed,
+                "complete-picks source_snapshot_at="
+                f"{complete.get('source_snapshot_at')!r}; {effective_name} observed_at={inventory_observed!r}",
+            ),
+            check(
+                "published_inventory_is_inside_eight_hours",
+                age_hours is not None and 0 <= age_hours <= 8,
+                f"{effective_name} age at audit="
+                + (f"{age_hours:.3f} hours" if age_hours is not None else "unparseable"),
+            ),
+            check(
+                "collector_asserts_complete_inventory",
+                effective.get("coverage_complete") is True,
+                f"coverage_complete={effective.get('coverage_complete')!r} in {effective_name}",
+            ),
+        ]
+    )
+    return checks
 
 
 def _team_names(row: dict) -> list[Any]:
@@ -950,6 +994,24 @@ def main(argv: list[str] | None = None) -> int:
     complete, complete_raw, complete_obs = fetch_json(
         session, urljoin(base, "data/origination.json"), "plain data/origination.json"
     )
+    snapshot: dict | None = None
+    snapshot_obs: dict[str, Any] | None = None
+    try:
+        snapshot, snapshot_raw, snapshot_obs = fetch_json(
+            session, urljoin(base, "snapshot.json"), "plain snapshot.json"
+        )
+        (out / "published-snapshot.plain.json").write_bytes(
+            snapshot_raw if snapshot_raw.endswith(b"\n") else snapshot_raw + b"\n"
+        )
+    except (requests.RequestException, ValueError, json.JSONDecodeError) as exc:
+        snapshot_obs = {
+            "label": "plain snapshot.json",
+            "requested_url": urljoin(base, "snapshot.json"),
+            "error": f"{type(exc).__name__}: {exc}"[:300],
+        }
+    inventory_for_rows, inventory_source_name = effective_inventory(
+        page_stamp, latest, complete, snapshot
+    )
     (out / "published-latest.plain.json").write_bytes(
         latest_raw if latest_raw.endswith(b"\n") else latest_raw + b"\n"
     )
@@ -977,11 +1039,11 @@ def main(argv: list[str] | None = None) -> int:
         except (requests.RequestException, ValueError, json.JSONDecodeError) as exc:
             diagnostics.append({"label": label, "requested_url": url, "error": f"{type(exc).__name__}: {exc}"[:300]})
 
-    checks = publication_checks(page_stamp, latest, complete, now)
-    rows = row_audit(latest, complete)
+    checks = publication_checks(page_stamp, latest, complete, now, snapshot=snapshot)
+    rows = row_audit(inventory_for_rows, complete)
     active_ids = [row["hotspawn_id"] for row in rows["rows"]]
     summary_checks = public_summary_checks(root_html, active_ids)
-    official_inventory = fetch_official_inventory(session, latest, out)
+    official_inventory = fetch_official_inventory(session, inventory_for_rows, out)
     targets = select_targets(rows)
     line_research = (
         {"pages": [], "pinnacle_guest_api": {}, "bo3": [], "per_fixture": [], "leads": [], "skipped": True}
@@ -1080,7 +1142,8 @@ def main(argv: list[str] | None = None) -> int:
         "findings": findings,
         "sources": [
             {"name": "Published executive summary", "url": base},
-            {"name": "Published inventory JSON", "url": urljoin(base, "data/latest.json")},
+            {"name": "Published inventory JSON (legacy path)", "url": urljoin(base, "data/latest.json")},
+            {"name": "Published linked snapshot JSON", "url": urljoin(base, "snapshot.json")},
             {"name": "Published complete-picks JSON", "url": urljoin(base, "data/origination.json")},
             {"name": "Hotspawn lobby", "url": "https://play.hotspawn.com/lobby"},
             {"name": "HLTV matches", "url": "https://www.hltv.org/matches"},

@@ -15,6 +15,7 @@ from pathlib import Path
 
 from scripts.f8736556_audit import (
     build_flags,
+    effective_inventory,
     extract_page_stamp,
     public_summary_checks,
     publication_checks,
@@ -53,6 +54,28 @@ class F8736556AuditTests(unittest.TestCase):
             if check["key"] == "page_and_plain_latest_are_one_snapshot"
         )
         self.assertEqual(first["status"], "fail")
+
+    def test_linked_snapshot_can_be_effective_while_plain_latest_still_fails(self):
+        stale_latest = copy.deepcopy(self.latest)
+        stale_latest["generated_at"] = "2026-10-14T08:36:13Z"
+        effective, name = effective_inventory(
+            self.latest["generated_at"], stale_latest, self.complete, self.latest
+        )
+        self.assertIs(effective, self.latest)
+        self.assertEqual(name, "snapshot.json")
+        checks = publication_checks(
+            self.latest["generated_at"],
+            stale_latest,
+            self.complete,
+            self.now,
+            snapshot=self.latest,
+        )
+        by_key = {check["key"]: check["status"] for check in checks}
+        self.assertEqual(by_key["page_and_plain_latest_are_one_snapshot"], "fail")
+        self.assertEqual(by_key["page_and_linked_snapshot_are_one_snapshot"], "pass")
+        self.assertEqual(
+            by_key["complete_picks_cite_this_inventory_generation"], "pass"
+        )
 
     def test_page_stamp_is_read_from_the_rendered_body_contract(self):
         stamp = extract_page_stamp(
