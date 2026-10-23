@@ -19,6 +19,16 @@ Claimed **2026-10-23T05:05Z** (rebased cleanly onto latest `main` `b33c26b` pres
 
 ---
 
+# Current session: arena-3149e7ae — a rendered-output acceptance audit for the brief (picks for every listed fixture, separate unresolved section, phone findability), then publish
+Claimed **2026-10-23T05:05Z** on Arena's fixed branch `arena/3149e7ae-maltaproj3`, branched from `main` at `cd95411` (merge of PR #189). Board read first. Live claims respected and **not edited here**: `arena-46ade650` (`tests/test_15fc6bca_relay.py`, `tests/test_96fbe295.py`, `scripts/46ade650_probe.py`, `.github/workflows/46ade650-probe.yml`, `data/research/46ade650/`) and `arena-308fcaad` (`scripts/root_publish.py`, `tests/test_96fbe295.py`). No price source is wired, no probability or alias is rewritten, and no second research probe is duplicated.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| V3149-1 A read-only **acceptance audit of the rendered Pages output** against the brief's own lines (every listed fixture shows a pick and both win probabilities; a separate unresolved/limitations section exists inside the executive summary; the executive summary links in-site to the updated picks; the glance list is reachable/readable at 320 and 390 px; the refresh cadence is 4-8 h). Parses `site/` HTML — no network, no re-pricing. | in progress | arena-3149e7ae | `scripts/3149e7ae_acceptance.py` (new, read-only), `tests/test_3149e7ae_acceptance.py` (new), new `data/research/3149e7ae/` |
+| V3149-2 Fix only defects the audit proves, in files no live claim owns (log any cross-owned request here instead of editing) | unclaimed | arena-3149e7ae | unowned files only, decided from V3149-1 evidence |
+| V3149-3 Verify the fresh publisher run, PR to `main`, merge without waiting, confirm Pages deploy, record PR/run links here | unclaimed | arena-3149e7ae | `COORDINATION.md`, PR |
+
+Non-overlap pledge: no edits to `scripts/collect.py`, `scripts/originate.py`, `scripts/domain.py`, `scripts/sources.py`, `scripts/root_publish.py`, `data/origination/aliases.json`, `data/latest.json`, `data/origination.json`, `archive/`, `docs/`, `.github/workflows/pages.yml`, or any other session's `data/research/<id>/`.
 # Current session: arena-e7d7a410 — a pick for every listed match, dated unresolved register, phone-first executive summary, and a verified 4-hour publisher
 Claimed **2026-10-23T05:10Z** on Arena's fixed branch `arena/e7d7a410-maltaproj3`, branched from `main` at `cd95411` (merge of PR #189). Board read first. Live state observed through the public GitHub API at 05:00–05:10Z: the deployed Pages site is being served by the **legacy `main /` builder**, whose checked-in `data/latest.json` is `2026-10-15T08:36:13Z` (80 records, 17 upcoming) — eight days old — because `pages.yml` `verify-and-deploy` has failed at its pre-collection regression step since 2026-10-22T14:05Z (run [39881298806](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39881298806) and four later runs). The specific date-bound failure is `tests/test_96fbe295.py::test_check_mode_reports_a_current_root_and_then_drift`, owned by `arena-4ac63e41` in PR [#190](https://github.com/buffedlizard55-lab/MaltaProj3/pull/190); that file pair is out of my scope. PR #188 (`7293b310`) and PR #190 are active; I do not duplicate them.
 | Task | Status | Owner | File scope |
@@ -102,7 +112,6 @@ Claimed **2026-10-23T05:25Z** on Arena's fixed branch `arena/97d4113b-maltaproj3
 - **No Hallucination Contract**: Every row in the site table links to its verified official source. Blanks remain unpopulated with reason documented in `#unresolved-register`.
 - **PR & Merge Confirmation**: PR #200 (https://github.com/buffedlizard55-lab/MaltaProj3/pull/200) successfully merged into `main` as commit `b44595f` via `gh pr merge 200 --merge`. Triggered GitHub Actions Pages workflow run `39906078427` (https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39906078427).
 
----
 
 # Current session: arena-d866c786 — full coverage, picks for every match, mobile-first executive summary, reverse-engineered Hotspawn — DONE/MERGED
 
