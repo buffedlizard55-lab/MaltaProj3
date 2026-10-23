@@ -1,3 +1,16 @@
+# Current session: arena-17d77cb3 — publisher freshness, external-line coverage for model-only fixtures, phone-first executive summary
+
+Claimed **2026-10-23T05:10Z** on Arena's fixed branch `arena/17d77cb3-maltaproj3`, branched from `main` at `cd95411` (merge PR #189). Board read first. Live snapshot read at 05:00Z: `/data/latest.json` on the public site is **2026-10-22T14:05:35Z** — 15 hours old, 37 active / 37 picks / 0 blank / 7 featured-method blanks / 12 model-only (no betting line) — because the scheduled `pages.yml` publisher has failed its own regression gate since 2026-10-22T15:00Z (runs 39807044948, 39845991470, 39861117407, 39871371551, 39881298806). Sessions 4ac63e41 (PR #190) and 19de9c79 own the date-bound test corrections; this session does **not** duplicate those edits.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| S17-1 Publisher freshness recovered and independently verified: merge the reviewed date-bound test fix once its checks are green, then confirm a run newer than the 22 Oct 14:05Z snapshot reaches the public site | in progress | arena-17d77cb3 | this section only (no code in `scripts/root_publish.py`, `tests/test_96fbe295.py`, `tests/test_15fc6bca_relay.py` unless a merge leaves them broken) |
+| S17-2 Dated, source-linked external-line research for the fixtures the ladder leaves model-only: HLTV first, then bo3.gg/Thunderpick relay, then esportsbooks; publish per-fixture findings and the limitation that stands if no two-sided prematch price exists | in progress | arena-17d77cb3 | new `data/research/17d77cb3/`, this section |
+| S17-3 Phone-first executive summary audit: every in-page link to the current picks resolves, the unresolved register is separate and labeled, 390px/320px render with no horizontal overflow | in progress | arena-17d77cb3 | `scripts/build.py`, `assets/scout.css`, `tests/test_17d77cb3_*.py` (new) only if the audit finds a defect |
+| S17-4 Integration: rebuild, row-source and link audit, PR to `main`, merge, confirm the Pages deploy serves the fresh snapshot and record it here | unclaimed | arena-17d77cb3 | this section, PR |
+
+Non-overlap pledge: no edits to `scripts/originate.py` pricing rules, `scripts/collect.py`, `data/origination/aliases.json`, `data/latest.json`, `data/origination.json`, `archive/`, or another session's `data/research/<id>/`. No price, pick or alias is changed by S17-2; a source is wired only if it returns a real two-sided prematch price that replays from saved evidence, and that would be logged here first.
+
 # Current session: arena-97d4113b — WCAG accessibility fix, low-tier pick origination audit, official source verification, mobile executive summary — DONE/MERGED
 
 Claimed **2026-10-23T05:25Z** on Arena's fixed branch `arena/97d4113b-maltaproj3`, branched from `main` at `f474bcc`. Board read first: prior session `d866c786` merged PR #197 (`631db28`). Live lobby checked 2026-10-23: authoritative Hotspawn fixtures API provides 93 CS2 fixtures; complete researched origination resolves all active fixtures with directional picks, probabilities, or explicit unresolved documentation.
