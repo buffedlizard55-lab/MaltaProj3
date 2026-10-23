@@ -1,0 +1,41 @@
+[
+ {
+  "id": "2016c841-phantom-banda-lean",
+  "severity": "review",
+  "title": "Phantom Academy–Banda chuya: research-model pick (Banda chuya 52.5%) leans against the only observable opinion — HLTV community votes 78/22 Phantom Academy",
+  "detail": "The published pick comes from the Valve-rating research estimate (Banda chuya 52.5% / Phantom Academy 47.5%), not from any money line: HLTV carries no bookmaker odds for this fixture (the betting table shows a Stake sweepstakes promotion only), EGamersWorld's aggregated book still showed the 1.8/1.8 pre-book placeholder at ~10:10Z, and the Smarkets exchange has no market. The single observable outside opinion is the HLTV community vote, 78/22 for Phantom Academy — a fan vote, never a price, so it cannot override a reviewed pick, but the direction disagreement is documented for manual review. The bo3.gg relay board (Thunderpick-sourced) carried no two-sided price for this fixture either at the 10:20Z runner sweep. Flagged for review; the pick is unchanged.",
+  "match_ids": [
+   "1081605"
+  ],
+  "source_urls": [
+   "https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8",
+   "https://egamersworld.com/counterstrike/match/rW6Ymkl0D/phantom-academy-vs-banda-chuya-SqCDyX7RB",
+   "https://bo3.gg/matches/banda-chuya-vs-phantom-academy-23-10-2026"
+  ]
+ },
+ {
+  "id": "2016c841-acend-unity-lean",
+  "severity": "review",
+  "title": "Acend–UNiTY: research-model pick (Acend 54.2%) leans against the aggregated book (UNiTY favourite) and HLTV community votes 75/25 UNiTY",
+  "detail": "The published pick comes from the Valve-rating research estimate (Acend 54.2% / UNiTY 45.8%). Two outside reads lean the other way: EGamersWorld's aggregated bookmaker odds drifted from 1.8/1.8 to 2.37/1.50 within twenty minutes of first observation — UNiTY the favourite — and HLTV community votes run 75/25 for UNiTY. Neither is a first-party price the reviewed ladder can promote on its own rules (HLTV publishes no bookmaker odds; EGW is an aggregator family), so the model pick stands, but a research estimate disagreeing with both a priced aggregate and the fan read belongs in review. Full dated capture: data/research/2016c841/hltv-platform-sweep.md.",
+  "match_ids": [
+   "1082996"
+  ],
+  "source_urls": [
+   "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/acend-vs-unity-esports-iwaKSVfgf",
+   "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
+   "https://www.hltv.org/events/9440/nodwin-clutch-series-13"
+  ]
+ },
+ {
+  "id": "2016c841-legacy-pages-window",
+  "severity": "notice",
+  "title": "2026-10-23 morning: legacy Pages rebuild flipped the live site to the eight-day-old branch-root data four times in two hours",
+  "detail": "Between 09:54Z and 10:57Z every push to main re-triggered the platform's legacy Pages builder (build_type: legacy on the GET pages API), which republished the checked-in branch root — where data/latest.json is the 15 October CI replay fixture — over the fresh 10:14:24Z artifact deploy. The public site therefore served eight-day-old data for most of the morning window. Nothing on the branch caused it: the same race is documented in scripts/root_publish.py, which also records why the workflow token cannot switch build_type to workflow (PATCH /repos/.../pages answers 404/Not Found for this integration). Consequence for research records: one runner sweep (10:29Z) observed the stale read, which would have dated a false 'no line for 30 fixtures' register. Session arena-2016c841 gated the sweep (scripts/2016c841_research.py: published snapshots older than six hours write a sweep-degraded note instead of a dated record) and dropped the tainted 10:29Z pair; the site healed at 11:5xZ when the fresh run's artifact deploy won the race after the last merge. A healthy sweep re-dated the records after healing.",
+  "match_ids": [],
+  "source_urls": [
+   "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+   "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/pages"
+  ]
+ }
+]
