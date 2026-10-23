@@ -1,3 +1,17 @@
+# Current session: arena-19de9c79 — restore current full-match picks, independent low-tier research, phone-first summary, final integration
+
+Claimed **2026-10-23T04:51Z** on Arena's fixed branch `arena/19de9c79-maltaproj3`, based on `main` at `cdd77b58133b6627ef8f6d4738d8784431eeac6b`. The board and open PR list were read first. Open PRs #189/#188/#184/#182/#180/#177/#171/#169/#168/#165/#154/#149/#139/#120 have all been idle for more than 60 minutes; their claims are treated as stale under the handoff rule, they are not merged blindly, and any reused work will be credited here. Arena fixes this session's branch, so no differently named session/integration branch will be created.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 19D-1 Diagnose the current production refresh failures and independently audit the latest obtainable Hotspawn CS2 inventory, complete-pick coverage and every unresolved/featured-gap fixture; HLTV first, then esportsbooks/lines; preserve dated originals and source-linked limitations | in progress | arena-19de9c79 | new `data/research/19de9c79/**`, new `scripts/19de9c79_*.py`, temporary session-only `.github/workflows/19de9c79-*.yml` (removed before merge), this section |
+| 19D-2 Repair only verified refresh/pick-coverage defects and any verified phone executive-summary findability/readability defect; add focused regressions; never manufacture a probability or use Hotspawn/HLTV crowd percentages | unclaimed | arena-19de9c79 | implementation files will be named here before editing; new `tests/test_19de9c79_*.py` |
+| 19D-3 Final integration: rebase/pull latest `main`, replay every published row, strict source/link/build/mobile/accessibility checks, PR to `main`, merge on green, confirm the real Pages deployment and record sources/irregularities/PR result | unclaimed | arena-19de9c79 | this section, `README.md` only for a verified current release note, generated site output through the canonical builder |
+
+Non-overlap: no other session's `data/research/<id>/` files will be edited. No pick, probability, alias, canonical JSON snapshot or generated shared page will be hand-edited. Shared outputs are changed only by the canonical builder during 19D-3. If a live claim appears, its files will be avoided and requests logged here instead.
+
+---
+
 # Current session: arena-97d4113b — WCAG accessibility fix, low-tier pick origination audit, official source verification, mobile executive summary — DONE/MERGED
 
 Claimed **2026-10-23T05:25Z** on Arena's fixed branch `arena/97d4113b-maltaproj3`, branched from `main` at `f474bcc`. Board read first: prior session `d866c786` merged PR #197 (`631db28`). Live lobby checked 2026-10-23: authoritative Hotspawn fixtures API provides 93 CS2 fixtures; complete researched origination resolves all active fixtures with directional picks, probabilities, or explicit unresolved documentation.
@@ -29,6 +43,8 @@ Claimed **2026-10-23T05:25Z** on Arena's fixed branch `arena/97d4113b-maltaproj3
   - HLTV matches (`https://www.hltv.org/matches`) and team rankings (`https://www.hltv.org/ranking/teams`) verified.
 - **No Hallucination Contract**: Every row in the site table links to its verified official source. Blanks remain unpopulated with reason documented in `#unresolved-register`.
 - **PR & Merge Confirmation**: PR #200 (https://github.com/buffedlizard55-lab/MaltaProj3/pull/200) successfully merged into `main` as commit `b44595f` via `gh pr merge 200 --merge`. Triggered GitHub Actions Pages workflow run `39906078427` (https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39906078427).
+
+---
 
 # Current session: arena-d866c786 — full coverage, picks for every match, mobile-first executive summary, reverse-engineered Hotspawn — DONE/MERGED
 
@@ -91,6 +107,8 @@ Claimed **2026-10-23T05:10Z** on Arena's fixed branch `arena/308fcaad-maltaproj3
 | S308-3 Re-run the full refresh in CI after the fixes, confirm a fresh complete snapshot (picks for every active fixture; HLTV-then-esportsbooks research ladder for anything the featured method cannot resolve), then verify the live site: executive-summary in-site links, unresolved/limitations section, phone readability | pending | arena-308fcaad | CI runs; read-only live verification via public URLs; any new dated research goes to new `data/research/308fcaad/` only |
 Both files in S308-2 are owned by completed/merged sessions (96fbe295, f2b91672) — unowned per board precedent; no live claim overlaps. Non-overlap pledge: no edits to `scripts/collect.py`, `scripts/originate.py` pricing ladder, `data/origination/aliases.json`, `archive/`, or other sessions' `data/research/<id>/`. If the fresh snapshot still leaves fixtures unresolved, the dated HLTV→esportsbook research sweep is published as session evidence, never as invented prices.
 
+---
+
 # Current session: arena-fd99abd9 — Hotspawn full coverage: every CS2 pick, HLTV→esportsbook research, phone-first executive summary
 
 Claimed **2026-10-23T05:00Z** on Arena's fixed branch `arena/fd99abd9-maltaproj3`, branched from `main` at `cd95411` (merge PR #189). Board read first. Live snapshot audited 2026-10-23T05:00Z on checked-in data: `data/latest.json` 17 upcoming / 13 picks / 4 unresolved-featured, `data/origination.json` 17 active / 17 picks (7 market, 5 bookmaker, 5 model) / 0 unresolved after research fallback. Previous sessions `3016b0c6`, `3a5448de`, `f60683a4` merged; open PRs #154/#149/#139/#120 are stale >60 min and untouched (their merged equivalents are on main). No live claim overlaps the files below.
@@ -102,6 +120,8 @@ Claimed **2026-10-23T05:00Z** on Arena's fixed branch `arena/fd99abd9-maltaproj3
 | FD99-3 Line-by-line verification, row-source audit, link audit, mobile a11y, rebuild, PR to main + merge + Pages confirm | in progress | arena-fd99abd9 | `data/research/fd99abd9/`, this section, PR |
 
 Non-overlap: no edits to `scripts/collect.py`, `scripts/originate.py` pricing ladder, `data/origination/aliases.json`, `data/latest.json`, `data/origination.json`, `archive/`, other sessions' `data/research/<id>/`. If a new price source meets the bar it will be logged here first. All probe writes are read-only evidence; no probability/pick is typed into a snapshot.
+
+---
 
 # Current session: arena-3016b0c6 — picks for every match (low-tier research), separate unresolved section, phone-first executive summary
 Claimed **2026-10-22T07:32Z** on Arena's fixed branch `arena/3016b0c6-maltaproj3`, branched from `main` at `285a0d9` (merge PR #162). Board read first: previous session `fbdc97d6` is **done/merged** (PR #153), no live claim held. Live snapshot audited 2026-10-22T05:36Z: 33 active, 33 with directional pick, ~15 external line, 18 research-model, 0 unresolved in complete list — but featured method alone leaves 10 blank and 18 have no betting line, which is the gap this session re-attacks.
