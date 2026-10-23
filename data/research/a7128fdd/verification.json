@@ -1,0 +1,295 @@
+{
+  "schema": "a7128fdd-verification/1",
+  "session": "arena-a7128fdd",
+  "verified_at": "2026-10-23T10:45:00Z",
+  "published_snapshot_verified": {
+    "live_root_data_latest_json_generated_at": "2026-10-23T09:23:57Z",
+    "live_root_page_snapshot_generated": "2026-10-23T09:23:57Z",
+    "agree": true,
+    "note": "Acceptance-audit check #9 (page stamp == downloadable data/latest.json) was the last standing FAIL in session 3149e7ae's published-root audits at 05:05Z, 07:25Z and 08:20Z on 2026-10-23. Read back from the live published root at 09:45Z both carry 2026-10-23T09:23:57Z, so that FAIL is closed on main. Re-verified locally: scripts.acceptance_audit --site site reports 9 pass / 1 info / 0 fail; the single info is the checked-in 15 October replay fixture's age, not a live defect.",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/"
+    ]
+  },
+  "inventory_verified": {
+    "hotspawn_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "read_at": "2026-10-23T09:46:00Z",
+    "records_returned": 92,
+    "published_counts": {
+      "inventory": 92,
+      "upcoming": 30
+    },
+    "agree": true,
+    "note": "The published inventory count equals the number of records the source API returned when read directly, and the published upcoming count equals the active rows in the runner manifest taken from the same feed (run 39934809201)."
+  },
+  "method": "Each independent price was de-vigged with the repository's own documented rule p_i = (1/o_i) / sum(1/o), then aligned to Hotspawn's team order by resolving BOTH sides through scripts.originate.resolve_name against data/origination/aliases.json (69 reviewed, competition-scoped entries) - not through an ad-hoc normaliser. That matters: scripts.domain.name_key deliberately keeps diacritics ('Los Niños' != 'LOS NINOS'), so a naive fold-free comparison silently fails to bind names the registry has already reviewed and scoped. A row is reported as an exact match only when both sides agree to within 5e-5. Nothing here changed a published value; it only re-derives it from a second surface.",
+  "rows": [
+    {
+      "hotspawn_id": "1082923",
+      "teams": [
+        "Alka",
+        "LOS NINOS"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "published_method": "bookmaker",
+      "published_probabilities": [
+        0.71111111,
+        0.28888889
+      ],
+      "independent_source": "bo3.gg relay board",
+      "source_url": "https://bo3.gg/matches/alka-vs-los-ninos-23-10-2026",
+      "odds_as_published": {
+        "ALKA": 1.3,
+        "Los Niños": 3.2
+      },
+      "overround": 1.0817,
+      "devigged": {
+        "ALKA": 0.7111,
+        "Los Niños": 0.2889
+      },
+      "devigged_aligned_to_hotspawn": [
+        0.7111,
+        0.2889
+      ],
+      "name_binding": "resolved via data/origination/aliases.json",
+      "exact_match": true,
+      "abs_delta_side_a": 0.0,
+      "binding_detail": [
+        {
+          "published": "ALKA",
+          "resolved": "alka",
+          "hotspawn_index": 0
+        },
+        {
+          "published": "Los Niños",
+          "resolved": "los ninos",
+          "hotspawn_index": 1
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1082980",
+      "teams": [
+        "LPH",
+        "WBT Academy"
+      ],
+      "competition": "ESL Challenger League Season 52: Europe - Cup #9",
+      "published_method": "bookmaker",
+      "published_probabilities": [
+        0.37817259,
+        0.62182741
+      ],
+      "independent_source": "bo3.gg relay board",
+      "source_url": "https://bo3.gg/matches/lph-gaming-vs-wbt-academy-23-10-2026",
+      "odds_as_published": {
+        "WBT Academy": 1.49,
+        "LPH": 2.45
+      },
+      "overround": 1.0793,
+      "devigged": {
+        "WBT Academy": 0.6218,
+        "LPH": 0.3782
+      },
+      "devigged_aligned_to_hotspawn": [
+        0.3782,
+        0.6218
+      ],
+      "name_binding": "resolved via data/origination/aliases.json",
+      "exact_match": true,
+      "abs_delta_side_a": 0.0,
+      "binding_detail": [
+        {
+          "published": "WBT Academy",
+          "resolved": "wbt academy",
+          "hotspawn_index": 1
+        },
+        {
+          "published": "LPH",
+          "resolved": "lph",
+          "hotspawn_index": 0
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1081148",
+      "teams": [
+        "Inner Circle Academy",
+        "Spirit Academy"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "published_method": "market",
+      "published_probabilities": [
+        0.445,
+        0.555
+      ],
+      "independent_source": "bo3.gg relay board",
+      "source_url": "https://bo3.gg/matches/inner-circle-academy-vs-spirit-academy-23-10-2026",
+      "odds_as_published": {
+        "Inner Circle Academy": 2.1,
+        "Spirit Academy": 1.65
+      },
+      "overround": 1.0823,
+      "devigged": {
+        "Inner Circle Academy": 0.44,
+        "Spirit Academy": 0.56
+      },
+      "devigged_aligned_to_hotspawn": [
+        0.44,
+        0.56
+      ],
+      "name_binding": "resolved via data/origination/aliases.json",
+      "exact_match": false,
+      "abs_delta_side_a": 0.005,
+      "binding_detail": [
+        {
+          "published": "Inner Circle Academy",
+          "resolved": "inner circle academy",
+          "hotspawn_index": 0
+        },
+        {
+          "published": "Spirit Academy",
+          "resolved": "spirit academy",
+          "hotspawn_index": 1
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1081148",
+      "teams": [
+        "Inner Circle Academy",
+        "Spirit Academy"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "published_method": "market",
+      "published_probabilities": [
+        0.445,
+        0.555
+      ],
+      "independent_source": "esports-news.co.uk",
+      "source_url": "https://esports-news.co.uk/matches/cs2/inner-circle-academy-vs-spirit-academy-1746765/",
+      "odds_as_published": {
+        "Inner Circle Academy": 2.17,
+        "Spirit Academy": 1.72
+      },
+      "overround": 1.0422,
+      "devigged": {
+        "Inner Circle Academy": 0.4422,
+        "Spirit Academy": 0.5578
+      },
+      "devigged_aligned_to_hotspawn": [
+        0.4422,
+        0.5578
+      ],
+      "name_binding": "resolved via data/origination/aliases.json",
+      "exact_match": false,
+      "abs_delta_side_a": 0.0028,
+      "binding_detail": [
+        {
+          "published": "Inner Circle Academy",
+          "resolved": "inner circle academy",
+          "hotspawn_index": 0
+        },
+        {
+          "published": "Spirit Academy",
+          "resolved": "spirit academy",
+          "hotspawn_index": 1
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1083014",
+      "teams": [
+        "K27",
+        "Virtus.pro"
+      ],
+      "competition": "CIS LAN Championship #9",
+      "published_method": "market",
+      "published_probabilities": [
+        0.565,
+        0.435
+      ],
+      "independent_source": "esports-news.co.uk",
+      "source_url": "https://esports-news.co.uk/matches/cs2/k27-vs-virtus-pro-75b4744b-43d9-4ebd-a8dc-f1e0f9be69b3-1759614/",
+      "odds_as_published": {
+        "K27": 1.76,
+        "Virtus.pro": 2.05
+      },
+      "overround": 1.056,
+      "devigged": {
+        "K27": 0.5381,
+        "Virtus.pro": 0.4619
+      },
+      "devigged_aligned_to_hotspawn": [
+        0.5381,
+        0.4619
+      ],
+      "name_binding": "resolved via data/origination/aliases.json",
+      "exact_match": false,
+      "abs_delta_side_a": 0.0269,
+      "binding_detail": [
+        {
+          "published": "K27",
+          "resolved": "k27",
+          "hotspawn_index": 0
+        },
+        {
+          "published": "Virtus.pro",
+          "resolved": "virtus.pro",
+          "hotspawn_index": 1
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1079655",
+      "teams": [
+        "Nuclear TigeRES",
+        "ILLYRIANS"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "published_method": "market",
+      "published_probabilities": [
+        0.85,
+        0.15
+      ],
+      "independent_source": "esports-news.co.uk",
+      "source_url": "https://esports-news.co.uk/matches/cs2/nuclear-tigres-vs-illyrians-1733090/",
+      "odds_as_published": {
+        "Nuclear TigeRES": 1.11,
+        "ILLYRIANS": 6.5
+      },
+      "overround": 1.0547,
+      "devigged": {
+        "Nuclear TigeRES": 0.8541,
+        "ILLYRIANS": 0.1459
+      },
+      "devigged_aligned_to_hotspawn": [
+        0.8541,
+        0.1459
+      ],
+      "name_binding": "resolved via data/origination/aliases.json",
+      "exact_match": false,
+      "abs_delta_side_a": 0.0041,
+      "binding_detail": [
+        {
+          "published": "Nuclear TigeRES",
+          "resolved": "nuclear tigeres",
+          "hotspawn_index": 0
+        },
+        {
+          "published": "ILLYRIANS",
+          "resolved": "illyrians",
+          "hotspawn_index": 1
+        }
+      ]
+    }
+  ],
+  "conclusions": {
+    "rows_checked": 6,
+    "exact_reproductions": 2,
+    "close_but_different_source": 4,
+    "name_bindings_unresolved": 0,
+    "published_values_changed": 0,
+    "reading": "2 of 6 independently re-derived probabilities reproduce the published value to four decimal places once both sides are bound through the reviewed alias registry. Those rows prove the ladder is reading its relay board and de-vigging it exactly as documented. The other 4 agree in direction and differ only slightly because they come from a different surface than the one that priced the row (a Polymarket CLOB midpoint rather than a bo3.gg relay, or one aggregator's book rather than another's), which is expected and is not a defect. No published probability, pick or alias was changed by this verification."
+  }
+}

@@ -1,0 +1,128 @@
+[
+  {
+    "id": "a7128fdd-hltv-reachable-not-403",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "HLTV answers HTTP 200 on the authoring fetch path: the runner's 403 is path-specific, and HLTV's format, lineup and ranking evidence for these fixtures has never been captured",
+    "detail": "Verified 2026-10-23T09:47Z by direct page fetch: https://www.hltv.org/matches and https://www.hltv.org/matches/2399849/k27-vs-virtuspro both answered HTTP 200 and rendered in full (Best of 3 (LAN), Semi-final, both five-player lineups, K27 HLTV #46 / VRS #33, Virtus.pro #56 with stand-in Patsi instead of F0R3VER). Every session sweep since 21 October recorded HLTV as 403 from a GitHub Actions runner. To be precise, the site copy is NOT wrong about this: /unresolved/ already prints 'HLTV match pages are listed with the status the runner received' and the per-source notes already say 'Cloudflare challenge to the runner. Readable by hand'. No copy change is requested by this flag. What is new is the consequence. First, HLTV is readable from this path, so a session that has it should read HLTV rather than record a refusal. Second, HLTV publishes official dated evidence the repository has never captured for the model-only class - the best-of format Hotspawn leaves null, both five-player lineups that the Valve-standings identity join needs, both world and VRS ranks, and explicit stand-in warnings - and that evidence is now recorded in data/research/a7128fdd/direct-observations.{json,md}. Third, HLTV still publishes no two-sided prematch price: its betting analytics page renders the template value 1.23 in every bookmaker cell (labelled eOddset and Betway), and its 'Pick a winner' widget is a fan vote excluded by rule 2. So no probability should have changed and none did. Flagged as a notice so the reachability conclusion in the board history is corrected without implying the published site misinformed anyone.",
+    "source_urls": [
+      "https://www.hltv.org/matches",
+      "https://www.hltv.org/matches/2399849/k27-vs-virtuspro-winline-mpkbk-cis-lan-season-9",
+      "https://www.hltv.org/betting/analytics/2399849/k27-vs-virtuspro-winline-mpkbk-cis-lan-season-9",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/fbdc97d6/line-sources.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/a7128fdd/direct-observations.md"
+    ]
+  },
+  {
+    "id": "a7128fdd-dfrag-venue-sydney-vs-brisbane",
+    "severity": "review",
+    "match_ids": [
+      "1082858",
+      "1082861"
+    ],
+    "title": "DFRAG Invitational 2026 venue conflicts: EGamersWorld says Sydney, HLTV and Liquipedia both say Brisbane",
+    "detail": "Verified 2026-10-23T10:00Z. EGamersWorld's JSON-LD for Rooster vs Team Abyssal states location.name 'Sydney, Australia'. HLTV's DFRAG Invitational 2026 event page states 'Brisbane, Australia' with a $28,440 prize pool, 8 teams, Oct 26 - Nov 1, and Liquipedia independently states 'Brisbane' at the DFRAG Studio with a $40,000 AUD pool. Two of three official-or-near-official surfaces agree on Brisbane, so Sydney is treated as the outlier. The prize pool also disagrees across sources ($28,440 on HLTV, $40,000 AUD on Liquipedia), which is recorded rather than reconciled. No probability depends on the venue and none was changed; this is flagged because the repository publishes venue-adjacent context on the model-only cards and a reader should not be given a city that two sources contradict. LAN/online status is unaffected: all three describe an offline Australian event.",
+    "source_urls": [
+      "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/rooster-vs-team-abyssal-P1tTp3RAg8",
+      "https://www.hltv.org/events/9414/dfrag-invitational-2026",
+      "https://liquipedia.net/counterstrike/DFRAG/Invitational/2026",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/a7128fdd/direct-observations.md"
+    ]
+  },
+  {
+    "id": "a7128fdd-polymarket-zero-volume-listing",
+    "severity": "notice",
+    "match_ids": [
+      "1082858",
+      "1082861"
+    ],
+    "title": "Polymarket does list Ground Zero vs Off Chops and Rooster vs Abyssal by exact name and start, but at $0 traded volume - that is the source-linked reason the featured method cannot price them",
+    "detail": "Verified 2026-10-23T10:00Z on https://polymarket.com/esports/cs2/dfrag-invitational, which lists exactly three CS2 events and labels all three '$0 vol'. Two bind to Hotspawn fixtures by exact team names and start time: slug cs2-gz1-offcho-2026-10-25 (Ground Zero vs Off Chops, 'Oct 25, 11:00 PM' ET = 2026-10-26T03:00:00Z = Hotspawn 1082858) and slug cs2-rstr-abyssa-2026-10-26 (Rooster vs Abyssal, 'Oct 26, 11:00 PM' ET = 2026-10-27T03:00:00Z = Hotspawn 1082861). This corrects the assumption in the brief that these matches are simply 'not covered on polymarket': they are covered, they just have no liquidity, so rule 3's positive bid/ask size and non-crossed book tests cannot pass and no CLOB order book exists to normalize. Rooster vs Abyssal displays 2.00x/2.00x at 50%/50%, an unpriced listing default; adopting it would publish exactly the 50/50 fabrication the repository forbids, so it was refused. Ground Zero vs Off Chops displays 3.70x / 1.35x at 27% / 74%; directory percentages are excluded inputs by rule 3, so that pair is recorded as evidence only and was NOT adopted even though it disagrees with our own published results-network estimate of 0.4492 / 0.5508 for the same fixture. Both estimates stay as they were; the disagreement is published here rather than smoothed over.",
+    "source_urls": [
+      "https://polymarket.com/esports/cs2/dfrag-invitational",
+      "https://polymarket.com/esports/cs2/dfrag-invitational/cs2-gz1-offcho-2026-10-25",
+      "https://polymarket.com/esports/cs2/dfrag-invitational/cs2-rstr-abyssa-2026-10-26",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/a7128fdd/direct-observations.md"
+    ]
+  },
+  {
+    "id": "a7128fdd-k27-vp-fanvote-contradicts-money",
+    "severity": "notice",
+    "match_ids": [
+      "1083014"
+    ],
+    "title": "For K27 vs Virtus.pro the HLTV fan vote (33.6% / 66.4%) contradicts both the money line (0.565 / 0.435) and HLTV's own ranking and stand-in notes",
+    "detail": "Verified 2026-10-23T09:47Z-09:56Z. Hotspawn 1083014 (K27 vs Virtus.pro, CIS LAN Championship #9, 2026-10-23T13:00:00Z) is priced by the ladder as an external market at K27 0.565 / Virtus.pro 0.435. esports-news.co.uk independently lists bookmaker decimal prices K27 1.76 / Virtus.pro 2.05, which de-vig to 0.538 / 0.462 - the same direction. HLTV's own analytics page states 'K27 is better ranked (#46)' against 'Virtus.pro is worse ranked (#56)' and 'Virtus.pro is playing with stand-in: Patsi instead of F0R3VER' with 'Patsi has played less than 5 matches with core'. HLTV's 'Pick a winner' fan vote nonetheless shows K27 33.6% / Virtus.pro 66.4%, i.e. the crowd favours the lower-ranked side fielding a stand-in, against two independent price surfaces. Rule 2 excludes fan votes and community participation percentages from every calculation, so the pick is unchanged and no probability was adjusted. Flagged because this is the clearest available demonstration that the excluded signal would have inverted a money-backed pick, which is the reason the rule exists; a reviewer may want to see it rather than have it silently dropped. Note also that HLTV's displayed match clock (09:00) is not UTC - the page's own countdown of '3h : 14m : 49s' read at 09:47Z resolves the start to 13:00 UTC, matching Hotspawn.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399849/k27-vs-virtuspro-winline-mpkbk-cis-lan-season-9",
+      "https://www.hltv.org/betting/analytics/2399849/k27-vs-virtuspro-winline-mpkbk-cis-lan-season-9",
+      "https://esports-news.co.uk/matches/cs2/k27-vs-virtus-pro-75b4744b-43d9-4ebd-a8dc-f1e0f9be69b3-1759614/",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/a7128fdd/direct-observations.md"
+    ]
+  },
+  {
+    "id": "a7128fdd-egamersworld-odds-appear-and-disappear",
+    "severity": "notice",
+    "match_ids": [
+      "1082996",
+      "1079198"
+    ],
+    "title": "EGamersWorld's odds for the same fixtures were 2.39/1.51 and 1.36/2.88 in a 19 October cache and are 1.8/1.8 placeholders today, so only a same-session read is admissible",
+    "detail": "Verified 2026-10-23T09:57Z-09:59Z by reading both pages directly. https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/acend-vs-unity-esports-iwaKSVfgf and .../metizport-vs-baks-esports-qOJcZA7Wgq each render identical prices on both sides (Acend 1.8 / UNITY Esports 1.8; Metizport 1.8 / BakS eSports 1.8) with the bet strip showing '[1.8] [Make a bet] [1.8]' and no bookmaker-average sentence. A search-engine cache of the same two pages dated 19 October 2026 showed real prices (UNITY Esports 2.39 / Acend 1.51 and Metizport 1.36 / BakS eSports 2.88). The cached numbers were NOT used: they are six days old, outside the project's eight-hour freshness bound, and cannot be re-read from the page they claim to describe. Both pages did publish usable identity evidence at observation time - Bo3 format, tournament, and five-player lineups (Acend: REDSTAR, SHiPZ, SPELLAN, h4rn, Skrimo; UNiTY: Dytor, KWERTZZ, 2high, M1key +1; Metizport: stanislaw, Plopski, forsyy, F1KU, MaiL09; BakS: Norwi, danistzz, xdENiSZERA, whisper +1) - which is recorded. Flagged as an operational limitation: this surface must be read inside the refresh window or it yields nothing, and scripts/reference_odds.py's identical-price rejection plus its eight-hour freshness test are what keep the placeholder and the stale cache out of the ladder.",
+    "source_urls": [
+      "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/acend-vs-unity-esports-iwaKSVfgf",
+      "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/metizport-vs-baks-esports-qOJcZA7Wgq",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/reference_odds.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/a7128fdd/direct-observations.md"
+    ]
+  },
+  {
+    "id": "a7128fdd-team-abyssal-alias-already-registered",
+    "severity": "notice",
+    "match_ids": [
+      "1082861"
+    ],
+    "title": "CORRECTION of this session's own first reading: 'Team Abyssal' -> 'Abyssal' is ALREADY a registered, competition-scoped alias; EGamersWorld is a fourth corroborating surface, not a gap",
+    "detail": "This session first flagged EGamersWorld's 'Team Abyssal' as an unregistered alias. That was wrong, and the error is the reason for this note: the registry was not consulted before flagging. data/origination/aliases.json (updated_at 2026-10-23T06:26:00Z, 69 entries) already contains {'alias': 'Team Abyssal', 'canonical': 'Abyssal', 'kind': 'display-name expansion', 'applies_to': ['DFRAG Invitational 2026']} with the competition_note citing bo3.gg match 132606 'Rooster vs Team Abyssal' at 2026-10-27T03:00:00Z, HLTV 2399891 and Hotspawn 1082861, and must_not_match guards for 'Abyssal Academy'. What this session adds is one more independent surface for the same join: EGamersWorld's own schema.org JSON-LD at https://egamersworld.com/counterstrike/match/4kaAQWgKEx/rooster-vs-team-abyssal-P1tTp3RAg8 states startDate 2026-10-27T03:00:00.000Z with competitors 'Rooster' and 'Team Abyssal' - the same UTC instant to the second as Hotspawn 1082861. No alias was added, edited or needed, and no probability changed. The registry entry remains another session's file and was not touched. Recorded so the correction is on the record and so a later session does not re-raise it.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination/aliases.json",
+      "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/rooster-vs-team-abyssal-P1tTp3RAg8",
+      "https://www.hltv.org/matches/2399891",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/a7128fdd/direct-observations.md"
+    ]
+  },
+  {
+    "id": "a7128fdd-1081605-vrs-direction-divergence",
+    "severity": "review",
+    "match_ids": [
+      "1081605"
+    ],
+    "title": "For 1081605 the published Valve-rating estimate favours Banda chuya (0.5252) while HLTV's VRS display puts Phantom Academy 9 points ahead, and the HLTV fan vote says 77.6% - three signals, three directions; not adjudicated here",
+    "detail": "Verified 2026-10-23T10:50Z on HLTV match 2399699 and its analytics page. Three published signals for the same fixture disagree. (1) The repository's own published estimate for Hotspawn 1081605 is Phantom Academy 0.4748 / Banda chuya 0.5252, method 'Valve-rating research estimate', source Valve official standings. (2) HLTV's match page shows Phantom Academy HLTV #174 / VRS #167 with 777 points against Banda Chuya HLTV **Unranked** / VRS #169 with 768 points, i.e. the VRS display puts Phantom Academy 9 points AHEAD, which is the opposite direction to (1). (3) HLTV's 'Pick a winner' fan vote reads Phantom Academy 77.6% / Banda Chuya 22.4%, far more lopsided than either. Signal (3) is excluded outright by rule 2 and changes nothing. Signals (1) and (2) are NOT reconciled here, and this flag does not assert that either is wrong: the ladder prices from Valve's own regional-standings repository at a specific dated snapshot, whereas HLTV's VRS column is HLTV's rendering of the Valve ranking on its own refresh, and the two can legitimately differ by snapshot date; HLTV's 'unranked floor' treatment of Banda Chuya is also a different rung from the Valve-rating rung that actually priced this row. Adjudicating it requires reading Valve's standings file for both teams at the snapshot the ladder used, which this session did not do, so no value was changed and no conclusion is drawn. Flagged for a reviewer who wants the direction of 1081605 checked against Valve's own published file before the 11:00Z lock.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8",
+      "https://www.hltv.org/betting/analytics/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8",
+      "https://www.hltv.org/valve-ranking/teams",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/a7128fdd/direct-observations.md"
+    ]
+  },
+  {
+    "id": "a7128fdd-los-kogutos-is-banda-chuya-alias-missing",
+    "severity": "review",
+    "match_ids": [
+      "1081605"
+    ],
+    "title": "'los kogutos' on bo3.gg and esports-news.co.uk IS Hotspawn/HLTV's 'Banda Chuya' - same five Polish players, same three results - but that identity is not in data/origination/aliases.json, so the ladder cannot bind a relay quote for 1081605 if one appears",
+    "detail": "This is the second correction of this session's own reading of fixture 1081605, and the accurate one. The first reading called it an identity conflict; the second said Hotspawn was corroborated and that esports-news.co.uk and bo3.gg were 'the surfaces out of line'. Both were wrong. Verified first-hand at 2026-10-23T11:05Z by reading https://bo3.gg/teams/los-kogutos and https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8 back to back: bo3.gg's 'los kogutos' starter roster is maaryy, tomiko, mwlky, AdrieN and showk, all flagged Poland, coached by pako - the same five players HLTV lists for Banda Chuya (tomiko, maaryy, AdrieN, Showk, mwlky). The recent results match exactly too: bo3.gg shows DONSTU 2-1 los kogutos (22 Oct), los kogutos 2-0 ex-6666 (20 Oct) and los kogutos 2-0 Revise (17 Oct); HLTV shows Banda Chuya 1:2 DONSTU (22/10), 2:0 ex-6666 (20/10) and 2:0 Revise (17/10). So there is no conflict anywhere: Hotspawn 1081605 (Phantom Academy vs Banda chuya, 2026-10-23T11:00:00Z), HLTV 2399699 (Phantom Academy vs Banda Chuya, Best of 3 Online, lower-bracket semi-final, its US-Eastern 07:00 display resolving to 11:00 UTC by its own countdown), bo3.gg ('los kogutos vs Phantom Academy', CCT Europe 2026 Challengers 8) and esports-news.co.uk ('Phantom Academy vs los kogutos', 12:00 BST = 11:00 UTC) all describe one match. The actionable gap is the registry: 'los kogutos' does not appear anywhere in data/origination/aliases.json (69 entries, updated_at 2026-10-23T06:26:00Z), so scripts.originate.resolve_name cannot bind a bo3.gg or esports-news.co.uk quote for this fixture, and rule 4's esportsbook rung stays unreachable for it by name even when the fixture itself is found. Nothing is lost today because bo3.gg publishes no numbers for that match ('All odds are on', bet_updates=null) and esports-news.co.uk publishes only its own 43%/57% power rating, which is not an input. The published Valve-rating estimate for 1081605 is unchanged. Session arena-81c1058a independently reached the same identity from bo3.gg's roster and match history and recorded it on the board; this flag adds the HLTV-side five-player and three-result corroboration read first-hand. The registry is another session's reviewed file and was NOT edited here - the cross-scope request is logged in COORDINATION.md with the evidence needed to add it in one step: alias 'los kogutos', canonical 'Banda Chuya', applies_to ['CCT Europe 2026 Challengers #8'], with the two URLs below and a must_not_match guard for any other 'kogutos'-named side.",
+    "source_urls": [
+      "https://bo3.gg/teams/los-kogutos",
+      "https://bo3.gg/matches/phantom-academy-vs-los-kogutos-23-10-2026",
+      "https://www.hltv.org/matches/2399699/phantom-academy-vs-banda-chuya-cct-2026-challengers-europe-series-8",
+      "https://www.hltv.org/team/13900/banda-chuya",
+      "https://esports-news.co.uk/matches/cs2/phantom-academy-vs-los-kogutos-1753600/",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination/aliases.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/a7128fdd/direct-observations.md"
+    ]
+  }
+]
