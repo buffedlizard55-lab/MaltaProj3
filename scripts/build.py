@@ -2025,6 +2025,27 @@ def build(source: Path, output: Path, now=None):
             print(f"::warning title=Rows without an official source::{totals['violation']} table rows or pick cards carry neither an official link nor an unverified flag; see data/row-source-audit.json")
     except Exception as exc:  # the audit is a report; it must never stop a data refresh
         print(f'::warning title=Row-source audit not run::{type(exc).__name__}: {exc}')
+    # Session arena-3149e7ae: the brief is about the *rendered* pages (a pick for
+    # every listed fixture, a separate unresolved/limitations section inside the
+    # executive summary, in-site links to the updated picks, a phone layout, and
+    # the 4-8 hour cadence). This audit walks those brief lines against the site
+    # that was just written and publishes the result beside the row-source audit.
+    # Like that audit it reports and never blocks: a fresh snapshot with a
+    # documented gap must still reach the reader.
+    try:
+        from scripts.acceptance_audit import audit as acceptance_audit, markdown as acceptance_markdown
+        acceptance = acceptance_audit(Path('.'), output)
+        (output / 'data').mkdir(parents=True, exist_ok=True)
+        (output / 'data/acceptance-audit.json').write_text(
+            json.dumps(acceptance, indent=2, ensure_ascii=False) + '\n')
+        (output / 'data/acceptance-audit.md').write_text(acceptance_markdown(acceptance) + '\n')
+        totals = acceptance['totals']
+        print(f"Acceptance audit: {totals['pass']} pass, {totals['info']} info, "
+              f"{totals['fail']} fail of {totals['checks']} brief-line checks")
+        for failed in (c for c in acceptance['checks'] if c['status'] == 'fail'):
+            print(f"::warning title=Brief line not met::{failed['title']}: {failed['detail']}")
+    except Exception as exc:  # the audit is a report; it must never stop a data refresh
+        print(f'::warning title=Acceptance audit not run::{type(exc).__name__}: {exc}')
     check_links(output)
     print(f'Built {len(PAGES)} current Pages views, compatible old URLs and explicitly archived session views in {output}')
 
