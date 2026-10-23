@@ -1,6 +1,6 @@
 # Line-source research for fixtures without a betting line — arena-46ade650
 
-Observed 2026-10-23T06:46:53Z (github-actions-runner). Targets: 9 fixtures with no external line in snapshot 2026-10-23T06:45:22Z (freshly collected in this run).
+Observed 2026-10-23T07:08:53Z (github-actions-runner). Targets: 9 fixtures with no external line in snapshot 2026-10-23T07:08:06Z (freshly collected in this run).
 
 HLTV first, then esportsbooks/aggregators. A reachable page is not a price.
 
@@ -33,7 +33,7 @@ HLTV first, then esportsbooks/aggregators. A reachable page is not a price.
 
 ## Smarkets exchange board
 
-Evidence: `data/origination/evidence/live-smarkets-cs.json` (observed 2026-10-23T06:45:34Z) — 12 fixture(s) bound, 9 with a two-sided quote.
+Evidence: `data/origination/evidence/live-smarkets-cs.json` (observed 2026-10-23T07:08:20Z) — 12 fixture(s) bound, 9 with a two-sided quote.
 - `1079654` ex-Zero Tenacity vs ex-RUSTEC — https://smarkets.com/sport/esports/cs-go/cct-europe/playoffs/2026/10/23/08-00/ex-zero-tenacity-vs-ex-rustec
 - `1079655` Nuclear TigeRES vs ILLYRIANS — https://smarkets.com/sport/esports/cs-go/cct-europe/playoffs/2026/10/23/11-00/nuclear-tigeres-vs-illyrians
 - `1081148` Inner Circle Academy vs Spirit Academy — https://smarkets.com/sport/esports/cs-go/cct-europe/group-stage/2026/10/23/11-00/inner-circle-academy-vs-spirit-academy
@@ -47,6 +47,6 @@ Evidence: `data/origination/evidence/live-smarkets-cs.json` (observed 2026-10-23
 - `1079193` FOKUS vs ex-6666 — https://smarkets.com/sport/esports/cs-go/nodwin-clutch-series/playoffs/2026/10/24/08-00/fokus-vs-ex-6666
 - `1079195` Nuclear TigeRES vs FORZE Reload — https://smarkets.com/sport/esports/cs-go/nodwin-clutch-series/playoffs/2026/10/24/14-00/nuclear-tigeres-vs-forze-reload
 
-Pinnacle guest API: 20664 esports matchups, 0 target-fixture hits
+Pinnacle guest API: 20804 esports matchups, 0 target-fixture hits
 
 **New money-line leads: 0** of 9 target fixtures.
