@@ -556,6 +556,67 @@ def finish(quote: dict, attempts: list, kind: str, names: list) -> dict:
 
 # ---------------------------------------------------------------- records
 
+def evidence_stages(facts: dict) -> list:
+    """Compact, source-linked record of the HLTV-first + book-surface sweep."""
+    stages = []
+    hltv = facts.get('hltv') or {}
+    if hltv:
+        url = hltv.get('match_url') or HLTV_MATCHES
+        status = ('checked' if hltv.get('matches_page_status') == 200 or hltv.get('match_status') == 200
+                  else 'unavailable')
+        detail = hltv.get('detail') or ''
+        if hltv.get('match_status') is not None:
+            detail += f" · match page HTTP {hltv.get('match_status')}"
+        if hltv.get('state'):
+            detail += f" · state: {hltv['state']}"
+        if hltv.get('error'):
+            detail += f" · {hltv['error']}"
+        stages.append({'stage': 'HLTV first (identity & state)', 'source_url': url,
+                       'status': status, 'detail': detail.strip(' ·')})
+    books = facts.get('books') or []
+    if books:
+        answered = [b for b in books if b.get('http_status') == 200]
+        named = [b['name'] for b in books if b.get('teams_listed')]
+        detail = (f"{len(answered)} of {len(books)} esportsbook/aggregator surfaces answered HTTP 200"
+                  + (f"; pages naming a side: {', '.join(named[:4])}" if named else
+                     '; no probed page named either team')
+                  + '. A reachable page is never a price: no readable two-sided pair on any surface.')
+        if any(b.get('error') for b in books):
+            detail += ' Some surfaces refused or timed out; a refusal is not evidence that no market exists.'
+        first_url = books[0]['url'] if books else BOOK_SURFACES[0][1]
+        stages.append({'stage': 'Esportsbooks & betting-line sweep', 'source_url': first_url,
+                       'status': 'checked', 'detail': detail})
+    tp = facts.get('thunderpick') or {}
+    if tp:
+        stages.append({'stage': 'Thunderpick original prices', 'source_url': THUNDERPICK_API,
+                       'status': 'resolved' if tp.get('bound') and tp.get('quote') else (
+                           'checked' if tp.get('bound') else 'unresolved'),
+                       'detail': ('two-sided match-winner quote bound by both names and start'
+                                  if tp.get('quote') else
+                                  ('fixture listed without a usable two-sided match-winner quote'
+                                   if tp.get('bound') else
+                                   'fixture not on the reachable Thunderpick board'
+                                   + (f" ({tp.get('error')})" if tp.get('error') else '')))})
+    sm = facts.get('smarkets') or {}
+    if sm:
+        stages.append({'stage': 'Exchange market (Smarkets CS2 match winner)',
+                       'source_url': sm.get('url') or SMARKETS_SITE,
+                       'status': 'resolved' if sm.get('bound') else 'unresolved',
+                       'detail': ('event bound by both names and the 60-second start window'
+                                  if sm.get('bound') else
+                                  'no exchange event bound to this fixture'
+                                  + (f" ({sm.get('error')})" if sm.get('error') else ''))})
+    pn = facts.get('pinnacle') or {}
+    if pn:
+        stages.append({'stage': 'Exchange market (Pinnacle guest board)',
+                       'source_url': pn.get('url') or PINNACLE_SITE,
+                       'status': 'resolved' if pn.get('matchup') else 'unresolved',
+                       'detail': ('series moneyline bound on the guest board' if pn.get('matchup')
+                                  else 'no bound matchup on the guest board'
+                                  + (f" ({pn.get('error')})" if pn.get('error') else ''))})
+    return stages
+
+
 def build_record(inventory: dict, published: dict, bound: dict, ratings, valve_meta,
                  registry: dict, observed_at: str, environment: str) -> tuple[dict, dict]:
     """Compose gap-picks.json + line-source-research.json (shared per-fixture facts)."""
@@ -615,14 +676,10 @@ def build_record(inventory: dict, published: dict, bound: dict, ratings, valve_m
         row = base_row(fixture, status)
         facts = bound.get(fixture.get('id') or pair_key(fixture['teams'])) or {}
         hltv = facts.get('hltv') or {}
-        if hltv.get('match_url') or hltv.get('matches_page_status') is not None:
+        if hltv.get('match_url'):
             row['hltv_url'] = hltv.get('match_url')
-            row['research'].append({
-                'stage': 'HLTV first (identity & state)', 'source_url': hltv.get('match_url') or HLTV_MATCHES,
-                'status': 'checked' if hltv.get('matches_page_status') == 200 or hltv.get('match_status') == 200 else 'unavailable',
-                'detail': (hltv.get('detail') or '') + (
-                    f" · match page HTTP {hltv.get('match_status')}" if hltv.get('match_status') else ''),
-            })
+        row['research'].extend(evidence_stages(facts))
+        row['extra_pages'] = [b['name'] for b in (facts.get('books') or []) if b.get('teams_listed')][:6]
         if status in {'started', 'finished'} or hltv.get('state') in {'started', 'finished'}:
             if hltv.get('state') in {'started', 'finished'}:
                 row['status'] = hltv['state']
@@ -683,13 +740,15 @@ def build_record(inventory: dict, published: dict, bound: dict, ratings, valve_m
         }
         row = base_row(fixture, 'open')
         facts = bound.get(ident) or bound.get(pair_key(fixture['teams'])) or {}
+        row['research'] = evidence_stages(facts)
+        row['extra_pages'] = [b['name'] for b in (facts.get('books') or []) if b.get('teams_listed')][:6]
         try:
             resolved = resolve(fixture, facts, ratings, valve_meta, registry, observed_at)
         except Exception as exc:  # noqa: BLE001 - fail closed to "unresolved"
             resolved = {'method': None, 'attempts': [
                 {'stage': 'Resolution', 'status': 'unresolved',
                  'detail': f'{type(exc).__name__}: {exc}'[:180]}]}
-        row['research'] = list(resolved.get('attempts') or [])
+        row['research'].extend(resolved.get('attempts') or [])
         current = orig.get('origination') or {}
         current_probs = current.get('probabilities')
         if resolved.get('method') in {'relayed bookmaker', 'bookmaker'}:
@@ -764,7 +823,7 @@ def build_record(inventory: dict, published: dict, bound: dict, ratings, valve_m
                          'path': (row.get('pick') or {}).get('book_url')}
                         if lead and bet else None),
             'pinnacle_matchup': None,
-            'extra_pages_listing_a_team': [],
+            'extra_pages_listing_a_team': list(row.get('extra_pages') or []),
             'money_line_lead': lead,
             'verdict': row.get('limitation'),
             'pick': row.get('pick'),
