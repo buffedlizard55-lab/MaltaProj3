@@ -1,20 +1,20 @@
 {
  "schema_version": 1,
  "session": "arena-1531ecf1",
- "observed_at": "2026-10-23T11:00:33Z",
+ "observed_at": "2026-10-23T11:07:23Z",
  "environment": "github-actions-runner",
  "role": "Dated research and gap picks. Only a bound two-sided prematch price or the documented Valve-rating research model may produce the probabilities recorded here. Hotspawn crowd percentages and HLTV fan votes are never inputs.",
  "policy": "HLTV first (identity, format, started/finished state only), then esportsbooks and esports betting-line services (bo3.gg bookmaker relay, Smarkets, Thunderpick, Pinnacle guest board, book-surface sweep). Resolution reuses scripts/originate.py’s reviewed ladder. An even estimate never receives an invented side.",
  "inventory": {
   "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
   "lobby_url": "https://play.hotspawn.com/lobby",
-  "observed_at": "2026-10-23T11:00:33Z",
+  "observed_at": "2026-10-23T11:07:23Z",
   "http_status": 200,
   "fixtures_seen": 92
  },
  "published": {
-  "latest_generated_at": "2026-10-23T10:59:15Z",
-  "origination_generated_at": "2026-10-23T10:59:30Z",
+  "latest_generated_at": "2026-10-23T11:06:26Z",
+  "origination_generated_at": "2026-10-23T11:06:42Z",
   "upcoming_ids": [
    "1051301",
    "1051339",
@@ -125,6 +125,36 @@
    "covered_as": null,
    "research": [
     {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Esportsbooks & betting-line sweep",
+     "source_url": "https://gg.bet/esports/counter-strike",
+     "status": "checked",
+     "detail": "3 of 16 esportsbook/aggregator surfaces answered HTTP 200; no probed page named either team. A reachable page is never a price: no readable two-sided pair on any surface. Some surfaces refused or timed out; a refusal is not evidence that no market exists."
+    },
+    {
+     "stage": "Thunderpick original prices",
+     "source_url": "https://thunderpick.io/api/matches",
+     "status": "unresolved",
+     "detail": "fixture not on the reachable Thunderpick board (HTTP 403)"
+    },
+    {
+     "stage": "Exchange market (Smarkets CS2 match winner)",
+     "source_url": "https://smarkets.com/sport/esports/cs-go",
+     "status": "unresolved",
+     "detail": "no exchange event bound to this fixture"
+    },
+    {
+     "stage": "Exchange market (Pinnacle guest board)",
+     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+     "status": "resolved",
+     "detail": "series moneyline bound on the guest board"
+    },
+    {
      "stage": "Valve-rating research model",
      "status": "resolved",
      "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
@@ -132,6 +162,7 @@
    ],
    "pick": null,
    "limitation": "No two-sided prematch price on any probed surface; the published research estimate and its limitation stand until the next refresh.",
+   "extra_pages": [],
    "current_estimate": {
     "label": "Valve-rating research estimate",
     "probabilities": [
@@ -155,6 +186,36 @@
    "covered_as": null,
    "research": [
     {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Esportsbooks & betting-line sweep",
+     "source_url": "https://gg.bet/esports/counter-strike",
+     "status": "checked",
+     "detail": "3 of 16 esportsbook/aggregator surfaces answered HTTP 200; no probed page named either team. A reachable page is never a price: no readable two-sided pair on any surface. Some surfaces refused or timed out; a refusal is not evidence that no market exists."
+    },
+    {
+     "stage": "Thunderpick original prices",
+     "source_url": "https://thunderpick.io/api/matches",
+     "status": "unresolved",
+     "detail": "fixture not on the reachable Thunderpick board (HTTP 403)"
+    },
+    {
+     "stage": "Exchange market (Smarkets CS2 match winner)",
+     "source_url": "https://smarkets.com/sport/esports/cs-go",
+     "status": "unresolved",
+     "detail": "no exchange event bound to this fixture"
+    },
+    {
+     "stage": "Exchange market (Pinnacle guest board)",
+     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+     "status": "resolved",
+     "detail": "series moneyline bound on the guest board"
+    },
+    {
      "stage": "Valve-rating research model",
      "status": "resolved",
      "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
@@ -162,6 +223,7 @@
    ],
    "pick": null,
    "limitation": "No two-sided prematch price on any probed surface; the published research estimate and its limitation stand until the next refresh.",
+   "extra_pages": [],
    "current_estimate": {
     "label": "Valve-rating research estimate",
     "probabilities": [
@@ -185,6 +247,36 @@
    "covered_as": null,
    "research": [
     {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Esportsbooks & betting-line sweep",
+     "source_url": "https://gg.bet/esports/counter-strike",
+     "status": "checked",
+     "detail": "3 of 16 esportsbook/aggregator surfaces answered HTTP 200; no probed page named either team. A reachable page is never a price: no readable two-sided pair on any surface. Some surfaces refused or timed out; a refusal is not evidence that no market exists."
+    },
+    {
+     "stage": "Thunderpick original prices",
+     "source_url": "https://thunderpick.io/api/matches",
+     "status": "unresolved",
+     "detail": "fixture not on the reachable Thunderpick board (HTTP 403)"
+    },
+    {
+     "stage": "Exchange market (Smarkets CS2 match winner)",
+     "source_url": "https://smarkets.com/sport/esports/cs-go",
+     "status": "unresolved",
+     "detail": "no exchange event bound to this fixture"
+    },
+    {
+     "stage": "Exchange market (Pinnacle guest board)",
+     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+     "status": "resolved",
+     "detail": "series moneyline bound on the guest board"
+    },
+    {
      "stage": "Valve-rating research model",
      "status": "resolved",
      "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
@@ -192,6 +284,7 @@
    ],
    "pick": null,
    "limitation": "No two-sided prematch price on any probed surface; the published research estimate and its limitation stand until the next refresh.",
+   "extra_pages": [],
    "current_estimate": {
     "label": "Valve-rating research estimate",
     "probabilities": [
@@ -215,6 +308,36 @@
    "covered_as": null,
    "research": [
     {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Esportsbooks & betting-line sweep",
+     "source_url": "https://gg.bet/esports/counter-strike",
+     "status": "checked",
+     "detail": "3 of 16 esportsbook/aggregator surfaces answered HTTP 200; no probed page named either team. A reachable page is never a price: no readable two-sided pair on any surface. Some surfaces refused or timed out; a refusal is not evidence that no market exists."
+    },
+    {
+     "stage": "Thunderpick original prices",
+     "source_url": "https://thunderpick.io/api/matches",
+     "status": "unresolved",
+     "detail": "fixture not on the reachable Thunderpick board (HTTP 403)"
+    },
+    {
+     "stage": "Exchange market (Smarkets CS2 match winner)",
+     "source_url": "https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-a/2026/10/26/03-00/ground-zero-vs-off-chops",
+     "status": "resolved",
+     "detail": "event bound by both names and the 60-second start window"
+    },
+    {
+     "stage": "Exchange market (Pinnacle guest board)",
+     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+     "status": "resolved",
+     "detail": "series moneyline bound on the guest board"
+    },
+    {
      "stage": "Valve-rating research model",
      "status": "unresolved",
      "detail": "Off Chops: no Valve rating row found (including registry aliases)"
@@ -222,11 +345,12 @@
    ],
    "pick": null,
    "limitation": "No two-sided prematch price on any probed surface; the published research estimate and its limitation stand until the next refresh.",
+   "extra_pages": [],
    "current_estimate": {
     "label": "Own network estimate (bo3.gg results graph)",
     "probabilities": [
-     0.4492308690416069,
-     0.5507691309583931
+     0.4493733010376189,
+     0.5506266989623811
     ],
     "source": "Own network model (bo3.gg results graph)",
     "source_url": "https://bo3.gg/matches"
@@ -245,6 +369,36 @@
    "covered_as": null,
    "research": [
     {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Esportsbooks & betting-line sweep",
+     "source_url": "https://gg.bet/esports/counter-strike",
+     "status": "checked",
+     "detail": "3 of 16 esportsbook/aggregator surfaces answered HTTP 200; no probed page named either team. A reachable page is never a price: no readable two-sided pair on any surface. Some surfaces refused or timed out; a refusal is not evidence that no market exists."
+    },
+    {
+     "stage": "Thunderpick original prices",
+     "source_url": "https://thunderpick.io/api/matches",
+     "status": "unresolved",
+     "detail": "fixture not on the reachable Thunderpick board (HTTP 403)"
+    },
+    {
+     "stage": "Exchange market (Smarkets CS2 match winner)",
+     "source_url": "https://smarkets.com/sport/esports/cs-go",
+     "status": "unresolved",
+     "detail": "no exchange event bound to this fixture"
+    },
+    {
+     "stage": "Exchange market (Pinnacle guest board)",
+     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+     "status": "resolved",
+     "detail": "series moneyline bound on the guest board"
+    },
+    {
      "stage": "Valve-rating research model",
      "status": "resolved",
      "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
@@ -252,6 +406,7 @@
    ],
    "pick": null,
    "limitation": "No two-sided prematch price on any probed surface; the published research estimate and its limitation stand until the next refresh.",
+   "extra_pages": [],
    "current_estimate": {
     "label": "Valve-rating research estimate",
     "probabilities": [
@@ -275,6 +430,36 @@
    "covered_as": null,
    "research": [
     {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Esportsbooks & betting-line sweep",
+     "source_url": "https://gg.bet/esports/counter-strike",
+     "status": "checked",
+     "detail": "3 of 16 esportsbook/aggregator surfaces answered HTTP 200; no probed page named either team. A reachable page is never a price: no readable two-sided pair on any surface. Some surfaces refused or timed out; a refusal is not evidence that no market exists."
+    },
+    {
+     "stage": "Thunderpick original prices",
+     "source_url": "https://thunderpick.io/api/matches",
+     "status": "unresolved",
+     "detail": "fixture not on the reachable Thunderpick board (HTTP 403)"
+    },
+    {
+     "stage": "Exchange market (Smarkets CS2 match winner)",
+     "source_url": "https://smarkets.com/sport/esports/cs-go",
+     "status": "unresolved",
+     "detail": "no exchange event bound to this fixture"
+    },
+    {
+     "stage": "Exchange market (Pinnacle guest board)",
+     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+     "status": "resolved",
+     "detail": "series moneyline bound on the guest board"
+    },
+    {
      "stage": "Valve-rating research model",
      "status": "unresolved",
      "detail": "The Huns: multiple Valve rosters share this name; no unique exact-five-player HLTV proof"
@@ -282,6 +467,7 @@
    ],
    "pick": null,
    "limitation": "No two-sided prematch price on any probed surface; the published research estimate and its limitation stand until the next refresh.",
+   "extra_pages": [],
    "current_estimate": {
     "label": "Research model estimate (Valve official ratings)",
     "probabilities": [
@@ -305,6 +491,36 @@
    "covered_as": null,
    "research": [
     {
+     "stage": "HLTV first (identity & state)",
+     "source_url": "https://www.hltv.org/matches",
+     "status": "unavailable",
+     "detail": "teams not seen on the fetched HLTV matches page"
+    },
+    {
+     "stage": "Esportsbooks & betting-line sweep",
+     "source_url": "https://gg.bet/esports/counter-strike",
+     "status": "checked",
+     "detail": "3 of 16 esportsbook/aggregator surfaces answered HTTP 200; no probed page named either team. A reachable page is never a price: no readable two-sided pair on any surface. Some surfaces refused or timed out; a refusal is not evidence that no market exists."
+    },
+    {
+     "stage": "Thunderpick original prices",
+     "source_url": "https://thunderpick.io/api/matches",
+     "status": "unresolved",
+     "detail": "fixture not on the reachable Thunderpick board (HTTP 403)"
+    },
+    {
+     "stage": "Exchange market (Smarkets CS2 match winner)",
+     "source_url": "https://smarkets.com/sport/esports/cs-go",
+     "status": "unresolved",
+     "detail": "no exchange event bound to this fixture"
+    },
+    {
+     "stage": "Exchange market (Pinnacle guest board)",
+     "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+     "status": "resolved",
+     "detail": "series moneyline bound on the guest board"
+    },
+    {
      "stage": "Valve-rating research model",
      "status": "resolved",
      "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula)."
@@ -312,6 +528,7 @@
    ],
    "pick": null,
    "limitation": "No two-sided prematch price on any probed surface; the published research estimate and its limitation stand until the next refresh.",
+   "extra_pages": [],
    "current_estimate": {
     "label": "Valve-rating research estimate",
     "probabilities": [
