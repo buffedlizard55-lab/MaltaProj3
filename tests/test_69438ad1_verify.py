@@ -159,3 +159,23 @@ class ReconciliationTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class FlagSourceContractTests(unittest.TestCase):
+    """Every published flag row must carry an allow-listed official source.
+
+    The Flagged for Review page renders each ``flags.json`` entry as a table row,
+    and ``scripts.audit_rows`` fails a build audit when a row has neither an
+    official link nor an unverified marker. A self-referential finding (only this
+    project's github.io URLs) tripped exactly that in CI run 39905107686, so the
+    contract is pinned here against the real registry.
+    """
+
+    def test_every_session_flag_links_an_official_source(self):
+        from scripts.audit_rows import is_official
+        flags = json.loads((Path(__file__).resolve().parents[1] / 'data' / 'research'
+                            / '69438ad1' / 'flags.json').read_text())
+        self.assertGreaterEqual(len(flags), 5)
+        for flag in flags:
+            official = [u for u in flag['source_urls'] if is_official(u)]
+            self.assertTrue(official, f"{flag['id']} has no allow-listed official source: {flag['source_urls']}")
