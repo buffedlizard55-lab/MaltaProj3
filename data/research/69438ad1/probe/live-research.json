@@ -1,0 +1,2980 @@
+{
+  "schema_version": 1,
+  "session": "arena-3a5448de",
+  "observed_at": "2026-10-23T05:10:39Z",
+  "environment": "github-actions-runner",
+  "policy": "Read-only research for fixtures the featured method did not resolve with a first-party money line. HLTV first (identity/ranking; no prematch price, fan vote excluded), then esportsbooks/betting lines. No probability, pick or alias is written here. HTML pages are reachability/name evidence only; no price is scraped from HTML.",
+  "snapshot": {
+    "latest_generated_at": "2026-10-23T05:09:54Z",
+    "origination_generated_at": "2026-10-23T05:09:55Z",
+    "counts": {
+      "active": 17,
+      "resolved": 17,
+      "unresolved": 0,
+      "with_pick": 17,
+      "consensus": 0,
+      "market": 7,
+      "bookmaker": 1,
+      "reference": 0,
+      "model": 9,
+      "network": 0,
+      "relay": 0,
+      "guidance": 0,
+      "alias_joined": 4
+    }
+  },
+  "target_definition": "active fixtures where featured_method is null, or the complete-list resolution is not a first-party money line (model/guidance/blank)",
+  "target_count": 9,
+  "surfaces": [
+    {
+      "name": "HLTV match listing",
+      "url": "https://www.hltv.org/matches",
+      "observed_at": "2026-10-23T05:10:27+00:00",
+      "http_status": 403,
+      "final_url": "https://www.hltv.org/matches",
+      "bytes": 5626,
+      "challenge_markers": [
+        "just a moment",
+        "challenge-platform",
+        "enable javascript and cookies"
+      ],
+      "teams_listed": [
+        "9z"
+      ]
+    },
+    {
+      "name": "HLTV world ranking",
+      "url": "https://www.hltv.org/ranking/teams",
+      "observed_at": "2026-10-23T05:10:27+00:00",
+      "http_status": 403,
+      "final_url": "https://www.hltv.org/ranking/teams",
+      "bytes": 5644,
+      "challenge_markers": [
+        "just a moment",
+        "challenge-platform",
+        "enable javascript and cookies"
+      ],
+      "teams_listed": [
+        "9z"
+      ]
+    },
+    {
+      "name": "EGamersWorld CS2 matches",
+      "url": "https://egamersworld.com/counterstrike/matches",
+      "observed_at": "2026-10-23T05:10:27+00:00",
+      "http_status": 403,
+      "final_url": "https://egamersworld.com/counterstrike/matches",
+      "bytes": 5774,
+      "challenge_markers": [
+        "challenge-platform",
+        "attention required",
+        "captcha"
+      ],
+      "teams_listed": []
+    },
+    {
+      "name": "DraftKings CS2",
+      "url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
+      "observed_at": "2026-10-23T05:10:27+00:00",
+      "http_status": 404,
+      "final_url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
+      "bytes": 257263,
+      "challenge_markers": [],
+      "teams_listed": [
+        "EAC",
+        "ENCE"
+      ]
+    },
+    {
+      "name": "Stake CS2",
+      "url": "https://stake.com/sports/esports/counter-strike-2",
+      "observed_at": "2026-10-23T05:10:27+00:00",
+      "http_status": 403,
+      "final_url": "https://stake.com/sports/esports/counter-strike-2",
+      "bytes": 5737,
+      "challenge_markers": [
+        "just a moment",
+        "challenge-platform",
+        "enable javascript and cookies"
+      ],
+      "teams_listed": [
+        "9z"
+      ]
+    },
+    {
+      "name": "OddsPortal CS2",
+      "url": "https://www.oddsportal.com/esports/counter-strike/",
+      "observed_at": "2026-10-23T05:10:28+00:00",
+      "http_status": 200,
+      "final_url": "https://www.oddsportal.com/esports/counter-strike/",
+      "bytes": 336900,
+      "challenge_markers": [
+        "captcha"
+      ],
+      "teams_listed": [
+        "9z",
+        "EAC",
+        "ENCE"
+      ]
+    },
+    {
+      "name": "Rivalry CS2",
+      "url": "https://www.rivalry.com/esports/counter-strike-2-betting",
+      "observed_at": "2026-10-23T05:10:29+00:00",
+      "http_status": 200,
+      "final_url": "https://www.rivalry.com/",
+      "bytes": 60850,
+      "challenge_markers": [
+        "challenge-platform"
+      ],
+      "teams_listed": [
+        "9z",
+        "ENCE"
+      ]
+    },
+    {
+      "name": "GG.BET CS",
+      "url": "https://gg.bet/en/counter-strike",
+      "observed_at": "2026-10-23T05:10:29+00:00",
+      "http_status": 403,
+      "final_url": "https://gg.bet/en/counter-strike",
+      "bytes": 126,
+      "challenge_markers": [],
+      "teams_listed": []
+    },
+    {
+      "name": "BetBoom CS2",
+      "url": "https://betboom.ru/sport/cs2",
+      "observed_at": "2026-10-23T05:10:29+00:00",
+      "http_status": 401,
+      "final_url": "https://betboom.ru/sport/cs2",
+      "bytes": 1799,
+      "challenge_markers": [
+        "captcha"
+      ],
+      "teams_listed": [
+        "BetBoom"
+      ]
+    },
+    {
+      "name": "1xBet CS2",
+      "url": "https://1xbet.com/en/line/counter-strike-2",
+      "observed_at": "2026-10-23T05:10:29+00:00",
+      "http_status": 203,
+      "final_url": "https://1xbet.com/en/block",
+      "bytes": 2619,
+      "challenge_markers": [
+        "challenge-platform"
+      ],
+      "teams_listed": []
+    },
+    {
+      "name": "Marathonbet CS2",
+      "url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
+      "observed_at": "2026-10-23T05:10:30+00:00",
+      "http_status": 403,
+      "final_url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
+      "bytes": 5487,
+      "challenge_markers": [
+        "challenge-platform",
+        "attention required",
+        "captcha"
+      ],
+      "teams_listed": []
+    },
+    {
+      "name": "Betway CS2",
+      "url": "https://www.betway.com/en/sports/esports/counter-strike-2",
+      "observed_at": "2026-10-23T05:10:30+00:00",
+      "http_status": 404,
+      "final_url": "https://betway.com/g/en/sports/esports/counter-strike-2",
+      "bytes": 6690,
+      "challenge_markers": [],
+      "teams_listed": [
+        "EAC",
+        "ENCE"
+      ]
+    },
+    {
+      "name": "Luckbox CS2",
+      "url": "https://luckbox.com/esports/csgo",
+      "observed_at": "2026-10-23T05:10:30+00:00",
+      "http_status": null,
+      "error": "ConnectionError: HTTPSConnectionPool(host='luckbox.com', port=443): Max retries exceeded with url: /esports/csgo (Caused by NameResolutionError(\"HTTPSConnection(host='luckbox.com', port=443): Failed to resolve 'luckbox.com' ([Errno -5] No address associated with hostname)\"))"
+    },
+    {
+      "name": "Oddspedia CS2",
+      "url": "https://www.oddspedia.com/esports/counter-strike-2",
+      "observed_at": "2026-10-23T05:10:30+00:00",
+      "http_status": 410,
+      "final_url": "https://oddspedia.com/esports/counter-strike-2",
+      "bytes": 340030,
+      "challenge_markers": [
+        "challenge-platform",
+        "captcha"
+      ],
+      "teams_listed": [
+        "EAC",
+        "ENCE"
+      ]
+    },
+    {
+      "name": "bo3.gg matches",
+      "url": "https://bo3.gg/matches",
+      "observed_at": "2026-10-23T05:10:30+00:00",
+      "http_status": 200,
+      "final_url": "https://bo3.gg/matches",
+      "bytes": 12789,
+      "challenge_markers": [
+        "captcha"
+      ],
+      "teams_listed": []
+    },
+    {
+      "name": "bo3.gg teams",
+      "url": "https://bo3.gg/teams",
+      "observed_at": "2026-10-23T05:10:31+00:00",
+      "http_status": 200,
+      "final_url": "https://bo3.gg/teams",
+      "bytes": 12789,
+      "challenge_markers": [
+        "captcha"
+      ],
+      "teams_listed": []
+    },
+    {
+      "name": "Pinnacle guest leagues (sport 12)",
+      "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues",
+      "observed_at": "2026-10-23T05:10:31+00:00",
+      "http_status": 200,
+      "final_url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues",
+      "bytes": 10627,
+      "challenge_markers": [],
+      "teams_listed": [
+        "EAC",
+        "ENCE"
+      ]
+    }
+  ],
+  "surface_errors": {},
+  "bo3_upcoming_rows": 269,
+  "bo3_error": null,
+  "fixtures": [
+    {
+      "hotspawn_id": "1080202",
+      "teams": [
+        "9z",
+        "Falcons"
+      ],
+      "competition": "Thunderpick World Championship 2026",
+      "starts_at": "2026-10-15T11:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080202",
+      "featured_method": "model",
+      "current_resolution": {
+        "method": "model",
+        "label": "Valve-rating research estimate",
+        "source": "Valve official standings",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "probabilities": [
+          0.15709516,
+          0.84290484
+        ],
+        "inputs": [
+          {
+            "name": "9z",
+            "points": 1543,
+            "rank": null,
+            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+          },
+          {
+            "name": "Falcons",
+            "points": 1843,
+            "rank": null,
+            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+          }
+        ],
+        "pick_index": 1,
+        "limitations": [
+          "Research model, not observed betting odds or a verified true win probability.",
+          "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
+          "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
+        ]
+      },
+      "sources_tried_from_published_trail": [
+        {
+          "stage": "Primary: Polymarket",
+          "status": "unresolved",
+          "source_url": "https://polymarket.com/esports/cs2",
+          "detail": "No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased."
+        },
+        {
+          "stage": "HLTV research",
+          "status": "checked",
+          "source_url": "https://www.hltv.org/matches/2399409/9z-vs-falcons-thunderpick-world-championship-2026",
+          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
+        },
+        {
+          "stage": "Original esportsbook lines",
+          "status": "unresolved",
+          "source_url": "https://thunderpick.io/esports/counter-strike",
+          "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists."
+        },
+        {
+          "stage": "GG.BET esportsbook",
+          "status": "unavailable",
+          "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
+          "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
+        },
+        {
+          "stage": "Pinnacle esportsbook",
+          "status": "unavailable",
+          "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
+          "detail": "Redirected to a generic landing page; no match-level betting lines verified."
+        },
+        {
+          "stage": "Rivalry esportsbook",
+          "status": "unavailable",
+          "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
+          "detail": "Redirected to a generic landing page; no match-level betting lines verified."
+        },
+        {
+          "stage": "Stake esportsbook",
+          "status": "unavailable",
+          "source_url": "https://stake.com/sports/esports/counter-strike",
+          "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
+        },
+        {
+          "stage": "Valve research model",
+          "status": "resolved",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "Unique exact-name five-player rating records. Explicitly uncalibrated model; no bookmaker odds claimed."
+        }
+      ],
+      "unresolved_stages": [
+        "Primary: Polymarket",
+        "Original esportsbook lines",
+        "GG.BET esportsbook",
+        "Pinnacle esportsbook",
+        "Rivalry esportsbook",
+        "Stake esportsbook"
+      ],
+      "bo3_fixture": {
+        "bound": [],
+        "near_time_mismatch": []
+      },
+      "bo3_relay_two_sided_quote_present": false,
+      "bo3_team_lookups": {
+        "9z": {
+          "query_name": "9z",
+          "matches": [
+            {
+              "id": 324,
+              "name": "9z",
+              "slug": "9z"
+            }
+          ],
+          "detail_keys": null,
+          "detail_sample": null,
+          "listing_keys": [
+            "acronym",
+            "avg_views",
+            "country_id",
+            "created_at",
+            "discipline_id",
+            "email",
+            "est_date",
+            "facebook",
+            "gallery_presence",
+            "icon_data",
+            "icon_url",
+            "icon_versions",
+            "id",
+            "image_data",
+            "image_url",
+            "image_versions",
+            "instagram_url",
+            "name",
+            "ps_id",
+            "rank",
+            "six_month_earned",
+            "slug",
+            "tshirt_image_data",
+            "tshirt_image_url",
+            "tshirt_image_versions",
+            "twitch_url",
+            "twitter",
+            "updated_at",
+            "website_url",
+            "youtube_url"
+          ],
+          "listing_sample": {
+            "acronym": "9z",
+            "country_id": 12,
+            "created_at": "2020-10-19T08:52:05.613+00:00",
+            "discipline_id": 1,
+            "est_date": "2018-08-18",
+            "gallery_presence": false,
+            "id": 324,
+            "image_data": "{\"id\":\"team/324/image/f9dde1043824e2b62f48780221c76c39\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"File name\",\"size\":63870,\"mime_type\":\"image/png\",\"width\":1200,\"height\":1015},\"derivatives\":{\"webp\":{\"id\":\"team/324/image/webp-847d6324439266b5de80bcb2e23fa38e.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250426-1-1ksp4u6.webp\",\"size\":19874,\"mime_type\":null,\"width\":1200,\"height\":1015}},\"20x20\":{\"id\":\"team/324/image/20x20-82d99345a0b31aeed1c64d7525e46d96.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250426-1-7f4fpl.webp\",\"size\":426,\"mime_type\":null,\"width\":20,\"height\":17}},\"50x50\":{\"id\":\"team/324/image/50x50-91a1e1ec24c518e595229e9abbaf124b.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250426-1-9ytirm.webp\",\"size\":1080,\"mime_type\":null,\"width\":50,\"height\":42}},\"150x150\":{\"id\":\"team/324/image/150x150-84da4064c3b2834526162c8b4c60fb0f.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250426-1-jyplm6.webp\",\"size\":2940,\"mime_type\":null,\"width\":150,\"height\":127}},\"400x400\":{\"id\":\"team/324/image/400x400-f3e6461efceadbed8e6e6479909fbc9c.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250426-1-17qokz1.webp\",\"size\":8030,\"mime_type\":null,\"width\":400,\"height\":338}}}}",
+            "image_url": "https://files.bo3.gg/uploads/team/324/image/webp-847d6324439266b5de80bcb2e23fa38e.webp",
+            "name": "9z",
+            "ps_id": 126709,
+            "rank": 17,
+            "six_month_earned": 356250,
+            "slug": "9z",
+            "tshirt_image_data": "{\"id\":\"team/324/tshirt_image/0f72efac7787b5b355b57594e09ef2c9\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"File name\",\"size\":110064,\"mime_type\":\"image/png\",\"width\":320,\"height\":315},\"derivatives\":{\"webp\":{\"id\":\"team/324/tshirt_image/webp-f4637ee7e2630a2aa0a67c8e79cd7a21.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250811-1-cj1cpt.webp\",\"size\":8652,\"mime_type\":null,\"width\":320,\"height\":315}},\"20x20\":{\"id\":\"team/324/tshirt_image/20x20-1f5ab3c78f9adff36fd234d811047c88.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250811-1-b8wr54.webp\",\"size\":382,\"mime_type\":null,\"width\":20,\"height\":20}},\"50x50\":{\"id\":\"team/324/tshirt_image/50x50-04c1cc6dc5c9134e704e4e56895882ea.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250811-1-olcenc.webp\",\"size\":838,\"mime_type\":null,\"width\":50,\"height\":49}},\"150x150\":{\"id\":\"team/324/tshirt_image/150x150-c48da69417edd2e3981ec8395ff52721.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250811-1-1f4ry85.webp\",\"size\":3086,\"mime_type\":null,\"width\":150,\"height\":148}},\"400x400\":{\"id\":\"team/324/tshirt_image/400x400-6a3c2328dbca974a6facce0e8196eee3.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250811-1-1xoc28c.webp\",\"size\":8190,\"mime_type\":null,\"width\":320,\"height\":315}}}}",
+            "tshirt_image_url": "https://files.bo3.gg/uploads/team/324/tshirt_image/webp-2c41b3d58e1edade4c3c23c548d3ecc9.webp",
+            "updated_at": "2026-10-23T03:30:43.008+00:00"
+          },
+          "detail_errors": {
+            "id": "HTTPError: 404 Client Error: Not Found for url: https://api.bo3.gg/api/v1/teams/324"
+          },
+          "detail_by_slug": {
+            "keys": [
+              "achievements",
+              "acronym",
+              "alternative_names",
+              "avg_views",
+              "country",
+              "country_id",
+              "created_at",
+              "discipline_id",
+              "email",
+              "est_date",
+              "facebook",
+              "from_transfers",
+              "gallery_presence",
+              "icon_url",
+              "id",
+              "image_url",
+              "instagram_url",
+              "localized_teams_records",
+              "name",
+              "players",
+              "rank",
+              "rank_diff",
+              "six_month_earned",
+              "slug",
+              "staff_member_participants",
+              "tags",
+              "team_clans",
+              "tshirt_image_url",
+              "twitch_url",
+              "twitter",
+              "updated_at",
+              "website_url",
+              "youtube_url"
+            ],
+            "sample": {
+              "acronym": "9z",
+              "country_id": 12,
+              "created_at": "2020-10-19T08:52:05.613+00:00",
+              "discipline_id": 1,
+              "est_date": "2018-08-18",
+              "gallery_presence": false,
+              "id": 324,
+              "image_url": "https://files.bo3.gg/uploads/team/324/image/webp-847d6324439266b5de80bcb2e23fa38e.webp",
+              "name": "9z",
+              "rank": 17,
+              "rank_diff": -13,
+              "six_month_earned": 356250,
+              "slug": "9z",
+              "tshirt_image_url": "https://files.bo3.gg/uploads/team/324/tshirt_image/webp-2c41b3d58e1edade4c3c23c548d3ecc9.webp",
+              "updated_at": "2026-10-23T03:30:43.008+00:00"
+            }
+          }
+        },
+        "Falcons": {
+          "query_name": "Falcons",
+          "matches": [
+            {
+              "id": 2713,
+              "name": "Falcons",
+              "slug": "falcons-esports"
+            }
+          ],
+          "detail_keys": null,
+          "detail_sample": null,
+          "listing_keys": [
+            "acronym",
+            "avg_views",
+            "country_id",
+            "created_at",
+            "discipline_id",
+            "email",
+            "est_date",
+            "facebook",
+            "gallery_presence",
+            "icon_data",
+            "icon_url",
+            "icon_versions",
+            "id",
+            "image_data",
+            "image_url",
+            "image_versions",
+            "instagram_url",
+            "name",
+            "ps_id",
+            "rank",
+            "six_month_earned",
+            "slug",
+            "tshirt_image_data",
+            "tshirt_image_url",
+            "tshirt_image_versions",
+            "twitch_url",
+            "twitter",
+            "updated_at",
+            "website_url",
+            "youtube_url"
+          ],
+          "listing_sample": {
+            "acronym": "FLC",
+            "country_id": 70,
+            "created_at": "2022-03-05T00:00:11.654+00:00",
+            "discipline_id": 1,
+            "est_date": "2020-11-29",
+            "gallery_presence": true,
+            "id": 2713,
+            "image_data": "{\"id\":\"team/2713/image/991d1faf99980328631ecef174bdcddf\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"File name\",\"size\":31065,\"mime_type\":\"image/png\",\"width\":220,\"height\":263},\"derivatives\":{\"webp\":{\"id\":\"team/2713/image/webp-86fd5a0653183a19cf750d195963ea10.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20240207-1-4qwy23.webp\",\"size\":9672,\"mime_type\":null,\"width\":220,\"height\":263}},\"20x20\":{\"id\":\"team/2713/image/20x20-08c67e9c9c2162a3d9bd5b7f1b1833ff.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20240207-1-r7th9x.webp\",\"size\":472,\"mime_type\":null,\"width\":17,\"height\":20}},\"50x50\":{\"id\":\"team/2713/image/50x50-4f3fd707eb8437d7286f7d831a03137e.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20240207-1-dcqhse.webp\",\"size\":1232,\"mime_type\":null,\"width\":42,\"height\":50}},\"150x150\":{\"id\":\"team/2713/image/150x150-8669cfc38a641a540b72b8f7314e61fd.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20240207-1-1l2nijz.webp\",\"size\":4616,\"mime_type\":null,\"width\":125,\"height\":150}},\"400x400\":{\"id\":\"team/2713/image/400x400-f25d3c3d2c757cb0dd8dac5d98446c1e.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20240207-1-1qi96s6.webp\",\"size\":9364,\"mime_type\":null,\"width\":220,\"height\":263}}}}",
+            "image_url": "https://files.bo3.gg/uploads/team/2713/image/webp-86fd5a0653183a19cf750d195963ea10.webp",
+            "name": "Falcons",
+            "ps_id": 130564,
+            "rank": 6,
+            "six_month_earned": 825000,
+            "slug": "falcons-esports",
+            "tshirt_image_data": "{\"id\":\"team/2713/tshirt_image/22b38eacd7537a310d0b9a9152e0bbcf\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"File name\",\"size\":1123486,\"mime_type\":\"image/png\",\"width\":789,\"height\":1054},\"derivatives\":{\"webp\":{\"id\":\"team/2713/tshirt_image/webp-1a8f92e89c48e8028c6c47932bc70fb4.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260812-1-jq018l.webp\",\"size\":59440,\"mime_type\":null,\"width\":789,\"height\":1054}},\"20x20\":{\"id\":\"team/2713/tshirt_image/20x20-9cff6fb4770891db33161f9c4a805589.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260812-1-qxsvv4.webp\",\"size\":316,\"mime_type\":null,\"width\":15,\"height\":20}},\"50x50\":{\"id\":\"team/2713/tshirt_image/50x50-cc8ff046d9bf6a714440e930e6e8a9a1.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260812-1-14im9w.webp\",\"size\":792,\"mime_type\":null,\"width\":37,\"height\":50}},\"150x150\":{\"id\":\"team/2713/tshirt_image/150x150-d5a89efa39d28796a8dcea6f388dcc5c.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260812-1-af1ctv.webp\",\"size\":2768,\"mime_type\":null,\"width\":112,\"height\":150}},\"400x400\":{\"id\":\"team/2713/tshirt_image/400x400-5efc09bc08d51633d19f7332b2a56122.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260812-1-e12pfi.webp\",\"size\":9762,\"mime_type\":null,\"width\":299,\"height\":400}}}}",
+            "tshirt_image_url": "https://files.bo3.gg/uploads/team/2713/tshirt_image/webp-1a8f92e89c48e8028c6c47932bc70fb4.webp",
+            "updated_at": "2026-10-23T05:07:04.231+00:00"
+          },
+          "detail_errors": {
+            "id": "HTTPError: 404 Client Error: Not Found for url: https://api.bo3.gg/api/v1/teams/2713"
+          },
+          "detail_by_slug": {
+            "keys": [
+              "achievements",
+              "acronym",
+              "alternative_names",
+              "avg_views",
+              "country",
+              "country_id",
+              "created_at",
+              "discipline_id",
+              "email",
+              "est_date",
+              "facebook",
+              "from_transfers",
+              "gallery_presence",
+              "icon_url",
+              "id",
+              "image_url",
+              "instagram_url",
+              "localized_teams_records",
+              "name",
+              "players",
+              "rank",
+              "rank_diff",
+              "six_month_earned",
+              "slug",
+              "staff_member_participants",
+              "tags",
+              "team_clans",
+              "tshirt_image_url",
+              "twitch_url",
+              "twitter",
+              "updated_at",
+              "website_url",
+              "youtube_url"
+            ],
+            "sample": {
+              "acronym": "FLC",
+              "country_id": 70,
+              "created_at": "2022-03-05T00:00:11.654+00:00",
+              "discipline_id": 1,
+              "est_date": "2020-11-29",
+              "gallery_presence": true,
+              "id": 2713,
+              "image_url": "https://files.bo3.gg/uploads/team/2713/image/webp-86fd5a0653183a19cf750d195963ea10.webp",
+              "name": "Falcons",
+              "rank": 6,
+              "rank_diff": -4,
+              "six_month_earned": 825000,
+              "slug": "falcons-esports",
+              "tshirt_image_url": "https://files.bo3.gg/uploads/team/2713/tshirt_image/webp-1a8f92e89c48e8028c6c47932bc70fb4.webp",
+              "updated_at": "2026-10-23T05:07:04.231+00:00"
+            }
+          }
+        }
+      },
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ]
+    },
+    {
+      "hotspawn_id": "1080281",
+      "teams": [
+        "WROTBERRY",
+        "ENCE"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-15T12:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/wrotberry-vs-ence-elisa-breakout-series-2-1080281",
+      "featured_method": null,
+      "current_resolution": {
+        "method": "model",
+        "label": "Research model estimate (Valve official ratings)",
+        "source": "Valve official standings",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "probabilities": [
+          0.72821824,
+          0.27178176
+        ],
+        "inputs": [
+          {
+            "name": "WBT",
+            "points": 1201,
+            "rank": null,
+            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+          },
+          {
+            "name": "ENCE",
+            "points": 1025,
+            "rank": null,
+            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+          }
+        ],
+        "pick_index": 0,
+        "limitations": [
+          "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified."
+        ]
+      },
+      "sources_tried_from_published_trail": [
+        {
+          "stage": "HLTV research",
+          "status": "checked",
+          "source_url": "https://www.hltv.org/matches",
+          "detail": "No unique structured HLTV identity confirmed."
+        },
+        {
+          "stage": "HLTV identity review",
+          "status": "unresolved",
+          "source_url": "https://www.hltv.org/matches/2399420/wbt-vs-ence-elisa-breakout-series-2",
+          "detail": "HLTV lists WBT vs ENCE at the same scheduled time with one exact-name opponent. The other name differs; equivalence is NOT verified. This record is for review only, not a probability input or confirmed match join."
+        },
+        {
+          "stage": "Identity join (verified alias registry)",
+          "status": "resolved",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "WBT → WROTBERRY. Competition-scoped registry entries with official evidence links; this supersedes any earlier \"equivalence not verified\" observation for these names in this competition only."
+        },
+        {
+          "stage": "Betting market (Polymarket series winner)",
+          "status": "unresolved",
+          "source_url": "https://polymarket.com/esports/cs2",
+          "detail": "No alias-verified Polymarket match-winner line found for these teams and start time."
+        },
+        {
+          "stage": "Exchange market (Kalshi CS2 match winner)",
+          "status": "unresolved",
+          "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game",
+          "detail": "No alias-verified Kalshi match-winner line found for these teams and start time."
+        },
+        {
+          "stage": "Esportsbook line (Thunderpick original prices)",
+          "status": "unresolved",
+          "source_url": "https://thunderpick.io/esports/counter-strike",
+          "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time."
+        },
+        {
+          "stage": "Esportsbook line (Bovada original prices)",
+          "status": "unresolved",
+          "source_url": "https://www.bovada.lv/sports",
+          "detail": "No alias-verified Bovada match-winner line found for these teams and start time."
+        },
+        {
+          "stage": "Esportsbook line (Pinnacle original prices)",
+          "status": "unresolved",
+          "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+          "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time."
+        },
+        {
+          "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+          "status": "unresolved",
+          "source_url": "https://bo3.gg/matches",
+          "detail": "bo3.gg lists no fixture bound by both team names and the start time, or lists it without a bookmaker quote block, so no relayed price exists for this fixture."
+        },
+        {
+          "stage": "Aggregated bookmaker reference (EGamersWorld)",
+          "status": "unresolved",
+          "source_url": "https://egamersworld.com/counterstrike/matches",
+          "detail": "No reviewed aggregated-bookmaker capture matches this fixture."
+        },
+        {
+          "stage": "Research model cross-check (Valve official ratings)",
+          "status": "resolved",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula). Cross-check only unless no market or bookmaker line exists."
+        },
+        {
+          "stage": "Research model cross-check (HLTV world ranking)",
+          "status": "resolved",
+          "source_url": "https://www.hltv.org/ranking/teams",
+          "detail": "Alias-aware exact-name HLTV world-ranking rows; uncalibrated research model (400-scale logistic transform of the published HLTV points). Team-level ranking only: lineups, stand-ins, form and map veto are not confirmed. Cross-check only unless every money and Valve rung fails."
+        }
+      ],
+      "unresolved_stages": [
+        "HLTV identity review",
+        "Betting market (Polymarket series winner)",
+        "Exchange market (Kalshi CS2 match winner)",
+        "Esportsbook line (Thunderpick original prices)",
+        "Esportsbook line (Bovada original prices)",
+        "Esportsbook line (Pinnacle original prices)",
+        "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+        "Aggregated bookmaker reference (EGamersWorld)"
+      ],
+      "bo3_fixture": {
+        "bound": [],
+        "near_time_mismatch": []
+      },
+      "bo3_relay_two_sided_quote_present": false,
+      "bo3_team_lookups": {
+        "WROTBERRY": {
+          "query_name": "WROTBERRY",
+          "matches": [],
+          "detail_keys": null,
+          "detail_sample": null
+        },
+        "ENCE": {
+          "query_name": "ENCE",
+          "matches": [
+            {
+              "id": 754,
+              "name": "ENCE",
+              "slug": "ence"
+            }
+          ],
+          "detail_keys": null,
+          "detail_sample": null,
+          "listing_keys": [
+            "acronym",
+            "avg_views",
+            "country_id",
+            "created_at",
+            "discipline_id",
+            "email",
+            "est_date",
+            "facebook",
+            "gallery_presence",
+            "icon_data",
+            "icon_url",
+            "icon_versions",
+            "id",
+            "image_data",
+            "image_url",
+            "image_versions",
+            "instagram_url",
+            "name",
+            "ps_id",
+            "rank",
+            "six_month_earned",
+            "slug",
+            "tshirt_image_data",
+            "tshirt_image_url",
+            "tshirt_image_versions",
+            "twitch_url",
+            "twitter",
+            "updated_at",
+            "website_url",
+            "youtube_url"
+          ],
+          "listing_sample": {
+            "acronym": "ENCE",
+            "country_id": 28,
+            "created_at": "2020-10-19T08:52:54.756+00:00",
+            "discipline_id": 1,
+            "est_date": "2013-04-13",
+            "gallery_presence": false,
+            "id": 754,
+            "image_data": "{\"id\":\"team/754/image/a61e7d4e89e9fc4788e45b0bf98a9d80.png\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"599px-ENCE_2020_allmode.png\",\"size\":122519,\"mime_type\":\"image/png\",\"width\":599,\"height\":599},\"derivatives\":{\"webp\":{\"id\":\"team/754/image/webp-87072c1ac8a305cbfcf0e84cd5a18497.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20240317-1-13l8w3m.webp\",\"size\":31524,\"mime_type\":null,\"width\":599,\"height\":599}},\"20x20\":{\"id\":\"team/754/image/20x20-250b4bba77cf6383c4fcc3e05a061bd4.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20240317-1-yfjtqm.webp\",\"size\":492,\"mime_type\":null,\"width\":20,\"height\":20}},\"50x50\":{\"id\":\"team/754/image/50x50-43a42fa858c649bead9bae9498c021eb.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20240317-1-10it6xw.webp\",\"size\":1576,\"mime_type\":null,\"width\":50,\"height\":50}},\"150x150\":{\"id\":\"team/754/image/150x150-f3f849e3ed0c469ff73b6c3abc1dbaab.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20240317-1-q0jy5b.webp\",\"size\":6684,\"mime_type\":null,\"width\":150,\"height\":150}},\"400x400\":{\"id\":\"team/754/image/400x400-cc1b3c60c6011fc97e51d0c71230a4b6.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20240317-1-14m39f5.webp\",\"size\":19346,\"mime_type\":null,\"width\":400,\"height\":400}}}}",
+            "image_url": "https://files.bo3.gg/uploads/team/754/image/webp-87072c1ac8a305cbfcf0e84cd5a18497.webp",
+            "name": "ENCE",
+            "ps_id": 3251,
+            "rank": 105,
+            "six_month_earned": 1250,
+            "slug": "ence",
+            "tshirt_image_data": "{\"id\":\"team/754/tshirt_image/d04031d2fdc586c307a7cb22a88c41c1\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"File name\",\"size\":899694,\"mime_type\":\"image/png\",\"width\":1024,\"height\":1080},\"derivatives\":{\"webp\":{\"id\":\"team/754/tshirt_image/webp-5fe42c99431691ae1b5b625093081c57.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250205-1-tqa4sd.webp\",\"size\":56210,\"mime_type\":null,\"width\":1024,\"height\":1080}},\"20x20\":{\"id\":\"team/754/tshirt_image/20x20-96ce87381f889842220f430ef2dccbb6.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250205-1-1vqk16p.webp\",\"size\":420,\"mime_type\":null,\"width\":19,\"height\":20}},\"50x50\":{\"id\":\"team/754/tshirt_image/50x50-8a8bb9e264c7531163e9b71550f7dda7.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250205-1-lxagyo.webp\",\"size\":972,\"mime_type\":null,\"width\":47,\"height\":50}},\"150x150\":{\"id\":\"team/754/tshirt_image/150x150-65c0a098b2735d9810370df9b5d00be8.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250205-1-1ill7z7.webp\",\"size\":4108,\"mime_type\":null,\"width\":142,\"height\":150}},\"400x400\":{\"id\":\"team/754/tshirt_image/400x400-36873a3f75ac38bd97d02d0cf2118b8f.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250205-1-1cby556.webp\",\"size\":17954,\"mime_type\":null,\"width\":379,\"height\":400}}}}",
+            "tshirt_image_url": "https://files.bo3.gg/uploads/team/754/tshirt_image/webp-5fe42c99431691ae1b5b625093081c57.webp",
+            "updated_at": "2026-10-23T03:30:43.709+00:00"
+          },
+          "detail_errors": {
+            "id": "HTTPError: 404 Client Error: Not Found for url: https://api.bo3.gg/api/v1/teams/754"
+          },
+          "detail_by_slug": {
+            "keys": [
+              "achievements",
+              "acronym",
+              "alternative_names",
+              "avg_views",
+              "country",
+              "country_id",
+              "created_at",
+              "discipline_id",
+              "email",
+              "est_date",
+              "facebook",
+              "from_transfers",
+              "gallery_presence",
+              "icon_url",
+              "id",
+              "image_url",
+              "instagram_url",
+              "localized_teams_records",
+              "name",
+              "players",
+              "rank",
+              "rank_diff",
+              "six_month_earned",
+              "slug",
+              "staff_member_participants",
+              "tags",
+              "team_clans",
+              "tshirt_image_url",
+              "twitch_url",
+              "twitter",
+              "updated_at",
+              "website_url",
+              "youtube_url"
+            ],
+            "sample": {
+              "acronym": "ENCE",
+              "country_id": 28,
+              "created_at": "2020-10-19T08:52:54.756+00:00",
+              "discipline_id": 1,
+              "est_date": "2013-04-13",
+              "gallery_presence": false,
+              "id": 754,
+              "image_url": "https://files.bo3.gg/uploads/team/754/image/webp-87072c1ac8a305cbfcf0e84cd5a18497.webp",
+              "name": "ENCE",
+              "rank": 105,
+              "rank_diff": 28,
+              "six_month_earned": 1250,
+              "slug": "ence",
+              "tshirt_image_url": "https://files.bo3.gg/uploads/team/754/tshirt_image/webp-5fe42c99431691ae1b5b625093081c57.webp",
+              "updated_at": "2026-10-23T03:30:43.709+00:00"
+            }
+          }
+        }
+      },
+      "limitations": [
+        "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified."
+      ]
+    },
+    {
+      "hotspawn_id": "1080203",
+      "teams": [
+        "PARIVISION",
+        "BetBoom"
+      ],
+      "competition": "Thunderpick World Championship 2026",
+      "starts_at": "2026-10-15T13:30:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1080203",
+      "featured_method": "model",
+      "current_resolution": {
+        "method": "model",
+        "label": "Valve-rating research estimate",
+        "source": "Valve official standings",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "probabilities": [
+          0.26192226,
+          0.73807774
+        ],
+        "inputs": [
+          {
+            "name": "PARIVISION",
+            "points": 1411,
+            "rank": null,
+            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+          },
+          {
+            "name": "BETBOOM",
+            "points": 1596,
+            "rank": null,
+            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+          }
+        ],
+        "pick_index": 1,
+        "limitations": [
+          "Research model, not observed betting odds or a verified true win probability.",
+          "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
+          "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
+        ]
+      },
+      "sources_tried_from_published_trail": [
+        {
+          "stage": "Primary: Polymarket",
+          "status": "unresolved",
+          "source_url": "https://polymarket.com/esports/cs2",
+          "detail": "No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased."
+        },
+        {
+          "stage": "HLTV research",
+          "status": "checked",
+          "source_url": "https://www.hltv.org/matches/2399410/parivision-vs-betboom-thunderpick-world-championship-2026",
+          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
+        },
+        {
+          "stage": "Original esportsbook lines",
+          "status": "unresolved",
+          "source_url": "https://thunderpick.io/esports/counter-strike",
+          "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists."
+        },
+        {
+          "stage": "GG.BET esportsbook",
+          "status": "unavailable",
+          "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
+          "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
+        },
+        {
+          "stage": "Pinnacle esportsbook",
+          "status": "unavailable",
+          "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
+          "detail": "Redirected to a generic landing page; no match-level betting lines verified."
+        },
+        {
+          "stage": "Rivalry esportsbook",
+          "status": "unavailable",
+          "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
+          "detail": "Redirected to a generic landing page; no match-level betting lines verified."
+        },
+        {
+          "stage": "Stake esportsbook",
+          "status": "unavailable",
+          "source_url": "https://stake.com/sports/esports/counter-strike",
+          "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
+        },
+        {
+          "stage": "Valve research model",
+          "status": "resolved",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "Unique exact-name five-player rating records. Explicitly uncalibrated model; no bookmaker odds claimed."
+        }
+      ],
+      "unresolved_stages": [
+        "Primary: Polymarket",
+        "Original esportsbook lines",
+        "GG.BET esportsbook",
+        "Pinnacle esportsbook",
+        "Rivalry esportsbook",
+        "Stake esportsbook"
+      ],
+      "bo3_fixture": {
+        "bound": [],
+        "near_time_mismatch": []
+      },
+      "bo3_relay_two_sided_quote_present": false,
+      "bo3_team_lookups": {
+        "PARIVISION": {
+          "query_name": "PARIVISION",
+          "matches": [
+            {
+              "id": 8171,
+              "name": "PARIVISION",
+              "slug": "parivision"
+            }
+          ],
+          "detail_keys": null,
+          "detail_sample": null,
+          "listing_keys": [
+            "acronym",
+            "avg_views",
+            "country_id",
+            "created_at",
+            "discipline_id",
+            "email",
+            "est_date",
+            "facebook",
+            "gallery_presence",
+            "icon_data",
+            "icon_url",
+            "icon_versions",
+            "id",
+            "image_data",
+            "image_url",
+            "image_versions",
+            "instagram_url",
+            "name",
+            "ps_id",
+            "rank",
+            "six_month_earned",
+            "slug",
+            "tshirt_image_data",
+            "tshirt_image_url",
+            "tshirt_image_versions",
+            "twitch_url",
+            "twitter",
+            "updated_at",
+            "website_url",
+            "youtube_url"
+          ],
+          "listing_sample": {
+            "acronym": "PRV",
+            "country_id": 56,
+            "created_at": "2023-09-25T08:32:39.802+00:00",
+            "discipline_id": 1,
+            "gallery_presence": true,
+            "id": 8171,
+            "image_data": "{\"id\":\"team/8171/image/503a6acd6f77d2219ae1f435379d48ef\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"File name\",\"size\":50153,\"mime_type\":\"image/png\",\"width\":900,\"height\":805},\"derivatives\":{\"webp\":{\"id\":\"team/8171/image/webp-735594256ca5670882480debe25ffb69.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20251115-1-cfaae9.webp\",\"size\":15750,\"mime_type\":null,\"width\":900,\"height\":805}},\"20x20\":{\"id\":\"team/8171/image/20x20-a8fb3d6d472d2986d29b4bdc1e0b5c2c.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20251115-1-t7atc4.webp\",\"size\":346,\"mime_type\":null,\"width\":20,\"height\":18}},\"50x50\":{\"id\":\"team/8171/image/50x50-49234a2e263fdaca2a9a387c1567176e.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20251115-1-zxicn8.webp\",\"size\":716,\"mime_type\":null,\"width\":50,\"height\":45}},\"150x150\":{\"id\":\"team/8171/image/150x150-8b664187503032e2a29caa1a4472b839.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20251115-1-39qbyg.webp\",\"size\":1850,\"mime_type\":null,\"width\":150,\"height\":134}},\"400x400\":{\"id\":\"team/8171/image/400x400-98c0063007039b75ee3026acfb03bde9.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20251115-1-c5v6qg.webp\",\"size\":5122,\"mime_type\":null,\"width\":400,\"height\":358}}}}",
+            "image_url": "https://files.bo3.gg/uploads/team/8171/image/webp-735594256ca5670882480debe25ffb69.webp",
+            "name": "PARIVISION",
+            "rank": 36,
+            "six_month_earned": 187000,
+            "slug": "parivision",
+            "tshirt_image_data": "{\"id\":\"team/8171/tshirt_image/61accea5eadf49260d3475c8c41ebae8\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"File name\",\"size\":1225516,\"mime_type\":\"image/png\",\"width\":846,\"height\":1001},\"derivatives\":{\"webp\":{\"id\":\"team/8171/tshirt_image/webp-b0e93c345b87d261d6e888932652743d.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260606-1-920fjb.webp\",\"size\":82620,\"mime_type\":null,\"width\":846,\"height\":1001}},\"20x20\":{\"id\":\"team/8171/tshirt_image/20x20-165645026111dd24e98cec2e1bb6bd14.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260606-1-a2nas7.webp\",\"size\":444,\"mime_type\":null,\"width\":17,\"height\":20}},\"50x50\":{\"id\":\"team/8171/tshirt_image/50x50-63accd1d227af47c9a53df9fb654e3f5.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260606-1-2zuhvr.webp\",\"size\":1132,\"mime_type\":null,\"width\":42,\"height\":50}},\"150x150\":{\"id\":\"team/8171/tshirt_image/150x150-289ed122d50d94003d887b531ffc461d.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260606-1-t19nda.webp\",\"size\":4018,\"mime_type\":null,\"width\":127,\"height\":150}},\"400x400\":{\"id\":\"team/8171/tshirt_image/400x400-f7b3946b9f1eecf1aec7be042e8ce848.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260606-1-6foe7h.webp\",\"size\":16454,\"mime_type\":null,\"width\":338,\"height\":400}}}}",
+            "tshirt_image_url": "https://files.bo3.gg/uploads/team/8171/tshirt_image/webp-b0e93c345b87d261d6e888932652743d.webp",
+            "updated_at": "2026-10-23T05:07:04.231+00:00"
+          },
+          "detail_errors": {
+            "id": "HTTPError: 404 Client Error: Not Found for url: https://api.bo3.gg/api/v1/teams/8171"
+          },
+          "detail_by_slug": {
+            "keys": [
+              "achievements",
+              "acronym",
+              "alternative_names",
+              "avg_views",
+              "country",
+              "country_id",
+              "created_at",
+              "discipline_id",
+              "email",
+              "est_date",
+              "facebook",
+              "from_transfers",
+              "gallery_presence",
+              "icon_url",
+              "id",
+              "image_url",
+              "instagram_url",
+              "localized_teams_records",
+              "name",
+              "players",
+              "rank",
+              "rank_diff",
+              "six_month_earned",
+              "slug",
+              "staff_member_participants",
+              "tags",
+              "team_clans",
+              "tshirt_image_url",
+              "twitch_url",
+              "twitter",
+              "updated_at",
+              "website_url",
+              "youtube_url"
+            ],
+            "sample": {
+              "acronym": "PRV",
+              "country_id": 56,
+              "created_at": "2023-09-25T08:32:39.802+00:00",
+              "discipline_id": 1,
+              "gallery_presence": true,
+              "id": 8171,
+              "image_url": "https://files.bo3.gg/uploads/team/8171/image/webp-735594256ca5670882480debe25ffb69.webp",
+              "name": "PARIVISION",
+              "rank": 36,
+              "rank_diff": -24,
+              "six_month_earned": 187000,
+              "slug": "parivision",
+              "tshirt_image_url": "https://files.bo3.gg/uploads/team/8171/tshirt_image/webp-b0e93c345b87d261d6e888932652743d.webp",
+              "updated_at": "2026-10-23T05:07:04.231+00:00"
+            }
+          }
+        },
+        "BetBoom": {
+          "query_name": "BetBoom",
+          "matches": [
+            {
+              "id": 7498,
+              "name": "BetBoom",
+              "slug": "betboom-team"
+            }
+          ],
+          "detail_keys": null,
+          "detail_sample": null,
+          "listing_keys": [
+            "acronym",
+            "avg_views",
+            "country_id",
+            "created_at",
+            "discipline_id",
+            "email",
+            "est_date",
+            "facebook",
+            "gallery_presence",
+            "icon_data",
+            "icon_url",
+            "icon_versions",
+            "id",
+            "image_data",
+            "image_url",
+            "image_versions",
+            "instagram_url",
+            "name",
+            "ps_id",
+            "rank",
+            "six_month_earned",
+            "slug",
+            "tshirt_image_data",
+            "tshirt_image_url",
+            "tshirt_image_versions",
+            "twitch_url",
+            "twitter",
+            "updated_at",
+            "website_url",
+            "youtube_url"
+          ],
+          "listing_sample": {
+            "acronym": "BB",
+            "country_id": 56,
+            "created_at": "2023-08-01T07:12:29.363+00:00",
+            "discipline_id": 1,
+            "gallery_presence": false,
+            "id": 7498,
+            "image_data": "{\"id\":\"team/7498/image/556f5f6abf74412373eb0b4b3fdc3764.png\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"bet boom.png\",\"size\":20814,\"mime_type\":\"image/png\",\"width\":240,\"height\":214},\"derivatives\":{\"webp\":{\"id\":\"team/7498/image/webp-0ea46f32f16140a97fa47ed839e5bb69.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20240702-1-2jb73x.webp\",\"size\":7368,\"mime_type\":null,\"width\":240,\"height\":214}},\"20x20\":{\"id\":\"team/7498/image/20x20-05cad33f0bbadf992ed68a26c7bffccb.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20240702-1-do7m33.webp\",\"size\":492,\"mime_type\":null,\"width\":20,\"height\":18}},\"50x50\":{\"id\":\"team/7498/image/50x50-59d86db42d5e871f659b651b50a5d46c.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20240702-1-1qxe581.webp\",\"size\":1374,\"mime_type\":null,\"width\":50,\"height\":45}},\"150x150\":{\"id\":\"team/7498/image/150x150-a314c57083596b607c065f6a15f476d3.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20240702-1-13td6qz.webp\",\"size\":4964,\"mime_type\":null,\"width\":150,\"height\":134}},\"400x400\":{\"id\":\"team/7498/image/400x400-dfbfb51a746eaeeb313d6fb7c8476643.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20240702-1-1v8mwrv.webp\",\"size\":7208,\"mime_type\":null,\"width\":240,\"height\":214}}}}",
+            "image_url": "https://files.bo3.gg/uploads/team/7498/image/webp-0ea46f32f16140a97fa47ed839e5bb69.webp",
+            "name": "BetBoom",
+            "rank": 11,
+            "six_month_earned": 224000,
+            "slug": "betboom-team",
+            "tshirt_image_data": "{\"id\":\"team/7498/tshirt_image/19c17ee841c85161e52a77cf9e86d207\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"File name\",\"size\":42716,\"mime_type\":\"image/png\",\"width\":196,\"height\":207},\"derivatives\":{\"webp\":{\"id\":\"team/7498/tshirt_image/webp-f1b00948f971efb4c893de3312dbd9de.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250714-1-1wxjm4y.webp\",\"size\":4588,\"mime_type\":null,\"width\":196,\"height\":207}},\"20x20\":{\"id\":\"team/7498/tshirt_image/20x20-c000ca4e33f014b4939b03c26c11ebb7.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250714-1-yveo9f.webp\",\"size\":412,\"mime_type\":null,\"width\":19,\"height\":20}},\"50x50\":{\"id\":\"team/7498/tshirt_image/50x50-695c7679737ad7352e41dbb56235bfdf.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250714-1-jbx1gp.webp\",\"size\":912,\"mime_type\":null,\"width\":47,\"height\":50}},\"150x150\":{\"id\":\"team/7498/tshirt_image/150x150-fb750cb8f63fb2497d613def80e77492.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250714-1-u0mke.webp\",\"size\":3148,\"mime_type\":null,\"width\":142,\"height\":150}},\"400x400\":{\"id\":\"team/7498/tshirt_image/400x400-dea16bff63cc89230eb26e84bd929c18.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250714-1-e8gnwv.webp\",\"size\":4454,\"mime_type\":null,\"width\":196,\"height\":207}}}}",
+            "tshirt_image_url": "https://files.bo3.gg/uploads/team/7498/tshirt_image/webp-e54e10b9c3f25d76794d6115fd0cdd4a.webp",
+            "updated_at": "2026-10-23T03:30:41.988+00:00"
+          },
+          "detail_errors": {
+            "id": "HTTPError: 404 Client Error: Not Found for url: https://api.bo3.gg/api/v1/teams/7498"
+          },
+          "detail_by_slug": {
+            "keys": [
+              "achievements",
+              "acronym",
+              "alternative_names",
+              "avg_views",
+              "country",
+              "country_id",
+              "created_at",
+              "discipline_id",
+              "email",
+              "est_date",
+              "facebook",
+              "from_transfers",
+              "gallery_presence",
+              "icon_url",
+              "id",
+              "image_url",
+              "instagram_url",
+              "localized_teams_records",
+              "name",
+              "players",
+              "rank",
+              "rank_diff",
+              "six_month_earned",
+              "slug",
+              "staff_member_participants",
+              "tags",
+              "team_clans",
+              "tshirt_image_url",
+              "twitch_url",
+              "twitter",
+              "updated_at",
+              "website_url",
+              "youtube_url"
+            ],
+            "sample": {
+              "acronym": "BB",
+              "country_id": 56,
+              "created_at": "2023-08-01T07:12:29.363+00:00",
+              "discipline_id": 1,
+              "gallery_presence": false,
+              "id": 7498,
+              "image_url": "https://files.bo3.gg/uploads/team/7498/image/webp-0ea46f32f16140a97fa47ed839e5bb69.webp",
+              "name": "BetBoom",
+              "rank": 11,
+              "rank_diff": -2,
+              "six_month_earned": 224000,
+              "slug": "betboom-team",
+              "tshirt_image_url": "https://files.bo3.gg/uploads/team/7498/tshirt_image/webp-e54e10b9c3f25d76794d6115fd0cdd4a.webp",
+              "updated_at": "2026-10-23T03:30:41.988+00:00"
+            }
+          }
+        }
+      },
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ]
+    },
+    {
+      "hotspawn_id": "1080282",
+      "teams": [
+        "EAC",
+        "BOJONG"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-15T14:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/eac-vs-bojong-elisa-breakout-series-2-1080282",
+      "featured_method": "model",
+      "current_resolution": {
+        "method": "model",
+        "label": "Valve-rating research estimate",
+        "source": "Valve official standings",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "probabilities": [
+          0.96095469,
+          0.03904531
+        ],
+        "inputs": [
+          {
+            "name": "EAC",
+            "points": 1035,
+            "rank": null,
+            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+          },
+          {
+            "name": "BOJONG",
+            "points": 463,
+            "rank": null,
+            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+          }
+        ],
+        "pick_index": 0,
+        "limitations": [
+          "Research model, not observed betting odds or a verified true win probability.",
+          "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
+          "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
+        ]
+      },
+      "sources_tried_from_published_trail": [
+        {
+          "stage": "Primary: Polymarket",
+          "status": "unresolved",
+          "source_url": "https://polymarket.com/esports/cs2",
+          "detail": "No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased."
+        },
+        {
+          "stage": "HLTV research",
+          "status": "checked",
+          "source_url": "https://www.hltv.org/matches/2399421/eac-vs-bojong-elisa-breakout-series-2",
+          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO1; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
+        },
+        {
+          "stage": "Original esportsbook lines",
+          "status": "unresolved",
+          "source_url": "https://thunderpick.io/esports/counter-strike",
+          "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists."
+        },
+        {
+          "stage": "GG.BET esportsbook",
+          "status": "unavailable",
+          "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
+          "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
+        },
+        {
+          "stage": "Pinnacle esportsbook",
+          "status": "unavailable",
+          "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
+          "detail": "Redirected to a generic landing page; no match-level betting lines verified."
+        },
+        {
+          "stage": "Rivalry esportsbook",
+          "status": "unavailable",
+          "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
+          "detail": "Redirected to a generic landing page; no match-level betting lines verified."
+        },
+        {
+          "stage": "Stake esportsbook",
+          "status": "unavailable",
+          "source_url": "https://stake.com/sports/esports/counter-strike",
+          "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
+        },
+        {
+          "stage": "Valve research model",
+          "status": "resolved",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "Unique exact-name five-player rating records. Explicitly uncalibrated model; no bookmaker odds claimed."
+        }
+      ],
+      "unresolved_stages": [
+        "Primary: Polymarket",
+        "Original esportsbook lines",
+        "GG.BET esportsbook",
+        "Pinnacle esportsbook",
+        "Rivalry esportsbook",
+        "Stake esportsbook"
+      ],
+      "bo3_fixture": {
+        "bound": [],
+        "near_time_mismatch": []
+      },
+      "bo3_relay_two_sided_quote_present": false,
+      "bo3_team_lookups": {
+        "EAC": {
+          "query_name": "EAC",
+          "matches": [
+            {
+              "id": 23942,
+              "name": "EAC",
+              "slug": "esport-academy-copenhagen"
+            }
+          ],
+          "detail_keys": null,
+          "detail_sample": null,
+          "listing_keys": [
+            "acronym",
+            "avg_views",
+            "country_id",
+            "created_at",
+            "discipline_id",
+            "email",
+            "est_date",
+            "facebook",
+            "gallery_presence",
+            "icon_data",
+            "icon_url",
+            "icon_versions",
+            "id",
+            "image_data",
+            "image_url",
+            "image_versions",
+            "instagram_url",
+            "name",
+            "ps_id",
+            "rank",
+            "six_month_earned",
+            "slug",
+            "tshirt_image_data",
+            "tshirt_image_url",
+            "tshirt_image_versions",
+            "twitch_url",
+            "twitter",
+            "updated_at",
+            "website_url",
+            "youtube_url"
+          ],
+          "listing_sample": {
+            "acronym": "EAC",
+            "country_id": 26,
+            "created_at": "2026-05-15T05:39:56.943+00:00",
+            "discipline_id": 1,
+            "gallery_presence": false,
+            "id": 23942,
+            "image_url": "https://files.bo3.gg/uploads/team/23942/image/webp-0545a1f3170cde695778a169559e973f.webp",
+            "name": "EAC",
+            "rank": 103,
+            "six_month_earned": 6000,
+            "slug": "esport-academy-copenhagen",
+            "updated_at": "2026-10-23T03:30:43.063+00:00"
+          },
+          "detail_errors": {
+            "id": "HTTPError: 404 Client Error: Not Found for url: https://api.bo3.gg/api/v1/teams/23942"
+          },
+          "detail_by_slug": {
+            "keys": [
+              "achievements",
+              "acronym",
+              "alternative_names",
+              "avg_views",
+              "country",
+              "country_id",
+              "created_at",
+              "discipline_id",
+              "email",
+              "est_date",
+              "facebook",
+              "from_transfers",
+              "gallery_presence",
+              "icon_url",
+              "id",
+              "image_url",
+              "instagram_url",
+              "localized_teams_records",
+              "name",
+              "players",
+              "rank",
+              "rank_diff",
+              "six_month_earned",
+              "slug",
+              "staff_member_participants",
+              "tags",
+              "team_clans",
+              "tshirt_image_url",
+              "twitch_url",
+              "twitter",
+              "updated_at",
+              "website_url",
+              "youtube_url"
+            ],
+            "sample": {
+              "acronym": "EAC",
+              "country_id": 26,
+              "created_at": "2026-05-15T05:39:56.943+00:00",
+              "discipline_id": 1,
+              "gallery_presence": false,
+              "id": 23942,
+              "image_url": "https://files.bo3.gg/uploads/team/23942/image/webp-0545a1f3170cde695778a169559e973f.webp",
+              "name": "EAC",
+              "rank": 103,
+              "rank_diff": -21,
+              "six_month_earned": 6000,
+              "slug": "esport-academy-copenhagen",
+              "updated_at": "2026-10-23T03:30:43.063+00:00"
+            }
+          }
+        },
+        "BOJONG": {
+          "query_name": "BOJONG",
+          "matches": [
+            {
+              "id": 22898,
+              "name": "BOJONG",
+              "slug": "bojong"
+            }
+          ],
+          "detail_keys": null,
+          "detail_sample": null,
+          "listing_keys": [
+            "acronym",
+            "avg_views",
+            "country_id",
+            "created_at",
+            "discipline_id",
+            "email",
+            "est_date",
+            "facebook",
+            "gallery_presence",
+            "icon_data",
+            "icon_url",
+            "icon_versions",
+            "id",
+            "image_data",
+            "image_url",
+            "image_versions",
+            "instagram_url",
+            "name",
+            "ps_id",
+            "rank",
+            "six_month_earned",
+            "slug",
+            "tshirt_image_data",
+            "tshirt_image_url",
+            "tshirt_image_versions",
+            "twitch_url",
+            "twitter",
+            "updated_at",
+            "website_url",
+            "youtube_url"
+          ],
+          "listing_sample": {
+            "country_id": 28,
+            "created_at": "2026-02-23T06:01:31.741+00:00",
+            "discipline_id": 1,
+            "gallery_presence": false,
+            "id": 22898,
+            "image_data": "{\"id\":\"team/22898/image/3efc6714bf51ebace79ba1795f4d9175\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"File name\",\"size\":109142,\"mime_type\":\"image/png\",\"width\":341,\"height\":279},\"derivatives\":{\"webp\":{\"id\":\"team/22898/image/webp-2efacc5a4ab012d3625f5a2143818ad3.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260524-1-rl76n1.webp\",\"size\":18766,\"mime_type\":null,\"width\":341,\"height\":279}},\"20x20\":{\"id\":\"team/22898/image/20x20-ac0d73a00cfe84a1c548011de2426183.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260524-1-rcjk0f.webp\",\"size\":470,\"mime_type\":null,\"width\":20,\"height\":16}},\"50x50\":{\"id\":\"team/22898/image/50x50-491f1a0bdfeaac22156d4a1df3940220.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260524-1-zxwy8g.webp\",\"size\":1646,\"mime_type\":null,\"width\":50,\"height\":41}},\"150x150\":{\"id\":\"team/22898/image/150x150-d2a965cf289495dc7bd6f4d082ff5baa.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260524-1-ynpk3x.webp\",\"size\":6148,\"mime_type\":null,\"width\":150,\"height\":123}},\"400x400\":{\"id\":\"team/22898/image/400x400-9a74c279c08386f150306f24ae7c1fb7.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260524-1-9k32gl.webp\",\"size\":18028,\"mime_type\":null,\"width\":341,\"height\":279}}}}",
+            "image_url": "https://files.bo3.gg/uploads/team/22898/image/webp-2efacc5a4ab012d3625f5a2143818ad3.webp",
+            "name": "BOJONG",
+            "rank": 363,
+            "slug": "bojong",
+            "updated_at": "2026-04-06T13:59:33.919+00:00"
+          },
+          "detail_errors": {
+            "id": "HTTPError: 404 Client Error: Not Found for url: https://api.bo3.gg/api/v1/teams/22898"
+          },
+          "detail_by_slug": {
+            "keys": [
+              "achievements",
+              "acronym",
+              "alternative_names",
+              "avg_views",
+              "country",
+              "country_id",
+              "created_at",
+              "discipline_id",
+              "email",
+              "est_date",
+              "facebook",
+              "from_transfers",
+              "gallery_presence",
+              "icon_url",
+              "id",
+              "image_url",
+              "instagram_url",
+              "localized_teams_records",
+              "name",
+              "players",
+              "rank",
+              "rank_diff",
+              "six_month_earned",
+              "slug",
+              "staff_member_participants",
+              "tags",
+              "team_clans",
+              "tshirt_image_url",
+              "twitch_url",
+              "twitter",
+              "updated_at",
+              "website_url",
+              "youtube_url"
+            ],
+            "sample": {
+              "country_id": 28,
+              "created_at": "2026-02-23T06:01:31.741+00:00",
+              "discipline_id": 1,
+              "gallery_presence": false,
+              "id": 22898,
+              "image_url": "https://files.bo3.gg/uploads/team/22898/image/webp-2efacc5a4ab012d3625f5a2143818ad3.webp",
+              "name": "BOJONG",
+              "rank": 363,
+              "slug": "bojong",
+              "updated_at": "2026-04-06T13:59:33.919+00:00"
+            }
+          }
+        }
+      },
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ]
+    },
+    {
+      "hotspawn_id": "1080283",
+      "teams": [
+        "WROTBERRY",
+        "BOJONG"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-15T16:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/wrotberry-vs-bojong-elisa-breakout-series-2-1080283",
+      "featured_method": null,
+      "current_resolution": {
+        "method": "model",
+        "label": "Research model estimate (Valve official ratings)",
+        "source": "Valve official standings",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "probabilities": [
+          0.98421533,
+          0.01578467
+        ],
+        "inputs": [
+          {
+            "name": "WBT",
+            "points": 1201,
+            "rank": null,
+            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+          },
+          {
+            "name": "BOJONG",
+            "points": 463,
+            "rank": null,
+            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+          }
+        ],
+        "pick_index": 0,
+        "limitations": [
+          "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified."
+        ]
+      },
+      "sources_tried_from_published_trail": [
+        {
+          "stage": "HLTV research",
+          "status": "checked",
+          "source_url": "https://www.hltv.org/matches",
+          "detail": "No unique structured HLTV identity confirmed."
+        },
+        {
+          "stage": "HLTV identity review",
+          "status": "unresolved",
+          "source_url": "https://www.hltv.org/matches/2399422/wbt-vs-bojong-elisa-breakout-series-2",
+          "detail": "HLTV lists WBT vs BOJONG at the same scheduled time with one exact-name opponent. The other name differs; equivalence is NOT verified. This record is for review only, not a probability input or confirmed match join."
+        },
+        {
+          "stage": "Identity join (verified alias registry)",
+          "status": "resolved",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "WBT → WROTBERRY. Competition-scoped registry entries with official evidence links; this supersedes any earlier \"equivalence not verified\" observation for these names in this competition only."
+        },
+        {
+          "stage": "Betting market (Polymarket series winner)",
+          "status": "unresolved",
+          "source_url": "https://polymarket.com/esports/cs2",
+          "detail": "No alias-verified Polymarket match-winner line found for these teams and start time."
+        },
+        {
+          "stage": "Exchange market (Kalshi CS2 match winner)",
+          "status": "unresolved",
+          "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game",
+          "detail": "No alias-verified Kalshi match-winner line found for these teams and start time."
+        },
+        {
+          "stage": "Esportsbook line (Thunderpick original prices)",
+          "status": "unresolved",
+          "source_url": "https://thunderpick.io/esports/counter-strike",
+          "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time."
+        },
+        {
+          "stage": "Esportsbook line (Bovada original prices)",
+          "status": "unresolved",
+          "source_url": "https://www.bovada.lv/sports",
+          "detail": "No alias-verified Bovada match-winner line found for these teams and start time."
+        },
+        {
+          "stage": "Esportsbook line (Pinnacle original prices)",
+          "status": "unresolved",
+          "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+          "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time."
+        },
+        {
+          "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+          "status": "unresolved",
+          "source_url": "https://bo3.gg/matches",
+          "detail": "bo3.gg lists no fixture bound by both team names and the start time, or lists it without a bookmaker quote block, so no relayed price exists for this fixture."
+        },
+        {
+          "stage": "Aggregated bookmaker reference (EGamersWorld)",
+          "status": "unresolved",
+          "source_url": "https://egamersworld.com/counterstrike/matches",
+          "detail": "No reviewed aggregated-bookmaker capture matches this fixture."
+        },
+        {
+          "stage": "Research model cross-check (Valve official ratings)",
+          "status": "resolved",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula). Cross-check only unless no market or bookmaker line exists."
+        },
+        {
+          "stage": "Research model cross-check (HLTV world ranking)",
+          "status": "resolved",
+          "source_url": "https://www.hltv.org/ranking/teams",
+          "detail": "Alias-aware exact-name HLTV world-ranking rows; uncalibrated research model (400-scale logistic transform of the published HLTV points). Team-level ranking only: lineups, stand-ins, form and map veto are not confirmed. Cross-check only unless every money and Valve rung fails."
+        }
+      ],
+      "unresolved_stages": [
+        "HLTV identity review",
+        "Betting market (Polymarket series winner)",
+        "Exchange market (Kalshi CS2 match winner)",
+        "Esportsbook line (Thunderpick original prices)",
+        "Esportsbook line (Bovada original prices)",
+        "Esportsbook line (Pinnacle original prices)",
+        "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+        "Aggregated bookmaker reference (EGamersWorld)"
+      ],
+      "bo3_fixture": {
+        "bound": [],
+        "near_time_mismatch": []
+      },
+      "bo3_relay_two_sided_quote_present": false,
+      "bo3_team_lookups": {
+        "WROTBERRY": {
+          "query_name": "WROTBERRY",
+          "matches": [],
+          "detail_keys": null,
+          "detail_sample": null
+        },
+        "BOJONG": {
+          "query_name": "BOJONG",
+          "matches": [
+            {
+              "id": 22898,
+              "name": "BOJONG",
+              "slug": "bojong"
+            }
+          ],
+          "detail_keys": null,
+          "detail_sample": null,
+          "listing_keys": [
+            "acronym",
+            "avg_views",
+            "country_id",
+            "created_at",
+            "discipline_id",
+            "email",
+            "est_date",
+            "facebook",
+            "gallery_presence",
+            "icon_data",
+            "icon_url",
+            "icon_versions",
+            "id",
+            "image_data",
+            "image_url",
+            "image_versions",
+            "instagram_url",
+            "name",
+            "ps_id",
+            "rank",
+            "six_month_earned",
+            "slug",
+            "tshirt_image_data",
+            "tshirt_image_url",
+            "tshirt_image_versions",
+            "twitch_url",
+            "twitter",
+            "updated_at",
+            "website_url",
+            "youtube_url"
+          ],
+          "listing_sample": {
+            "country_id": 28,
+            "created_at": "2026-02-23T06:01:31.741+00:00",
+            "discipline_id": 1,
+            "gallery_presence": false,
+            "id": 22898,
+            "image_data": "{\"id\":\"team/22898/image/3efc6714bf51ebace79ba1795f4d9175\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"File name\",\"size\":109142,\"mime_type\":\"image/png\",\"width\":341,\"height\":279},\"derivatives\":{\"webp\":{\"id\":\"team/22898/image/webp-2efacc5a4ab012d3625f5a2143818ad3.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260524-1-rl76n1.webp\",\"size\":18766,\"mime_type\":null,\"width\":341,\"height\":279}},\"20x20\":{\"id\":\"team/22898/image/20x20-ac0d73a00cfe84a1c548011de2426183.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260524-1-rcjk0f.webp\",\"size\":470,\"mime_type\":null,\"width\":20,\"height\":16}},\"50x50\":{\"id\":\"team/22898/image/50x50-491f1a0bdfeaac22156d4a1df3940220.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260524-1-zxwy8g.webp\",\"size\":1646,\"mime_type\":null,\"width\":50,\"height\":41}},\"150x150\":{\"id\":\"team/22898/image/150x150-d2a965cf289495dc7bd6f4d082ff5baa.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260524-1-ynpk3x.webp\",\"size\":6148,\"mime_type\":null,\"width\":150,\"height\":123}},\"400x400\":{\"id\":\"team/22898/image/400x400-9a74c279c08386f150306f24ae7c1fb7.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260524-1-9k32gl.webp\",\"size\":18028,\"mime_type\":null,\"width\":341,\"height\":279}}}}",
+            "image_url": "https://files.bo3.gg/uploads/team/22898/image/webp-2efacc5a4ab012d3625f5a2143818ad3.webp",
+            "name": "BOJONG",
+            "rank": 363,
+            "slug": "bojong",
+            "updated_at": "2026-04-06T13:59:33.919+00:00"
+          },
+          "detail_errors": {
+            "id": "HTTPError: 404 Client Error: Not Found for url: https://api.bo3.gg/api/v1/teams/22898"
+          },
+          "detail_by_slug": {
+            "keys": [
+              "achievements",
+              "acronym",
+              "alternative_names",
+              "avg_views",
+              "country",
+              "country_id",
+              "created_at",
+              "discipline_id",
+              "email",
+              "est_date",
+              "facebook",
+              "from_transfers",
+              "gallery_presence",
+              "icon_url",
+              "id",
+              "image_url",
+              "instagram_url",
+              "localized_teams_records",
+              "name",
+              "players",
+              "rank",
+              "rank_diff",
+              "six_month_earned",
+              "slug",
+              "staff_member_participants",
+              "tags",
+              "team_clans",
+              "tshirt_image_url",
+              "twitch_url",
+              "twitter",
+              "updated_at",
+              "website_url",
+              "youtube_url"
+            ],
+            "sample": {
+              "country_id": 28,
+              "created_at": "2026-02-23T06:01:31.741+00:00",
+              "discipline_id": 1,
+              "gallery_presence": false,
+              "id": 22898,
+              "image_url": "https://files.bo3.gg/uploads/team/22898/image/webp-2efacc5a4ab012d3625f5a2143818ad3.webp",
+              "name": "BOJONG",
+              "rank": 363,
+              "slug": "bojong",
+              "updated_at": "2026-04-06T13:59:33.919+00:00"
+            }
+          }
+        }
+      },
+      "limitations": [
+        "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified."
+      ]
+    },
+    {
+      "hotspawn_id": "1080284",
+      "teams": [
+        "EAC",
+        "ENCE"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-15T18:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/eac-vs-ence-elisa-breakout-series-2-1080284",
+      "featured_method": "model",
+      "current_resolution": {
+        "method": "model",
+        "label": "Valve-rating research estimate",
+        "source": "Valve official standings",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "probabilities": [
+          0.51399636,
+          0.48600364
+        ],
+        "inputs": [
+          {
+            "name": "EAC",
+            "points": 1035,
+            "rank": null,
+            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+          },
+          {
+            "name": "ENCE",
+            "points": 1025,
+            "rank": null,
+            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+          }
+        ],
+        "pick_index": 0,
+        "limitations": [
+          "Research model, not observed betting odds or a verified true win probability.",
+          "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
+          "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
+        ]
+      },
+      "sources_tried_from_published_trail": [
+        {
+          "stage": "Primary: Polymarket",
+          "status": "unresolved",
+          "source_url": "https://polymarket.com/esports/cs2",
+          "detail": "No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased."
+        },
+        {
+          "stage": "HLTV research",
+          "status": "checked",
+          "source_url": "https://www.hltv.org/matches/2399423/eac-vs-ence-elisa-breakout-series-2",
+          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO1; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
+        },
+        {
+          "stage": "Original esportsbook lines",
+          "status": "unresolved",
+          "source_url": "https://thunderpick.io/esports/counter-strike",
+          "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists."
+        },
+        {
+          "stage": "GG.BET esportsbook",
+          "status": "unavailable",
+          "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
+          "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
+        },
+        {
+          "stage": "Pinnacle esportsbook",
+          "status": "unavailable",
+          "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
+          "detail": "Redirected to a generic landing page; no match-level betting lines verified."
+        },
+        {
+          "stage": "Rivalry esportsbook",
+          "status": "unavailable",
+          "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
+          "detail": "Redirected to a generic landing page; no match-level betting lines verified."
+        },
+        {
+          "stage": "Stake esportsbook",
+          "status": "unavailable",
+          "source_url": "https://stake.com/sports/esports/counter-strike",
+          "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
+        },
+        {
+          "stage": "Valve research model",
+          "status": "resolved",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "Unique exact-name five-player rating records. Explicitly uncalibrated model; no bookmaker odds claimed."
+        }
+      ],
+      "unresolved_stages": [
+        "Primary: Polymarket",
+        "Original esportsbook lines",
+        "GG.BET esportsbook",
+        "Pinnacle esportsbook",
+        "Rivalry esportsbook",
+        "Stake esportsbook"
+      ],
+      "bo3_fixture": {
+        "bound": [],
+        "near_time_mismatch": []
+      },
+      "bo3_relay_two_sided_quote_present": false,
+      "bo3_team_lookups": {
+        "EAC": {
+          "query_name": "EAC",
+          "matches": [
+            {
+              "id": 23942,
+              "name": "EAC",
+              "slug": "esport-academy-copenhagen"
+            }
+          ],
+          "detail_keys": null,
+          "detail_sample": null,
+          "listing_keys": [
+            "acronym",
+            "avg_views",
+            "country_id",
+            "created_at",
+            "discipline_id",
+            "email",
+            "est_date",
+            "facebook",
+            "gallery_presence",
+            "icon_data",
+            "icon_url",
+            "icon_versions",
+            "id",
+            "image_data",
+            "image_url",
+            "image_versions",
+            "instagram_url",
+            "name",
+            "ps_id",
+            "rank",
+            "six_month_earned",
+            "slug",
+            "tshirt_image_data",
+            "tshirt_image_url",
+            "tshirt_image_versions",
+            "twitch_url",
+            "twitter",
+            "updated_at",
+            "website_url",
+            "youtube_url"
+          ],
+          "listing_sample": {
+            "acronym": "EAC",
+            "country_id": 26,
+            "created_at": "2026-05-15T05:39:56.943+00:00",
+            "discipline_id": 1,
+            "gallery_presence": false,
+            "id": 23942,
+            "image_url": "https://files.bo3.gg/uploads/team/23942/image/webp-0545a1f3170cde695778a169559e973f.webp",
+            "name": "EAC",
+            "rank": 103,
+            "six_month_earned": 6000,
+            "slug": "esport-academy-copenhagen",
+            "updated_at": "2026-10-23T03:30:43.063+00:00"
+          },
+          "detail_errors": {
+            "id": "HTTPError: 404 Client Error: Not Found for url: https://api.bo3.gg/api/v1/teams/23942"
+          },
+          "detail_by_slug": {
+            "keys": [
+              "achievements",
+              "acronym",
+              "alternative_names",
+              "avg_views",
+              "country",
+              "country_id",
+              "created_at",
+              "discipline_id",
+              "email",
+              "est_date",
+              "facebook",
+              "from_transfers",
+              "gallery_presence",
+              "icon_url",
+              "id",
+              "image_url",
+              "instagram_url",
+              "localized_teams_records",
+              "name",
+              "players",
+              "rank",
+              "rank_diff",
+              "six_month_earned",
+              "slug",
+              "staff_member_participants",
+              "tags",
+              "team_clans",
+              "tshirt_image_url",
+              "twitch_url",
+              "twitter",
+              "updated_at",
+              "website_url",
+              "youtube_url"
+            ],
+            "sample": {
+              "acronym": "EAC",
+              "country_id": 26,
+              "created_at": "2026-05-15T05:39:56.943+00:00",
+              "discipline_id": 1,
+              "gallery_presence": false,
+              "id": 23942,
+              "image_url": "https://files.bo3.gg/uploads/team/23942/image/webp-0545a1f3170cde695778a169559e973f.webp",
+              "name": "EAC",
+              "rank": 103,
+              "rank_diff": -21,
+              "six_month_earned": 6000,
+              "slug": "esport-academy-copenhagen",
+              "updated_at": "2026-10-23T03:30:43.063+00:00"
+            }
+          }
+        },
+        "ENCE": {
+          "query_name": "ENCE",
+          "matches": [
+            {
+              "id": 754,
+              "name": "ENCE",
+              "slug": "ence"
+            }
+          ],
+          "detail_keys": null,
+          "detail_sample": null,
+          "listing_keys": [
+            "acronym",
+            "avg_views",
+            "country_id",
+            "created_at",
+            "discipline_id",
+            "email",
+            "est_date",
+            "facebook",
+            "gallery_presence",
+            "icon_data",
+            "icon_url",
+            "icon_versions",
+            "id",
+            "image_data",
+            "image_url",
+            "image_versions",
+            "instagram_url",
+            "name",
+            "ps_id",
+            "rank",
+            "six_month_earned",
+            "slug",
+            "tshirt_image_data",
+            "tshirt_image_url",
+            "tshirt_image_versions",
+            "twitch_url",
+            "twitter",
+            "updated_at",
+            "website_url",
+            "youtube_url"
+          ],
+          "listing_sample": {
+            "acronym": "ENCE",
+            "country_id": 28,
+            "created_at": "2020-10-19T08:52:54.756+00:00",
+            "discipline_id": 1,
+            "est_date": "2013-04-13",
+            "gallery_presence": false,
+            "id": 754,
+            "image_data": "{\"id\":\"team/754/image/a61e7d4e89e9fc4788e45b0bf98a9d80.png\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"599px-ENCE_2020_allmode.png\",\"size\":122519,\"mime_type\":\"image/png\",\"width\":599,\"height\":599},\"derivatives\":{\"webp\":{\"id\":\"team/754/image/webp-87072c1ac8a305cbfcf0e84cd5a18497.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20240317-1-13l8w3m.webp\",\"size\":31524,\"mime_type\":null,\"width\":599,\"height\":599}},\"20x20\":{\"id\":\"team/754/image/20x20-250b4bba77cf6383c4fcc3e05a061bd4.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20240317-1-yfjtqm.webp\",\"size\":492,\"mime_type\":null,\"width\":20,\"height\":20}},\"50x50\":{\"id\":\"team/754/image/50x50-43a42fa858c649bead9bae9498c021eb.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20240317-1-10it6xw.webp\",\"size\":1576,\"mime_type\":null,\"width\":50,\"height\":50}},\"150x150\":{\"id\":\"team/754/image/150x150-f3f849e3ed0c469ff73b6c3abc1dbaab.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20240317-1-q0jy5b.webp\",\"size\":6684,\"mime_type\":null,\"width\":150,\"height\":150}},\"400x400\":{\"id\":\"team/754/image/400x400-cc1b3c60c6011fc97e51d0c71230a4b6.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20240317-1-14m39f5.webp\",\"size\":19346,\"mime_type\":null,\"width\":400,\"height\":400}}}}",
+            "image_url": "https://files.bo3.gg/uploads/team/754/image/webp-87072c1ac8a305cbfcf0e84cd5a18497.webp",
+            "name": "ENCE",
+            "ps_id": 3251,
+            "rank": 105,
+            "six_month_earned": 1250,
+            "slug": "ence",
+            "tshirt_image_data": "{\"id\":\"team/754/tshirt_image/d04031d2fdc586c307a7cb22a88c41c1\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"File name\",\"size\":899694,\"mime_type\":\"image/png\",\"width\":1024,\"height\":1080},\"derivatives\":{\"webp\":{\"id\":\"team/754/tshirt_image/webp-5fe42c99431691ae1b5b625093081c57.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250205-1-tqa4sd.webp\",\"size\":56210,\"mime_type\":null,\"width\":1024,\"height\":1080}},\"20x20\":{\"id\":\"team/754/tshirt_image/20x20-96ce87381f889842220f430ef2dccbb6.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250205-1-1vqk16p.webp\",\"size\":420,\"mime_type\":null,\"width\":19,\"height\":20}},\"50x50\":{\"id\":\"team/754/tshirt_image/50x50-8a8bb9e264c7531163e9b71550f7dda7.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250205-1-lxagyo.webp\",\"size\":972,\"mime_type\":null,\"width\":47,\"height\":50}},\"150x150\":{\"id\":\"team/754/tshirt_image/150x150-65c0a098b2735d9810370df9b5d00be8.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250205-1-1ill7z7.webp\",\"size\":4108,\"mime_type\":null,\"width\":142,\"height\":150}},\"400x400\":{\"id\":\"team/754/tshirt_image/400x400-36873a3f75ac38bd97d02d0cf2118b8f.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250205-1-1cby556.webp\",\"size\":17954,\"mime_type\":null,\"width\":379,\"height\":400}}}}",
+            "tshirt_image_url": "https://files.bo3.gg/uploads/team/754/tshirt_image/webp-5fe42c99431691ae1b5b625093081c57.webp",
+            "updated_at": "2026-10-23T03:30:43.709+00:00"
+          },
+          "detail_errors": {
+            "id": "HTTPError: 404 Client Error: Not Found for url: https://api.bo3.gg/api/v1/teams/754"
+          },
+          "detail_by_slug": {
+            "keys": [
+              "achievements",
+              "acronym",
+              "alternative_names",
+              "avg_views",
+              "country",
+              "country_id",
+              "created_at",
+              "discipline_id",
+              "email",
+              "est_date",
+              "facebook",
+              "from_transfers",
+              "gallery_presence",
+              "icon_url",
+              "id",
+              "image_url",
+              "instagram_url",
+              "localized_teams_records",
+              "name",
+              "players",
+              "rank",
+              "rank_diff",
+              "six_month_earned",
+              "slug",
+              "staff_member_participants",
+              "tags",
+              "team_clans",
+              "tshirt_image_url",
+              "twitch_url",
+              "twitter",
+              "updated_at",
+              "website_url",
+              "youtube_url"
+            ],
+            "sample": {
+              "acronym": "ENCE",
+              "country_id": 28,
+              "created_at": "2020-10-19T08:52:54.756+00:00",
+              "discipline_id": 1,
+              "est_date": "2013-04-13",
+              "gallery_presence": false,
+              "id": 754,
+              "image_url": "https://files.bo3.gg/uploads/team/754/image/webp-87072c1ac8a305cbfcf0e84cd5a18497.webp",
+              "name": "ENCE",
+              "rank": 105,
+              "rank_diff": 28,
+              "six_month_earned": 1250,
+              "slug": "ence",
+              "tshirt_image_url": "https://files.bo3.gg/uploads/team/754/tshirt_image/webp-5fe42c99431691ae1b5b625093081c57.webp",
+              "updated_at": "2026-10-23T03:30:43.709+00:00"
+            }
+          }
+        }
+      },
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ]
+    },
+    {
+      "hotspawn_id": "1080286",
+      "teams": [
+        "HAVU",
+        "RoundsGG"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-16T10:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/havu-vs-roundsgg-elisa-breakout-series-2-1080286",
+      "featured_method": null,
+      "current_resolution": {
+        "method": "model",
+        "label": "Research model estimate (Valve official ratings)",
+        "source": "Valve official standings",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "probabilities": [
+          0.89829326,
+          0.10170674
+        ],
+        "inputs": [
+          {
+            "name": "HAVU",
+            "points": 937,
+            "rank": null,
+            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+          },
+          {
+            "name": "ROUNDS",
+            "points": 548,
+            "rank": null,
+            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+          }
+        ],
+        "pick_index": 0,
+        "limitations": [
+          "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified."
+        ]
+      },
+      "sources_tried_from_published_trail": [
+        {
+          "stage": "HLTV research",
+          "status": "checked",
+          "source_url": "https://www.hltv.org/matches",
+          "detail": "No unique structured HLTV identity confirmed."
+        },
+        {
+          "stage": "HLTV identity review",
+          "status": "unresolved",
+          "source_url": "https://www.hltv.org/matches/2399425/havu-vs-rounds-elisa-breakout-series-2",
+          "detail": "HLTV lists HAVU vs ROUNDS at the same scheduled time with one exact-name opponent. The other name differs; equivalence is NOT verified. This record is for review only, not a probability input or confirmed match join."
+        },
+        {
+          "stage": "Identity join (verified alias registry)",
+          "status": "resolved",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "ROUNDS → RoundsGG. Competition-scoped registry entries with official evidence links; this supersedes any earlier \"equivalence not verified\" observation for these names in this competition only."
+        },
+        {
+          "stage": "Betting market (Polymarket series winner)",
+          "status": "unresolved",
+          "source_url": "https://polymarket.com/event/cs2-havu-rgg-2026-10-16",
+          "detail": "Polymarket event 1173318: Market observation is missing, future-dated or stale"
+        },
+        {
+          "stage": "Exchange market (Kalshi CS2 match winner)",
+          "status": "unresolved",
+          "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game",
+          "detail": "No alias-verified Kalshi match-winner line found for these teams and start time."
+        },
+        {
+          "stage": "Esportsbook line (Thunderpick original prices)",
+          "status": "unresolved",
+          "source_url": "https://thunderpick.io/esports/counter-strike",
+          "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time."
+        },
+        {
+          "stage": "Esportsbook line (Bovada original prices)",
+          "status": "unresolved",
+          "source_url": "https://www.bovada.lv/sports",
+          "detail": "No alias-verified Bovada match-winner line found for these teams and start time."
+        },
+        {
+          "stage": "Esportsbook line (Pinnacle original prices)",
+          "status": "unresolved",
+          "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+          "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time."
+        },
+        {
+          "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+          "status": "unresolved",
+          "source_url": "https://bo3.gg/matches",
+          "detail": "bo3.gg lists no fixture bound by both team names and the start time, or lists it without a bookmaker quote block, so no relayed price exists for this fixture."
+        },
+        {
+          "stage": "Aggregated bookmaker reference (EGamersWorld)",
+          "status": "unresolved",
+          "source_url": "https://egamersworld.com/counterstrike/matches",
+          "detail": "No reviewed aggregated-bookmaker capture matches this fixture."
+        },
+        {
+          "stage": "Research model cross-check (Valve official ratings)",
+          "status": "resolved",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula). Cross-check only unless no market or bookmaker line exists."
+        },
+        {
+          "stage": "Research model cross-check (HLTV world ranking)",
+          "status": "resolved",
+          "source_url": "https://www.hltv.org/ranking/teams",
+          "detail": "Alias-aware exact-name HLTV world-ranking rows; uncalibrated research model (400-scale logistic transform of the published HLTV points). Team-level ranking only: lineups, stand-ins, form and map veto are not confirmed. Cross-check only unless every money and Valve rung fails."
+        }
+      ],
+      "unresolved_stages": [
+        "HLTV identity review",
+        "Betting market (Polymarket series winner)",
+        "Exchange market (Kalshi CS2 match winner)",
+        "Esportsbook line (Thunderpick original prices)",
+        "Esportsbook line (Bovada original prices)",
+        "Esportsbook line (Pinnacle original prices)",
+        "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+        "Aggregated bookmaker reference (EGamersWorld)"
+      ],
+      "bo3_fixture": {
+        "bound": [],
+        "near_time_mismatch": []
+      },
+      "bo3_relay_two_sided_quote_present": false,
+      "bo3_team_lookups": {
+        "HAVU": {
+          "query_name": "HAVU",
+          "matches": [
+            {
+              "id": 627,
+              "name": "HAVU",
+              "slug": "havu"
+            }
+          ],
+          "detail_keys": null,
+          "detail_sample": null,
+          "listing_keys": [
+            "acronym",
+            "avg_views",
+            "country_id",
+            "created_at",
+            "discipline_id",
+            "email",
+            "est_date",
+            "facebook",
+            "gallery_presence",
+            "icon_data",
+            "icon_url",
+            "icon_versions",
+            "id",
+            "image_data",
+            "image_url",
+            "image_versions",
+            "instagram_url",
+            "name",
+            "ps_id",
+            "rank",
+            "six_month_earned",
+            "slug",
+            "tshirt_image_data",
+            "tshirt_image_url",
+            "tshirt_image_versions",
+            "twitch_url",
+            "twitter",
+            "updated_at",
+            "website_url",
+            "youtube_url"
+          ],
+          "listing_sample": {
+            "acronym": "HAVU",
+            "country_id": 28,
+            "created_at": "2020-10-19T08:52:42.980+00:00",
+            "discipline_id": 1,
+            "est_date": "2017-05-03",
+            "gallery_presence": false,
+            "id": 627,
+            "image_data": "{\"id\":\"team/627/image/7aa33f5b71460af1a13487488cf402a8\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"File name\",\"size\":25595,\"mime_type\":\"image/png\",\"width\":452,\"height\":455},\"derivatives\":{\"webp\":{\"id\":\"team/627/image/webp-d000554e473b70a457696d7081f12067.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250125-1-j9f89t.webp\",\"size\":8600,\"mime_type\":null,\"width\":452,\"height\":455}},\"20x20\":{\"id\":\"team/627/image/20x20-0dc40fbe15ae75c5f8f85b3054a6e129.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250125-1-bsmhr1.webp\",\"size\":348,\"mime_type\":null,\"width\":20,\"height\":20}},\"50x50\":{\"id\":\"team/627/image/50x50-c7f74c2031b9c7a6b2b7aa52904f237b.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250125-1-1r1m79x.webp\",\"size\":778,\"mime_type\":null,\"width\":50,\"height\":50}},\"150x150\":{\"id\":\"team/627/image/150x150-83e8ef0d12da61caa43f65aada687050.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250125-1-iyhgr6.webp\",\"size\":2468,\"mime_type\":null,\"width\":149,\"height\":150}},\"400x400\":{\"id\":\"team/627/image/400x400-25f031f4da6cfae568d8c6a13f7987dc.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20250125-1-1r5bqcg.webp\",\"size\":8264,\"mime_type\":null,\"width\":397,\"height\":400}}}}",
+            "image_url": "https://files.bo3.gg/uploads/team/627/image/webp-d000554e473b70a457696d7081f12067.webp",
+            "name": "HAVU",
+            "ps_id": 125774,
+            "rank": 124,
+            "six_month_earned": 15000,
+            "slug": "havu",
+            "updated_at": "2025-09-01T18:34:44.706+00:00"
+          },
+          "detail_errors": {
+            "id": "HTTPError: 404 Client Error: Not Found for url: https://api.bo3.gg/api/v1/teams/627"
+          },
+          "detail_by_slug": {
+            "keys": [
+              "achievements",
+              "acronym",
+              "alternative_names",
+              "avg_views",
+              "country",
+              "country_id",
+              "created_at",
+              "discipline_id",
+              "email",
+              "est_date",
+              "facebook",
+              "from_transfers",
+              "gallery_presence",
+              "icon_url",
+              "id",
+              "image_url",
+              "instagram_url",
+              "localized_teams_records",
+              "name",
+              "players",
+              "rank",
+              "rank_diff",
+              "six_month_earned",
+              "slug",
+              "staff_member_participants",
+              "tags",
+              "team_clans",
+              "tshirt_image_url",
+              "twitch_url",
+              "twitter",
+              "updated_at",
+              "website_url",
+              "youtube_url"
+            ],
+            "sample": {
+              "acronym": "HAVU",
+              "country_id": 28,
+              "created_at": "2020-10-19T08:52:42.980+00:00",
+              "discipline_id": 1,
+              "est_date": "2017-05-03",
+              "gallery_presence": false,
+              "id": 627,
+              "image_url": "https://files.bo3.gg/uploads/team/627/image/webp-d000554e473b70a457696d7081f12067.webp",
+              "name": "HAVU",
+              "rank": 124,
+              "rank_diff": 30,
+              "six_month_earned": 15000,
+              "slug": "havu",
+              "updated_at": "2025-09-01T18:34:44.706+00:00"
+            }
+          }
+        },
+        "RoundsGG": {
+          "query_name": "RoundsGG",
+          "matches": [],
+          "detail_keys": null,
+          "detail_sample": null
+        }
+      },
+      "limitations": [
+        "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified."
+      ]
+    },
+    {
+      "hotspawn_id": "1081120",
+      "teams": [
+        "mellren",
+        "Privateer"
+      ],
+      "competition": "CCT Europe 2026 Series #12 Play-In",
+      "starts_at": "2026-10-16T14:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/mellren-vs-privateer-cct-europe-2026-series-12-play-in-1081120",
+      "featured_method": "model",
+      "current_resolution": {
+        "method": "model",
+        "label": "Valve-rating research estimate",
+        "source": "Valve official standings",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "probabilities": [
+          0.85989312,
+          0.14010688
+        ],
+        "inputs": [
+          {
+            "name": "mellren",
+            "points": 932,
+            "rank": null,
+            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+          },
+          {
+            "name": "Privateer",
+            "points": 608,
+            "rank": null,
+            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+          }
+        ],
+        "pick_index": 0,
+        "limitations": [
+          "Research model, not observed betting odds or a verified true win probability.",
+          "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
+          "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
+        ]
+      },
+      "sources_tried_from_published_trail": [
+        {
+          "stage": "Primary: Polymarket",
+          "status": "unresolved",
+          "source_url": "https://polymarket.com/esports/cs2",
+          "detail": "No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased."
+        },
+        {
+          "stage": "HLTV research",
+          "status": "checked",
+          "source_url": "https://www.hltv.org/matches/2399471/mellren-vs-privateer-cct-2026-europe-series-12-closed-qualifier",
+          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
+        },
+        {
+          "stage": "Original esportsbook lines",
+          "status": "unresolved",
+          "source_url": "https://thunderpick.io/esports/counter-strike",
+          "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists."
+        },
+        {
+          "stage": "GG.BET esportsbook",
+          "status": "unavailable",
+          "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
+          "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
+        },
+        {
+          "stage": "Pinnacle esportsbook",
+          "status": "unavailable",
+          "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
+          "detail": "Redirected to a generic landing page; no match-level betting lines verified."
+        },
+        {
+          "stage": "Rivalry esportsbook",
+          "status": "unavailable",
+          "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
+          "detail": "Redirected to a generic landing page; no match-level betting lines verified."
+        },
+        {
+          "stage": "Stake esportsbook",
+          "status": "unavailable",
+          "source_url": "https://stake.com/sports/esports/counter-strike",
+          "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
+        },
+        {
+          "stage": "Valve research model",
+          "status": "resolved",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "Unique exact-name five-player rating records. Explicitly uncalibrated model; no bookmaker odds claimed."
+        }
+      ],
+      "unresolved_stages": [
+        "Primary: Polymarket",
+        "Original esportsbook lines",
+        "GG.BET esportsbook",
+        "Pinnacle esportsbook",
+        "Rivalry esportsbook",
+        "Stake esportsbook"
+      ],
+      "bo3_fixture": {
+        "bound": [],
+        "near_time_mismatch": []
+      },
+      "bo3_relay_two_sided_quote_present": false,
+      "bo3_team_lookups": {
+        "mellren": {
+          "query_name": "mellren",
+          "matches": [
+            {
+              "id": 23102,
+              "name": "mellren",
+              "slug": "mellren"
+            }
+          ],
+          "detail_keys": null,
+          "detail_sample": null,
+          "listing_keys": [
+            "acronym",
+            "avg_views",
+            "country_id",
+            "created_at",
+            "discipline_id",
+            "email",
+            "est_date",
+            "facebook",
+            "gallery_presence",
+            "icon_data",
+            "icon_url",
+            "icon_versions",
+            "id",
+            "image_data",
+            "image_url",
+            "image_versions",
+            "instagram_url",
+            "name",
+            "ps_id",
+            "rank",
+            "six_month_earned",
+            "slug",
+            "tshirt_image_data",
+            "tshirt_image_url",
+            "tshirt_image_versions",
+            "twitch_url",
+            "twitter",
+            "updated_at",
+            "website_url",
+            "youtube_url"
+          ],
+          "listing_sample": {
+            "country_id": 51,
+            "created_at": "2026-03-25T10:12:26.624+00:00",
+            "discipline_id": 1,
+            "gallery_presence": false,
+            "id": 23102,
+            "image_data": "{\"id\":\"team/23102/image/1f940b471c005c10977a613d023a1cd2\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"File name\",\"size\":18671,\"mime_type\":\"image/png\",\"width\":101,\"height\":100},\"derivatives\":{\"webp\":{\"id\":\"team/23102/image/webp-72221ce6d54cf29875ea6401d24d8ed8.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260829-1-59zhf8.webp\",\"size\":4022,\"mime_type\":null,\"width\":101,\"height\":100}},\"20x20\":{\"id\":\"team/23102/image/20x20-d7b3a83cc115ec68a982b610b7faf851.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260829-1-cnr10z.webp\",\"size\":528,\"mime_type\":null,\"width\":20,\"height\":20}},\"50x50\":{\"id\":\"team/23102/image/50x50-85a63403a843b2db586d269fc455bbfe.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260829-1-ldxymn.webp\",\"size\":1664,\"mime_type\":null,\"width\":50,\"height\":50}},\"150x150\":{\"id\":\"team/23102/image/150x150-4b9821c300275830ed5276200e73be2a.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260829-1-bgoi5o.webp\",\"size\":3946,\"mime_type\":null,\"width\":101,\"height\":100}},\"400x400\":{\"id\":\"team/23102/image/400x400-5f27116925cdd43f49689a084110b00c.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260829-1-7dp46a.webp\",\"size\":3946,\"mime_type\":null,\"width\":101,\"height\":100}}}}",
+            "image_url": "https://files.bo3.gg/uploads/team/23102/image/webp-72221ce6d54cf29875ea6401d24d8ed8.webp",
+            "name": "mellren",
+            "rank": 125,
+            "slug": "mellren",
+            "updated_at": "2026-09-12T09:22:55.181+00:00"
+          },
+          "detail_errors": {
+            "id": "HTTPError: 404 Client Error: Not Found for url: https://api.bo3.gg/api/v1/teams/23102"
+          },
+          "detail_by_slug": {
+            "keys": [
+              "achievements",
+              "acronym",
+              "alternative_names",
+              "avg_views",
+              "country",
+              "country_id",
+              "created_at",
+              "discipline_id",
+              "email",
+              "est_date",
+              "facebook",
+              "from_transfers",
+              "gallery_presence",
+              "icon_url",
+              "id",
+              "image_url",
+              "instagram_url",
+              "localized_teams_records",
+              "name",
+              "players",
+              "rank",
+              "rank_diff",
+              "six_month_earned",
+              "slug",
+              "staff_member_participants",
+              "tags",
+              "team_clans",
+              "tshirt_image_url",
+              "twitch_url",
+              "twitter",
+              "updated_at",
+              "website_url",
+              "youtube_url"
+            ],
+            "sample": {
+              "country_id": 51,
+              "created_at": "2026-03-25T10:12:26.624+00:00",
+              "discipline_id": 1,
+              "gallery_presence": false,
+              "id": 23102,
+              "image_url": "https://files.bo3.gg/uploads/team/23102/image/webp-72221ce6d54cf29875ea6401d24d8ed8.webp",
+              "name": "mellren",
+              "rank": 125,
+              "rank_diff": 129,
+              "slug": "mellren",
+              "updated_at": "2026-09-12T09:22:55.181+00:00"
+            }
+          }
+        },
+        "Privateer": {
+          "query_name": "Privateer",
+          "matches": [
+            {
+              "id": 23433,
+              "name": "Privateer",
+              "slug": "privateer-gaming"
+            }
+          ],
+          "detail_keys": null,
+          "detail_sample": null,
+          "listing_keys": [
+            "acronym",
+            "avg_views",
+            "country_id",
+            "created_at",
+            "discipline_id",
+            "email",
+            "est_date",
+            "facebook",
+            "gallery_presence",
+            "icon_data",
+            "icon_url",
+            "icon_versions",
+            "id",
+            "image_data",
+            "image_url",
+            "image_versions",
+            "instagram_url",
+            "name",
+            "ps_id",
+            "rank",
+            "six_month_earned",
+            "slug",
+            "tshirt_image_data",
+            "tshirt_image_url",
+            "tshirt_image_versions",
+            "twitch_url",
+            "twitter",
+            "updated_at",
+            "website_url",
+            "youtube_url"
+          ],
+          "listing_sample": {
+            "acronym": "PG",
+            "country_id": 48,
+            "created_at": "2026-04-27T13:04:05.896+00:00",
+            "discipline_id": 1,
+            "gallery_presence": false,
+            "id": 23433,
+            "image_data": "{\"id\":\"team/23433/image/f4a6a375b8838fb8d606f5b6c7a1dcd7\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"File name\",\"size\":85068,\"mime_type\":\"image/png\",\"width\":966,\"height\":974},\"derivatives\":{\"webp\":{\"id\":\"team/23433/image/webp-c47d460fa144c7026f838bc7bd40d325.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260926-1-6p5b72.webp\",\"size\":21956,\"mime_type\":null,\"width\":966,\"height\":974}},\"20x20\":{\"id\":\"team/23433/image/20x20-507d3d39f2cb3fb41221580b8ba38d7f.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260926-1-6zaw72.webp\",\"size\":444,\"mime_type\":null,\"width\":20,\"height\":20}},\"50x50\":{\"id\":\"team/23433/image/50x50-98e55737f8b0fbebef2c26c98be3a72c.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260926-1-5hobe1.webp\",\"size\":1142,\"mime_type\":null,\"width\":50,\"height\":50}},\"150x150\":{\"id\":\"team/23433/image/150x150-3f281e1b11b7fd74806cd18d4588d958.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260926-1-yf5qrh.webp\",\"size\":3888,\"mime_type\":null,\"width\":149,\"height\":150}},\"400x400\":{\"id\":\"team/23433/image/400x400-e8f82adf7221a14e18603b3bfd515ffc.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20260926-1-9apz1t.webp\",\"size\":10898,\"mime_type\":null,\"width\":397,\"height\":400}}}}",
+            "image_url": "https://files.bo3.gg/uploads/team/23433/image/webp-c47d460fa144c7026f838bc7bd40d325.webp",
+            "name": "Privateer",
+            "rank": 273,
+            "slug": "privateer-gaming",
+            "updated_at": "2026-07-25T15:57:05.224+00:00"
+          },
+          "detail_errors": {
+            "id": "HTTPError: 404 Client Error: Not Found for url: https://api.bo3.gg/api/v1/teams/23433"
+          },
+          "detail_by_slug": {
+            "keys": [
+              "achievements",
+              "acronym",
+              "alternative_names",
+              "avg_views",
+              "country",
+              "country_id",
+              "created_at",
+              "discipline_id",
+              "email",
+              "est_date",
+              "facebook",
+              "from_transfers",
+              "gallery_presence",
+              "icon_url",
+              "id",
+              "image_url",
+              "instagram_url",
+              "localized_teams_records",
+              "name",
+              "players",
+              "rank",
+              "rank_diff",
+              "six_month_earned",
+              "slug",
+              "staff_member_participants",
+              "tags",
+              "team_clans",
+              "tshirt_image_url",
+              "twitch_url",
+              "twitter",
+              "updated_at",
+              "website_url",
+              "youtube_url"
+            ],
+            "sample": {
+              "acronym": "PG",
+              "country_id": 48,
+              "created_at": "2026-04-27T13:04:05.896+00:00",
+              "discipline_id": 1,
+              "gallery_presence": false,
+              "id": 23433,
+              "image_url": "https://files.bo3.gg/uploads/team/23433/image/webp-c47d460fa144c7026f838bc7bd40d325.webp",
+              "name": "Privateer",
+              "rank": 273,
+              "rank_diff": -66,
+              "slug": "privateer-gaming",
+              "updated_at": "2026-07-25T15:57:05.224+00:00"
+            }
+          }
+        }
+      },
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank."
+      ]
+    },
+    {
+      "hotspawn_id": "1080289",
+      "teams": [
+        "RoundsGG",
+        "Voca"
+      ],
+      "competition": "Elisa BreakOut Series #2",
+      "starts_at": "2026-10-16T16:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/roundsgg-vs-voca-elisa-breakout-series-2-1080289",
+      "featured_method": null,
+      "current_resolution": {
+        "method": "model",
+        "label": "Research model estimate (Valve official ratings)",
+        "source": "Valve official standings",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "probabilities": [
+          0.02791158,
+          0.97208842
+        ],
+        "inputs": [
+          {
+            "name": "ROUNDS",
+            "points": 548,
+            "rank": null,
+            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+          },
+          {
+            "name": "Voca",
+            "points": 1182,
+            "rank": null,
+            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+          }
+        ],
+        "pick_index": 1,
+        "limitations": [
+          "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified."
+        ]
+      },
+      "sources_tried_from_published_trail": [
+        {
+          "stage": "HLTV research",
+          "status": "checked",
+          "source_url": "https://www.hltv.org/matches",
+          "detail": "No unique structured HLTV identity confirmed."
+        },
+        {
+          "stage": "HLTV identity review",
+          "status": "unresolved",
+          "source_url": "https://www.hltv.org/matches/2399428/voca-vs-rounds-elisa-breakout-series-2",
+          "detail": "HLTV lists Voca vs ROUNDS at the same scheduled time with one exact-name opponent. The other name differs; equivalence is NOT verified. This record is for review only, not a probability input or confirmed match join."
+        },
+        {
+          "stage": "Identity join (verified alias registry)",
+          "status": "resolved",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "ROUNDS → RoundsGG. Competition-scoped registry entries with official evidence links; this supersedes any earlier \"equivalence not verified\" observation for these names in this competition only."
+        },
+        {
+          "stage": "Betting market (Polymarket series winner)",
+          "status": "unresolved",
+          "source_url": "https://polymarket.com/event/cs2-voc-rgg-2026-10-16",
+          "detail": "Polymarket event 1173322: Market observation is missing, future-dated or stale"
+        },
+        {
+          "stage": "Exchange market (Kalshi CS2 match winner)",
+          "status": "unresolved",
+          "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game",
+          "detail": "No alias-verified Kalshi match-winner line found for these teams and start time."
+        },
+        {
+          "stage": "Esportsbook line (Thunderpick original prices)",
+          "status": "unresolved",
+          "source_url": "https://thunderpick.io/esports/counter-strike",
+          "detail": "No alias-verified Thunderpick match-winner line found for these teams and start time."
+        },
+        {
+          "stage": "Esportsbook line (Bovada original prices)",
+          "status": "unresolved",
+          "source_url": "https://www.bovada.lv/sports",
+          "detail": "No alias-verified Bovada match-winner line found for these teams and start time."
+        },
+        {
+          "stage": "Esportsbook line (Pinnacle original prices)",
+          "status": "unresolved",
+          "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+          "detail": "No alias-verified Pinnacle match-winner line found for these teams and start time."
+        },
+        {
+          "stage": "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+          "status": "unresolved",
+          "source_url": "https://bo3.gg/matches",
+          "detail": "bo3.gg lists no fixture bound by both team names and the start time, or lists it without a bookmaker quote block, so no relayed price exists for this fixture."
+        },
+        {
+          "stage": "Aggregated bookmaker reference (EGamersWorld)",
+          "status": "unresolved",
+          "source_url": "https://egamersworld.com/counterstrike/matches",
+          "detail": "No reviewed aggregated-bookmaker capture matches this fixture."
+        },
+        {
+          "stage": "Research model cross-check (Valve official ratings)",
+          "status": "resolved",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "Alias-aware exact-name Valve rating rows; uncalibrated research model (Valve fit.js formula). Cross-check only unless no market or bookmaker line exists."
+        },
+        {
+          "stage": "Research model cross-check (HLTV world ranking)",
+          "status": "resolved",
+          "source_url": "https://www.hltv.org/ranking/teams",
+          "detail": "Alias-aware exact-name HLTV world-ranking rows; uncalibrated research model (400-scale logistic transform of the published HLTV points). Team-level ranking only: lineups, stand-ins, form and map veto are not confirmed. Cross-check only unless every money and Valve rung fails."
+        }
+      ],
+      "unresolved_stages": [
+        "HLTV identity review",
+        "Betting market (Polymarket series winner)",
+        "Exchange market (Kalshi CS2 match winner)",
+        "Esportsbook line (Thunderpick original prices)",
+        "Esportsbook line (Bovada original prices)",
+        "Esportsbook line (Pinnacle original prices)",
+        "Esportsbook line relayed by bo3.gg (bookmaker prices bo3.gg publishes)",
+        "Aggregated bookmaker reference (EGamersWorld)"
+      ],
+      "bo3_fixture": {
+        "bound": [],
+        "near_time_mismatch": []
+      },
+      "bo3_relay_two_sided_quote_present": false,
+      "bo3_team_lookups": {
+        "RoundsGG": {
+          "query_name": "RoundsGG",
+          "matches": [],
+          "detail_keys": null,
+          "detail_sample": null
+        },
+        "Voca": {
+          "query_name": "Voca",
+          "matches": [
+            {
+              "id": 21840,
+              "name": "Voca",
+              "slug": "voca"
+            }
+          ],
+          "detail_keys": null,
+          "detail_sample": null,
+          "listing_keys": [
+            "acronym",
+            "avg_views",
+            "country_id",
+            "created_at",
+            "discipline_id",
+            "email",
+            "est_date",
+            "facebook",
+            "gallery_presence",
+            "icon_data",
+            "icon_url",
+            "icon_versions",
+            "id",
+            "image_data",
+            "image_url",
+            "image_versions",
+            "instagram_url",
+            "name",
+            "ps_id",
+            "rank",
+            "six_month_earned",
+            "slug",
+            "tshirt_image_data",
+            "tshirt_image_url",
+            "tshirt_image_versions",
+            "twitch_url",
+            "twitter",
+            "updated_at",
+            "website_url",
+            "youtube_url"
+          ],
+          "listing_sample": {
+            "country_id": 11,
+            "created_at": "2025-10-20T11:01:59.071+00:00",
+            "discipline_id": 1,
+            "gallery_presence": false,
+            "id": 21840,
+            "image_data": "{\"id\":\"team/21840/image/e39b88c2f290f2e7a19c0f019c4c2bde\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"File name\",\"size\":75285,\"mime_type\":\"image/png\",\"width\":817,\"height\":429},\"derivatives\":{\"webp\":{\"id\":\"team/21840/image/webp-daeddab7e1426add6b2ac8eab9012f0a.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20251117-1-yghi5e.webp\",\"size\":13204,\"mime_type\":null,\"width\":817,\"height\":429}},\"20x20\":{\"id\":\"team/21840/image/20x20-3333908f7c773ff0134008d59da62e97.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20251117-1-sqi7ch.webp\",\"size\":298,\"mime_type\":null,\"width\":20,\"height\":11}},\"50x50\":{\"id\":\"team/21840/image/50x50-7ff9700efde080e907901af4b0ac8363.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20251117-1-tfu5sx.webp\",\"size\":722,\"mime_type\":null,\"width\":50,\"height\":26}},\"150x150\":{\"id\":\"team/21840/image/150x150-1dbf64b8758dfd343708f94236a5725e.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20251117-1-iuua14.webp\",\"size\":2120,\"mime_type\":null,\"width\":150,\"height\":79}},\"400x400\":{\"id\":\"team/21840/image/400x400-27a3b08131f2dadfe6c9dc074625bc98.webp\",\"storage\":\"store_pub\",\"metadata\":{\"filename\":\"image_processing20251117-1-mwawqn.webp\",\"size\":6690,\"mime_type\":null,\"width\":400,\"height\":210}}}}",
+            "image_url": "https://files.bo3.gg/uploads/team/21840/image/webp-daeddab7e1426add6b2ac8eab9012f0a.webp",
+            "name": "Voca",
+            "rank": 68,
+            "six_month_earned": 17250,
+            "slug": "voca",
+            "updated_at": "2026-10-23T03:30:43.191+00:00"
+          },
+          "detail_errors": {
+            "id": "HTTPError: 404 Client Error: Not Found for url: https://api.bo3.gg/api/v1/teams/21840"
+          },
+          "detail_by_slug": {
+            "keys": [
+              "achievements",
+              "acronym",
+              "alternative_names",
+              "avg_views",
+              "country",
+              "country_id",
+              "created_at",
+              "discipline_id",
+              "email",
+              "est_date",
+              "facebook",
+              "from_transfers",
+              "gallery_presence",
+              "icon_url",
+              "id",
+              "image_url",
+              "instagram_url",
+              "localized_teams_records",
+              "name",
+              "players",
+              "rank",
+              "rank_diff",
+              "six_month_earned",
+              "slug",
+              "staff_member_participants",
+              "tags",
+              "team_clans",
+              "tshirt_image_url",
+              "twitch_url",
+              "twitter",
+              "updated_at",
+              "website_url",
+              "youtube_url"
+            ],
+            "sample": {
+              "country_id": 11,
+              "created_at": "2025-10-20T11:01:59.071+00:00",
+              "discipline_id": 1,
+              "gallery_presence": false,
+              "id": 21840,
+              "image_url": "https://files.bo3.gg/uploads/team/21840/image/webp-daeddab7e1426add6b2ac8eab9012f0a.webp",
+              "name": "Voca",
+              "rank": 68,
+              "rank_diff": 6,
+              "six_month_earned": 17250,
+              "slug": "voca",
+              "updated_at": "2026-10-23T03:30:43.191+00:00"
+            }
+          }
+        }
+      },
+      "limitations": [
+        "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified."
+      ]
+    }
+  ],
+  "conclusions": {
+    "with_directional_pick": 9,
+    "resolved_no_pick_even": 0,
+    "still_blank": 0,
+    "bo3_relay_two_sided": 0
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "observed_at": "2026-10-23T05:10:39Z",
+  "published": {
+    "generated_at": "2026-10-15T08:36:13Z",
+    "inventory_observed_at": "2026-10-15T08:36:04Z",
+    "coverage_complete": true,
+    "run_status": "partial-picks",
+    "counts": {
+      "inventory": 80,
+      "upcoming": 17,
+      "archived": 63,
+      "unknown_schedule": 0,
+      "market": 7,
+      "bookmaker": 1,
+      "model": 5,
+      "unresolved": 4,
+      "picks": 13,
+      "no_edge": 0
+    },
+    "active_published": 17,
+    "age_hours": 188.57,
+    "inventory_age_hours": 188.58,
+    "stale": true
+  },
+  "live": {
+    "source_records": 0,
+    "upcoming": 0
+  },
+  "missing_from_published": [],
+  "missing_from_active_list": [],
+  "published_active_not_in_live_source": [
+    "1079440",
+    "1079442",
+    "1080202",
+    "1080203",
+    "1080204",
+    "1080280",
+    "1080281",
+    "1080282",
+    "1080283",
+    "1080284",
+    "1080285",
+    "1080286",
+    "1080287",
+    "1080288",
+    "1080289",
+    "1080290",
+    "1081120"
+  ],
+  "sources": {
+    "published_latest": {
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json?cb=1792732239",
+      "http_status": 200,
+      "ok": true,
+      "sha256": "16c4437804abd527dd41c0ec67787911b25868cd7640b76bc1d88147fc224f5d",
+      "x_cache": "HIT",
+      "observed_at": "2026-10-23T05:10:39Z",
+      "error": null
+    },
+    "published_origination": {
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json?cb=1792732239",
+      "http_status": 200,
+      "ok": true,
+      "sha256": "661ac8ff3a202e6ffc6dc2da8d57d94c91653ff71dfa790b1448422bf02ff5b2",
+      "x_cache": "MISS",
+      "observed_at": "2026-10-23T05:10:39Z",
+      "error": null
+    },
+    "published_row_audit": {
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/row-source-audit.json?cb=1792732239",
+      "http_status": 200,
+      "ok": true,
+      "sha256": "b53858ca9049497a5ff22ac340ed67f7bed6ca372d2699d48eaa34272648208f",
+      "x_cache": "MISS",
+      "observed_at": "2026-10-23T05:10:39Z",
+      "error": null
+    },
+    "live_lobby": {
+      "url": "https://play.hotspawn.com/lobby?cb=1792732239",
+      "http_status": 403,
+      "ok": false,
+      "sha256": "269b3a43ad6cb11d80319383b1b4640e97bb042a80dea8b8061c6824f898cab6",
+      "x_cache": null,
+      "observed_at": "2026-10-23T05:10:39Z",
+      "error": null
+    },
+    "live_cs2_lobby": {
+      "url": "https://play.hotspawn.com/cs2-pickems?cb=1792732239",
+      "http_status": 403,
+      "ok": false,
+      "sha256": "269b3a43ad6cb11d80319383b1b4640e97bb042a80dea8b8061c6824f898cab6",
+      "x_cache": null,
+      "observed_at": "2026-10-23T05:10:40Z",
+      "error": null
+    },
+    "live_fixtures_api": {
+      "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "http_status": 403,
+      "ok": false,
+      "sha256": "269b3a43ad6cb11d80319383b1b4640e97bb042a80dea8b8061c6824f898cab6",
+      "x_cache": null,
+      "observed_at": "2026-10-23T05:10:40Z",
+      "error": null
+    }
+  },
+  "row_audit_totals": {
+    "active_rows": 17,
+    "with_pick": 17,
+    "even_no_side": 0,
+    "problems": 0,
+    "published_row_source_audit": {
+      "rows": 334,
+      "ok": 326,
+      "flagged": 0,
+      "navigation": 8,
+      "violation": 0
+    }
+  }
+}
