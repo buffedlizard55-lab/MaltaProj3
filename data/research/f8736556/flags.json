@@ -1,0 +1,39 @@
+[
+  {
+    "id": "f8736556-publication-and-coverage-audit-2026-10-23",
+    "severity": "notice",
+    "match_ids": [
+      "1081605",
+      "1082996",
+      "1079198",
+      "1079200",
+      "1082858",
+      "1082861",
+      "1082792",
+      "1082793"
+    ],
+    "title": "Dated plain-URL publication parity and every-fixture pick audit (23 October)",
+    "detail": "Independent public audit at 2026-10-23T09:53:43Z: plain-URL publication parity passed; 30 active published fixtures, 30 directional picks, 22 external-line, 8 research-model and 0 unresolved. HLTV-first/esportsbook research covered 8 non-money-line fixture(s) and found 0 two-sided relay lead(s), which are not picks until the reviewed first-party ladder replays them. Research-model percentages are not bookmaker odds. Unresolved probabilities remain blank.",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+      "https://play.hotspawn.com/lobby",
+      "https://www.hltv.org/matches",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/f8736556/audit.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/f8736556/line-source-research.md"
+    ]
+  },
+  {
+    "id": "f8736556-pages-legacy-mode-remains-2026-10-23",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "GitHub Pages remains in legacy mode; publisher ordering is the control",
+    "detail": "The official GitHub Pages API read at 2026-10-23T09:43:46Z reported build_type=legacy from main:/. The attempted change to build_type=workflow returned HTTP 403, Resource not accessible by integration, so this session does not claim Actions is the sole configured publisher. The repository workflow waits for legacy builds, deploys the verified artifact last, syncs rendered HTML—not deterministic data fixtures—into the root, waits again and redeploys/verifies the artifact. A repository owner can remove this race in Pages settings by selecting GitHub Actions as the source.",
+    "source_urls": [
+      "https://docs.github.com/en/rest/pages/pages#update-information-about-a-apiname-pages-site",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/f8736556/pages-before.json"
+    ]
+  }
+]
