@@ -1,20 +1,20 @@
 {
  "schema_version": 1,
  "session": "arena-1531ecf1",
- "observed_at": "2026-10-23T11:07:23Z",
+ "observed_at": "2026-10-23T11:13:44Z",
  "environment": "github-actions-runner",
  "role": "Dated research and gap picks. Only a bound two-sided prematch price or the documented Valve-rating research model may produce the probabilities recorded here. Hotspawn crowd percentages and HLTV fan votes are never inputs.",
  "policy": "HLTV first (identity, format, started/finished state only), then esportsbooks and esports betting-line services (bo3.gg bookmaker relay, Smarkets, Thunderpick, Pinnacle guest board, book-surface sweep). Resolution reuses scripts/originate.py’s reviewed ladder. An even estimate never receives an invented side.",
  "inventory": {
   "source_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
   "lobby_url": "https://play.hotspawn.com/lobby",
-  "observed_at": "2026-10-23T11:07:23Z",
+  "observed_at": "2026-10-23T11:13:44Z",
   "http_status": 200,
-  "fixtures_seen": 92
+  "fixtures_seen": 91
  },
  "published": {
-  "latest_generated_at": "2026-10-23T11:06:26Z",
-  "origination_generated_at": "2026-10-23T11:06:42Z",
+  "latest_generated_at": "2026-10-23T11:12:47Z",
+  "origination_generated_at": "2026-10-23T11:13:01Z",
   "upcoming_ids": [
    "1051301",
    "1051339",
@@ -85,7 +85,6 @@
    "1079655",
    "1079657",
    "1081105",
-   "1081148",
    "1081150",
    "1081605",
    "1081606",
@@ -151,8 +150,8 @@
     {
      "stage": "Exchange market (Pinnacle guest board)",
      "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
-     "status": "resolved",
-     "detail": "series moneyline bound on the guest board"
+     "status": "unresolved",
+     "detail": "no bound matchup on the guest board (No Pinnacle CS2 matchup lists exactly these two teams.)"
     },
     {
      "stage": "Valve-rating research model",
@@ -212,8 +211,8 @@
     {
      "stage": "Exchange market (Pinnacle guest board)",
      "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
-     "status": "resolved",
-     "detail": "series moneyline bound on the guest board"
+     "status": "unresolved",
+     "detail": "no bound matchup on the guest board (No Pinnacle CS2 matchup lists exactly these two teams.)"
     },
     {
      "stage": "Valve-rating research model",
@@ -273,8 +272,8 @@
     {
      "stage": "Exchange market (Pinnacle guest board)",
      "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
-     "status": "resolved",
-     "detail": "series moneyline bound on the guest board"
+     "status": "unresolved",
+     "detail": "no bound matchup on the guest board (No Pinnacle CS2 matchup lists exactly these two teams.)"
     },
     {
      "stage": "Valve-rating research model",
@@ -334,8 +333,8 @@
     {
      "stage": "Exchange market (Pinnacle guest board)",
      "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
-     "status": "resolved",
-     "detail": "series moneyline bound on the guest board"
+     "status": "unresolved",
+     "detail": "no bound matchup on the guest board (No Pinnacle CS2 matchup lists exactly these two teams.)"
     },
     {
      "stage": "Valve-rating research model",
@@ -349,8 +348,8 @@
    "current_estimate": {
     "label": "Own network estimate (bo3.gg results graph)",
     "probabilities": [
-     0.4493733010376189,
-     0.5506266989623811
+     0.4492308690416069,
+     0.5507691309583931
     ],
     "source": "Own network model (bo3.gg results graph)",
     "source_url": "https://bo3.gg/matches"
@@ -395,8 +394,8 @@
     {
      "stage": "Exchange market (Pinnacle guest board)",
      "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
-     "status": "resolved",
-     "detail": "series moneyline bound on the guest board"
+     "status": "unresolved",
+     "detail": "no bound matchup on the guest board (No Pinnacle CS2 matchup lists exactly these two teams.)"
     },
     {
      "stage": "Valve-rating research model",
@@ -456,8 +455,8 @@
     {
      "stage": "Exchange market (Pinnacle guest board)",
      "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
-     "status": "resolved",
-     "detail": "series moneyline bound on the guest board"
+     "status": "unresolved",
+     "detail": "no bound matchup on the guest board (No Pinnacle CS2 matchup lists exactly these two teams.)"
     },
     {
      "stage": "Valve-rating research model",
@@ -517,8 +516,8 @@
     {
      "stage": "Exchange market (Pinnacle guest board)",
      "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
-     "status": "resolved",
-     "detail": "series moneyline bound on the guest board"
+     "status": "unresolved",
+     "detail": "no bound matchup on the guest board (No Pinnacle CS2 matchup lists exactly these two teams.)"
     },
     {
      "stage": "Valve-rating research model",
