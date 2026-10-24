@@ -12,7 +12,51 @@ Claimed **2026-10-24T16:20Z** on Arena's fixed branch `arena/5f9d0082-maltaproj3
 
 **Non-overlap pledge.** No edit to `scripts/collect.py`, ~~`scripts/originate.py`~~ (one exception, task 5F9-5: the injectable clock only, because the check was red on `main` and blocks every scheduled publisher after 14:20Z today), `scripts/reference_odds.py`, `scripts/root_publish.py`, `scripts/build.py`, `assets/`, `snapshot.json`, `data/latest.json`, `data/origination.json`, `.github/workflows/**` or any other session's `data/research/<id>/`. Hotspawn "% picked" and HLTV fan votes are never probabilities. Adding an EGamersWorld capture would have required editing the shared `CAPTURE_PATHS` list and would have expired in eight hours, so it was deliberately not done while the page shows a placeholder.
 
-### 5F9 result (2026-10-24T16:20Z–17:1xZ)
+### 5F9 result (2026-10-24T16:20Z–18:2xZ)
+
+**Published.** PR [#317](https://github.com/buffedlizard55-lab/MaltaProj3/pull/317) merged to
+`main` as **`a63e0d0`** at 2026-10-24T17:38Z after its `Rows, build, links, mobile and
+accessibility` check passed (18m22s, run
+[40115280187](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40115280187)); the
+`originate` check passed in 3m (`40113859899`). Local full suite on the merged tree:
+**1701 tests OK (4 skipped)** in 1383 s.
+
+**The check was red before this PR, for a new reason — and it was fixed here.** The first
+`Validate dashboard` run on this PR failed on
+`test_a5b59ee6_publisher_wiring.TheLadderPublishesThePick` (2 failures, `unexpectedly None`).
+Reproduced locally in 1.4 s: the test pins its EGamersWorld evidence chain to
+`NOW = 2026-10-24T06:30Z` but called `originate.run(...)`, which read the real clock, so the
+ladder's eight-hour freshness gate refused the capture from 14:20Z onwards. Not caused by this
+session's files, and not cosmetic: the scheduled publisher run
+[40116915898](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40116915898)
+(17:36Z, before the merge) **failed at `Regression tests`** for exactly this reason, i.e. the
+2026-10-23/24 stall had already restarted. Minimal fix (task 5F9-5): `originate.run` accepts the
+injectable clock the project already uses elsewhere; the default is unchanged, so the publisher
+behaves identically. After the merge the same step passed in run
+[40117004822](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40117004822)
+(17:38Z): collect, originate, reconcile, build, `deploy-pages`, *Verify the public site*, the
+legacy-publisher re-read and the root-sync publish all green.
+
+**One residual, platform-side.** That run then failed its last step, *Re-deploy the verified
+artifact over the legacy root build*, with `Failed to create deployment (status: 400) ... due to
+in progress deployment` — a Pages deployment collision with the legacy root build's own deploy,
+not a build or data failure. The verified artifact was already deployed and verified earlier in
+the same job, and the following `pages build and deployment` run
+[40119018271](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40119018271)
+(18:04Z) **succeeded**, so the live site is the merged build. `gh run rerun --failed` was refused
+(`workflow file may be broken` for a superseded head), so the confirmation of a fully green
+end-to-end publisher is taken from the next scheduled slot rather than from a replayed one.
+
+**Live re-read after the merge.** `https://buffedlizard55-lab.github.io/MaltaProj3/review/`
+renders *Inventory checked 24 Oct 2026, 19:59 Europe/Malta* (17:59Z) with 420 findings, and the
+publisher's own post-deploy read printed `active 20, resolved 20, with_pick 20, unresolved 0`
+(four fixtures had locked since the 14:24Z observation). The build in run 40117004822 was made
+from merge commit `a63e0d0a31b7f1cbc59fa7fb0c76d6d3838dc17c`, which contains this session's four
+findings; their rendering was verified in the local build (`site/review/index.html` contains all
+four ids exactly once) and by `tests.test_review_flags` + `tests.test_review_register`
+(13 tests OK).
+
+### 5F9 pre-merge verification (2026-10-24T16:20Z–17:20Z)
 
 - **Coverage is complete, verified against three independent readings.** Lobby
   ([play.hotspawn.com/cs2-pickems](https://play.hotspawn.com/cs2-pickems), 16:22Z): 85 cards,
