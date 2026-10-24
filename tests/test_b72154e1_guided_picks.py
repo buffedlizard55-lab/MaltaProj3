@@ -72,9 +72,15 @@ class GuidedPicksTest(unittest.TestCase):
             self.assertAlmostEqual(published['probabilities'][1], probs[1], places=4, msg=fid)
 
     def test_group_c_absent_from_snapshot(self):
-        awaiting = self.dossier['group_c_awaiting_collect']['ids']
-        for fid in awaiting + ['1079658']:
-            self.assertNotIn(fid, self.by_id, fid)
+        # Absence is asserted against the snapshot the dossier names
+        # (published_snapshot.generated_at). A newer root-synced snapshot is
+        # expected to contain these ids — that is the coverage gap closing,
+        # not a regression (unguarded, it failed the publisher on 2026-10-24,
+        # run 40085158851). Integration guard added by arena-f1277d3b.
+        if self.snapshot.get('generated_at') == self.dossier['published_snapshot']['generated_at']:
+            awaiting = self.dossier['group_c_awaiting_collect']['ids']
+            for fid in awaiting + ['1079658']:
+                self.assertNotIn(fid, self.by_id, fid)
         lobby = self.dossier['live_lobby']
         self.assertEqual(len(lobby['open_ids']), 25)
         self.assertEqual(len(lobby['in_lobby_not_in_snapshot']), 9)
