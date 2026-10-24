@@ -251,22 +251,29 @@ def check_layer_divergence(match: dict, pages: dict[str, str]) -> list[Finding]:
     """The snapshot and the rendered pages must agree on whether a pick exists."""
     if match.get('analysis'):
         return []
-    out: list[Finding] = []
     for name, html in pages.items():
         shown = _page_pick(html, match['id'])
-        if shown:
-            probabilities = re.findall(r'(\d{1,3}\.\d)%', html[html.find(f'id="match-{match["id"]}"'):][:4000])
-            out.append(Finding(
-                'layer_divergence', 'needs review', match['id'],
-                f'/snapshot.json carries no analysis for this fixture and its counts report '
-                f'it as unresolved, while {name} shows a directional pick'
-                + (f' at {"/".join(probabilities[:2])}%' if probabilities else '')
-                + '. The machine-readable snapshot and the page a reader sees disagree about '
-                  'whether this fixture has a pick.',
-                [{'url': match.get('source_url', ''), 'detail': 'fixture page'}],
-            ))
-            break
-    return out
+        if not shown:
+            continue
+        window = html[html.find(f'id="match-{match["id"]}"'):][:4000]
+        probabilities = re.findall(r'(\d{1,3}\.\d)%', window)
+        # The register page can still carry the fixture as unresolved while the
+        # origination card carries a pick; say which pages disagree rather than
+        # claiming the whole site is silent about it.
+        register = pages.get('review/index.html', '')
+        listed_unresolved = 'Unresolved:' in register and match['id'] in register
+        return [Finding(
+            'layer_divergence', 'needs review', match['id'],
+            f'/snapshot.json carries no analysis for this fixture and its counts report it as '
+            f'unresolved, while {name} shows a directional pick'
+            + (f' at {"/".join(probabilities[:2])}%' if probabilities else '')
+            + (', and /review/ still lists it under "Unresolved"' if listed_unresolved else '')
+            + '. The machine-readable snapshot and the rendered pages tell different stories about '
+              'whether this fixture has a pick; the executive summary resolves it in favour of the '
+              'page and prints "0 explicitly unresolved".',
+            [{'url': match.get('source_url', ''), 'detail': 'fixture page'}],
+        )]
+    return []
 
 
 def check_blank_format(match: dict) -> list[Finding]:
@@ -395,7 +402,8 @@ def load(root: Path) -> tuple[dict, dict[str, str]]:
     root = Path(root)
     snapshot = json.loads((root / 'snapshot.json').read_text(encoding='utf-8'))
     pages = {}
-    for name in ('index.html', 'origination/index.html', 'unresolved/index.html'):
+    for name in ('index.html', 'origination/index.html', 'unresolved/index.html',
+                 'review/index.html'):
         path = root / name
         if path.exists():
             pages[name] = path.read_text(encoding='utf-8')
