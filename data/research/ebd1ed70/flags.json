@@ -1,0 +1,62 @@
+[
+ {
+  "id": "ebd1ed70-lobby-nine-new-cct-cards",
+  "severity": "notice",
+  "match_ids": [
+   "1079658",
+   "1079659",
+   "1079660",
+   "1079661",
+   "1081152",
+   "1081153",
+   "1081154",
+   "1081156",
+   "1081158"
+  ],
+  "title": "Nine new pickable Hotspawn CCT cards researched HLTV-first then esportsbooks (2026-10-24): 4 resolvable from published prices, 5 with no compliant line",
+  "detail": "Lobby observation 06:20Z showed 25 pickable CS2 cards; nine low-tier CCT Europe Series #11/#12 cards post-date the published snapshot. HLTV-first reads (match pages 2399502/2399503/2399504/2399506/2399508, events 9442/9457) confirm Bo3 group play; every Betting block is promo-only. EGW + bo3.gg publish real pairs for four cards (Acend\u2013FORZE Reload 2.8/1.35, Spirit Academy\u2013Lavked 1.49/2.47, INOX\u2013BRUTE 1.75/1.96, NTR\u2013ex-Zero Tenacity 1.49/2.47) with computed no-vig guided picks; five cards (1081152, 1081153, 1081154, 1081156, 1081158) have only rejected 1.8/1.8 placeholders or an unnamed EGW opponent \u2014 guided direction + limitations published, no hand-written probability. Full record: data/research/ebd1ed70/unresolved-guidance-2026-10-24.md; machine record: data/research/ebd1ed70/source-ladder-2026-10-24.json.",
+  "source_urls": [
+   "https://play.hotspawn.com/cs2-pickems",
+   "https://www.hltv.org/events/9457/cct-2026-europe-series-12",
+   "https://egamersworld.com/counterstrike/matches",
+   "https://bo3.gg/matches"
+  ]
+ },
+ {
+  "id": "ebd1ed70-spirit-academy-lfo10-egw-identity-failure",
+  "severity": "warning",
+  "match_ids": [
+   "1081156"
+  ],
+  "title": "EGW lists no opponent for Spirit Academy's 25 Oct match (LFO 10) \u2014 the automated EGW rung can never price 1081156 until EGW names the team",
+  "detail": "EGW match page https://egamersworld.com/counterstrike/match/HiXMAaC8L/spirit-academy-vs-zgh7PZE301 renders 'Spirit Academy VS ' with slug spirit-academy-vs-zgh7PZE301 and an empty team name; the slug join in scripts/egw_live.py requires both team slugs, so this fixture is structurally excluded from the EGW rung (independent of the 1.8/1.8 placeholder gate). HLTV match 2399506 confirms the opponent is LFO 10 (team 14084). No probability implied by this flag.",
+  "source_urls": [
+   "https://egamersworld.com/counterstrike/match/HiXMAaC8L/spirit-academy-vs-zgh7PZE301",
+   "https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12"
+  ]
+ },
+ {
+  "id": "ebd1ed70-lfo10-duplicate-valve-rows",
+  "severity": "warning",
+  "match_ids": [
+   "1081156"
+  ],
+  "title": "Two 'LFO 10' rows on HLTV's Valve ranking page (20 Oct 2026 edition: 749 pts #122 and 580 pts #200) \u2014 model joins must fail closed without a lineup proof",
+  "detail": "Search-indexed excerpt of https://www.hltv.org/valve-ranking/teams/2026/october/20/region/Europe shows two rows named LFO 10 with different point totals. Under the pipeline's fail-closed identity rules a two-plausible-rows situation must not be silently resolved; the complete-picks lineup join (exact five-player or unique four-of-five HLTV lineup) is the only allowed disambiguator. Flagged so no strongest-row guess is ever made for fixture 1081156.",
+  "source_urls": [
+   "https://www.hltv.org/valve-ranking/teams/2026/october/20/region/Europe",
+   "https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12"
+  ]
+ },
+ {
+  "id": "ebd1ed70-thunderpick-guest-board-empty",
+  "severity": "notice",
+  "match_ids": [],
+  "title": "thunderpick.io guest API returned an empty match board at 2026-10-24T06:35Z (bo3.gg still relays Thunderpick pairs)",
+  "detail": "GET https://thunderpick.io/api/matches returned {\"statusCode\":200,\"ok\":true,\"data\":{\"matches\":[]}}. The direct esportsbook rung therefore contributes nothing this window, while bo3.gg's Thunderpick-relayed cards still show pairs for four of the nine researched fixtures. Dated observation; later refreshes supersede.",
+  "source_urls": [
+   "https://thunderpick.io/api/matches",
+   "https://bo3.gg/matches"
+  ]
+ }
+]
