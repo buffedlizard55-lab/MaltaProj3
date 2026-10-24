@@ -8835,3 +8835,19 @@ Claimed on Arena's fixed branch `arena/3877d48d-maltaproj3`, branched from `main
 - **Rebased onto `main` before the PR** (`d98056d` → `origin/main` `a77fc77`, pulled with `--rebase=merges`; no conflict was discarded). Two merges landed while this session worked: PR #317 (session 5f9d0082) added its own coverage research and, in `10d79ba`, **injected a clock into `originate.run`** — the better fix for the same wall-clock failure class this session had repaired with a real-clock capture stamp in `tests/test_a5b59ee6_publisher_wiring.py`. This session **adopted main's version and dropped its own test patch**; the file now carries main's `now=NOW` form and all 10 tests pass on the merged tree. Nothing of the other session's work was reverted.
 - **Probe workflow is dispatch-only again.** Starting the first sweep needed a `push` trigger (dispatch requires default-branch registration), but its evidence commit re-entered the branch and cancelled that ref's `Validate dashboard` run (40116642184, cancelled 12m57s in). The trigger is removed; the evidence is already committed.
 - **Post-merge verification on the integrated tree:** `python -m scripts.build` PASS — 932 audited rows, 912 with an official link, 0 without a source, 858 internal links/assets/anchors, 9 Pages views; acceptance audit 9 pass / 1 info / 0 fail. Full `python -m unittest discover -s tests`: **1,725 tests OK (4 skipped)**. Full Playwright suite: **124 passed** (320/390/768/1440, no horizontal overflow, first pick above the fold at both phone widths).
+
+### S387 fix-forward: two dated tests that were failing on `main` (2026-10-24T18:4xZ)
+
+`main`'s own publisher was red before this session touched anything: `Refresh and deploy CS2 dashboard`
+run 40117004822 failed, and the same two assertions reproduce on `origin/main` (`git checkout origin/main`
+→ 8 tests, 2 failures). Both are the known class — a dated expectation pinned to a snapshot that has since
+been replaced by a root sync:
+
+| Test | Failure on `main` | Fix here (intent preserved) |
+| --- | --- | --- |
+| `tests/test_99d48cd8_mobile.py::test_unresolved_page_names_both_unresolved_fixtures` | compared `upcoming` fixtures with a blank `pick_index` (5) to `counts.unresolved` (4) — two different counters | the equality now binds only to the snapshot that session's own `reconciliation-2026-10-24.json` names; the requirement that every pick-less upcoming fixture is named on `/unresolved/` stays unconditional |
+| `tests/test_b72154e1_guided_picks.py::test_group_b_are_snapshot_model_picks` | asserted fixture 1079200 still carries its research-model pick from the 2026-10-23T20:10:00Z snapshot; the fresh 18:00Z snapshot re-classified it | the dossier's own group/probability-shape and sourcing assertions stay unconditional; the snapshot-bound comparisons are made only when `snapshot.json` is the snapshot the dossier names — the same guard already applied to `group_c` |
+
+Files: `tests/test_99d48cd8_mobile.py`, `tests/test_b72154e1_guided_picks.py` (test-only; no data, no
+probability and no pick was changed). Both modules belong to long-finished sessions and no open PR claims
+them. Verification: `python -m unittest tests.test_99d48cd8_mobile tests.test_b72154e1_guided_picks` → 13 OK.
