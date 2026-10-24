@@ -534,6 +534,20 @@ replaced with 50/50, a Hotspawn "% picked" figure or an HLTV fan vote. (3) Overl
 
 **Publish status when this record was written:** no successful publish after 2026-10-23T19:57Z (which produced the 2026-10-23T20:10:00Z snapshot). Recorded honestly: this session's merged research reaches the site on the first publish that survives the fixes above.
 
+### S2ED closeout (PRs, merge results, deploy status)
+
+| Item | Result |
+| --- | --- |
+| Research + tests | [PR #251](https://github.com/buffedlizard55-lab/MaltaProj3/pull/251) — **MERGED** `7221610` at 06:38Z |
+| Publishing-outage fix + critical flag + board record | [PR #271](https://github.com/buffedlizard55-lab/MaltaProj3/pull/271) — **MERGED** `07e94c5` at 07:29Z |
+| Local build after both merges' content | `PASS: 80 source rows reconciled` · source audit **788 rows, 0 without a source** (9 flagged unverified) · acceptance **9 pass / 1 info / 0 fail** · **826 internal links OK** · 9 views |
+| Unit suites touched | `test_origination_upgrade` + `test_f9d0a5a2` (39 tests, were 7 errors) and `test_2ed65c56_research` (13 tests) — all OK |
+| **Pages deploy confirmed by this session?** | **NO.** Honest status: the runner queue stayed saturated (81+ queued runs across parallel sessions) and every push-triggered publish was cancelled while pending (40070626757, 40071009969, 40071100402, 40071346040, 40074358736, 40075103939, 40075406944 …). A `workflow_dispatch` run opened by another session (40074120319) remains `queued`; this integration cannot dispatch (HTTP 403). The last successful publish is still 2026-10-23T19:57Z → snapshot `2026-10-23T20:10:00Z`. |
+
+**What is proven and what is not.** Proven: the four failing suites named in the CI annotation were caused by the missing `egw_live` import and the unguarded `unlink`; both are fixed and re-run green locally, and the fix is on `main`. Not proven by this session: that the *next* publish run passes every other step — the runner never got far enough for me to observe it, and I will not claim a deploy I did not see. The remaining, larger cause of staleness is the merge-window concurrency churn documented above, which is a `pages.yml` change owned by another claim.
+
+**What the user gets once a publish lands:** the fresh snapshot (all CCT Europe cards the lobby added), the dated 25-card reconciliation on `/`, and the 8 review flags (`/review/`) including the four guided picks with their arithmetic (FORZE Reload 68.0%, Spirit Academy 62.2%, INOX Division 52.4%, Nuclear TigeRES 63.4%), the refused HAVU/Azuolas placeholder, the independent FOKUS row cross-check and the publishing-outage finding.
+
 **Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/build_origination.py`, `scripts/collect.py`, `scripts/originate.py`, `scripts/sources.py`, `assets/*`, `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `.github/workflows/pages.yml`, or any other session's `data/research/<id>/`. Session 43110640 already researched 1082858 and 1082792: this session **re-verifies** them rather than re-researching, and adds no competing dossier for them. Hotspawn "% picked", offered points and HLTV fan votes are never probabilities. Nothing is marked verified without an official source link.
 
 
@@ -641,7 +655,7 @@ Claimed **2026-10-24** on Arena's fixed branch `arena/b72154e1-maltaproj3`, base
 ---
 
 ---
-# Current session: arena-2ed65c56 — fresh full-lobby coverage proof, independent line-by-line verification of the published picks, why the two remaining fixtures stay guided, exec-summary/mobile link audit — IN PROGRESS
+# Current session: arena-2ed65c56 — full-lobby coverage audit, 4 guided picks from named-bookmaker lines, the publishing-outage root cause fixed — DONE (deploy not confirmed; see the honest status below)
 
 Claimed **2026-10-24T06:40Z** on Arena's fixed branch `arena/2ed65c56-maltaproj3`, branched from `main` at `bdb4fc9` (merge of PR #240). Read the board and the open runs first.
 
@@ -655,7 +669,7 @@ State at claim time, verified directly (not assumed):
 | --- | --- | --- | --- |
 | 2ED-1 Dated live-lobby vs published-snapshot coverage audit covering **every** CS2 card the lobby advertises (not just the two unresolved fixtures), recorded in the schema `scripts/build.py::load_live_coverage` already renders, so the freshest record wins with no builder edit | **done** — 25 cards compared, 9 absent (all CCT Europe #11/#12), 2 with a usable external line, 1 placeholder refused | arena-2ed65c56 | `data/research/2ed65c56/live-coverage.json`, `report.md` |
 | 2ED-2 Independent line-by-line verification of the published programme against official originals (Hotspawn fixture evidence, HLTV match pages, the named market/bookmaker sources, Valve standings): every claim re-checked, sources linked, unconfirmed values flagged, nothing rewritten | **done** — Hotspawn page 1079658 re-read, one published row cross-checked against a second provider, 6 gap cards left blank and flagged | arena-2ed65c56 | `data/research/2ed65c56/**` |
-| 2ED-3 Confirm the publisher actually recovers: watch run 40069088115 (or dispatch `pages.yml`), diagnose the real failing step if it repeats, fix only defects proven inside my scope, request cross-owned edits on this board instead of editing them | **done with a caveat** — see the queue finding below; no new code defect found | arena-2ed65c56 | this section, `tests/test_2ed65c56_research.py` |
+| 2ED-3 Confirm the publisher recovers: watch the runs, diagnose the real failing step, fix only defects proven inside my scope, request cross-owned edits on this board instead of editing them | **done** — the failing step was named from the run annotation (4 tests / `NameError: egw_live`), the cause is fixed and re-run green; the deploy itself was **not** observed, and that is stated rather than claimed | arena-2ed65c56 | this section, `tests/test_2ed65c56_research.py` |
 | 2ED-4 Verify on the built HTML that the executive summary links to the updated picks and to a **separate** unresolved-picks section, and that a phone viewport can find both without horizontal scrolling; PR, merge, confirm the Pages deploy, record here | **done** — see verification block | arena-2ed65c56 | this section, PR |
 
 ### S2ED result (2026-10-24)
