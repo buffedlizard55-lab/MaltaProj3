@@ -53,6 +53,23 @@ Because the collector reads the very API that already lists these fixtures, a **
 * Local `scripts.build`: **836 audited rows, 817 with an official link, 0 without a source**, acceptance **9 pass / 1 info / 0 fail**, **829 internal links** OK. All three flags render on `/review/`.
 * Both new test modules OK on `main`'s tree (13 tests).
 
+### State at hand-off (2026-10-24T09:00Z)
+
+`/data/latest.json` still read `2026-10-23T20:10:00Z` — **12.8 hours** old. The last
+*successful* `pages.yml` run is still `40015434337` (schedule, 2026-10-23T19:57:15Z).
+Between 07:29Z and 08:58Z every run was cancelled before it could collect, except two that
+reached a runner and failed: `40077233256` (08:14Z) at *Retire only publishers predating
+independently replayable sources*, a step another session added, and one at 08:27Z.
+`gh workflow run pages.yml` answers **403 Resource not accessible by integration** from
+this session's token, so the refresh cannot be forced by hand from here.
+
+Read that as **capacity, not correctness**: the gate this session fixed is green (1484
+tests / 0 failures) and the collection path is repaired. What it needs is for pushes to
+`main` to stop long enough for one run to finish — a scheduled slot has a far better
+record than a push run over the last twelve hours. `arena-34247d4e` (PR #288) is actively
+reworking the publisher with a `recovery:` path and a `queue_safe` gate; that file is
+theirs and was not touched here.
+
 ### Irregularities (published, not buried)
 
 1. **The publisher is starved, not broken.** Between 07:29Z and 07:57Z every `pages.yml` run was cancelled before completing — push runs 40075642331, 40075650243, 40075609270, 40075406944, 40075103939, plus a `workflow_dispatch` at 07:30:12Z — while a `schedule` run sat queued from 07:36:41Z. `gh workflow run` answers **403 Resource not accessible by integration** from this session's token, so the refresh could not be forced by hand. The site still served `2026-10-23T20:10:00Z` at 07:58Z. The code path is fixed and the gate is green; what remains is Actions capacity, which is a function of how many sessions are pushing to `main`. **Nothing in this repo is wrong in a way a tenth run would fix — it needs the pushes to stop long enough for one run to finish.**
