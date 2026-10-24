@@ -15,8 +15,17 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: dashboard-checks-${{ github.ref }}
-  cancel-in-progress: true
+  # Session arena-f4217201. Pull-request checks keep their own per-ref group and
+  # still cancel superseded pushes to the same PR. Pushes to `arena/**` session
+  # branches share ONE group instead: measured 2026-10-24T08:20Z-08:50Z, 31 of
+  # these 45-minute validation jobs were queued from session branches at once
+  # while the four-hour `pages.yml` publisher sat pending and the deployed
+  # snapshot aged past twelve hours. With one shared group at most one session
+  # validation runs and one waits; a superseded *pending* one is dropped instead
+  # of consuming a runner. This job never deploys; its results are re-derived on
+  # the next push, and the publisher's own `pages-*` groups are not touched.
+  group: ${{ github.event_name == 'pull_request' && format('dashboard-checks-{0}', github.ref) || 'dashboard-checks-session-branches' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
   verify:
     name: Rows, build, links, mobile and accessibility
