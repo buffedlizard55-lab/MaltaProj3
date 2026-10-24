@@ -153,17 +153,36 @@ def alternates(url: str) -> list[dict]:
         if ticker:
             out.append({'url': 'https://api.elections.kalshi.com/trade-api/v2/markets/' + ticker,
                         'label': 'Kalshi market record'})
+    if host.endswith('thunderpick.io'):
+        # The prematch list is a POST; scripts/collect.py reads the same call.
+        out.append({'url': 'https://thunderpick.io/api/matches', 'method': 'POST',
+                    'payload': {'gameIds': [6]},
+                    'label': 'Thunderpick prematch event list (POST, gameIds=[6])'})
+    if host.endswith('bo3.gg'):
+        out.append({'url': 'https://api.bo3.gg/api/v1/matches?page[limit]=50',
+                    'label': 'bo3.gg match list (public JSON)',
+                    'headers': {'Origin': 'https://bo3.gg', 'Referer': 'https://bo3.gg/'}})
+    if host.endswith('smarkets.com'):
+        out.append({'url': 'https://api.smarkets.com/v3/events/?limit=200',
+                    'label': 'Smarkets public event list'})
     return out
 
 
-def fetch(session: requests.Session, name: str, url: str, *, timeout: int = 35) -> dict:
+def fetch(session: requests.Session, name: str, url: str, *, method: str = 'GET',
+          payload: dict | None = None, timeout: int = 35, headers: dict | None = None) -> dict:
     """One first-party read. Records status, hash and an excerpt, always."""
-    record = {'name': name, 'url': url, 'observed_at': now_iso(), 'http': None,
-              'status': 'error', 'sha256': None, 'bytes': 0, 'challenge': False,
-              'title': '', 'error': None}
+    record = {'name': name, 'url': url, 'method': method, 'observed_at': now_iso(),
+              'http': None, 'status': 'error', 'sha256': None, 'bytes': 0,
+              'challenge': False, 'title': '', 'error': None}
+    request_headers = {'User-Agent': UA,
+                       'Accept': 'text/html,application/json;q=0.9,*/*;q=0.8'}
+    request_headers.update(headers or {})
     try:
-        response = session.get(url, timeout=timeout, headers={
-            'User-Agent': UA, 'Accept': 'text/html,application/json;q=0.9,*/*;q=0.8'})
+        if method == 'POST':
+            response = session.post(url, json=payload, timeout=timeout,
+                                    headers=request_headers)
+        else:
+            response = session.get(url, timeout=timeout, headers=request_headers)
         body = response.text or ''
         record.update({'http': response.status_code, 'bytes': len(body), 'sha256': sha(body)})
         record['title'] = extract_title(body)
@@ -321,7 +340,9 @@ def verify_citation(fetcher, citation: dict, teams: list[str], api_record: dict 
             entry['verdict'] = 'confirmed-via-alternate'
             return entry
     for alternate in alternates(citation['url']):
-        read = fetcher(alternate['url'])
+        read = fetcher(alternate['url'], method=alternate.get('method', 'GET'),
+                       payload=alternate.get('payload'),
+                       headers=alternate.get('headers'))
         alt_body = read.pop('_body', '') or ''
         if read.get('status') != 'ok':
             entry.setdefault('alternates_tried', []).append(
@@ -713,8 +734,8 @@ def main(argv: list[str] | None = None) -> int:
             origination = {}
     api = read('hotspawn-fixtures', FIXTURES_API)
 
-    def fetcher(url: str) -> dict:
-        record = fetch(session, 'citation', url)
+    def fetcher(url: str, **kwargs) -> dict:
+        record = fetch(session, 'citation', url, **kwargs)
         reads.append(public(record))
         return record
 

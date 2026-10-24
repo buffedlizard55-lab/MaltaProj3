@@ -21,7 +21,7 @@ probe = importlib.import_module('scripts.6174aa87_probe')
 def fake_fetch(bodies: dict, default: str = 'ok'):
     """A fetcher that answers from a URL -> body map."""
 
-    def fetcher(url: str) -> dict:
+    def fetcher(url: str, **kwargs) -> dict:
         body = bodies.get(url)
         if body is None:
             return {'name': 'citation', 'url': url, 'http': 403, 'status': 'http-403',
@@ -200,7 +200,32 @@ class AlternateTests(unittest.TestCase):
         kalshi = probe.alternates('https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct241300illbaks')
         self.assertEqual(kalshi[0]['url'],
                          'https://api.elections.kalshi.com/trade-api/v2/markets/kxcs2game-26oct241300illbaks')
+        thunderpick = probe.alternates('https://thunderpick.io/api/matches')
+        self.assertEqual(thunderpick[0]['method'], 'POST')
+        self.assertEqual(thunderpick[0]['payload'], {'gameIds': [6]})
+        self.assertTrue(probe.alternates('https://bo3.gg/matches')[0]['url'].startswith(
+            'https://api.bo3.gg/'))
         self.assertEqual(probe.alternates('https://www.hotspawn.com/matches/x-1083121'), [])
+
+    def test_a_generic_endpoint_bound_by_event_id_is_confirmed_through_its_post_api(self):
+        citation = {'url': 'https://thunderpick.io/api/matches', 'roles': ['Quote'],
+                    'kind': 'price', 'generic': True, 'event_id': '2870940'}
+        calls = []
+
+        def post_only(url, **kwargs):
+            calls.append(kwargs.get('method', 'GET'))
+            if kwargs.get('method') != 'POST':
+                return {'name': 'citation', 'url': url, 'http': 200, 'status': 'ok',
+                        'bytes': 0, 'sha256': None, 'title': '', 'challenge': False,
+                        'error': None, '_body': '[]'}
+            return {'name': 'citation', 'url': url, 'http': 200, 'status': 'ok',
+                    'bytes': 10, 'sha256': None, 'title': '', 'challenge': False,
+                    'error': None, '_body': '{"id": 2870940}'}
+
+        entry = probe.verify_citation(post_only, citation, ['NEXVOID', 'Alter Ego'])
+        self.assertEqual(entry['verdict'], 'confirmed-via-alternate')
+        self.assertIn('POST', calls)
+        self.assertEqual(entry['fallback']['label'], 'Thunderpick prematch event list (POST, gameIds=[6])')
 
     def test_a_walled_page_confirmed_by_the_source_api_counts(self):
         citation = {'url': 'https://polymarket.com/event/cs2-ntr-zerote-2026-10-24',
