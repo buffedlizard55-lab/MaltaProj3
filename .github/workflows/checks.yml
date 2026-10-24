@@ -2,6 +2,8 @@ name: Validate dashboard
 on:
   pull_request:
     branches: [main]
+    # 65E-1: open session PRs also re-ran this job on every board-only push.
+    paths-ignore: ['COORDINATION.md']
   push:
     branches: ['arena/**']
     # 65E-1 (arena-65eec73f): a commit that only edits the shared board starts
