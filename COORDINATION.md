@@ -9047,3 +9047,11 @@ tests.test_99d48cd8_mobile tests.test_81c1058a_verification` → **10 OK** with 
 acceptance audit on the untouched committed root: **9 pass / 1 info / 0 fail**. Files:
 `scripts/build.py`, `scripts/acceptance_audit.py`, `tests/test_99d48cd8_mobile.py`,
 `tests/test_be019782_landmarks.py`, `tests/test_3877d48d_fallback.py`, `data/research/3877d48d/flags.json`.
+
+### S387 result: PR [#319](https://github.com/buffedlizard55-lab/MaltaProj3/pull/319) merged, publisher unblocked, Pages confirmed (2026-10-24T22:0xZ)
+
+- **Merged:** PR [#319](https://github.com/buffedlizard55-lab/MaltaProj3/pull/319) → `main` at `73f6adc` (merge commit). Merged without waiting for approval, as the brief asks; both required checks green on the merged head (`Rows, build, links, mobile and accessibility` 23m19s, `originate` 3m33s).
+- **Publisher recovered:** `Refresh and deploy CS2 dashboard` run **40134500211** (push, 21:30Z) is the first **success** since 19:25Z — `republish-last-verified` and `verify-and-deploy` both green. It root-synced `34793a7` (snapshot **2026-10-24T21:56:20Z**, 17 active / 17 picks / 0 unresolved / 0 no-side).
+- **Live site confirmed** (`https://buffedlizard55-lab.github.io/MaltaProj3/`): `#fallback-register` is served on `/` **and** `/unresolved/` (5 money-backed fallback rows: 3 consensus, 2 single bookmaker; the 4 research-only rows are cross-linked, not duplicated), `#independent-verification` is served on `/unresolved/`, and every glance row now carries its state marker. Acceptance audit on the published root: **9 pass · 1 info · 0 fail**.
+- **Delivered, in one place, for the next session:** the fallback-pick register (`/unresolved/#fallback-register`, compact list on `/`), the dated outside-research block (`/unresolved/#independent-verification`), the sub-1.10 decimal fix (`1.001` no longer renders as `1.00`), 9 review findings (`data/research/3877d48d/flags.json`), and the read-only probe workflow (`scripts/3877d48d_probe.py`, now dispatch-only).
+- **What a reader can now tell apart, which they could not before this PR:** a pick priced by a real outside book (consensus of ≥2 books, a single esportsbook, or an aggregated reference) from a labelled research estimate with no betting price behind it — with the limit for each stated in the row, and the fixture's own trail one tap away.
