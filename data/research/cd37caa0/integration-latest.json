@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "session": "arena-cd37caa0",
+  "recorded_at": "2026-10-24T07:43:05Z",
+  "status": "latest-main-local-gates-pass-ci-and-publication-pending",
+  "pull_request": 273,
+  "code_head": "383f206a78c4f5509db770358b9987e8e197a132",
+  "integrated_main": "e1b88e6bd2e7d69cb4abc2f92df929b00f3fabec",
+  "egw": {
+    "required_passed": 4,
+    "required_failed": 0,
+    "report": "data/research/cd37caa0/egw-integration-pr273-latest.json"
+  },
+  "targeted_tests": {
+    "total": 200,
+    "passed": 199,
+    "skipped": 1,
+    "failed": 0,
+    "suites": [
+      "tests.test_cd37caa0_price_gate",
+      "tests.test_domain",
+      "tests.test_cd37caa0_reconcile",
+      "tests.test_cd37caa0_egw_audit",
+      "tests.test_origination_upgrade",
+      "tests.test_source_integrity",
+      "tests.test_ca7e10e5_snapshot",
+      "tests.test_dd433e7f_verification",
+      "tests.test_a5b59ee6_publisher_wiring",
+      "tests.test_99d48cd8_reconciliation",
+      "tests.test_99d48cd8_mobile"
+    ]
+  },
+  "build": {
+    "replayed_source_rows": 80,
+    "rendered_row_source_entries": 846,
+    "official_link_rows": 827,
+    "explicitly_unverified_rows": 9,
+    "site_map_rows": 10,
+    "source_less_rows": 0,
+    "acceptance": {"pass": 9, "info": 1, "fail": 0},
+    "internal_links_assets_anchors_passed": 829,
+    "current_views": 9
+  },
+  "browser": {
+    "latest_head_cd37_phone_no_js_wcag": {"passed": 5, "failed": 0},
+    "previous_code_head_full_suite": {"head": "3598c9b5b41b8fa9ca9049f84220daf0b91711f4", "passed": 117, "failed": 0},
+    "note": "Latest-main changes after that full run were publisher/research/test/origination integration; current full browser CI is still required."
+  },
+  "not_claimed": [
+    "No current full Python discovery result is claimed locally.",
+    "No merge, fresh collection, Pages deployment or public read-back has completed at this checkpoint."
+  ]
+}
