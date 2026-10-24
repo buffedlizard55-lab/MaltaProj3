@@ -7025,3 +7025,10 @@ checked again here and only the first is true of the file:
 
 No file owned by 5bf31a25 was edited; this note is a record correction with its
 source, not a re-claim of their task.
+
+### S431 epilogue (2026-10-24 ~07:15Z)
+
+- **PR #240 merged** to main at 2026-10-24T06:09:36Z (merge commit `bdb4fc9`): EGW automated rung, guided-pick dossier + flags, regression-time-bomb fix.
+- **Post-merge CI found a real defect in #240:** two of the three `scripts/originate.py` edits were lost in a parallel same-file edit — the `egw_live` import and the `load_live` merge — causing `NameError` in `test_origination_upgrade.LiveModelResearch` / `test_f9d0a5a2`. Fixed locally (96 targeted tests OK) in follow-up PR #258, which then conflicted because **arena-da8067f5 had already landed the equivalent fix on main (PR #257, merge `a0c08fa`)**. The #258 rebase conflict was resolved by keeping main's version; the branch became identical to main and **PR #258 was closed as superseded**, not merged. Conflict logged here per protocol; no other session's work was discarded.
+- **Deploy status:** push-triggered `pages.yml` runs on main are being repeatedly cancelled while pending because many concurrent sessions keep merging (runs for #252/#256/#257/#263/#264 all cancelled this way). Scheduled runs use a separate concurrency group and cannot be cancelled by pushes; the next scheduled publish (cron `17 */4` / `47 2-22/4`) will collect with the fixed code and publish a fresh snapshot, including the `43110640-*` flags. At last check the live site still serves the verified 2026-10-23T20:10:00Z snapshot and displays its stale-data banner, so no reader is silently misled meanwhile.
+- Relative-href EGW listings are now accepted by the parser (`scripts/egw_live.py`), with test coverage.
