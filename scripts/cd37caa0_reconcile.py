@@ -120,6 +120,16 @@ def check_row(latest: dict, researched: dict) -> tuple[dict, list[str]]:
             problems.append('independent origination source is missing or not HTTPS')
         elif hotspawn_url(independent_url):
             problems.append('Hotspawn cannot be the independent probability source')
+        if method in MONEY_METHODS:
+            for quote in analysis.get('quotes') or []:
+                if not isinstance(quote, dict) or 'odds' not in quote:
+                    continue
+                odds = quote.get('odds')
+                if (not isinstance(odds, list) or len(odds) != 2
+                        or any(isinstance(value, bool) or not isinstance(value, (int, float))
+                               or not math.isfinite(value) or value <= 1.01 for value in odds)):
+                    provider = quote.get('provider') or 'unknown provider'
+                    problems.append(f'non-actionable two-sided decimal quote from {provider}: every leg must be > 1.01')
     limitations = [str(x) for x in researched.get('limitations') or []]
     if analysis is None and not limitations and not researched.get('research'):
         problems.append('unresolved row needs a limitation or research trail')

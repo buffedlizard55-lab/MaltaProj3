@@ -12,5 +12,20 @@
       "https://github.com/buffedlizard55-lab/MaltaProj3/pull/246#issuecomment-6381130106",
       "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237#issuecomment-6381130374"
     ]
+  },
+  {
+    "id": "cd37caa0-fresh-candidate-nonactionable-thunderpick-leg",
+    "severity": "warning",
+    "match_ids": [
+      "1082860"
+    ],
+    "title": "The fresh 25-row candidate still carries the non-actionable Thunderpick 1.001 / 12.00 quote on FlyQuest–Staqued",
+    "detail": "The dated candidate collected at 2026-10-24T05:57:54Z repeats the same fixture-1082860 problem independently flagged on the older deployment by PR #256: Thunderpick odds 1.001 / 12.00 normalize arithmetically to FlyQuest 92.3006% and Staqued 7.6994%, but a leg at or below 1.01 is not an actionable two-sided bookmaker offer. The CD37 reconciler now rejects this row as a validation problem, so the candidate is not acceptance-clean even though its browser suite is green. The owner of the Thunderpick paired-price rung should reject the quote before margin removal and rerun the ladder so this fixture falls back to another independently sourced estimate or is published unresolved with its limitation. No probability or pick was changed by this audit.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
+      "https://thunderpick.io/api/matches",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/256",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/commit/50bb2017c3edb3eed2c540830d327f2d9de732e2"
+    ]
   }
 ]

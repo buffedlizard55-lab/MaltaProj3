@@ -12,7 +12,9 @@
     "unresolved": 0,
     "external_line": 15,
     "model_without_external_line": 10,
-    "note": "Scratch-build evidence only; this is not a deployment attestation."
+    "validation_problem_rows": 1,
+    "acceptance_status": "blocked: fixture 1082860 carries non-actionable Thunderpick odds 1.001 / 12.00 and must be rejected and rerun through the ladder",
+    "note": "Scratch-build evidence only; this is not a deployment attestation. Browser success does not make the invalid money-line row acceptable."
   },
   "runs": [
     {
@@ -43,6 +45,7 @@
   "limitations": [
     "No GitHub Pages deployment was performed by these scratch tests.",
     "The full PR237 suite was not used as an acceptance result: its first run lacked PYTHONPATH for fixture subprocesses and also contained dated assertions later corrected in PR246.",
-    "Browser success does not waive EGW integration failures. Current PR246 fails three required EGW checks; current PR237 passes all four."
+    "Browser success does not waive EGW integration failures. Current PR246 fails three required EGW checks; current PR237 passes all four.",
+    "Browser success also does not waive quote admission: the fresh candidate has one validation-problem row, 1082860, with Thunderpick odds 1.001 / 12.00."
   ]
 }

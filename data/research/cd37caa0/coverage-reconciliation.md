@@ -6,7 +6,7 @@
 - Deployed snapshot used for comparison: `2026-10-23T20:10:00Z`.
 - Candidate: **25/25 resolved**, 15 with an external line, 10 model/no-line, 0 unresolved.
 - Against the deployed snapshot: **9 new**, 3 removed, 16 shared active fixtures.
-- Validation: **0 problem rows**.
+- Validation: **1 problem rows**.
 
 ## Every current candidate row
 
@@ -43,6 +43,10 @@ Probabilities are in Hotspawn team order. “Official” opens the Hotspawn matc
 ## Unresolved picks and limitations
 
 No unresolved rows in this dated candidate. Model/no-line limitations remain on each row and in the JSON research trail.
+
+## Validation problems
+
+- `1082860`: non-actionable two-sided decimal quote from Thunderpick: every leg must be > 1.01
 
 ## Inventory changes
 

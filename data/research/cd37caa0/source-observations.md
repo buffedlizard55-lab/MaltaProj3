@@ -54,6 +54,7 @@ Source: <https://play.hotspawn.com/lobby>
 ## Remaining limitations
 
 - The 25/25 candidate has **10 model/no-external-line rows**, not 25 money-line rows. Their HLTV and model source links are in the reconciliation report.
+- The candidate is not acceptance-clean: `1082860` FlyQuest–Staqued carries Thunderpick `1.001 / 12.00`, observed by the runner at `2026-10-24T05:57:54Z`, and the resulting 92.3006% / 7.6994% is arithmetically consistent but based on a non-actionable leg. The independent reconciler now rejects every money-quote leg `<= 1.01`; this row must be rerun through the fallback ladder or marked unresolved, not hand-adjusted. Official fixture: <https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860>; provider surface: <https://thunderpick.io/api/matches>.
 - This session did not obtain raw EGW HTML from the GitHub runner. No claim is made that a real-markup match-page parser is complete.
 - No first-party Vave page was read. EGW’s named-book table is third-party evidence, not a direct Vave feed.
 - The deployed site still has to be checked after integration. Candidate coverage, source reachability, and Pages deployment are separate facts.

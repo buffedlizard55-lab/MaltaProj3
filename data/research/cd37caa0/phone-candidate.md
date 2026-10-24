@@ -4,6 +4,8 @@
 
 The scratch builds used the dated PR #246 runner evidence from immutable head [`50bb201`](https://github.com/buffedlizard55-lab/MaltaProj3/commit/50bb2017c3edb3eed2c540830d327f2d9de732e2): inventory observed **2026-10-24T05:57:37Z**, **25 active / 25 resolved**, 15 external-line rows and 10 research-model rows. The evidence was copied into otherwise disposable trees; production data was not overwritten. The independent [coverage reconciliation](coverage-reconciliation.md) confirms that these 25 IDs match the official lobby and differ from the older 19-row deployment.
 
+> **Acceptance update:** the reconciler now finds **one validation-problem row**. Fixture `1082860` still carries Thunderpick `1.001 / 12.00`, which produces the displayed 92.3% / 7.7% but is not an actionable two-sided bookmaker offer. The browser results below remain valid UI evidence; they are **not** approval to publish this quote. The quote must be rejected and the fixture rerun through the fallback ladder or marked unresolved.
+
 ## Results
 
 | Code under test | Build and source audit | Browser result |

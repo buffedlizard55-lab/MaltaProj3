@@ -68,6 +68,29 @@ class ReconciliationTests(unittest.TestCase):
         self.assertIn('probabilities do not sum to one', report['row_problems']['1'])
         self.assertIn('published pick is not strictly directional', report['row_problems']['1'])
 
+    def test_non_actionable_bookmaker_leg_is_a_validation_problem(self):
+        for odds in ([1.001, 12.0], [1.01, 12.0]):
+            with self.subTest(odds=odds):
+                researched = researched_row()
+                researched['origination']['method'] = 'bookmaker'
+                researched['origination']['source_url'] = 'https://thunderpick.io/api/matches'
+                researched['origination']['quotes'] = [
+                    {'provider': 'Thunderpick', 'odds': odds},
+                ]
+                report = reconcile(document([inventory_row()]), document([researched]), document([]))
+                self.assertIn('non-actionable two-sided decimal quote from Thunderpick: every leg must be > 1.01',
+                              report['row_problems']['1'])
+
+    def test_actionable_bookmaker_legs_pass_this_gate(self):
+        researched = researched_row()
+        researched['origination']['method'] = 'bookmaker'
+        researched['origination']['source_url'] = 'https://thunderpick.io/api/matches'
+        researched['origination']['quotes'] = [
+            {'provider': 'Thunderpick', 'odds': [1.61, 2.18]},
+        ]
+        report = reconcile(document([inventory_row()]), document([researched]), document([]))
+        self.assertEqual(report['row_problems'], {})
+
     def test_unresolved_row_stays_visible_with_limitations(self):
         researched = researched_row()
         researched['origination'] = None
