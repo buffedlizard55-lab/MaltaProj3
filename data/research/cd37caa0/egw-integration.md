@@ -27,3 +27,18 @@ Machine-readable reports:
 - [main base](egw-integration-main.json)
 - [PR #237 head](egw-integration-pr237.json)
 - [PR #245 head](egw-integration-pr245.json)
+
+## Moving-head recheck — 2026-10-24 06:55Z
+
+Both integration branches advanced after the first audit, so they were archived and tested again by immutable SHA:
+
+| Current tree | Required result | Loader | Original replay | Independent provider start | Exact identity |
+| --- | --- | --- | --- | --- | --- |
+| [`5600a3a` — PR #237](https://github.com/buffedlizard55-lab/MaltaProj3/commit/5600a3a2e31d93fe3f86b81cdf31157a2b313fee) | **PASS** | pass | pass | pass | pass |
+| [`67d1356` — PR #246](https://github.com/buffedlizard55-lab/MaltaProj3/commit/67d135687e679a4ac3ae005e5c83f039422e11e2) | **FAIL (3)** | pass | fail | fail: synthetic no-timestamp entry emitted | fail: Academy/sister-team confusion emitted |
+
+PR #246's newer head therefore fixes the previously reported loader omission, but **does not make the older EGW implementation safe**. Its loader consumes saved derived entries without original-HTML/manifest replay, and its parser still copies the Hotspawn start and uses substring identity. The same older path is now present on `main` at `a0c08fa6d013705e1a84498cd85b295f86463306` after the concurrent integration merges. This is a cross-scope regression warning, not a probability change made by this session.
+
+Follow-up comments were posted to [PR #246](https://github.com/buffedlizard55-lab/MaltaProj3/pull/246#issuecomment-6381130106) and [PR #237](https://github.com/buffedlizard55-lab/MaltaProj3/pull/237#issuecomment-6381130374). Final integration must preserve PR #237's safer `egw_live.py` and its replaying `load_live(evidence_dir, matches, registry)` call rather than accepting the older implementation during a conflict resolution.
+
+Current-head machine reports: [PR #237](egw-integration-pr237-current.json) and [PR #246](egw-integration-pr246-current.json).
