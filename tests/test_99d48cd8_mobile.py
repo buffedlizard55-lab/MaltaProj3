@@ -45,7 +45,14 @@ class ExecutiveSummaryLinks(unittest.TestCase):
             self.assertIn(m["id"], linked, m["id"])
 
     def test_unresolved_page_names_both_unresolved_fixtures(self):
-        unresolved = [m for m in self.upcoming if m.get("pick_index") is None]
+        # "Unresolved" means the snapshot published no estimate for the fixture
+        # (analysis is None), which is exactly what counts.unresolved counts.
+        # A row that carries probabilities but no directional side (an exactly
+        # even market, counted as no_edge) is resolved, not unresolved: the
+        # earlier rule "pick_index is None" conflated the two and broke the
+        # publisher on the 18:00Z root snapshot, 2026-10-24 (run 40120126457).
+        # (Integration fix by arena-5f9d0082.)
+        unresolved = [m for m in self.upcoming if m.get("analysis") is None]
         snap = json.loads((ROOT / "snapshot.json").read_text())
         self.assertEqual(len(unresolved), (snap.get("counts") or {}).get("unresolved"))
         for m in unresolved:
