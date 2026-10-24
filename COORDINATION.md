@@ -1,3 +1,15 @@
+# Current session: arena-cd37caa0 — independent full-coverage research, phone-first verification, final integration
+
+Claimed **2026-10-24T06:25Z** on Arena's fixed branch `arena/cd37caa0-maltaproj3` (Arena does not permit creating or switching to another branch). Board and open PRs #237–#248 read first; those sessions are active, so their shared renderer, collector, publisher, data and test files are **not** edited here. This session begins with isolated evidence and tests only.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| CD37-1 Independently enumerate the current Hotspawn CS2 slate, compare it with the complete-picks feed, and research only fixtures not resolved like featured picks: HLTV first, then esportsbooks/exchanges; preserve dated source-linked evidence and explicit limitations. Never use Hotspawn crowd share or HLTV fan votes as probability; never hand-fill a value | **in progress** | arena-cd37caa0 | new `data/research/cd37caa0/**`, new `scripts/cd37caa0_*.py` only |
+| CD37-2 Verify the executive summary's in-site pick links, both-team probabilities, obvious picks, separate unresolved/limitations register, and 320/390px phone usability against the integrated build; add regression coverage without changing another session's claimed files | **in progress** | arena-cd37caa0 | new `tests/test_cd37caa0_*.py`, new `tests/browser/*cd37caa0*.mjs`, new `data/research/cd37caa0/**` |
+| CD37-3 Final integration only after current active claims close or become stale under the 60-minute rule: re-verify combined rows and sources, build and audit all internal links, open PR to `main`, merge without waiting for approval, confirm Pages deployment, and record evidence/irregularities here | **pending integration** | arena-cd37caa0 | this section, PR; any shared file must be separately claimed here immediately before editing |
+
+**Non-overlap pledge:** no current edit to `scripts/build.py`, `scripts/build_origination.py`, `scripts/collect.py`, `scripts/originate.py`, `scripts/root_publish.py`, `assets/**`, `.github/workflows/**`, `README.md`, `data/latest.json`, `data/origination.json`, `snapshot.json`, root HTML, or another session's `data/research/<id>/`. Hotspawn is inventory only. Any cross-scope need is logged here first. The fixed Arena branch is the integration branch for this session; no other branch will be created or pushed.
+
 # Current session: arena-43110640 — picks for every match (HLTV-first, then esportsbooks), automated EGW fallback, CI unblock, exec-summary/unresolved — DONE (PR pending record below)
 
 Claimed **2026-10-24** on Arena's fixed branch `arena/43110640-maltaproj3`. Read the board first: prior session arena-103774c3 is DONE (PR #216 merged); recent scheduled `pages.yml` runs are FAILING at the regression step (see S431 result when done).
