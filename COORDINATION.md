@@ -82,6 +82,35 @@ findings; their rendering was verified in the local build (`site/review/index.ht
 four ids exactly once) and by `tests.test_review_flags` + `tests.test_review_register`
 (13 tests OK).
 
+### 5F9 final result (2026-10-24T23:2xZ): publisher green end-to-end, live site fresh
+
+* **PRs.** [#317](https://github.com/buffedlizard55-lab/MaltaProj3/pull/317) → `a63e0d0` (dossier,
+  four findings, `originate.run` clock injection); [#321](https://github.com/buffedlizard55-lab/MaltaProj3/pull/321)
+  → `2527081` (record); [#322](https://github.com/buffedlizard55-lab/MaltaProj3/pull/322) → `52123f8`
+  and [#325](https://github.com/buffedlizard55-lab/MaltaProj3/pull/325) → `bcdd1cb` (two rounds of
+  snapshot-robustness work, both superseded by parallel sessions' stronger versions through merge
+  commits — logged above, nothing discarded).
+* **A fully green publisher run.** [40137752996](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40137752996)
+  (push on the merge of #325) completed **success** through every step: Regression tests, collection,
+  origination, reconciliation, build, `deploy-pages`, *Verify the public site*, the legacy re-read,
+  root sync, the re-deploy over the legacy root build and the post-root-sync verification. This is
+  the first end-to-end green run after the wall-clock defect that had failed the 17:36Z scheduled
+  run, and it proves the clock fix plus both audit fixes hold on the fresh root snapshot.
+* **Live re-read, 25 Oct 2026 01:10 Europe/Malta (23:10Z).** `/unresolved/`: **16 active Hotspawn
+  CS2 fixtures, 16 with a directional pick, 0 with no pick, 0 with no side**. Three fixtures carry a
+  labelled research estimate instead of a price — Rooster vs Abyssal and 5star vs 1WIN on Valve
+  ratings, HOTU vs The Huns on the bo3.gg network model — with their blockers published, and the
+  pipeline continues to upgrade them when a real line appears (Spirit Academy vs LFO 10 and Ground
+  Zero vs Off Chops gained Bovada and Polymarket lines respectively in this very refresh).
+* **What this session contributed:** the dated, source-linked coverage + no-line dossier
+  (`data/research/5f9d0082/**`), four review findings, the `originate.run(..., now=...)` injection
+  that removed the second instance of the publisher-stalling wall-clock trap, and the diagnosis plus
+  reproduction notes for the two later dated-test failures and the audit-vocabulary gap.
+* **Flagged irregularities remain published, non-blocking** (they are the point of the review page):
+  the checked-in `data/origination.json` replay fixture vs the live 20/23-fixture feed; EGamersWorld's
+  identical 1.8/1.8 placeholder on two low-tier pages; HLTV's promo-only betting block for 2399112;
+  and the HLTV Cloudflare 403 that keeps HLTV out of the automated price path.
+
 ### 5F9 merge conflict log 2 (2026-10-24T22:2xZ)
 
 PR #325 (this session) and PR #319 (`arena/3877d48d`, merged first) fixed the same two files for
