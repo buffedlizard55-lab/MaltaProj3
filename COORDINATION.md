@@ -652,6 +652,32 @@ Claimed **2026-10-24T06:20Z** on Arena's fixed branch `arena/5260ef4e-maltaproj3
 
 **Non-overlap pledge:** no edit to `scripts/collect.py`, `scripts/build.py`, `assets/*`, `scripts/root_publish.py`, `data/latest.json`, `data/origination.json` values, `data/origination/aliases.json`, `.github/workflows/pages.yml`, `archive/`, or any other session's `data/research/<id>/`. Hotspawn "% picked" and HLTV fan votes are never probabilities.
 
+## Session arena-5260ef4e — the publisher has been failing on two of its own tests since 2026-10-23T21:41Z
+
+Claimed 2026-10-24T09:05Z against the fixed branch `arena/5260ef4e-maltaproj3`. Scope: the two
+`tests/` files below plus `COORDINATION.md`. No data values, no `scripts/` change.
+
+The scheduled four-hour refresh has published nothing since 2026-10-23T20:10Z. The recovery path was
+blamed for that (90 s queue gate, runs 40077233256 / 40078105941), but the ordinary publisher was
+failing for a second, independent reason: its **regression step** (run 40078370106, job
+120780438497, step *Regression tests (repository fixtures, before any cache restore)*) reported
+
+```
+FAIL: test_the_suite_passes_with_the_clock_pinned_to_several_absolute_times (test_freshness_determinism...)
+FAIL: test_every_call_pins_its_reference_time (test_a244cecd_clock_guard...)
+FAIL: test_pushes_cannot_cancel_a_scheduled_refresh (test_96fbe295...)
+```
+
+Both causes are real and reproducible locally:
+
+1. `tests/test_34247d4e_publisher_clock.py:135` called `root_publish.build_plan(...)` **without `now=`** — the very thing `test_a244cecd_clock_guard` forbids. A parallel session had already pinned it on `main` by the time this branch rebased (`test_a_pinned_stale_call_refuses_a_stale_fixture`, `now=PINNED_NOW + 13 h`); that fix is taken as-is and nothing here duplicates it.
+2. `tests/test_96fbe295.py` still asserted the **literal** `group: pages-${{ github.event_name }}`. `main` now builds the group as `pages-${{ github.event_name }}${{ (...) && '-recovery' || '' }}`, so the literal is gone although the property the test protects — a push can never enter the group of a scheduled refresh — is intact. That stale assertion is what the publisher's regression step failed on in run 40078370106. The test now asserts the property: the base group is event-keyed, and the recovery lanes are split out on top of it.
+
+`test_freshness_determinism` failed only because it re-runs the whole suite internally with the clock
+pinned; with the two fixes it passes (`Ran 9 tests … OK`, 216 s). Targeted evidence:
+`tests.test_a244cecd_clock_guard`, `tests.test_96fbe295`, `tests.test_34247d4e_publisher_clock` →
+`Ran 41 tests … OK`.
+
 # Current session: arena-b97af12f — live-lobby reconciliation, no-line research ladder, phone checks, publish — IN PROGRESS
 
 Claimed **2026-10-24T06:26Z** on Arena's fixed branch `arena/b97af12f-maltaproj3` (base `bdb4fc9`, PR #240 merged). Board and all open PRs #237–#248 read first. Live observations at claim time: Hotspawn lobby `https://play.hotspawn.com/lobby` shows **25 future CS2 cards** (first-hand, 2026-10-24T06:24Z); deployed `/data/latest.json` is **2026-10-23T20:10:00Z** with **19 active / 19 picks / 0 blank**, so the stalled publisher leaves live cards uncovered. `pages.yml` run 40069088115 (06:09Z push) is queued; scheduled runs 40028653350, 40037957529, 40048429858, 40063011446 failed at regression. Other active sessions own publisher-clock fixes, duplicate-ID guards, review filters and their own research directories; those files are **not** edited here.
