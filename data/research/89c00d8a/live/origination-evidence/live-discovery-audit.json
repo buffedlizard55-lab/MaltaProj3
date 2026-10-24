@@ -2,35 +2,35 @@
   "source": "Polymarket directory plus replayed retained CS2-tag discovery",
   "role": "Identity discovery only; selected original event and both order books are re-fetched.",
   "supplemental_identities": 313,
-  "retained_identities_replayed": 410,
-  "discovered_identities": 410,
+  "retained_identities_replayed": 411,
+  "discovered_identities": 411,
   "directory_is_exhaustive": false,
   "tagged_discovery_available": true,
   "prices_used": false,
   "reused_requests": [
     {
       "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=0",
-      "observed_at": "2026-10-24T05:25:20Z",
+      "observed_at": "2026-10-24T05:57:40Z",
       "evidence": "data/evidence/polymarket-discovery-0.json"
     },
     {
       "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=100",
-      "observed_at": "2026-10-24T05:25:20Z",
+      "observed_at": "2026-10-24T05:57:41Z",
       "evidence": "data/evidence/polymarket-discovery-100.json"
     },
     {
       "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=200",
-      "observed_at": "2026-10-24T05:25:20Z",
+      "observed_at": "2026-10-24T05:57:42Z",
       "evidence": "data/evidence/polymarket-discovery-200.json"
     },
     {
       "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=300",
-      "observed_at": "2026-10-24T05:25:21Z",
+      "observed_at": "2026-10-24T05:57:42Z",
       "evidence": "data/evidence/polymarket-discovery-300.json"
     },
     {
       "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=400",
-      "observed_at": "2026-10-24T05:25:21Z",
+      "observed_at": "2026-10-24T05:57:42Z",
       "evidence": "data/evidence/polymarket-discovery-400.json"
     }
   ],
