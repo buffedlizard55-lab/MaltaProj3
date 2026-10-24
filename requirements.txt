@@ -1,4 +1,7 @@
 beautifulsoup4==4.14.3
 requests==2.32.5
+# tests/test_b97af12f_reconciliation.py imports pytest at module level; without the
+# declaration `unittest discover` errors on that module and the publisher's
+# regression step fails, so the four-hour refresh never collects.
 pytest==8.4.2
 pyflakes==4.0.3
