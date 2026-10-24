@@ -70,6 +70,13 @@ class DossierTargetsAreExactlyTheNoLineRows(unittest.TestCase):
         cls.snapshot = json.loads(SNAPSHOT.read_text())
 
     def test_target_rule_recomputes_from_the_published_snapshot(self):
+        # The dossier is a dated record of the 2026-10-23T20:10:00Z snapshot.
+        # Once the publisher root-syncs a newer snapshot this equality must
+        # not turn into a regression failure (that failure mode stalled the
+        # publisher once already), so it only binds while that snapshot is
+        # the checked-in one.
+        if self.snapshot.get('generated_at') != '2026-10-23T20:10:00Z':
+            self.skipTest('checked-in snapshot has moved past the dossier date')
         expected = set()
         for match in self.snapshot.get('matches') or []:
             if match.get('availability') == 'past':
