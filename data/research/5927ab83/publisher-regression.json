@@ -1,0 +1,46 @@
+{
+  "session": "arena-5927ab83",
+  "observed_at": "2026-10-24T05:42:37Z",
+  "status": "fixed_in_branch_pending_fresh_runner_verification",
+  "published_snapshot_before_fix": {
+    "generated_at": "2026-10-23T20:10:00Z",
+    "counts": {
+      "inventory": 82,
+      "upcoming": 19,
+      "picks": 17,
+      "unresolved": 2
+    },
+    "note": "These are featured-snapshot counts. The separately published complete-picks feed reported 19 active, 19 resolved and 19 with a directional pick at 2026-10-23T20:10:09Z."
+  },
+  "failed_runs": [
+    "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40028653350",
+    "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40037957529",
+    "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40048429858",
+    "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446"
+  ],
+  "root_cause": {
+    "file": "tests/test_ca7e10e5_snapshot.py",
+    "tests": [
+      "RootPublisherCarriesTheSnapshot.test_snapshot_json_is_published",
+      "RootPublisherCarriesTheSnapshot.test_the_replay_fixture_is_still_never_published",
+      "RootPublisherCarriesTheSnapshot.test_an_older_build_is_still_refused"
+    ],
+    "detail": "The fixture generated_at was fixed at 2026-10-23T09:23:57Z, while build_plan was called without its supported now parameter. After the real clock moved more than 12 hours beyond the fixture, the production PublishRefused freshness exception made all three tests error before collection. The failure was reproduced locally with the same three errors; the full baseline discovery ran 1271 tests and had only these three errors (four skips).",
+    "production_defect": false
+  },
+  "fix": {
+    "detail": "Inject datetime(2026-10-23 10:00 UTC) into those three unit calls. No production code, freshness threshold, allow-stale behavior or monotonic guard changed.",
+    "verification": {
+      "command": ".venv/bin/python -m unittest tests.test_ca7e10e5_snapshot tests.test_96fbe295 -v",
+      "result": "46 tests OK, 2 skipped (built-site checks not yet run)",
+      "freshness_guard_regression": "tests.test_96fbe295.RefusalTests.test_refuses_a_snapshot_older_than_the_age_limit passed"
+    }
+  },
+  "sources": [
+    "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446",
+    "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_ca7e10e5_snapshot.py",
+    "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/root_publish.py",
+    "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+    "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json"
+  ]
+}
