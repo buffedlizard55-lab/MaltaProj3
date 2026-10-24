@@ -50,3 +50,7 @@ Final acceptance must reconcile the then-current Hotspawn inventory (at least th
 ## Later C6B8 integration review (2026-10-24T07:14:33Z)
 
 The merged C6B8 record reconciles 31/31 HLTV links, including LOS NINOS–BORRACHEIROS HLTV 2399914. Its seven EGW reference entries are **not seven production-valid upgrades**: three pass the exact inventory gate, four fail start time, and two of the three gate accepts link to pages displaying 1.8/1.8. Only 1083122 has a directly rechecked page price (2.92/1.33), and it remains undeployed. See [the full C6B8 integration audit](c6b8-reference-integration-review.md). The dated 06:15 zero-lead result above remains historical; no production prices or capture paths changed.
+
+## Retained 07:24Z candidate replay
+
+The evidence-retention limitation in the earlier 06:15Z probe is now addressed for candidate review: PR #246 `85d2a06c` retains 75 featured and 69 origination evidence files. Current main `4b278f4e` replays **92 featured rows** and **31/31 originated rows**. CD37 still rejects exactly `1082860`, so the candidate is not acceptance-clean and remains undeployed. Full row-by-row certificate: [fresh-31-replay.md](fresh-31-replay.md).

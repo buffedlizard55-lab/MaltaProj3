@@ -222,9 +222,9 @@
   },
   {
     "id": "52212e8e-b97-pytest-dependency",
-    "severity": "error",
-    "title": "B97 reconciliation test breaks unittest discovery unless pytest is declared",
-    "detail": "Reproduced on main 06f56c2b and PR #237 0baf556d: python -m unittest tests.test_b97af12f_reconciliation exits 1 with ModuleNotFoundError: No module named pytest. requirements.txt contains only beautifulsoup4/requests, while pages.yml, checks.yml and origination.yml install only that file. This is a broken-check/deploy blocker, not a skip. Reported to #237 at comment 6381438998 and B97/#267 at comment 6381439193. Installing pytest in S522's ignored local virtualenv allowed the remaining 85 targeted tests (2 skips) and build to pass, but does not fix GitHub runners.",
+    "severity": "notice",
+    "title": "Resolved on main: B97 reconciliation suite is unittest-only again",
+    "detail": "Reproduced on main 06f56c2b and PR #237 0baf556d: python -m unittest tests.test_b97af12f_reconciliation exits 1 with ModuleNotFoundError: No module named pytest. requirements.txt contains only beautifulsoup4/requests, while pages.yml, checks.yml and origination.yml install only that file. This is a broken-check/deploy blocker, not a skip. Reported to #237 at comment 6381438998 and B97/#267 at comment 6381439193. Installing pytest in S522's ignored local virtualenv allowed the remaining 85 targeted tests (2 skips) and build to pass, but does not fix GitHub runners. RESOLUTION verified 2026-10-24T07:37Z: main 4b278f4e (PR #270, with PR #237 merged) rewrote the suite to unittest and contains no pytest import. A clean virtualenv with only requirements.txt passed 92 targeted tests (2 skips) and build/replay (833 rows / 0 sourceless / 829 links). This notice retains the historical incident; the local pytest install was not used for that verification.",
     "match_ids": [],
     "source_urls": [
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/06f56c2b61a1cfe4c42d6453c0ad38943af30a7f/tests/test_b97af12f_reconciliation.py",
@@ -232,6 +232,28 @@
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/06f56c2b61a1cfe4c42d6453c0ad38943af30a7f/.github/workflows/pages.yml",
       "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237#issuecomment-6381438998",
       "https://github.com/buffedlizard55-lab/MaltaProj3/pull/267#issuecomment-6381439193"
+    ],
+    "resolution": {
+      "status": "verified resolved",
+      "head": "4b278f4e33499c669d7ab49d7ad9ca0e0cb70e7a",
+      "clean_environment": "python venv + requirements.txt only; no pytest",
+      "targeted_tests": "92 passed, 2 skipped",
+      "build": "833 rows / 0 sourceless / 829 links / acceptance 9 pass, 1 info, 0 fail"
+    }
+  },
+  {
+    "id": "52212e8e-fresh-31-one-acceptance-blocker",
+    "severity": "warning",
+    "title": "Retained 31-row candidate replays cleanly but still publishes a non-actionable 1.001 leg",
+    "detail": "At 07:24Z PR #246 85d2a06c retained 31 active / 31 picks / 0 unresolved (20 external-line, 11 research-model) with original evidence. Current main 4b278f4e passes both 92-row featured and 31-row complete saved-evidence validators, and every row has official source links. CD37 nevertheless rejects exactly 1082860: Thunderpick 1.001/12 at 07:24:23, every leg >1.01 required. This is not acceptance-clean or deployed; reject before no-vig and rerun the real featured collection and ladder. Full row table: data/research/52212e8e/fresh-31-replay.json.",
+    "match_ids": [
+      "1082860"
+    ],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/commit/85d2a06ca5e61cebe65b9fcdab25452a4d0bc3f8",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/commit/4b278f4e33499c669d7ab49d7ad9ca0e0cb70e7a",
+      "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
+      "https://thunderpick.io/api/matches"
     ]
   }
 ]

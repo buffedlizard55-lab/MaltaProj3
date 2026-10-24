@@ -59,3 +59,7 @@ These 10 rows are **research estimates, not observed betting lines**. They remai
 - CD37 `scripts/cd37caa0_reconcile.py` at `c1152ed6`: **FAIL closed on `1082860` only**; every bookmaker decimal leg must be >1.01. This independent acceptance gate is deliberately not duplicated in this report.
 
 Machine-readable exact values and complete limitations: [`fresh-25-replay.json`](fresh-25-replay.json).
+
+## Later 31-row candidate
+
+The retained 07:24Z candidate now covers **31 active / 31 picks / 20 external-line / 11 research-model** and passes current-main replay for all 31 rows. It still has exactly the same `1082860` acceptance blocker and is not deployed. See [fresh-31-replay.md](fresh-31-replay.md); this 25-row report remains historical evidence for 05:57Z.

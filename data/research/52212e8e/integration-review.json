@@ -322,7 +322,7 @@
     },
     {
       "id": "S522-TESTDEP-001",
-      "severity": "error",
+      "severity": "notice",
       "pr": 267,
       "head": "06f56c2b61a1cfe4c42d6453c0ad38943af30a7f",
       "finding": "B97's reconciliation suite imports pytest but runner dependencies do not declare it, so unittest discovery fails before the suite can pass.",
@@ -334,6 +334,27 @@
         "https://github.com/buffedlizard55-lab/MaltaProj3/blob/06f56c2b61a1cfe4c42d6453c0ad38943af30a7f/.github/workflows/pages.yml",
         "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237#issuecomment-6381438998",
         "https://github.com/buffedlizard55-lab/MaltaProj3/pull/267#issuecomment-6381439193"
+      ],
+      "resolution": {
+        "status": "verified resolved on main",
+        "head": "4b278f4e33499c669d7ab49d7ad9ca0e0cb70e7a",
+        "verification": "B97 suite is unittest-only; clean requirements-only virtualenv passed 92 targeted tests (2 skips) and build/replay (833 rows / 0 sourceless / 829 links). PR #237 is merged and strict EGW loader is present. This does not resolve the separate 1082860 price blocker."
+      }
+    },
+    {
+      "id": "S522-FRESH31-001",
+      "severity": "warning",
+      "pr": 246,
+      "head": "85d2a06ca5e61cebe65b9fcdab25452a4d0bc3f8",
+      "validator_head": "4b278f4e33499c669d7ab49d7ad9ca0e0cb70e7a",
+      "finding": "The newer retained 31-row candidate closes the evidence-retention and coverage gap but still has one non-actionable Thunderpick quote.",
+      "verification": "Current-main check_data: 92 source rows PASS. Current-main validate_origination: 31/31 PASS; 31 active / 31 picks / 0 unresolved / 20 external-line / 11 research-model / 0 missing source links. CD37 reconciliation exits 1 with exactly 1082860: raw Thunderpick 1.001/12, every leg must be >1.01. Inventory delta vs deployed: 16 shared / 15 new / 3 removed.",
+      "handling": "Published fresh-31-replay.{json,md} and fresh-31-cd37-reconciliation.json with every row/source and a separate 11-row model-limitations register. Do not deploy or call acceptance-clean until the real price boundary and fresh featured+ladder rerun are complete.",
+      "source_urls": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/commit/85d2a06ca5e61cebe65b9fcdab25452a4d0bc3f8",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/commit/4b278f4e33499c669d7ab49d7ad9ca0e0cb70e7a",
+        "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
+        "https://thunderpick.io/api/matches"
       ]
     }
   ],

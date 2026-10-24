@@ -15,3 +15,7 @@ The 719 file has **9** missing cards: **4** with reference lines and **5** witho
 ## S522-TESTDEP-001 — merge-blocking missing test dependency
 
 Main `06f56c2b` and PR #237 `0baf556d` both fail `tests.test_b97af12f_reconciliation` at import with `ModuleNotFoundError: pytest`; the workflows install only a requirements file that does not declare it. Reported to #237 and #267. With pytest installed only in the ignored local virtualenv, #237 `0baf556d` passed **85 targeted tests (2 skips)** and built **831 rows / 0 sourceless / 829 links**. That local workaround is not a runner fix and does not clear final integration.
+
+## S522-FRESH31-001 — retained 31-row replay, one acceptance blocker
+
+PR #246 `85d2a06c` now retains a 31-row candidate and original evidence. Current main `4b278f4e` passes **92 featured source rows** and **31/31 complete rows**: 31 picks, 0 unresolved, 20 external-line, 11 research-model, 0 missing source links. CD37 exits 1 on exactly `1082860` (raw 1.001/12). The candidate is therefore a verified coverage artifact but **not acceptance-clean and not deployed**. Full tables: `fresh-31-replay.{json,md}`; copied independent reconciliation: `fresh-31-cd37-reconciliation.json`.

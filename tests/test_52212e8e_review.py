@@ -154,6 +154,49 @@ class ReviewDossierTests(unittest.TestCase):
         self.assertIn("52212e8e-719-count-consistency",
                       {flag["id"] for flag in flags})
 
+    def test_fresh31_retained_replay_has_full_links_but_one_acceptance_blocker(self):
+        report = load("fresh-31-replay.json")
+        summary = report["summary"]
+        self.assertEqual(summary["active"], 31)
+        self.assertEqual(summary["with_pick"], 31)
+        self.assertEqual(summary["unresolved"], 0)
+        self.assertEqual(summary["external_line"], 20)
+        self.assertEqual(summary["research_model"], 11)
+        self.assertEqual(summary["replay_pass"], 31)
+        self.assertEqual(summary["missing_source_links"], 0)
+        self.assertEqual(summary["acceptance_problem_rows"], 1)
+        self.assertFalse(summary["acceptance_clean"])
+        self.assertFalse(summary["deployed"])
+        self.assertEqual(report["source_evidence"]["featured_evidence_files"], 75)
+        self.assertEqual(report["source_evidence"]["origination_evidence_files"], 69)
+        self.assertEqual(report["source_evidence"]["validator_head"],
+                         "4b278f4e33499c669d7ab49d7ad9ca0e0cb70e7a")
+        self.assertEqual(len(report["rows"]), 31)
+        for row in report["rows"]:
+            self.assertTrue(row["hotspawn_url"], row["fixture_id"])
+            self.assertTrue(row["source_url"], row["fixture_id"])
+            self.assertTrue(row["official_source_links"], row["fixture_id"])
+            self.assertTrue(row["replay"].startswith("pass:"), row["fixture_id"])
+        failed = [row for row in report["rows"] if row["validation_problems"]]
+        self.assertEqual([row["fixture_id"] for row in failed], ["1082860"])
+        self.assertEqual(failed[0]["raw_quotes"][0]["odds"], [1.001, 12])
+        self.assertEqual(failed[0]["raw_quotes"][0]["observed_at"],
+                         "2026-10-24T07:24:23Z")
+        self.assertIn("every leg must be > 1.01", failed[0]["acceptance"])
+        cd37 = load("fresh-31-cd37-reconciliation.json")
+        self.assertEqual(cd37["counts"]["candidate_active"], 31)
+        self.assertEqual(cd37["counts"]["validation_problem_rows"], 1)
+        self.assertEqual(set(cd37["row_problems"]), {"1082860"})
+        followup = report["residual_research_followup"]
+        self.assertEqual(len(followup["current_model_ids"]), 11)
+        self.assertEqual(followup["direct_page_candidate_not_deployed"], ["1083122"])
+        old = load("fresh-25-replay.json")
+        self.assertEqual(old["superseded_by_fresh_31"]["active"], 31)
+        markdown = (DOSSIER / "fresh-31-replay.md").read_text(encoding="utf-8")
+        self.assertIn("Acceptance: NOT CLEAN", markdown)
+        self.assertIn("raw Thunderpick `1.001 / 12`", markdown)
+        self.assertIn("Separate research-model limitations register", markdown)
+
     def test_inherited_pytest_suite_must_declare_the_runner_dependency(self):
         suite = ROOT / "tests" / "test_b97af12f_reconciliation.py"
         if not suite.is_file() or "import pytest" not in suite.read_text(encoding="utf-8"):
@@ -175,14 +218,20 @@ class ReviewDossierTests(unittest.TestCase):
         flags = load("flags.json")
         flag = next(item for item in flags
                     if item["id"] == "52212e8e-b97-pytest-dependency")
-        self.assertEqual(flag["severity"], "error")
+        self.assertEqual(flag["severity"], "notice")
         self.assertIn("broken-check/deploy blocker", flag["detail"])
-        self.assertIn("does not fix GitHub runners", flag["detail"])
+        self.assertIn("RESOLUTION verified", flag["detail"])
+        self.assertEqual(flag["resolution"]["status"], "verified resolved")
+        self.assertEqual(flag["resolution"]["head"],
+                         "4b278f4e33499c669d7ab49d7ad9ca0e0cb70e7a")
+        self.assertIn("no pytest", flag["resolution"]["clean_environment"])
         report = load("integration-review.json")
         finding = next(item for item in report["integration_findings"]
                        if item["id"] == "S522-TESTDEP-001")
         self.assertIn("85 targeted tests", finding["verification"])
         self.assertIn("ignored local virtualenv", finding["verification"])
+        self.assertIn("92 targeted tests", finding["resolution"]["verification"])
+        self.assertIn("does not resolve the separate 1082860", finding["resolution"]["verification"])
 
     def test_markdown_keeps_the_acceptance_qualification_visible(self):
         replay = (DOSSIER / "fresh-25-replay.md").read_text(encoding="utf-8")

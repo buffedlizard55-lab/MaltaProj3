@@ -563,5 +563,24 @@
       ]
     },
     "note": "This later observation supersedes the dated 06:15 zero-new-lead state for future routing; it does not rewrite that historical sweep or deploy any price."
+  },
+  "fresh_0724_candidate": {
+    "report": "fresh-31-replay.json",
+    "candidate_head": "85d2a06ca5e61cebe65b9fcdab25452a4d0bc3f8",
+    "retained_original_evidence": true,
+    "featured_evidence_files": 75,
+    "origination_evidence_files": 69,
+    "current_main_validator_head": "4b278f4e33499c669d7ab49d7ad9ca0e0cb70e7a",
+    "active": 31,
+    "with_pick": 31,
+    "unresolved": 0,
+    "external_line": 20,
+    "research_model": 11,
+    "featured_replay": "92 source rows pass",
+    "origination_replay": "31 rows pass",
+    "acceptance_problem_rows": 1,
+    "acceptance_clean": false,
+    "deployed": false,
+    "note": "This newer retained artifact closes the earlier 31-row evidence-retention gap for candidate review. It does not clear 1082860 or prove Pages deployment."
   }
 }

@@ -645,5 +645,18 @@
       "replay": "pass: production saved-evidence validator",
       "replay_with_pr237": "pass: original-response-safe validator"
     }
-  ]
+  ],
+  "superseded_by_fresh_31": {
+    "report": "fresh-31-replay.json",
+    "candidate_head": "85d2a06ca5e61cebe65b9fcdab25452a4d0bc3f8",
+    "observed_at": "2026-10-24T07:25:58Z",
+    "active": 31,
+    "with_pick": 31,
+    "external_line": 20,
+    "research_model": 11,
+    "current_main_replay": "31/31 pass",
+    "acceptance_problem_rows": 1,
+    "acceptance_clean": false,
+    "note": "The 25-row report remains a valid historical 05:57Z replay. The newer retained 31-row evidence supersedes its inventory coverage, not its raw 1082860 acceptance blocker."
+  }
 }
