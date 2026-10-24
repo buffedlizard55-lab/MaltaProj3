@@ -619,10 +619,14 @@ def validate_origination(data, source):
                 values.append(q['probabilities'][0])
                 continue
             if q.get('family') == 'reference':
+                # Session arena-a5b59ee6: the reference pool now also carries the
+                # automated EGamersWorld capture written on every live refresh, so
+                # a fixture can be covered by more than one capture. Select the
+                # entry the published quote was actually priced from (its
+                # source_url, observation instant and excerpt hash) rather than
+                # the first row that happens to share the fixture id.
                 from scripts import reference_odds
-                capture = reference_odds.load(source)
-                pooled = list(capture.get('entries') or []) + list(capture.get('rejected') or [])
-                entry = next((item for item in pooled if str(item.get('fixture_id')) == str(m['id'])), None)
+                entry = reference_odds.entry_for(source, m['id'], q)
                 assert entry is not None, 'Reference capture for this fixture is missing'
                 reference_odds.replay(entry, q)
                 values.append(q['probabilities'][0])

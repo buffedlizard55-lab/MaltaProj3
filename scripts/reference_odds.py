@@ -39,11 +39,25 @@ from scripts.domain import (MAX_PRICE_AGE_HOURS, identity_matches, is_fresh, nam
 
 UTC = timezone.utc
 EVIDENCE_PATH = Path('research/57b1ee04/reference-odds.json')
+LIVE_EVIDENCE_PATH = Path('origination/evidence/live-egw-reference.json')
 CAPTURE_PATHS = (
     EVIDENCE_PATH,
     Path('research/b30bf88b/reference-odds.json'),
     Path('research/a34bc06b/reference-odds.json'),
+    # Session arena-a5b59ee6: the *automated* capture written by
+    # ``scripts/egw_live.py`` on every live refresh. It is listed last so a
+    # hand-reviewed capture is always preferred when both cover a fixture, and
+    # it is read here — not appended in ``originate`` — so the publisher and
+    # the replay audit in ``build_origination.validate_origination`` resolve a
+    # published reference row from exactly the same pool. Every entry still
+    # passes ``quote()``'s freshness, identity, placeholder and hash gates.
+    LIVE_EVIDENCE_PATH,
 )
+# The live capture is verified against the request manifest that produced it:
+# an entry may only price a fixture when the recorded EGW index request exists,
+# succeeded, and carries the same observation instant. Fail closed otherwise.
+LIVE_REQUEST_ID = 'live-egw-index'
+LIVE_CAPTURE_PREFIX = 'automated'
 PROVIDER = 'EGamersWorld (published bookmaker average)'
 FAMILY = 'reference'
 MIN_ODDS, MAX_ODDS = 1.01, 100.0
@@ -71,7 +85,21 @@ def load(source: Path) -> dict:
         if data is None:
             continue
         loaded.append(str(path))
-        entries.extend(e for e in data.get('entries') or [] if isinstance(e, dict))
+        rows = [e for e in data.get('entries') or [] if isinstance(e, dict)]
+        if rel == LIVE_EVIDENCE_PATH:
+            # An automated entry is usable only when the request manifest
+            # proves the fetch it claims. Unwitnessed rows are kept, with a
+            # reason, so the ladder reports why the fixture stayed blank.
+            kept = []
+            for row in rows:
+                if _live_capture_is_witnessed(root, row):
+                    kept.append(row)
+                else:
+                    rejected.append(dict(row, rejected=True,
+                                         reason='automated EGW capture is not witnessed by the '
+                                                'request manifest (missing, failed or restamped fetch)'))
+            rows = kept
+        entries.extend(rows)
         rejected.extend(e for e in data.get('rejected') or [] if isinstance(e, dict))
         obs = data.get('observed_at') or data.get('captured_at')
         if obs and (latest_observed is None or str(obs) > str(latest_observed)):
@@ -80,6 +108,49 @@ def load(source: Path) -> dict:
         return {'entries': [], 'rejected': [], 'path': str(root / EVIDENCE_PATH), 'missing': True}
     return {'entries': entries, 'rejected': rejected, 'path': loaded[0], 'paths': loaded,
             'missing': False, 'observed_at': latest_observed}
+
+
+def _live_capture_is_witnessed(source: Path, entry: dict) -> bool:
+    """True only when the request manifest proves the live capture's fetch.
+
+    The automated rung stores the EGW index response verbatim and records the
+    request in ``live-collection-manifest.json``. An entry that names an
+    ``observed_at`` the manifest does not carry — or that survives with no
+    manifest at all — is treated as unwitnessed and prices nothing.
+    """
+    manifest = Path(source) / 'origination/evidence/live-collection-manifest.json'
+    try:
+        requests_ = json.loads(manifest.read_text(encoding='utf-8'))
+    except (OSError, ValueError):
+        return False
+    if not isinstance(requests_, list):
+        return False
+    asked = [r for r in requests_
+             if isinstance(r, dict) and r.get('id') == LIVE_REQUEST_ID]
+    return (len(asked) == 1 and asked[0].get('status') == 'ok'
+            and asked[0].get('observed_at') == entry.get('observed_at'))
+
+
+def entry_for(source: Path, fixture_id, quote_row: dict) -> dict | None:
+    """The pooled capture a published reference quote was actually built from.
+
+    Selection is by provenance, not by fixture id alone: a hand-reviewed
+    capture and an automated one may both cover a fixture, and the publisher
+    may have used either (for example when the reviewed copy went stale). The
+    published quote carries the ``source_url``, ``observed_at`` and
+    ``excerpt_sha256`` it was priced from, so the audit can replay exactly that
+    entry instead of whichever one happens to come first in the tuple.
+    """
+    pooled = load(source)
+    rows = list(pooled.get('entries') or []) + list(pooled.get('rejected') or [])
+    for entry in rows:
+        if str(entry.get('fixture_id')) != str(fixture_id):
+            continue
+        if (entry.get('source_url') == quote_row.get('source_url')
+                and entry.get('observed_at') == quote_row.get('observed_at')
+                and entry.get('excerpt_sha256') == quote_row.get('excerpt_sha256')):
+            return entry
+    return None
 
 
 def problems(entry: dict) -> list[str]:
