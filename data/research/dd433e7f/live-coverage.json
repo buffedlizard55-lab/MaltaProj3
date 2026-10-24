@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "session": "arena-dd433e7f",
+  "observed_at": "2026-10-24T06:15:55Z",
+  "observer": "github-actions-runner",
+  "role": "Dated inventory and identity reconciliation only. No value here is a hand-entered probability or pick.",
+  "published_site": {
+    "snapshot_url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+    "http_status": 200,
+    "generated_at": "2026-10-23T20:10:00Z",
+    "live_origination_generated_at": "2026-10-23T20:10:09Z"
+  },
+  "hotspawn": {
+    "lobby_url": "https://play.hotspawn.com/lobby",
+    "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "api_http_status": 200,
+    "fixtures_returned": 92,
+    "future_fixtures_compared": 0,
+    "note": "Past-start scheduled rows returned by the upstream API are excluded from future open-fixture comparison. Hotspawn crowd pick percentages are never used as probabilities."
+  },
+  "counts": {
+    "live_future_fixtures": 0,
+    "in_published_snapshot": 0,
+    "missing_from_published": 0
+  },
+  "limitations": [
+    "HLTV match pages provide fixture identity, rankings, and recent map history; fan votes are crowd polls and never probabilities.",
+    "Hotspawn crowd participation percentages are never used as win probabilities.",
+    "Fixtures without an eligible two-sided external bookmaker/exchange line use labelled research models or remain blank."
+  ],
+  "live_fixtures": []
+}
