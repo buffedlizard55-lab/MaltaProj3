@@ -1,0 +1,83 @@
+[
+  {
+    "id": "c6b8d58b-001",
+    "severity": "notice",
+    "title": "Complete 31/31 HLTV match-page reconciliation closes the 6 South American fixtures lacking hltv_url in earlier sweeps",
+    "detail": "Unbusted play.hotspawn.com/lobby served an 88-card weekly / 25-card upcoming CDN cache that omitted the 6 Oct 24 South American CS2 fixtures (1083120 Isurus vs RED Canids Academy, 1083121 Projeto do KinGui vs MEIA NOITE, 1082695 Galorys vs paiN, 1083122 LOS NINOS vs BORRACHEIROS, 1083140 BESTIA vs Imperial, 1083123 Gr\u00eamio vs Yawara), while runner sweep dd433e7f recorded hltv_url: null for all 6 because HLTV returned HTTP 403 to runner IPs. First-hand HTTP 200 reads of HLTV match pages 2399912, 2399913, 2399817, 2399914, 2399818, and 2399915 confirm exact BO3 format, start times, rosters, and HLTV/VRS rankings across all 6 fixtures (bringing HLTV match-page coverage to 31/31 = 100%). HLTV Pick-a-winner fan votes (40/60, 25/75, 16.7/83.3, 25/75, 40/60, 75/25) and Hotspawn crowd picks are strictly excluded.",
+    "match_ids": [
+      "1083120",
+      "1083121",
+      "1082695",
+      "1083122",
+      "1083140",
+      "1083123"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399912/isurus-vs-red-canids-academy-cct-2026-south-america-series-7",
+      "https://www.hltv.org/matches/2399913/tropa-do-kingui-vs-meia-noite-cct-2026-south-america-series-7",
+      "https://www.hltv.org/matches/2399817/galorys-vs-pain-circuit-x-curitiba-season-4",
+      "https://www.hltv.org/matches/2399914/los-ninos-vs-borracheiros-cct-2026-south-america-series-7",
+      "https://www.hltv.org/matches/2399818/bestia-vs-imperial-circuit-x-curitiba-season-4",
+      "https://www.hltv.org/matches/2399915/grmio-vs-yawara-cct-2026-south-america-series-7"
+    ]
+  },
+  {
+    "id": "c6b8d58b-002",
+    "severity": "notice",
+    "title": "Two model-only fixtures (1083122 LOS NINOS vs BORRACHEIROS and 1082858 Ground Zero vs Off Chops) carry verbatim EGWxxxBOT bookmaker-average quotes on EGamersWorld match pages",
+    "detail": "Fixture 1083122 (LOS NINOS vs BORRACHEIROS, 2026-10-24T19:00:00Z) fell through to an uncalibrated HLTV unranked-floor coin-flip (49.42% / 50.58%) after Polymarket cs2-losnin-bor2-2026-10-24 was rejected for wide spread (0.850 / 0.870 > 0.15). First-hand inspection of its EGamersWorld match page (los-ninos-vs-borracheiros-qorsZa4d--) confirms a verbatim EGWxxxBOT bookmaker-average quote of 2.92 / 1.33 decimal (28.08% / 71.92% no-vig; BORRACHEIROS favorite, corroborated by index 3.40 / 1.25). Similarly, fixture 1082858 (Ground Zero vs Off Chops, 2026-10-27T00:00:00Z) carries a verbatim EGWxxxBOT match-page quote of 3.44 / 1.24 decimal (26.50% / 73.50% no-vig; Off Chops favorite, corroborated by index 3.505 / 1.26). Both are recorded with SHA-256 excerpt hashes in data/research/c6b8d58b/reference-odds.json.",
+    "match_ids": [
+      "1083122",
+      "1082858"
+    ],
+    "source_urls": [
+      "https://egamersworld.com/counterstrike/match/0U32SId-H/los-ninos-vs-borracheiros-qorsZa4d--",
+      "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+      "https://www.hltv.org/matches/2399914/los-ninos-vs-borracheiros-cct-2026-south-america-series-7",
+      "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026"
+    ]
+  },
+  {
+    "id": "c6b8d58b-003",
+    "severity": "warning",
+    "title": "Five model-only fixtures show two-sided odds on the EGamersWorld CS2 index while their individual match-page headers display 1.80 / 1.80 placeholders",
+    "detail": "Across the remaining 11 model-only fixtures in the 31-match slate, 5 display two-sided decimal odds on the EGamersWorld CS2 matches index (https://egamersworld.com/counterstrike/matches) while their individual match-page headers render the default 1.8 / 1.8 placeholder: 1082996 Acend vs UNiTY (2.42 / 1.50 -> 38.26% / 61.74% UNiTY, vs Valve VRS 54.19% Acend coin-flip), 1079198 Metizport vs BakS (1.34 / 2.85 -> 68.01% / 31.99% Metizport), 1079200 Color vs ex-Zero Tenacity (1.44 / 2.50 -> 63.45% / 36.55% Color), 1082861 Rooster vs Abyssal (2.10 / 1.66 -> 44.15% / 55.85% Abyssal), and 1082792 HOTU vs The Huns (1.09 / 6.80 -> 86.19% / 13.81% HOTU). The other 6 model-only fixtures (1081152, 1081153, 1081154, 1081156, 1081158, 1082793) display 1.80 / 1.80 on both index and match pages and are rejected in reference-odds.json rejected[].",
+    "match_ids": [
+      "1082996",
+      "1079198",
+      "1079200",
+      "1082861",
+      "1082792",
+      "1081152",
+      "1081153",
+      "1081154",
+      "1081156",
+      "1081158",
+      "1082793"
+    ],
+    "source_urls": [
+      "https://egamersworld.com/counterstrike/matches",
+      "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/acend-vs-unity-esports-iwaKSVfgf",
+      "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/metizport-vs-baks-esports-qOJcZA7Wgq",
+      "https://egamersworld.com/counterstrike/match/HiXMAaC8L/color-vs-ex-zero-tenacity-rvwRf5V1F",
+      "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/rooster-vs-team-abyssal-P1tTp3RAg8",
+      "https://egamersworld.com/counterstrike/match/cN3l69-7b/hotu-vs-the-huns-esports-SfdtzDhiK"
+    ]
+  },
+  {
+    "id": "c6b8d58b-004",
+    "severity": "warning",
+    "title": "HLTV Pick-a-winner fan votes are inverted relative to real-money bookmaker odds on 1083121 (Tropa do KinGui vs MEIA NOITE) and 1083123 (Gr\u00eamio vs Yawara)",
+    "detail": "Direct comparison of HLTV match pages 2399913 and 2399915 against Thunderpick and EGamersWorld real-money odds proves why crowd/fan polls must never be used as match probabilities: on 1083121 (Projeto do KinGui / Tropa do KinGui vs MEIA NOITE), HLTV fan votes favor MEIA NOITE 75.0% vs 25.0%, whereas Thunderpick prices Tropa do KinGui as the 1.49 favorite (62.92% vs 37.08% no-vig; EGW 1.42 / 2.66). On 1083123 (Gr\u00eamio vs Yawara), HLTV fan votes favor Gr\u00eamio 75.0% vs 25.0%, whereas Thunderpick prices Yawara as the 1.35 favorite (69.23% vs 30.77% no-vig; EGW 2.95 / 1.34). Both fixtures are resolved strictly from real-money bookmaker lines.",
+    "match_ids": [
+      "1083121",
+      "1083123"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399913/tropa-do-kingui-vs-meia-noite-cct-2026-south-america-series-7",
+      "https://www.hltv.org/matches/2399915/grmio-vs-yawara-cct-2026-south-america-series-7",
+      "https://thunderpick.io/esports/counter-strike",
+      "https://egamersworld.com/counterstrike/event/cct-south-america-2026-series-7-0U32SId-H"
+    ]
+  }
+]
