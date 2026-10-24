@@ -68,6 +68,16 @@
       "report_markdown": "data/research/52212e8e/fresh-25-replay.md"
     }
   },
+  "research_coverage_review": {
+    "generated_at": "2026-10-24T06:42:36Z",
+    "research_model_rows": 10,
+    "rows_with_both_dated_sweeps": 10,
+    "new_eligible_money_line_leads": 0,
+    "unclaimed_residual_rows": 0,
+    "report_json": "data/research/52212e8e/research-coverage-review.json",
+    "report_markdown": "data/research/52212e8e/research-coverage-review.md",
+    "historical_egw_limitation": "The older Ground Zero–Off Chops manual EGW dossier does not preserve a timezone-qualified provider start or original response body; its percentage is not a current replayed probability input."
+  },
   "integration_findings": [
     {
       "id": "S522-EGW-001",
@@ -97,6 +107,18 @@
       "source_urls": [
         "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237",
         "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237#issuecomment-6380923889"
+      ]
+    },
+    {
+      "id": "S522-EGW-003",
+      "severity": "verified",
+      "pr": 237,
+      "head": "013eed255e3386cf7fd99c56aa150829a75ab292",
+      "finding": "The latest dedicated safety head retains the original-response EGW replay boundary and adversarial test module after the main integration.",
+      "verification": "99 targeted tests passed (2 skipped), including the EGW live/safety, snapshot, reconciliation, audit, review-flag and row-source modules. Standalone build passed with 786 audited rows, 0 sourceless rows and 827 internal links.",
+      "source_urls": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/013eed255e3386cf7fd99c56aa150829a75ab292/tests/test_be019782_egw_safety.py"
       ]
     },
     {

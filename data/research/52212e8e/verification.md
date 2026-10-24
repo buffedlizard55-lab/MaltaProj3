@@ -46,6 +46,18 @@ The combined phone UI at #245 was tested separately from the EGW concern. **12 P
 
 The [EGW CS2 index](https://egamersworld.com/counterstrike/matches) and a [Fokus–ex-6666 match page](https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/fokus-vs-ex-6666-YL1WJpBDm) publish teams and decimal prices, but the extracted visible date/time does not prove a UTC instant. The match page's title and body also expose different clock representations. No timezone was guessed and no Hotspawn start was copied into provider evidence. Refusing such a row until original markup independently proves the start is the correct fail-closed behaviour.
 
+## Fresh replay and research-only coverage
+
+- The [25-row replay report](fresh-25-replay.md) lists every fresh pick, both independently originated probabilities, method, official Hotspawn link and model/line source. **25/25 passed both validators; 0 unresolved; 15 external-line; 10 research-model; 0 missing source links.** The 10 model rows have a separate limitations register in that report.
+- The [research coverage review](research-coverage-review.md) checks those 10 rows against the dated HLTV-first/esportsbook sweeps on PRs #237 and #246. All **10/10** are covered by both records; both recorded **0 eligible new money-line leads**, leaving **0 unclaimed residual fixtures**. Broad or rejected books remain limitations rather than probabilities to copy.
+- An older manual Ground Zero–Off Chops EGW dossier records prices but not a timezone-qualified provider start or original response body. Its historical percentage was **not** used to overwrite the fresh validated network-model row. This is a provenance limitation, not a claim that the source price was fabricated.
+
+## Latest integration checkpoints
+
+- `origin/main` `4a6c112a` was merged locally with the complete shared board preserved. The first ordinary `pull --rebase` attempted to flatten that merge and stopped on a board conflict; the rebase was aborted without losing the merge, then `pull --rebase=merges` completed and the same merge commit `682530bf` pushed as a fast-forward.
+- PR #237 head `013eed255e3386cf7fd99c56aa150829a75ab292` retains `tests/test_be019782_egw_safety.py`. **99 targeted tests passed (2 skipped)** and its standalone build passed (**786 rows / 0 sourceless / 827 internal links**).
+- The current combined review branch passed **50 targeted tests**, build/replay, **783 rows / 0 sourceless**, acceptance **9 pass / 1 info / 0 fail**, and **827 internal links**. Deeper full-tree Python and browser suites are recorded separately when complete.
+
 ## Machine-readable record
 
-See [`integration-review.json`](integration-review.json) for exact heads, counts, commands, source links and findings.
+See [`integration-review.json`](integration-review.json), [`fresh-25-replay.json`](fresh-25-replay.json) and [`research-coverage-review.json`](research-coverage-review.json) for exact heads, counts, commands, source links and findings.
