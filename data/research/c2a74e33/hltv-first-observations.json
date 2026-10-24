@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "session": "arena-c2a74e33",
+  "observed_at": "2026-10-24T16:42:00Z",
+  "environment": "authoring-fetch-path",
+  "policy": "External research performed strictly for matches not resolved by the featured exact-name Polymarket method, checking HLTV first and then esportsbooks/exchanges (Polymarket CLOB, Smarkets, Bovada, Kalshi, Pinnacle, bo3.gg, EGamersWorld). Zero crowd or fan-vote inputs.",
+  "observations": [
+    {
+      "id": "c2a74e33-polymarket-clob-1082996",
+      "fixture_ids": [
+        "1082996"
+      ],
+      "surface": "Polymarket Gamma + CLOB live orderbook (cs2-ace1-unity-2026-10-25)",
+      "url": "https://gamma-api.polymarket.com/events/1238703",
+      "corroborating_urls": [
+        "https://clob.polymarket.com/book?token_id=70739776158623819204556862140110042694226402323251073812600083606213507639618",
+        "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13"
+      ],
+      "http_status": 200,
+      "excerpt": "market 6072790 (cs2-ace1-unity-2026-10-25, gameStartTime 2026-10-25 09:00:00+00, liquidity $1,574.59): Acend bestBid=0.36 bestAsk=0.41 mid=0.385 (spread=0.05) vs UNiTY esports bestBid=0.59 bestAsk=0.64 mid=0.615 (spread=0.05) at 1792859487757.",
+      "usable_as_price": false,
+      "verdict": "live first-party orderbook now within 0.12 featured spread ceiling; auto-promotes on next runner refresh",
+      "reason": "Recorded as read-only research evidence here; scripts/collect.py and scripts/originate.py already bind UNiTY esports -> UNiTY in NODWIN Clutch Series #13 and will promote 1082996 from the 54.2% Acend Valve model to the ~61.5% UNiTY Polymarket line on the next live run.",
+      "excerpt_sha256": "af8fbb70f66dd4783fe5934ae0e58b4658c215a3cc7615b8e754cb05d6660079"
+    },
+    {
+      "id": "c2a74e33-hltv-2399506-lfo10-standins",
+      "fixture_ids": [
+        "1081156"
+      ],
+      "surface": "HLTV match 2399506 (Spirit Academy vs LFO 10)",
+      "url": "https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12",
+      "corroborating_urls": [
+        "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike"
+      ],
+      "http_status": 200,
+      "excerpt": "Best of 3 (Online) \u00b7 2026-10-25T12:00:00Z \u00b7 Spirit Academy [HLTV #111, VRS #99] vs LFO 10 [Unranked, VRS #151] fielding Sapec, dottie, and 3 substitutes: L00m1, Toshas, Mann3n.",
+      "usable_as_price": false,
+      "verdict": "identity, BO3 schedule, and 3-substitute lineup risk verified; no HLTV sportsbook quote in US geo",
+      "reason": "Confirms Bovada Sokerorg (-230 / +170 -> 66.4% / 33.6% Spirit Academy) maps to the exact CCT Europe Series #12 slot while flagging elevated lineup variance from 3 substitutes on LFO 10.",
+      "excerpt_sha256": "13afca054df37da1750a7b393326e6ea55eaf9e4ad5349c51c93529a3bdbccad"
+    },
+    {
+      "id": "c2a74e33-egw-1082858-fresh-capture",
+      "fixture_ids": [
+        "1082858"
+      ],
+      "surface": "EGamersWorld match page + Smarkets 45396333 + Polymarket 1237427",
+      "url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+      "corroborating_urls": [
+        "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+        "https://smarkets.com/event/45396333",
+        "https://gamma-api.polymarket.com/events/1237427"
+      ],
+      "http_status": 200,
+      "excerpt": "According to leading bookmakers predictions, the team Off Chops are the favorite with average odds 1.24 at the moment. Respectively, bookmakers consider Ground Zero to be the outsider of the match with odds on a victory in the sum of about 3.44.",
+      "usable_as_price": false,
+      "verdict": "verbatim EGWxxxBOT sentence + Prematch Vave 3.44/1.24 verified; registered in reference_odds.py::CAPTURE_PATHS",
+      "reason": "Smarkets 45396333 (spread 0.161 > 0.15, mid 23.7%/76.3%) and Polymarket 6066508 (0.20/0.46, spread 0.26 > 0.15) exceed the 0.15 spread ceiling; fresh SHA-256 capture in data/research/c2a74e33/reference-odds.json keeps 1082858 money-backed inside 8h.",
+      "excerpt_sha256": "080a558f7ff9cb974f6715f33faca5f7b9b7796263e47ab959f234cdcfebc902"
+    },
+    {
+      "id": "c2a74e33-rooster-abyssal-1082861",
+      "fixture_ids": [
+        "1082861"
+      ],
+      "surface": "HLTV 2399891 + Polymarket 1237430 + Smarkets 45396351 + EGamersWorld",
+      "url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+      "corroborating_urls": [
+        "https://gamma-api.polymarket.com/events?slug=cs2-rstr-abyssa-2026-10-26",
+        "https://smarkets.com/event/45396351",
+        "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/rooster-vs-team-abyssal-P1tTp3RAg8"
+      ],
+      "http_status": 200,
+      "excerpt": "HLTV 2399891 (2026-10-27T03:00:00Z BO3 LAN): Rooster [VRS #154, 2 substitutes TjP & foggers] vs Abyssal [HLTV #128, VRS #130]; Polymarket 6066525 bid/ask 0.30/0.55 (spread 0.25 > 0.15); Smarkets 45396351 mid 36.2%/63.8% (spread 0.161 > 0.15); EGW match page 1.8/1.8 (index 2.1/1.66).",
+      "usable_as_price": false,
+      "verdict": "all exchange spreads > 0.15 and EGW match page lacks EGWxxxBOT sentence; Valve VRS model retained",
+      "reason": "Every observable directional signal (Valve VRS 47.8%/52.2%, Polymarket mid 42.5%/57.5%, Smarkets mid 36.2%/63.8%, EGW index 44.1%/55.9%) favors Abyssal, while fail-closed spread and match-page excerpt gates keep 1082861 honestly labelled as Valve VRS model.",
+      "excerpt_sha256": "e5da7cd398bc1f4614c880c947226aa410ba43b42ce0da28b2972ebf0f34f1e0"
+    },
+    {
+      "id": "c2a74e33-moscow-cyber-games-1082792-1082793",
+      "fixture_ids": [
+        "1082792",
+        "1082793"
+      ],
+      "surface": "HLTV 2399437 & 2399438 + Polymarket 1241313 + EGamersWorld (Oct 31 LAN semi-finals)",
+      "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "corroborating_urls": [
+        "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+        "https://gamma-api.polymarket.com/events?slug=cs2-hotu-the9-2026-10-31",
+        "https://egamersworld.com/counterstrike/match/EkalRNMvVx/hotu-vs-the-huns-esports-SfdtzDhiK",
+        "https://egamersworld.com/counterstrike/match/EkalRNMvVx/1win-vs-5star-esports-iX03cI9s0"
+      ],
+      "http_status": 200,
+      "excerpt": "1082792 (Oct 31 09:00Z BO3 LAN): HOTU [HLTV #38, VRS #38] vs The Huns [HLTV #134, VRS #121], Polymarket 6085308 bid/ask 0.50/0.93 (spread 0.43 > 0.15), EGW match page 1.8/1.8 (index 1.09/6.6). 1082793 (Oct 31 13:00Z BO3 LAN): 5star [HLTV #36, VRS #64] vs 1win [HLTV #14, VRS #20], zero Polymarket/Smarkets/Bovada/Kalshi/Pinnacle markets 7 days out and EGW 1.8/1.8 placeholder.",
+      "usable_as_price": false,
+      "verdict": "7-day-ahead LAN semi-finals lack sub-0.15 first-party books or match-page EGWxxxBOT quotes; Valve VRS retained",
+      "reason": "Official Git-blob-verified Valve VRS ratings cleanly resolve 1082792 (94.1% / 5.9% HOTU, corroborated by EGW index 85.8% / 14.2%) and 1082793 (17.8% / 82.2% 1WIN) without inventing odds.",
+      "excerpt_sha256": "a3475729b71986aa5f24110e4581ab3c62dd40e2e2152e4a604ec03711225ced"
+    }
+  ]
+}
