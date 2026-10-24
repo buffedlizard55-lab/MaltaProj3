@@ -65,7 +65,11 @@
       "unresolved": 0,
       "missing_source_links": 0,
       "report_json": "data/research/52212e8e/fresh-25-replay.json",
-      "report_markdown": "data/research/52212e8e/fresh-25-replay.md"
+      "report_markdown": "data/research/52212e8e/fresh-25-replay.md",
+      "acceptance_problem_rows": 1,
+      "acceptance_clean": false,
+      "acceptance_qualification": "A subsequent independent CD37 audit rejects 1082860 (raw Thunderpick 1.001 / 12; every leg must be >1.01). This does not change the historical saved-evidence replay result, but the 25-row candidate is not acceptance-clean.",
+      "acceptance_source": "https://github.com/buffedlizard55-lab/MaltaProj3/commit/c1152ed6bf85c6aec26dedc8013ae02db22d4d39"
     }
   },
   "research_coverage_review": {
@@ -203,11 +207,17 @@
       "verification": "python -m unittest discover -s tests ran 1362 tests in 1157.823 seconds: OK (exit 0). This result is pinned to 013eed25; newer heads still require their own final checks.",
       "source_urls": [
         "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237"
-      ]
+      ],
+      "latest_head_check": {
+        "head": "8ed62fa2d05746243e981511b2a9b23de8a1abfd",
+        "targeted_tests": "213 passed, 2 skipped",
+        "adversarial_egw": "0 derived-only rows accepted; no quote",
+        "build": "804 audited rows, 0 sourceless, 827 internal links, acceptance 9 pass / 1 info / 0 fail"
+      }
     },
     {
       "id": "S522-PRICE-001",
-      "severity": "source-fidelity correction",
+      "severity": "acceptance blocker plus source-fidelity correction",
       "pr": 246,
       "head": "67d135687e679a4ac3ae005e5c83f039422e11e2",
       "finding": "The retained raw Thunderpick response for FlyQuest–Staqued is 1.001 / 12, not exactly 1.00 / 12; the executive-summary formatter rounds the first leg to 1.00.",
@@ -215,15 +225,17 @@
         "Raw event 2872333, market 240164875, start 2026-10-27T03:00:00+00:00, contains home odds 1.001 and away odds 12.",
         "Raw evidence SHA-256 is a1ed97aee7c99b14f3aa05cef4647742abb593d80ee026f2b48e328448d986b8.",
         "On PR #246 head 67d13568, observed_price_label returns 'line 1.00 / 12.00' for stored odds [1.001, 12], because it formats both legs with two decimal places despite promising exact stored values.",
-        "The merged e619b921 exact-1.00 flag was based on the rounded display and could not re-read the original feed; its exact-1.00 premise is not supported by this retained raw response."
+        "The merged e619b921 exact-1.00 flag was based on the rounded display and could not re-read the original feed; its exact-1.00 premise is not supported by this retained raw response.",
+        "Independent CD37 reconciler c1152ed6 marks exactly 1082860 as a validation problem: every money-quote decimal leg must be >1.01; the 25-row candidate is not acceptance-clean until this quote is rejected and the ladder rerun."
       ],
-      "handling": "Reported to the active integrator and merged audit at PR #246 comment 6381190173 and PR #256 comment 6381190305. Preserve sufficient decimal precision and correct/qualify the exact-1.00 wording. The near-1 quote remains a review limitation; no pick, probability or replacement price was hand-written.",
+      "handling": "Reported to the active integrator and merged audit at PR #246 comment 6381190173 and PR #256 comment 6381190305. CD37 owns the independent <=1.01 candidate gate; S522 will not duplicate it. Final integration must preserve significant decimal precision, correct/qualify the exact-1.00 wording, reject the non-actionable quote before no-vig, and rerun to a valid sourced fallback or explicit unresolved entry. No pick, probability or replacement price was hand-written.",
       "limitation": "The raw response belongs to the independently retained 05:57Z 25-row capture. It does not prove the price in the later 31-row manifest or a future deployment; those require their own retained evidence replay.",
       "source_urls": [
         "https://github.com/buffedlizard55-lab/MaltaProj3/blob/67d135687e679a4ac3ae005e5c83f039422e11e2/data/research/89c00d8a/live/origination-evidence/live-thunderpick-matches.json",
         "https://github.com/buffedlizard55-lab/MaltaProj3/pull/246#issuecomment-6381190173",
         "https://github.com/buffedlizard55-lab/MaltaProj3/pull/256#issuecomment-6381190305",
-        "https://thunderpick.io/api/matches"
+        "https://thunderpick.io/api/matches",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/commit/c1152ed6bf85c6aec26dedc8013ae02db22d4d39"
       ]
     }
   ],

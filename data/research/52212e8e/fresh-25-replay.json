@@ -13,12 +13,16 @@
     "research_model": 10,
     "network_subset": 1,
     "replay_pass": 25,
-    "missing_source_links": 0
+    "missing_source_links": 0,
+    "acceptance_problem_rows": 1,
+    "acceptance_clean": false,
+    "acceptance_qualification": "CD37 independently rejects fixture 1082860 because the raw Thunderpick leg 1.001 is <=1.01. Saved-evidence arithmetic/provenance replay still passes; the candidate is not acceptance-clean until the quote is rejected and the ladder rerun."
   },
   "verification": [
     "scripts.build_origination.validate_origination on main bdb4fc9: PASS for all 25 rows",
     "scripts.build_origination.validate_origination on PR #237 ced36cb3: PASS for all 25 rows",
-    "scripts.validate.check_data on the fresh 88-record inventory: PASS; every featured probability and pick replayed"
+    "scripts.validate.check_data on the fresh 88-record inventory: PASS; every featured probability and pick replayed",
+    "CD37 scripts/cd37caa0_reconcile.py at c1152ed6: FAIL closed for 1082860 only; non-actionable two-sided decimal quote (every leg must be > 1.01)"
   ],
   "rows": [
     {
@@ -461,7 +465,13 @@
         "Hotspawn best-of format is unverified; left blank."
       ],
       "replay": "pass: production saved-evidence validator",
-      "replay_with_pr237": "pass: original-response-safe validator"
+      "replay_with_pr237": "pass: original-response-safe validator",
+      "raw_decimal_odds": [
+        1.001,
+        12
+      ],
+      "acceptance": "fail: non-actionable leg <= 1.01; reject quote and rerun ladder; no hand-written replacement",
+      "acceptance_source": "https://github.com/buffedlizard55-lab/MaltaProj3/commit/c1152ed6bf85c6aec26dedc8013ae02db22d4d39"
     },
     {
       "fixture_id": "1082861",

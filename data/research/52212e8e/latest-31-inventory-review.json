@@ -440,6 +440,8 @@
       12
     ],
     "finding": "The summary rounds 1.001 to 1.00. Do not describe the original provider value as exactly 1.00; replay the actual final deployment evidence and preserve significant price precision.",
-    "review_finding": "S522-PRICE-001"
+    "review_finding": "S522-PRICE-001",
+    "acceptance": "CD37 c1152ed6 rejects the earlier candidate row because 1.001 <= 1.01. The same 92.3 manifest value must not be accepted as money-backed without a passing deployment-time evidence replay and admission gate.",
+    "acceptance_source": "https://github.com/buffedlizard55-lab/MaltaProj3/commit/c1152ed6bf85c6aec26dedc8013ae02db22d4d39"
   }
 }

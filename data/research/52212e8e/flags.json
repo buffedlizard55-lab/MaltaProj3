@@ -30,12 +30,13 @@
     "severity": "notice",
     "match_ids": [],
     "title": "Fresh runner slate independently replayed: 25/25 picks, 0 unresolved, 10 research-only rows explicitly limited",
-    "detail": "At source snapshot 2026-10-24T05:57:37Z, all 25 active Hotspawn CS2 fixtures have a directional pick and both probabilities. Every row passed the production saved-evidence validator on main and the original-response-safe validator on PR #237; the 88-row featured inventory also passed check_data. 15 rows use external lines and 10 are research models (one network-model subset). The separate replay report lists every row, both probabilities, pick, official source links and the exact limitation text for all 10 research-only rows. This is verification of the runner output, not authority to bypass deployment or hand-edit a pick.",
+    "detail": "At source snapshot 2026-10-24T05:57:37Z, all 25 active Hotspawn CS2 fixtures have a directional pick and both probabilities. Every row passed the production saved-evidence validator on main and the original-response-safe validator on PR #237; the 88-row featured inventory also passed check_data. 15 rows use external lines and 10 are research models (one network-model subset). The separate replay report lists every row, both probabilities, pick, official source links and the exact limitation text for all 10 research-only rows. This is verification of the runner output, not authority to bypass deployment or hand-edit a pick. Subsequent independent CD37 acceptance review rejects fixture 1082860 for raw Thunderpick 1.001/12 (leg <=1.01), so the candidate is not acceptance-clean until the quote is rejected and the ladder rerun; the historical arithmetic/provenance replay result remains unchanged.",
     "source_urls": [
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/89c00d8a-maltaproj3/data/research/89c00d8a/live/origination.json",
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/52212e8e/fresh-25-replay.md",
       "https://play.hotspawn.com/cs2-pickems",
-      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/52212e8e/research-coverage-review.md"
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/52212e8e/research-coverage-review.md",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/commit/c1152ed6bf85c6aec26dedc8013ae02db22d4d39"
     ]
   },
   {
@@ -102,13 +103,14 @@
     "match_ids": [
       "1082860"
     ],
-    "title": "FlyQuest–Staqued raw Thunderpick price is 1.001 / 12, not exactly 1.00 / 12; summary rounding creates a false source reading",
-    "detail": "The retained original Thunderpick response in PR #246 records event 2872333 / market 240164875 with decimal prices 1.001 and 12 (raw SHA-256 a1ed97aee7c99b14f3aa05cef4647742abb593d80ee026f2b48e328448d986b8). On PR #246 head 67d13568 the summary helper formats that as line 1.00 / 12.00. The exact-1.00 premise in the merged e619b921 flag is therefore not supported by the original response. The extreme near-1 price remains an irregularity to review, and the summary must not hide significant source precision. This 05:57Z raw observation is not carried forward as a later deployment-time quote; final evidence must be replayed independently. No pick or probability was changed by hand.",
+    "title": "FlyQuest–Staqued raw Thunderpick price is 1.001 / 12: reject the non-actionable leg and do not round it into a false 1.00 source fact",
+    "detail": "The retained original Thunderpick response in PR #246 records event 2872333 / market 240164875 with decimal prices 1.001 and 12 (raw SHA-256 a1ed97aee7c99b14f3aa05cef4647742abb593d80ee026f2b48e328448d986b8). On PR #246 head 67d13568 the summary helper formats that as line 1.00 / 12.00, so the exact-1.00 premise in the merged e619b921 flag is not supported by the original response. Independently, the CD37 candidate reconciler rejects this row because every decimal leg must be >1.01; the 25-row candidate is not acceptance-clean until the quote is rejected before no-vig and the ladder rerun to a valid sourced fallback or explicit unresolved entry. Preserve raw precision in any remaining display. This 05:57Z observation is not carried forward as a later deployment-time quote. No pick, probability or replacement price was changed by hand.",
     "source_urls": [
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/67d135687e679a4ac3ae005e5c83f039422e11e2/data/research/89c00d8a/live/origination-evidence/live-thunderpick-matches.json",
       "https://github.com/buffedlizard55-lab/MaltaProj3/pull/246#issuecomment-6381190173",
       "https://github.com/buffedlizard55-lab/MaltaProj3/pull/256#issuecomment-6381190305",
-      "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860"
+      "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/commit/c1152ed6bf85c6aec26dedc8013ae02db22d4d39"
     ]
   }
 ]
