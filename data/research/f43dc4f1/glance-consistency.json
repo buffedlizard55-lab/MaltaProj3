@@ -1,0 +1,16 @@
+{
+  "generated_at": "2026-10-24T05:55Z",
+  "method": "parse the rendered #picks-at-a-glance list; assert two percentages per row summing to 100 within 0.15pp, a named pick, a basis badge and at least one https source link; no value is recomputed or changed",
+  "checks": [
+    {
+      "page": "live published branch root (snapshot 2026-10-23T20:10Z)",
+      "rows": 19,
+      "problems": []
+    },
+    {
+      "page": "local build of the checked-in fixture",
+      "rows": 17,
+      "problems": []
+    }
+  ]
+}
