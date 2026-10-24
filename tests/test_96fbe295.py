@@ -402,8 +402,27 @@ class WorkflowWiringTests(unittest.TestCase):
         # With one shared `pages` group and a branch pushed every few minutes, the
         # four-hour refresh was cancelled before it could start (see the comment in
         # pages.yml). The runs must be grouped per event type.
-        self.assertIn("group: pages-${{ github.event_name }}", self.text)
+        #
+        # Session 34247d4e: later work (be019782/f4217201) added an independent
+        # `recovery` lane, so the expression now reads
+        #   group: pages-${{ (recovery-or-catch-up) && 'recovery' || github.event_name }}
+        # which still keeps a push out of a scheduled run's group. This test
+        # asserted the old literal spelling, so `main` went red at its regression
+        # step and every publisher run after 2026-10-24T08:29Z failed or skipped.
+        # It now asserts the invariant (exactly one, event-derived, `pages-` group)
+        # instead of one spelling of it, so an added lane cannot break the publisher
+        # while a shared group still fails here.
+        group_lines = [
+            line.strip() for line in self.text.splitlines()
+            if line.strip().startswith("group:")
+        ]
+        self.assertEqual(len(group_lines), 1, group_lines)
+        group = group_lines[0]
+        self.assertTrue(group.startswith("group: pages-"), group)
+        self.assertIn("github.event_name", group)
         self.assertNotIn("group: pages\n", self.text)
+        # Whatever the lanes, an in-progress publish is never cancelled by a newer one.
+        self.assertIn("cancel-in-progress: false", self.text)
 
     def test_artifact_is_redeployed_after_root_sync_legacy_build(self):
         publish = self.text.index("name: Publish the verified build into the branch root")
