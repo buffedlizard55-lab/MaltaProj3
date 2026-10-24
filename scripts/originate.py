@@ -34,6 +34,7 @@ import requests
 
 from scripts.domain import iso, name_key, no_vig, normalize_pair, timestamp, finite, array, polymarket_candidate
 from scripts.github_auth import auth_headers
+from scripts import egw_live
 from scripts import form_model
 from scripts import hltv_ranking
 from scripts import network_model
@@ -2434,7 +2435,11 @@ def run(output: Path, *, live: bool = False) -> dict:
     snapshot = load_json(output / 'latest.json')
     live_payload = live_collect(evidence_dir, snapshot['matches'], registry) if live else None
     reference_capture = reference_odds.load(output)
-    reference_rows = list(reference_capture.get('entries') or []) + list(reference_capture.get('rejected') or [])
+    reference_rows = (
+        list(egw_live.load_live(evidence_dir))
+        + list(reference_capture.get('entries') or [])
+        + list(reference_capture.get('rejected') or [])
+    )
     poly_rows = polymarket_rows(output, evidence_dir) + kalshi_rows(evidence_dir) + smarkets_lines.rows(evidence_dir)
     book_rows = thunderpick_rows(output, live_payload) + bovada_rows(evidence_dir) + pinnacle_rows(evidence_dir)
     ratings, valve_meta = valve_rows(output, live_payload)
