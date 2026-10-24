@@ -8644,3 +8644,29 @@ Constraints: sandbox outbound access cannot directly verify Hotspawn/HLTV/books;
 - **Irregularities** (published on the review page): stale snapshot,
   nine uncovered cards with four usable lines, crossed/flat Series #12 books, the
   LFO 10 ↔ Sökerorg name conflict, and the sandbox's lack of general egress.
+
+### F42 publish confirmed (2026-10-24T09:40Z)
+
+- **PR #280** (`arena/f4217201-maltaproj3` → `main`) **merged 08:01Z as `8104340`**:
+  dated lobby reconciliation, HLTV-first line research for the nine uncovered CCT
+  cards, the runner probe + workflow, five review findings and 18 offline tests.
+- **PR #285** (queue relief, `origination.yml`, merged 08:26Z) and **PR #296**
+  (`checks.yml`, merged 08:58Z): the advisory session-branch audits had no
+  concurrency cap — measured at 08:20Z, **28 `Origination source audit` + 28
+  `Validate dashboard`** runs were queued from `arena/**` pushes while the
+  publisher sat pending. Each now keeps one running plus one pending; PR checks
+  keep their per-ref groups; the publisher's `pages-*` groups are untouched.
+- **Deploy verified.** `pages.yml` run **40080977205** (push, head `d67f0b6f`)
+  **completed success 09:36:22Z**. The live site then reported inventory checked
+  **2026-10-24T09:28Z**, inventory **90/90**, and **29 of 29 active fixtures with a
+  directional pick, 0 unresolved** (14 market-backed, 10 model/researched). The
+  nine CCT cards this session had found uncovered are priced with an official link
+  each — the four with a real Polymarket/Kalshi book from that book, and the three
+  crossed/flat $0.00-volume Series #12 books replaced by a labelled Valve model,
+  never by a made-up line. A resolving finding
+  `f4217201-fresh-publish-closed-the-coverage-gap` supersedes the two dated
+  findings on **Flagged for Review**.
+- **Irregularity retained:** the four-hour guarantee is still exposed to
+  platform-side queue starvation (63 runs queued at 08:20Z, one running). The two
+  concurrency caps above remove the largest recurring source; the publisher's own
+  tests pass on this head, so a run that starts inside the window publishes.
