@@ -40,7 +40,7 @@ from scripts import hltv_ranking
 from scripts import network_model
 from scripts import pinnacle_lines
 from scripts import smarkets_lines
-from scripts import reference_odds, egw_live
+from scripts import reference_odds
 
 UTC = timezone.utc
 VALVE_RD = 75  # Fixed-RD assumption in Valve's published model/fit.js.
