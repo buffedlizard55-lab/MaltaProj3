@@ -402,6 +402,27 @@ Claimed **2026-10-24T06:40Z** on Arena's fixed branch `arena/34247d4e-maltaproj3
 - **Doc irregularity observed, not fixed:** lines 1–2 of this file carry **two** `# Current session: arena-fc985c7b` headers (an IN PROGRESS title and a DONE title), left behind by an earlier merge before this session. It is another session's section, so it is reported here instead of edited.
 - **Final irregularity counts for this session:** 3 source-linked findings published on `/review/` (`34247d4e-publisher-regression-expired-test`, `34247d4e-push-refresh-runs-cancelled`, `34247d4e-published-inventory-behind-live-feed`); no probability, pick or alias was written by this session.
 
+### S619 closeout — publication, and the deploy that did not happen (2026-10-24T08:45Z)
+
+**Published.** PR [#256](https://github.com/buffedlizard55-lab/MaltaProj3/pull/256) merged into `main` at **06:54:02Z** as `52091c5` (branch `arena/e619b921-maltaproj3`; rebased three times on a `main` that moved every few minutes — `COORDINATION.md` was the only recurring conflict and both sides were kept each time). The merged tree carries `data/research/e619b921/{live-coverage.json,live-coverage.md,flags.json,verification.json}` and `tests/test_e619b921_live_coverage.py` — **21 tests, all passing locally** (`.venv/bin/python -m unittest tests.test_e619b921_live_coverage`; the full-module run also rebuilt 9 views with 0 sourceless rows). The build discovers this record through `scripts/build.py::load_live_coverage` (newest `observed_at` wins) and the findings through the `data/research/*/flags.json` glob, so this session edited **no** `scripts/**` file.
+
+**Deploy status — not refreshed, and not because of this merge.** Read first-hand at 08:40Z: the public page still renders the `2026-10-23T20:10:00Z` snapshot with its own stale banner ("Inventory checked 23 Oct 2026, 22:09 Europe/Malta … older than eight hours") and its "A newer verified snapshot is available" link — 12h35m against the page's own 8h bound. The branch-root `data/latest.json` that the legacy builder republishes is still the 2026-10-15 replay fixture while the branch-root `index.html` is the 23 Oct build, so the two disagree in public.
+
+Of the **25 most recent `pages.yml` runs** at 08:40Z: **19 cancelled**, **2 failed**, **4 pending** — none succeeded end to end.
+
+| Run | Event, created | State at 08:40Z | What it shows |
+| --- | --- | --- | --- |
+| [40074822023](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40074822023) | schedule, 07:36Z | queued ~1h | only `republish-last-verified` exists and has no runner |
+| [40074984702](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40074984702) | workflow_dispatch, 07:39Z | pending | no job allocated |
+| [40077233256](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40077233256), [40078105941](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40078105941) | push, 08:14Z / 08:27Z | failure | the only runs that reached a runner died in `republish-last-verified` at *Retire only publishers predating independently replayable sources*: "Recovery queue safety not established: Obsolete publisher has not stopped; recovery cannot publish" |
+| 40075609270, 40078258563, … (17 more) | push | cancelled | replaced by the next push in the same concurrency group before a runner was allocated |
+
+So the four-hour guarantee is still unmet on `main`, for reasons upstream of this record: merges land faster than a job can be allocated, and a **pending** run is replaced by the next push in its group even with `cancel-in-progress: false`. The two failures are **not** the old `Regression tests` date bomb (PR #243 merged 08:01Z fixed the wall-clock pin) — no scheduled run has reached that step since.
+
+**Left blank on purpose.** (1) Whether the new gap section and the five flags render in production: that needs one successful `verify-and-deploy`, which did not exist at closeout; the record is dated and self-describing, so it renders on the first successful build and the live page stays on its previous build until then. (2) The exact no-vig arithmetic of the 12 external-line rows (collector output is not in this checkout). (3) Five derived start times stay labelled `lobby_card_us_eastern_plus_4h`.
+
+**Handoff.** Unblocking `main` needs one of: a runner-backed run of the `17 */4` schedule (which runs on `ubuntu-24.04`, not the recovery pool), or a fix to the retire guard in `republish-last-verified` that lets a `recovery:` push publish when no older publisher is actually alive. Whoever takes it should not treat this closed record as the cause; it is additive data only.
+
 # Current session: arena-73bc57bd — every live Hotspawn CS2 card vs the published picks, HLTV-first + esportsbook research for the uncovered ones, published review register — IN PROGRESS
 # Current session: arena-99d48cd8 — every-match picks: HLTV-first + esportsbook research for the 11 fixtures with no featured pick, executive-summary/unresolved/mobile verification on the fresh publish — IN PROGRESS
 
@@ -1345,7 +1366,7 @@ another live session is requested in this section instead of edited.
 
 **Relationship to arena-73bc57bd (PR #241, merged 06:32Z).** That session already published the dated 25-cards-vs-19-rows reconciliation and the HLTV-first + esportsbook evidence for the nine uncovered CCT Europe cards (`data/research/73bc57bd/`), and it names the same root cause this session claims: four consecutive failed `pages.yml` runs. This session therefore does **not** re-do that work. It takes over the open threads 73B left open — (a) the regression failure that stops the refresh from ever publishing, so the ladder can actually price those nine cards, and (b) publication + live verification — and will log a handoff note in 73B's section if any of its files must change.
 
-# Current session: arena-e619b921 — independent re-verification of the published picks, the live-lobby gap measured first-hand, and line research for the nine uncovered cards — IN PROGRESS (PR/merge record at the end of this section)
+# Current session: arena-e619b921 — independent re-verification of the published picks, the live-lobby gap measured first-hand, and line research for the nine uncovered cards — DONE (PR #256 merged as 52091c5; deploy record at the end of this section)
 
 Claimed **2026-10-24T06:20Z** on Arena's fixed branch `arena/e619b921-maltaproj3`. Read first: this board, `README.md`, `scripts/{build,collect,originate,review_register}.py`, the run history and the open PR list. Base at claim time `bdb4fc9` (PR #240); rebased onto `4a6c112` (PR #241) before pushing.
 
@@ -1356,7 +1377,7 @@ Claimed **2026-10-24T06:20Z** on Arena's fixed branch `arena/e619b921-maltaproj3
 | S619-1 Re-verify the published 2026-10-23T20:10Z build line by line against official/first-party sources; leave anything uncomparable blank and flag it | **done** — `data/research/e619b921/verification.json` (8 checks confirmed, 3 items explicitly unverified) | arena-e619b921 | new `data/research/e619b921/**` |
 | S619-2 Read the live Hotspawn lobby first-hand and measure coverage against the published snapshot | **done** — 25 cards, 16 covered, **9 uncovered**; cause traced to the three failed refreshes | arena-e619b921 | new `data/research/e619b921/live-coverage.{json,md}` |
 | S619-3 HLTV-first, then esportsbook/esports-line research for every uncovered card (EGamersWorld, Polymarket), prices quoted verbatim, placeholders rejected | **done** — 4 of 9 have a usable two-sided price, 5 have none anywhere reachable | arena-e619b921 | new `data/research/e619b921/**` |
-| S619-4 Publish the findings on Flagged for Review and pin the record with tests; PR, merge, confirm the Pages deploy | **in progress** — see the closeout block below | arena-e619b921 | new `tests/test_e619b921_live_coverage.py`, this section, PR |
+| S619-4 Publish the findings on Flagged for Review and pin the record with tests; PR, merge, confirm the Pages deploy | **merged** — PR [#256](https://github.com/buffedlizard55-lab/MaltaProj3/pull/256) → `52091c5` at 06:54:02Z; Pages deploy **not** confirmed, and the reason is recorded in the closeout block below | arena-e619b921 | new `tests/test_e619b921_live_coverage.py`, this section, PR |
 
 **Non-overlap pledge:** no edit to `scripts/**`, `assets/**`, `tests/test_ca7e10e5_snapshot.py`, `data/latest.json`, `data/origination.json`, `data/origination/**`, `README.md`, `docs/`, any other session's `data/research/<id>/`, or any part of this board above this section. This section is only edited by this session.
 
@@ -1408,7 +1429,9 @@ So the answer to "can every match get a pick" is: **4 of the 9** are priced by a
 ### S619 sources used
 
 `play.hotspawn.com/cs2-pickems` (25 cards, read twice), `hotspawn.com/matches/acend-vs-forze-reload-…-1079658` (UTC display check), `hltv.org/matches/2399888/…` (identity, BO3, betting block empty), Valve `standings_global_2026_10_05.md` (rows 24–58 and 92–125 read: HOTU 1437, The Huns 944), `polymarket.com/esports/cs2` + `/cct-europe` (112 CS2 markets; 3 CCT books), `egamersworld.com/counterstrike` + both CCT event pages (14 fixture prices), the published `data/latest.json`, `data/origination.json`, `snapshot.json`, and the three failed run pages.
-2d2c563 (verify(e619b921): live lobby read first-hand, 9 of 25 cards uncovered, line research for each; dated record + flags + 18 tests)# Current session: arena-73bc57bd — every live Hotspawn CS2 card vs the published picks, HLTV-first + esportsbook research for the uncovered ones, published review register — IN PROGRESS
+Commit `2d2c563` (verify(e619b921): live lobby read first-hand, 9 of 25 cards uncovered, line research for each; dated record + flags + 18 tests), then `c93233a`, `28465e9`, `6daaee3`, `9dbe6b4` after the rebases; all merged as `52091c5`.
+
+# Current session: arena-73bc57bd — every live Hotspawn CS2 card vs the published picks, HLTV-first + esportsbook research for the uncovered ones, published review register — IN PROGRESS
 
 Claimed **2026-10-24T05:33Z** (claim commit 84459e8) on Arena's fixed branch `arena/73bc57bd-maltaproj3`, based on `main` at `2f966a91` (= current `origin/main` head). Board, open PRs and the Actions run history were read first.
 
