@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-24T05:25:50Z",
-  "source_snapshot_at": "2026-10-24T05:25:17Z",
-  "source_generated_at": "2026-10-24T05:25:35Z",
+  "generated_at": "2026-10-24T05:38:33Z",
+  "source_snapshot_at": "2026-10-24T05:38:02Z",
+  "source_generated_at": "2026-10-24T05:38:19Z",
   "registry_updated_at": "2026-10-23T06:26:00Z",
   "live_collection": true,
   "collection": {
@@ -38,27 +38,27 @@
       "reused_requests": [
         {
           "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=0",
-          "observed_at": "2026-10-24T05:25:20Z",
+          "observed_at": "2026-10-24T05:38:05Z",
           "evidence": "data/evidence/polymarket-discovery-0.json"
         },
         {
           "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=100",
-          "observed_at": "2026-10-24T05:25:20Z",
+          "observed_at": "2026-10-24T05:38:05Z",
           "evidence": "data/evidence/polymarket-discovery-100.json"
         },
         {
           "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=200",
-          "observed_at": "2026-10-24T05:25:20Z",
+          "observed_at": "2026-10-24T05:38:05Z",
           "evidence": "data/evidence/polymarket-discovery-200.json"
         },
         {
           "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=300",
-          "observed_at": "2026-10-24T05:25:21Z",
+          "observed_at": "2026-10-24T05:38:05Z",
           "evidence": "data/evidence/polymarket-discovery-300.json"
         },
         {
           "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=400",
-          "observed_at": "2026-10-24T05:25:21Z",
+          "observed_at": "2026-10-24T05:38:05Z",
           "evidence": "data/evidence/polymarket-discovery-400.json"
         }
       ],
@@ -69,7 +69,7 @@
     "graph_edges": 4710,
     "graph_pages": 48,
     "graph_rows_seen": 4800,
-    "graph_cutoff": "2026-06-26T05:26:15Z",
+    "graph_cutoff": "2026-06-26T05:38:57Z",
     "rows_without_winner": 0,
     "missing_winner_samples": [],
     "graph_error": null,
@@ -90,27 +90,27 @@
     "reused_requests": [
       {
         "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=0",
-        "observed_at": "2026-10-24T05:25:20Z",
+        "observed_at": "2026-10-24T05:38:05Z",
         "evidence": "data/evidence/polymarket-discovery-0.json"
       },
       {
         "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=100",
-        "observed_at": "2026-10-24T05:25:20Z",
+        "observed_at": "2026-10-24T05:38:05Z",
         "evidence": "data/evidence/polymarket-discovery-100.json"
       },
       {
         "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=200",
-        "observed_at": "2026-10-24T05:25:20Z",
+        "observed_at": "2026-10-24T05:38:05Z",
         "evidence": "data/evidence/polymarket-discovery-200.json"
       },
       {
         "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=300",
-        "observed_at": "2026-10-24T05:25:21Z",
+        "observed_at": "2026-10-24T05:38:05Z",
         "evidence": "data/evidence/polymarket-discovery-300.json"
       },
       {
         "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=400",
-        "observed_at": "2026-10-24T05:25:21Z",
+        "observed_at": "2026-10-24T05:38:05Z",
         "evidence": "data/evidence/polymarket-discovery-400.json"
       }
     ],
@@ -122,8 +122,8 @@
     "unresolved": 0,
     "with_pick": 25,
     "consensus": 0,
-    "market": 12,
-    "bookmaker": 3,
+    "market": 13,
+    "bookmaker": 2,
     "reference": 0,
     "model": 10,
     "network": 1,
@@ -205,7 +205,7 @@
           1.274,
           4.651
         ],
-        "observed_at": "2026-10-24T05:25:21Z",
+        "observed_at": "2026-10-24T05:38:06Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-fokus-66661-2026-10-24",
         "source_api": "https://gamma-api.polymarket.com/events/1237193",
@@ -221,7 +221,7 @@
             "ask": 0.79,
             "spread": 0.01,
             "midpoint": 0.785,
-            "timestamp": "2026-10-24T05:24:38Z",
+            "timestamp": "2026-10-24T05:37:39Z",
             "source_url": "https://polymarket.com/event/cs2-fokus-66661-2026-10-24",
             "provider": "Polymarket",
             "family": "market"
@@ -231,14 +231,14 @@
             "ask": 0.22,
             "spread": 0.01,
             "midpoint": 0.215,
-            "timestamp": "2026-10-24T05:24:38Z",
+            "timestamp": "2026-10-24T05:37:39Z",
             "source_url": "https://polymarket.com/event/cs2-fokus-66661-2026-10-24",
             "provider": "Polymarket",
             "family": "market"
           }
         ],
-        "volume": 133.448281,
-        "liquidity": 4178.0765,
+        "volume": 134.714104,
+        "liquidity": 4181.754,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ],
@@ -280,8 +280,8 @@
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079658",
       "featured_method": "market",
       "featured_probabilities": [
-        0.315,
-        0.685
+        0.33,
+        0.67
       ],
       "featured_pick_index": 1,
       "featured_source_url": "https://polymarket.com/event/cs2-ace1-forzer-2026-10-24",
@@ -289,14 +289,14 @@
         "method": "market",
         "label": "Market-implied estimate",
         "probabilities": [
-          0.315,
-          0.685
+          0.33,
+          0.67
         ],
         "fair_decimal": [
-          3.175,
-          1.46
+          3.03,
+          1.493
         ],
-        "observed_at": "2026-10-24T05:25:22Z",
+        "observed_at": "2026-10-24T05:38:07Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-ace1-forzer-2026-10-24",
         "source_api": "https://gamma-api.polymarket.com/events/1239213",
@@ -308,28 +308,28 @@
         ],
         "quotes": [
           {
-            "bid": 0.3,
-            "ask": 0.33,
-            "spread": 0.03,
-            "midpoint": 0.315,
-            "timestamp": "2026-10-24T05:25:20Z",
+            "bid": 0.32,
+            "ask": 0.34,
+            "spread": 0.02,
+            "midpoint": 0.33,
+            "timestamp": "2026-10-24T05:38:06Z",
             "source_url": "https://polymarket.com/event/cs2-ace1-forzer-2026-10-24",
             "provider": "Polymarket",
             "family": "market"
           },
           {
-            "bid": 0.67,
-            "ask": 0.7,
-            "spread": 0.03,
-            "midpoint": 0.685,
-            "timestamp": "2026-10-24T05:25:22Z",
+            "bid": 0.66,
+            "ask": 0.68,
+            "spread": 0.02,
+            "midpoint": 0.67,
+            "timestamp": "2026-10-24T05:38:07Z",
             "source_url": "https://polymarket.com/event/cs2-ace1-forzer-2026-10-24",
             "provider": "Polymarket",
             "family": "market"
           }
         ],
         "volume": 80.957517,
-        "liquidity": 2001.8595,
+        "liquidity": 2370.7627,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ],
@@ -387,7 +387,7 @@
           1.515,
           2.941
         ],
-        "observed_at": "2026-10-24T05:25:23Z",
+        "observed_at": "2026-10-24T05:38:07Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-tsa-lavked-2026-10-24",
         "source_api": "https://gamma-api.polymarket.com/events/1239211",
@@ -403,7 +403,7 @@
             "ask": 0.67,
             "spread": 0.02,
             "midpoint": 0.66,
-            "timestamp": "2026-10-24T05:25:10Z",
+            "timestamp": "2026-10-24T05:38:04Z",
             "source_url": "https://polymarket.com/event/cs2-tsa-lavked-2026-10-24",
             "provider": "Polymarket",
             "family": "market"
@@ -413,14 +413,14 @@
             "ask": 0.35,
             "spread": 0.02,
             "midpoint": 0.33999999999999997,
-            "timestamp": "2026-10-24T05:25:10Z",
+            "timestamp": "2026-10-24T05:38:04Z",
             "source_url": "https://polymarket.com/event/cs2-tsa-lavked-2026-10-24",
             "provider": "Polymarket",
             "family": "market"
           }
         ],
         "volume": 25.303029000000002,
-        "liquidity": 4753.0231,
+        "liquidity": 4800.2945,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ],
@@ -487,16 +487,16 @@
               0.21393035
             ],
             "bid": [
-              0.75,
+              0.76,
               0.18
             ],
             "ask": [
-              0.83,
+              0.82,
               0.25
             ],
-            "spread": 0.08,
+            "spread": 0.07,
             "thin": false,
-            "observed_at": "2026-10-24T05:25:59Z",
+            "observed_at": "2026-10-24T05:38:43Z",
             "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct240700azuhavu",
             "event_id": "KXCS2GAME-26OCT240700AZUHAVU",
             "evidence_file": "data/origination/evidence/live-kalshi-events.json",
@@ -505,7 +505,7 @@
         ],
         "source": "Kalshi",
         "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct240700azuhavu",
-        "observed_at": "2026-10-24T05:25:59Z",
+        "observed_at": "2026-10-24T05:38:43Z",
         "model_crosscheck": {
           "provider": "Valve official standings",
           "family": "model",
@@ -549,8 +549,8 @@
           "rd_assumption": 75,
           "g": 0.9728209910486895,
           "aliases_used": [],
-          "observed_at": "2026-10-24T05:26:06Z",
-          "evaluation_at": "2026-10-24T05:25:50Z"
+          "observed_at": "2026-10-24T05:38:49Z",
+          "evaluation_at": "2026-10-24T05:38:33Z"
         }
       },
       "pick_index": 0,
@@ -667,7 +667,7 @@
           1.575,
           2.74
         ],
-        "observed_at": "2026-10-24T05:25:23Z",
+        "observed_at": "2026-10-24T05:38:08Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-ntr-forzer-2026-10-24",
         "source_api": "https://gamma-api.polymarket.com/events/1237195",
@@ -683,7 +683,7 @@
             "ask": 0.64,
             "spread": 0.01,
             "midpoint": 0.635,
-            "timestamp": "2026-10-24T05:25:00Z",
+            "timestamp": "2026-10-24T05:38:00Z",
             "source_url": "https://polymarket.com/event/cs2-ntr-forzer-2026-10-24",
             "provider": "Polymarket",
             "family": "market"
@@ -693,14 +693,14 @@
             "ask": 0.37,
             "spread": 0.01,
             "midpoint": 0.365,
-            "timestamp": "2026-10-24T05:25:00Z",
+            "timestamp": "2026-10-24T05:38:00Z",
             "source_url": "https://polymarket.com/event/cs2-ntr-forzer-2026-10-24",
             "provider": "Polymarket",
             "family": "market"
           }
         ],
         "volume": 195.51923000000002,
-        "liquidity": 6461.5681,
+        "liquidity": 6571.0681,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ],
@@ -740,46 +740,60 @@
       "tier": "b",
       "source_url": "https://www.hotspawn.com/matches/inox-division-vs-brute-cct-europe-2026-series-11-1079660",
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079660",
-      "featured_method": "bookmaker",
+      "featured_method": "market",
       "featured_probabilities": [
-        0.52432432,
-        0.47567568
+        0.52,
+        0.48
       ],
       "featured_pick_index": 0,
-      "featured_source_url": "https://thunderpick.io/api/matches",
+      "featured_source_url": "https://polymarket.com/event/cs2-inox-brute-2026-10-24",
       "origination": {
-        "method": "bookmaker",
-        "label": "No-vig bookmaker estimate",
+        "method": "market",
+        "label": "Market-implied estimate",
         "probabilities": [
-          0.52432432,
-          0.47567568
+          0.52,
+          0.48
         ],
         "fair_decimal": [
-          1.907,
-          2.102
+          1.923,
+          2.083
         ],
-        "observed_at": "2026-10-24T05:25:32Z",
-        "source": "Thunderpick",
-        "source_url": "https://thunderpick.io/api/matches",
+        "observed_at": "2026-10-24T05:38:08Z",
+        "source": "Polymarket",
+        "source_url": "https://polymarket.com/event/cs2-inox-brute-2026-10-24",
+        "source_api": "https://gamma-api.polymarket.com/events/1242981",
+        "market_id": "6098185",
+        "event_id": "1242981",
+        "source_outcomes": [
+          "INOX Division",
+          "Brute"
+        ],
         "quotes": [
           {
-            "provider": "Thunderpick",
-            "family": "thunderpick",
-            "odds": [
-              1.76,
-              1.94
-            ],
-            "probabilities": [
-              0.52432432,
-              0.47567568
-            ],
-            "observed_at": "2026-10-24T05:25:32Z",
-            "source_url": "https://thunderpick.io/api/matches",
-            "event_id": "2880082"
+            "bid": 0.46,
+            "ask": 0.58,
+            "spread": 0.12,
+            "midpoint": 0.52,
+            "timestamp": "2026-10-24T05:38:08Z",
+            "source_url": "https://polymarket.com/event/cs2-inox-brute-2026-10-24",
+            "provider": "Polymarket",
+            "family": "market"
+          },
+          {
+            "bid": 0.42,
+            "ask": 0.54,
+            "spread": 0.12,
+            "midpoint": 0.48,
+            "timestamp": "2026-10-24T05:38:08Z",
+            "source_url": "https://polymarket.com/event/cs2-inox-brute-2026-10-24",
+            "provider": "Polymarket",
+            "family": "market"
           }
         ],
+        "volume": null,
+        "liquidity": 2320.8738,
         "limitations": [
-          "Bookmaker margin removed by proportional normalization. A single source is not a consensus."
+          "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ],
         "model_crosscheck": null
       },
@@ -789,20 +803,8 @@
         {
           "stage": "Primary: Polymarket",
           "source_url": "https://polymarket.com/event/cs2-inox-brute-2026-10-24",
-          "status": "unresolved",
-          "detail": "Crossed or wider-than-12-cent order book"
-        },
-        {
-          "stage": "HLTV research",
-          "source_url": "https://www.hltv.org/matches/2399337/inox-division-vs-brute-cct-2026-europe-series-11",
-          "status": "checked",
-          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
-        },
-        {
-          "stage": "Original esportsbook lines",
-          "source_url": "https://thunderpick.io/esports/counter-strike",
           "status": "resolved",
-          "detail": "Verified paired prematch series prices; proportional margin removal."
+          "detail": "Exact teams/time; unique active series-winner market; both source order books validated. Normalized midpoint analysis, not Hotspawn votes."
         }
       ],
       "limitations": [
@@ -847,7 +849,7 @@
           4.152,
           1.317
         ],
-        "observed_at": "2026-10-24T05:25:34Z",
+        "observed_at": "2026-10-24T05:38:19Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -919,28 +921,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:33Z",
+          "observed_at": "2026-10-24T05:38:17Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:33Z",
+          "observed_at": "2026-10-24T05:38:17Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:33Z",
+          "observed_at": "2026-10-24T05:38:18Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:34Z",
+          "observed_at": "2026-10-24T05:38:18Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
@@ -976,8 +978,8 @@
       "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079661",
       "featured_method": "market",
       "featured_probabilities": [
-        0.61,
-        0.39
+        0.625,
+        0.375
       ],
       "featured_pick_index": 0,
       "featured_source_url": "https://polymarket.com/event/cs2-ntr-zerote-2026-10-24",
@@ -985,14 +987,14 @@
         "method": "market",
         "label": "Market-implied estimate",
         "probabilities": [
-          0.61,
-          0.39
+          0.625,
+          0.375
         ],
         "fair_decimal": [
-          1.639,
-          2.564
+          1.6,
+          2.667
         ],
-        "observed_at": "2026-10-24T05:25:25Z",
+        "observed_at": "2026-10-24T05:38:10Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-ntr-zerote-2026-10-24",
         "source_api": "https://gamma-api.polymarket.com/events/1240641",
@@ -1004,28 +1006,28 @@
         ],
         "quotes": [
           {
-            "bid": 0.57,
-            "ask": 0.65,
-            "spread": 0.08,
-            "midpoint": 0.61,
-            "timestamp": "2026-10-24T05:24:04Z",
+            "bid": 0.59,
+            "ask": 0.66,
+            "spread": 0.07,
+            "midpoint": 0.625,
+            "timestamp": "2026-10-24T05:38:08Z",
             "source_url": "https://polymarket.com/event/cs2-ntr-zerote-2026-10-24",
             "provider": "Polymarket",
             "family": "market"
           },
           {
-            "bid": 0.35,
-            "ask": 0.43,
-            "spread": 0.08,
-            "midpoint": 0.39,
-            "timestamp": "2026-10-24T05:24:04Z",
+            "bid": 0.34,
+            "ask": 0.41,
+            "spread": 0.07,
+            "midpoint": 0.375,
+            "timestamp": "2026-10-24T05:38:08Z",
             "source_url": "https://polymarket.com/event/cs2-ntr-zerote-2026-10-24",
             "provider": "Polymarket",
             "family": "market"
           }
         ],
         "volume": null,
-        "liquidity": 2737.1966,
+        "liquidity": 2650.7935,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ],
@@ -1083,7 +1085,7 @@
           1.361,
           3.771
         ],
-        "observed_at": "2026-10-24T05:25:34Z",
+        "observed_at": "2026-10-24T05:38:19Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -1155,28 +1157,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:33Z",
+          "observed_at": "2026-10-24T05:38:17Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:33Z",
+          "observed_at": "2026-10-24T05:38:17Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:33Z",
+          "observed_at": "2026-10-24T05:38:18Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:34Z",
+          "observed_at": "2026-10-24T05:38:18Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
@@ -1228,7 +1230,7 @@
           1.845,
           2.183
         ],
-        "observed_at": "2026-10-24T05:25:34Z",
+        "observed_at": "2026-10-24T05:38:19Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -1300,28 +1302,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:33Z",
+          "observed_at": "2026-10-24T05:38:17Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:33Z",
+          "observed_at": "2026-10-24T05:38:17Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:33Z",
+          "observed_at": "2026-10-24T05:38:18Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:34Z",
+          "observed_at": "2026-10-24T05:38:18Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
@@ -1373,7 +1375,7 @@
           1.252,
           4.965
         ],
-        "observed_at": "2026-10-24T05:25:34Z",
+        "observed_at": "2026-10-24T05:38:19Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -1445,28 +1447,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:33Z",
+          "observed_at": "2026-10-24T05:38:17Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:33Z",
+          "observed_at": "2026-10-24T05:38:17Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:33Z",
+          "observed_at": "2026-10-24T05:38:18Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:34Z",
+          "observed_at": "2026-10-24T05:38:18Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
@@ -1611,7 +1613,7 @@
           }
         ],
         "source_url": "https://bo3.gg/matches/spirit-academy-vs-sokerorg-25-10-2026",
-        "observed_at": "2026-10-24T05:26:09Z",
+        "observed_at": "2026-10-24T05:38:51Z",
         "evidence_file": "data/origination/evidence/live-valve-standings-text.json",
         "snapshot_date": "2026-10-05",
         "method": "model",
@@ -1728,7 +1730,7 @@
               }
             ],
             "source_url": "https://bo3.gg/matches/spirit-academy-vs-sokerorg-25-10-2026",
-            "observed_at": "2026-10-24T05:26:09Z",
+            "observed_at": "2026-10-24T05:38:51Z",
             "evidence_file": "data/origination/evidence/live-valve-standings-text.json",
             "snapshot_date": "2026-10-05"
           }
@@ -1806,13 +1808,13 @@
           "stage": "Betting market (Polymarket series winner)",
           "status": "unresolved",
           "source_url": "https://polymarket.com/event/cs2-tsa-skr2-2026-10-25",
-          "detail": "Polymarket event 1243019: Order book spread 0.86 exceeds the 0.15 indicative ceiling (Spirit Academy bid/ask 0.07/0.93, Sökerorg bid/ask 0.07/0.93); observation recorded, not used as a pick input."
+          "detail": "Polymarket event 1243019: Order book spread 0.88 exceeds the 0.15 indicative ceiling (Spirit Academy bid/ask 0.06/0.94, Sökerorg bid/ask 0.06/0.94); observation recorded, not used as a pick input."
         },
         {
           "stage": "Exchange market (Kalshi CS2 match winner)",
           "status": "unresolved",
           "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct250800skrtsa",
-          "detail": "Kalshi event KXCS2GAME-26OCT250800SKRTSA: Order book spread 0.88 exceeds the 0.15 indicative ceiling (Sokerorg bid/ask 0.08/0.88, Spirit Academy bid/ask 0.06/0.94); observation recorded, not used as a pick input."
+          "detail": "Kalshi event KXCS2GAME-26OCT250800SKRTSA: Order book spread 0.88 exceeds the 0.15 indicative ceiling (Sokerorg bid/ask 0.07/0.88, Spirit Academy bid/ask 0.06/0.94); observation recorded, not used as a pick input."
         },
         {
           "stage": "Exchange market (Smarkets CS2 match winner)",
@@ -1918,7 +1920,7 @@
           2.105,
           1.905
         ],
-        "observed_at": "2026-10-24T05:25:26Z",
+        "observed_at": "2026-10-24T05:38:10Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-inf6-brute-2026-10-25",
         "source_api": "https://gamma-api.polymarket.com/events/1238706",
@@ -1934,7 +1936,7 @@
             "ask": 0.48,
             "spread": 0.01,
             "midpoint": 0.475,
-            "timestamp": "2026-10-24T05:24:49Z",
+            "timestamp": "2026-10-24T05:33:20Z",
             "source_url": "https://polymarket.com/event/cs2-inf6-brute-2026-10-25",
             "provider": "Polymarket",
             "family": "market"
@@ -1944,14 +1946,14 @@
             "ask": 0.53,
             "spread": 0.01,
             "midpoint": 0.525,
-            "timestamp": "2026-10-24T05:24:49Z",
+            "timestamp": "2026-10-24T05:33:20Z",
             "source_url": "https://polymarket.com/event/cs2-inf6-brute-2026-10-25",
             "provider": "Polymarket",
             "family": "market"
           }
         ],
         "volume": 529.374821,
-        "liquidity": 6255.8157,
+        "liquidity": 6251.5857,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ],
@@ -2027,7 +2029,7 @@
             ],
             "spread": 0.15,
             "thin": true,
-            "observed_at": "2026-10-24T05:25:56Z",
+            "observed_at": "2026-10-24T05:38:39Z",
             "source_url": "https://polymarket.com/event/cs2-color-zerote-2026-10-25",
             "event_id": "1238707",
             "evidence_file": "data/origination/evidence/live-polymarket-observations.json",
@@ -2037,7 +2039,7 @@
         ],
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-color-zerote-2026-10-25",
-        "observed_at": "2026-10-24T05:25:56Z",
+        "observed_at": "2026-10-24T05:38:39Z",
         "model_crosscheck": {
           "provider": "Valve official standings",
           "family": "model",
@@ -2081,8 +2083,8 @@
           "rd_assumption": 75,
           "g": 0.9728209910486895,
           "aliases_used": [],
-          "observed_at": "2026-10-24T05:26:06Z",
-          "evaluation_at": "2026-10-24T05:25:50Z"
+          "observed_at": "2026-10-24T05:38:49Z",
+          "evaluation_at": "2026-10-24T05:38:33Z"
         }
       },
       "pick_index": 0,
@@ -2200,7 +2202,7 @@
           1.827,
           2.21
         ],
-        "observed_at": "2026-10-24T05:25:34Z",
+        "observed_at": "2026-10-24T05:38:19Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -2272,28 +2274,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:33Z",
+          "observed_at": "2026-10-24T05:38:17Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:33Z",
+          "observed_at": "2026-10-24T05:38:17Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:33Z",
+          "observed_at": "2026-10-24T05:38:18Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:34Z",
+          "observed_at": "2026-10-24T05:38:18Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
@@ -2376,8 +2378,8 @@
         "source_url": "https://bo3.gg/matches",
         "identity_bridge": "start_time_and_team_name",
         "evidence_file": "data/origination/evidence/live-bo3-graph.json",
-        "evidence_sha256": "771779ef1b2b86e19a7fc3562dc29f5a45602ddffbe7ea3f7e433ccf9d39eccd",
-        "observed_at": "2026-10-24T05:25:50Z",
+        "evidence_sha256": "06fb0763009e17d2dc762765514a12864e1d1e0244c12fbc5449d15e62369a57",
+        "observed_at": "2026-10-24T05:38:33Z",
         "label": "Own network estimate (bo3.gg results graph)",
         "fair_decimal": [
           2.224,
@@ -2429,8 +2431,8 @@
             "source_url": "https://bo3.gg/matches",
             "identity_bridge": "start_time_and_team_name",
             "evidence_file": "data/origination/evidence/live-bo3-graph.json",
-            "evidence_sha256": "771779ef1b2b86e19a7fc3562dc29f5a45602ddffbe7ea3f7e433ccf9d39eccd",
-            "observed_at": "2026-10-24T05:25:50Z"
+            "evidence_sha256": "06fb0763009e17d2dc762765514a12864e1d1e0244c12fbc5449d15e62369a57",
+            "observed_at": "2026-10-24T05:38:33Z"
           }
         ],
         "source": "Own network model (bo3.gg results graph)",
@@ -2449,7 +2451,7 @@
           "stage": "Betting market (Polymarket series winner)",
           "status": "unresolved",
           "source_url": "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25",
-          "detail": "Polymarket event 1237427: Order book spread 0.33 exceeds the 0.15 indicative ceiling (Ground Zero bid/ask 0.12/0.45, Off Chops bid/ask 0.55/0.88); observation recorded, not used as a pick input."
+          "detail": "Polymarket event 1237427: Order book spread 0.32 exceeds the 0.15 indicative ceiling (Ground Zero bid/ask 0.13/0.45, Off Chops bid/ask 0.55/0.87); observation recorded, not used as a pick input."
         },
         {
           "stage": "Exchange market (Kalshi CS2 match winner)",
@@ -2560,7 +2562,7 @@
           1.737,
           2.356
         ],
-        "observed_at": "2026-10-24T05:25:32Z",
+        "observed_at": "2026-10-24T05:38:17Z",
         "source": "Thunderpick",
         "source_url": "https://thunderpick.io/api/matches",
         "quotes": [
@@ -2575,7 +2577,7 @@
               0.57559682,
               0.42440318
             ],
-            "observed_at": "2026-10-24T05:25:32Z",
+            "observed_at": "2026-10-24T05:38:17Z",
             "source_url": "https://thunderpick.io/api/matches",
             "event_id": "2870940"
           }
@@ -2649,7 +2651,7 @@
           1.083,
           12.988
         ],
-        "observed_at": "2026-10-24T05:25:32Z",
+        "observed_at": "2026-10-24T05:38:17Z",
         "source": "Thunderpick",
         "source_url": "https://thunderpick.io/api/matches",
         "quotes": [
@@ -2664,7 +2666,7 @@
               0.92300592,
               0.07699408
             ],
-            "observed_at": "2026-10-24T05:25:32Z",
+            "observed_at": "2026-10-24T05:38:17Z",
             "source_url": "https://thunderpick.io/api/matches",
             "event_id": "2872333"
           }
@@ -2738,7 +2740,7 @@
           2.094,
           1.914
         ],
-        "observed_at": "2026-10-24T05:25:34Z",
+        "observed_at": "2026-10-24T05:38:19Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -2810,28 +2812,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:33Z",
+          "observed_at": "2026-10-24T05:38:17Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:33Z",
+          "observed_at": "2026-10-24T05:38:17Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:33Z",
+          "observed_at": "2026-10-24T05:38:18Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:34Z",
+          "observed_at": "2026-10-24T05:38:18Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
@@ -2883,7 +2885,7 @@
           1.626,
           2.597
         ],
-        "observed_at": "2026-10-24T05:25:29Z",
+        "observed_at": "2026-10-24T05:38:14Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
         "source_api": "https://gamma-api.polymarket.com/events/1231333",
@@ -2899,7 +2901,7 @@
             "ask": 0.62,
             "spread": 0.01,
             "midpoint": 0.615,
-            "timestamp": "2026-10-24T05:12:21Z",
+            "timestamp": "2026-10-24T05:37:08Z",
             "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
             "provider": "Polymarket",
             "family": "market"
@@ -2909,14 +2911,14 @@
             "ask": 0.39,
             "spread": 0.01,
             "midpoint": 0.385,
-            "timestamp": "2026-10-24T05:12:21Z",
+            "timestamp": "2026-10-24T05:37:08Z",
             "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
             "provider": "Polymarket",
             "family": "market"
           }
         ],
         "volume": 4651.446305,
-        "liquidity": 6373.8551,
+        "liquidity": 6386.0551,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ],
@@ -2974,7 +2976,7 @@
           2.857,
           1.538
         ],
-        "observed_at": "2026-10-24T05:25:30Z",
+        "observed_at": "2026-10-24T05:38:14Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
         "source_api": "https://gamma-api.polymarket.com/events/1231334",
@@ -2986,28 +2988,28 @@
         ],
         "quotes": [
           {
-            "bid": 0.32,
-            "ask": 0.38,
-            "spread": 0.06,
+            "bid": 0.31,
+            "ask": 0.39,
+            "spread": 0.08,
             "midpoint": 0.35,
-            "timestamp": "2026-10-24T05:20:50Z",
+            "timestamp": "2026-10-24T05:38:11Z",
             "source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
             "provider": "Polymarket",
             "family": "market"
           },
           {
-            "bid": 0.62,
-            "ask": 0.68,
-            "spread": 0.06,
-            "midpoint": 0.65,
-            "timestamp": "2026-10-24T05:20:50Z",
+            "bid": 0.61,
+            "ask": 0.69,
+            "spread": 0.08,
+            "midpoint": 0.6499999999999999,
+            "timestamp": "2026-10-24T05:38:11Z",
             "source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
             "provider": "Polymarket",
             "family": "market"
           }
         ],
         "volume": null,
-        "liquidity": 9617.5962,
+        "liquidity": 9616.8562,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ],
@@ -3065,7 +3067,7 @@
           1.905,
           2.105
         ],
-        "observed_at": "2026-10-24T05:25:30Z",
+        "observed_at": "2026-10-24T05:38:15Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
         "source_api": "https://gamma-api.polymarket.com/events/1231335",
@@ -3081,7 +3083,7 @@
             "ask": 0.54,
             "spread": 0.03,
             "midpoint": 0.525,
-            "timestamp": "2026-10-24T04:59:48Z",
+            "timestamp": "2026-10-24T05:28:40Z",
             "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
             "provider": "Polymarket",
             "family": "market"
@@ -3091,14 +3093,14 @@
             "ask": 0.49,
             "spread": 0.03,
             "midpoint": 0.475,
-            "timestamp": "2026-10-24T04:59:48Z",
+            "timestamp": "2026-10-24T05:28:40Z",
             "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
             "provider": "Polymarket",
             "family": "market"
           }
         ],
         "volume": 7.25,
-        "liquidity": 9651.8437,
+        "liquidity": 9648.5437,
         "limitations": [
           "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
         ],
@@ -3156,7 +3158,7 @@
           2.198,
           1.835
         ],
-        "observed_at": "2026-10-24T05:25:31Z",
+        "observed_at": "2026-10-24T05:38:16Z",
         "source": "Polymarket",
         "source_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
         "source_api": "https://gamma-api.polymarket.com/events/1233851",
@@ -3276,8 +3278,8 @@
         "rd_assumption": 75,
         "g": 0.9728209910486895,
         "aliases_used": [],
-        "observed_at": "2026-10-24T05:26:06Z",
-        "evaluation_at": "2026-10-24T05:25:50Z",
+        "observed_at": "2026-10-24T05:38:49Z",
+        "evaluation_at": "2026-10-24T05:38:33Z",
         "lineup_disambiguation": [
           {
             "team": "The Huns",
@@ -3292,7 +3294,7 @@
             "overlap": 4,
             "roster_change": true,
             "source_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
-            "observed_at": "2026-10-24T05:25:51Z",
+            "observed_at": "2026-10-24T05:38:34Z",
             "evidence_file": "data/origination/evidence/live-hltv-match-1082792.json"
           }
         ],
@@ -3346,8 +3348,8 @@
             "rd_assumption": 75,
             "g": 0.9728209910486895,
             "aliases_used": [],
-            "observed_at": "2026-10-24T05:26:06Z",
-            "evaluation_at": "2026-10-24T05:25:50Z",
+            "observed_at": "2026-10-24T05:38:49Z",
+            "evaluation_at": "2026-10-24T05:38:33Z",
             "lineup_disambiguation": [
               {
                 "team": "The Huns",
@@ -3362,7 +3364,7 @@
                 "overlap": 4,
                 "roster_change": true,
                 "source_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
-                "observed_at": "2026-10-24T05:25:51Z",
+                "observed_at": "2026-10-24T05:38:34Z",
                 "evidence_file": "data/origination/evidence/live-hltv-match-1082792.json"
               }
             ]
@@ -3490,7 +3492,7 @@
           5.613,
           1.217
         ],
-        "observed_at": "2026-10-24T05:25:34Z",
+        "observed_at": "2026-10-24T05:38:19Z",
         "source": "Valve official standings",
         "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
         "inputs": [
@@ -3562,28 +3564,28 @@
           "stage": "GG.BET esportsbook",
           "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:33Z",
+          "observed_at": "2026-10-24T05:38:17Z",
           "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
         },
         {
           "stage": "Pinnacle esportsbook",
           "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:33Z",
+          "observed_at": "2026-10-24T05:38:17Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Rivalry esportsbook",
           "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:33Z",
+          "observed_at": "2026-10-24T05:38:18Z",
           "detail": "Redirected to a generic landing page; no match-level betting lines verified."
         },
         {
           "stage": "Stake esportsbook",
           "source_url": "https://stake.com/sports/esports/counter-strike",
           "status": "unavailable",
-          "observed_at": "2026-10-24T05:25:34Z",
+          "observed_at": "2026-10-24T05:38:18Z",
           "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
         },
         {
