@@ -46,3 +46,7 @@ For FlyQuest–Staqued (`1082860`), the earlier independently retained 25-row ca
 The [probe workflow](https://github.com/buffedlizard55-lab/MaltaProj3/blob/a0c08fa6d013705e1a84498cd85b295f86463306/.github/workflows/dd433e7f-probe.yml) commits the derived reports, then cleans its scratch workspace; it uploads no origination/evidence artifact. Consequently this review does **not** claim a 31/31 saved-evidence replay. The successful Pages root-sync must provide `data/latest.json`, `data/origination.json` and the original evidence tree.
 
 Final acceptance must reconcile the then-current Hotspawn inventory (at least these 31 at the 06:15 observation), require a pick or explicit unresolved entry for every row, both probabilities where resolved, official source links, and a successful retained-evidence replay. Machine-readable rows and verdicts are in [`latest-31-inventory-review.json`](latest-31-inventory-review.json).
+
+## Later C6B8 integration review (2026-10-24T07:14:33Z)
+
+The merged C6B8 record reconciles 31/31 HLTV links, including LOS NINOS–BORRACHEIROS HLTV 2399914. Its seven EGW reference entries are **not seven production-valid upgrades**: three pass the exact inventory gate, four fail start time, and two of the three gate accepts link to pages displaying 1.8/1.8. Only 1083122 has a directly rechecked page price (2.92/1.33), and it remains undeployed. See [the full C6B8 integration audit](c6b8-reference-integration-review.md). The dated 06:15 zero-lead result above remains historical; no production prices or capture paths changed.

@@ -72,3 +72,12 @@ The [EGW CS2 index](https://egamersworld.com/counterstrike/matches) and a [Fokus
 ## Machine-readable record
 
 See [`integration-review.json`](integration-review.json), [`fresh-25-replay.json`](fresh-25-replay.json), [`research-coverage-review.json`](research-coverage-review.json) and [`latest-31-inventory-review.json`](latest-31-inventory-review.json) for exact heads, counts, commands, source links and findings.
+
+## C6B8 merged-research integration audit — 2026-10-24T07:14:33Z
+
+- Merged main `06618b31` (PR #265) without rewriting its historical research. The new [C6B8 reference integration review](c6b8-reference-integration-review.md) uses C6B8's own 31-row `live-coverage.json`, not fixtures constructed from each reference entry.
+- **Seven schema-valid EGW entries → three exact-inventory gate accepts and four start-mismatch rejects.** The rejects are `1082858`, `1082996`, `1079198`, and `1079200`; their captured/provider starts must not be overwritten with Hotspawn values.
+- Direct official-page recheck of the three accepts: `1083122` displays **2.92/1.33** and its bookmaker-average sentence; `1082861` and `1082792` display **1.8/1.8**, while their captured prices are attributed only to the EGW index. Those two require exact index evidence and a reviewable source association before production use. EGW title/body clock labels differ and no unnamed timezone was inferred.
+- Five of six rejected equal-side placeholder rows also have inventory team/start mismatches. They have no pricing effect because they are rejected, but the identities remain flagged against reuse.
+- C6B8's capture path is not registered in production `CAPTURE_PATHS`; this audit added no path and changed no production pick, price, probability, or alias. Four source-linked findings were added to `flags.json`.
+- Verification on the merged tree: **106 targeted tests passed**, including the new real-inventory reference-gate regression, C6B8 checks, and incoming watchdog contracts. Build/replay passed: **828 audited rows / 0 sourceless / 829 internal links / acceptance 9 pass, 1 info, 0 fail**. Watchdog network dispatch in tests was stubbed; this is not evidence of a live Pages recovery.

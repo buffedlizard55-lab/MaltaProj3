@@ -112,5 +112,87 @@
       "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
       "https://github.com/buffedlizard55-lab/MaltaProj3/commit/c1152ed6bf85c6aec26dedc8013ae02db22d4d39"
     ]
+  },
+  {
+    "id": "52212e8e-c6b8-reference-start-mismatch",
+    "severity": "warning",
+    "title": "Four C6B8 EGW reference entries fail the production exact-start join",
+    "detail": "Against C6B8's own 31-row live inventory at 2026-10-24T07:14:33Z, reference_odds.quote rejects 1082858 (capture 2026-10-27T00:00:00Z vs inventory 2026-10-26T03:00:00Z), 1082996 (08:00 vs 09:00 on 2026-10-25), 1079198 (11:00 vs 12:00 on 2026-10-25), and 1079200 (15:00 vs 18:00 on 2026-10-25). Seven schema-valid entries therefore are not seven usable production quotes. Do not repair provider evidence by copying Hotspawn starts; collect new independently sourced evidence.",
+    "match_ids": [
+      "1082858",
+      "1082996",
+      "1079198",
+      "1079200"
+    ],
+    "source_urls": [
+      "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+      "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
+      "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+      "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/acend-vs-unity-esports-iwaKSVfgf",
+      "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
+      "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
+      "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/metizport-vs-baks-esports-qOJcZA7Wgq",
+      "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198",
+      "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13",
+      "https://egamersworld.com/counterstrike/match/HiXMAaC8L/color-vs-ex-zero-tenacity-rvwRf5V1F",
+      "https://www.hotspawn.com/matches/color-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079200",
+      "https://www.hltv.org/matches/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13"
+    ]
+  },
+  {
+    "id": "52212e8e-c6b8-source-page-placeholder",
+    "severity": "warning",
+    "title": "Two exact-start EGW gate accepts link to pages displaying 1.8/1.8, not the captured prices",
+    "detail": "Direct official-page recheck at 2026-10-24T07:14:33Z: Rooster vs Team Abyssal (1082861) displays 1.8/1.8 rather than captured 2.10/1.66, and HOTU vs The Huns Esports (1082792) displays 1.8/1.8 rather than captured 1.09/6.80. Both retained excerpts attribute prices to the EGW index while source_url points to the placeholder match page. They pass the code's exact-start gate but are not source-clean production candidates until an exact index capture and reviewable source association are retained.",
+    "match_ids": [
+      "1082861",
+      "1082792"
+    ],
+    "source_urls": [
+      "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/rooster-vs-team-abyssal-P1tTp3RAg8",
+      "https://egamersworld.com/counterstrike/match/cN3l69-7b/hotu-vs-the-huns-esports-SfdtzDhiK",
+      "https://egamersworld.com/counterstrike/matches",
+      "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
+      "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792"
+    ]
+  },
+  {
+    "id": "52212e8e-c6b8-rejected-row-identity",
+    "severity": "notice",
+    "title": "Five rejected C6B8 placeholder rows also contain inventory identity or start mismatches",
+    "detail": "The equal-side 1.8/1.8 rows already have no pricing effect, but their evidence must not be reused: 1081153 and 1081154 attach different teams; 1081158 attaches different teams and a different start; 1081156 and 1082793 have different starts. C6B8 live-coverage.json supplies the actual inventory teams/starts used for this comparison. See c6b8-reference-integration-review for exact values.",
+    "match_ids": [
+      "1081153",
+      "1081154",
+      "1081156",
+      "1081158",
+      "1082793"
+    ],
+    "source_urls": [
+      "https://www.hotspawn.com/matches/saint-sinners-vs-6yubojlbl-cct-europe-2026-series-12-1081153",
+      "https://www.hltv.org/matches/2399503/6yubojlbl-vs-saint-sinners-cct-2026-europe-series-12",
+      "https://www.hotspawn.com/matches/baks-vs-illyrians-cct-europe-2026-series-12-1081154",
+      "https://www.hltv.org/matches/2399504/baks-vs-illyrians-cct-2026-europe-series-12",
+      "https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156",
+      "https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12",
+      "https://www.hotspawn.com/matches/forze-reload-vs-ex-rustec-cct-europe-2026-series-12-1081158",
+      "https://www.hltv.org/matches/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12",
+      "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
+      "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026"
+    ]
+  },
+  {
+    "id": "52212e8e-c6b8-direct-page-candidate",
+    "severity": "notice",
+    "title": "LOS NINOS vs BORRACHEIROS has a directly rechecked EGW page quote, still undeployed",
+    "detail": "The official EGW match page for 1083122 directly displays 2.92/1.33 and the EGWxxxBOT bookmaker-average sentence; the production gate accepts the exact inventory join. The page title reads 24.10.2026 at 19:00 while the body reads 24.10.26 15:00, so no unnamed timezone is inferred; HLTV 2399914 independently reconciles the fixture/start. This is a residual research candidate, not a deployed pick or a replacement for final original-evidence replay.",
+    "match_ids": [
+      "1083122"
+    ],
+    "source_urls": [
+      "https://egamersworld.com/counterstrike/match/0U32SId-H/los-ninos-vs-borracheiros-qorsZa4d--",
+      "https://www.hltv.org/matches/2399914/los-ninos-vs-borracheiros-cct-2026-south-america-series-7",
+      "https://www.hotspawn.com/matches/los-ninos-vs-borracheiros-cct-south-america-2026-series-7-1083122"
+    ]
   }
 ]

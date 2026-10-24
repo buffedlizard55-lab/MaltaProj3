@@ -6,8 +6,11 @@ manifest as a deployment-time original-evidence replay.
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 import unittest
+
+from scripts import reference_odds
 
 ROOT = Path(__file__).resolve().parents[1]
 DOSSIER = ROOT / "data" / "research" / "52212e8e"
@@ -60,6 +63,69 @@ class ReviewDossierTests(unittest.TestCase):
         self.assertIn("every decimal leg must be >1.01", flag["detail"])
         self.assertIn("not acceptance-clean", flag["detail"])
         self.assertTrue(any("c1152ed6" in url for url in flag["source_urls"]))
+
+    def test_c6b8_reference_entries_join_actual_inventory_not_themselves(self):
+        report = load("c6b8-reference-integration-review.json")
+        c6b8 = ROOT / "data" / "research" / "c6b8d58b"
+        reference = json.loads((c6b8 / "reference-odds.json").read_text(encoding="utf-8"))
+        coverage = json.loads((c6b8 / "live-coverage.json").read_text(encoding="utf-8"))
+        inventory = {str(row["id"]): row for row in coverage["live_fixtures"]}
+        now = datetime(2026, 10, 24, 7, 14, 33, tzinfo=timezone.utc)
+        accepted, rejected = [], {}
+        for entry in reference["entries"]:
+            fixture = inventory[entry["fixture_id"]]
+            match = {
+                "id": fixture["id"],
+                "teams": [{"name": name} for name in fixture["teams"]],
+                "starts_at": fixture["starts_at"],
+            }
+            quote, reason = reference_odds.quote(entry, match, now)
+            if quote:
+                accepted.append(entry["fixture_id"])
+            else:
+                rejected[entry["fixture_id"]] = reason
+        self.assertEqual(accepted, ["1083122", "1082861", "1082792"])
+        self.assertEqual(
+            set(rejected), {"1082858", "1082996", "1079198", "1079200"})
+        self.assertTrue(all("Start time differs" in reason
+                            for reason in rejected.values()))
+        self.assertEqual(report["counts"]["exact_inventory_gate_accepts"], 3)
+        self.assertEqual(report["counts"]["exact_inventory_gate_rejects"], 4)
+        self.assertEqual(report["counts"]["direct_page_price_reverified"], 1)
+        self.assertEqual(
+            report["counts"]["gate_accepts_whose_linked_page_shows_placeholder"], 2)
+        routing = report["current_residual_routing"]
+        self.assertEqual(
+            routing["direct_page_verified_candidate_not_deployed_by_this_audit"],
+            ["1083122"])
+        self.assertEqual(routing["exact_index_evidence_required_before_production"],
+                         ["1082861", "1082792"])
+        self.assertEqual(report["production_impact"]["probabilities_or_picks_changed"], 0)
+
+    def test_c6b8_placeholder_irregularities_and_later_residual_state_are_visible(self):
+        report = load("c6b8-reference-integration-review.json")
+        rejected = report["rejected_placeholder_review"]
+        mismatched = [row["fixture_id"] for row in rejected
+                      if row["inventory_identity_differences"]]
+        self.assertEqual(
+            mismatched, ["1081153", "1081154", "1081156", "1081158", "1082793"])
+        self.assertEqual(report["counts"]["rejected_placeholder_rows"], 6)
+        self.assertEqual(
+            report["counts"]["rejected_placeholder_rows_with_inventory_mismatch"], 5)
+        latest = load("latest-31-inventory-review.json")
+        later = latest["subsequent_c6b8_integration"]
+        self.assertEqual(later["reference_entries"], 7)
+        self.assertEqual(later["exact_inventory_gate_accepts"], 3)
+        self.assertEqual(later["exact_inventory_gate_rejects"], 4)
+        self.assertEqual(later["production_capture_paths_added"], 0)
+        self.assertIn("2399914", later["hltv_match_pages_reconciled"])
+        flags = load("flags.json")
+        self.assertIn("52212e8e-c6b8-reference-start-mismatch",
+                      {flag["id"] for flag in flags})
+        markdown = (DOSSIER / "c6b8-reference-integration-review.md").read_text(
+            encoding="utf-8")
+        self.assertIn("only 3 exact-inventory gate accepts", markdown)
+        self.assertIn("No production price or capture path was changed", markdown)
 
     def test_markdown_keeps_the_acceptance_qualification_visible(self):
         replay = (DOSSIER / "fresh-25-replay.md").read_text(encoding="utf-8")

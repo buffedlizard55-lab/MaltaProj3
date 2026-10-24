@@ -1,0 +1,387 @@
+{
+  "schema_version": 1,
+  "session": "arena-52212e8e",
+  "observed_at": "2026-10-24T07:14:33Z",
+  "base_commit": "06618b31b36a870b680696101fab8fdbe304bff8",
+  "role": "Independent integration audit of merged C6B8 research against its own committed 31-row inventory and the production reference_odds quote gate. This is not a deployment certificate and changes no production price, pick, alias, or capture path.",
+  "inputs": [
+    {
+      "path": "data/research/c6b8d58b/reference-odds.json",
+      "role": "seven candidate entries and six rejected equal-side placeholders"
+    },
+    {
+      "path": "data/research/c6b8d58b/live-coverage.json",
+      "role": "actual 31-row Hotspawn/HLTV inventory used for exact ID, ordered-team and start joins"
+    },
+    {
+      "path": "scripts/reference_odds.py",
+      "role": "unchanged production schema/freshness/identity/start/no-vig gate"
+    }
+  ],
+  "counts": {
+    "reference_entries": 7,
+    "schema_valid_entries": 7,
+    "exact_inventory_gate_accepts": 3,
+    "exact_inventory_gate_rejects": 4,
+    "direct_page_price_reverified": 1,
+    "gate_accepts_whose_linked_page_shows_placeholder": 2,
+    "rejected_placeholder_rows": 6,
+    "rejected_placeholder_rows_with_inventory_mismatch": 5,
+    "production_capture_paths_added": 0
+  },
+  "gate_results": [
+    {
+      "fixture_id": "1083122",
+      "teams": [
+        "LOS NINOS",
+        "BORRACHEIROS"
+      ],
+      "odds": [
+        2.92,
+        1.33
+      ],
+      "inventory_starts_at": "2026-10-24T19:00:00Z",
+      "reference_starts_at": "2026-10-24T19:00:00Z",
+      "schema_problems": [],
+      "exact_inventory_gate": "accept",
+      "gate_reason": "Dated EGamersWorld bookmaker-average sentence replayed and hash-checked.",
+      "evidence_basis": "direct-match-page",
+      "source_url": "https://egamersworld.com/counterstrike/match/0U32SId-H/los-ninos-vs-borracheiros-qorsZa4d--",
+      "hotspawn_url": "https://www.hotspawn.com/matches/los-ninos-vs-borracheiros-cct-south-america-2026-series-7-1083122",
+      "hltv_url": "https://www.hltv.org/matches/2399914/los-ninos-vs-borracheiros-cct-2026-south-america-series-7",
+      "manual_official_page_recheck": {
+        "status": "direct-price-confirmed",
+        "linked_page_displayed_decimal_odds": [
+          2.92,
+          1.33
+        ],
+        "page_title_start_label": "24.10.2026 at 19:00",
+        "page_body_start_label": "24.10.26 15:00",
+        "note": "The linked official EGW match page directly displays 2.92/1.33 and the EGWxxxBOT bookmaker-average sentence. Its title/body clock labels differ; no timezone is inferred. HLTV match 2399914 independently reconciles the fixture and inventory start."
+      }
+    },
+    {
+      "fixture_id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "odds": [
+        3.44,
+        1.24
+      ],
+      "inventory_starts_at": "2026-10-26T03:00:00Z",
+      "reference_starts_at": "2026-10-27T00:00:00Z",
+      "schema_problems": [],
+      "exact_inventory_gate": "reject",
+      "gate_reason": "Start time differs from the reviewed capture",
+      "evidence_basis": "direct-match-page",
+      "source_url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
+      "hltv_url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026"
+    },
+    {
+      "fixture_id": "1082996",
+      "teams": [
+        "Acend",
+        "UNiTY"
+      ],
+      "odds": [
+        2.42,
+        1.5
+      ],
+      "inventory_starts_at": "2026-10-25T09:00:00Z",
+      "reference_starts_at": "2026-10-25T08:00:00Z",
+      "schema_problems": [],
+      "exact_inventory_gate": "reject",
+      "gate_reason": "Start time differs from the reviewed capture",
+      "evidence_basis": "EGW-index-only-in-retained-excerpt",
+      "source_url": "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/acend-vs-unity-esports-iwaKSVfgf",
+      "hotspawn_url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
+      "hltv_url": "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13"
+    },
+    {
+      "fixture_id": "1079198",
+      "teams": [
+        "Metizport",
+        "BakS"
+      ],
+      "odds": [
+        1.34,
+        2.85
+      ],
+      "inventory_starts_at": "2026-10-25T12:00:00Z",
+      "reference_starts_at": "2026-10-25T11:00:00Z",
+      "schema_problems": [],
+      "exact_inventory_gate": "reject",
+      "gate_reason": "Start time differs from the reviewed capture",
+      "evidence_basis": "EGW-index-only-in-retained-excerpt",
+      "source_url": "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/metizport-vs-baks-esports-qOJcZA7Wgq",
+      "hotspawn_url": "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198",
+      "hltv_url": "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13"
+    },
+    {
+      "fixture_id": "1079200",
+      "teams": [
+        "Color",
+        "ex-Zero Tenacity"
+      ],
+      "odds": [
+        1.44,
+        2.5
+      ],
+      "inventory_starts_at": "2026-10-25T18:00:00Z",
+      "reference_starts_at": "2026-10-25T15:00:00Z",
+      "schema_problems": [],
+      "exact_inventory_gate": "reject",
+      "gate_reason": "Start time differs from the reviewed capture",
+      "evidence_basis": "EGW-index-only-in-retained-excerpt",
+      "source_url": "https://egamersworld.com/counterstrike/match/HiXMAaC8L/color-vs-ex-zero-tenacity-rvwRf5V1F",
+      "hotspawn_url": "https://www.hotspawn.com/matches/color-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079200",
+      "hltv_url": "https://www.hltv.org/matches/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13"
+    },
+    {
+      "fixture_id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "odds": [
+        2.1,
+        1.66
+      ],
+      "inventory_starts_at": "2026-10-27T03:00:00Z",
+      "reference_starts_at": "2026-10-27T03:00:00Z",
+      "schema_problems": [],
+      "exact_inventory_gate": "accept",
+      "gate_reason": "Dated EGamersWorld bookmaker-average sentence replayed and hash-checked.",
+      "evidence_basis": "EGW-index-only-in-retained-excerpt",
+      "source_url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/rooster-vs-team-abyssal-P1tTp3RAg8",
+      "hotspawn_url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
+      "hltv_url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+      "manual_official_page_recheck": {
+        "status": "linked-page-shows-placeholder",
+        "linked_page_displayed_decimal_odds": [
+          1.8,
+          1.8
+        ],
+        "page_title_start_label": "27.10.2026 at 03:00",
+        "page_body_start_label": "26.10.26 23:00",
+        "note": "The linked official EGW match page displays 1.8/1.8, not the captured 2.10/1.66. The quoted values are index-only in the retained excerpt and need an exact, reviewable index capture before production use."
+      }
+    },
+    {
+      "fixture_id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "odds": [
+        1.09,
+        6.8
+      ],
+      "inventory_starts_at": "2026-10-31T09:00:00Z",
+      "reference_starts_at": "2026-10-31T09:00:00Z",
+      "schema_problems": [],
+      "exact_inventory_gate": "accept",
+      "gate_reason": "Dated EGamersWorld bookmaker-average sentence replayed and hash-checked.",
+      "evidence_basis": "EGW-index-only-in-retained-excerpt",
+      "source_url": "https://egamersworld.com/counterstrike/match/cN3l69-7b/hotu-vs-the-huns-esports-SfdtzDhiK",
+      "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+      "hltv_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "manual_official_page_recheck": {
+        "status": "linked-page-shows-placeholder",
+        "linked_page_displayed_decimal_odds": [
+          1.8,
+          1.8
+        ],
+        "page_title_start_label": "31.10.2026 at 09:00",
+        "page_body_start_label": "31.10.26 05:00",
+        "note": "The linked official EGW match page displays 1.8/1.8, not the captured 1.09/6.80. The quoted values are index-only in the retained excerpt and need an exact, reviewable index capture before production use. The fetch redirected to the current EkalRNMvVx event URL; no redirect target is invented in the source record."
+      }
+    }
+  ],
+  "rejected_placeholder_review": [
+    {
+      "fixture_id": "1081152",
+      "teams": [
+        "HAVU",
+        "Azuolas"
+      ],
+      "capture_teams": [
+        "HAVU",
+        "Azuolas"
+      ],
+      "inventory_starts_at": "2026-10-24T11:00:00Z",
+      "capture_starts_at": "2026-10-24T11:00:00Z",
+      "displayed_odds": [
+        1.8,
+        1.8
+      ],
+      "inventory_identity_differences": [],
+      "source_url": "https://egamersworld.com/counterstrike/match/HiXMAaC8L/havu-vs-azuolas-Dm2JAvY3OO",
+      "hotspawn_url": "https://www.hotspawn.com/matches/havu-vs-azuolas-cct-europe-2026-series-12-1081152",
+      "hltv_url": "https://www.hltv.org/matches/2399502/havu-vs-azuolas-cct-2026-europe-series-12",
+      "production_impact": "none: row is already rejected as an equal-side placeholder"
+    },
+    {
+      "fixture_id": "1081153",
+      "teams": [
+        "Saint Sinners",
+        "6yuBoJlbl"
+      ],
+      "capture_teams": [
+        "Oxuji",
+        "ex-Zero Tenacity"
+      ],
+      "inventory_starts_at": "2026-10-24T14:00:00Z",
+      "capture_starts_at": "2026-10-24T14:00:00Z",
+      "displayed_odds": [
+        1.8,
+        1.8
+      ],
+      "inventory_identity_differences": [
+        "teams: capture=['Oxuji', 'ex-Zero Tenacity'] vs inventory=['Saint Sinners', '6yuBoJlbl']"
+      ],
+      "source_url": "https://egamersworld.com/counterstrike/match/HiXMAaC8L/oxuji-esports-vs-ex-zero-tenacity-T73a9g-yU",
+      "hotspawn_url": "https://www.hotspawn.com/matches/saint-sinners-vs-6yubojlbl-cct-europe-2026-series-12-1081153",
+      "hltv_url": "https://www.hltv.org/matches/2399503/6yubojlbl-vs-saint-sinners-cct-2026-europe-series-12",
+      "production_impact": "none: row is already rejected as an equal-side placeholder"
+    },
+    {
+      "fixture_id": "1081154",
+      "teams": [
+        "BakS",
+        "ILLYRIANS"
+      ],
+      "capture_teams": [
+        "Nuclear TigeRES",
+        "BakS"
+      ],
+      "inventory_starts_at": "2026-10-24T17:00:00Z",
+      "capture_starts_at": "2026-10-24T17:00:00Z",
+      "displayed_odds": [
+        1.8,
+        1.8
+      ],
+      "inventory_identity_differences": [
+        "teams: capture=['Nuclear TigeRES', 'BakS'] vs inventory=['BakS', 'ILLYRIANS']"
+      ],
+      "source_url": "https://egamersworld.com/counterstrike/match/HiXMAaC8L/nuclear-tigeres-vs-baks-esports-b9c6p-3aA",
+      "hotspawn_url": "https://www.hotspawn.com/matches/baks-vs-illyrians-cct-europe-2026-series-12-1081154",
+      "hltv_url": "https://www.hltv.org/matches/2399504/baks-vs-illyrians-cct-2026-europe-series-12",
+      "production_impact": "none: row is already rejected as an equal-side placeholder"
+    },
+    {
+      "fixture_id": "1081156",
+      "teams": [
+        "Spirit Academy",
+        "LFO 10"
+      ],
+      "capture_teams": [
+        "Spirit Academy",
+        "LFO 10"
+      ],
+      "inventory_starts_at": "2026-10-25T12:00:00Z",
+      "capture_starts_at": "2026-10-25T11:00:00Z",
+      "displayed_odds": [
+        1.8,
+        1.8
+      ],
+      "inventory_identity_differences": [
+        "start: capture=2026-10-25T11:00:00Z vs inventory=2026-10-25T12:00:00Z"
+      ],
+      "source_url": "https://egamersworld.com/counterstrike/match/HiXMAaC8L/spirit-academy-vs-lfo-10-c1t2sP4xX",
+      "hotspawn_url": "https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156",
+      "hltv_url": "https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12",
+      "production_impact": "none: row is already rejected as an equal-side placeholder"
+    },
+    {
+      "fixture_id": "1081158",
+      "teams": [
+        "FORZE Reload",
+        "ex-RUSTEC"
+      ],
+      "capture_teams": [
+        "WOPA",
+        "ex-6666"
+      ],
+      "inventory_starts_at": "2026-10-25T18:00:00Z",
+      "capture_starts_at": "2026-10-25T17:00:00Z",
+      "displayed_odds": [
+        1.8,
+        1.8
+      ],
+      "inventory_identity_differences": [
+        "teams: capture=['WOPA', 'ex-6666'] vs inventory=['FORZE Reload', 'ex-RUSTEC']",
+        "start: capture=2026-10-25T17:00:00Z vs inventory=2026-10-25T18:00:00Z"
+      ],
+      "source_url": "https://egamersworld.com/counterstrike/match/HiXMAaC8L/wopa-esport-vs-ex-6666-m8v4wR9zK",
+      "hotspawn_url": "https://www.hotspawn.com/matches/forze-reload-vs-ex-rustec-cct-europe-2026-series-12-1081158",
+      "hltv_url": "https://www.hltv.org/matches/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12",
+      "production_impact": "none: row is already rejected as an equal-side placeholder"
+    },
+    {
+      "fixture_id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "capture_teams": [
+        "5star",
+        "1WIN"
+      ],
+      "inventory_starts_at": "2026-10-31T13:00:00Z",
+      "capture_starts_at": "2026-10-31T15:00:00Z",
+      "displayed_odds": [
+        1.8,
+        1.8
+      ],
+      "inventory_identity_differences": [
+        "start: capture=2026-10-31T15:00:00Z vs inventory=2026-10-31T13:00:00Z"
+      ],
+      "source_url": "https://egamersworld.com/counterstrike/match/cN3l69-7b/1win-vs-5star-B08F8lTce",
+      "hotspawn_url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
+      "hltv_url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+      "production_impact": "none: row is already rejected as an equal-side placeholder"
+    }
+  ],
+  "current_residual_routing": {
+    "direct_page_verified_candidate_not_deployed_by_this_audit": [
+      "1083122"
+    ],
+    "exact_index_evidence_required_before_production": [
+      "1082861",
+      "1082792"
+    ],
+    "start_mismatch_do_not_use": [
+      "1082858",
+      "1082996",
+      "1079198",
+      "1079200"
+    ],
+    "equal_side_placeholder_no_quote": [
+      "1081152",
+      "1081153",
+      "1081154",
+      "1081156",
+      "1081158",
+      "1082793"
+    ]
+  },
+  "production_impact": {
+    "c6b8_capture_registered": false,
+    "registered_capture_paths": [
+      "research/57b1ee04/reference-odds.json",
+      "research/b30bf88b/reference-odds.json",
+      "research/a34bc06b/reference-odds.json"
+    ],
+    "probabilities_or_picks_changed": 0,
+    "note": "Schema validation alone is not candidate acceptance. C6B8's test constructs each fixture from the entry itself; this audit instead uses live-coverage.json inventory rows. Even a gate accept is not deployed here."
+  },
+  "limitations": [
+    "EGW title/body clock labels differ on the three manually rechecked pages; no unnamed timezone is guessed. Official HLTV/Hotspawn inventory links remain attached to every row.",
+    "The two index-only gate accepts are not treated as source-clean prices because their linked match pages display 1.8/1.8. An exact index capture and reviewable source association are required.",
+    "The four start-mismatched entries must not be repaired by copying the Hotspawn start into the capture; a new independently sourced provider/fixture observation is required."
+  ]
+}

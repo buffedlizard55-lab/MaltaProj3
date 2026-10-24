@@ -237,6 +237,21 @@
         "https://thunderpick.io/api/matches",
         "https://github.com/buffedlizard55-lab/MaltaProj3/commit/c1152ed6bf85c6aec26dedc8013ae02db22d4d39"
       ]
+    },
+    {
+      "id": "S522-C6B8-001",
+      "severity": "warning",
+      "pr": 265,
+      "head": "06618b31b36a870b680696101fab8fdbe304bff8",
+      "finding": "C6B8's seven schema-valid EGW entries are not seven exactly joinable, source-clean production quotes.",
+      "verification": "Against C6B8's own 31-row inventory: 3 exact-gate accepts and 4 start rejects. Direct official-page recheck of the accepts finds 1 direct price (1083122) and 2 linked pages showing 1.8/1.8 (1082861,1082792). Five of six rejected placeholders also have identity/start mismatches. The C6B8 test builds fixtures from each entry itself; this audit uses actual inventory rows.",
+      "handling": "Published c6b8-reference-integration-review.{json,md} and four review flags. No production capture path, pick, probability, or alias changed. Route 1083122 as a direct-page candidate only; require exact index evidence for two and new provider evidence for four.",
+      "source_urls": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/pull/265",
+        "https://egamersworld.com/counterstrike/match/0U32SId-H/los-ninos-vs-borracheiros-qorsZa4d--",
+        "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/rooster-vs-team-abyssal-P1tTp3RAg8",
+        "https://egamersworld.com/counterstrike/match/cN3l69-7b/hotu-vs-the-huns-esports-SfdtzDhiK"
+      ]
     }
   ],
   "probability_policy": "No pick, probability, alias or source value was hand-written. Hotspawn community selection share and EGW/HLTV fan votes were excluded.",
