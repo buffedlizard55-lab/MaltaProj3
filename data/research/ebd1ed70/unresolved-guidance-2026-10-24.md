@@ -34,10 +34,10 @@ absent. No probability, pick or alias was written by hand.
 
 | Fixture | HLTV | Published pair (EGW / bo3.gg) | No-vig (computed) | Guided pick |
 | --- | --- | --- | --- | --- |
-| **Acend vs FORZE Reload** (1079658, 24 Oct 08:00Z) | [event 9442](https://www.hltv.org/events/9442/cct-2026-europe-series-11) | 2.8 / 1.35 · 2.87 / 1.35 | Acend 32.5% / FORZE Reload 67.5% (bo3.gg 32.0/68.0) | **FORZE Reload** |
-| **Spirit Academy vs Lavked** (1079659, 24 Oct 11:00Z) | [event 9457](https://www.hltv.org/events/9457/cct-2026-europe-series-12) | 1.49 / 2.47 · 1.49 / 2.45 | Spirit Academy 62.4% / Lavked 37.6% (bo3.gg 62.2/37.8) | **Spirit Academy** |
-| **INOX Division vs BRUTE** (1079660, 24 Oct 14:00Z) | [event 9442](https://www.hltv.org/events/9442/cct-2026-europe-series-11) | 1.75 / 1.96 · 1.75 / 1.97 | INOX Division 52.8% / BRUTE 47.2% (bo3.gg 53.0/47.0) | **INOX Division** (low confidence — book within 0.21 of even) |
-| **Nuclear TigeRES vs ex-Zero Tenacity** (1079661, 24 Oct 17:00Z) | [event 9442](https://www.hltv.org/events/9442/cct-2026-europe-series-11) | 1.49 / 2.47 · 1.45 / 2.51 | Nuclear TigeRES 62.4% / ex-ZTN 37.6% (bo3.gg 63.4/36.6) | **Nuclear TigeRES** |
+| **Acend vs FORZE Reload** (1079658, 24 Oct 08:00Z) | [2399335](https://www.hltv.org/matches/2399335/acend-vs-forze-reload-cct-2026-europe-series-11) QF bo3 | 2.8 / 1.35 · 2.87 / 1.35 | Acend 32.5% / FORZE Reload 67.5% (bo3.gg 32.0/68.0) | **FORZE Reload** |
+| **Spirit Academy vs Lavked** (1079659, 24 Oct 11:00Z) | [2399336](https://www.hltv.org/matches/2399336/spirit-academy-vs-lavked-cct-2026-europe-series-11) QF bo3 | 1.49 / 2.47 · 1.49 / 2.45 | Spirit Academy 62.4% / Lavked 37.6% (bo3.gg 62.2/37.8) | **Spirit Academy** |
+| **INOX Division vs BRUTE** (1079660, 24 Oct 14:00Z) | [event 9442](https://www.hltv.org/events/9442/cct-2026-europe-series-11) QF bo3 | 1.75 / 1.96 · 1.75 / 1.97 | INOX Division 52.8% / BRUTE 47.2% (bo3.gg 53.0/47.0) | **INOX Division** (low confidence — book within 0.21 of even) |
+| **Nuclear TigeRES vs ex-Zero Tenacity** (1079661, 24 Oct 17:00Z) | [event 9442](https://www.hltv.org/events/9442/cct-2026-europe-series-11) QF bo3 | 1.49 / 2.47 · 1.45 / 2.51 | Nuclear TigeRES 62.4% / ex-ZTN 37.6% (bo3.gg 63.4/36.6) | **Nuclear TigeRES** |
 
 Sources: EGW index rows ([egamersworld.com/counterstrike/matches](https://egamersworld.com/counterstrike/matches),
 read 06:35Z) with match-page links in the JSON record; bo3.gg match cards
@@ -87,3 +87,20 @@ live Polymarket series moneyline exists for the exact pair+start.
   four — the placeholder is an EGW listing default, not a market.
 * **bo3.gg predictor counts** ("12 - 0", "21 - 2" …) are popularity counts; excluded from every
   calculation here.
+
+## Cross-check with concurrent session arena-73bc57bd (independent agreement)
+
+Session arena-73bc57bd ran the same reconciliation independently (read 05:33–05:45Z, published as
+`data/research/73bc57bd/observations-2026-10-24.json`, PR #241). **Both records agree on all nine
+fixtures**: four carry two-sided prices, five have no compliant line. Their reads add/correct:
+
+* The four priced cards are **CCT Series 11 quarterfinal** bo3s (HLTV pages 2399335/2399336), not group play.
+* **Polymarket does list today's CCT #11 cards** (e.g. `cs2-ace1-forzer-2026-10-24` Acend 31¢ / FORZE 70¢;
+  `cs2-tsa-lavked-2026-10-24` Spirit Academy 67¢ / Lavked 35¢) — consistent with the no-vig percentages above,
+  and thin enough that the automated Polymarket rung should price them at the next collect.
+* The five unpriced cards have **placeholder-wide Polymarket listings** (94¢/95¢, 94¢/93¢, 70¢/95¢, 93¢/94¢ — sums
+  165–189¢) that carry no price information; the "no compliant line" verdict stands.
+* **New irregularity (flagged):** Polymarket's opponent name on 1081156 does not match Hotspawn's "LFO 10"
+  (their ASCII read renders it "Sokereorg"), on top of EGW's blank opponent and the duplicate Valve rows —
+  three inconsistent identity surfaces for one fixture. Never silently aliased; the HLTV match page lineup
+  (2399506) is the only acceptable proof for any human resolution.

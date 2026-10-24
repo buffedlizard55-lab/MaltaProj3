@@ -84,7 +84,8 @@ class Ebd1ed70Research(unittest.TestCase):
         self.assertEqual(ids, ['ebd1ed70-lobby-nine-new-cct-cards',
                                'ebd1ed70-spirit-academy-lfo10-egw-identity-failure',
                                'ebd1ed70-lfo10-duplicate-valve-rows',
-                               'ebd1ed70-thunderpick-guest-board-empty'])
+                               'ebd1ed70-thunderpick-guest-board-empty',
+                               'ebd1ed70-polymarket-opponent-name-mismatch-1081156'])
         for f in self.flags:
             self.assertIn(f['severity'], {'notice', 'warning', 'critical'})
             self.assertTrue(f['title'] and f['detail'])
@@ -93,6 +94,7 @@ class Ebd1ed70Research(unittest.TestCase):
                 self.assertTrue(u.startswith('https://'), u)
         identity = self.flags[1]
         self.assertEqual(identity['match_ids'], ['1081156'])
+        self.assertEqual(self.flags[4]['match_ids'], ['1081156'])
 
     def test_markdown_dossier_states_the_limitations(self):
         for heading in ('## Why these nine', '## Method (per fixture)',
@@ -106,6 +108,13 @@ class Ebd1ed70Research(unittest.TestCase):
                     '1081152', '1081153', '1081154', '1081156', '1081158'):
             self.assertIn(fid, self.md)
         self.assertIn('never used as probabilities', self.md)
+        self.assertIn('## Cross-check with concurrent session arena-73bc57bd', self.md)
+
+    def test_cross_check_fields_cite_73bc57bd(self):
+        for e in self.ladder['entries']:
+            self.assertIn('cross_check', e, e['hotspawn_id'])
+            self.assertIn('73bc57bd', e['cross_check'])
+        self.assertEqual(self.ladder['counts']['cross_checked_by_73bc57bd'], 9)
 
 
 if __name__ == '__main__':

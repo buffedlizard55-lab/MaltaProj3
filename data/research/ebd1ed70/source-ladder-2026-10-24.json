@@ -2,13 +2,14 @@
  "schema": "ebd1ed70-source-ladder-research",
  "session": "arena-ebd1ed70",
  "observed_at": "2026-10-24T06:35:00Z",
- "method": "For each pickable Hotspawn CS2 lobby card that cannot be resolved like the featured picks (no first-party Polymarket/exchange line): HLTV match page first (identity, format, ranks, Betting block), then esportsbooks/esports betting lines (EGamersWorld CS2 index + match pages, bo3.gg Thunderpick-relayed board, thunderpick.io guest API, Polymarket search). Percentages are computed (no-vig from published decimal pairs) or must come from the automated ladder; nothing is hand-entered. Hotspawn '% picked', HLTV fan votes and bo3.gg predictor counts are never probabilities.",
+ "method": "For each pickable Hotspawn CS2 lobby card that cannot be resolved like the featured picks (no first-party Polymarket/exchange line): HLTV match page first (identity, format, ranks, Betting block), then esportsbooks/esports betting lines (EGamersWorld CS2 index + match pages, bo3.gg Thunderpick-relayed board, thunderpick.io guest API, Polymarket search). Percentages are computed (no-vig from published decimal pairs) or must come from the automated ladder; nothing is hand-entered. Hotspawn '% picked', HLTV fan votes and bo3.gg predictor counts are never probabilities. Cross-checks: concurrent session arena-73bc57bd's dated reads (data/research/73bc57bd/observations-2026-10-24.json) are cited per entry where they add or correct evidence; their conclusions and this record agree on all nine fixtures (4 priced, 5 without a compliant line).",
  "lobby_source": "https://play.hotspawn.com/cs2-pickems",
  "lobby_record": "data/research/ebd1ed70/live-lobby-2026-10-24.json",
  "counts": {
   "cards_reviewed": 9,
   "resolvable_from_published_prices": 4,
-  "no_compliant_line": 5
+  "no_compliant_line": 5,
+  "cross_checked_by_73bc57bd": 9
  },
  "entries": [
   {
@@ -18,7 +19,7 @@
    "hltv": {
     "url": "https://www.hltv.org/events/9442/cct-2026-europe-series-11",
     "read_at": "2026-10-24T06:35:00Z",
-    "format": "Best of 3 (per EGW listing and CCT group play)",
+    "format": "Best of 3 (HLTV page read by concurrent session arena-73bc57bd at 05:44Z lists these as CCT 2026 Europe Series 11 Quarterfinal bo3; the event-9442 read here agrees on bo3)",
     "ranks_displayed": "Event page 9442 rows: FORZE Reload #90 in Series 11 detailed view; Acend not on the Series 11 row excerpt read",
     "betting_block": "not re-read per-fixture this window (EGW + bo3.gg carry the price)",
     "fan_vote_excluded": "n/a \u2014 HLTV fan vote is recorded as excluded evidence and is never used as a probability."
@@ -60,9 +61,11 @@
     "basis": "EGW pair 2.8/1.35 no-vig 32.5/67.5; bo3.gg pair 2.87/1.35 no-vig 32.0/68.0 \u2014 direction and level agree. no-vig = (1/odds) normalised to sum 1; computed from the published decimal pair, never hand-entered. Aggregated third-party reference, not a first-party quote."
    },
    "limitations": [
-    "Single aggregated reference (EGW published bookmaker average) plus one Thunderpick-relayed pair; no first-party exchange book observed this window."
+    "Single aggregated reference (EGW published bookmaker average) plus one Thunderpick-relayed pair; no first-party exchange book observed this window.",
+    "Cross-check (concurrent session arena-73bc57bd, read 05:33-05:45Z 2026-10-24, data/research/73bc57bd/observations-2026-10-24.json, PR #241): a Polymarket moneyline for this fixture does exist and is thin; the automated Polymarket rung should price this card at the next collect."
    ],
-   "extra_sources": []
+   "extra_sources": [],
+   "cross_check": "Cross-check (concurrent session arena-73bc57bd, read 05:33-05:45Z 2026-10-24, data/research/73bc57bd/observations-2026-10-24.json, PR #241): Polymarket listing cs2-ace1-forzer-2026-10-24 observed two-sided at Acend 31c / FORZE Reload 70c ($80.96 vol), consistent with this record's no-vig 32.5/67.5; HLTV match page https://www.hltv.org/matches/2399335/acend-vs-forze-reload-cct-2026-europe-series-11 (Quarterfinal) recorded there. Prices differ by 1-2c across reads; none averaged."
   },
   {
    "hotspawn_id": "1079659",
@@ -71,7 +74,7 @@
    "hltv": {
     "url": "https://www.hltv.org/matches/2399491/lavked-vs-spirit-academy-cct-2026-europe-series-12",
     "read_at": "2026-10-24T06:35:00Z",
-    "format": "Best of 3 (event group play)",
+    "format": "Best of 3 (HLTV page read by concurrent session arena-73bc57bd at 05:44Z lists these as CCT 2026 Europe Series 11 Quarterfinal bo3; the event-9442 read here agrees on bo3)",
     "ranks_displayed": "Spirit Academy #115, Lavked #134 (HLTV event 9457 detailed view)",
     "betting_block": "promo-only on comparable CCT pages this window",
     "fan_vote_excluded": "n/a \u2014 HLTV fan vote is recorded as excluded evidence and is never used as a probability."
@@ -118,7 +121,8 @@
    ],
    "extra_sources": [
     "https://www.hltv.org/events/9457/cct-2026-europe-series-12"
-   ]
+   ],
+   "cross_check": "Cross-check (concurrent session arena-73bc57bd, read 05:33-05:45Z 2026-10-24, data/research/73bc57bd/observations-2026-10-24.json, PR #241): Polymarket cs2-tsa-lavked-2026-10-24 two-sided at Spirit Academy 67c / Lavked 35c ($20.30 vol), consistent with this record's no-vig 62.4/37.6; HLTV page https://www.hltv.org/matches/2399336/spirit-academy-vs-lavked-cct-2026-europe-series-11 (Quarterfinal)."
   },
   {
    "hotspawn_id": "1079660",
@@ -127,7 +131,7 @@
    "hltv": {
     "url": "https://www.hltv.org/events/9442/cct-2026-europe-series-11",
     "read_at": "2026-10-24T06:35:00Z",
-    "format": "Best of 3",
+    "format": "Best of 3 (HLTV page read by concurrent session arena-73bc57bd at 05:44Z lists these as CCT 2026 Europe Series 11 Quarterfinal bo3; the event-9442 read here agrees on bo3)",
     "ranks_displayed": "event pages display INOX Division / BRUTE rows (Series 11)",
     "betting_block": "promo-only on comparable pages",
     "fan_vote_excluded": "n/a \u2014 HLTV fan vote is recorded as excluded evidence and is never used as a probability."
@@ -170,7 +174,8 @@
    "limitations": [
     "Even-money book; a genuine coin-flip class match. Aggregated/relayed references only."
    ],
-   "extra_sources": []
+   "extra_sources": [],
+   "cross_check": "Cross-check (concurrent session arena-73bc57bd, read 05:33-05:45Z 2026-10-24, data/research/73bc57bd/observations-2026-10-24.json, PR #241): EGW event block 1.76/1.94 (vs this record's index 1.75/1.96) and a thin Polymarket book 61c/56c; direction agrees (INOX Division)."
   },
   {
    "hotspawn_id": "1079661",
@@ -179,7 +184,7 @@
    "hltv": {
     "url": "https://www.hltv.org/events/9442/cct-2026-europe-series-11",
     "read_at": "2026-10-24T06:35:00Z",
-    "format": "Best of 3",
+    "format": "Best of 3 (HLTV page read by concurrent session arena-73bc57bd at 05:44Z lists these as CCT 2026 Europe Series 11 Quarterfinal bo3; the event-9442 read here agrees on bo3)",
     "ranks_displayed": "Series 11 rows",
     "betting_block": "promo-only on comparable pages",
     "fan_vote_excluded": "n/a \u2014 HLTV fan vote is recorded as excluded evidence and is never used as a probability."
@@ -222,7 +227,8 @@
    "limitations": [
     "Aggregated/relayed references only this window."
    ],
-   "extra_sources": []
+   "extra_sources": [],
+   "cross_check": "Cross-check (concurrent session arena-73bc57bd, read 05:33-05:45Z 2026-10-24, data/research/73bc57bd/observations-2026-10-24.json, PR #241): EGW event block 1.44/2.5 and a thin Polymarket book NTR 67c / ex-ZTN 43c; direction agrees (Nuclear TigeRES)."
   },
   {
    "hotspawn_id": "1081152",
@@ -272,7 +278,8 @@
    "extra_sources": [
     "https://www.hltv.org/events/9457/cct-2026-europe-series-12",
     "https://www.hltv.org/valve-ranking/teams/2026/october/24/region/Europe"
-   ]
+   ],
+   "cross_check": "Cross-check (concurrent session arena-73bc57bd, read 05:33-05:45Z 2026-10-24, data/research/73bc57bd/observations-2026-10-24.json, PR #241): same HLTV page 2399502 read independently; EGW 1.8/1.8 placeholder only; verdict 'placeholder or one-sided books only' agrees with this record."
   },
   {
    "hotspawn_id": "1081153",
@@ -306,7 +313,7 @@
     "observed_at": "2026-10-24T06:35:00Z",
     "finding": "HTTP 200 {\"statusCode\":200,\"ok\":true,\"data\":{\"matches\":[]}} \u2014 board empty at observation; no Thunderpick price for this fixture."
    },
-   "polymarket": "No live CS2 series moneyline found for this fixture (exact team pair + start); CCT Europe Series #11/#12 Polymarket markets found in search are past matches only (cs2-forzer-baks-2026-10-18, cs2-rustec-ill4-2026-10-18, cs2-g2a-ill4-2026-10-21). The collector's own exact-name join is authoritative at refresh time.",
+   "polymarket": "No live CS2 series moneyline found for this fixture (exact team pair + start); CCT Europe Series #11/#12 Polymarket markets found in search are past matches only (cs2-forzer-baks-2026-10-18, cs2-rustec-ill4-2026-10-18, cs2-g2a-ill4-2026-10-21). The collector's own exact-name join is authoritative at refresh time. Concurrent session arena-73bc57bd (05:45Z) additionally observed a degenerate Polymarket listing (94c/95c, sum 189c) - a placeholder-wide book, not a price; it does not change the 'no compliant line' verdict.",
    "verdict": "NO compliant two-sided line anywhere checked.",
    "guided": {
     "direction": "Saint Sinners (weak)",
@@ -320,7 +327,8 @@
    ],
    "extra_sources": [
     "https://www.hltv.org/events/9457/cct-2026-europe-series-12"
-   ]
+   ],
+   "cross_check": "Cross-check (concurrent session arena-73bc57bd, read 05:33-05:45Z 2026-10-24, data/research/73bc57bd/observations-2026-10-24.json, PR #241): Polymarket listing observed but degenerate (6yuBoJlbl 94c / Saint Sinners 95c - sum 189c), recorded there as a placeholder book; consistent with 'no compliant line' here."
   },
   {
    "hotspawn_id": "1081154",
@@ -355,7 +363,7 @@
     "observed_at": "2026-10-24T06:35:00Z",
     "finding": "HTTP 200 {\"statusCode\":200,\"ok\":true,\"data\":{\"matches\":[]}} \u2014 board empty at observation; no Thunderpick price for this fixture."
    },
-   "polymarket": "No live CS2 series moneyline found for this fixture (exact team pair + start); CCT Europe Series #11/#12 Polymarket markets found in search are past matches only (cs2-forzer-baks-2026-10-18, cs2-rustec-ill4-2026-10-18, cs2-g2a-ill4-2026-10-21). The collector's own exact-name join is authoritative at refresh time.",
+   "polymarket": "No live CS2 series moneyline found for this fixture (exact team pair + start); CCT Europe Series #11/#12 Polymarket markets found in search are past matches only (cs2-forzer-baks-2026-10-18, cs2-rustec-ill4-2026-10-18, cs2-g2a-ill4-2026-10-21). The collector's own exact-name join is authoritative at refresh time. Concurrent session arena-73bc57bd (05:45Z) additionally observed a degenerate Polymarket listing ('BakS eSports' 94c / ILLYRIANS 93c, sum 187c) - placeholder-wide, not a price.",
    "verdict": "NO compliant two-sided line anywhere checked.",
    "guided": {
     "direction": "BakS",
@@ -369,7 +377,8 @@
    "extra_sources": [
     "https://www.hltv.org/team/11719/illyrians",
     "https://www.hltv.org/events/9457/cct-2026-europe-series-12"
-   ]
+   ],
+   "cross_check": "Cross-check (concurrent session arena-73bc57bd, read 05:33-05:45Z 2026-10-24, data/research/73bc57bd/observations-2026-10-24.json, PR #241): placeholder-wide Polymarket listing ('BakS eSports' 94c / ILLYRIANS 93c, sum 187c) and EGW 1.8/1.8 only; verdict 'placeholder or one-sided books only' agrees with this record."
   },
   {
    "hotspawn_id": "1081156",
@@ -404,7 +413,7 @@
     "observed_at": "2026-10-24T06:35:00Z",
     "finding": "HTTP 200 {\"statusCode\":200,\"ok\":true,\"data\":{\"matches\":[]}} \u2014 board empty at observation; no Thunderpick price for this fixture."
    },
-   "polymarket": "No live CS2 series moneyline found for this fixture (exact team pair + start); CCT Europe Series #11/#12 Polymarket markets found in search are past matches only (cs2-forzer-baks-2026-10-18, cs2-rustec-ill4-2026-10-18, cs2-g2a-ill4-2026-10-21). The collector's own exact-name join is authoritative at refresh time.",
+   "polymarket": "No live CS2 series moneyline found for this fixture (exact team pair + start); CCT Europe Series #11/#12 Polymarket markets found in search are past matches only (cs2-forzer-baks-2026-10-18, cs2-rustec-ill4-2026-10-18, cs2-g2a-ill4-2026-10-21). The collector's own exact-name join is authoritative at refresh time. IRREGULARITY: concurrent session arena-73bc57bd (05:44-05:45Z) observed a Polymarket listing for 'Spirit Academy vs Sokereorg' (93c/94c, placeholder-wide) - the opponent name does NOT match Hotspawn's 'LFO 10'. Not aliased; flagged.",
    "verdict": "NO compliant two-sided line anywhere checked.",
    "guided": {
     "direction": "Spirit Academy",
@@ -413,11 +422,13 @@
    },
    "limitations": [
     "EGW cannot identify the opponent at all (identity failure, not just missing odds).",
-    "LFO 10's name is generic and collides with other roster rows in standings sources (HLTV's Valve ranking page showed two 'LFO 10' rows on 2026-10-20: 749-point #122 and 580-point #200) \u2014 flag for review; any Valve-model join must fail closed unless the pipeline's lineup proof picks exactly one row."
+    "LFO 10's name is generic and collides with other roster rows in standings sources (HLTV's Valve ranking page showed two 'LFO 10' rows on 2026-10-20: 749-point #122 and 580-point #200) \u2014 flag for review; any Valve-model join must fail closed unless the pipeline's lineup proof picks exactly one row.",
+    "Polymarket names the opponent differently (Sokereorg per 73bc57bd read) while Hotspawn and HLTV say 'LFO 10' - identity irregularity, never silently aliased."
    ],
    "extra_sources": [
     "https://www.hltv.org/events/9457/cct-2026-europe-series-12"
-   ]
+   ],
+   "cross_check": "Cross-check (concurrent session arena-73bc57bd, read 05:33-05:45Z 2026-10-24, data/research/73bc57bd/observations-2026-10-24.json, PR #241): EGW opponent blank confirmed independently; Polymarket opponent-name mismatch newly flagged by this cross-check."
   },
   {
    "hotspawn_id": "1081158",
@@ -452,7 +463,7 @@
     "observed_at": "2026-10-24T06:35:00Z",
     "finding": "HTTP 200 {\"statusCode\":200,\"ok\":true,\"data\":{\"matches\":[]}} \u2014 board empty at observation; no Thunderpick price for this fixture."
    },
-   "polymarket": "No live CS2 series moneyline found for this fixture (exact team pair + start); CCT Europe Series #11/#12 Polymarket markets found in search are past matches only (cs2-forzer-baks-2026-10-18, cs2-rustec-ill4-2026-10-18, cs2-g2a-ill4-2026-10-21). The collector's own exact-name join is authoritative at refresh time.",
+   "polymarket": "No live CS2 series moneyline found for this fixture (exact team pair + start); CCT Europe Series #11/#12 Polymarket markets found in search are past matches only (cs2-forzer-baks-2026-10-18, cs2-rustec-ill4-2026-10-18, cs2-g2a-ill4-2026-10-21). The collector's own exact-name join is authoritative at refresh time. Concurrent session arena-73bc57bd (05:45Z) additionally observed a degenerate Polymarket listing (FORZE Reload 70c / ex-RUSTEC 95c, sum 165c) - placeholder-wide, not a price.",
    "verdict": "NO compliant two-sided line anywhere checked.",
    "guided": {
     "direction": "FORZE Reload",
@@ -465,7 +476,8 @@
    ],
    "extra_sources": [
     "https://www.hltv.org/events/9457/cct-2026-europe-series-12"
-   ]
+   ],
+   "cross_check": "Cross-check (concurrent session arena-73bc57bd, read 05:33-05:45Z 2026-10-24, data/research/73bc57bd/observations-2026-10-24.json, PR #241): placeholder-wide Polymarket listing direction (FORZE Reload) agrees; EGW 1.8/1.8 only."
   }
  ]
 }

@@ -58,5 +58,18 @@
    "https://thunderpick.io/api/matches",
    "https://bo3.gg/matches"
   ]
+ },
+ {
+  "id": "ebd1ed70-polymarket-opponent-name-mismatch-1081156",
+  "severity": "warning",
+  "match_ids": [
+   "1081156"
+  ],
+  "title": "Polymarket names the opponent on 1081156 differently than Hotspawn/HLTV ('LFO 10') \u2014 identity irregularity, never silently aliased",
+  "detail": "Concurrent session arena-73bc57bd (read 2026-10-24 05:44-05:45Z, data/research/73bc57bd/observations-2026-10-24.json) observed a Polymarket listing for Spirit Academy's 25 Oct slot whose opponent name does not match Hotspawn's 'LFO 10' (their record renders it 'Sokereorg' in ASCII transcription; the source page shows a non-ASCII name). Combined with EGW rendering the opponent blank and HLTV's duplicate 'LFO 10' Valve-standing rows, this fixture has three inconsistent identity surfaces. No alias is registered; the automated joins must keep failing closed on mismatched opponent text, and any human resolution must cite the HLTV match page 2399506 lineup as proof. The Polymarket book itself is placeholder-wide (93c/94c, sum 187c) and carries no price information.",
+  "source_urls": [
+   "https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12",
+   "https://egamersworld.com/counterstrike/match/HiXMAaC8L/spirit-academy-vs-zgh7PZE301"
+  ]
  }
 ]
