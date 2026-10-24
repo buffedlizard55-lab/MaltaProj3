@@ -14,13 +14,27 @@
   {
     "id": "52212e8e-egw-visible-clock-is-not-a-verified-utc-start",
     "severity": "notice",
-    "match_ids": ["1079193"],
+    "match_ids": [
+      "1079193"
+    ],
     "title": "EGamersWorld prices are usable only with independently verified identity and start; visible clock text is insufficient",
     "detail": "First-hand review of the EGW CS2 index and Fokus–ex-6666 page found team prices but no verified UTC zone in the extracted visible date/time. The page title and body also displayed different clock representations. No UTC value was inferred and Hotspawn's start was not copied into provider evidence. This is why the automated rung must fail closed until original markup proves the start and exact outcomes.",
     "source_urls": [
       "https://egamersworld.com/counterstrike/matches",
       "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/fokus-vs-ex-6666-YL1WJpBDm",
       "https://www.hotspawn.com/matches/fokus-vs-ex-6666-nodwin-clutch-series-13-1079193"
+    ]
+  },
+  {
+    "id": "52212e8e-fresh-25-picks-replayed-with-limitations",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Fresh runner slate independently replayed: 25/25 picks, 0 unresolved, 10 research-only rows explicitly limited",
+    "detail": "At source snapshot 2026-10-24T05:57:37Z, all 25 active Hotspawn CS2 fixtures have a directional pick and both probabilities. Every row passed the production saved-evidence validator on main and the original-response-safe validator on PR #237; the 88-row featured inventory also passed check_data. 15 rows use external lines and 10 are research models (one network-model subset). The separate replay report lists every row, both probabilities, pick, official source links and the exact limitation text for all 10 research-only rows. This is verification of the runner output, not authority to bypass deployment or hand-edit a pick.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/89c00d8a-maltaproj3/data/research/89c00d8a/live/origination.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/52212e8e/fresh-25-replay.md",
+      "https://play.hotspawn.com/cs2-pickems"
     ]
   }
 ]
