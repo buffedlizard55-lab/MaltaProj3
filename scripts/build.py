@@ -262,6 +262,26 @@ def matches_table(matches, prefix, *, table_id='match-list', filters=False, fall
 #: must say so on the row itself instead of only in the methodology page.
 MONEY_METHODS = frozenset({'market', 'bookmaker', 'consensus', 'reference'})
 
+#: Methods that keep a pick published *without* the featured Polymarket book.
+#: Session arena-3877d48d: the brief asks for a separate section covering the
+#: matches that could not be resolved the same way as the featured picks, with
+#: the limitation behind each one. Ordered from the most market-like evidence to
+#: the least, so a reader can see how far down the ladder a row had to go.
+FALLBACK_METHODS = ('consensus', 'bookmaker', 'reference')
+
+#: Fallback methods whose number is not a market price at all. They keep their
+#: existing home in the "Picks without a betting line" register, so the fallback
+#: register never lists the same fixture twice on one page.
+RESEARCH_ONLY_METHODS = ('guidance', 'model')
+
+FALLBACK_BADGES = {
+    'consensus': ('Consensus line', 'green'),
+    'bookmaker': ('Single bookmaker', 'green'),
+    'reference': ('Aggregated reference', 'amber'),
+    'guidance': ('Wide book · guidance', 'amber'),
+    'model': ('Research model', 'purple'),
+}
+
 #: Short, honest labels for the badge that follows every resolved glance row.
 METHOD_BADGES = {
     'market': ('Market line', 'green'),
@@ -343,6 +363,29 @@ def analysis_source_label(analysis: dict) -> str:
     return METHOD_BADGES.get(method, ('Source', 'green'))[0]
 
 
+def decimal_price(value: float) -> str:
+    """Render a decimal odds value without inventing a different price.
+
+    Session arena-3877d48d: a live Thunderpick quote of ``1.001`` (FlyQuest vs
+    Staqued, 2026-10-27) was published as ``1.00`` because both sides were
+    formatted with two decimals. ``1.00`` reads as a 100% / zero-payout price
+    and hid the fact that the row rests on a near-lock quote. Three decimals
+    are kept for values under 1.10, trailing zeros are trimmed, and at least
+    two decimals are always kept so ordinary prices look unchanged.
+    """
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return ''
+    width = 3 if number < 1.10 else 2
+    text = f'{number:.{width}f}'
+    whole, _, fraction = text.partition('.')
+    fraction = fraction.rstrip('0')
+    if len(fraction) < 2:
+        fraction = f'{number:.2f}'.partition('.')[2]
+    return f'{whole}.{fraction}' if fraction else whole
+
+
 def observed_price_label(analysis: dict) -> str:
     """The literal price that produced a row's probability, or an empty string.
 
@@ -379,7 +422,7 @@ def observed_price_label(analysis: dict) -> str:
             first, second = float(odds[0]), float(odds[1])
         except (TypeError, ValueError):
             return ''
-        return f'{first:.2f} / {second:.2f}' if first > 1 and second > 1 else ''
+        return f'{decimal_price(first)} / {decimal_price(second)}' if first > 1 and second > 1 else ''
 
     def _cents(pair, key):
         values = []
@@ -589,6 +632,9 @@ def start_here(data, prefix):
     active = cc.get('active') or data['counts']['upcoming']
     unresolved = cc.get('unresolved', data['counts']['unresolved'])
     with_pick = cc.get('with_pick')
+    # Session arena-3877d48d: the fallback register is linked from the pick
+    # index instead of a sixth jump tile — a sixth tile pushed the first pick
+    # below the 320/390 px phone fold (tests/browser/phone_summary_17d77cb3).
     # Session f60683a4: the first jump on a phone must be the picks on this
     # page. The Day-5 TWC archive (18 Oct) stays on the site map; putting a
     # four-day-old review in this bar buried the current card.
@@ -723,13 +769,23 @@ def glance(data, prefix, now=None):
                       + basis_badge(a, researched))
 
         elif a:
-            choice = ('<span class="glance-pick-label">No edge</span><strong>Even · no side</strong>'
+            # An exactly even two-sided book (1079200 became 0.50/0.50 from a live
+            # Polymarket market on 2026-10-24) has no side to pick. The row must say
+            # so explicitly and carry the same machine-readable marker as a pick,
+            # otherwise the acceptance audit counts it as a silent gap.
+            choice = ('<span class="glance-pick-label" data-glance-pick '
+                      'title="The outside book is exactly even after margin removal, so there is no '
+                      'side to pick; both teams\' prices are shown and the reason is linked.">'
+                      'Even book</span><strong>Even · no side</strong>'
                       f'<span class="glance-prob">{e(names[0])} {a["probabilities"][0] * 100:.1f}%</span>'
                       f'<span class="glance-other">{e(names[1])} {a["probabilities"][1] * 100:.1f}%</span>'
                       + basis_badge(a, researched)
                       + f'<a class="internal-link" href="{prefix}#unresolved-register">Why</a>')
         else:
-            choice = ('<span class="glance-pick-label unresolved-text">Unresolved</span>'
+            # Label the gap explicitly too: without the marker the acceptance
+            # audit cannot tell "this fixture has no pick and says so" from a
+            # row the renderer silently dropped a pick from.
+            choice = ('<span class="glance-pick-label unresolved-text" data-glance-pick>Unresolved</span>'
                       f'<a class="internal-link" href="{prefix}origination/#unresolved">Why</a>')
         closed_attr = ''
         if a and pick is not None:
@@ -759,6 +815,12 @@ def glance(data, prefix, now=None):
     no_line = any(basis(m)[0] and basis(m)[0].get('method') not in MONEY_METHODS for m in active)
     no_line_link = (f'<a class="internal-link" href="{prefix}#no-line-register">picks without a betting line</a>'
                     if no_line else 'the research-model rows')
+    # Session arena-3877d48d: the separate fallback register is linked from this
+    # sentence, not from a sixth jump tile. The sentence already wraps.
+    _, fallback_rows = _fallback_rows(data)
+    fallback_link = (f', and every pick that needed a fallback source is in '
+                     f'<a class="internal-link" href="{prefix}#fallback-register">picks without the '
+                     'featured market line</a>' if fallback_rows else '')
     return ('<section class="content-section" id="picks-at-a-glance"><div class="section-heading"><div>'
             '<p class="eyebrow">Every pick, one tap away</p><h2>Picks at a glance</h2></div>'
             f'<a class="internal-link" href="{prefix}origination/#picks">Full audited list {icon("arrow")}</a></div>'
@@ -767,7 +829,7 @@ def glance(data, prefix, now=None):
             f'<strong>{model_picks}</strong> from a research model — and <strong>{len(blank_rows) + len(past_blank_rows)}</strong> explicitly unresolved. '
             'Every row shows both teams\' win probability, the pick, and what produced the number. '
             'A missing estimate is never filled with a default 50/50; model-only rows are listed with their limitations under '
-            f'{no_line_link}.</p>'
+            f'{no_line_link}{fallback_link}.</p>'
             # Phone findability (session 3016b0c6): type a team/tournament and
             # only matching glance rows stay visible. Progressive enhancement
             # only — with no JavaScript every row stays visible; it never
@@ -1051,6 +1113,232 @@ def no_line_digest(data, prefix):
             'here; the full source trial for each row is on the <a class="internal-link" '
             f'href="{prefix}unresolved/">Unresolved &amp; limitations</a> page.</p>'
             '<ul class="unresolved-summary-list no-line-list">' + cards + '</ul></div>')
+
+
+def _fallback_rows(data):
+    """Every active pick whose number did not come from the featured market.
+
+    Reads only the published complete-picks record. It never re-prices a row,
+    never averages two methods together and never promotes a model row into a
+    market-backed one.
+    """
+    complete = data.get('complete_picks') or {}
+    rows = [m for m in (complete.get('matches') or [])
+            if (m.get('origination') or {}).get('method') in FALLBACK_METHODS]
+    return complete, rows
+
+
+def _fallback_limits(match, origination):
+    """The limitations that apply to one fallback row, in the row's own words."""
+    limits = [str(x).strip() for x in (origination.get('limitations') or []) if str(x).strip()]
+    if origination.get('method') not in MONEY_METHODS:
+        reason = _no_line_reason(match)
+        if reason and reason not in limits:
+            limits.insert(0, reason)
+    # A near-lock quote is a real observation but not an actionable price.
+    for quote in origination.get('quotes') or []:
+        odds = quote.get('odds') if isinstance(quote, dict) else None
+        if not isinstance(odds, (list, tuple)) or len(odds) != 2:
+            continue
+        try:
+            values = [float(x) for x in odds]
+        except (TypeError, ValueError):
+            continue
+        if 1 < min(values) < 1.02:
+            limits.append('Near-lock quote (the shorter decimal price is below 1.02): a winning '
+                          'bet returns under 2%. The implied probability is close to certainty, '
+                          'not a measured result.')
+            break
+    if not limits:
+        # A published fallback row always carries a limit. This sentence names the
+        # evidence class only; it adds no number and no new claim about the match.
+        limits.append({
+            'consensus': 'Median of independent money sources; each contributing book still carries '
+                         'its own margin, and a median is not a quotable price.',
+            'bookmaker': 'One esportsbook is a single source, not a consensus; its margin was removed '
+                         'by proportional normalization and execution prices may differ.',
+            'reference': 'An aggregated bookmaker average is third-party data, not a first-party quote; '
+                         'the underlying books were not read directly.',
+            'guidance': 'Wide-book guidance only: the book was too wide to accept, so the midpoint is '
+                         'not a money-backed pick.',
+            'model': 'Uncalibrated research model: not a betting price, and current lineups, stand-ins, '
+                     'form and the map veto are unverified.',
+        }.get(str(origination.get('method')), 'Fallback source; see the full research trail for its limits.'))
+    return limits
+
+
+def _fallback_sources(match, origination, prefix):
+    """Source links for one fallback row: the price, the fixture, the full trail."""
+    links, seen = [], set()
+    url = str(origination.get('source_url') or '')
+    if url.startswith('https://') and url not in seen:
+        seen.add(url)
+        links.append(external(url, analysis_source_label(origination)))
+    fixture = str(match.get('source_url') or '')
+    if fixture.startswith('https://') and fixture not in seen:
+        seen.add(fixture)
+        links.append(external(fixture, 'Hotspawn fixture'))
+    links.append(f'<a class="internal-link" href="{prefix}origination/#match-{e(match.get("id"))}">'
+                 f'Full trail {icon("arrow")}</a>')
+    return ''.join(links)
+
+
+def _fallback_choice(match, origination):
+    """Both published probabilities, the pick and its method badge."""
+    names = [t.get('name') or 'Unverified team' for t in match.get('teams') or []]
+    prob = origination.get('probabilities') or []
+    pick = match.get('pick_index')
+    badge_text, tone = FALLBACK_BADGES.get(str(origination.get('method')), ('Fallback', 'neutral'))
+    badge = f'<span class="badge {tone}">{e(badge_text)}</span>'
+    if pick is not None and len(prob) == 2 and all(isinstance(x, (int, float)) for x in prob):
+        other = 1 - pick
+        choice = (f'<span class="glance-pick-label">Pick</span><strong>{e(names[pick])}</strong>'
+                  f'<span class="glance-prob">{prob[pick] * 100:.1f}%</span>'
+                  f'<span class="glance-other">{e(names[other])} {prob[other] * 100:.1f}%</span>')
+    else:
+        choice = ('<span class="glance-pick-label">No edge</span><strong>Even · no side</strong>'
+                  '<span class="glance-prob">no side</span>')
+    return names, choice, badge
+
+
+def fallback_register(data, prefix, compact=False, title='Picks without the featured market line'):
+    """A separate register for every pick that is not a featured market line.
+
+    The brief asks for research on the matches the featured method cannot
+    resolve — a low-tier card off Polymarket, a single esportsbook quote or an
+    aggregated bookmaker average — and for the limitations of each method to be
+    published. This renderer reads only the published origination record. It
+    links the exact source behind each number and states the limit in that row's
+    own words; it never derives, rounds or invents a probability.
+
+    Research models and wide-book guidance are deliberately *not* listed here:
+    they already have their own register ("Picks without a betting line"), and a
+    fixture must not appear twice on one page. The register counts them and links
+    across instead.
+    """
+    complete = data.get('complete_picks') or {}
+    rows = [m for m in (complete.get('matches') or [])
+            if (m.get('origination') or {}).get('method') in FALLBACK_METHODS]
+    research_rows = [m for m in (complete.get('matches') or [])
+                     if (m.get('origination') or {}).get('method') in RESEARCH_ONLY_METHODS]
+    if not rows and not research_rows:
+        return ''
+    active = (complete.get('counts') or {}).get('active') or (data.get('counts') or {}).get('upcoming')
+    by_method = {method: sum(1 for m in rows if (m.get('origination') or {}).get('method') == method)
+                 for method in FALLBACK_METHODS}
+    parts = [f'{count} {FALLBACK_BADGES[method][0].lower()}' for method in FALLBACK_METHODS
+             if (count := by_method[method])]
+    scope = ('These are the fixtures that could not be resolved the same way as the featured picks: '
+             'they were priced by a median of independent money sources, a single esportsbook or an '
+             'aggregated bookmaker average. ')
+    intro = (f'<strong>{len(rows)}</strong> of <strong>{active}</strong> active fixtures are in this register'
+             + (f' ({"; ".join(parts)})' if parts else '') + '. ')
+    if research_rows:
+        intro += (f'A further <strong>{len(research_rows)}</strong> carry a labelled research estimate with no '
+                  'betting line behind them; those stay in '
+                  '<a class="internal-link" href="#no-line-register">picks without a betting line</a> so no '
+                  'fixture is listed twice.')
+    if compact:
+        intro += (' Every row below links the source that produced its number; the full row-by-row trial, '
+                  'including the sources that failed, is on the '
+                  f'<a class="internal-link" href="{prefix}unresolved/#fallback-register">Unresolved &amp; '
+                  'limitations page</a>.')
+        items = ''
+        for m in rows:
+            o = m['origination']
+            names, choice, badge = _fallback_choice(m, o)
+            shown = observed_price_label(o)
+            label, source_name, source_url = researched_method(m)
+            items += (f'<li class="fallback-row" id="fallback-{e(m.get("id"))}">'
+                      f'<a class="fallback-teams" href="{prefix}origination/#match-{e(m.get("id"))}">'
+                      f'{e(names[0])} <span class="versus">vs</span> {e(names[1])}</a>'
+                      f'<span class="fallback-pick"><strong>{e(names[m.get("pick_index")]) if m.get("pick_index") is not None else "Even"}</strong> '
+                      f'{o.get("probabilities", [0, 0])[m.get("pick_index") or 0] * 100:.1f}%</span>'
+                      f'{badge}'
+                      + (f'<span class="tiny muted">price {e(shown.replace("line ", ""))}</span>' if shown else '')
+                      + (external(source_url, source_name) if str(source_url).startswith('https://') else '')
+                      + '</li>')
+        return (f'<div class="no-line-register fallback-register" id="fallback-register">'
+                f'<h3 id="fallback-title">{e(title)} · limits</h3>'
+                f'<p class="section-intro">{scope}{intro}</p>'
+                f'<ul class="fallback-compact">{items}</ul></div>')
+    intro += (' A money-backed fallback row is a real two-sided price from an outside source; it is a pick, '
+              'not a guarantee, and the limit for each row is stated below it.')
+    cards = ''
+    for m in rows:
+        o = m['origination']
+        names, choice, badge = _fallback_choice(m, o)
+        label, source_name, source_url = researched_method(m)
+        shown = observed_price_label(o)
+        limits = _fallback_limits(m, o)
+        limit_html = ''.join(f'<li>{e(text if len(text) <= 240 else text[:237].rstrip() + "…")}</li>'
+                             for text in limits)
+        cards += (f'<li class="no-line-card fallback-card" id="fallback-card-{e(m.get("id"))}">'
+                  f'<div class="unresolved-summary-head"><span class="comp">'
+                  f'{e(m.get("competition") or "Unverified tournament")} · {local_time(m.get("starts_at"))}</span>'
+                  f'{badge}</div>'
+                  f'<h3><a class="internal-link" href="{prefix}origination/#match-{e(m.get("id"))}">'
+                  f'{e(names[0])} <span class="versus">vs</span> {e(names[1])}</a></h3>'
+                  f'<p class="no-line-choice">{choice}</p>'
+                  f'<p class="no-line-model">{e(label)}'
+                  + (f' <span class="tiny muted">· observed {e(shown)}</span>' if shown else '') + '</p>'
+                  + f'<ul class="fallback-limits">{limit_html}</ul>'
+                  + f'<p class="unresolved-links">{_fallback_sources(m, o, prefix)}</p>'
+                  '</li>')
+    return (f'<div class="no-line-register fallback-register" id="fallback-register">'
+            f'<h3 id="fallback-title">{e(title)} · limits</h3>'
+            f'<p class="section-intro">{scope}{intro}</p>'
+            f'<ul class="unresolved-summary-list no-line-list">{cards}</ul>'
+            '<p class="tiny muted">Every row above links its own source and its fixture. No Hotspawn '
+            '“% picked” value and no HLTV fan vote is used anywhere in this register. '
+            f'<a class="internal-link" href="{prefix}methodology/">How a pick is chosen →</a></p></div>')
+
+
+def research_verification_block(data, prefix, compact=False):
+    """Dated, source-linked record of this session's outside research.
+
+    Reads ``data/research/3877d48d/findings.json``. Every row carries the URL it
+    was read from; a row without an https source is dropped rather than shown
+    unsourced. It never writes a pick: a refused placeholder, a wide book and a
+    model's own displayed percentage are evidence about the *limit*, not prices
+    this project may use.
+    """
+    path = Path(__file__).resolve().parents[1] / 'data' / 'research' / '3877d48d' / 'findings.json'
+    if not path.exists():
+        return ''
+    try:
+        record = json.loads(path.read_text())
+    except (OSError, ValueError):
+        return ''
+    rows = [r for r in record.get('rows') or [] if str(r.get('url') or '').startswith('https://')]
+    if not rows:
+        return ''
+    observed = record.get('observed_at') or ''
+    if compact:
+        return (f'<p class="tiny muted" id="independent-verification">Independent check of the fallback '
+                f'lines, read {local_time(observed)}: {len(rows)} source observations recorded. '
+                f'<a class="internal-link" href="{prefix}unresolved/#independent-verification">'
+                f'See every source and what it showed →</a></p>')
+    body = ''
+    for r in rows:
+        body += (f'<tr><td>{e(r.get("fixture") or "")}<br><span class="tiny muted">'
+                 f'{e(r.get("team") or "")}</span></td>'
+                 f'<td><a class="source-link" href="{e(r.get("url"))}" target="_blank" '
+                 f'rel="noopener noreferrer">{e(r.get("source") or "Source")}{icon("external")}</a></td>'
+                 f'<td><span class="tried-chip {e(r.get("status") or "unresolved")}">'
+                 f'{e(r.get("verdict") or r.get("status") or "recorded")}</span> '
+                 f'{e(r.get("finding") or "")}</td></tr>')
+    return ('<section class="content-section" id="independent-verification">'
+            '<p class="eyebrow">Our own research, dated</p>'
+            '<h2>Independent check of the fallback lines</h2>'
+            f'<p class="section-intro">{e(record.get("scope") or "")} Read {local_time(observed)}. '
+            'A source answering with a price is recorded as an observation; it becomes a pick only '
+            'through the ladder above, never by hand.</p>'
+            '<div class="matches-wrap"><table class="simple-table"><thead><tr><th>Fixture</th>'
+            '<th>Source</th><th>What it showed</th></tr></thead><tbody>' + body + '</tbody></table></div>'
+            '<p class="tiny muted">Refused prices stay refused: an identical-decimal placeholder pair '
+            'on four unrelated fixtures is not a market, and a wide book is not a pick. '
+            f'<a class="internal-link" href="{prefix}review/">Review these findings →</a></p></section>')
 
 
 def line_sources_block(data, prefix):
@@ -1696,6 +1984,11 @@ def unresolved_page(data, prefix, now=None):
             '<li>Every four-hour refresh retries every source. A fixture listed here can gain a market later; '
             'reload rather than treating this page as permanent.</li></ul></div>')
     out += unresolved_register(data, prefix, title='Every fixture without a pick, and why')
+    # Session arena-3877d48d: the brief's separate section for the matches that
+    # cannot be resolved the same way as the featured picks, plus the dated
+    # outside research behind their limits.
+    out += fallback_register(data, prefix)
+    out += research_verification_block(data, prefix)
     out += session_probe_block(data, prefix)
     out += ('<section class="content-section prose" id="ladder"><p class="eyebrow">Our method, in order</p>'
             '<h2>What has to fail before a match is published as unresolved</h2>'
@@ -1931,6 +2224,12 @@ def summary(data, prefix, now=None):
     # under three stacked 44px action rows.
     out += start_here(data, prefix)
     out += glance(data, prefix, now=now)
+    # Session arena-3877d48d: the brief asks the executive summary to carry the
+    # separate fallback section (every pick that is not a featured market line),
+    # not only the fully unpriced rows. It sits under the pick index so a phone
+    # reader reaches the picks first.
+    out += fallback_register(data, prefix, compact=True)
+    out += research_verification_block(data, prefix, compact=True)
     out += live_coverage_gaps(data, prefix)
     out += exec_banner(data, prefix)
     out += unresolved_register(data, prefix, compact=True)

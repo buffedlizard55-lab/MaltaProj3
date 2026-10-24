@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "session": "arena-3877d48d",
+  "observed_at": "2026-10-24T16:28:00Z",
+  "scope": "First-hand read of the outside sources behind every active fixture whose pick is not a featured Polymarket line (5 consensus, 5 single-bookmaker, 1 aggregated reference, 4 research-model). HLTV and the esportsbooks were read after the published 14:24:32Z snapshot; every value below is quoted as the source displayed it and is not used to re-price a row.",
+  "rows": [
+    {
+      "fixture_id": "1082858",
+      "fixture": "Ground Zero vs Off Chops",
+      "team": "DFRAG Invitational 2026 · 26 Oct 03:00Z",
+      "source": "EGamersWorld match page",
+      "url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+      "status": "resolved",
+      "verdict": "confirms the published reference pick",
+      "finding": "The page displays 3.44 for Ground Zero and 1.24 for Off Chops and names Off Chops the bookmaker favourite at an average of 1.24. That is the same pair behind the published aggregated-reference pick (Off Chops 73.5%)."
+    },
+    {
+      "fixture_id": "1082860",
+      "fixture": "FlyQuest vs Staqued",
+      "team": "DFRAG Invitational 2026 · 27 Oct 03:00Z",
+      "source": "EGamersWorld match page",
+      "url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/flyquest-vs-staqued-zawJ-Q52S3",
+      "status": "resolved",
+      "verdict": "near-lock quote",
+      "finding": "The page header displays 1.001 / 12.00 and its tips text quotes the bookmaker average as 1.008 / 11.832. A winning bet at 1.001 returns under 2%; the published 92.3% follows arithmetically from a near-lock price and is not an actionable line. The old row rendered this quote as “1.00”, which read as a zero-payout price; presentation is fixed and the number is unchanged."
+    },
+    {
+      "fixture_id": "1082996",
+      "fixture": "Acend vs UNiTY",
+      "team": "NODWIN Clutch Series #13 · 25 Oct 09:00Z",
+      "source": "EGamersWorld match page",
+      "url": "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/acend-vs-unity-esports-iwaKSVfgf",
+      "status": "unresolved",
+      "verdict": "refused: identical-decimal placeholder",
+      "finding": "Displays 1.80 / 1.80 — exactly the same pair displayed on the three other unpriced fixtures below. Four unrelated fixtures cannot all be priced at even money by the same bookmaker average, so the pair is refused as an identical-decimal placeholder, the same rule the pipeline already applies to providers."
+    },
+    {
+      "fixture_id": "1082861",
+      "fixture": "Rooster vs Abyssal",
+      "team": "DFRAG Invitational 2026 · 27 Oct 03:00Z",
+      "source": "EGamersWorld match page",
+      "url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/rooster-vs-team-abyssal-P1tTp3RAg8",
+      "status": "unresolved",
+      "verdict": "refused: identical-decimal placeholder",
+      "finding": "Displays 1.80 / 1.80 — the same placeholder pair as Acend–UNiTY, HOTU–The Huns and 5star–1WIN. Not a market; the Valve-rating model remains the only supportable input for this fixture."
+    },
+    {
+      "fixture_id": "1082792",
+      "fixture": "HOTU vs The Huns",
+      "team": "GLuck Moscow Cyber Games 2026 · 31 Oct 09:00Z",
+      "source": "EGamersWorld match page",
+      "url": "https://egamersworld.com/counterstrike/match/EkalRNMvVx/hotu-vs-the-huns-esports-SfdtzDhiK",
+      "status": "unresolved",
+      "verdict": "refused: identical-decimal placeholder",
+      "finding": "Displays 1.80 / 1.80, the same placeholder pair as the other unpriced fixtures. The Polymarket book for this match is already recorded as too wide to use (spread 0.43 in event 1241313)."
+    },
+    {
+      "fixture_id": "1082793",
+      "fixture": "5star vs 1WIN",
+      "team": "GLuck Moscow Cyber Games 2026 · 31 Oct 13:00Z",
+      "source": "EGamersWorld match page",
+      "url": "https://egamersworld.com/counterstrike/match/EkalRNMvVx/1win-vs-5star-esports-4hTvdd1uN",
+      "status": "unresolved",
+      "verdict": "refused: identical-decimal placeholder",
+      "finding": "Displays 1.80 / 1.80, the fourth copy of the same placeholder pair. No usable outside price was found for this fixture on the surfaces checked."
+    },
+    {
+      "fixture_id": "1082996",
+      "fixture": "Acend vs UNiTY",
+      "team": "Polymarket series market · starts 2026-10-25T09:00Z",
+      "source": "Polymarket event 1238703",
+      "url": "https://polymarket.com/event/cs2-ace1-unity-2026-10-25",
+      "status": "unresolved",
+      "verdict": "live event, retry the series book",
+      "finding": "The event is active and its own eventStartTime is 2026-10-25T09:00:00Z, exactly the Hotspawn start, so the fixture is bindable. Its map-1 book is 0.03 / 0.97 (spread 0.94). The publisher reported “no unique exact-name, exact-start-time fixture” for this card, so the next four-hour collect should retry this event's series market rather than treating it as unlisted."
+    },
+    {
+      "fixture_id": "1082792",
+      "fixture": "HOTU vs The Huns",
+      "team": "HLTV's own displayed estimate",
+      "source": "HLTV match 2399437",
+      "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "status": "resolved",
+      "verdict": "cross-check only",
+      "finding": "HLTV displays 77.1% HOTU / 22.9% The Huns. That is HLTV's own estimate, not a betting line, and it is not an input to the published 94.1% Valve-rating estimate. The gap is published so a reader can see that the model is materially more confident than HLTV on this fixture."
+    },
+    {
+      "fixture_id": "1082793",
+      "fixture": "5star vs 1WIN",
+      "team": "HLTV's own displayed estimate",
+      "source": "HLTV match 2399438",
+      "url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+      "status": "resolved",
+      "verdict": "cross-check only",
+      "finding": "HLTV displays 81.6% 1win / 18.4% 5star, close to the published 82.2% Valve-rating estimate for 1WIN. Recorded as a cross-check; it changes no probability."
+    },
+    {
+      "fixture_id": "1081156",
+      "fixture": "Spirit Academy vs LFO 10",
+      "team": "Bovada provider name “Sokerorg”",
+      "source": "HLTV CCT 2026 Europe Series 12 event",
+      "url": "https://www.hltv.org/events/9457/cct-2026-europe-series-12",
+      "status": "resolved",
+      "verdict": "provider name differs",
+      "finding": "HLTV lists Spirit Academy vs LFO 10 in CCT Europe Series 12 on 25 October, and LFO 10 is a Swedish team. The Bovada page behind the published pick names the opponent “Sokerorg” at 08:00 ET (12:00Z), the same slot, and the scoped alias registry already carries Sökerorg → LFO 10 for this competition. The join is competition-scoped; it is never treated as a global rename."
+    },
+    {
+      "fixture_id": "1081158",
+      "fixture": "FORZE Reload vs ex-RUSTEC",
+      "team": "Bovada URL path names “series-11”",
+      "source": "Bovada series page",
+      "url": "https://www.bovada.lv/sports/esports/counter-strike-2/cct-europe/series-11/forze-reload-ex-rustec-202610251400",
+      "status": "unresolved",
+      "verdict": "flagged for review",
+      "finding": "The published pick links a Bovada page whose URL path says series-11 while Hotspawn lists the fixture in CCT Europe 2026 Series #12. The provider's own path segment is not proof of the wrong fixture (the same provider labels the Spirit Academy fixture the same way), but the label mismatch stays flagged rather than silently rewritten."
+    },
+    {
+      "fixture_id": null,
+      "fixture": "All fallback fixtures",
+      "team": "Automated reference capture",
+      "source": "EGamersWorld match pages read from the GitHub runner",
+      "url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+      "status": "unresolved",
+      "verdict": "runner blocked (HTTP 403)",
+      "finding": "The read-only probe recorded HTTP 403 for all ten EGamersWorld match pages when requested from the GitHub runner on 2026-10-24T16:26Z, while the browser-class read above returned the prices. The 14:24Z build still resolved one EGamersWorld reference row, so the block is new or intermittent; it is published as a source limitation, not as evidence that no market exists."
+    },
+    {
+      "fixture_id": null,
+      "fixture": "All 23 open fixtures",
+      "team": "Hotspawn lobby reconciliation",
+      "source": "Hotspawn lobby",
+      "url": "https://play.hotspawn.com/lobby",
+      "status": "resolved",
+      "verdict": "inventory agrees",
+      "finding": "Read at 16:19Z, the CS2 lobby still lists 22 of the 23 open fixtures with the same teams and tournament as the 14:24Z snapshot; 1083121 (Projeto do KinGui vs MEIA NOITE, 16:00Z) had already passed its lock and moved out of the pickable list. Every other open fixture has a pick."
+    }
+  ]
+}

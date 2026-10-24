@@ -135,9 +135,17 @@ class GlanceFreshnessAndEvenEstimates(unittest.TestCase):
         soup = self.label()
         self.assertIn('Synthetic A 50.0%', soup.get_text())
         self.assertIn('Synthetic B 50.0%', soup.get_text())
-        self.assertIn('No edge', soup.get_text())
+        self.assertIn('Even book', soup.get_text())
         self.assertIn('no side', soup.get_text())
-        self.assertIsNone(soup.select_one('[data-glance-pick]'))
+        # Integration fix by arena-3877d48d: an exactly even book now carries the
+        # same machine-readable marker as a pick, because a pick-less row that
+        # carries no marker is indistinguishable from a silent gap to the
+        # rendered-output audit (scripts/acceptance_audit.py::check_glance_rows).
+        # It still invents no side and still shows both numbers.
+        marker = soup.select_one('[data-glance-pick]')
+        self.assertIsNotNone(marker)
+        self.assertEqual(marker.get_text(), 'Even book')
+        self.assertIn('no side', soup.get_text())
 
     def test_an_unresolved_row_stays_blank_not_a_default_even_estimate(self):
         self.match['analysis'] = None

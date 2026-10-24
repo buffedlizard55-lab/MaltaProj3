@@ -1,0 +1,60 @@
+name: 3877d48d fallback-line probe
+
+# Dispatch-only (session 3877d48d). The research sandbox cannot reach
+# EGamersWorld, HLTV or Hotspawn, so this runner records what those surfaces
+# publish for the 15 active fixtures whose pick is not a featured Polymarket
+# line. It writes evidence only: no probability, pick or alias is produced.
+on:
+  workflow_dispatch:
+  # Dispatch only. The push trigger used once to start the first sweep does not
+  # stay on: its evidence commit re-entered the branch and cancelled the
+  # `Validate dashboard` run for the same ref (observed 40116642184, cancelled
+  # 12m57s in). Once this workflow is on the default branch, `workflow_dispatch`
+  # starts it without touching the branch's CI queue.
+permissions:
+  contents: write
+concurrency:
+  group: 3877d48d-probe-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  probe:
+    if: startsWith(github.ref_name, 'arena/3877d48d')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install the probe's declared dependencies
+        run: python -m pip install --quiet requests==2.32.5
+      - name: Read the fallback-line sources
+        run: python -m scripts.3877d48d_probe --output data/research/3877d48d
+      - name: Commit the evidence
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/3877d48d
+          if git diff --cached --quiet; then
+            echo 'No change in the recorded facts.' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git commit -m 'research: 3877d48d fallback-line probe evidence [skip ci]'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+      - name: Summarise the recorded facts
+        run: |
+          python - <<'PY'
+          import json
+          d = json.load(open('data/research/3877d48d/probe.json'))
+          print('## Fallback-line probe')
+          print('')
+          print('| Fixture | Published method | EGamersWorld |')
+          print('| --- | --- | --- |')
+          for f in d['fixtures']:
+              egw = f['egw']
+              state = egw.get('status') or egw.get('error') or 'not found'
+              print('| ' + f['id'] + ' | ' + f['published_method'] + ' | ' + str(state) + ' |')
+          print('')
+          print('Inventory: ' + str(d['inventory'].get('status') or d['inventory'].get('error')))
+          PY
