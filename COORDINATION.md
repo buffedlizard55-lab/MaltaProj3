@@ -1444,7 +1444,6 @@ Verified after the change: `site/index.html` and `site/unresolved/index.html` ea
 
 ---
 
-<<<<<<< HEAD
 ---
 
 # Current session: arena-ebd1ed70 — unattended-refresh proof, complete live-lobby pick coverage (HLTV-first → esportsbooks for anything the featured pipeline can't resolve), exec-summary/mobile verification, integration & publish
@@ -1477,11 +1476,6 @@ Claimed **2026-10-24 06:26Z** on Arena's fixed branch `arena/ebd1ed70-maltaproj3
 
 - [PR #240](https://github.com/buffedlizard55-lab/MaltaProj3/pull/240) (`arena/43110640-maltaproj3`) merged to `main` as `bdb4fc9` on 2026-10-24. It carried S431-1 (time-bomb pin in `tests/test_ca7e10e5_snapshot.py`), S431-2 (automated EGW fallback `scripts/egw_live.py` + `scripts/originate.py` rung, fail-closed on 1.8/1.8 placeholders), S431-3 (guided picks for 1082858 / 1082792 in `data/research/43110640/`), and the S431 board section. Publisher run after the merge: [40069088115](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40069088115) — outcome recorded under E1. This entry exists because S431's board note says "PR pending record below" and no record was written before the merge; it claims no S431 file.
 
-=======
-
----
-
->>>>>>> origin/main
 # Current session: arena-43110640 — picks for every match (HLTV-first, then esportsbooks), automated EGW fallback, CI unblock, exec-summary/unresolved — DONE (PR pending record below)
 
 Claimed **2026-10-24** on Arena's fixed branch `arena/43110640-maltaproj3`. Read the board first: prior session arena-103774c3 is DONE (PR #216 merged); recent scheduled `pages.yml` runs are FAILING at the regression step (see S431 result when done).
