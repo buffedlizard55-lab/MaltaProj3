@@ -27,14 +27,25 @@ touch `scripts/build.py`, `assets/*`, `data/research/<other session id>/**` and
    Reproduced by replaying the ladder with the import fixed and the pool unchanged:
    `method None`, `pick_index None` for a fixture whose saved EGW anchor prices it.
 
-## What was changed (4 files, all inside this session's claim)
+## What this branch finally contains, and why it is small
+
+Both defects were fixed on `main` by other sessions while this one was
+reproducing them: PR #261 wired `egw_live.load_live` into the rung, PR #270 added
+the strict evidence chain (source clock, exact named price, original HTML and
+manifest must agree) and reproducibility-based replay selection in
+`validate_origination`, and the import landed three times (#261, #270, `6cb7dbe`).
+When this branch was rebased, its own versions of those two fixes were dropped in
+favour of the stricter merged ones — keeping a second, weaker implementation
+would have been worse than landing nothing.
+
+What remains, and is not a duplicate of any merged work:
 
 | File | Change |
 | --- | --- |
-| `scripts/originate.py` | `from scripts import egw_live` — one import line |
-| `scripts/reference_odds.py` | `LIVE_EVIDENCE_PATH` appended to `CAPTURE_PATHS`; `load()` drops an automated entry whose fetch the request manifest does not witness (retained in `rejected` with the reason); new `entry_for()` selects a capture by provenance |
-| `scripts/build_origination.py` | reference replay uses `reference_odds.entry_for(...)` instead of the first row with a matching fixture id |
-| `requirements.txt` | `pyflakes==4.0.3` so the undefined-name guard runs in CI instead of skipping |
+| `tests/test_a5b59ee6_publisher_wiring.py` | new: integration cover for the merged rung (10 tests) |
+| `requirements.txt` | `pyflakes==4.0.3` so the static undefined-name guard runs in CI instead of skipping |
+| `data/research/a5b59ee6/**` | this record, the reproduction, and the five published findings |
+| `COORDINATION.md` | this session's claim, results and the merge-resolution note |
 
 Nothing in the ladder order, the provider label, the 1.8/1.8 placeholder rule, the
 eight-hour freshness rule, the exact-start rule, the excerpt SHA-256 check or any
@@ -42,14 +53,15 @@ published probability was altered by hand.
 
 ## How it was verified
 
-* `tests/test_a5b59ee6_publisher_wiring.py` — **13 tests, all pass**: the rung is
-  imported; `live_collect` reaches it under the real collector and writes the
-  capture; a witnessed capture prices 3.44/1.24 to 26.5 % / 73.5 %; a restamped,
-  failed or manifest-less fetch prices nothing; hand-reviewed captures need no
-  manifest; replay selects the capture a quote was priced from when two cover one
-  fixture; a forged quote finds no capture; 1.8/1.8 stays rejected; the ladder
-  publishes the pick end to end; `pyflakes` finds no undefined name in `scripts/`.
-* The three modules that were red on `main` now pass (81 tests).
+* `tests/test_a5b59ee6_publisher_wiring.py` — **10 tests, all pass** against the
+  merged implementation: the rung is imported; `live_collect` reaches it under
+  the real collector and writes the original HTML, the derived capture and the
+  manifest; that chain replays to 26.5 % / 73.5 %; a missing original response, a
+  failed or restamped manifest and a capture edited after the fact each price
+  nothing; `originate.run()` publishes Off Chops 73.5 % from the chain and leaves
+  the same fixture blank without it; a fresh reviewed capture outranks the
+  automated row; `pyflakes` finds no undefined name in `scripts/`.
+* The three modules that were red on `main` pass (81 tests).
 * `python -m scripts.build` on the checked-in data: **PASS** — 80 source rows
   reconciled and replayed, row-source audit 775 rows / 0 without a source / 9
   flagged unverified, acceptance audit 9 pass / 1 info / 0 fail, 829 internal

@@ -1,30 +1,32 @@
-"""Session arena-a5b59ee6: the fallback rungs must be *wired*, not just written.
+"""Session arena-a5b59ee6: integration cover for the automated EGamersWorld rung.
 
 Why this exists
 ---------------
 PR #240 (merged 2026-10-24T06:09Z, ``bdb4fc9``) added the automated EGamersWorld
-capture to ``scripts/originate.py`` but the merge dropped the module import: the
-file called ``egw_live.*`` while importing every neighbouring module except that
-one. Two consequences were reproduced on ``main``:
+capture to ``scripts/originate.py`` without importing ``egw_live``. Reproduced
+on that commit with this repository's own suite, three modules error with
+``NameError: name 'egw_live' is not defined`` — which is job step 5 of
+``pages.yml``, so four scheduled refreshes (40028653350, 40037957529,
+40048429858, 40063011446) skipped collect, build, deploy and verify. In
+production the same line is swallowed by the rung's own ``except``, so the
+fallback that exists for low-tier fixtures priced nothing at all.
 
-* the scheduled publisher failed at its first step, ``Regression tests``, with
-  ``NameError: name 'egw_live' is not defined`` in three test modules, so five
-  scheduled refreshes in a row (21:41Z, 23:08Z, 01:08Z, 04:36Z on 2026-10-23/24)
-  deployed nothing; and
-* in a live run the same ``NameError`` is swallowed by the rung's own
-  ``except Exception`` and recorded as ``egw_live_error``, so the "automated"
-  esportsbook-aggregator fallback silently priced no fixture at all.
+Sessions arena-5260ef4e, arena-b97af12f and arena-2ed65c56 fixed the wiring on
+``main`` while this session reproduced it; their evidence-chain check in
+``egw_live.load_live`` is stronger than the one this session had written, so
+this branch keeps no competing implementation. What it keeps is the cover the
+merge is missing: the rung is *reached* under the real collector, the whole
+chain (original HTML → derived capture → manifest → ladder → published pick)
+replays to the same numbers, a reviewed capture still outranks an automated one,
+and a static check fails on the undefined-name class of defect that started all
+of this.
 
-A second, quieter defect sat behind it: ``egw_live.load_live`` had no caller.
-The capture was written to ``data/origination/evidence/live-egw-reference.json``
-on every refresh and never read back into the ladder, so even a successful
-fetch could not change a pick.
-
-These tests pin the wiring, not the odds. A rung is allowed to fail because a
-source is unreachable; it must never fail because nothing called it.
+These tests assert wiring and replay, never hand-written odds: every number is
+recomputed from a saved response by the existing fail-closed gate.
 """
 from __future__ import annotations
 
+import io
 import json
 import tempfile
 import unittest
@@ -37,12 +39,17 @@ from scripts import egw_live, originate, reference_odds
 NOW = datetime(2026, 10, 24, 6, 30, tzinfo=timezone.utc)
 OBSERVED = '2026-10-24T06:20:00Z'
 
-INDEX_HTML = """
-<html><body>
-<a href="https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d">
-  Ground Zero 3.44 Off Chops 1.24</a>
-</body></html>
-"""
+# The rung's contract since arena-b97af12f: a match anchor must carry its own
+# timezone-qualified start and a decimal price bound to each exact outcome name.
+# A bare "team 3.44 team 1.24" anchor is a lead, not a quote, and prices nothing.
+INDEX_HTML = (
+    '<html><body><a href="https://egamersworld.com/counterstrike/match/'
+    '4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d">'
+    '<time datetime="2026-10-26T03:00:00Z">26 Oct 06:00</time>'
+    '<span>Ground Zero</span><span>3.44</span>'
+    '<span>Off Chops</span><span>1.24</span></a>'
+    '</body></html>'
+)
 
 MATCH = {
     'id': '1082858',
@@ -53,22 +60,38 @@ MATCH = {
     'analysis': None,
 }
 
-
-def live_entry(**overrides) -> dict:
-    entry = egw_live.entries_for(INDEX_HTML, [MATCH], {'aliases': []}, OBSERVED)[0]
-    entry.update(overrides)
-    return entry
+EGW_PAGE = ('https://egamersworld.com/counterstrike/match/'
+            '4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d')
 
 
-class TheImportSurvivesAMerge(unittest.TestCase):
+def write_chain(evidence: Path, observed: str = OBSERVED, html: str = INDEX_HTML,
+                matches=None, manifest_status: str = 'ok') -> dict:
+    """Write the three files a live refresh leaves behind, in order.
+
+    This is the same chain ``scripts/originate.live_collect`` writes: the
+    original index response, the derived reviewed-schema capture, and the
+    request manifest that witnesses the fetch.
+    """
+    matches = [dict(MATCH)] if matches is None else matches
+    entries = egw_live.entries_for(html, matches, {'aliases': []}, observed)
+    (evidence / (egw_live.INDEX_EVIDENCE + '.json')).write_text(json.dumps(
+        {'url': egw_live.INDEX_URL, 'observed_at': observed, 'html': html}))
+    (evidence / egw_live.EVIDENCE_NAME).write_text(json.dumps(
+        {'source': 'EGamersWorld CS2 matches index (automated capture)',
+         'url': egw_live.INDEX_URL, 'observed_at': observed, 'entries': entries}))
+    (evidence / 'live-collection-manifest.json').write_text(json.dumps([
+        {'id': egw_live.INDEX_EVIDENCE, 'url': egw_live.INDEX_URL,
+         'observed_at': observed, 'status': manifest_status, 'method': 'GET',
+         'evidence': egw_live.INDEX_EVIDENCE + '.json'}]))
+    return entries[0] if entries else {}
+
+
+class TheRungIsReachable(unittest.TestCase):
     def test_the_automated_egw_rung_is_imported(self):
-        # Would have failed on bdb4fc9: NameError at first use, not at import.
+        # The exact NameError that stopped four scheduled refreshes.
         self.assertIs(originate.egw_live, egw_live)
-        self.assertTrue(hasattr(originate, 'egw_live'))
 
-    def test_live_collect_reaches_the_egw_rung_and_records_it(self):
-        """The rung must run under the real collector, not raise NameError."""
-
+    def test_live_collect_reaches_the_egw_rung_and_writes_the_chain(self):
         def fake_fetch_html(self_client, url, label):
             body = INDEX_HTML if url == egw_live.INDEX_URL else ''
             entry = {'id': label, 'url': url, 'observed_at': OBSERVED,
@@ -84,136 +107,75 @@ class TheImportSurvivesAMerge(unittest.TestCase):
                                  side_effect=RuntimeError('offline in this test')):
                 out = originate.live_collect(evidence, [dict(MATCH)], {'aliases': []})
             self.assertNotIn('egw_live_error', out)
-            self.assertEqual(out['egw_live'], {'entries': 1})
+            self.assertEqual(out['egw_live']['entries'], 1)
             saved = json.loads((evidence / egw_live.EVIDENCE_NAME).read_text())
             self.assertEqual(saved['entries'][0]['fixture_id'], '1082858')
 
 
-class TheCaptureIsConsumed(unittest.TestCase):
-    """``live-egw-reference.json`` must reach the reference rung and its audit."""
+class TheWholeChainReplays(unittest.TestCase):
+    """Original HTML → derived capture → manifest → ladder → published pick."""
 
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
-        self.source = Path(self.tmp.name)
-        (self.source / 'origination' / 'evidence').mkdir(parents=True)
-        self.evidence = self.source / 'origination' / 'evidence'
-        self.write_manifest(OBSERVED)
+        self.evidence = Path(self.tmp.name)
 
     def tearDown(self):
         self.tmp.cleanup()
 
-    def write_manifest(self, observed, status='ok'):
-        (self.evidence / 'live-collection-manifest.json').write_text(json.dumps([
-            {'id': 'live-egw-index', 'url': egw_live.INDEX_URL, 'observed_at': observed,
-             'status': status, 'method': 'GET'}]))
-
-    def write_capture(self, entry):
-        (self.evidence / egw_live.EVIDENCE_NAME).write_text(json.dumps(
-            {'source': 'EGamersWorld CS2 matches index (automated capture)',
-             'url': egw_live.INDEX_URL, 'observed_at': entry['observed_at'],
-             'entries': [entry]}))
-
-    def test_a_witnessed_capture_prices_the_fixture(self):
-        entry = live_entry()
-        self.write_capture(entry)
-        capture = reference_odds.load(self.source)
-        self.assertIn(entry['fixture_id'], [e['fixture_id'] for e in capture['entries']])
+    def test_a_witnessed_chain_replays_to_the_saved_pick(self):
+        write_chain(self.evidence)
+        (entry,) = egw_live.load_live(self.evidence, [dict(MATCH)], {'aliases': []})
         quote, reason = reference_odds.quote(entry, MATCH, NOW)
         self.assertIsNotNone(quote, reason)
+        # 3.44 / 1.24 de-vigged: Ground Zero 26.5 %, Off Chops 73.5 %.
+        self.assertAlmostEqual(quote['probabilities'][0], 0.265, places=3)
+        self.assertAlmostEqual(quote['probabilities'][1], 0.735, places=3)
+        self.assertEqual(quote['source_url'], EGW_PAGE)
         self.assertEqual(quote['family'], 'reference')
-        # No-vig of 3.44 / 1.24 is Ground Zero 26.5% / Off Chops 73.5%.
-        # Probabilities are published as fractions (0.2649 / 0.7350).
-        first, second = quote['probabilities']
-        self.assertAlmostEqual(first, 0.265, places=3)
-        self.assertAlmostEqual(second, 0.735, places=3)
-        self.assertEqual(quote['source_url'], entry['source_url'])
 
-    def test_an_unwitnessed_capture_is_rejected_with_a_reason(self):
-        entry = live_entry()
-        self.write_capture(entry)
-        self.write_manifest('2026-10-24T05:00:00Z')  # restamped fetch
-        capture = reference_odds.load(self.source)
-        self.assertEqual(capture['entries'], [])
-        (rejected,) = capture['rejected']
-        self.assertTrue(rejected['rejected'])
-        self.assertIn('not witnessed', rejected['reason'])
-        quote, reason = reference_odds.quote(rejected, MATCH, NOW)
-        self.assertIsNone(quote)
-        self.assertIn('not witnessed', reason)
+    def test_a_missing_original_response_prices_nothing(self):
+        write_chain(self.evidence)
+        (self.evidence / (egw_live.INDEX_EVIDENCE + '.json')).unlink()
+        self.assertEqual(egw_live.load_live(self.evidence, [dict(MATCH)],
+                                            {'aliases': []}), [])
 
-    def test_a_failed_fetch_cannot_price_anything(self):
-        entry = live_entry()
-        self.write_capture(entry)
-        self.write_manifest(OBSERVED, status='error')
-        self.assertEqual(reference_odds.load(self.source)['entries'], [])
+    def test_a_failed_or_restamped_manifest_prices_nothing(self):
+        write_chain(self.evidence)
+        manifest = self.evidence / 'live-collection-manifest.json'
+        for broken in ([{'id': egw_live.INDEX_EVIDENCE, 'url': egw_live.INDEX_URL,
+                         'observed_at': OBSERVED, 'status': 'error', 'method': 'GET',
+                         'evidence': egw_live.INDEX_EVIDENCE + '.json'}],
+                       [{'id': egw_live.INDEX_EVIDENCE, 'url': egw_live.INDEX_URL,
+                         'observed_at': '2026-10-24T05:00:00Z', 'status': 'ok',
+                         'method': 'GET',
+                         'evidence': egw_live.INDEX_EVIDENCE + '.json'}]):
+            manifest.write_text(json.dumps(broken))
+            self.assertEqual(egw_live.load_live(self.evidence, [dict(MATCH)],
+                                                {'aliases': []}), [])
 
-    def test_a_missing_manifest_cannot_price_anything(self):
-        self.write_capture(live_entry())
-        (self.evidence / 'live-collection-manifest.json').unlink()
-        self.assertEqual(reference_odds.load(self.source)['entries'], [])
-
-    def test_hand_reviewed_captures_need_no_manifest(self):
-        reviewed = live_entry(capture='manual review')
-        (self.source / 'research' / '57b1ee04').mkdir(parents=True)
-        (self.source / 'research/57b1ee04/reference-odds.json').write_text(
-            json.dumps({'entries': [reviewed], 'rejected': [], 'observed_at': OBSERVED}))
-        (self.evidence / 'live-collection-manifest.json').unlink()
-        self.assertEqual(reference_odds.load(self.source)['entries'], [reviewed])
-
-    def test_replay_selects_the_capture_the_quote_came_from(self):
-        """A stale reviewed row and a fresh automated row can share a fixture."""
-        reviewed = live_entry(observed_at='2026-10-20T00:00:00Z', source_url=(
-            'https://egamersworld.com/counterstrike/match/reviewed/ground-zero-vs-off-chops'))
-        automated = live_entry()
-        (self.source / 'research' / '57b1ee04').mkdir(parents=True)
-        (self.source / 'research/57b1ee04/reference-odds.json').write_text(
-            json.dumps({'entries': [reviewed, automated], 'rejected': [], 'observed_at': OBSERVED}))
-        quote, reason = reference_odds.quote(automated, MATCH, NOW)
-        self.assertIsNotNone(quote, reason)
-        entry = reference_odds.entry_for(self.source, MATCH['id'], quote)
-        self.assertIsNotNone(entry)
-        self.assertEqual(entry['observed_at'], OBSERVED)
-        self.assertEqual(entry['source_url'], automated['source_url'])
-        reference_odds.replay(entry, quote)  # no drift, no exception
-
-    def test_replay_still_rejects_a_quote_with_no_capture(self):
-        self.write_capture(live_entry())
-        forged = {'source_url': 'https://egamersworld.com/counterstrike/match/forged/x-y',
-                  'observed_at': OBSERVED, 'excerpt_sha256': '0' * 64}
-        self.assertIsNone(reference_odds.entry_for(self.source, MATCH['id'], forged))
-
-    def test_placeholder_prices_stay_rejected(self):
-        """EGamersWorld prints 1.8/1.8 for fixtures it has no book for."""
-        entry = {'fixture_id': '1082792',
-                 'teams': ['HOTU', 'The Huns'],
-                 'provider_teams': ['HOTU', 'The Huns Esports'],
-                 'starts_at': '2026-10-31T09:00:00Z', 'odds': [1.8, 1.8],
-                 'source_url': 'https://egamersworld.com/counterstrike/match/EkalRNMvVx/hotu-vs-the-huns',
-                 'observed_at': OBSERVED,
-                 'excerpt': 'EGamersWorld lists HOTU vs The Huns at 1.8 / 1.8 (placeholder).',
-                 'excerpt_sha256': '', 'provider': reference_odds.PROVIDER,
-                 'capture': 'automated EGW index capture (scripts/egw_live.py)'}
-        import hashlib
-        entry['excerpt_sha256'] = hashlib.sha256(entry['excerpt'].encode()).hexdigest()
-        match = {'id': '1082792', 'starts_at': '2026-10-31T09:00:00Z',
-                 'teams': [{'name': 'HOTU'}, {'name': 'The Huns'}]}
-        self.write_capture(entry)
-        self.write_manifest(OBSERVED)
-        quote, reason = reference_odds.quote(entry, match, NOW)
-        self.assertIsNone(quote)
-        self.assertIn('placeholder', reason)
+    def test_a_tampered_capture_prices_nothing(self):
+        write_chain(self.evidence)
+        path = self.evidence / egw_live.EVIDENCE_NAME
+        document = json.loads(path.read_text())
+        document['entries'][0]['odds'] = [1.20, 8.00]       # not in the saved HTML
+        path.write_text(json.dumps(document))
+        self.assertEqual(egw_live.load_live(self.evidence, [dict(MATCH)],
+                                            {'aliases': []}), [])
 
 
 class TheLadderPublishesThePick(unittest.TestCase):
-    """End to end: a live capture must change a published pick, or it is dead code.
+    """End to end: the capture must change a published pick, or it is decoration."""
 
-    Before this session's fix the same evidence produced ``method=None`` and no
-    pick for the fixture, because nothing ever read the capture back.
-    """
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
 
-    def data_dir(self):
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def data_dir(self, chain: bool = True):
         tmp = Path(self.tmp.name)
-        (tmp / 'origination' / 'evidence').mkdir(parents=True)
+        evidence = tmp / 'origination' / 'evidence'
+        evidence.mkdir(parents=True)
         repo = Path(__file__).resolve().parent.parent
         (tmp / 'origination' / 'aliases.json').write_text(
             (repo / 'data/origination/aliases.json').read_text())
@@ -221,86 +183,43 @@ class TheLadderPublishesThePick(unittest.TestCase):
         latest.update(matches=[dict(MATCH)], requests=[],
                       inventory_observed_at='2026-10-24T06:00:00Z')
         (tmp / 'latest.json').write_text(json.dumps(latest))
-        observed = NOW.strftime('%Y-%m-%dT%H:%M:%SZ')
-        entry = egw_live.entries_for(INDEX_HTML, [dict(MATCH)], {'aliases': []}, observed)[0]
-        (tmp / 'origination/evidence' / egw_live.EVIDENCE_NAME).write_text(json.dumps(
-            {'source': 'EGamersWorld CS2 matches index (automated capture)',
-             'url': egw_live.INDEX_URL, 'observed_at': observed, 'entries': [entry]}))
-        (tmp / 'origination/evidence/live-collection-manifest.json').write_text(json.dumps(
-            [{'id': 'live-egw-index', 'url': egw_live.INDEX_URL, 'observed_at': observed,
-              'status': 'ok', 'method': 'GET'}]))
+        if chain:
+            write_chain(evidence, NOW.strftime('%Y-%m-%dT%H:%M:%SZ'))
         return tmp
 
-    def setUp(self):
-        self.tmp = tempfile.TemporaryDirectory()
-
-    def tearDown(self):
-        self.tmp.cleanup()
-
-    def test_the_automated_capture_becomes_a_published_pick(self):
+    def test_the_capture_becomes_a_published_pick(self):
         payload = originate.run(self.data_dir(), live=False)
         row = payload['matches'][0]
         quote = row['origination']
         self.assertIsNotNone(quote, 'the capture priced nothing')
         self.assertEqual(quote['method'], 'reference')
-        self.assertEqual(row['pick_index'], 1)          # Off Chops
+        self.assertEqual(row['pick_index'], 1)              # Off Chops
         self.assertAlmostEqual(quote['probabilities'][1], 0.735, places=3)
-        self.assertEqual(quote['source_url'],
-                         'https://egamersworld.com/counterstrike/match/4kaAQWgKEx/'
-                         'ground-zero-vs-off-chops-5mfkMFe7d')
+        self.assertEqual(quote['source_url'], EGW_PAGE)
 
-    def test_removing_the_capture_from_the_pool_leaves_the_fixture_blank(self):
-        original = reference_odds.CAPTURE_PATHS
-        reference_odds.CAPTURE_PATHS = tuple(
-            p for p in original if p != reference_odds.LIVE_EVIDENCE_PATH)
-        try:
-            payload = originate.run(self.data_dir(), live=False)
-        finally:
-            reference_odds.CAPTURE_PATHS = original
+    def test_without_the_chain_the_same_fixture_stays_blank(self):
+        payload = originate.run(self.data_dir(chain=False), live=False)
         row = payload['matches'][0]
         self.assertIsNone(row['origination'])
         self.assertIsNone(row['pick_index'])
 
-
-class ReviewedCapturesComeFirst(unittest.TestCase):
-    """A hand-reviewed price outranks the automated one, by behaviour not by comment.
-
-    ``reference_odds.CAPTURE_PATHS`` is ordered reviewed-captures-first and
-    ``quote()`` stops at the first fixture that resolves, so a fresh manual
-    capture wins even when the automated capture covers the same match.
-    """
-
-    def test_the_live_capture_is_last_in_the_pool(self):
-        self.assertIs(reference_odds.CAPTURE_PATHS[-1], reference_odds.LIVE_EVIDENCE_PATH)
-        self.assertNotIn(reference_odds.LIVE_EVIDENCE_PATH,
-                         reference_odds.CAPTURE_PATHS[:-1])
-
-    def test_a_fresh_reviewed_capture_outranks_the_automated_one(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            source = Path(tmp)
-            (source / 'origination' / 'evidence').mkdir(parents=True)
-            (source / 'research' / '57b1ee04').mkdir(parents=True)
-            observed = NOW.strftime('%Y-%m-%dT%H:%M:%SZ')
-            automated = live_entry(observed_at=observed)
-            reviewed = live_entry(observed_at=observed,
-                                  source_url='https://egamersworld.com/counterstrike/match/reviewed/gz-vs-oc',
-                                  odds=[2.00, 1.80])
-            (source / 'research/57b1ee04/reference-odds.json').write_text(json.dumps(
-                {'entries': [reviewed], 'rejected': [], 'observed_at': observed}))
-            (source / 'origination/evidence' / egw_live.EVIDENCE_NAME).write_text(json.dumps(
-                {'entries': [automated], 'observed_at': observed}))
-            (source / 'origination/evidence/live-collection-manifest.json').write_text(json.dumps(
-                [{'id': 'live-egw-index', 'url': egw_live.INDEX_URL, 'observed_at': observed,
-                  'status': 'ok'}]))
-            rows = reference_odds.load(source)['entries']
-            quote = None
-            for entry in rows:                      # exactly the ladder's loop
-                quote, _reason = reference_odds.quote(entry, MATCH, NOW)
-                if quote:
-                    break
-            self.assertIsNotNone(quote)
-            self.assertEqual(quote['source_url'], reviewed['source_url'])
-            self.assertEqual(quote['odds'], [2.00, 1.80])
+    def test_a_reviewed_capture_outranks_the_automated_one(self):
+        tmp = self.data_dir()
+        observed = NOW.strftime('%Y-%m-%dT%H:%M:%SZ')
+        reviewed = dict(egw_live.entries_for(INDEX_HTML, [dict(MATCH)],
+                                             {'aliases': []}, observed)[0],
+                        odds=[2.00, 1.80],
+                        source_url='https://egamersworld.com/counterstrike/match/'
+                                   'reviewed/gz-vs-oc')
+        (tmp / 'research' / '57b1ee04').mkdir(parents=True)
+        (tmp / 'research/57b1ee04/reference-odds.json').write_text(json.dumps(
+            {'entries': [reviewed], 'rejected': [], 'observed_at': observed}))
+        payload = originate.run(tmp, live=False)
+        quote = payload['matches'][0]['origination']
+        self.assertIsNotNone(quote)
+        self.assertEqual(quote['source_url'], reviewed['source_url'])
+        self.assertEqual([round(x, 4) for x in quote['probabilities']],
+                         [round(x, 4) for x in reference_odds.no_vig([2.00, 1.80])])
 
 
 class NoUndefinedNamesInScripts(unittest.TestCase):
@@ -308,7 +227,6 @@ class NoUndefinedNamesInScripts(unittest.TestCase):
 
     def test_scripts_have_no_undefined_module_names(self):
         try:
-            import io
             from pyflakes import api, reporter
         except ImportError:  # pragma: no cover - CI installs it (requirements.txt)
             self.skipTest('pyflakes is not installed in this environment')

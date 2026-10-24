@@ -35,7 +35,7 @@ UTC = timezone.utc
 NOW = datetime(2026, 10, 24, 9, 0, tzinfo=UTC)
 START = '2026-10-24T14:00:00Z'
 HOTSPAWN = 'https://www.hotspawn.com/matches/a-vs-b-nodwin-clutch-series-13-1082996'
-EGW_PAGE = 'https://egamersworld.com/counterstrike/matches/a-vs-b-xyz'
+EGW_PAGE = 'https://egamersworld.com/counterstrike/match/synthetic/acend-vs-unity-xyz'
 
 
 def match():
@@ -94,23 +94,37 @@ class TheCaptureIsReplayed(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.evidence = Path(self.tmp.name)
+        self.registry = originate.load_registry(
+            Path(__file__).resolve().parents[1] / 'data/origination/aliases.json')
+        # Synthetic original markup, not generated prose standing in for an
+        # observed provider clock and named outcomes. Match Collector.fetch_html.
+        self.html = (f'<html><a href="{EGW_PAGE}"><time datetime="{START}"></time>'
+                     'Acend 2.37 UNiTY 1.50</a></html>')
+        observed = originate.iso(NOW)
+        entries = egw_live.entries_for(self.html, [match()], self.registry, observed)
+        self.assertEqual(len(entries), 1)
+        (self.evidence / (egw_live.INDEX_EVIDENCE + '.json')).write_text(json.dumps({
+            'url': egw_live.INDEX_URL, 'observed_at': observed, 'html': self.html}))
+        import hashlib
+        (self.evidence / 'live-collection-manifest.json').write_text(json.dumps([{
+            'id': egw_live.INDEX_EVIDENCE, 'url': egw_live.INDEX_URL,
+            'method': 'GET', 'status': 'ok', 'http_status': 200,
+            'observed_at': observed, 'evidence': egw_live.INDEX_EVIDENCE + '.json',
+            'response_sha256': hashlib.sha256(self.html.encode()).hexdigest()}]))
         (self.evidence / egw_live.EVIDENCE_NAME).write_text(json.dumps({
             'source': 'EGamersWorld CS2 matches index (automated capture)',
-            'url': egw_live.INDEX_URL,
-            'observed_at': originate.iso(NOW),
-            'entries': [capture()],
-        }))
+            'url': egw_live.INDEX_URL, 'observed_at': observed, 'entries': entries}))
 
     def tearDown(self):
         self.tmp.cleanup()
 
     def test_run_replays_the_capture_into_the_reference_rung(self):
         source = inspect.getsource(originate.run)
-        self.assertIn('egw_live.load_live(evidence_dir)', source)
+        self.assertIn("egw_live.load_live(evidence_dir, snapshot['matches'], registry)", source)
         self.assertIn("'egw_live_replay'", source)
 
     def test_a_replayed_entry_prices_a_fixture_the_featured_ladder_left_blank(self):
-        rows = egw_live.load_live(self.evidence)
+        rows = egw_live.load_live(self.evidence, [match()], self.registry)
         self.assertEqual(len(rows), 1)
         result = originate.resolve_match(match(), [], [], [], None,
                                          originate.load_registry(
@@ -126,6 +140,10 @@ class TheCaptureIsReplayed(unittest.TestCase):
         self.assertEqual(result['pick_index'], 1)
         self.assertIn('EGamersWorld', origination['label'])
         self.assertIn('EGamersWorld', reference_odds.PROVIDER)
+
+    def test_derived_capture_without_original_response_cannot_price_anything(self):
+        (self.evidence / (egw_live.INDEX_EVIDENCE + '.json')).unlink()
+        self.assertEqual(egw_live.load_live(self.evidence, [match()], self.registry), [])
 
     def test_identical_placeholder_prices_still_price_nothing(self):
         # EGamersWorld serves 1.8/1.8 on pages without a real bookmaker average;
@@ -162,17 +180,10 @@ class TheCaptureIsReplayed(unittest.TestCase):
 class ReviewedCapturesStillOutrankAutomatedOnes(unittest.TestCase):
     def test_manual_entries_are_ordered_before_the_automated_capture(self):
         source = inspect.getsource(originate.run)
-        # The manual capture is built first, then the automated rows are read.
+        # The manual capture is built first, then the automated rows are appended.
         self.assertLess(source.index('reference_odds.load(output)'),
-                        source.index('egw_live.load_live(evidence_dir)'))
-        # Merge resolution 2026-10-24 (arena-a5b59ee6 x arena-5260ef4e): the
-        # automated file is read once, by reference_odds.load(), which also
-        # verifies the fetch against the request manifest. Appending the raw
-        # rows again would re-admit an unwitnessed entry, so the pool is not
-        # extended twice; the ordering that matters — reviewed captures first —
-        # lives in reference_odds.CAPTURE_PATHS and is asserted there by
-        # tests/test_a5b59ee6_publisher_wiring.py.
-        self.assertNotIn('reference_rows = reference_rows + egw_live_rows', source)
+                        source.index("egw_live.load_live(evidence_dir, snapshot['matches'], registry)"))
+        self.assertIn('reference_rows = reference_rows + egw_live_rows', source)
 
 
 if __name__ == '__main__':

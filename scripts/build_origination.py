@@ -619,15 +619,18 @@ def validate_origination(data, source):
                 values.append(q['probabilities'][0])
                 continue
             if q.get('family') == 'reference':
-                # Session arena-a5b59ee6: the reference pool now also carries the
-                # automated EGamersWorld capture written on every live refresh, so
-                # a fixture can be covered by more than one capture. Select the
-                # entry the published quote was actually priced from (its
-                # source_url, observation instant and excerpt hash) rather than
-                # the first row that happens to share the fixture id.
-                from scripts import reference_odds
-                entry = reference_odds.entry_for(source, m['id'], q)
-                assert entry is not None, 'Reference capture for this fixture is missing'
+                from scripts import reference_odds, egw_live
+                capture = reference_odds.load(source)
+                pooled = (list(capture.get('entries') or []) + list(capture.get('rejected') or [])
+                          + egw_live.load_live(source / 'origination/evidence', [raw], registry))
+                specific = [item for item in pooled if str(item.get('fixture_id')) == str(m['id'])
+                            and all(item.get(key) == q.get(key)
+                                    for key in ('source_url', 'observed_at', 'excerpt_sha256'))]
+                assert specific, 'Reference capture for this fixture/source/observation is missing'
+                assert len({json.dumps(item, sort_keys=True) for item in specific}) == 1, 'Reference capture is ambiguous'
+                entry = specific[0]
+                expected, reason = reference_odds.quote(entry, raw, timestamp(data['generated_at']))
+                assert expected is not None, 'Reference source rejected on replay: ' + str(reason)
                 reference_odds.replay(entry, q)
                 values.append(q['probabilities'][0])
                 continue
