@@ -6,6 +6,8 @@ Session `arena-73bc57bd`. Lobby read **2026-10-24T05:31Z** (25 future cards); pu
 
 **16 of 25** future Hotspawn CS2 cards already carry a pick on the published site; **9** do not. Those 9 are all CCT Europe 2026 Series #11/#12 cards, and the cause is the publish pipeline, not a missing source: the scheduled publisher has failed four consecutive runs (latest 40063011446) at *Regression tests*, so no collection has been published since 2026-10-23T19:57:15Z.
 
+The published rows were parsed from the deployed page at **2026-10-24T05:38Z** and frozen in `data/research/73bc57bd/published-rows-2026-10-24.json` (19 rows, page sha256 recorded), so this statement stays auditable after the next successful refresh replaces that page.
+
 ## Cards without a published pick
 
 | # | Card | Tournament | Lobby time (as rendered) | HLTV identity | Line evidence read today | Verdict |

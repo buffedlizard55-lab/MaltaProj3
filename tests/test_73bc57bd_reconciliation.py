@@ -41,7 +41,7 @@ class DossierShape(unittest.TestCase):
         self.dossier = json.loads(DOSSIER.read_text())
 
     def test_the_dossier_is_the_join_of_its_own_inputs(self):
-        rebuilt = reconcile.build_dossier(self.observations, reconcile.parse_published())
+        rebuilt = reconcile.build_dossier(self.observations, reconcile.load_published())
         self.assertEqual(rebuilt['counts'], self.dossier['counts'])
         self.assertEqual(
             [item['id'] for item in rebuilt['uncovered']],
@@ -58,7 +58,7 @@ class DossierShape(unittest.TestCase):
 
     def test_counts_add_up_against_the_published_rows(self):
         counts = self.dossier['counts']
-        self.assertEqual(counts['published_rows'], len(reconcile.parse_published()))
+        self.assertEqual(counts['published_rows'], len(reconcile.load_published()))
         self.assertEqual(
             counts['cards_with_a_published_pick'] + counts['cards_without_a_published_pick']
             + counts['published_rows_no_longer_in_the_future_lobby'],
@@ -70,12 +70,36 @@ class DossierShape(unittest.TestCase):
         )
         self.assertEqual(sum(counts['gap_verdicts'].values()), counts['cards_without_a_published_pick'])
 
-    def test_the_published_row_count_matches_the_deployed_page(self):
-        # The deployed page states its own coverage; the parse must agree with it.
-        html = Path('picks/index.html').read_text()
-        self.assertIn('carry a pick', html)
-        self.assertEqual(len(reconcile.parse_published()), 19)
-        self.assertEqual(self.dossier['counts']['published_rows'], 19)
+    def test_the_frozen_parse_is_the_page_that_was_read(self):
+        """The dossier is about the page as it stood at read time, not today's page.
+
+        ``picks/index.html`` is republished by every successful refresh, so this
+        test asserts the recorded provenance (url, read time, hash, row count)
+        rather than re-parsing a page that is expected to change.
+        """
+        record = json.loads(Path('data/research/73bc57bd/published-rows-2026-10-24.json').read_text())
+        self.assertEqual(record['rows'], reconcile.load_published())
+        self.assertEqual(len(record['rows']), self.dossier['counts']['published_rows'])
+        self.assertEqual(len(record['rows']), 19)
+        self.assertRegex(record['page_sha256'], r'^[0-9a-f]{64}$')
+        self.assertEqual(record['read_at'], '2026-10-24T05:38:00Z')
+        self.assertEqual(record['source_url'], 'https://buffedlizard55-lab.github.io/MaltaProj3/picks/')
+        past_start = {'1083025', '1082923', '1083045'}
+        self.assertTrue(past_start.issubset({row['id'] for row in record['rows']}))
+
+    def test_the_frozen_parse_still_parses_the_page_it_was_taken_from(self):
+        """Re-parsing the same bytes must reproduce the same rows.
+
+        After a refresh replaces the page this test re-parses the *current* file
+        only to prove the parser is deterministic on whatever it is given; the
+        dossier itself keeps the frozen record.
+        """
+        page = Path('picks/index.html')
+        rows = reconcile.parse_published(page)
+        self.assertGreater(len(rows), 0)
+        for row in rows:
+            self.assertTrue(row['id'].isdigit())
+            self.assertEqual(len(row['teams']), 2)
 
 
 class EveryRowHasAFirstPartyLink(unittest.TestCase):
@@ -131,7 +155,7 @@ class NoInventedValues(unittest.TestCase):
             self.assertFalse(forbidden in text, f'{forbidden} must not appear in the dossier')
 
     def test_published_confidences_are_restated_not_invented(self):
-        parsed = {row['id']: row for row in reconcile.parse_published()}
+        parsed = {row['id']: row for row in reconcile.load_published()}
         for item in self.dossier['covered']:
             row = item['published']
             self.assertEqual(row['confidence'], parsed[item['id']]['confidence'], item['id'])

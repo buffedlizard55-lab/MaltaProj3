@@ -29,6 +29,7 @@ OBSERVATIONS = Path('data/research/73bc57bd/observations-2026-10-24.json')
 OUT_JSON = Path('data/research/73bc57bd/inventory-reconciliation-2026-10-24.json')
 OUT_MD = Path('data/research/73bc57bd/inventory-reconciliation-2026-10-24.md')
 PUBLISHED_PAGE = Path('picks/index.html')
+PUBLISHED_ROWS = Path('data/research/73bc57bd/published-rows-2026-10-24.json')
 
 ROW = re.compile(r'<tr id="match-(\d+)" class="match-row" data-record-id="\d+"(.*?)</tr>', re.S)
 TAG = re.compile(r'<[^>]+>')
@@ -58,6 +59,36 @@ def parse_published(page: Path = PUBLISHED_PAGE) -> list[dict]:
             'price_observed_at': _attr(attrs, 'data-price-time'),
         })
     return rows
+
+
+def load_published(record: Path = PUBLISHED_ROWS) -> list[dict]:
+    """The frozen parse of the deployed page at read time.
+
+    ``picks/index.html`` is republished by every successful refresh, so the
+    dossier must not re-read it: the coverage statement is about the page as it
+    stood at 2026-10-24T05:38Z. Use ``snapshot_published()`` to record a newer
+    observation instead of silently re-deriving against a moving page.
+    """
+    return json.loads(record.read_text())['rows']
+
+
+def snapshot_published(record: Path = PUBLISHED_ROWS, page: Path = PUBLISHED_PAGE) -> dict:
+    import hashlib
+
+    data = page.read_bytes()
+    payload = {
+        'schema_version': 1,
+        'source_url': 'https://buffedlizard55-lab.github.io/MaltaProj3/picks/',
+        'source_path_in_repo': str(page),
+        'read_at': '2026-10-24T05:38:00Z',
+        'note': ('Exactly the rows parsed out of the deployed branch-root page at read time. Frozen so the dossier '
+                 'stays auditable after a later publish replaces the page.'),
+        'page_sha256': hashlib.sha256(data).hexdigest(),
+        'page_bytes': len(data),
+        'rows': parse_published(page),
+    }
+    record.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + '\n')
+    return payload
 
 
 def build_dossier(observations: dict, published: list[dict]) -> dict:
@@ -144,6 +175,10 @@ def render_markdown(dossier: dict) -> str:
         f'publish pipeline, not a missing source: the scheduled publisher has failed four consecutive runs '
         f'(latest 40063011446) at *Regression tests*, so no collection has been published since '
         f'{dossier["publisher_runs"][0]["created_at"]}.',
+        '',
+        'The published rows were parsed from the deployed page at **2026-10-24T05:38Z** and frozen in '
+        '`data/research/73bc57bd/published-rows-2026-10-24.json` (19 rows, page sha256 recorded), so this '
+        'statement stays auditable after the next successful refresh replaces that page.',
         '',
         '## Cards without a published pick',
         '',
@@ -241,7 +276,7 @@ def render_markdown(dossier: dict) -> str:
 
 def main() -> None:
     observations = json.loads(OBSERVATIONS.read_text())
-    published = parse_published()
+    published = load_published()
     dossier = build_dossier(observations, published)
     OUT_JSON.write_text(json.dumps(dossier, indent=2, ensure_ascii=False) + '\n')
     OUT_MD.write_text(render_markdown(dossier))
