@@ -65,3 +65,17 @@ Limitation, stated plainly: in this session the per-match HLTV Betting block was
 3. The Hotspawn header counter (224) disagrees with its own filter totals (88); the counter is not used.
 4. EGW placeholders and the blank team name are rejected, not converted.
 5. No probability, pick or alias is written by this record.
+
+## 6. Second finding: a published 1.00 price
+
+While re-reading the rendered build, one money-backed row shows a decimal price of exactly **1.00**:
+
+| Hotspawn | Fixture | Published line | Published estimate | Source of the number |
+| --- | --- | --- | --- | --- |
+| [1082860](https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860) | FlyQuest vs Staqued (DFRAG Invitational 2026, 2026-10-27T03:00Z) | `line 1.00 / 12.00` | FlyQuest **92.3%**, fair 1.083 | Thunderpick, labelled "No-vig bookmaker estimate" |
+
+The arithmetic is right — 1/1.00 = 1.0000 plus 1/12.00 = 0.0833 gives 92.3% — but a decimal price of exactly 1.00 returns no profit, so no book offers it on a live two-way market. It behaves like the identical-pair placeholders this project already rejects; it is not caught here because the pair is not identical and the implied 8.3% margin looks normal.
+
+I could **not** re-read the original value: `https://thunderpick.io/api/matches` answered `{"statusCode":200,"ok":true,"data":{"matches":[]}}` when checked, so the collector's 2026-10-23T20:09Z quote is the only record. Raised as **needs review**, not as a confirmed provider error. The other two bookmaker rows in the same build carry ordinary two-way prices (1.22 / 3.80 and 1.60 / 2.17), so this is one row, not the whole rung.
+
+Requested owner (logged, not edited here): the paired-price rung should reject any leg at or below 1.01 before margin removal, and publish the rejection reason the way the identical-pair gate does.

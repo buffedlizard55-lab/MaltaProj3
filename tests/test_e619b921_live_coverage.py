@@ -226,6 +226,31 @@ class TheFlagsArePublishable(unittest.TestCase):
             self.assertIn(fixture['id'], text)
         self.assertIn('No probability, pick or alias is written', text)
 
+    def test_the_one_dot_zero_price_finding_is_published(self):
+        """A decimal leg of 1.00 is not a market price, whatever the arithmetic says."""
+        findings = json.loads(FLAGS.read_text())
+        flag = next(f for f in findings
+                    if f['id'] == 'e619b921-thunderpick-decimal-price-of-1-00-published')
+        self.assertEqual(flag['match_ids'], ['1082860'])
+        self.assertIn('1.00', flag['detail'])
+        self.assertIn('92.3', flag['detail'])
+        self.assertIn('needs-review', flag['detail'])
+        self.assertTrue(all(u.startswith('https://') for u in flag['source_urls']))
+
+    def test_the_dossier_reports_the_one_dot_zero_price(self):
+        text = MARKDOWN.read_text()
+        self.assertIn('line 1.00 / 12.00', text)
+        self.assertIn('92.3%', text)
+
+    def test_the_verification_record_carries_the_same_finding(self):
+        verification = json.loads(
+            (ROOT / 'data/research/e619b921/verification.json').read_text())
+        ids = [c['id'] for c in verification['checks']]
+        self.assertIn('V9', ids)
+        check = next(c for c in verification['checks'] if c['id'] == 'V9')
+        self.assertEqual(check['result'], 'confirmed-with-defect')
+        self.assertIn('0.92308', check['detail'])
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -2,7 +2,7 @@
  "schema_version": 1,
  "session": "arena-e619b921",
  "verified_at": "2026-10-24T06:35:00Z-07:05:00Z",
- "subject": "Published CS2 dashboard build (snapshot generated 2026-10-23T20:10:00Z) — independent line-by-line re-verification",
+ "subject": "Published CS2 dashboard build (snapshot generated 2026-10-23T20:10:00Z) \u2014 independent line-by-line re-verification",
  "method": "Each claim below was read from the published artefact named in `read_from` and compared with the official/first-party page named in `source_urls`. A value that could not be compared is marked unverified rather than filled in.",
  "checks": [
   {
@@ -11,7 +11,10 @@
    "read_from": "root index.html (data-snapshot-generated 2026-10-23T20:10:00Z); https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json counts",
    "result": "confirmed",
    "detail": "origination.json counts: active 19, resolved 19, unresolved 0, with_pick 19, market 9, bookmaker 3, model 7, network 1 (network is counted inside model on the page). 9 + 3 = 12 external line, 7 model, 0 unresolved. The rendered Picks at a glance list contains exactly 19 rows: 9 data-method=market, 3 bookmaker, 7 model. Arithmetic and rendering agree.",
-   "source_urls": ["https://buffedlizard55-lab.github.io/MaltaProj3/", "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json"]
+   "source_urls": [
+    "https://buffedlizard55-lab.github.io/MaltaProj3/",
+    "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json"
+   ]
   },
   {
    "id": "V2",
@@ -19,7 +22,9 @@
    "read_from": "root index.html glance rows",
    "result": "confirmed",
    "detail": "19/19 rows contain a https://www.hotspawn.com/matches/... link and a second source link: 9 Polymarket event pages, 3 Thunderpick/Bovada API or event pages, 6 Valve standings or bo3.gg, plus the two DFRAG model rows. No row lacks a source URL.",
-   "source_urls": ["https://buffedlizard55-lab.github.io/MaltaProj3/"]
+   "source_urls": [
+    "https://buffedlizard55-lab.github.io/MaltaProj3/"
+   ]
   },
   {
    "id": "V3",
@@ -27,7 +32,10 @@
    "read_from": "root index.html row 1082792 link target; official standings table",
    "result": "confirmed",
    "detail": "The 2026-10-05 standings list HOTU at standing 31 with 1437 points (roster dwushka, frontales, kade0, mizu, n0rb3r7) and The Huns at standing 122 with 944 points (roster Annihilation, Bart4k, bexyz, controlez, Cozen). The published 94.1% is consistent in magnitude with that 493-point gap under Valve's published 400-point logistic scale, which gives 94.5% before any rating-deviation treatment; the exact figure is replayed from the collector's saved evidence, not recomputed here. Labelled on the page as research model, not a market.",
-   "source_urls": ["https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md", "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js"]
+   "source_urls": [
+    "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js"
+   ]
   },
   {
    "id": "V4",
@@ -35,7 +43,9 @@
    "read_from": "HLTV match page",
    "result": "confirmed",
    "detail": "HLTV 2399888: DFRAG Invitational 2026, Best of 3 (LAN), Group A opening match, Ground Zero HLTV #143 / VRS #131. The Betting block contains one Stake US sweepstakes promo row with 'No promocode available' and no decimal odds. The HLTV fan poll (42.9% / 57.1%) is excluded evidence and is not a probability.",
-   "source_urls": ["https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026"]
+   "source_urls": [
+    "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026"
+   ]
   },
   {
    "id": "V5",
@@ -43,7 +53,10 @@
    "read_from": "live lobby vs published snapshot at 2026-10-24T06:35Z",
    "result": "confirmed-with-gap",
    "detail": "25 cards live; 16 are in the snapshot; 9 are not, all scheduled after the last successful collect. The three failed runs cited in the flag all failed at the regression step before collection, which is upstream of every pick source. Details in data/research/e619b921/live-coverage.json.",
-   "source_urls": ["https://play.hotspawn.com/cs2-pickems", "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446"]
+   "source_urls": [
+    "https://play.hotspawn.com/cs2-pickems",
+    "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446"
+   ]
   },
   {
    "id": "V6",
@@ -51,7 +64,10 @@
    "read_from": "root index.html glance rows vs root snapshot.json analysis",
    "result": "confirmed",
    "detail": "snapshot.json marks both fixtures analysis=null (counts.picks 17, counts.unresolved 2), while the rendered page shows 1082858 Off Chops 55.1% (network model, bo3.gg source link) and 1082792 HOTU 94.1% (Valve). The page is rendered from the reconciled origination layer; the JSON snapshot keeps the featured-layer counts, and the page labels the block accordingly. No 50/50 default is used anywhere.",
-   "source_urls": ["https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json", "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json"]
+   "source_urls": [
+    "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+    "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json"
+   ]
   },
   {
    "id": "V7",
@@ -59,7 +75,10 @@
    "read_from": "root index.html; scripts/build.py policy constants; origination policy",
    "result": "confirmed",
    "detail": "origination.json policy records hotspawn_votes_used false and fan_votes_used false. The policy ladder in the same file lists only priced providers, labelled relays, aggregators and research models. The lobby cards' crowd percentages (for example HOTU 97% / The Huns 3%) contradict the model's direction nowhere used as an input.",
-   "source_urls": ["https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json", "https://play.hotspawn.com/cs2-pickems"]
+   "source_urls": [
+    "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+    "https://play.hotspawn.com/cs2-pickems"
+   ]
   },
   {
    "id": "V8",
@@ -67,7 +86,20 @@
    "read_from": "root index.html data-snapshot-generated vs wall clock",
    "result": "confirmed",
    "detail": "generated_at 2026-10-23T20:10:00Z, stale_after_hours 8, observed 2026-10-24T06:35Z = 10h25m. The banner is rendered, so the page does not present stale numbers as current.",
-   "source_urls": ["https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json"]
+   "source_urls": [
+    "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json"
+   ]
+  },
+  {
+   "id": "V9",
+   "claim": "The FlyQuest vs Staqued (1082860) estimate reproduces exactly from the price the page prints, and that price is 1.00.",
+   "read_from": "root index.html glance line; https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082860",
+   "result": "confirmed-with-defect",
+   "detail": "Published: FlyQuest 92.3%, fair 1.083, 'No-vig bookmaker estimate', Thunderpick, observed 'line 1.00 / 12.00'. Recomputed: 1/1.00 = 1.0000, 1/12.00 = 0.08333, sum 1.08333, FlyQuest share 0.92308 = 92.3%. The arithmetic is exact; the input is not a tradeable price (a decimal 1.00 returns zero profit), so the estimate is inflated by construction. Raised as flag e619b921-thunderpick-decimal-price-of-1-00-published. The feed could not be re-read (thunderpick.io/api/matches returned an empty match list), so the stored quote is the only record.",
+   "source_urls": [
+    "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082860",
+    "https://thunderpick.io/api/matches"
+   ]
   }
  ],
  "unverified": [
@@ -91,7 +123,8 @@
   "Hotspawn header counter (224) does not agree with its own filter totals (88); earlier sessions recorded 203 vs 92 and 68 vs 88. Flagged; the counters are never used as inventory.",
   "EGamersWorld publishes identical 1.8/1.8 for five of the nine uncovered fixtures and renders one opponent name blank. Rejected as non-market, never converted.",
   "Three consecutive scheduled refreshes failed before collecting; the published snapshot was 10h25m old at the observation.",
-  "The feature layer (snapshot.json) and the complete researched layer (origination.json) disagree on the count of unresolved fixtures by design (2 vs 0). Both are published and labelled; a reader comparing the two files must read the labels."
+  "The feature layer (snapshot.json) and the complete researched layer (origination.json) disagree on the count of unresolved fixtures by design (2 vs 0). Both are published and labelled; a reader comparing the two files must read the labels.",
+  "A two-way bookmaker quote of 1.00 / 12.00 is published as a 92.3% estimate (1082860): the arithmetic reproduces exactly, but a 1.00 leg is not tradeable and is not caught by the existing identical-pair gate."
  ],
  "source_urls": [
   "https://play.hotspawn.com/cs2-pickems",
