@@ -81,7 +81,7 @@
       "area": "Regression wall-clock pin in tests/test_a5b59ee6_publisher_wiring.py",
       "status": "fixed",
       "finding": "TheLadderPublishesThePick stamped its synthetic EGW chain at 2026-10-24T06:30:00Z while originate.run(live=False) read wall-clock datetime.now(UTC), causing two tests to fail MAX_PRICE_AGE_HOURS = 8 starting at 2026-10-24T14:30:01Z (blocking both checks.yml and pages.yml step 5 Regression tests).",
-      "handling": "Pinned originate.datetime.now(UTC) to the fixture clock NOW (2026-10-24T06:30:00Z) inside TheLadderPublishesThePick so the integration suite stays deterministic at every wall clock.",
+      "handling": "Independently reproduced and pinned the clock locally; adopted session arena-5f9d0082 PR #317 merged originate.run(..., now=NOW) signature at integration so the suite stays deterministic at every wall clock.",
       "evidence": [
         {
           "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",

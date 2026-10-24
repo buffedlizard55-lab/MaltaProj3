@@ -163,22 +163,13 @@ class TheWholeChainReplays(unittest.TestCase):
                                             {'aliases': []}), [])
 
 
-class _PinnedDatetime(datetime):
-    @classmethod
-    def now(cls, tz=None):
-        return NOW if tz is not None else NOW.replace(tzinfo=None)
-
-
 class TheLadderPublishesThePick(unittest.TestCase):
     """End to end: the capture must change a published pick, or it is decoration."""
 
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
-        self._dt_patch = patch.object(originate, 'datetime', _PinnedDatetime)
-        self._dt_patch.start()
 
     def tearDown(self):
-        self._dt_patch.stop()
         self.tmp.cleanup()
 
     def data_dir(self, chain: bool = True):
@@ -197,7 +188,7 @@ class TheLadderPublishesThePick(unittest.TestCase):
         return tmp
 
     def test_the_capture_becomes_a_published_pick(self):
-        payload = originate.run(self.data_dir(), live=False)
+        payload = originate.run(self.data_dir(), live=False, now=NOW)
         row = payload['matches'][0]
         quote = row['origination']
         self.assertIsNotNone(quote, 'the capture priced nothing')
@@ -207,7 +198,7 @@ class TheLadderPublishesThePick(unittest.TestCase):
         self.assertEqual(quote['source_url'], EGW_PAGE)
 
     def test_without_the_chain_the_same_fixture_stays_blank(self):
-        payload = originate.run(self.data_dir(chain=False), live=False)
+        payload = originate.run(self.data_dir(chain=False), live=False, now=NOW)
         row = payload['matches'][0]
         self.assertIsNone(row['origination'])
         self.assertIsNone(row['pick_index'])
@@ -223,7 +214,7 @@ class TheLadderPublishesThePick(unittest.TestCase):
         (tmp / 'research' / '57b1ee04').mkdir(parents=True)
         (tmp / 'research/57b1ee04/reference-odds.json').write_text(json.dumps(
             {'entries': [reviewed], 'rejected': [], 'observed_at': observed}))
-        payload = originate.run(tmp, live=False)
+        payload = originate.run(tmp, live=False, now=NOW)
         quote = payload['matches'][0]['origination']
         self.assertIsNotNone(quote)
         self.assertEqual(quote['source_url'], reviewed['source_url'])
