@@ -1,0 +1,85 @@
+[
+  {
+    "id": "e619b921-nine-live-cards-uncovered",
+    "severity": "warning",
+    "match_ids": [
+      "1079658",
+      "1081152",
+      "1079659",
+      "1081153",
+      "1079660",
+      "1081154",
+      "1079661",
+      "1081156",
+      "1081158"
+    ],
+    "title": "Nine of the 25 cards live on Hotspawn at 2026-10-24T06:35Z have no row in the published snapshot, because three scheduled refreshes failed before collecting",
+    "detail": "Dated observation (data/research/e619b921/live-coverage.json). The public lobby rendered 25 cards in Closing Soon + Upcoming; 16 of them are in the published 2026-10-23T20:10:00Z snapshot and 9 are not: 1079658 Acend-FORZE Reload, 1081152 HAVU-Azuolas, 1079659 Spirit Academy-Lavked, 1081153 Saint Sinners-6yuBoJlbl, 1079660 INOX Division-BRUTE, 1081154 BakS-ILLYRIANS, 1079661 Nuclear TigeRES-ex-Zero Tenacity, 1081156 Spirit Academy-LFO 10, 1081158 FORZE Reload-ex-RUSTEC (all CCT Europe 2026 Series #11/#12). Cause, verified from the run pages: pages.yml runs 40037957529, 40048429858 and 40063011446 each failed at the 'Regression tests (repository fixtures, before any cache restore)' step, so the snapshot was 10h25m old at the observation - beyond its own 8-hour bound. The republish-last-verified job kept the last good build live meanwhile. These cards are scheduled after the last collect and are picked up by the next successful refresh; this record does not add rows by hand. Line research for the nine is in the dossier: 4 already have a usable two-sided price (3 first-party Polymarket books, 1 named-bookmaker aggregate) and 5 have none anywhere reachable.",
+    "source_urls": [
+      "https://play.hotspawn.com/cs2-pickems",
+      "https://play.hotspawn.com/cs2-pickems#fixture-1079658",
+      "https://play.hotspawn.com/cs2-pickems#fixture-1081156",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40037957529",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40048429858",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json"
+    ]
+  },
+  {
+    "id": "e619b921-hotspawn-week-counter-disagrees-with-filters",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Hotspawn's lobby header count does not match its own filter totals, and the pair changes between reads (224 vs 88 at 06:35Z; 203 vs 92 and 68 vs 88 recorded the day before)",
+    "detail": "Read verbatim at 2026-10-24T06:35Z: the header says '224 matches this week' while the tier filter says 'All tiers (88)  B (43)  C (45)' and the tournament filter says 'All tournaments (88)' across 17 tournaments; 25 cards were actually rendered in Closing Soon + Upcoming. Earlier dated sessions recorded '203 matches this week' against 'All tiers (92)' (data/research/42bfa8ea/live-coverage.json, 2026-10-23T09:52Z) and '68 matches this week' against a filter total of 88 (data/research/picks-model.json, 2026-10-14). The site never uses these counters as an inventory: every count on this dashboard is derived from the fixture API rows the collector actually stored. Recorded so a reader comparing the lobby's headline number with the site's coverage is not misled.",
+    "source_urls": [
+      "https://play.hotspawn.com/cs2-pickems",
+      "https://play.hotspawn.com/lobby",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
+    ]
+  },
+  {
+    "id": "e619b921-egw-placeholder-and-blank-team",
+    "severity": "warning",
+    "match_ids": [
+      "1081152",
+      "1081153",
+      "1081154",
+      "1081156",
+      "1081158"
+    ],
+    "title": "EGamersWorld publishes an identical 1.8/1.8 on five distinct fixtures and renders one opponent name blank; none of it is treated as a price",
+    "detail": "Read on the CCT Europe 2026 Series #12 event page at 2026-10-24T06:47Z: HAVU vs Azuolas 1.8/1.8, 6yuBoJlbl vs Saint Sinners 1.8/1.8, BakS vs ILLYRIANS 1.8/1.8, Spirit Academy vs (blank) 1.8/1.8 and FORZE Reload vs ex-RUSTEC 1.8/1.8. An identical two-sided pair is not a market (it is a 50/50 placeholder and carries no bookmaker information), so the reviewed ladder rejects it; the same placeholder was already rejected for HOTU vs The Huns (flag 43110640-hotu-the-huns-guided-pick). The Spirit Academy card additionally renders the opponent name as an empty string while the same fixture (Hotspawn 1081156 Spirit Academy vs LFO 10) is listed with a name on the lobby and on the event schedule, which means an exact-name join against EGW would silently fail there. The five fixtures therefore fall to the research-model rung and keep their limitation text. On the same page, four other fixtures do carry real two-sided prices (Acend 2.87/1.35, Spirit Academy 1.49/2.45, INOX 1.76/1.94, Nuclear TigeRES 1.45/2.51), so the defect is per-fixture, not site-wide.",
+    "source_urls": [
+      "https://egamersworld.com/counterstrike/event/cct-europe-2026-series-12-HiXMAaC8L",
+      "https://egamersworld.com/counterstrike/event/cct-europe-2026-series-11-_rW8GEyWK",
+      "https://play.hotspawn.com/cs2-pickems#fixture-1081156"
+    ]
+  },
+  {
+    "id": "e619b921-published-snapshot-beyond-its-stale-bound",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "The live snapshot was 10h25m old at the observation, past the 8-hour bound the page itself declares",
+    "detail": "The public /data/latest.json and the branch-root index.html both carry generated_at 2026-10-23T20:10:00Z with stale_after_hours 8. At 2026-10-24T06:35Z that is 10h25m. The page renders its own 'Do not treat these as current picks' banner and a 'Load updated picks' control while a newer snapshot exists, which is the designed degraded mode, not a silent failure - but the underlying cause is the three failed refreshes above. Verified that the deployed JSON is not the checked-in replay fixture: the branch-root file is the last verified build and data/* is never overwritten by root publish.",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/pages.yml"
+    ]
+  },
+  {
+    "id": "e619b921-thunderpick-decimal-price-of-1-00-published",
+    "severity": "warning",
+    "match_ids": [
+      "1082860"
+    ],
+    "title": "A two-way bookmaker quote of 1.00 / 12.00 is published as FlyQuest 92.3%; a decimal price of exactly 1.00 is not tradeable and needs the same rejection rule as a 1.8/1.8 placeholder",
+    "detail": "The published build carries fixture 1082860 (FlyQuest vs Staqued, DFRAG Invitational 2026, 2026-10-27T03:00Z) as a 'No-vig bookmaker estimate' from Thunderpick, with the observed price rendered as 'line 1.00 / 12.00' on Picks at a glance and 'Money-backed line / No-vig bookmaker estimate / Thunderpick' on the full audited list. The arithmetic is internally correct - 1/1.00 = 1.0000 plus 1/12.00 = 0.0833 sums to 1.0833, giving FlyQuest 92.3% and fair decimal 1.083 - but the input is the problem: a decimal price of exactly 1.00 returns no profit to a backer, so no book offers it on a live two-way market. It behaves like the identical-pair placeholders the ladder already rejects, and here it is not rejected because the pair is not identical and the implied margin (8.3%) looks normal. The effect is to publish a certainty-flavoured 92.3% on a fixture where no reader can verify a 1.00 offer. I could not re-read the original value: https://thunderpick.io/api/matches answered {statusCode:200, ok:true, data:{matches:[]}} when checked, so the collector's stored 2026-10-23T20:09Z quote is the only record of it and this flag is raised as needs-review rather than as a confirmed provider error. The other two bookmaker rows in the same build carry ordinary two-way prices (Alka 1.22/3.80 LOS NINOS and NEXVOID 1.60/2.17 Alter Ego), so this is one row, not the whole rung. Requested owner: the Thunderpick/Bovada paired-price rung (scripts/reference_odds.py and its callers) should reject any leg at or below 1.01 before margin removal, and publish the rejection reason the way the identical-pair gate does.",
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082860",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
+      "https://thunderpick.io/api/matches"
+    ]
+  }
+]

@@ -1,0 +1,102 @@
+{
+  "session": "arena-b72154e1",
+  "researched_at": "2026-10-24T06:30:00Z",
+  "scope": "Every Hotspawn CS2 fixture open for picks on the live lobby that the published snapshot leaves without a compliant betting-line pick: (A) the 2 unresolved fixtures in snapshot 2026-10-23T20:10:00Z, (B) the 5 future-start fixtures carrying only a Valve-rating research-model pick, (C) the 9 live-lobby cards added after that snapshot and therefore unpublished until the next automated collect. Research order per brief: HLTV first, then esportsbooks/aggregators. Hotspawn '% picked' and HLTV fan votes were observed and excluded; they are never probabilities. No snapshot row was hand-edited; guided picks below are published guidance with limitations, and the automated ladder (incl. scripts/egw_live.py) remains the only writer of snapshot probabilities.",
+  "published_snapshot": {
+    "file": "snapshot.json",
+    "generated_at": "2026-10-23T20:10:00Z",
+    "counts": {"inventory": 82, "upcoming": 19, "picks": 17, "unresolved": 2}
+  },
+  "live_lobby": {
+    "url": "https://play.hotspawn.com/lobby",
+    "read_at": "2026-10-24 (first-hand, this session)",
+    "open_cs2_cards": 25,
+    "open_ids": ["1079658", "1079193", "1081152", "1079659", "1081153", "1079660", "1079195", "1081154", "1079661", "1082996", "1081156", "1079198", "1079199", "1081158", "1079200", "1082858", "1082859", "1082860", "1082861", "1082897", "1082898", "1082900", "1082901", "1082792", "1082793"],
+    "in_lobby_not_in_snapshot": ["1079658", "1081152", "1079659", "1081153", "1079660", "1081154", "1079661", "1081156", "1081158"],
+    "note": "Lobby display times are rendered in a local offset; fixture IDs (not displayed times) are the identity used here. Snapshot fixtures 1083025, 1082923, 1083045 no longer appear as open cards (already started)."
+  },
+  "fixtures": [
+    {
+      "id": "1082858", "group": "A-unresolved",
+      "teams": ["Ground Zero", "Off Chops"], "competition": "DFRAG Invitational 2026", "starts_at_snapshot": "2026-10-26T03:00:00Z",
+      "hltv": {"url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026", "finding": "Identity + Best of 3 (LAN), Group A opening match confirmed first-hand 2026-10-24. Ground Zero HLTV #143 / VRS #131. Betting block: Stake US sweepstakes promo only, no bookmaker odds. Fan vote 42.9/57.1 observed and excluded."},
+      "esportsbooks": {"url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d", "finding": "EGamersWorld match page read first-hand 2026-10-24 still publishes Ground Zero 3.44 / Off Chops 1.24 (bookmaker average; page tip text repeats the same pair). Polymarket directory display (2.22x/1.15x multipliers) is not a clean two-sided book and was not used."},
+      "guided_pick": {"team": "Off Chops", "probabilities_pct": [26.5, 73.5], "basis": "No-vig of EGW 3.44/1.24", "reverified": "Confirms session arena-43110640 guided pick unchanged on 2026-10-24."},
+      "limitations": ["Single aggregated reference (EGW average), not a first-party quote.", "Hotspawn lobby crowd favors Ground Zero 93% — crowd share is not a probability and disagrees with the market; the market line governs here.", "Resolves automatically when a refresh replays a compliant line under the existing freshness/placeholder gates."]
+    },
+    {
+      "id": "1082792", "group": "A-unresolved",
+      "teams": ["HOTU", "The Huns"], "competition": "GLuck Moscow Cyber Games 2026", "starts_at_snapshot": "2026-10-31T09:00:00Z",
+      "hltv": {"url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026", "finding": "Identity + Best of 3 (LAN) semi-final confirmed first-hand 2026-10-24. HOTU HLTV #38 / VRS #38. Betting block: promo only, no odds. Fan vote 77.6/22.4 observed and excluded."},
+      "esportsbooks": {"url": "https://egamersworld.com/counterstrike/match/EkalRNMvVx/hotu-vs-the-huns-esports-SfdtzDhiK", "finding": "EGW still shows only the identical 1.8/1.8 placeholder (confirmed via search extract 2026-10-24) — correctly rejected as not a market. Polymarket lists the fixture at $0.00 volume — no usable book."},
+      "guided_pick": {"team": "HOTU", "probabilities_pct": [94.1, 5.9], "basis": "Valve fit.js model (RD 75) on the HLTV-lineup four-of-five identity join: HOTU 1437 pts vs The Huns 944 pts (Valve standings 2026-10-05), per arena-43110640; re-verified here that no betting line has appeared since."},
+      "limitations": ["No betting line exists on any surface reachable first-hand; this is a research model, uncalibrated — trust the direction (HOTU), not the extreme 94.1%.", "Automated replay of the lineup join needs the runner HLTV fetch, which HLTV answers 403; the join was read first-hand by arena-43110640.", "Far-future start (Oct 31): books may open closer to lock; egw_live retries every refresh."]
+    },
+    {
+      "id": "1082996", "group": "B-model-only",
+      "teams": ["Acend", "UNiTY"], "competition": "NODWIN Clutch Series 13", "starts_at_snapshot": "2026-10-25T09:00:00Z",
+      "published_pick": {"team": "Acend", "probabilities": [0.5419, 0.4581], "label": "Valve-rating research estimate"},
+      "hltv": {"url": "https://www.hltv.org/events/9440/nodwin-clutch-series-13", "finding": "HLTV event page lists Acend HLTV #132 and UNiTY HLTV #87 (VRS invites #71/#72 respectively per the same page extract) — near-even on VRS, UNiTY ahead on HLTV rank. No HLTV bookmaker odds block with prices was readable."},
+      "esportsbooks": {"url": "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/acend-vs-unity-esports-iwaKSVfgf", "finding": "EGW match page header shows the 1.8 placeholder only (search extract 2026-10-24). No two-sided line readable first-hand."},
+      "verdict": "Keep the published model pick (Acend 54.2%) labelled as a research estimate. It is close to a coin flip; HLTV world rank leans the other way, so treat as low-confidence.",
+      "limitations": ["Research model only; no market line exists yet on reachable surfaces.", "Near-50/50: small rating changes flip the side. Re-check at next refresh."]
+    },
+    {
+      "id": "1079198", "group": "B-model-only",
+      "teams": ["Metizport", "BakS"], "competition": "NODWIN Clutch Series 13", "starts_at_snapshot": "2026-10-25T12:00:00Z",
+      "published_pick": {"team": "Metizport", "probabilities": [0.7986, 0.2014], "label": "Valve-rating research estimate"},
+      "hltv": {"url": "https://www.hltv.org/valve-ranking/teams/2026/october/10", "finding": "HLTV Valve ranking extract: Metizport #55 with 1238 Valve points vs BAKS #104 with 1021 points — same direction as the published model pick. No priced HLTV betting block readable."},
+      "esportsbooks": {"url": "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/metizport-vs-baks-esports-qOJcZA7Wgq", "finding": "EGW header shows the 1.8 placeholder only (search extract 2026-10-24)."},
+      "verdict": "Keep the published model pick (Metizport 79.9%), direction corroborated by Valve points gap.",
+      "limitations": ["Research model only; magnitude uncalibrated.", "EGW placeholder must never be read as 50/50."]
+    },
+    {
+      "id": "1079200", "group": "B-model-only",
+      "teams": ["Color", "ex-Zero Tenacity"], "competition": "NODWIN Clutch Series 13", "starts_at_snapshot": "2026-10-25T18:00:00Z",
+      "published_pick": {"team": "Color", "probabilities": [0.7359, 0.2641], "label": "Valve-rating research estimate"},
+      "hltv": {"url": "https://www.hltv.org/matches/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13", "finding": "Read first-hand 2026-10-24: Best of 3 (Online), Round of 16. Color HLTV Unranked / VRS #73; ex-Zero Tenacity VRS #92 per the page's VRS forecast block (1173pt #73 vs 1076pt #92). Betting block promo only. Fan vote 76.2/23.8 excluded. Direction agrees with the published model pick."},
+      "esportsbooks": {"url": "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/color-vs-ex-zero-tenacity-rvwRf5V1F", "finding": "EGW match-page header shows 1.8 placeholder; a cached EGW index extract (pageAge 2026-10-19) displays a 1.44/2.5 pair in this fixture's row but team order in the extract is ambiguous, so no probability is derived from it. Polymarket $0.00 volume."},
+      "verdict": "Keep the published model pick (Color 73.6%), direction corroborated by VRS positions read on HLTV.",
+      "limitations": ["Research model only until a refresh replays a compliant EGW/book line.", "Cached index pairs are directory displays, not originated probabilities."]
+    },
+    {
+      "id": "1082861", "group": "B-model-only",
+      "teams": ["Rooster", "Abyssal"], "competition": "DFRAG Invitational 2026", "starts_at_snapshot": "2026-10-27T03:00:00Z",
+      "published_pick": {"team": "Abyssal", "probabilities": [0.4776, 0.5224], "label": "Valve-rating research estimate"},
+      "hltv": {"url": "https://www.hltv.org/team/10725/rooster", "finding": "No priced HLTV betting block for this fixture readable first-hand; HLTV identity for both teams is established in prior DFRAG coverage."},
+      "esportsbooks": {"url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/rooster-vs-team-abyssal-P1tTp3RAg8", "finding": "EGW match-page header shows 1.8 placeholder. A cached EGW index extract (pageAge 2026-10-19) shows Rooster 2.1 / Team Abyssal 1.66 — no-vig 44.1/55.9, same direction as the published model pick; recorded as dated guidance only, not a current quote. Polymarket $0.00 volume with degenerate multipliers — unusable."},
+      "verdict": "Keep the published model pick (Abyssal 52.2%); near-even fixture, low confidence either way.",
+      "limitations": ["Research model only; cached EGW pair is 5 days old at research time and must be re-read live by egw_live before pricing.", "Head-to-head history is split (EGW: 4–4) — variance dominates."]
+    },
+    {
+      "id": "1082793", "group": "B-model-only",
+      "teams": ["5star", "1WIN"], "competition": "GLuck Moscow Cyber Games 2026", "starts_at_snapshot": "2026-10-31T13:00:00Z",
+      "published_pick": {"team": "1WIN", "probabilities": [0.1782, 0.8218], "label": "Valve-rating research estimate"},
+      "hltv": {"url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026", "finding": "Search extract of the HLTV match page: 1WIN HLTV #14 / VRS #17, team rating 1.16 vs 5star 1.09 — same direction as the published model pick. Fan vote 81.6/18.4 excluded."},
+      "esportsbooks": {"url": "https://egamersworld.com/counterstrike/match/EkalRNMvVx/1win-vs-5star-esports-4hTvdd1uN", "finding": "EGW header shows the 1.8 placeholder only; event page extract confirms 1.8/1.8 for this fixture. No priced book readable."},
+      "verdict": "Keep the published model pick (1WIN 82.2%), direction strongly corroborated by HLTV ranks.",
+      "limitations": ["Research model only; far-future LAN final (Oct 31) — expect books to open closer to lock and supersede the model."]
+    },
+    {
+      "id": "1079658", "group": "C-live-lobby-only",
+      "teams": ["Acend", "FORZE Reload"], "competition": "CCT Europe 2026 Series #11", "starts_at_snapshot": null,
+      "hltv": {"url": "https://play.hotspawn.com/lobby", "finding": "Fixture confirmed on the live Hotspawn lobby 2026-10-24; not yet in the published snapshot (added after 2026-10-23T20:10Z), so no published pick exists until the next automated collect."},
+      "esportsbooks": {"url": "https://egamersworld.com/counterstrike/matches", "finding": "EGW CS2 index read first-hand 2026-10-24 lists Acend vs FORZE Reload (24.10.26, Bo3) at 2.8 / 1.35."},
+      "guided_pick": {"team": "FORZE Reload", "probabilities_pct": [32.5, 67.5], "basis": "No-vig of EGW index 2.8/1.35 read first-hand 2026-10-24"},
+      "limitations": ["Guidance only until the next pages.yml collect inventories this fixture and the ladder replays a compliant line.", "Starts imminently (Oct 24) — line will move; re-read before lock."]
+    }
+  ],
+  "group_c_awaiting_collect": {
+    "ids": ["1081152", "1079659", "1081153", "1079660", "1081154", "1079661", "1081156", "1081158"],
+    "finding": "These 8 cards are open on the live lobby (read 2026-10-24) but post-date the published snapshot, so the site cannot show picks for them until the queued publisher run 40069088115 (or a successor) collects. No odds are asserted for them here: asserting lines without a first-hand read would violate the no-hallucination rule. EGW's index (the egw_live source) lists same-day low-tier fixtures with two-sided odds (verified first-hand for 1079658 and 1079193 Fokus 1.23/3.83), so the automated ladder is expected to price most of them on the next successful refresh.",
+    "source_urls": ["https://play.hotspawn.com/lobby", "https://egamersworld.com/counterstrike/matches", "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40069088115"]
+  },
+  "cross_checks": [
+    {"id": "1079193", "teams": ["FOKUS", "ex-6666"], "finding": "Published pick FOKUS 76.5% (market-implied). EGW index first-hand 2026-10-24: Fokus 1.23 / ex-6666 3.83 → no-vig 75.7/24.3. Independent agreement within 0.8pt.", "source_url": "https://egamersworld.com/counterstrike/matches"}
+  ],
+  "method_notes": [
+    "No-vig conversion: p_i = (1/o_i) / sum(1/o_j). Recomputed in tests/test_b72154e1_guided_picks.py.",
+    "EGW '1.8' single-value headers and identical 1.8/1.8 pairs are placeholders, never 50/50 markets; reference_odds.quote() already rejects them.",
+    "Search-engine extracts are labelled as such wherever a first-hand page read was not performed; cached extracts carry their pageAge and are never priced as current."
+  ]
+}

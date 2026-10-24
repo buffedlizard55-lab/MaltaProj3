@@ -34,6 +34,7 @@ import requests
 
 from scripts.domain import iso, name_key, no_vig, normalize_pair, timestamp, finite, array, polymarket_candidate
 from scripts.github_auth import auth_headers
+from scripts import egw_live
 from scripts import form_model
 from scripts import hltv_ranking
 from scripts import network_model
@@ -1051,7 +1052,8 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
             'url': egw_live.INDEX_URL,
             'observed_at': egw_req.get('observed_at'),
             'entries': egw_entries}, ensure_ascii=False, indent=2) + '\n')
-        out['egw_live'] = {'entries': len(egw_entries)}
+        out['egw_live'] = {'entries': len(egw_entries),
+                           'policy': 'Only independently source-timed, exact named-price captures; unverified index leads price nothing.'}
     except Exception as exc:  # noqa: BLE001 - an aggregator outage prices nothing
         out['egw_live_error'] = f'{type(exc).__name__}: {exc}'[:300]
     out['requests'] = client.requests
@@ -2435,6 +2437,17 @@ def run(output: Path, *, live: bool = False) -> dict:
     live_payload = live_collect(evidence_dir, snapshot['matches'], registry) if live else None
     reference_capture = reference_odds.load(output)
     reference_rows = list(reference_capture.get('entries') or []) + list(reference_capture.get('rejected') or [])
+    # Session arena-5260ef4e: the automated EGamersWorld index capture written by
+    # every live refresh (`scripts/egw_live.py` -> `live-egw-reference.json`) had no
+    # reader, so the rung it was added for priced nothing. It is replayed here, but
+    # *after* the reviewed manual captures: a hand-checked price always outranks an
+    # automated one. Both go through the same fail-closed gate in
+    # `reference_odds.quote()` (fixture id + both names + 60 s start tolerance,
+    # 8 h freshness, no-vig band, identical 1.8/1.8 placeholders refused).
+    # BE integration: reparse the original response and bind actual fixture
+    # identity/scoped registry before the canonical reviewed quote gate.
+    egw_live_rows = egw_live.load_live(evidence_dir, snapshot['matches'], registry)
+    reference_rows = reference_rows + egw_live_rows
     poly_rows = polymarket_rows(output, evidence_dir) + kalshi_rows(evidence_dir) + smarkets_lines.rows(evidence_dir)
     book_rows = thunderpick_rows(output, live_payload) + bovada_rows(evidence_dir) + pinnacle_rows(evidence_dir)
     ratings, valve_meta = valve_rows(output, live_payload)
@@ -2607,7 +2620,12 @@ def run(output: Path, *, live: bool = False) -> dict:
         'live_collection': bool(live),
         'collection': ({key: live_payload.get(key) for key in
                         ('bo3_results', 'bo3_results_error', 'bo3_relay', 'bo3_relay_error', 'valve', 'valve_error',
-                         'vrs_mirror_error', 'thunderpick_error', 'polymarket_discovery')} if live_payload else None),
+                         'vrs_mirror_error', 'thunderpick_error', 'egw_live', 'egw_live_error',
+                         'polymarket_discovery')} if live_payload else None),
+        # Session arena-5260ef4e: how many automated EGamersWorld rows this run
+        # independently rebound to originals/fixtures/registry. Zero may be the
+        # correct refusal of an unverified capture, not a wiring regression.
+        'egw_live_replay': {'entries': len(egw_live_rows)},
         'network_collection': (None if not live_payload else {
             'graph_edges': len((live_payload.get('bo3_graph') or {}).get('edges') or []),
             'graph_pages': (live_payload.get('bo3_graph') or {}).get('pages'),

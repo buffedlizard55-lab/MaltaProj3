@@ -1,0 +1,356 @@
+{
+  "schema_version": 1,
+  "session": "arena-b97af12f",
+  "observed_at": "2026-10-24T06:52:00Z",
+  "environment": "agent-authoring-path",
+  "policy": "Read-only research in brief order: HLTV first for identity, then Polymarket/EGamersWorld esportsbook and betting-line surfaces. Nothing here writes a probability or a pick. Hotspawn % picked and HLTV fan votes are excluded.",
+  "target_source": {
+    "source": "first-hand Hotspawn lobby + official fixture API reconciliation",
+    "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "targets": 9,
+    "active_future_rows": 31,
+    "snapshot_generated_at": "2026-10-23T20:10:00Z"
+  },
+  "sources": [
+    {
+      "url": "https://polymarket.com/esports/cs2/cct-europe",
+      "kind": "prediction-exchange board",
+      "observed_at": "2026-10-24T06:31:00Z"
+    },
+    {
+      "url": "https://egamersworld.com/counterstrike/matches",
+      "kind": "esports odds aggregator index",
+      "observed_at": "2026-10-24T06:33:00Z"
+    },
+    {
+      "url": "https://www.hltv.org/events/9442/matches",
+      "kind": "official HLTV event match list"
+    },
+    {
+      "url": "https://www.hltv.org/events/9457/matches",
+      "kind": "official HLTV event match list"
+    }
+  ],
+  "per_fixture": [
+    {
+      "id": "1079658",
+      "teams": [
+        "Acend",
+        "FORZE Reload"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-24T08:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/acend-vs-forze-reload-cct-europe-2026-series-11-1079658",
+      "hltv_url": "https://www.hltv.org/matches/2399335/acend-vs-forze-reload-cct-2026-europe-series-11",
+      "current_method": null,
+      "current_label": "Missing from the stale published snapshot",
+      "money_line_lead": true,
+      "usable_external_line_observed": true,
+      "smarkets_evidence": null,
+      "sources": [
+        {
+          "stage": "HLTV first",
+          "url": "https://www.hltv.org/matches/2399335/acend-vs-forze-reload-cct-2026-europe-series-11",
+          "finding": "Quarter-final, Best of 3 confirmed at 04:00 on 24 Oct. HLTV fan poll 61.5%/38.5% was seen and excluded."
+        },
+        {
+          "stage": "Polymarket CCT Europe board",
+          "url": "https://polymarket.com/esports/cs2/cct-europe/cs2-ace1-forzer-2026-10-24",
+          "finding": "Acend 37¢ / FORZE Reload 67¢, $136.37 volume; two-sided active series moneyline."
+        },
+        {
+          "stage": "EGamersWorld published odds",
+          "url": "https://egamersworld.com/counterstrike/match/_rW8GEyWK/acend-vs-forze-reload-FZO8bqMyg",
+          "finding": "Match page prints Acend 2.85 / FORZE Reload 1.34; index prints 2.8 / 1.35. Aggregated reference, not a first-party quote."
+        }
+      ],
+      "irregularity": "Polymarket rule text says “initially scheduled … 10:00 AM ET” while its board/countdown and the Hotspawn API both point to 04:00 AM ET / 08:00Z; do not alias on the rule-text time.",
+      "verdict": "dated external line exists; collector must replay it"
+    },
+    {
+      "id": "1079659",
+      "teams": [
+        "Spirit Academy",
+        "Lavked"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-24T11:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/spirit-academy-vs-lavked-cct-europe-2026-series-11-1079659",
+      "hltv_url": "https://www.hltv.org/matches/2399336/spirit-academy-vs-lavked-cct-2026-europe-series-11",
+      "current_method": null,
+      "current_label": "Missing from the stale published snapshot",
+      "money_line_lead": true,
+      "usable_external_line_observed": true,
+      "smarkets_evidence": null,
+      "sources": [
+        {
+          "stage": "HLTV first",
+          "url": "https://www.hltv.org/matches/2399336/spirit-academy-vs-lavked-cct-2026-europe-series-11",
+          "finding": "Quarter-final, Best of 3 confirmed on the event Matches page."
+        },
+        {
+          "stage": "Polymarket CCT Europe board",
+          "url": "https://polymarket.com/esports/cs2/cct-europe/cs2-tsa-lavked-2026-10-24",
+          "finding": "Spirit Academy 66¢ / Lavked 35¢, $60.60 volume; two-sided active series moneyline."
+        },
+        {
+          "stage": "EGamersWorld published odds",
+          "url": "https://egamersworld.com/counterstrike/match/_rW8GEyWK/spirit-academy-vs-lavked-mNEJAmoc0",
+          "finding": "Match page prints Spirit Academy 1.5 / Lavked 2.49; index prints 1.49 / 2.47."
+        }
+      ],
+      "irregularity": "None beyond the stale published snapshot.",
+      "verdict": "dated external line exists; collector must replay it"
+    },
+    {
+      "id": "1081152",
+      "teams": [
+        "HAVU",
+        "Azuolas"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T11:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/havu-vs-azuolas-cct-europe-2026-series-12-1081152",
+      "hltv_url": "https://www.hltv.org/matches/2399502/havu-vs-azuolas-cct-2026-europe-series-12",
+      "current_method": null,
+      "current_label": "Missing from the stale published snapshot",
+      "money_line_lead": false,
+      "usable_external_line_observed": false,
+      "smarkets_evidence": null,
+      "sources": [
+        {
+          "stage": "HLTV first",
+          "url": "https://www.hltv.org/matches/2399502/havu-vs-azuolas-cct-2026-europe-series-12",
+          "finding": "Swiss round 3 elimination, Best of 3 confirmed. HLTV fan poll 91.7%/8.3% excluded; Betting block carries only a Stake US promo row."
+        },
+        {
+          "stage": "Polymarket CCT Europe board",
+          "url": "https://polymarket.com/esports/cs2/cct-europe",
+          "finding": "No HAVU–Azuolas event was present on the CCT Europe board read at 06:31Z; absence of a reachable market is not proof that none exists."
+        },
+        {
+          "stage": "EGamersWorld published odds",
+          "url": "https://egamersworld.com/counterstrike/match/HiXMAaC8L/havu-vs-azuolas-Dm2JAvY3OO",
+          "finding": "Both sides print the identical 1.8 / 1.8 placeholder; rejected by the reviewed reference gate."
+        }
+      ],
+      "irregularity": "No compliant two-sided prematch price. Hotspawn 100%/0% picked is excluded by policy.",
+      "verdict": "no compliant two-sided price at this observation; flagged unresolved"
+    },
+    {
+      "id": "1079660",
+      "teams": [
+        "INOX Division",
+        "BRUTE"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-24T14:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/inox-division-vs-brute-cct-europe-2026-series-11-1079660",
+      "hltv_url": "https://www.hltv.org/matches/2399337/inox-division-vs-brute-cct-2026-europe-series-11",
+      "current_method": null,
+      "current_label": "Missing from the stale published snapshot",
+      "money_line_lead": true,
+      "usable_external_line_observed": true,
+      "smarkets_evidence": null,
+      "sources": [
+        {
+          "stage": "HLTV first",
+          "url": "https://www.hltv.org/matches/2399337/inox-division-vs-brute-cct-2026-europe-series-11",
+          "finding": "Quarter-final, Best of 3 confirmed on the event Matches page."
+        },
+        {
+          "stage": "Polymarket CCT Europe board",
+          "url": "https://polymarket.com/esports/cs2/cct-europe/cs2-inox-brute-2026-10-24",
+          "finding": "INOX Division 55¢ / Brute 46¢, $247.26 volume; two-sided active series moneyline."
+        },
+        {
+          "stage": "EGamersWorld published odds",
+          "url": "https://egamersworld.com/counterstrike/match/_rW8GEyWK/inox-division-vs-brute-nZfqxPvnH",
+          "finding": "Match page prints INOX Division 1.72 / Brute 1.92; index prints 1.75 / 1.96."
+        }
+      ],
+      "irregularity": "Provider capitalisation “Brute” vs Hotspawn “BRUTE” is a display difference, not an alias decision; exact normalized names still join.",
+      "verdict": "dated external line exists; collector must replay it"
+    },
+    {
+      "id": "1081153",
+      "teams": [
+        "Saint Sinners",
+        "6yuBoJlbl"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T14:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/saint-sinners-vs-6yubojlbl-cct-europe-2026-series-12-1081153",
+      "hltv_url": "https://www.hltv.org/matches/2399503/6yubojlbl-vs-saint-sinners-cct-2026-europe-series-12",
+      "current_method": null,
+      "current_label": "Missing from the stale published snapshot",
+      "money_line_lead": false,
+      "usable_external_line_observed": false,
+      "smarkets_evidence": null,
+      "sources": [
+        {
+          "stage": "HLTV first",
+          "url": "https://www.hltv.org/matches/2399503/6yubojlbl-vs-saint-sinners-cct-2026-europe-series-12",
+          "finding": "Best of 3 confirmed on the HLTV Series 12 Matches page (provider order 6yuBoJlbl vs Saint Sinners)."
+        },
+        {
+          "stage": "Polymarket event",
+          "url": "https://polymarket.com/esports/cs2/cct-europe/cs2-6yuboj-ssins-2026-10-24",
+          "finding": "6yuBoJlbl 85¢ / Saint Sinners 78¢ on $0.00 volume; the two displayed series prices sum to 163¢ and both map-winner cells are 96–97¢. Treated as a zero-volume placeholder, not a price."
+        },
+        {
+          "stage": "EGamersWorld published odds",
+          "url": "https://egamersworld.com/counterstrike/match/HiXMAaC8L/6yubojlbl-vs-saint-sinners-cCSiulSZ3S",
+          "finding": "Both sides print 1.8 / 1.8; rejected as identical placeholder odds."
+        }
+      ],
+      "irregularity": "Zero-volume crossed book plus identical EGW placeholder. No compliant price; do not use Hotspawn 82%/18% picked.",
+      "verdict": "no compliant two-sided price at this observation; flagged unresolved"
+    },
+    {
+      "id": "1079661",
+      "teams": [
+        "Nuclear TigeRES",
+        "ex-Zero Tenacity"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-24T17:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-ex-zero-tenacity-cct-europe-2026-series-11-1079661",
+      "hltv_url": "https://www.hltv.org/matches/2399338/nuclear-tigeres-vs-ex-zero-tenacity-cct-2026-europe-series-11",
+      "current_method": null,
+      "current_label": "Missing from the stale published snapshot",
+      "money_line_lead": true,
+      "usable_external_line_observed": true,
+      "smarkets_evidence": null,
+      "sources": [
+        {
+          "stage": "HLTV first",
+          "url": "https://www.hltv.org/matches/2399338/nuclear-tigeres-vs-ex-zero-tenacity-cct-2026-europe-series-11",
+          "finding": "Quarter-final, Best of 3 confirmed on the event Matches page."
+        },
+        {
+          "stage": "Polymarket CCT Europe board",
+          "url": "https://polymarket.com/esports/cs2/cct-europe/cs2-ntr-zerote-2026-10-24",
+          "finding": "Nuclear TigeRES 62¢ / ex-Zero Tenacity 43¢ on $0.00 volume; recorded but not used as a primary price."
+        },
+        {
+          "stage": "EGamersWorld published odds",
+          "url": "https://egamersworld.com/counterstrike/match/_rW8GEyWK/nuclear-tigeres-vs-ex-zero-tenacity-rgEVBIE-Y",
+          "finding": "Match page prints Nuclear TigeRES 1.43 / ex-Zero Tenacity 2.47; index prints 1.49 / 2.47. A two-sided aggregated reference exists."
+        }
+      ],
+      "irregularity": "Polymarket book is zero-volume and wide; EGW aggregated line is a lead for the automated ladder, not a hand-written probability.",
+      "verdict": "dated external line exists; collector must replay it"
+    },
+    {
+      "id": "1081154",
+      "teams": [
+        "BakS",
+        "ILLYRIANS"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T17:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/baks-vs-illyrians-cct-europe-2026-series-12-1081154",
+      "hltv_url": "https://www.hltv.org/matches/2399504/baks-vs-illyrians-cct-2026-europe-series-12",
+      "current_method": null,
+      "current_label": "Missing from the stale published snapshot",
+      "money_line_lead": false,
+      "usable_external_line_observed": false,
+      "smarkets_evidence": null,
+      "sources": [
+        {
+          "stage": "HLTV first",
+          "url": "https://www.hltv.org/matches/2399504/baks-vs-illyrians-cct-2026-europe-series-12",
+          "finding": "Best of 3 confirmed on the HLTV Series 12 Matches page."
+        },
+        {
+          "stage": "Polymarket event",
+          "url": "https://polymarket.com/esports/cs2/cct-europe/cs2-baks-ill4-2026-10-24",
+          "finding": "BakS eSports 74¢ / ILLYRIANS 62¢ on $0.00 volume; map-winner cells 96–97¢. Rejected as a zero-volume placeholder."
+        },
+        {
+          "stage": "EGamersWorld published odds",
+          "url": "https://egamersworld.com/counterstrike/match/HiXMAaC8L/baks-esports-vs-illyrians-IG9Tsqw9TJ",
+          "finding": "Both sides print 1.8 / 1.8; rejected as identical placeholder odds."
+        }
+      ],
+      "irregularity": "Zero-volume crossed book plus identical EGW placeholder. Hotspawn 100%/0% picked excluded.",
+      "verdict": "no compliant two-sided price at this observation; flagged unresolved"
+    },
+    {
+      "id": "1081156",
+      "teams": [
+        "Spirit Academy",
+        "LFO 10"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-25T12:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156",
+      "hltv_url": "https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12",
+      "current_method": null,
+      "current_label": "Missing from the stale published snapshot",
+      "money_line_lead": false,
+      "usable_external_line_observed": false,
+      "smarkets_evidence": null,
+      "sources": [
+        {
+          "stage": "HLTV first",
+          "url": "https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12",
+          "finding": "Best of 3 and the Hotspawn name LFO 10 confirmed on the HLTV Series 12 Matches page."
+        },
+        {
+          "stage": "Polymarket event",
+          "url": "https://polymarket.com/esports/cs2/cct-europe/cs2-tsa-skr2-2026-10-25",
+          "finding": "Same date/time slot is named “Spirit Academy vs Sökerorg”, 93¢/93¢ on $0.00 volume. No alias is created between LFO 10 and Sökerorg."
+        },
+        {
+          "stage": "EGamersWorld published odds",
+          "url": "https://egamersworld.com/counterstrike/match/HiXMAaC8L/spirit-academy-vs-zgh7PZE301",
+          "finding": "Provider title is “Spirit Academy VS ” with the second team blank; both sides print 1.8 / 1.8. Rejected."
+        }
+      ],
+      "irregularity": "Genuine name conflict (Hotspawn/HLTV LFO 10 vs Polymarket Sökerorg) plus zero-volume identical placeholder. Needs review; no silent alias.",
+      "verdict": "no compliant two-sided price at this observation; flagged unresolved"
+    },
+    {
+      "id": "1081158",
+      "teams": [
+        "FORZE Reload",
+        "ex-RUSTEC"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-25T18:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/forze-reload-vs-ex-rustec-cct-europe-2026-series-12-1081158",
+      "hltv_url": "https://www.hltv.org/matches/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12",
+      "current_method": null,
+      "current_label": "Missing from the stale published snapshot",
+      "money_line_lead": false,
+      "usable_external_line_observed": false,
+      "smarkets_evidence": null,
+      "sources": [
+        {
+          "stage": "HLTV first",
+          "url": "https://www.hltv.org/matches/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12",
+          "finding": "Best of 3 confirmed on the HLTV Series 12 Matches page."
+        },
+        {
+          "stage": "Polymarket event",
+          "url": "https://polymarket.com/esports/cs2/cct-europe/cs2-forzer-rustec-2026-10-25",
+          "finding": "FORZE Reload 68¢ / ex-RUSTEC 94¢ on $0.00 volume; the displayed series prices sum to 162¢. Rejected as a zero-volume placeholder."
+        },
+        {
+          "stage": "EGamersWorld published odds",
+          "url": "https://egamersworld.com/counterstrike/match/HiXMAaC8L/forze-reload-vs-ex-rustec-_GZF4CT4kR",
+          "finding": "Both sides print 1.8 / 1.8; rejected as identical placeholder odds."
+        }
+      ],
+      "irregularity": "Zero-volume crossed book plus identical EGW placeholder. Hotspawn 100%/0% picked excluded.",
+      "verdict": "no compliant two-sided price at this observation; flagged unresolved"
+    }
+  ],
+  "counts": {
+    "fixtures_researched": 9,
+    "dated_external_line_leads": 4,
+    "no_compliant_line": 5
+  }
+}
