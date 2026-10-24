@@ -668,9 +668,41 @@ merged code, and keeps only what is not a duplicate:
   this session's dedupe line was removed once main's reader proved stricter; (3) the only test
   this session edited that another session owns is `tests/test_5260ef4e_egw_wiring.py` — and in
   the final resolution it was restored to `main` unchanged.
-- **Irregularities recorded, not fixed here:** the four failed scheduled runs and the backlog
-  above; five push runs cancelled while pending between 06:32Z and 06:44Z under parallel-session
-  load; and this sandbox cannot reach Hotspawn, HLTV, EGamersWorld or the public Pages host
+- **Merged-tree suite (full, not targeted):** `python -m unittest discover -s tests` on the
+  merged tree → **1491 tests, OK (exit 0)** in 1159 s. `python -m scripts.build` **PASS** on the
+  same tree (838 audited rows, 0 without a source, 829 links). This is the same command the
+  publisher's first step runs.
+- **PR #260 merged** at `2026-10-24T07:36:21Z` as **`746118c`** (two same-file conflict rounds
+  with `main` resolved; the second was a clean auto-merge). **Deploy status at the time of this
+  note: the publisher run for `746118c` ([40074822023](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40074822023),
+  `schedule`, created 07:36:41Z) is still `queued` — not failed — and the `push` run
+  (40074802194) was cancelled while pending. Every push run between 07:26Z and 07:49Z was
+  cancelled while pending; nothing executed on the repository for over an hour. The site keeps
+  serving the last verified artifact (`republish-last-verified` is the first job of that queued
+  run), so nothing is stale-broken and nothing is fabricated; the refresh simply has not run yet.
+  The run link above is the authoritative record — check it before treating the published
+  snapshot as current.
+- **DEPLOY CONFIRMED — 2026-10-24T10:34:16Z.** Publisher run
+  [40074822023](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40074822023) (commit
+  `746118c`, the merge of PR #260) completed **success** end to end after 2 h 35 m queued:
+  `republish-last-verified` success, then `verify-and-deploy` success through every step —
+  **`Regression tests (repository fixtures, before any cache restore)` success** (the step that
+  failed on 40028653350 / 40037957529 / 40048429858 / 40063011446), collect, research, reconcile,
+  `deploy-pages`, **`Verify the public site, its complete data and category pages` success**, root
+  publish and the post-root re-deploy and re-verify. That is the first successful scheduled
+  publisher since 2026-10-23T19:57Z, and it is the production proof that the regression that
+  stalled four refreshes is gone.
+- **Deploy re-checked at 2026-10-24T10:00Z (superseded by the line above):** run 40074822023 is *still* `queued` (created
+  07:36:41Z, ~2h20m). Between 09:38Z and 09:51Z alone, six push runs on `main` were
+  cancelled while pending. The queue is starved of runners by the number of concurrent
+  sessions, not by anything in this branch: the merged tree builds and passes its full
+  suite locally, and the first job of the queued run republishes the last verified artifact,
+  so the public site is not serving a broken or fabricated snapshot while it waits. If a
+  later session sees this run still queued, the correct action is to re-run it (or dispatch
+  `pages.yml`) once the pool is free, not to change code.
+- **Irregularities recorded, not fixed here:** the four failed scheduled runs and the backlog above; push runs cancelled while pending
+  throughout 06:32Z-07:49Z under parallel-session load, including the push run for this session's
+  own merge; and this sandbox cannot reach Hotspawn, HLTV, EGamersWorld or the public Pages host
   (TLS handshake failures), so the live lobby was not read here — flag
   `a5b59ee6-live-lobby-not-readable-from-this-sandbox`.
 
