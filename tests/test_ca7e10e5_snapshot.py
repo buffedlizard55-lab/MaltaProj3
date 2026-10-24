@@ -23,7 +23,7 @@ from __future__ import annotations
 import json
 import re
 import unittest
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from scripts import root_publish
@@ -56,11 +56,11 @@ class RootPublisherCarriesTheSnapshot(unittest.TestCase):
         self.output, self.root = base / 'site', base / 'root'
         self.output.mkdir()
         self.root.mkdir()
-        # These tests exercise file layout and monotonic publication, not the
-        # wall-clock freshness guard. Inject a time inside the fixture's 12-hour
-        # window so a correct guard cannot make the suite fail as real time
-        # advances (the 24 October publisher outage was caused by this drift).
-        self.now = datetime(2026, 10, 23, 10, 0, tzinfo=timezone.utc)
+        # File layout and monotonic publication are tested at the fixture's
+        # own observation time. Using the wall clock here broke every scheduled
+        # refresh after 21:23Z on 23 October, before it could collect fresh data.
+        # Production's 12-hour guard remains enabled and is tested below.
+        self.now = datetime(2026, 10, 23, 10, tzinfo=timezone.utc)
         snapshot = {
             'schema_version': 1, 'generated_at': '2026-10-23T09:23:57Z',
             'counts': {'inventory': 30, 'upcoming': 30, 'picks': 30},
@@ -90,6 +90,10 @@ class RootPublisherCarriesTheSnapshot(unittest.TestCase):
         plan = root_publish.build_plan(self.output, self.root, now=self.now)
         self.assertEqual(plan.writes, {})
         self.assertIn('refusing to move the published site backwards', plan.reason)
+
+    def test_the_age_limit_still_rejects_a_stale_snapshot(self):
+        with self.assertRaisesRegex(root_publish.PublishRefused, 'limit 12.0h'):
+            root_publish.build_plan(self.output, self.root, now=self.now + timedelta(hours=13))
 
     def test_the_live_snapshot_url_is_the_published_file(self):
         self.assertTrue(root_publish.LIVE_SNAPSHOT_URL.endswith('/snapshot.json'))
@@ -174,8 +178,10 @@ class ExecutiveSummaryCarriesTheDatedNoLineResearch(unittest.TestCase):
         source = Path('scripts/build.py').read_text()
         summary_start = source.index('def summary(data, prefix, now=None):')
         summary_body = source[summary_start:source.index('\ndef ', summary_start + 10)]
-        self.assertIn('no_line_research_block(data, prefix)', summary_body)
-        self.assertEqual(summary_body.count('no_line_research_block(data, prefix)'), 1)
+        # The compact register owns the block. A direct call here duplicated
+        # the nested block/ID even though this old source-text test passed.
+        self.assertIn('unresolved_register(data, prefix, compact=True)', summary_body)
+        self.assertNotIn('out += no_line_research_block(data, prefix)', summary_body)
 
     def test_the_built_executive_summary_contains_it_once(self):
         site = Path('site/index.html')
