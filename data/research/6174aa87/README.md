@@ -12,6 +12,14 @@ the only path to a published number.
 | `mobile-check.json` | Layout checks of the published pages at 390 px and 320 px (no horizontal overflow, tappable bottom bar, readable probability text, picks reachable inside one screen). |
 | `screenshots/` | The screenshots those checks measured. |
 
+The screenshots are taken from a **local build of the checked-in replay fixture**
+(`data/latest.json`, 2026-10-15), because this sandbox has no egress to
+`buffedlizard55-lab.github.io`. That is why they show the honest stale-snapshot
+banner and 17 picks: they document *layout*, not the deployed inventory. The
+deployed inventory was verified separately through the runner sweep
+(`pick-provenance.json`: 20 active fixtures, 20 with a pick, 0 missing from the
+live Hotspawn feed).
+
 ## How a row is judged
 
 * `verified` — every cited URL answered and at least one named both teams (or
