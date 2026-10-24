@@ -6828,3 +6828,14 @@ checked again here and only the first is true of the file:
 
 No file owned by 5bf31a25 was edited; this note is a record correction with its
 source, not a re-claim of their task.
+
+## Session arena-d39310ae — restore scheduled freshness (2026-10-24)
+
+Session uses Arena's required fixed branch `arena/d39310ae-maltaproj3` (not a new session branch). Read board and open PRs first. Production's last four scheduled publishers fail at repository regression tests; newest run [40063011446](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446). Earlier publisher claims are >60 minutes old; taking over only the failing regression/publication diagnosis, not other sessions' source providers or UI redesigns.
+
+| Task | Status | Owner | Scope |
+| --- | --- | --- | --- |
+| Diagnose and fix current scheduled publisher regression; preserve strict source/pick checks | in progress | arena-d39310ae | `.github/workflows/pages.yml`, failing test/implementation files to be named after reproduction, this section |
+| Verify complete build, links and phone checks; refresh source research through existing runner pipeline; PR/merge/deploy | in progress | arena-d39310ae | new `data/research/d39310ae/`, this section |
+
+Constraints: sandbox outbound access cannot directly verify Hotspawn/HLTV/books; runner evidence only is eligible as new live verification. Existing model estimates remain labelled estimates, never verified betting odds. No probabilities will be invented to fill gaps.
