@@ -1,0 +1,116 @@
+{
+  "session": "arena-e57df95b",
+  "recorded_at": "2026-10-24T07:01:17Z",
+  "status": "local candidate passed; full-tree CI and deployment pending",
+  "integrated_code_at_candidate_build": "73ff49a128f5d2e52ad01bb72c9e0cccf7dfd51d",
+  "fresh_evidence_candidate": "50bb2017c3edb3eed2c540830d327f2d9de732e2",
+  "inventory": {
+    "official_lobby_url": "https://play.hotspawn.com/cs2-pickems",
+    "lobby_observed_at": "2026-10-24T06:24:00Z",
+    "featured_generated_at": "2026-10-24T05:57:56Z",
+    "complete_origination_generated_at": "2026-10-24T06:39:03Z",
+    "source_rows": 88,
+    "active_fixtures": 25,
+    "picks": 25,
+    "unresolved": 0,
+    "methods": {
+      "market": 13,
+      "bookmaker": 2,
+      "reference": 1,
+      "model": 9
+    },
+    "exact_lobby_id_set_match": true
+  },
+  "independent_replay": {
+    "command": ".venv/bin/python scripts/e57df95b_verify_candidate.py --candidate-root /tmp/e57-final --candidate-ref '73ff49a integrated code + 50bb2017c3ed fresh evidence + E57 reference' --output-dir /tmp/e57-final-audit",
+    "audited": 25,
+    "passed": 25,
+    "failed": 0,
+    "report": "data/research/e57df95b/final-candidate-audit.json"
+  },
+  "fresh_build": {
+    "command": ".venv/bin/python -m scripts.build",
+    "source_rows_reconciled": 88,
+    "row_source_rows": 878,
+    "official_source_links": 859,
+    "explicitly_unverified": 9,
+    "site_map_rows": 10,
+    "source_less_rows": 0,
+    "acceptance_pass": 10,
+    "acceptance_info": 0,
+    "acceptance_fail": 0,
+    "internal_links_assets_anchors": 922,
+    "result": "pass"
+  },
+  "fresh_browser": {
+    "command": "npm test",
+    "started_at": "2026-10-24T06:40:38.665Z",
+    "duration_seconds": 334.770001,
+    "expected": 118,
+    "passed": 118,
+    "failed": 0,
+    "skipped": 0,
+    "flaky": 0,
+    "coverage": [
+      "320px and 390px phone layouts",
+      "executive-summary and complete-picks navigation",
+      "no-JavaScript rendering",
+      "stale and locked pick retirement",
+      "findings search and severity filters",
+      "automated WCAG A/AA scans"
+    ],
+    "result": "pass"
+  },
+  "replay_fixture_build": {
+    "source_rows_reconciled": 80,
+    "row_source_rows": 793,
+    "source_less_rows": 0,
+    "acceptance_pass": 9,
+    "acceptance_info": 1,
+    "acceptance_fail": 0,
+    "internal_links_assets_anchors": 831,
+    "result": "pass"
+  },
+  "unit_tests": {
+    "initial_full_discovery": {
+      "ran": 1353,
+      "failures": 2,
+      "errors": 9,
+      "result": "failed; all failures reproduced and classified"
+    },
+    "fixes": [
+      "Restored the missing scripts.originate egw_live import used by live collection.",
+      "Scoped the superseded-finding assertions to row badges so the new Needs review filter button is not mistaken for a finding badge."
+    ],
+    "affected_rerun": {
+      "command": ".venv/bin/python -m unittest tests.test_f9d0a5a2 tests.test_origination_upgrade tests.test_source_integrity tests.test_build tests.test_freshness_determinism -q",
+      "ran": 116,
+      "failed": 0,
+      "result": "pass"
+    },
+    "focused_integration": {
+      "ran": 76,
+      "failed": 0,
+      "result": "pass"
+    },
+    "full_tree_rerun": "pending CI"
+  },
+  "reference_capture": {
+    "fixture_id": "1082858",
+    "observed_at": "2026-10-24T06:29:25Z",
+    "expires_at": "2026-10-24T14:29:25Z",
+    "source_url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+    "decimal_odds": [3.44, 1.24],
+    "probabilities_computed_from_odds": [0.26495726495726496, 0.7350427350427351],
+    "published_rounded_probabilities": [0.26495726, 0.73504274],
+    "pick": "Off Chops",
+    "first_party_bookmaker_quote": false,
+    "refresh_by_assertion_allowed": false
+  },
+  "limitations": [
+    "A replay verifies retained evidence and arithmetic, not future price availability or model calibration.",
+    "The EGW line is a third-party published bookmaker average and must expire under the existing eight-hour gate.",
+    "HLTV display clocks have no verified timezone in the extracted text; UTC start times come from Hotspawn's official response.",
+    "Full-tree CI, PR merge, and Pages deployment are not claimed by this local record."
+  ]
+}

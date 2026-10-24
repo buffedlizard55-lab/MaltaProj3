@@ -99,6 +99,17 @@ class RetainedEvidenceChecks(unittest.TestCase):
             self.assertGreater(row["probabilities"][row["pick_index"]],
                                row["probabilities"][1 - row["pick_index"]])
 
+    def test_final_integrated_candidate_uses_the_reviewed_reference(self):
+        report = read("final-candidate-audit.json")
+        self.assertEqual(report["summary"]["failed"], 0)
+        self.assertEqual(report["summary"]["methods"],
+                         {"bookmaker": 2, "market": 13, "model": 9, "reference": 1})
+        row = next(row for row in report["rows"] if row["id"] == "1082858")
+        self.assertEqual(row["method"], "reference")
+        self.assertEqual(row["pick"], "Off Chops")
+        self.assertEqual(row["probabilities"], [0.26495726, 0.73504274])
+        self.assertEqual(row["status"], "pass")
+
     def test_hltv_review_covers_exactly_the_ten_model_rows(self):
         report = read("candidate-audit.json")
         review = read("hltv-review.json")
