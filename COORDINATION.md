@@ -1,3 +1,39 @@
+# Current session: arena-65eec73f — CI runner-starvation fix (board-only commits no longer start validation runs) — IN PROGRESS (PR #249)
+
+Claimed **2026-10-24T06:30Z** on Arena's fixed branch `arena/65eec73f-maltaproj3`, from `origin/main` at `bdb4fc9`, rebased onto `origin/main` at `06618b3` (PR #265) before the PR. Board read first: about 20 sessions held live claims (last commits 05:20–06:27Z) on the same goal (restore the 4-hour publisher, full Hotspawn coverage, HLTV-first research, mobile summary, integration). No active claim covered CI capacity, so this session duplicates none of them.
+
+**Measured at claim time (`gh run list`, 06:27Z):** of the last 100 workflow runs, **98 came from `arena/**` branches**. About 60 jobs were queued or running (37 push and 10 PR runs queued, 7 push and 5 PR in progress). `checks.yml` ("Validate dashboard", 45-minute cap) and `origination.yml` both triggered on **every push to `arena/**`**, including commits that only edit this board, so each coordination commit started two heavy jobs. The main-branch refresh `40069088115` had been queued for more than 18 minutes behind them.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 65E-1 Add `paths-ignore: ['COORDINATION.md']` to the `push` trigger of `checks.yml` and `origination.yml`, and to the `pull_request` trigger of `checks.yml` (so board-only commits start no validation run; code pushes unchanged); verify on the live branch | **in progress — PR #249 open, merge recorded below** | arena-65eec73f | `.github/workflows/checks.yml`, `.github/workflows/origination.yml` (trigger blocks only), this section of `COORDINATION.md` |
+
+### 65E-1 result (arena-65eec73f, 2026-10-24T06:30Z–07:30Z)
+
+- **Change:** `checks.yml` (push and pull_request) and `origination.yml` (push) carry `paths-ignore: ['COORDINATION.md']`. Job steps are byte-identical to `main`; the diff touches only the `on:` blocks. YAML parsed with PyYAML. GitHub's documented rule: a run is skipped only when every changed file matches an ignored pattern (https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#onpushpull_requestpull_request_targetpathspaths-ignore).
+- **Empirical push test:** board-only commit `fcaf8f4` on `arena/65eec73f-maltaproj3` started **0 runs** (checked 45 s after push with `gh run list --branch`). The earlier claim commit `aa0e27f` (before the change) started two runs, which `gh run cancel` could not stop (HTTP 403 for this token).
+- **Not tested:** the `pull_request` filter on a PR whose diff is board-only (PR #249's diff includes the workflow edits, so it runs as expected).
+- **Branch protection:** not readable with this token (HTTP 403). `repos/.../rulesets` returned an empty list. Not verified further.
+- **PR #249** (`arena/65eec73f-maltaproj3` → `main`), opened 06:4x Z.
+
+**Checks on PR #249 are red, and they are not caused by this change.** The same two failures are on PR #240, which was already merged to `main` (run `40068300976`, 12m17s; origination run `40068300898`, 1m33s):
+
+- `Rows, build, links, mobile and accessibility` (`checks.yml`, run `40070583679`, 20m31s on PR #249): 10 annotations from the `Test strict identity, pricing, fallback and failure handling` step — `test_origination_upgrade.LiveModelResearch` (3 errors), `test_f9d0a5a2…test_live_collect_deduplicates_duplicate_polymarket_game_ids`, plus `HTTP 403`, `Lobby and API disagree`, `no route to host` in the live-snapshot checks. The identical ten annotations appear on PR #240's run.
+- `originate` (`origination.yml`, run `40070583737`, 1m37s, step `Refetch first-party origination sources and resolve`, exit 1). Cause not confirmed: the job log host (`productionresultssa*.blob.core.windows.net`) is unreachable from the sandbox and the `gh run rerun` call was refused (`workflow file may be broken`). Hypothesis, **unverified**: GitHub API quota for the shared token is exhausted by the queue this change is meant to reduce.
+
+**Not fixed here (out of this session's file scope):** the ten test errors in `tests/test_origination_upgrade.py`, `tests/test_f9d0a5a2*` and the live-snapshot checks, and the `originate --live` exit. These need an owner who holds `tests/**` and `scripts/originate.py`.
+
+**Live-site state observed while working (fetch tool, 2026-10-24T06:30–07:10Z):** the published executive summary said "Snapshot needs attention", inventory checked 23 Oct 2026 22:09 Europe/Malta, and listed 19 active fixtures. The live Hotspawn lobby (`https://play.hotspawn.com/lobby`) lists "Tier All tiers (88)" for the current pick'em. The scheduled `pages.yml` runs `40028653350`, `40037957529`, `40048429858`, `40063011446` all failed before PR #240 merged (time-bomb test). Main's push run `40069088115` was still queued at 06:30Z.
+
+**Irregularities for review:**
+1. 98 of the last 100 runs at 06:27Z came from `arena/**` branches; Origination runs number about 1,300 on the workflow page.
+2. Concurrent sessions ran duplicate claims on one goal; the board needs one integrator, and four sessions named themselves "final integration".
+3. Red checks listed above are pre-existing on `main`, not introduced by PR #249.
+4. `gh run cancel` and `gh run rerun` were refused for this token (HTTP 403, "workflow file may be broken").
+5. GitHub REST rate limit for the user token was exhausted from about 06:58Z to 07:10Z.
+
+**Non-overlap pledge:** no edit to `scripts/**`, `data/**`, `index.html`, `picks/**`, `unresolved/**`, `review/**`, `assets/**`, `tests/**`, or any other session's `data/research/<id>/`. Pages and publish workflows are not touched.
+
 # Current session: arena-c6b8d58b — 31/31 Hotspawn CS2 + 31/31 HLTV match-page reconciliation (closing the 6 South American Tier-C fixtures), HLTV-first + multi-book/EGW consensus research for all 13 model-only fixtures, scoped South American aliases & mobile/WCAG verification — DONE (PR #265)
 
 Claimed **2026-10-24T06:55Z** on Arena's fixed session branch `arena/c6b8d58b-maltaproj3`, rebased onto `origin/main` at `52091c5` (PR #256) and merged with `5ee2ab9` (PR #253). Read `COORDINATION.md` and inspected all open PRs (`#260`, `#237`, `#246`, `#248`, `#259`, `#238`, `#247`, `#255`, `#243`, `#254`, `#245`, `#239`, `#244`, `#242`, `#249`) before claiming to ensure zero file-scope overlap with any active session (`<60` minutes idle).
