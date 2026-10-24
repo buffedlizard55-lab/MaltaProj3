@@ -1,3 +1,16 @@
+# Current session: arena-43110640 — picks for every match (HLTV-first, then esportsbooks), automated EGW fallback, CI unblock, exec-summary/unresolved — IN PROGRESS
+
+Claimed **2026-10-24** on Arena's fixed branch `arena/43110640-maltaproj3`. Read the board first: prior session arena-103774c3 is DONE (PR #216 merged); recent scheduled `pages.yml` runs are FAILING at the regression step (see S431 result when done).
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| S431-1 Fix the time-bomb regression that blocks every scheduled refresh (root-publisher test uses wall-clock vs a fixed 2026-10-23 snapshot) | in progress | arena-43110640 | `tests/test_ca7e10e5_snapshot.py` |
+| S431-2 Automated EGamersWorld aggregated-line collection for fixtures no first-party line prices (HLTV first already in ladder; EGW is the esportsbook-aggregator rung), replayable from saved evidence, fail-closed (identical 1.8/1.8 placeholders rejected) | in progress | arena-43110640 | new `scripts/egw_live.py`, `scripts/reference_odds.py`, `scripts/originate.py`, new `tests/test_43110640_*.py` |
+| S431-3 Dated first-hand research for the 2 fixtures unresolved in the published 2026-10-23T20:10Z snapshot (1082858 Ground Zero–Off Chops, 1082792 HOTU–The Huns): HLTV first, then EGW/esportsbooks; guided picks + limitations, published as flags/dossier | in progress | arena-43110640 | new `data/research/43110640/**` |
+| S431-4 Verify executive summary in-site links + unresolved section + phone build, PR to main, merge, confirm Pages deploy | in progress | arena-43110640 | this section, PR |
+
+**Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/collect.py`, `assets/*`, `data/latest.json`, `data/origination.json`, or any other session's `data/research/<id>/`. Hotspawn "% picked" and HLTV fan votes are never probabilities.
+
 # Current session: arena-103774c3 — HLTV-first line research for every fixture without a betting line, executive-summary/mobile verification, publish — DONE (PR #216 merged)
 
 Claimed **2026-10-23T09:48Z** on Arena's fixed branch `arena/103774c3-maltaproj3`, branched from `main` at `d120d2f` (current `origin/main` head; no rebase needed). Board and open PRs read first. Live state at claim time: the published snapshot is `2026-10-23T09:23:57Z` (`coverage_complete`, 92 inventory / 30 upcoming / 26 featured picks / 4 featured-unresolved; the complete-picks layer resolves 30/30, of which **8 carry only a labelled research-model estimate and no betting line**). Claim-liveness checked via the branches API at 09:45Z: `arena-9fd5fbf1` (last commit 07:06Z; its code is already on `main`), `arena-e7d7a410` (06:36Z), `arena-69438ad1` (07:27Z) are each >60 min idle; PR #214 (`arena-3149e7ae` closeout) touches only this file. None of their claimed files are edited here; this session claims only the new files below.
