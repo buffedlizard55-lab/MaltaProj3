@@ -126,9 +126,12 @@ def picks_overview_table(picks, states):
                 f'<span class="tbl-prob{" is-fav" if pick == 0 else ""}">{e(names[0])}: <strong>{p0 * 100:.1f}%</strong></span>'
                 f'<span class="tbl-prob{" is-fav" if pick == 1 else ""}">{e(names[1])}: <strong>{p1 * 100:.1f}%</strong></span>'
             )
-            prefix = '✓ ' if current else 'Snapshot: '
+            current_hidden = '' if current else ' hidden'
+            historical_hidden = ' hidden' if current else ''
             pick_cell = (
-                f'<strong class="tbl-pick">{e(prefix + names[pick])}</strong>'
+                f'<strong class="tbl-pick" data-overview-pick>'
+                f'<span data-overview-current{current_hidden}>✓ </span>'
+                f'<span data-overview-historical{historical_hidden}>Snapshot: </span>{e(names[pick])}</strong>'
                 f'<small>{o["probabilities"][pick] * 100:.1f}% · fair {e(o["fair_decimal"][pick])}</small>'
             )
             basis_cell = f'{badge(b_label, b_kind)}<small>{e(method_label(o))}</small>'
@@ -150,8 +153,9 @@ def picks_overview_table(picks, states):
                           f'<a class="src limitation-link" href="#unresolved-{e(m["id"])}">Why unresolved →</a>')
         links = ' · '.join(match_source_links(m, o))
         search_text = ' '.join(names + [m.get('competition') or '']).lower()
+        row_class = 'is-historical' if o and pick is not None and not current else ''
         rows_html.append(
-            f'<tr id="row-{e(m["id"])}" data-filter-group="{e(group if (o and pick is not None) else "unresolved")}" data-search="{e(search_text)}">'
+            f'<tr id="row-{e(m["id"])}" class="{row_class}" data-filter-group="{e(group if (o and pick is not None) else "unresolved")}" data-search="{e(search_text)}">'
             f'<th scope="row"><a class="src" href="#match-{e(m["id"])}">{e(names[0])} vs {e(names[1])}</a>'
             f'<small>{e(m.get("competition") or "Unverified tournament")} · {local_time(m["starts_at"])}</small></th>'
             f'<td data-label="Win %">{probs_cell}</td>'
@@ -499,6 +503,23 @@ def page(data, inventory_complete=True, *, now=None):
   applyFilters();
 }());
 </script>'''
+    overview_safety_script = '''<script>
+(function () {
+  function syncOverviewSafety() {
+    document.querySelectorAll('[data-overview-pick]').forEach(function (pick) {
+      var row = pick.closest('tr');
+      var card = document.getElementById('match-' + row.id.slice(4));
+      var current = !!card && card.getAttribute('data-safety-status') === 'current';
+      row.classList.toggle('is-historical', !current);
+      pick.querySelectorAll('[data-overview-current]').forEach(function (node) { node.hidden = !current; });
+      pick.querySelectorAll('[data-overview-historical]').forEach(function (node) { node.hidden = current; });
+    });
+  }
+  document.addEventListener('spawn-pick-safety-updated', syncOverviewSafety);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', syncOverviewSafety, { once: true });
+  else syncOverviewSafety();
+}());
+</script>'''
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Complete CS2 match picks — every Hotspawn fixture · Spawn Scout</title>
@@ -535,6 +556,7 @@ def page(data, inventory_complete=True, *, now=None):
 <a href="../">Summary</a><a href="#picks">Picks</a><a href="#unresolved">Unresolved</a><a href="../review/">Review</a>
 </nav>
 {filter_script}
+{overview_safety_script}
 </body></html>'''
 
 

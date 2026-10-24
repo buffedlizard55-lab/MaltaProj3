@@ -59,6 +59,30 @@ for (const width of [320, 390, 768, 1440]) {
   });
 }
 
+test('overview pick markers retire with the existing evidence-card safety state', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/origination/');
+  const row = page.locator('[data-overview-pick]').first().locator('xpath=ancestor::tr');
+  const rowId = await row.getAttribute('id');
+  const card = page.locator('#match-' + rowId.slice(4));
+
+  await card.evaluate((node) => {
+    node.setAttribute('data-safety-status', 'current');
+    document.dispatchEvent(new CustomEvent('spawn-pick-safety-updated'));
+  });
+  await expect(row.locator('[data-overview-current]')).toBeVisible();
+  await expect(row.locator('[data-overview-historical]')).toBeHidden();
+  await expect(row).not.toHaveClass(/is-historical/);
+
+  await card.evaluate((node) => {
+    node.setAttribute('data-safety-status', 'stale-inventory');
+    document.dispatchEvent(new CustomEvent('spawn-pick-safety-updated'));
+  });
+  await expect(row.locator('[data-overview-current]')).toBeHidden();
+  await expect(row.locator('[data-overview-historical]')).toBeVisible();
+  await expect(row).toHaveClass(/is-historical/);
+});
+
 test.describe('complete picks without JavaScript', () => {
   test.use({ javaScriptEnabled: false });
 
