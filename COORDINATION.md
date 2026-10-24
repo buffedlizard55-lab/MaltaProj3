@@ -118,6 +118,39 @@ Claimed **2026-10-24T06:40Z** on Arena's fixed branch `arena/da8067f5-maltaproj3
 | DA-4 Verify (and repair only if a defect is proven) the executive summary's in-site links to the updated picks, its separate unresolved/no-line section, and 320/390 px phone readability | in progress | arena-da8067f5 | `tests/test_da8067f5_*.py`, this section; `scripts/build.py` + `assets/scout.css` **only** if a proven defect and only after logging it here |
 | DA-5 Integration: full suite, local build, row-source + link audits, PR to `main`, merge without waiting, confirm the GitHub Pages deploy serves a fresh snapshot | in progress | arena-da8067f5 | this section, PR |
 
+### DA progress log (2026-10-24, append-only)
+
+**DA-1 — root cause found and fixed (PR #257, merged `a0c08fa`).** The four failed scheduled runs did not fail on a date-bomb
+this time. `scripts/originate.py::live_collect` called `egw_live.EVIDENCE_NAME`, `egw_live.INDEX_URL`,
+`egw_live.INDEX_EVIDENCE` and `egw_live.entries_for` (lines 1044-1051) while the module was never imported, so every call
+raised `NameError: name 'egw_live' is not defined`. Reproduced locally with the workflow's exact command
+(`python -m unittest discover -s tests`): **9 errors** — `test_live_collect_deduplicates_duplicate_polymarket_game_ids`,
+6 × `test_origination_upgrade.LiveModelResearch`, 2 × `test_source_integrity.RetainedTagDiscovery`. That is step 5, the
+step every failed run reports, and it also means `python -m scripts.originate --live` (publisher step 10) would have
+failed even if the tests had been skipped. Session `arena-dd433e7f` fixed the same line independently in PR #252 while
+this branch was open; after the rebase this branch keeps only the guard: `tests/test_da8067f5_pipeline.py`
+(module identity, offline `live_collect` fail-open smoke test, and a static scope guard over `scripts/originate.py` that
+names exactly `egw_live` at those lines when the import is removed — verified by deleting the import and watching it fail).
+
+**DA-2 — live lobby reconciliation (independent of arena-73bc57bd, and it agrees).** First-hand read of
+<https://play.hotspawn.com/lobby> at **2026-10-24T06:35Z**: **25** CS2 cards (9 closing soon, 16 upcoming). Joined by
+fixture id against `data/research/73bc57bd/published-rows-2026-10-24.json` (the frozen 19 published rows read at
+05:38Z): **16 covered, 9 uncovered** — `1079658, 1081152, 1079659, 1081153, 1079660, 1081154, 1079661, 1081156,
+1081158`. Record: `data/research/da8067f5/live-coverage.{json,md}` (rendered by `build.load_live_coverage`).
+
+**DA-3 — first-hand line research, with one new verified fact.** `data/research/da8067f5/line-research-2026-10-24.{json,md}`.
+Most useful new evidence: the Polymarket Gamma event `1239213` (`cs2-ace1-forzer-2026-10-24`) carries
+`eventStartTime: 2026-10-24T08:00:00Z` and `startTime: 2026-10-24T08:00:00Z`, which independently confirms that the
+lobby's rendered "Oct 24, 04:00" is US Eastern (04:00 ET = 08:00Z). The same event is tagged `counter-strike-2`
+(tag id 100780), so Polymarket's own tag feed does contain the CCT Europe card the featured collector missed; the
+moneyline prints `ace1 35c / forzer 69c` on $136.37 volume, and EGamersWorld prints `2.85 / 1.34` (match page, title
+"24.10.2026 at 08:00") against `2.80 / 1.35` in its index three minutes earlier — both recorded, neither averaged. No
+probability, pick or alias was written by hand.
+
+**Verification so far:** `tests.test_origination_upgrade + test_f9d0a5a2 + test_source_integrity + test_43110640_egw_live`
+→ **88 tests OK**; `tests.test_da8067f5_pipeline` → **3 OK**; local `scripts.build` → PASS (798 audited rows, 0 without a
+source, acceptance 9 pass / 1 info / 0 fail, 828 internal links); full `unittest discover` running on the final head.
+
 **Non-overlap pledge:** no edit to `scripts/collect.py`, `scripts/originate.py`, `data/latest.json`,
 `data/origination.json`, `data/origination/aliases.json`, `archive/`, `docs/`, or any other session's
 `data/research/<id>/`. Hotspawn "% picked" and HLTV fan votes are never probabilities. Any file owned by
