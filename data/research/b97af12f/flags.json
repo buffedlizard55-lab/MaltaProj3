@@ -1,0 +1,126 @@
+[
+  {
+    "id": "b97af12f-stale-snapshot-missing-15-future-rows",
+    "severity": "warning",
+    "title": "Published snapshot is stale and omits 15 future Hotspawn CS2 rows",
+    "detail": "Read 2026-10-24T06:24-06:35Z: the live lobby rendered 25 future cards, Hotspawn's own scheduled-fixture API returned 31 future rows, while the published site snapshot was generated 2026-10-23T20:10:00Z with 19 upcoming rows (three already past start). Nine rendered lobby cards and six API-only future rows are absent. The site itself warns 'do not treat these as current picks.' Dossier: data/research/b97af12f/reconciliation-2026-10-24.json and live-coverage.json. This is a dated observation, not a claim about a later refresh.",
+    "match_ids": [
+      "1079658", "1079659", "1079660", "1079661", "1081152", "1081153", "1081154", "1081156", "1081158",
+      "1083120", "1083121", "1082695", "1083122", "1083140", "1083123"
+    ],
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/picks/"
+    ]
+  },
+  {
+    "id": "b97af12f-api-only-future-rows-not-rendered",
+    "severity": "warning",
+    "title": "Six future Hotspawn API fixtures were not rendered in the fetched lobby HTML",
+    "detail": "The official scheduled array contains IDs 1083120, 1083121, 1082695, 1083122, 1083140 and 1083123 with starts 2026-10-24T13:00Z through 22:00Z. None appeared in the fetched /lobby rendered cards. They are retained in the live-coverage register with an 'API only' label rather than silently dropped or silently treated as lobby-visible; the collector may include them on its next unblocked run. No probability or pick is attached here.",
+    "match_ids": ["1083120", "1083121", "1082695", "1083122", "1083140", "1083123"],
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://play.hotspawn.com/cs2-pickems",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
+    ]
+  },
+  {
+    "id": "b97af12f-lfo10-sokerorg-name-conflict",
+    "severity": "warning",
+    "title": "LFO 10 vs Sökerorg is a genuine cross-source name conflict; no alias was created",
+    "detail": "Hotspawn fixture 1081156 and HLTV match 2399506 both name Spirit Academy vs LFO 10. Polymarket's same-slot event cs2-tsa-skr2-2026-10-25 instead names Sökerorg and shows 93c/93c on $0.00 volume. EGamersWorld's title is 'Spirit Academy VS ' with the second team blank. The three sources were not aliased into one team; the fixture stays unresolved and flagged. Hotspawn's 99%/1% picked is participation only and was excluded.",
+    "match_ids": ["1081156"],
+    "source_urls": [
+      "https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156",
+      "https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12",
+      "https://polymarket.com/esports/cs2/cct-europe/cs2-tsa-skr2-2026-10-25",
+      "https://egamersworld.com/counterstrike/match/HiXMAaC8L/spirit-academy-vs-zgh7PZE301"
+    ]
+  },
+  {
+    "id": "b97af12f-zero-volume-crossed-polymarket-books",
+    "severity": "warning",
+    "title": "Four CCT Europe Series 12 Polymarket listings are zero-volume or crossed placeholders",
+    "detail": "Read 2026-10-24T06:31Z: 6yuBoJlbl 85c / Saint Sinners 78c, BakS 74c / ILLYRIANS 62c, Spirit Academy 93c / Sökerorg 93c and FORZE Reload 68c / ex-RUSTEC 94c all printed $0.00 volume; three series-price pairs sum above 100c and map-winner cells sit at 96-97c. These are treated as placeholders, not probabilities or executable two-sided order books. HAVU-Azuolas had no reachable event on the CCT Europe board at read time, which is an absence of evidence, not proof of absence.",
+    "match_ids": ["1081153", "1081154", "1081156", "1081158", "1081152"],
+    "source_urls": [
+      "https://polymarket.com/esports/cs2/cct-europe",
+      "https://polymarket.com/esports/cs2/cct-europe/cs2-6yuboj-ssins-2026-10-24",
+      "https://polymarket.com/esports/cs2/cct-europe/cs2-baks-ill4-2026-10-24",
+      "https://polymarket.com/esports/cs2/cct-europe/cs2-tsa-skr2-2026-10-25",
+      "https://polymarket.com/esports/cs2/cct-europe/cs2-forzer-rustec-2026-10-25"
+    ]
+  },
+  {
+    "id": "b97af12f-egamersworld-symmetric-18-placeholders",
+    "severity": "warning",
+    "title": "Five CCT Europe Series 12 EGamersWorld match pages print identical 1.8/1.8 odds",
+    "detail": "Read 2026-10-24T06:33Z: HAVU-Azuolas, 6yuBoJlbl-Saint Sinners, BakS-ILLYRIANS, 'Spirit Academy VS ' (blank opponent) and FORZE Reload-ex-RUSTEC all show 1.8 on both sides with a 'Make a bet' call to action and no named bookmaker. The reviewed reference gate already rejects identical odds; these pages are published only to document why they cannot produce a pick. The same index also showed non-placeholder pairs for the four Series 11 quarterfinals, but each still needs the automated ladder's exact-name/start replay.",
+    "match_ids": ["1081152", "1081153", "1081154", "1081156", "1081158"],
+    "source_urls": [
+      "https://egamersworld.com/counterstrike/matches",
+      "https://egamersworld.com/counterstrike/match/HiXMAaC8L/havu-vs-azuolas-Dm2JAvY3OO",
+      "https://egamersworld.com/counterstrike/match/HiXMAaC8L/6yubojlbl-vs-saint-sinners-cCSiulSZ3S",
+      "https://egamersworld.com/counterstrike/match/HiXMAaC8L/baks-esports-vs-illyrians-IG9Tsqw9TJ",
+      "https://egamersworld.com/counterstrike/match/HiXMAaC8L/spirit-academy-vs-zgh7PZE301",
+      "https://egamersworld.com/counterstrike/match/HiXMAaC8L/forze-reload-vs-ex-rustec-_GZF4CT4kR"
+    ]
+  },
+  {
+    "id": "b97af12f-four-series11-external-line-leads",
+    "severity": "notice",
+    "title": "Four missing Series 11 quarterfinals have dated external line leads, not hand-written picks",
+    "detail": "Acend-FORZE Reload (1079658), Spirit Academy-Lavked (1079659), INOX Division-BRUTE (1079660) and Nuclear TigeRES-ex-Zero Tenacity (1079661) each had a two-sided Polymarket series quote with non-zero volume (except 1079661 was $0.00, where the EGamersWorld pair is the lead) and non-identical EGamersWorld decimal pairs. The dossier records the URLs, read time, displayed quotes and format from HLTV, but does not write a probability or pick. The automated reviewed ladder must replay original event/order-book evidence, freshness, spread/margin gates, exact normalized names and start time before publishing. EGamersWorld human-readable timestamps sometimes differ by four hours, so they are not used as a start-time alias.",
+    "match_ids": ["1079658", "1079659", "1079660", "1079661"],
+    "source_urls": [
+      "https://www.hltv.org/events/9442/matches",
+      "https://polymarket.com/esports/cs2/cct-europe",
+      "https://polymarket.com/esports/cs2/cct-europe/cs2-ace1-forzer-2026-10-24",
+      "https://polymarket.com/esports/cs2/cct-europe/cs2-tsa-lavked-2026-10-24",
+      "https://polymarket.com/esports/cs2/cct-europe/cs2-inox-brute-2026-10-24",
+      "https://polymarket.com/esports/cs2/cct-europe/cs2-ntr-zerote-2026-10-24",
+      "https://egamersworld.com/counterstrike/matches"
+    ]
+  },
+  {
+    "id": "b97af12f-pr241-overlap-cross-check",
+    "severity": "notice",
+    "title": "PR #241 already claimed a dated reconciliation of the same nine CCT fixtures; B97 is an independent cross-check",
+    "detail": "PR #241 (arena/73bc57bd-maltaproj3, merged 2026-10-24T06:32Z while B97 was working) describes a 2026-10-24T05:31Z observation of 25 future lobby cards, nine uncovered CCT fixtures, four real two-sided prices, five placeholders and the LFO 10/Sökerorg conflict, and owned data/research/73bc57bd/** plus scripts/73bc57bd_reconcile.py. Session arena-b97af12f independently re-read the official lobby/API, HLTV, Polymarket and EGamersWorld at 06:24-06:35Z and adds the discovery of six future API rows not rendered in the fetched lobby. B97 does not edit PR #241's files, core scripts/assets/workflows or other sessions' research; the final integration session should deduplicate the shared renderer and decide one canonical live-coverage record.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/241",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/COORDINATION.md",
+      "https://play.hotspawn.com/lobby",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
+    ]
+  },
+  {
+    "id": "b97af12f-duplicate-no-line-research-anchor",
+    "severity": "notice",
+    "title": "Built executive summary still renders two id=\"no-line-research\" blocks; shared renderer is owned by PR #248",
+    "detail": "A local build on this session's checked-in data (2026-10-24T06:45Z, output 171,996 bytes, 0 link failures, 0 row-source violations, acceptance 9 pass / 1 info / 0 fail) renders the dated no-line research section twice with the same HTML id. PR #248 (arena/f43dc4f1-maltaproj3) claims the duplicate-id guard and the phone findings register, so B97 logs the defect here instead of editing scripts/build.py or its tests. The duplicate does not break the brief's acceptance audit but should be resolved by that owner before final integration.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/248",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py"
+    ]
+  },
+  {
+    "id": "b97af12f-local-snapshot-older-than-live-site",
+    "severity": "warning",
+    "title": "Checked-in data/latest.json is 2026-10-15 while the live Pages snapshot is 2026-10-23; local build is not the live feed",
+    "detail": "The repository's legacy Pages source publishes the checked-in branch root, while the four-hour workflow separately publishes a verified artifact. At 06:45Z the local data/latest.json was generated 2026-10-15T08:36:13Z (80 inventory / 17 upcoming), but the cache-busted live site showed the 2026-10-23T20:10Z snapshot (19 active / 19 picks / 0 unresolved) with a staleness warning. A local build therefore compares B97's 31 future API rows against the older 80-row file and labels all 31 missing from that build; this is a dated build artifact, not proof that the live site lost 31 picks. The publisher run 40071396534 was pending at 06:46Z. Do not merge on a failing or stale deploy; re-check the run and the live generated_at before recording final integration.",
+    "match_ids": [],
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/?cb=b9710646",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json?cb=b9710646",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40071396534",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml"
+    ]
+  }
+]
