@@ -93,6 +93,9 @@ So the cards the brief asks about ("low-tier, not on the betting sites") are mis
 | Tables that could overflow a phone | **0** — all 8 tables on `/` sit inside `.table-scroll` or `.matches-wrap`, both `overflow-x:auto; max-width:100%` |
 | Responsive coverage | `max-width:700px` (30 rules), `max-width:620px` (2), `max-width:375px` (9) |
 | Phone-first element | `#picks-at-a-glance` renders above every table: 19 rows, both percentages, the pick, the price and the evidence anchor |
+| "Start here" navigation | `nav#start-here` (*Start here · where the picks are*) with five in-site targets: `./#picks-at-a-glance`, `./origination/#picks`, `./strategy/`, `./origination/#unresolved`, `./#unresolved-register` |
+| Phone status strip | `nav.mobile-status` on every page: **"19 picks ready of 19"** → `./origination/#picks` and **"0 unresolved · why"** → `./origination/#unresolved` |
+| Stale self-labelling | `#stale-warning` is `hidden` in the markup and revealed by `assets/scout.js` past 8 h. At the 11.1 h this snapshot had reached it reads *"Do not treat these as current picks. The inventory check failed or the successful snapshot is older than eight hours."* — the page therefore does not present an 11-hour-old snapshot as current, and `#new-snapshot` only appears if a newer `snapshot.json` really exists |
 
 This agrees with session `73bc57bd`'s measured 0 px overflow at 320 px and 390 px. **No mobile defect found.**
 

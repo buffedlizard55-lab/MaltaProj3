@@ -207,7 +207,24 @@
       "max-width:375px (9)"
     ],
     "phone_first_element": "the 'Picks at a glance' list (#picks-at-a-glance) renders above every table: 19 rows, each with both team percentages, the pick and an in-site evidence anchor",
-    "verdict": "no overflow defect found by static inspection; this agrees with session 73bc57bd's measured 0 px overflow at 320 px and 390 px"
+    "verdict": "no overflow defect found by static inspection; this agrees with session 73bc57bd's measured 0 px overflow at 320 px and 390 px",
+    "start_here_nav": {
+      "element": "nav#start-here (aria-label='Start here — where the picks are')",
+      "targets": [
+        "./#picks-at-a-glance",
+        "./origination/#picks",
+        "./strategy/",
+        "./origination/#unresolved",
+        "./#unresolved-register"
+      ],
+      "phone_status_strip": "nav.mobile-status: '19 picks ready of 19' -> ./origination/#picks and '0 unresolved · why' -> ./origination/#unresolved",
+      "note": "read from the branch-root index.html at 06:52Z"
+    },
+    "stale_banner_behaviour": {
+      "markup": "#stale-warning is 'hidden' in the HTML and revealed by assets/scout.js once the snapshot is older than stale_after_hours (8)",
+      "observed": "at 11.1 h old the banner text reads 'Do not treat these as current picks. The inventory check failed or the successful snapshot is older than eight hours.'",
+      "second_banner": "#new-snapshot stays hidden unless a newer snapshot.json is actually detected, so the site never claims an update that does not exist"
+    }
   },
   "local_build": {
     "command": "python -m scripts.build",
