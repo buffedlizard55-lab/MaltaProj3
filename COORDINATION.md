@@ -392,6 +392,12 @@ the `pages-workflow_dispatch` group, which push traffic cannot cancel. `tests/te
 workflow's own decision code against a stubbed network (9 tests: fresh → no dispatch, stale+queued → none,
 stale+idle → exactly one POST, dry run → none, unreadable → stale but still gated).
 
+**DA-6 follow-up (merged in #263 at 07:07Z, refined here).** A *queued* `pages.yml` run only counts as
+"a publish is coming" while it is younger than 15 minutes; a run still queued after that is the pending push run
+GitHub cancels on the next push (06:09Z run: queued 40+ minutes, then cancelled), so it must not block the dispatch.
+An `in_progress` run always blocks. Tests updated: 11 now, including a stuck-queued case and an unparseable
+`created_at` case.
+
 **Verification so far:** `tests.test_origination_upgrade + test_f9d0a5a2 + test_source_integrity + test_43110640_egw_live`
 → **88 tests OK**; `tests.test_da8067f5_pipeline` → **3 OK**; local `scripts.build` → PASS (798 audited rows, 0 without a
 source, acceptance 9 pass / 1 info / 0 fail, 828 internal links); full `unittest discover` running on the final head.
