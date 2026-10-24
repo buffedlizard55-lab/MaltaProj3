@@ -117,6 +117,11 @@ def snapshot_age(hours):
     return {'generated_at': when.strftime('%Y-%m-%dT%H:%M:%SZ')}
 
 
+def queued(minutes_ago, run_id=42):
+    when = datetime.now(timezone.utc) - timedelta(minutes=minutes_ago)
+    return {'id': run_id, 'status': 'queued', 'created_at': when.strftime('%Y-%m-%dT%H:%M:%SZ')}
+
+
 class WatchdogContractTests(unittest.TestCase):
     def test_schedule_permission_and_group_are_pinned(self):
         text = workflow_text()
@@ -134,15 +139,24 @@ class WatchdogContractTests(unittest.TestCase):
         self.assertEqual(len(posted), 1)
         self.assertTrue(posted[0].endswith('/actions/workflows/pages.yml/dispatches'))
 
-    def test_stale_snapshot_with_a_queued_run_does_not_dispatch(self):
-        posted, _ = run_decision(snapshot=snapshot_age(9),
-                                 runs=[{'id': 42, 'status': 'queued'}], dry='false')
+    def test_stale_snapshot_with_a_freshly_queued_run_does_not_dispatch(self):
+        posted, _ = run_decision(snapshot=snapshot_age(9), runs=[queued(2)], dry='false')
         self.assertEqual(posted, [])
 
     def test_stale_snapshot_with_an_in_progress_run_does_not_dispatch(self):
         posted, _ = run_decision(snapshot=snapshot_age(9),
                                  runs=[{'id': 43, 'status': 'in_progress'}], dry='false')
         self.assertEqual(posted, [])
+
+    def test_a_stuck_queued_run_does_not_block_the_dispatch(self):
+        """A pending push run that GitHub will cancel is not a publish."""
+        posted, _ = run_decision(snapshot=snapshot_age(9), runs=[queued(40, run_id=44)], dry='false')
+        self.assertEqual(len(posted), 1)
+
+    def test_queued_run_without_a_parseable_created_at_is_not_a_publish(self):
+        posted, _ = run_decision(snapshot=snapshot_age(9),
+                                 runs=[{'id': 45, 'status': 'queued', 'created_at': ''}], dry='false')
+        self.assertEqual(len(posted), 1)
 
     def test_dry_run_reports_but_never_dispatches(self):
         posted, _ = run_decision(snapshot=snapshot_age(9), runs=[], dry='true')
