@@ -34,7 +34,9 @@ The corrected complete feed became **25 active / 25 resolved / 0 unresolved**, w
 | Dated origination-upgrade suite on its original fixtures | **32/32 passed** |
 | Full Playwright suite on corrected 25-row build | **117/117 passed** |
 
-The 166 tests cover domain behavior, EGW collector/replay safety, summary landmarks, CD37 reconciliation/EGW audits, the publisher import guard and source integrity. The separate 32-test run avoids pretending that dated fixture-specific tests belong to a different live slate. No all-tests Python discovery result is claimed.
+The 166 tests cover domain behavior, EGW collector/replay safety, summary landmarks, CD37 reconciliation/EGW audits, the publisher import guard and source integrity. The separate 32-test run avoids pretending that dated fixture-specific tests belong to a different live slate.
+
+A later full discovery on this older fixture tree completed **1,415 tests: 1,413 pass / 2 fail**. Both failures were stale implementation-signature assertions: the old direct summary-block call and old one-argument EGW loader. PR #237's final merged code intentionally changed those contracts; both complete affected modules pass **25/25** on PR #273. The older run is not represented as green; see `integration-verification.md`.
 
 ## Remaining integration work
 

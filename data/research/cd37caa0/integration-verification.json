@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "session": "arena-cd37caa0",
+  "recorded_at": "2026-10-24T07:40:14Z",
+  "status": "local-integrated-gates-pass-publication-pending",
+  "pull_request": {
+    "number": 273,
+    "url": "https://github.com/buffedlizard55-lab/MaltaProj3/pull/273",
+    "head": "3598c9b5b41b8fa9ca9049f84220daf0b91711f4",
+    "merge_base_at_verification": "275771bd0470c2a0ed38b00720f18ca353050e74"
+  },
+  "code_gates": {
+    "price_boundary": "domain.no_vig rejects either non-finite leg or either decimal leg <= 1.01 before normalization",
+    "egw_required_checks": {
+      "passed": 4,
+      "failed": 0,
+      "report": "data/research/cd37caa0/egw-integration-pr273.json",
+      "informational_limitation": "Real sibling-link prices outside the match anchor remain fail-closed with zero entries; no successful real-markup capture is claimed."
+    }
+  },
+  "targeted_tests": {
+    "command": "PYTHONPATH=/tmp/cd37/pydeps python -m unittest tests.test_cd37caa0_price_gate tests.test_domain tests.test_cd37caa0_reconcile tests.test_cd37caa0_egw_audit tests.test_origination_upgrade tests.test_source_integrity",
+    "passed": 150,
+    "failed": 0
+  },
+  "build": {
+    "command": "PYTHONPATH=/tmp/cd37/pydeps python -m scripts.build",
+    "replayed_source_rows": 80,
+    "rendered_row_source_entries": 834,
+    "official_link_rows": 815,
+    "explicitly_unverified_rows": 9,
+    "site_map_rows": 10,
+    "source_less_rows": 0,
+    "acceptance": {"pass": 9, "info": 1, "fail": 0},
+    "internal_links_assets_anchors_passed": 829,
+    "current_views": 9
+  },
+  "browser": {
+    "command": "PYTHONPATH=/tmp/cd37/pydeps npx playwright test",
+    "passed": 117,
+    "failed": 0,
+    "skipped": 0,
+    "duration": "6.5m",
+    "includes": "CD37 phone/no-JS/WCAG checks, merged PR #237 landmarks, category pages and existing phone/desktop suites"
+  },
+  "older_prototype_full_discovery": {
+    "tree": "/tmp/cd37/combined-fixtures",
+    "passed": 1413,
+    "failed": 2,
+    "total": 1415,
+    "duration_seconds": 1084.233,
+    "failures": [
+      "test_ca7e10e5_snapshot.ExecutiveSummaryCarriesTheDatedNoLineResearch.test_summary_renders_the_block_next_to_the_unresolved_register",
+      "test_dd433e7f_verification.ReadOnlyProbeContractTests.test_originate_imports_and_wires_egw_live"
+    ],
+    "disposition": "Both were stale implementation-signature assertions in the older disposable combination. PR #237's merged versions intentionally delegate the summary block and require validated fixture/registry EGW loader arguments. Both complete modules pass 25/25 on PR #273. This is not represented as a green full-discovery run."
+  },
+  "corrected_candidate_simulation": {
+    "live_collection": false,
+    "active": 25,
+    "resolved": 25,
+    "unresolved": 0,
+    "external_line": 14,
+    "research_model": 11,
+    "report": "data/research/cd37caa0/combined-prototype.md"
+  },
+  "publication": {
+    "fresh_collection_completed": false,
+    "merged": false,
+    "pages_deployed": false,
+    "older_unsafe_run": 40074120319,
+    "older_unsafe_run_head": "06f56c2b61a1cfe4c42d6453c0ad38943af30a7f",
+    "cancellation": "Attempted; GitHub returned 403 Resource not accessible by integration. The run was not stopped.",
+    "required_next": "Merge only after current-head checks and latest-main reconciliation; run the fixed publisher, re-read every active row and verify Pages/root synchronization."
+  }
+}

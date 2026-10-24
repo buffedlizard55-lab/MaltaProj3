@@ -46,11 +46,12 @@
     "build": "PASS: 88 replayed source rows; 892 rendered row-source entries, 873 official-linked, 9 explicitly unverified, 10 site-map, zero source-less; acceptance 10 pass / 0 info / 0 fail; 929 internal links/assets/anchors",
     "targeted_unit_fresh_and_isolated": "166/166 pass",
     "dated_origination_upgrade_on_original_fixtures": "32/32 pass",
-    "full_browser_corrected_candidate": "117/117 pass"
+    "full_browser_corrected_candidate": "117/117 pass",
+    "full_python_discovery_older_fixture_tree": "1415 total: 1413 pass / 2 fail in 1084.233s. Both failures are stale implementation-signature assertions (direct summary-block call and one-argument EGW loader); both complete modules pass 25/25 on PR273 after PR237's intentional contract changes. Not claimed as a green full run."
   },
   "not_claimed": [
     "No live featured collection was run; the rejection was simulated from the stored quote in a disposable tree.",
-    "No full all-tests Python discovery result is claimed; 166 targeted tests plus 32 dated-fixture tests passed.",
+    "No green full all-tests Python discovery is claimed for the older prototype: its two stale-signature failures are retained explicitly; current full CI remains authoritative.",
     "No pull request, merge, GitHub Pages deployment or production snapshot is claimed.",
     "Current moving heads must be rechecked. At 07:11Z PR237 eeb9bc86 still passed EGW but had not added the >1.01 boundary."
   ]
