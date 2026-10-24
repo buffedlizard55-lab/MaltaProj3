@@ -1861,12 +1861,10 @@ def unresolved_register(data, prefix, title='Unresolved picks &amp; limitations'
         # brief asks for and links straight to that evidence rather than
         # reproducing ~40 KB of tables above the picks.
         out.append(no_line_digest(data, prefix))
-        # The dated per-fixture research record stays on the summary: it is the
-        # evidence behind each no-line blocker and the cross-session audit
-        # (scripts/eea4c104_audit.py) requires the block here. This compact
-        # register is its single owner; summary() must not append another copy.
-        # The 22-surface sweep and source-probe matrix stay on /unresolved/.
-        out.append(no_line_research_block(data, prefix))
+        # summary() owns the single dated research block on the executive
+        # summary. The compact register renders only the per-fixture blockers;
+        # the full register below keeps the block on /unresolved/.
+        # The 22-surface sweep and source-probe matrix also stay there.
         # The companion record: what a surface that DID answer actually
         # published, for the same no-line fixtures. Same category as the dated
         # research record above, so it stays on the summary in compact form and
@@ -1931,22 +1929,11 @@ def summary(data, prefix, now=None):
     out += glance(data, prefix, now=now)
     out += live_coverage_gaps(data, prefix)
     out += exec_banner(data, prefix)
-    # Session ca7e10e5: the dated no-line research block was rendered only on
-    # /unresolved/, while scripts/eea4c104_audit.py (and its regression test)
-    # requires it on the executive summary the brief names. The compact register
-    # embedded here already renders it, inside the "Unresolved picks &
-    # limitations" section the brief asks for, directly under the per-fixture
-    # blockers it documents. Session arena-f43dc4f1: a second, unconditional
-    # `no_line_research_block(data, prefix)` call used to follow this line (added
-    # by 42bfa8ea when restoring the block after it had been compacted away,
-    # without noticing the register already rendered it). That published the same
-    # section — and the same `id="no-line-research"` — twice on the executive
-    # summary: two identical <h3> headings, ~8 KB of duplicated source-status
-    # tables, and an invalid duplicate HTML id, which is exactly the "the site is
-    # a bit confusing" the reader reported. The block is now rendered once, by the
-    # register; `scripts.validate.check_links` fails the build on any duplicate
-    # id in any page, so this cannot return silently.
+    # Keep the dated evidence on the executive summary with exactly one owner.
+    # The compact register renders the per-fixture limitations; summary() adds
+    # the dated block once. The duplicate-ID link guard fails any regression.
     out += unresolved_register(data, prefix, compact=True)
+    out += no_line_research_block(data, prefix)
     if complete:
         if not data['coverage_complete']:
             coverage_label = 'Picks in the retained snapshot'

@@ -178,10 +178,10 @@ class ExecutiveSummaryCarriesTheDatedNoLineResearch(unittest.TestCase):
         source = Path('scripts/build.py').read_text()
         summary_start = source.index('def summary(data, prefix, now=None):')
         summary_body = source[summary_start:source.index('\ndef ', summary_start + 10)]
-        # The compact register owns the block. A direct call here duplicated
-        # the nested block/ID even though this old source-text test passed.
+        # main's single-owner contract: the compact register has no copy and
+        # summary() adds exactly one after it. Pin both halves of that contract.
         self.assertIn('unresolved_register(data, prefix, compact=True)', summary_body)
-        self.assertNotIn('out += no_line_research_block(data, prefix)', summary_body)
+        self.assertEqual(summary_body.count('out += no_line_research_block(data, prefix)'), 1)
 
     def test_the_built_executive_summary_contains_it_once(self):
         site = Path('site/index.html')
