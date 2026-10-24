@@ -6,15 +6,11 @@ name: 3877d48d fallback-line probe
 # line. It writes evidence only: no probability, pick or alias is produced.
 on:
   workflow_dispatch:
-  # `workflow_dispatch` only fires for a workflow that exists on the default
-  # branch, so the probe is also started by a push that touches the probe code
-  # itself. The evidence commit it writes touches only data/research/, which is
-  # not in this path filter, so it cannot re-trigger itself.
-  push:
-    branches: ['arena/3877d48d-maltaproj3']
-    paths:
-      - scripts/3877d48d_probe.py
-      - .github/workflows/3877d48d-probe.yml
+  # Dispatch only. The push trigger used once to start the first sweep does not
+  # stay on: its evidence commit re-entered the branch and cancelled the
+  # `Validate dashboard` run for the same ref (observed 40116642184, cancelled
+  # 12m57s in). Once this workflow is on the default branch, `workflow_dispatch`
+  # starts it without touching the branch's CI queue.
 permissions:
   contents: write
 concurrency:
