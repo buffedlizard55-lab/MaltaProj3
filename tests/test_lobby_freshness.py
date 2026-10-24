@@ -43,6 +43,8 @@ class FakeClient:
 
     def json(self, url, label, **kw):
         self.urls.append(url)
+        if label in self.block:
+            raise SourceError(label + ': 403 Client Error: Forbidden for url: ' + url)
         rnd = self.rounds[min(self.n, len(self.rounds) - 1)]
         return rnd['api'], {'observed_at': '2026-10-16T08:00:01Z'}
 
@@ -183,6 +185,74 @@ class ApiOnlyFallback(unittest.TestCase):
         empty = {'lobby': [], 'cs2': [], 'api': []}
         with self.assertRaises(SourceError):
             hotspawn(FakeClient([empty], block=('hotspawn-lobby', 'hotspawn-cs2')))
+
+
+class RenderedFallback(unittest.TestCase):
+    """A blocked fixture API must not blank a readable official inventory.
+
+    Evidence (2026-10-23T10:14Z, hosted runner): GET on the scheduled-fixture API
+    answered 403 while both lobby pages still rendered the same public array in
+    their ng-state block. The refresh failed closed instead of publishing it, so
+    every page told readers not to treat 30 source-backed picks as current. The
+    fallback was authored in PR #229 (session 9c4b1f7a) and re-applied onto
+    current main by session ee124e8b under the board's stale-claim takeover rule.
+    """
+
+    def round(self, ids):
+        rows = [row(i) for i in ids]
+        return {'lobby': rows, 'cs2': rows, 'api': rows}
+
+    def test_api_blocked_and_both_pages_agree_publishes_the_rendered_array(self):
+        client = FakeClient([self.round([1, 2])], block=('hotspawn-fixtures',))
+        rows, links, health = hotspawn(client)
+        self.assertEqual([r['id'] for r in rows], ['1', '2'])
+        self.assertEqual(health['status'], 'ok')
+        self.assertEqual(health['crosscheck'], 'rendered')
+        self.assertEqual(health['inventory_source'], 'rendered-lobby')
+        self.assertIn('403', health['api_error'])
+        self.assertIn('same official array', health['detail'])
+        evidence = client.saved['hotspawn-context']
+        self.assertEqual(evidence['api_ids'], [])
+        self.assertEqual(evidence['rendered_ids'], ['1', '2'])
+        self.assertEqual(evidence['inventory_source'], 'rendered-lobby')
+        self.assertEqual(links['1'], 'https://www.hotspawn.com/matches/m-1')
+        rendered = client.saved['hotspawn-rendered-fixtures']
+        self.assertEqual(rendered['pages'], ['lobby', 'cs2'])
+        self.assertEqual([r['id'] for r in rendered['rows']], ['1', '2'])
+
+    def test_api_blocked_and_one_page_readable_is_a_partial_rendered_read(self):
+        client = FakeClient([self.round([1])], block=('hotspawn-fixtures', 'hotspawn-cs2'))
+        rows, links, health = hotspawn(client)
+        self.assertEqual([r['id'] for r in rows], ['1'])
+        self.assertEqual(health['crosscheck'], 'rendered-partial')
+        self.assertEqual(health['verified_pages'], ['lobby'])
+        self.assertIn('readable lobby page', health['detail'])
+
+    def test_api_blocked_and_pages_disagree_fails_closed(self):
+        rnd = {'lobby': [row(1), row(9)], 'cs2': [row(1), row(2)], 'api': [row(1), row(2)]}
+        client = FakeClient([rnd], block=('hotspawn-fixtures',))
+        with mock.patch.object(sources.time, 'sleep'):
+            with self.assertRaises(SourceError) as ctx:
+                hotspawn(client)
+        self.assertIn('disagree', str(ctx.exception))
+        self.assertIn('2', str(ctx.exception))
+        self.assertIn('9', str(ctx.exception))
+        self.assertIn('fixture API is unavailable', str(ctx.exception))
+
+    def test_api_blocked_and_no_page_readable_names_both_failures(self):
+        client = FakeClient([self.round([1])], block=('hotspawn-fixtures', 'hotspawn-lobby', 'hotspawn-cs2'))
+        with self.assertRaises(SourceError) as ctx:
+            hotspawn(client)
+        message = str(ctx.exception)
+        self.assertIn('no rendered lobby page could be read', message)
+        self.assertIn('403', message)
+
+    def test_a_blocked_api_never_publishes_an_empty_rendered_array(self):
+        empty = {'lobby': [row(1, 'lol')], 'cs2': [row(1, 'lol')], 'api': [row(1)]}
+        client = FakeClient([empty], block=('hotspawn-fixtures',))
+        with self.assertRaises(SourceError) as ctx:
+            hotspawn(client)
+        self.assertIn('no CS2 fixtures', str(ctx.exception))
 
 
 class DisagreementText(unittest.TestCase):

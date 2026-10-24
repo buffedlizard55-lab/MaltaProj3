@@ -1,0 +1,49 @@
+{
+  "observed_at": "2026-10-24T06:05:00Z",
+  "session": "arena-ee124e8b",
+  "purpose": "Official-event identity and format confirmation for the two Hotspawn fixtures that the 2026-10-23T20:10Z published snapshot leaves without an analysis (1082858, 1082792). Identity and scheduling evidence only; HLTV pages expose no two-sided prematch prices for these fixtures, and HLTV fan votes are never probability inputs.",
+  "events": [
+    {
+      "hltv_url": "https://www.hltv.org/events/9414/dfrag-invitational-2026",
+      "event": "DFRAG Invitational 2026",
+      "dates": "2026-10-26 to 2026-11-01",
+      "prize_pool_usd": 28440,
+      "teams": 8,
+      "location": "Brisbane, Australia",
+      "format": "double-elimination groups",
+      "bracket_facts": [
+        "Group A opening round: Ground Zero vs Off Chops and NEXVOID vs Alter Ego",
+        "Group B opening round: FlyQuest vs Staqued and Rooster vs Abyssal"
+      ],
+      "hotspawn_corroboration": [
+        {"fixture_id": "1082858", "teams": "Ground Zero vs Off Chops", "starts_at": "2026-10-26T03:00:00Z", "status_in_snapshot": "analysis null (unresolved)"},
+        {"fixture_id": "1082859", "teams": "NEXVOID vs Alter Ego", "starts_at": "2026-10-26T03:00:00Z", "status_in_snapshot": "bookmaker pick already attached"},
+        {"fixture_id": "1082860", "teams": "FlyQuest vs Staqued", "starts_at": "2026-10-27T03:00:00Z", "status_in_snapshot": "bookmaker pick already attached"},
+        {"fixture_id": "1082861", "teams": "Rooster vs Abyssal", "starts_at": "2026-10-27T03:00:00Z", "status_in_snapshot": "model pick already attached"}
+      ]
+    },
+    {
+      "hltv_url": "https://www.hltv.org/events/9344/gluck-moscow-cyber-games-2026",
+      "event": "GLuck Moscow Cyber Games 2026",
+      "dates": "2026-10-31 to 2026-11-01",
+      "prize_pool_usd": 181214,
+      "teams": 4,
+      "location": "Moscow, Russia",
+      "format": "single elimination bracket (two semi-finals, grand final, 3rd place decider)",
+      "bracket_facts": [
+        "Semi-final: HOTU vs The Huns",
+        "Semi-final: 1win vs 5star",
+        "HLTV team rankings shown on the page at observation time: 1win #14 (also shown #18 on a second ranking), 5star #36 (also shown #64); HOTU and The Huns show no ranking on the event page"
+      ],
+      "hotspawn_corroboration": [
+        {"fixture_id": "1082792", "teams": "HOTU vs The Huns", "starts_at": "2026-10-31T09:00:00Z", "status_in_snapshot": "analysis null (unresolved)"},
+        {"fixture_id": "1082793", "teams": "5star vs 1WIN", "starts_at": "2026-10-31T13:00:00Z", "status_in_snapshot": "model pick already attached"}
+      ]
+    }
+  ],
+  "limitations": [
+    "Neither HLTV event page lists bookmaker odds or any two-sided price; HLTV cannot originate a line for either unresolved fixture.",
+    "HLTV world rankings are displayed only for 1win and 5star on the Moscow page; Ground Zero, Off Chops, HOTU and The Huns are unranked on the cited pages, so the ratings-only model rung has no official ranking input for the two unresolved fixtures.",
+    "All facts above are identity/scheduling confirmations. No probability or pick is derived here."
+  ]
+}

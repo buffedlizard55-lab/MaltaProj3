@@ -1,0 +1,43 @@
+{
+  "observed_at": "2026-10-24T06:17:00Z",
+  "session": "arena-ee124e8b",
+  "purpose": "Record which probability/inventory surfaces answered from the CI runner egress versus the platform fetch egress during this session. Explains why the rendered-lobby inventory fallback (scripts/sources.py) is required and why offline saved-evidence tests are the validation path.",
+  "runner_egress": {
+    "client": "python3 requests 2.32.5 inside the repository .venv, browser UA and Referer headers, 3 attempts with 2s backoff",
+    "probes": [
+      {
+        "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "result": "TLS/SSL connection closed (EOF) on handshake, SSLError SSLZeroReturnError, 3/3 attempts failed",
+        "equivalent_to": "the fixture-API refusal class the fallback treats as a SourceError"
+      },
+      {
+        "url": "https://play.hotspawn.com/lobby",
+        "result": "TLS/SSL connection closed (EOF) on handshake",
+        "attempts": 1
+      },
+      {
+        "url": "https://play.hotspawn.com/cs2-pickems",
+        "result": "TLS/SSL connection closed (EOF) on handshake",
+        "attempts": 1
+      }
+    ],
+    "note": "The same API endpoint returned HTTP 200 with a full fixture array from this runner earlier on 2026-10-24 and from CI at 2026-10-23T20:10Z, so the refusal is intermittent and specific to network path/time, matching the 2026-10-23T10:43Z production 403 episode."
+  },
+  "platform_fetch_egress": {
+    "probes": [
+      {"url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1", "http_status": 200, "result": "full scheduled-fixture array, identical schema to the lobby ng-state embed"},
+      {"url": "https://play.hotspawn.com/lobby", "http_status": 200, "result": "rendered lobby hydrated; '218 matches this week'; CS2 tier filter totals 88 fixtures (43 B-tier, 45 C-tier)"},
+      {"url": "https://play.hotspawn.com/cs2-pickems", "http_status": 200, "result": "rendered CS2 pick'em page hydrated with fixture permalinks and lock countdowns"},
+      {"url": "https://www.hltv.org/matches", "http_status": 200, "result": "match listing and event filter readable"},
+      {"url": "https://www.hltv.org/events/9414/dfrag-invitational-2026", "http_status": 200, "result": "event bracket readable"},
+      {"url": "https://www.hltv.org/events/9344/gluck-moscow-cyber-games-2026", "http_status": 200, "result": "event bracket readable"},
+      {"url": "https://api.smarkets.com/v3/events/?type=csgo_match&states=upcoming&limit=100&sort=start_datetime,id", "http_status": 200, "result": "100 upcoming csgo_match events"},
+      {"url": "https://api.smarkets.com/v3/markets/172960355/quotes/", "http_status": 200, "result": "two-sided order book for Ground Zero vs Off Chops"}
+    ]
+  },
+  "conclusions": [
+    "Hotspawn refusals are egress-level and intermittent; the rendered pages embed the same fixture array as the API, so a rendered-lobby fallback preserves full inventory coverage without inventing fixtures.",
+    "HLTV and Smarkets remain readable through the platform egress and are suitable for manual research evidence; runner-side HLTV wiring remains blocked (HTTP 403) and must not be added without a saved-evidence replay path.",
+    "No probability, pick or alias in this file is originated by hand; the file only records reachability."
+  ]
+}

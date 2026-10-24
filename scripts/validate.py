@@ -28,6 +28,56 @@ def load(path: Path):
     return json.loads(path.read_text())
 
 
+def check_inventory(evidence: Path, rows, data):
+    """Replay the published inventory against the surface it was actually read from.
+
+    Session 9c4b1f7a, re-applied by ee124e8b: the fixture API can be refused
+    (403) while the rendered lobby still serves the identical public array in
+    its hydration block. A snapshot built from that fallback must replay the
+    page payload it saved, must not claim API rows, and must keep the refused
+    attempt in the manifest. Snapshots without the marker keep the original
+    API-evidence requirement.
+    """
+    context = load(evidence / 'hotspawn-context.json')
+    rendered_mode = context.get('inventory_source') == 'rendered-lobby'
+    if rendered_mode:
+        rendered = load(evidence / 'hotspawn-rendered-fixtures.json')
+        require(rendered['observed_at'] == context['observed_at'], 'Rendered inventory observation timestamp restamped')
+        require(rendered['pages'] == [p for p in ('lobby', 'cs2') if p in context.get('verified_pages', [])],
+                'Rendered inventory names pages it did not read')
+        require(context.get('api_ids') == [], 'A rendered inventory must not claim rows from a refused API')
+        raw_rows = rendered['rows']
+    else:
+        raw_rows = load(evidence / 'hotspawn-fixtures.json')
+    require(data['inventory_observed_at'] == context['observed_at'], 'Inventory observation timestamp restamped')
+    raw = {str(r['id']): r for r in raw_rows if r.get('sport_alias') == 'cs2'}
+    require(set(raw) == {m['id'] for m in rows}, 'Published inventory omits or invents a Hotspawn row')
+    require(set(raw) == set(context['rendered_ids'] if rendered_mode else context['api_ids']),
+            'Published inventory omits or invents a Hotspawn source row')
+    # Older retained snapshots have no cross-check marker and must keep the
+    # original strict three-way requirement. A new snapshot may only omit a
+    # rendered page when it records that the page was actually unreadable.
+    verified_pages = context.get('verified_pages', ['lobby', 'cs2'])
+    crosscheck = context.get('crosscheck', 'complete')
+    require(crosscheck in {'complete', 'partial', 'unavailable', 'rendered', 'rendered-partial'}, 'Unknown inventory cross-check state')
+    expected = (('rendered' if len(verified_pages) == 2 else 'rendered-partial') if rendered_mode
+                else ('complete' if len(verified_pages) == 2 else 'partial' if len(verified_pages) == 1 else 'unavailable'))
+    require(crosscheck == expected, 'Inventory cross-check marker does not match the pages actually read')
+    for page in verified_pages:
+        require(page in {'lobby', 'cs2'}, 'Unknown rendered inventory page')
+        require(set(raw) == set(context[page + '_ids']), 'A rendered Hotspawn inventory did not agree with the API')
+    fact_keys = ['id', 'teams', 'competition', 'competition_id', 'starts_at', 'locks_at', 'source_status', 'source_end_at', 'best_of', 'series_format', 'tier', 'lock_offset_sec', 'observed_at', 'source_url', 'source_api', 'lobby_url', 'availability', 'evidence']
+    if rendered_mode:
+        require(any(r['id'] == 'hotspawn-fixtures' and r.get('status') == 'error' for r in data.get('requests', [])),
+                'A rendered inventory must keep the refused API attempt in the manifest')
+        require(any(r['id'] in ('hotspawn-lobby', 'hotspawn-cs2') and r.get('observed_at') == context['observed_at'] and r.get('status') == 'ok' for r in data.get('requests', [])),
+                'Rendered inventory lacks its original successful page request')
+    else:
+        require(any(r['id'] == 'hotspawn-fixtures' and r.get('observed_at') == context['observed_at'] and r.get('status') == 'ok' and r.get('evidence') == 'data/evidence/hotspawn-fixtures.json' for r in data.get('requests', [])),
+                'Inventory lacks its original successful observation request')
+    return raw, context, fact_keys
+
+
 def check_data(root: Path):
     data = load(root / 'latest.json')
     require(data.get('schema_version') == 1, 'Unsupported data schema')
@@ -42,24 +92,7 @@ def check_data(root: Path):
     if not data['coverage_complete'] and not rows:
         require(any(f['id'] == 'inventory-failed' for f in data['flags']), 'Empty unverified inventory must have a visible failure flag')
         return data
-    raw = load(evidence / 'hotspawn-fixtures.json')
-    context = load(evidence / 'hotspawn-context.json')
-    require(data['inventory_observed_at'] == context['observed_at'], 'Inventory observation timestamp restamped')
-    raw = {str(r['id']): r for r in raw if r.get('sport_alias') == 'cs2'}
-    require(set(raw) == {m['id'] for m in rows}, 'Published inventory omits or invents a Hotspawn row')
-    require(set(raw) == set(context['api_ids']), 'Published inventory omits or invents a Hotspawn API row')
-    # Older retained snapshots have no cross-check marker and must keep the
-    # original strict three-way requirement. A new snapshot may only omit a
-    # rendered page when it records that the page was actually unreadable.
-    verified_pages = context.get('verified_pages', ['lobby', 'cs2'])
-    crosscheck = context.get('crosscheck', 'complete')
-    require(crosscheck in {'complete', 'partial', 'unavailable'}, 'Unknown inventory cross-check state')
-    require(crosscheck == ('complete' if len(verified_pages) == 2 else 'partial' if len(verified_pages) == 1 else 'unavailable'), 'Inventory cross-check marker does not match the pages actually read')
-    for page in verified_pages:
-        require(page in {'lobby', 'cs2'}, 'Unknown rendered inventory page')
-        require(set(raw) == set(context[page + '_ids']), 'A rendered Hotspawn inventory did not agree with the API')
-    fact_keys = ['id', 'teams', 'competition', 'competition_id', 'starts_at', 'locks_at', 'source_status', 'source_end_at', 'best_of', 'series_format', 'tier', 'lock_offset_sec', 'observed_at', 'source_url', 'source_api', 'lobby_url', 'availability', 'evidence']
-    require(any(r['id'] == 'hotspawn-fixtures' and r.get('observed_at') == context['observed_at'] and r.get('status') == 'ok' and r.get('evidence') == 'data/evidence/hotspawn-fixtures.json' for r in data.get('requests', [])), 'Inventory lacks its original successful observation request')
+    raw, context, fact_keys = check_inventory(evidence, rows, data)
     attempts = {r['id']: r for r in data.get('requests', [])}
     valve_rows = None
     hltv_path = evidence / 'hltv-research.json'
