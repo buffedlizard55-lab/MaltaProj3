@@ -154,10 +154,24 @@ class WatchdogContractTests(unittest.TestCase):
         posted, _ = run_decision(snapshot=snapshot_age(9), runs=[queued(40, run_id=44)], dry='false')
         self.assertEqual(len(posted), 1)
 
-    def test_a_queued_dispatch_run_always_blocks_a_second_dispatch(self):
+    def test_a_queued_dispatch_run_blocks_a_second_dispatch_while_it_can_start(self):
         """Dispatching again would cancel the run this watchdog just queued."""
         posted, _ = run_decision(snapshot=snapshot_age(12),
+                                 runs=[queued(20, run_id=46, event='workflow_dispatch')], dry='false')
+        self.assertEqual(posted, [])
+
+    def test_a_queued_dispatch_run_stalled_by_a_starved_pool_stops_blocking(self):
+        """Verified 2026-10-24: dispatch runs 40074120319/40074984702 sat queued
+        for over an hour while every workflow in the repository was also queued.
+        A queued run has executed no step, so a fresh dispatch loses no work."""
+        posted, _ = run_decision(snapshot=snapshot_age(12),
                                  runs=[queued(90, run_id=46, event='workflow_dispatch')], dry='false')
+        self.assertEqual(len(posted), 1)
+
+    def test_a_queued_dispatch_run_without_a_created_at_still_blocks(self):
+        posted, _ = run_decision(snapshot=snapshot_age(12),
+                                 runs=[{'id': 47, 'status': 'queued', 'event': 'workflow_dispatch',
+                                        'created_at': ''}], dry='false')
         self.assertEqual(posted, [])
 
     def test_queued_run_without_a_parseable_created_at_is_not_a_publish(self):
