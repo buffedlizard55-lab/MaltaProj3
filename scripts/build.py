@@ -1845,10 +1845,14 @@ def unresolved_register(data, prefix, title='Unresolved picks &amp; limitations'
         # brief asks for and links straight to that evidence rather than
         # reproducing ~40 KB of tables above the picks.
         out.append(no_line_digest(data, prefix))
-        # Note: `summary()` renders `no_line_research_block(data, prefix)` once
-        # immediately after `unresolved_register(..., compact=True)` so `index.html`
-        # carries `#no-line-research` without duplicating the DOM id (reconciling
-        # PR #230 and PR #231). `/unresolved/` uses `compact=False` below.
+        # The dated per-fixture research record stays on the summary: it is the
+        # evidence behind each no-line blocker and the cross-session audit
+        # (scripts/eea4c104_audit.py) requires the block here. It is rendered
+        # exactly once, by summary() itself: this compact register used to emit
+        # it a second time, which duplicated the element id on the executive
+        # summary (tests/test_ca7e10e5_snapshot.py asserts a single occurrence)
+        # and failed the publisher's regression step on every scheduled run from
+        # 2026-10-23T21:41Z. The full register on /unresolved/ keeps its own copy.
         # The companion record: what a surface that DID answer actually
         # published, for the same no-line fixtures. Same category as the dated
         # research record above, so it stays on the summary in compact form and
