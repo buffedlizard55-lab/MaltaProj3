@@ -82,6 +82,43 @@ findings; their rendering was verified in the local build (`site/review/index.ht
 four ids exactly once) and by `tests.test_review_flags` + `tests.test_review_register`
 (13 tests OK).
 
+### 5F9 merge conflict log 2 (2026-10-24T22:2xZ)
+
+PR #325 (this session) and PR #319 (`arena/3877d48d`, merged first) fixed the same two files for
+the same reason — the first exactly even market row. #319's `scripts/acceptance_audit.py` and
+`tests/test_99d48cd8_mobile.py` are the superset (it also labels every glance-row state), so the
+conflict was resolved by taking **main's** version of both files in full; nothing was discarded and
+this session's unique work (dossier, four findings, `originate` clock injection, records) stands.
+Re-verified after resolution: 38 tests OK across `test_3149e7ae_acceptance`,
+`test_99d48cd8_mobile` and `test_81c1058a_verification`; acceptance audit 10/10 on `site/` and
+9 pass / 1 info / 0 fail on the branch root.
+
+### 5F9 follow-up 2 (2026-10-24T20:2xZ–21:0xZ): audit vocabulary and anchor convention, not data
+
+The next publisher run ([40127253463](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40127253463),
+push, 19:52Z) again failed `Regression tests`, on three checks that none of my files touch, all
+triggered by the **20:07:55Z** root snapshot introducing the project's first **exactly even market
+row** (1079200 Color vs ex-Zero Tenacity, a two-sided Polymarket book at 50/50):
+
+1. `scripts/acceptance_audit.check_glance_rows` required a `[data-glance-pick]` element on every
+   glance row, so the documented *No edge · Even · no side* state read as "no pick and no
+   unresolved label". The audit now accepts that state and *Unresolved* — but only when the row
+   carries an in-row reason link to the register — so a silent gap still fails. Result:
+   **10 pass / 0 info / 0 fail** against both `site/` and the branch root.
+2. `test_99d48cd8_mobile` required a `match-<id>` anchor for every snapshot fixture with no
+   featured analysis. Two documented anchor conventions exist (`match-<id>` on origination rows,
+   `no-line-<id>` on the no-betting-line cards), and a fixture the complete-picks layer resolved
+   from a real book line (1081156, Bovada) is legitimately absent. The test is now
+   snapshot-independent in the same spirit as #320's hardening: the page's own declared counts must
+   add up (with a pick + no pick + no side = active) and every fixture it reports as unpicked must
+   be named with a deep link and both team names.
+3. `test_81c1058a_verification::test_acceptance_audit_passes_on_both_site_and_branch_root` and
+   `::test_built_site_publishes_81c1058a_flags_and_register` were downstream of item 1 and are green
+   once the audit passes on the root build.
+
+No probability, pick, snapshot, dataset or rendered page changed; these are the audit's vocabulary
+and the test's anchor acceptance.
+
 ### 5F9 merge conflict log (2026-10-24T19:5xZ)
 
 While PR #322 waited on its checks, parallel sessions merged #318 (`arena/c2a74e33`) and #320
