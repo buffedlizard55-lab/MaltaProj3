@@ -27,6 +27,9 @@ ALLOWED_HOSTS = {
     'play.hotspawn.com', 'www.hotspawn.com', 'polymarket.com', 'www.hltv.org',
     'egamersworld.com', 'github.com', 'buffedlizard55-lab.github.io',
     'phpstack-1372681-6459848.cloudwaysapps.com',
+    # The provider URLs the published bookmaker rows themselves cite; the second
+    # review pass links them as evidence for the generic-link finding.
+    'thunderpick.io',
 }
 VERDICTS = {
     'two-sided external price observed',
