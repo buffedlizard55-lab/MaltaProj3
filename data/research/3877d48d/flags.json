@@ -13,7 +13,12 @@
  {
   "id": "3877d48d-egw-identical-decimal-placeholder",
   "severity": "warning",
-  "match_ids": ["1082996", "1082861", "1082792", "1082793"],
+  "match_ids": [
+   "1082996",
+   "1082861",
+   "1082792",
+   "1082793"
+  ],
   "title": "Four unrelated EGamersWorld match pages display the same 1.80 / 1.80 pair",
   "detail": "Acend–UNiTY (1082996), Rooster–Abyssal (1082861), HOTU–The Huns (1082792) and 5star–1WIN (1082793) each display 1.80 for both teams at 2026-10-24T16:2xZ. Four unrelated fixtures cannot all carry an even-money two-sided bookmaker average, so the pair is refused under the existing identical-decimal placeholder rule. Nothing was priced from it; all four fixtures remain on their research-model picks.",
   "source_urls": [
@@ -26,7 +31,9 @@
  {
   "id": "3877d48d-near-lock-price-rendered-as-one-point-zero-zero",
   "severity": "warning",
-  "match_ids": ["1082860"],
+  "match_ids": [
+   "1082860"
+  ],
   "title": "A 1.001 near-lock quote was published as “1.00”, which reads as a zero-payout price",
   "detail": "FlyQuest–Staqued (1082860) is priced from a Thunderpick/Bovada quote of 1.001 / 12.00. scripts/build.py::observed_price_label formatted both sides with two decimals, so the phone summary and the register showed “line 1.00 / 12.00”. Fixed in this session: decimal_price() keeps three decimals below 1.10 (rendering 1.001 / 12.00) and leaves every ordinary price unchanged. The probability, the pick and the stored quote are untouched; the register now also states that a winning bet on a sub-1.02 quote returns under 2%.",
   "source_urls": [
@@ -37,7 +44,10 @@
  {
   "id": "3877d48d-bovada-series-11-path-on-series-12-fixtures",
   "severity": "info",
-  "match_ids": ["1081156", "1081158"],
+  "match_ids": [
+   "1081156",
+   "1081158"
+  ],
   "title": "The Bovada pages behind two published picks sit under a “series-11” path while Hotspawn lists CCT Europe Series #12",
   "detail": "The published source URLs for Spirit Academy–LFO 10 (1081156, provider name “Sokerorg”) and FORZE Reload–ex-RUSTEC (1081158) both live under /cct-europe/series-11/ in Bovada's own URL, while Hotspawn lists both in CCT Europe 2026 Series #12. A provider path segment is not proof that the wrong fixture was priced — the same provider labels unrelated fixtures the same way — so neither pick was changed. The mismatch is published for review instead of being silently rewritten.",
   "source_urls": [
@@ -49,7 +59,9 @@
  {
   "id": "3877d48d-acend-unity-polymarket-event-unmatched",
   "severity": "info",
-  "match_ids": ["1082996"],
+  "match_ids": [
+   "1082996"
+  ],
   "title": "A live Polymarket series event binds to Acend–UNiTY at the exact start time, but the published trail says no unique fixture was found",
   "detail": "Polymarket event 1238703 (cs2-ace1-unity-2026-10-25) is active and its own eventStartTime is 2026-10-25T09:00:00Z, exactly the Hotspawn start for 1082996. The published research trail for that fixture says “No unique exact-name, exact-start-time fixture”. The event's map-1 book is 0.03 / 0.97 (spread 0.94), so it may well still be refused on the spread ceiling — but the reason recorded is the wrong one. Request for the owning session: retry the series book for 1238703 instead of treating the fixture as unlisted. Nothing was repriced here.",
   "source_urls": [
@@ -61,7 +73,9 @@
  {
   "id": "3877d48d-model-more-confident-than-hltv-on-hotu",
   "severity": "info",
-  "match_ids": ["1082792"],
+  "match_ids": [
+   "1082792"
+  ],
   "title": "The Valve-rating model is much more confident than HLTV's own estimate on HOTU–The Huns",
   "detail": "The published pick for HOTU–The Huns (1082792) is HOTU 94.1% from the uncalibrated Valve-rating model. HLTV's own page for the same fixture displays 77.1% HOTU / 22.9% The Huns. HLTV's figure is HLTV's estimate, not a betting line, so it is not used as an input and no probability was changed. The gap is published because a 17-point difference between an uncalibrated model and an independent public estimate is exactly what a reader should be able to see.",
   "source_urls": [
@@ -71,13 +85,13 @@
  },
  {
   "id": "3877d48d-wall-clock-test-bomb-a5b59ee6",
-  "severity": "warning",
+  "severity": "info",
   "match_ids": [],
-  "title": "Two publisher-wiring tests were pinned to a fixed 06:30Z capture time and failed every run after ~14:30Z",
-  "detail": "tests/test_a5b59ee6_publisher_wiring.py called scripts.originate.run (which judges freshness against the real clock, eight hours) with a capture stamped 2026-10-24T06:20:00Z. Both end-to-end tests passed in the morning and failed on this session's 16:2xZ run with “the capture priced nothing” — the same wall-clock failure class that stalled the four-hour publisher on 23–24 October. Fixed here with an observed_now() helper for the two live-path tests only; the injected-clock tests keep their fixed NOW. Reproduce with: python -m unittest tests.test_a5b59ee6_publisher_wiring.",
+  "title": "A publisher-wiring test was pinned to a fixed 06:30Z capture time and failed every run after ~14:30Z — already fixed on main by an injected clock",
+  "detail": "tests/test_a5b59ee6_publisher_wiring.py called scripts.originate.run (which judged freshness against the real clock, eight hours) with a capture stamped 2026-10-24T06:20:00Z. Both end-to-end tests passed in the morning and failed on this session's 16:2xZ run with “the capture priced nothing”. This session first repaired it with a real-clock capture stamp; before merge, main received the better fix from session 5f9d0082 (commit 10d79ba): originate.run takes an injected now=NOW, so the whole chain is evaluated at a fixed instant and cannot rot after eight hours. This session adopted main's version and dropped its own patch — the flag is kept as the dated record of the failure class. Verified on the merged tree: python -m unittest tests.test_a5b59ee6_publisher_wiring → 10 tests OK.",
   "source_urls": [
    "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_a5b59ee6_publisher_wiring.py",
-   "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/domain.py"
+   "https://github.com/buffedlizard55-lab/MaltaProj3/commit/10d79ba"
   ]
  },
  {

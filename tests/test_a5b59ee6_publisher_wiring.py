@@ -39,20 +39,6 @@ from scripts import egw_live, originate, reference_odds
 NOW = datetime(2026, 10, 24, 6, 30, tzinfo=timezone.utc)
 OBSERVED = '2026-10-24T06:20:00Z'
 
-
-def observed_now() -> str:
-    """A capture time the live ladder still considers fresh.
-
-    Session arena-3877d48d: the two end-to-end tests below call
-    ``originate.run``, which judges freshness against the *real* clock (eight
-    hours, ``scripts.domain.MAX_PRICE_AGE_HOURS``). Pinning their observation to
-    the module's fixed ``NOW`` (06:30Z on 24 Oct) made them pass in the morning
-    and fail every run after ~14:30Z — the same wall-clock bomb that froze the
-    scheduled publisher on 23-24 October. The injected-clock test above keeps
-    using ``NOW`` explicitly; only the live-path tests take the real time.
-    """
-    return datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
-
 # The rung's contract since arena-b97af12f: a match anchor must carry its own
 # timezone-qualified start and a decimal price bound to each exact outcome name.
 # A bare "team 3.44 team 1.24" anchor is a lead, not a quote, and prices nothing.
@@ -198,7 +184,7 @@ class TheLadderPublishesThePick(unittest.TestCase):
                       inventory_observed_at='2026-10-24T06:00:00Z')
         (tmp / 'latest.json').write_text(json.dumps(latest))
         if chain:
-            write_chain(evidence, observed_now())
+            write_chain(evidence, NOW.strftime('%Y-%m-%dT%H:%M:%SZ'))
         return tmp
 
     def test_the_capture_becomes_a_published_pick(self):
@@ -219,7 +205,7 @@ class TheLadderPublishesThePick(unittest.TestCase):
 
     def test_a_reviewed_capture_outranks_the_automated_one(self):
         tmp = self.data_dir()
-        observed = observed_now()
+        observed = NOW.strftime('%Y-%m-%dT%H:%M:%SZ')
         reviewed = dict(egw_live.entries_for(INDEX_HTML, [dict(MATCH)],
                                              {'aliases': []}, observed)[0],
                         odds=[2.00, 1.80],
