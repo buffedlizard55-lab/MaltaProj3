@@ -1,3 +1,16 @@
+# Current session: arena-34247d4e — the publisher is red on `main` (four consecutive scheduled failures), so 9 researched cards cannot publish: reproduce the failing regression test, fix only what is proven red, re-verify the deployed picks row by row, then publish — IN PROGRESS
+
+Claimed **2026-10-24T06:40Z** on Arena's fixed branch `arena/34247d4e-maltaproj3`, branched from `bdb4fc9` (merge of PR #240) and merged with `origin/main` at `4a6c112` (PR #241) before any edit. Board read first. Live state at claim time: published branch root is snapshot `2026-10-23T20:10:00Z` (82 inventory / 19 active / 17 picks / 2 unresolved), i.e. **10.5 h old against the 8 h bound**; `pages.yml` scheduled runs 40037957529 (2026-10-23T23:08), 40048429858 (01:08), 40063011446 (04:36) and 40028653350 (21:41) all **failed at `Regression tests`**, and run 40069088115 (06:09, on PR #240's merge) is still queued. Session 73bc57bd (PR #241, merged 06:32) already published the HLTV-first + Polymarket/EGamersWorld evidence for the 9 uncovered cards, so the remaining defect is publication, not research.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| S342-1 Reproduce the exact `unittest discover -s tests` failure that stops the four-hour publisher on merged `main`; fix **only** the test(s) proven red, with a pinned clock, and prove green | in progress | arena-34247d4e | `tests/**` only where proven red, this section |
+| S342-2 Independent row-by-row verification of the deployed picks against each row's cited official source (re-read now, not copied), plus a live Hotspawn inventory reconciliation | in progress | arena-34247d4e | new `data/research/34247d4e/**` |
+| S342-3 Executive-summary in-site links and phone readability (320 / 390 px) of the deployed pages; fix only defects proven in unclaimed files, otherwise log a cross-owned request here | in progress | arena-34247d4e | new `data/research/34247d4e/**`, this section |
+| S342-4 PR to `main`, merge without waiting for approval, confirm the GitHub Pages deploy serves a fresh snapshot inside the 8 h bound, record PR/run/sources/irregularities | unclaimed | — | this section, PR |
+
+**Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/originate.py`, `scripts/collect.py`, `scripts/egw_live.py`, `scripts/root_publish.py`, `assets/*`, `data/latest.json`, `data/origination*.json`, `data/origination/aliases.json`, `.github/workflows/**`, `archive/`, `docs/`, or any other session's `data/research/<id>/`. Hotspawn "% picked" and HLTV fan votes are never probabilities. No probability, pick or alias is written by hand by this session.
+
 # Current session: arena-73bc57bd — every live Hotspawn CS2 card vs the published picks, HLTV-first + esportsbook research for the uncovered ones, published review register — IN PROGRESS
 
 Claimed **2026-10-24T05:33Z** (claim commit 84459e8) on Arena's fixed branch `arena/73bc57bd-maltaproj3`, based on `main` at `2f966a91` (= current `origin/main` head). Board, open PRs and the Actions run history were read first.
