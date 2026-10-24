@@ -88,6 +88,12 @@ class DossierAndReviewRegisterTests(unittest.TestCase):
 
 
 class ReadOnlyProbeContractTests(unittest.TestCase):
+    def test_originate_imports_and_wires_egw_live(self):
+        self.assertTrue(hasattr(originate, 'egw_live'))
+        src = (ROOT / 'scripts' / 'originate.py').read_text(encoding='utf-8')
+        self.assertIn('from scripts import egw_live', src)
+        self.assertIn('egw_live.load_live(evidence_dir)', src)
+
     def test_probe_is_read_only_and_emits_build_compatible_dossiers(self):
         probe_src = (ROOT / 'scripts' / 'dd433e7f_probe.py').read_text(encoding='utf-8')
         for forbidden in ("aliases.json').write_text", "origination.json').write_text", "latest.json').write_text"):
