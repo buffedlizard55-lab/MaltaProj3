@@ -163,13 +163,22 @@ class TheWholeChainReplays(unittest.TestCase):
                                             {'aliases': []}), [])
 
 
+class _PinnedDatetime(datetime):
+    @classmethod
+    def now(cls, tz=None):
+        return NOW if tz is not None else NOW.replace(tzinfo=None)
+
+
 class TheLadderPublishesThePick(unittest.TestCase):
     """End to end: the capture must change a published pick, or it is decoration."""
 
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
+        self._dt_patch = patch.object(originate, 'datetime', _PinnedDatetime)
+        self._dt_patch.start()
 
     def tearDown(self):
+        self._dt_patch.stop()
         self.tmp.cleanup()
 
     def data_dir(self, chain: bool = True):

@@ -41,6 +41,10 @@ UTC = timezone.utc
 EVIDENCE_PATH = Path('research/57b1ee04/reference-odds.json')
 CAPTURE_PATHS = (
     EVIDENCE_PATH,
+    # Session arena-c2a74e33 (2026-10-24T16:42:00Z): fresh first-hand EGW
+    # match-page captures (placed ahead of E57's expired 06:29Z capture so
+    # Ground Zero vs Off Chops 1082858 resolves inside the 8h freshness gate).
+    Path('research/c2a74e33/reference-odds.json'),
     # Independently reviewed EGW match-page capture (E57). The same schema,
     # identity, hash and eight-hour gates apply; this is not a manual quote.
     Path('research/e57df95b/reference-odds.json'),
