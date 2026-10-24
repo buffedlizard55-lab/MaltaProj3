@@ -4,6 +4,12 @@
 name: 89c00d8a fresh CS2 research (never deploys)
 on:
   workflow_dispatch:
+  # GitHub only discovers a brand-new dispatch workflow after it reaches the
+  # default branch. This one-time, path-scoped push trigger starts the probe on
+  # the fixed session branch; evidence commits do not retrigger it.
+  push:
+    branches: [arena/89c00d8a-maltaproj3]
+    paths: [.github/workflows/89c00d8a-research.yml]
 permissions:
   contents: write
 concurrency:
