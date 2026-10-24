@@ -84,6 +84,14 @@ merged code, and keeps only what is not a duplicate:
   run), so nothing is stale-broken and nothing is fabricated; the refresh simply has not run yet.
   The run link above is the authoritative record — check it before treating the published
   snapshot as current.
+- **Deploy re-checked at 2026-10-24T10:00Z:** run 40074822023 is *still* `queued` (created
+  07:36:41Z, ~2h20m). Between 09:38Z and 09:51Z alone, six push runs on `main` were
+  cancelled while pending. The queue is starved of runners by the number of concurrent
+  sessions, not by anything in this branch: the merged tree builds and passes its full
+  suite locally, and the first job of the queued run republishes the last verified artifact,
+  so the public site is not serving a broken or fabricated snapshot while it waits. If a
+  later session sees this run still queued, the correct action is to re-run it (or dispatch
+  `pages.yml`) once the pool is free, not to change code.
 - **Irregularities recorded, not fixed here:** the four failed scheduled runs and the backlog above; push runs cancelled while pending
   throughout 06:32Z-07:49Z under parallel-session load, including the push run for this session's
   own merge; and this sandbox cannot reach Hotspawn, HLTV, EGamersWorld or the public Pages host
