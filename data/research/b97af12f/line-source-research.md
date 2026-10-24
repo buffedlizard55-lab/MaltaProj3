@@ -1,6 +1,6 @@
 # arena-b97af12f — HLTV-first no-line research
 
-Observed **2026-10-24T06:35:00Z** in **agent-authoring-path**. Researched **9** lobby cards missing from the stale published snapshot. **4** had a dated two-sided external line lead; **5** had no compliant price at this observation.
+Observed **2026-10-24T06:52:00Z** in **agent-authoring-path**. Researched **9** lobby cards missing from the stale published snapshot. **4** had a dated two-sided external line lead; **5** had no compliant price at this observation.
 
 Order: HLTV first (identity/format only), then Polymarket and EGamersWorld. HLTV fan votes and Hotspawn participation percentages are excluded. A dated lead is not a published pick until the automated ladder replays it from first-party evidence.
 

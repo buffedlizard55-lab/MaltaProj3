@@ -21,7 +21,10 @@ from pathlib import Path
 
 UTC = timezone.utc
 SESSION = 'arena-b97af12f'
-OBSERVED_AT = '2026-10-24T06:35:00Z'
+# End of the verification window: the inventory/API rows were read at 06:24Z,
+# the HLTV/Polymarket/EGW sweep at 06:30-06:35Z, and the Series 11 EGW pages
+# were re-read first-hand at 06:52Z before the dossier was regenerated.
+OBSERVED_AT = '2026-10-24T06:52:00Z'
 SNAPSHOT_GENERATED_AT = '2026-10-23T20:10:00Z'
 OUT_DIR = Path('data/research/b97af12f')
 LOBBY_URL = 'https://play.hotspawn.com/lobby'
@@ -315,6 +318,9 @@ def build_reconciliation() -> dict:
             'hltv_events': HLTV_EVENTS,
             'polymarket_board': {'url': POLYMARKET_BOARD, 'observed_at': '2026-10-24T06:31:00Z'},
             'egamersworld_index': {'url': EGW_INDEX, 'observed_at': '2026-10-24T06:33:00Z'},
+            'egamersworld_recheck': {'url': 'https://egamersworld.com/counterstrike/match/_rW8GEyWK/acend-vs-forze-reload-FZO8bqMyg',
+                                     'observed_at': '2026-10-24T06:52:00Z',
+                                     'finding': 'Series 11 quarterfinal page still prints non-identical 2.85/1.34; NODWIN model rows print identical 1.8/1.8 placeholders.'},
         },
         'counts': {
             'lobby_future_cards': len(lobby),

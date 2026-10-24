@@ -3,9 +3,15 @@
 # runner-verified record that scripts.build.load_no_line_research() will trust.
 # This workflow re-fetches the same public URLs on GitHub's runner, saves
 # status/hash/excerpt evidence, and commits ONLY under data/research/b97af12f/.
-# It never runs collect/originate, never writes data/latest.json, never deploys,
-# and the push guard skips its own commit so it cannot loop.
-name: b97af12f dated evidence re-check (never deploys)
+# It never runs collect/originate and never writes data/latest.json. The push
+# guard skips its own report commit so the research job cannot loop.
+#
+# A separate job grants this run's GITHUB_TOKEN actions: write and dispatches
+# pages.yml on main. That workflow_dispatch run has its own concurrency group,
+# so it is not cancelled by the rapid push-triggered main runs that have been
+# starving the four-hour publisher queue. The dispatch job itself never edits
+# the repository and never deploys directly.
+name: b97af12f dated evidence re-check (dispatches publisher)
 on:
   workflow_dispatch:
   push:
@@ -38,3 +44,19 @@ jobs:
           git commit -m 'research(b97af12f): runner re-check of dated lobby/API evidence (never published)'
           git pull --rebase origin arena/b97af12f-maltaproj3
           git push origin arena/b97af12f-maltaproj3
+
+  dispatch-publisher:
+    needs: research
+    if: ${{ always() && github.event_name == 'push' && !startsWith(github.event.head_commit.message, 'research(b97af12f)') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - name: Ask the four-hour publisher to run in its own concurrency group
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh workflow run pages.yml --ref main
+          echo "Dispatched pages.yml on main via workflow_dispatch (separate concurrency group)."

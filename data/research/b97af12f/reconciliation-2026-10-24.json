@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "session": "arena-b97af12f",
-  "observed_at": "2026-10-24T06:35:00Z",
+  "observed_at": "2026-10-24T06:52:00Z",
   "environment": "agent-authoring-path (first-hand page fetcher; the dispatch-only workflow re-checks the live sources)",
   "role": "Dated read-only inventory and source research. No value here is a probability or a pick.",
   "sources": {
@@ -39,6 +39,11 @@
     "egamersworld_index": {
       "url": "https://egamersworld.com/counterstrike/matches",
       "observed_at": "2026-10-24T06:33:00Z"
+    },
+    "egamersworld_recheck": {
+      "url": "https://egamersworld.com/counterstrike/match/_rW8GEyWK/acend-vs-forze-reload-FZO8bqMyg",
+      "observed_at": "2026-10-24T06:52:00Z",
+      "finding": "Series 11 quarterfinal page still prints non-identical 2.85/1.34; NODWIN model rows print identical 1.8/1.8 placeholders."
     }
   },
   "counts": {

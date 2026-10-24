@@ -99,10 +99,15 @@ def test_build_loader_finds_our_live_coverage_and_runner_variant(tmp_path: Path)
     source = Path('data')
     record = build.load_live_coverage(source)
     assert record is not None
-    assert record['session'] == 'arena-b97af12f'
     assert record['live_fixtures']
-    assert record['_record_path'].endswith('data/research/b97af12f/live-coverage.json') or \
-        record['_record_path'].endswith('research/b97af12f/live-coverage.json')
+    assert record['_record_path'].endswith('live-coverage.json')
+    # Other sessions publish newer independent coverage sweeps. The loader's
+    # contract is "newest dated record wins", not "B97 always wins"; B97 only
+    # has to remain a parseable candidate no older than the selected record.
+    ours = json.loads((OUT_DIR / 'live-coverage.json').read_text(encoding='utf-8'))
+    assert ours['live_fixtures']
+    if record['session'] != 'arena-b97af12f':
+        assert build.timestamp(record['observed_at']) >= build.timestamp(ours['observed_at'])
 
     # A local authoring record must not masquerade as runner evidence. Copy our
     # research record into a temporary research tree, set the real runner flag,

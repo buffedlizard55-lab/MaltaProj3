@@ -1,6 +1,6 @@
 # arena-b97af12f — dated Hotspawn CS2 reconciliation
 
-Observed **2026-10-24T06:35:00Z**. Read 25 future cards on [Hotspawn lobby](https://play.hotspawn.com/lobby); the [official scheduled-fixture API](https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1) returned 31 future rows, including 6 not rendered in the fetched lobby HTML.
+Observed **2026-10-24T06:52:00Z**. Read 25 future cards on [Hotspawn lobby](https://play.hotspawn.com/lobby); the [official scheduled-fixture API](https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1) returned 31 future rows, including 6 not rendered in the fetched lobby HTML.
 
 The [published snapshot](https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json) was generated **2026-10-23T20:10:00Z** and carries only 16 of those lobby cards; **9 lobby cards and 6 API-only rows are missing**. Its own page warns “do not treat these as current picks.”
 

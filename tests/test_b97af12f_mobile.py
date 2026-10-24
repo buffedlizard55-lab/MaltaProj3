@@ -13,6 +13,7 @@ The test makes that handoff explicit rather than hiding it.
 from __future__ import annotations
 
 import json
+import re
 import tempfile
 import unittest
 from pathlib import Path
@@ -61,9 +62,13 @@ class B97MobileVerification(unittest.TestCase):
         self.assertIn('Unresolved picks', self.index)
 
     def test_b97_dated_record_is_rendered_and_linked(self):
-        self.assertIn('b97af12f/live-coverage.json', self.index)
+        # scripts.build picks the newest dated coverage record across all
+        # sessions. B97's own artifact must still ship, and whichever record is
+        # selected must be linked with the dated-observation disclaimer.
         self.assertIn('Dated lobby coverage check', self.index)
         self.assertIn('This is a dated observation, not a live claim', self.index)
+        self.assertTrue((self.out / 'data/research/b97af12f/live-coverage.json').is_file())
+        self.assertRegex(self.index, r'data/research/[^"\s]+/live-coverage\.json')
 
     def test_build_audits_have_no_link_or_row_source_violation(self):
         row_audit = json.loads((self.out / 'data/row-source-audit.json').read_text())

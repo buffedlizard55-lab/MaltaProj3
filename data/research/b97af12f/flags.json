@@ -3,7 +3,7 @@
     "id": "b97af12f-stale-snapshot-missing-15-future-rows",
     "severity": "warning",
     "title": "Published snapshot is stale and omits 15 future Hotspawn CS2 rows",
-    "detail": "Read 2026-10-24T06:24-06:35Z: the live lobby rendered 25 future cards, Hotspawn's own scheduled-fixture API returned 31 future rows, while the published site snapshot was generated 2026-10-23T20:10:00Z with 19 upcoming rows (three already past start). Nine rendered lobby cards and six API-only future rows are absent. The site itself warns 'do not treat these as current picks.' Dossier: data/research/b97af12f/reconciliation-2026-10-24.json and live-coverage.json. This is a dated observation, not a claim about a later refresh.",
+    "detail": "Read 2026-10-24T06:24-06:52Z: the live lobby rendered 25 future cards, Hotspawn's own scheduled-fixture API returned 31 future rows, while the published site snapshot was generated 2026-10-23T20:10:00Z with 19 upcoming rows (three already past start). Nine rendered lobby cards and six API-only future rows are absent. The site itself warns 'do not treat these as current picks.' Dossier: data/research/b97af12f/reconciliation-2026-10-24.json and live-coverage.json. This is a dated observation, not a claim about a later refresh.",
     "match_ids": [
       "1079658", "1079659", "1079660", "1079661", "1081152", "1081153", "1081154", "1081156", "1081158",
       "1083120", "1083121", "1082695", "1083122", "1083140", "1083123"

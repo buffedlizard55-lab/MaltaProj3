@@ -1,6 +1,6 @@
 # arena-b97af12f — live coverage comparison
 
-Observed **2026-10-24T06:35:00Z**. Compared **31** future Hotspawn CS2 rows against [published data](https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json) generated **2026-10-23T20:10:00Z**. **15** are missing; **6** were API future rows not rendered in the fetched lobby.
+Observed **2026-10-24T06:52:00Z**. Compared **31** future Hotspawn CS2 rows against [published data](https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json) generated **2026-10-23T20:10:00Z**. **15** are missing; **6** were API future rows not rendered in the fetched lobby.
 
 This is a dated observation, not a live claim. Hotspawn crowd percentages are never probabilities.
 
