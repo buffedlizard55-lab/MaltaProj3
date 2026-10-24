@@ -115,3 +115,17 @@ Built 9 current Pages views, compatible old URLs and explicitly archived session
 1. The sandbox has **no direct egress** to `hltv.org`, `polymarket.com`, `egamersworld.com`, `smarkets.com`, `bovada.lv`, `kalshi` or the Actions log blob host (`curl` returns HTTP 000 for each). Page reads were made through the agent's page-fetch proxy, which returns rendered text/JSON but cannot write a byte-for-byte evidence file into `data/evidence/`; each re-read therefore carries its endpoint and read time instead of a saved payload.
 2. **No live collection could be run from here**, so "a pick for every live card" can only be confirmed after a publisher run completes. This session verified the mechanism, the published rows and the structural coverage — not a fresh collection.
 3. The publisher could not be dispatched (HTTP 403) and its push runs were being cancelled (section 2).
+
+## 7. Publish confirmed (2026-10-24T09:44Z)
+
+The deadlock cleared when another session's recovery lane landed. Run **[40080977205](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40080977205)** (*recovery: preserve every scheduled lane while publishing verified picks*) completed **success** — both `republish-last-verified` and `verify-and-deploy` green.
+
+| Item | Value |
+| --- | --- |
+| Published snapshot | **`2026-10-24T09:28:46Z`** (inventory observed 09:28:23Z) |
+| Inventory | 90 records — 29 open, 61 archived |
+| Picks | **24 of 29 open fixtures** (12 `market`, 10 `model`, 2 `bookmaker`) |
+| Unresolved | **5**, each published in the unresolved register with its blockers |
+| Read back from | `https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json` at 09:44Z |
+
+The five open fixtures without a price are 1083121 Projeto do KinGui–MEIA NOITE (24 Oct 16:00Z), 1083122 LOS NINOS–BORRACHEIROS (24 Oct 19:00Z), 1081156 Spirit Academy–LFO 10 (25 Oct 12:00Z), 1082858 Ground Zero–Off Chops (26 Oct 03:00Z) and 1082792 HOTU–The Huns (31 Oct 09:00Z). They are blank because **no compliant two-sided book was accepted**, not because they were skipped: the ladder runs Polymarket → Kalshi → Thunderpick → Bovada → Smarkets → EGamersWorld → Valve roster model → network fit → HLTV world ranking, and each failing rung is recorded on the fixture. Writing a number by hand for them would break the repository's own rule that a probability must replay from a saved first-party observation, so they stay blank and visible.

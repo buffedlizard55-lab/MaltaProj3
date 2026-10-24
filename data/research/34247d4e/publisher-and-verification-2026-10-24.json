@@ -241,5 +241,67 @@
     "The sandbox has no direct egress to hltv.org, polymarket.com, egamersworld.com, smarkets.com or the Actions log blob host; page reads were made through the agent's page-fetch proxy, which returns the rendered text/JSON of a URL but cannot write a byte-for-byte evidence copy into data/evidence/. Every re-read below therefore carries its endpoint and read time instead of a saved payload.",
     "No live collection could be run from this sandbox, so the 'picks for every live card' claim can only be verified after the publisher completes a run; this session verified the mechanism and the published rows, not a fresh collection.",
     "The four-hourly publisher could not be dispatched (HTTP 403) and its push-triggered runs were being cancelled while other sessions pushed main; the next scheduled slot at 06:47Z had not started by 06:53Z."
-  ]
+  ],
+  "publish_confirmed": {
+    "run": 40080977205,
+    "run_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40080977205",
+    "title": "recovery: preserve every scheduled lane while publishing verified picks",
+    "result": "success - both jobs (republish-last-verified, verify-and-deploy) completed successfully",
+    "published_snapshot_generated_at": "2026-10-24T09:28:46Z",
+    "inventory_observed_at": "2026-10-24T09:28:23Z",
+    "counts": {
+      "inventory": 90,
+      "upcoming": 29,
+      "archived": 61,
+      "market": 12,
+      "bookmaker": 2,
+      "model": 10,
+      "unresolved": 5,
+      "picks": 24
+    },
+    "read_back_from": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json at 2026-10-24T09:44Z",
+    "frameworks": "the public file itself confirms the deploy; the publisher's own verify_live step passed in the same run",
+    "open_fixture_accounting": {
+      "open": 29,
+      "with_a_pick": 24,
+      "by_method": {
+        "market": 12,
+        "model": 10,
+        "bookmaker": 2
+      },
+      "unresolved": [
+        {
+          "id": "1083121",
+          "card": "Projeto do KinGui vs MEIA NOITE",
+          "starts_at": "2026-10-24T16:00:00Z",
+          "tier": "c"
+        },
+        {
+          "id": "1083122",
+          "card": "LOS NINOS vs BORRACHEIROS",
+          "starts_at": "2026-10-24T19:00:00Z",
+          "tier": "c"
+        },
+        {
+          "id": "1081156",
+          "card": "Spirit Academy vs LFO 10",
+          "starts_at": "2026-10-25T12:00:00Z",
+          "tier": "b"
+        },
+        {
+          "id": "1082858",
+          "card": "Ground Zero vs Off Chops",
+          "starts_at": "2026-10-26T03:00:00Z",
+          "tier": "b"
+        },
+        {
+          "id": "1082792",
+          "card": "HOTU vs The Huns",
+          "starts_at": "2026-10-31T09:00:00Z",
+          "tier": "b"
+        }
+      ],
+      "note": "Every one of the five is blank because no compliant two-sided line was accepted; each is published in the site's unresolved register with its blockers, never with an invented number."
+    }
+  }
 }
