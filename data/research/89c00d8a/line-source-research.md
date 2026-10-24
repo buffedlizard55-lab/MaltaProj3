@@ -1,8 +1,8 @@
-# Line-source research — 2026-10-24T05:39:16Z
+# Line-source research — 2026-10-24T05:59:04Z
 
-Source snapshot: `data/origination.json` (generated 2026-10-24T05:38:33Z); 88 Hotspawn fixtures, 10 with no external line.
+Source snapshot: `data/origination.json` (generated 2026-10-24T05:58:10Z); 88 Hotspawn fixtures, 10 with no external line.
 
-| Fixture | Start (UTC) | Published method | HLTV | bo3.gg join | bo3 relay price | Smarkets exchange |
+| Fixture | Start (UTC) | Candidate method (this collection) | HLTV | bo3.gg join | bo3 relay price | Smarkets exchange |
 | --- | --- | --- | --- | --- | --- | --- |
 | Saint Sinners vs 6yuBoJlbl | 2026-10-24T14:00:00Z | model | HTTP 403 (Cloudflare) — platform-side reads in hltv-platform-sweep.md | [Saint Sinners vs 6yuBoJlbl](https://bo3.gg/matches/6yubojlbl-vs-saint-sinners-24-10-2026) · Δ0s | none published | not bound (no exact both-name + 60 s event match) |
 | BakS vs ILLYRIANS | 2026-10-24T17:00:00Z | model | HTTP 403 (Cloudflare) — platform-side reads in hltv-platform-sweep.md | [BakS vs ILLYRIANS](https://bo3.gg/matches/baks-esports-vs-illyrians-24-10-2026) · Δ0s | none published | not bound (no exact both-name + 60 s event match) |
@@ -35,8 +35,8 @@ Source snapshot: `data/origination.json` (generated 2026-10-24T05:38:33Z); 88 Ho
 | [1xBet CS2](https://1xbet.com/en/line/counter-strike-2) | 203 | challenge page |
 | [Marathonbet CS2](https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/) | 403 | challenge page |
 | [Betway CS2](https://www.betway.com/en/sports/esports/counter-strike-2) | 404 | blocked |
-| [DraftKings CS2](https://sportsbook.draftkings.com/leagues/esports/counter-strike-2) | 404 | blocked |
-| [OddsPortal CS2](https://www.oddsportal.com/esports/counter-strike/) | 200 | ok |
+| [DraftKings CS2](https://sportsbook.draftkings.com/leagues/esports/counter-strike-2) | 200 | ok |
+| [OddsPortal CS2](https://www.oddsportal.com/esports/counter-strike/) | 429 | blocked |
 | [Oddspedia CS2](https://oddspedia.com/esports/cs-go) | 410 | blocked |
 | [EGamersWorld CS2 matches](https://egamersworld.com/counterstrike/matches) | 403 | challenge page |
 | [Pinnacle CS2](https://www.pinnacle.com/en/esports/counter-strike-2) | 404 | blocked |
