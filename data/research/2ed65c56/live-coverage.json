@@ -24,13 +24,13 @@
    "tier_c": 45
   },
   "cards_rendered_and_compared": 25,
-  "note": "The lobby header reported 88 CS2 cards this week (43 tier B, 45 tier C); the rendered closing-soon/upcoming list carried the 25 cards compared here. Card times render in America/New_York (UTC-4); the +4h mapping was confirmed on all 16 cards that also exist in the snapshot. Hotspawn \"% picked\", offered points and the leaderboard are not probabilities and are not used."
+  "note": "The lobby header reported 88 CS2 cards this week (43 tier B, 45 tier C); the rendered closing-soon/upcoming list carried the 25 cards compared here. Card times render in America/New_York (UTC-4); the +4h mapping was confirmed on all 16 cards that also exist in the snapshot. Hotspawn \"% picked\", offered points and the leaderboard are not probabilities and are not used. Second, independent surfaces read in the same window by session arena-73bc57bd (data/research/73bc57bd/inventory-reconciliation-2026-10-24.json) agree with these numbers within a few points; both reads are cited rather than merged into one."
  },
  "counts": {
   "live_future_fixtures": 25,
   "in_published_snapshot": 16,
   "missing_from_published": 9,
-  "missing_with_a_usable_external_line": 2,
+  "missing_with_a_usable_external_line": 4,
   "missing_with_only_a_refused_placeholder": 1
  },
  "limitations": [
@@ -38,7 +38,8 @@
   "A single aggregated bookmaker display (EGamersWorld) is one reference, not a consensus; first-party prices are never overridden by it.",
   "Identical numbers on both sides (1.80/1.80) are refused as a template placeholder.",
   "A card absent from the snapshot is a coverage gap of the last collect, not proof that no market exists.",
-  "The 88-card weekly total comes from the lobby filter counts; only the 25 cards the lobby actually rendered could be compared row by row."
+  "The 88-card weekly total comes from the lobby filter counts; only the 25 cards the lobby actually rendered could be compared row by row.",
+  "The CCT Europe #11 event-page odds block is displayed by an aggregator and labelled \"by Thunderpick\"; it is a named bookmaker line, not a first-party quote from Thunderpick and not a multi-book consensus."
  ],
  "live_fixtures": [
   {
@@ -52,22 +53,36 @@
    "hotspawn_url": "https://www.hotspawn.com/matches/acend-vs-forze-reload-cct-europe-2026-series-11-1079658",
    "in_published_snapshot": false,
    "published_method": null,
-   "note": "Absent from the published snapshot: this card was listed on the lobby after the last successful collect. No probability is invented here; the next scheduled refresh runs the full ladder on it. External two-sided line read: Acend 2.8 / FORZE Reload 1.35 (decimal); proportional no-vig Acend 32.5% / FORZE Reload 67.5%. Guided pick FORZE Reload \u2014 a single aggregated reference, not a first-party quote.",
+   "note": "Absent from the published snapshot: listed on the lobby after the last successful collect. External two-sided line read on the CCT Europe #11 event page: Acend 2.87 / FORZE Reload 1.35 decimal; proportional no-vig Acend 32.0% / FORZE Reload 68.0% (overround 8.92%). Guided pick FORZE Reload \u2014 a named-bookmaker line displayed by an aggregator, one reference rather than a consensus.",
    "line_observed": {
-    "source": "EGamersWorld (aggregated bookmaker display)",
-    "source_url": "https://egamersworld.com/counterstrike/match/_rW8GEyWK/acend-vs-forze-reload-FZO8bqMyg",
-    "observed_at": "2026-10-24T06:33:00Z",
+    "source": "EGamersWorld event page \u2014 odds block labelled \"by Thunderpick\" (named bookmaker)",
+    "source_url": "https://egamersworld.com/counterstrike/event/cct-europe-2026-series-11-_rW8GEyWK",
+    "observed_at": "2026-10-24T06:52:00Z",
     "decimal": [
-     2.8,
+     2.87,
      1.35
     ],
     "usable": true,
     "novig_percent": [
-     32.5,
-     67.5
+     32.0,
+     68.0
     ],
-    "overround_percent": 9.79,
-    "guided_pick": "FORZE Reload"
+    "overround_percent": 8.92,
+    "guided_pick": "FORZE Reload",
+    "second_observation": {
+     "source": "EGamersWorld CS2 match list (same day)",
+     "source_url": "https://egamersworld.com/counterstrike/matches",
+     "observed_at": "2026-10-24T06:33:00Z",
+     "decimal": [
+      2.8,
+      1.35
+     ],
+     "novig_percent": [
+      32.5,
+      67.5
+     ],
+     "note": "Read 19 minutes earlier; the two reads agree within 0.5 points and differ only by ordinary line drift."
+    }
    }
   },
   {
@@ -95,10 +110,10 @@
    "hotspawn_url": "https://www.hotspawn.com/matches/havu-vs-azuolas-cct-europe-2026-series-12-1081152",
    "in_published_snapshot": false,
    "published_method": null,
-   "note": "Absent from the published snapshot: this card was listed on the lobby after the last successful collect. No probability is invented here; the next scheduled refresh runs the full ladder on it. External check: only the identical 1.80/1.80 placeholder \u2014 refused; pick stays blank.",
+   "note": "Absent from the published snapshot. External check on the CCT Europe #12 event page and the match list: HAVU 1.80 / Azuolas 1.80 \u2014 identical on both sides, the template placeholder the reviewed gate already refuses. Pick stays blank; nothing is filled with a 50/50.",
    "line_observed": {
     "source": "EGamersWorld (aggregated bookmaker display)",
-    "source_url": "https://egamersworld.com/counterstrike/match/HiXMAaC8L/havu-vs-azuolas-Dm2JAvY3OO",
+    "source_url": "https://egamersworld.com/counterstrike/event/cct-europe-2026-series-12-HiXMAaC8L",
     "observed_at": "2026-10-24T06:33:00Z",
     "decimal": [
      1.8,
@@ -119,22 +134,36 @@
    "hotspawn_url": "https://www.hotspawn.com/matches/spirit-academy-vs-lavked-cct-europe-2026-series-11-1079659",
    "in_published_snapshot": false,
    "published_method": null,
-   "note": "Absent from the published snapshot: this card was listed on the lobby after the last successful collect. No probability is invented here; the next scheduled refresh runs the full ladder on it. External two-sided line read: Spirit Academy 1.49 / Lavked 2.47 (decimal); proportional no-vig Spirit Academy 62.4% / Lavked 37.6%. Guided pick Spirit Academy \u2014 a single aggregated reference, not a first-party quote.",
+   "note": "Absent from the published snapshot: listed on the lobby after the last successful collect. External two-sided line read on the CCT Europe #11 event page: Spirit Academy 1.49 / Lavked 2.45 decimal; proportional no-vig Spirit Academy 62.2% / Lavked 37.8% (overround 7.93%). Guided pick Spirit Academy \u2014 a named-bookmaker line displayed by an aggregator, one reference rather than a consensus.",
    "line_observed": {
-    "source": "EGamersWorld (aggregated bookmaker display)",
-    "source_url": "https://egamersworld.com/counterstrike/match/_rW8GEyWK/spirit-academy-vs-lavked-mNEJAmoc0",
-    "observed_at": "2026-10-24T06:33:00Z",
+    "source": "EGamersWorld event page \u2014 odds block labelled \"by Thunderpick\" (named bookmaker)",
+    "source_url": "https://egamersworld.com/counterstrike/event/cct-europe-2026-series-11-_rW8GEyWK",
+    "observed_at": "2026-10-24T06:52:00Z",
     "decimal": [
      1.49,
-     2.47
+     2.45
     ],
     "usable": true,
     "novig_percent": [
-     62.4,
-     37.6
+     62.2,
+     37.8
     ],
-    "overround_percent": 7.6,
-    "guided_pick": "Spirit Academy"
+    "overround_percent": 7.93,
+    "guided_pick": "Spirit Academy",
+    "second_observation": {
+     "source": "EGamersWorld CS2 match list (same day)",
+     "source_url": "https://egamersworld.com/counterstrike/matches",
+     "observed_at": "2026-10-24T06:33:00Z",
+     "decimal": [
+      1.49,
+      2.47
+     ],
+     "novig_percent": [
+      62.4,
+      37.6
+     ],
+     "note": "Read 19 minutes earlier; the two reads agree within 0.2 points and differ only by ordinary line drift."
+    }
    }
   },
   {
@@ -161,7 +190,23 @@
    "hotspawn_url": "https://www.hotspawn.com/matches/inox-division-vs-brute-cct-europe-2026-series-11-1079660",
    "in_published_snapshot": false,
    "published_method": null,
-   "note": "Absent from the published snapshot: this card was listed on the lobby after the last successful collect. No probability is invented here; the next scheduled refresh runs the full ladder on it."
+   "note": "Absent from the published snapshot: listed on the lobby after the last successful collect. External two-sided line read on the CCT Europe #11 event page: INOX Division 1.76 / BRUTE 1.94 decimal; proportional no-vig INOX Division 52.4% / BRUTE 47.6% (overround 8.36%). Guided pick INOX Division \u2014 a named-bookmaker line displayed by an aggregator, one reference rather than a consensus.",
+   "line_observed": {
+    "source": "EGamersWorld event page \u2014 odds block labelled \"by Thunderpick\" (named bookmaker)",
+    "source_url": "https://egamersworld.com/counterstrike/event/cct-europe-2026-series-11-_rW8GEyWK",
+    "observed_at": "2026-10-24T06:52:00Z",
+    "decimal": [
+     1.76,
+     1.94
+    ],
+    "usable": true,
+    "novig_percent": [
+     52.4,
+     47.6
+    ],
+    "overround_percent": 8.36,
+    "guided_pick": "INOX Division"
+   }
   },
   {
    "id": "1079195",
@@ -201,7 +246,23 @@
    "hotspawn_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-ex-zero-tenacity-cct-europe-2026-series-11-1079661",
    "in_published_snapshot": false,
    "published_method": null,
-   "note": "Absent from the published snapshot: this card was listed on the lobby after the last successful collect. No probability is invented here; the next scheduled refresh runs the full ladder on it."
+   "note": "Absent from the published snapshot: listed on the lobby after the last successful collect. External two-sided line read on the CCT Europe #11 event page: Nuclear TigeRES 1.45 / ex-Zero Tenacity 2.51 decimal; proportional no-vig Nuclear TigeRES 63.4% / ex-Zero Tenacity 36.6% (overround 8.81%). Guided pick Nuclear TigeRES \u2014 a named-bookmaker line displayed by an aggregator, one reference rather than a consensus.",
+   "line_observed": {
+    "source": "EGamersWorld event page \u2014 odds block labelled \"by Thunderpick\" (named bookmaker)",
+    "source_url": "https://egamersworld.com/counterstrike/event/cct-europe-2026-series-11-_rW8GEyWK",
+    "observed_at": "2026-10-24T06:52:00Z",
+    "decimal": [
+     1.45,
+     2.51
+    ],
+    "usable": true,
+    "novig_percent": [
+     63.4,
+     36.6
+    ],
+    "overround_percent": 8.81,
+    "guided_pick": "Nuclear TigeRES"
+   }
   },
   {
    "id": "1082996",
@@ -425,9 +486,12 @@
   }
  ],
  "source_urls": [
-  "https://play.hotspawn.com/lobby",
-  "https://www.hotspawn.com/matches/acend-vs-forze-reload-cct-europe-2026-series-11-1079658",
+  "https://buffedlizard55-lab.github.io/MaltaProj3/",
+  "https://egamersworld.com/counterstrike/event/cct-europe-2026-series-11-_rW8GEyWK",
+  "https://egamersworld.com/counterstrike/event/cct-europe-2026-series-12-HiXMAaC8L",
   "https://egamersworld.com/counterstrike/matches",
-  "https://buffedlizard55-lab.github.io/MaltaProj3/"
+  "https://play.hotspawn.com/lobby",
+  "https://polymarket.com/esports/cs2/cct-europe",
+  "https://www.hotspawn.com/matches/acend-vs-forze-reload-cct-europe-2026-series-11-1079658"
  ]
 }
