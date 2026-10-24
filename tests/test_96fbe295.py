@@ -402,8 +402,25 @@ class WorkflowWiringTests(unittest.TestCase):
         # With one shared `pages` group and a branch pushed every few minutes, the
         # four-hour refresh was cancelled before it could start (see the comment in
         # pages.yml). The runs must be grouped per event type.
-        self.assertIn("group: pages-${{ github.event_name }}", self.text)
-        self.assertNotIn("group: pages\n", self.text)
+        #
+        # Session arena-73bc57bd (takeover, 2026-10-24T09:20Z): this assertion pinned the
+        # literal `pages-${{ github.event_name }}`. The publisher's owner then routed the
+        # catch-up cron and `recovery:` commits onto a separate runner pool, which changed
+        # the spelling of the expression but kept the property it was written for. A test
+        # that pins the spelling stops guarding the property and instead fails the suite
+        # that protects the publisher: this assertion, not any defect in the workflow,
+        # was one of the two failures that kept every scheduled publish red on 2026-10-24.
+        # Assert the property - a group derived from the event, never one shared literal.
+        groups = [line.split('group:', 1)[1].strip() for line in self.text.splitlines()
+                  if line.strip().startswith('group:')]
+        self.assertEqual(len(groups), 1, 'exactly one concurrency group must be declared')
+        expression = groups[0]
+        self.assertNotIn(expression, {'pages', 'pages-${{ github.ref }}'},
+                         'one shared group lets a push cancel a scheduled refresh')
+        self.assertIn('github.event_name', expression,
+                      'the group must depend on the event so a push cannot join a schedule')
+        self.assertIn('cancel-in-progress: false', self.text,
+                      'a running publish must not be cancelled by the next push')
 
     def test_artifact_is_redeployed_after_root_sync_legacy_build(self):
         publish = self.text.index("name: Publish the verified build into the branch root")
