@@ -12,11 +12,10 @@
 name: f1277d3b line-source research (dispatch only)
 on:
   workflow_dispatch:
-  push:
-    branches: ['arena/f1277d3b-maltaproj3']
-    paths:
-      - '.github/workflows/f1277d3b-probe.yml'
-      - 'scripts/f1277d3b_probe.py'
+  # Push trigger removed at final integration (session f1277d3b): the probe's
+  # own evidence commit kept moving the PR head and resetting its checks.
+  # Two dated sweeps are already recorded (2026-10-24T06:09:03Z and
+  # 2026-10-24T07:18:19Z, both 0 money-line leads); re-run by dispatch only.
 
 permissions:
   contents: write
