@@ -1,6 +1,6 @@
 # Pick provenance sweep — session arena-6174aa87
 
-Observed **2026-10-24T17:15:31Z** — a dated, first-hand re-read of every source each published pick cites. The workflow run that produced it is linked from the review page.
+Observed **2026-10-24T17:27:48Z** — a dated, first-hand re-read of every source each published pick cites. The workflow run that produced it is linked from the review page.
 
 Reading guide: *verified* means every cited URL answered and at least one of them named both teams (or contained the exact event id the ladder bound). It does **not** mean the pick is correct, and it adds no probability. *needs-review* rows are listed with the exact reason so they can be checked by hand.
 
@@ -26,6 +26,9 @@ Reading guide: *verified* means every cited URL answered and at least one of the
 | 18 | [Envy vs GamerLegion](https://www.hotspawn.com/matches/envy-vs-gamerlegion-tesla-cup-2026-1082901) | 2026-10-27T20:00:00Z | GamerLegion (Market-implied estimate) | origination | 2 | 0 | 0 |
 | 19 | [HOTU vs The Huns](https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792) | 2026-10-31T09:00:00Z | HOTU (Research model estimate (Valve official ratings)) | origination | 3 | 1 | 1 |
 | 20 | [5star vs 1WIN](https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793) | 2026-10-31T13:00:00Z | 1WIN (Valve-rating research estimate) | origination | 3 | 1 | 1 |
+
+Every row above was also re-checked arithmetically: the two published probabilities must sum to 1.0 and the named pick must be the larger side. Rows that fail are listed under *A published row’s own two probabilities*.
+
 
 ## Coverage against the live Hotspawn feed
 
@@ -66,7 +69,7 @@ Reading guide: *verified* means every cited URL answered and at least one of the
 | 1079198 Metizport vs BakS | Model cross-check, Valve research model | https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md | 200 | confirmed | counter-strike_regional_standings/live/2026/standings_global_2026_10_05.md at main · ValveSoftware/counter-strike_regional_standings · GitHub |
 | 1079198 Metizport vs BakS | HLTV research | https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13 | 403 | blocked | Just a moment... |
 | 1081156 Spirit Academy vs LFO 10 | Hotspawn fixture | https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156 | 403 | confirmed-via-alternate | Hotspawn scheduled-fixture record confirmed via https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1 · |
-| 1081156 Spirit Academy vs LFO 10 | Line source, Quote: Bovada | https://www.bovada.lv/sports/esports/counter-strike-2/cct-europe/series-11/spirit-academy-sokerorg-202610250800 | 200 | partial | quoted odds [1.416667, 2.8] · Series 11 Betting Odds / Counter Strike 2 |
+| 1081156 Spirit Academy vs LFO 10 | Line source, Quote: Bovada | https://www.bovada.lv/sports/esports/counter-strike-2/cct-europe/series-11/spirit-academy-sokerorg-202610250800 | 200 | confirmed-via-alias | provider spelling “Sökerorg” from the verified alias registry · quoted odds [1.416667, 2.8] · Series 11 Betting Odds / Counter Strike 2 |
 | 1081156 Spirit Academy vs LFO 10 | HLTV research | https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12 | 403 | blocked | Just a moment... |
 | 1079199 Infinite vs BRUTE | Hotspawn fixture | https://www.hotspawn.com/matches/infinite-vs-brute-nodwin-clutch-series-13-1079199 | 403 | confirmed-via-alternate | Hotspawn scheduled-fixture record confirmed via https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1 · |
 | 1079199 Infinite vs BRUTE | Line source, Quote: Polymarket, Primary: Polymarket | https://polymarket.com/event/cs2-inf6-brute-2026-10-25 | 200 | confirmed-via-alternate | Polymarket Gamma event record confirmed via https://gamma-api.polymarket.com/events?slug=cs2-inf6-brute-2026-10-25 · Polymarket |
@@ -110,9 +113,9 @@ Reading guide: *verified* means every cited URL answered and at least one of the
 ## Counts
 
 - Active fixtures with a published pick: **20**
-- Re-verified: **18**
-- Needs review: **2**
-- Citations re-read: **65** (18 blocked, 0 absent, 1 endpoint-only, 35 confirmed through the source’s own API)
+- Re-verified: **19**
+- Needs review: **1**
+- Citations re-read: **65** (18 blocked, 0 absent, 1 endpoint-only, 35 confirmed through the source’s own API, 1 through a registry-recorded provider spelling)
 
 Source policy: Hotspawn supplies identity only; probabilities come from the reviewed ladder in `scripts/originate.py`, never from Hotspawn popularity, HLTV fan votes or this sweep.
 
