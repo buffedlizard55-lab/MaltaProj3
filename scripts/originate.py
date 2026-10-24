@@ -34,6 +34,7 @@ import requests
 
 from scripts.domain import iso, name_key, no_vig, normalize_pair, timestamp, finite, array, polymarket_candidate
 from scripts.github_auth import auth_headers
+from scripts import egw_live
 from scripts import form_model
 from scripts import hltv_ranking
 from scripts import network_model

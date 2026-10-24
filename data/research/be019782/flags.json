@@ -82,14 +82,16 @@
     "id": "be019782-egw-independent-source-binding",
     "severity": "notice",
     "title": "Fixed during integration: EGW index discovery could infer a provider clock and select the first name-substring hit",
-    "detail": "PR #240 added an automated EGW rung while this session was validating. Integration review found a missing egw_live import that would crash live collection, missing loader wiring, copied Hotspawn start times masquerading as provider evidence, first-hit substring joins, and generated prose described as a verbatim excerpt. All are repaired without changing any price or alias: a quote needs an independently published timezone-qualified source start, exactly associated named prices, one unique event, a literal captured source anchor/hash and an original successful request. Offline origination and publication replay reparse the original HTML; missing time, rematches, academy-name collisions, ambiguous quotes, derived-only captures and altered/restamped evidence price nothing. The unchanged reference gate still checks freshness, exact start, margin and placeholder odds. Sources lacking those facts remain discovery leads only, with a labelled research model or unresolved blank retained. Existing manual captures and earlier ladder order are preserved. This is a code repair with synthetic regression evidence, not a claim that an additional live quote was found.",
+    "detail": "PR #240 added an automated EGW rung while this session was validating. Integration review found a missing egw_live import that would crash live collection, missing loader wiring, copied Hotspawn start times masquerading as provider evidence, first-hit substring joins, and generated prose described as a verbatim excerpt. All are repaired without changing any price or alias: a quote needs an independently published timezone-qualified source start, exactly associated named prices, one unique event, a literal captured source anchor/hash and an original successful request. Offline origination and publication replay reparse the original HTML; missing time, rematches, academy-name collisions, ambiguous quotes, derived-only captures and altered/restamped evidence price nothing. The unchanged reference gate still checks freshness, exact start, margin and placeholder odds. Sources lacking those facts remain discovery leads only, with a labelled research model or unresolved blank retained. Existing manual captures and earlier ladder order are preserved. This is a code repair with synthetic regression evidence, not a claim that an additional live quote was found. Later integration preserved PRs #252/#257 and their sourced aliases/review records, retained the fixture-and-registry-bound loader rather than the old path-only call, and strengthened the incoming source-string regression to the validated three-argument contract. Actual Collector.fetch_html wrapper/manifest keys were checked for compatibility.",
     "match_ids": [],
     "source_urls": [
       "https://github.com/buffedlizard55-lab/MaltaProj3/pull/240#issuecomment-6380775356",
       "https://github.com/buffedlizard55-lab/MaltaProj3/pull/240#issuecomment-6380792103",
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/egw_live.py",
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_be019782_egw_safety.py",
-      "https://egamersworld.com/counterstrike/matches"
+      "https://egamersworld.com/counterstrike/matches",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/252",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/257"
     ]
   }
 ]

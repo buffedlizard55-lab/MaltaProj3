@@ -1,0 +1,54 @@
+[
+  {
+    "id": "dd433e7f-hltv-25-active-verified-no-us-odds",
+    "severity": "notice",
+    "match_ids": [
+      "1081152",
+      "1081153",
+      "1081154",
+      "1082996",
+      "1079198",
+      "1081156",
+      "1079200",
+      "1081158",
+      "1082858",
+      "1082859",
+      "1082860",
+      "1082861",
+      "1082901",
+      "1082792",
+      "1082793"
+    ],
+    "title": "2026-10-24 HLTV-first sweep across all 25 active Hotspawn CS2 fixtures: 25/25 identities confirmed, zero prematch decimal odds on US egress",
+    "detail": "Every active Hotspawn CS2 fixture open at 2026-10-24T05:38Z was matched 1-to-1 against its official HLTV match page (HTTP 200 on authoring path; HTTP 403 Cloudflare on GitHub Actions ubuntu-24.04). Across all 15 non-featured / wide-Polymarket fixtures, HLTV confirms exact teams, BO3 format, rosters and HLTV/VRS ranks, while its Betting table renders only a Stake US social-casino banner with zero numeric odds. HLTV Pick-a-winner fan votes and Hotspawn crowd picks are excluded by policy.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399502/havu-vs-azuolas-cct-2026-europe-series-12",
+      "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+      "https://www.hltv.org/matches/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026"
+    ]
+  },
+  {
+    "id": "dd433e7f-wide-polymarket-and-smarkets-books-refused",
+    "severity": "notice",
+    "match_ids": [
+      "1081153",
+      "1081154",
+      "1082996",
+      "1079198",
+      "1081156",
+      "1081158",
+      "1082858",
+      "1082860",
+      "1082792"
+    ],
+    "title": "Nine 2026-10-24/31 CS2 fixtures have open Polymarket or Smarkets markets whose spreads exceed the 0.12/0.15 ceilings",
+    "detail": "Verified at 2026-10-24T05:40Z: Polymarket lists early moneyline markets with ~93-95c placeholder asks for 1081153, 1081154, 1082996, 1079198, 1081156, 1081158, 1082860, and 1082792, while Smarkets lists events 45396333 (1082858), 45396351 (1082996), and 45396352 (1079198) with spreads ~0.161-0.167 (>0.15 cap). The ladder refuses wide books rather than inventing synthetic midpoints, falling back to two-sided bo3.gg relays or labelled research-model estimates until books tighten on a subsequent 4-hour refresh.",
+    "source_urls": [
+      "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
+      "https://polymarket.com/event/cs2-6yuboj-ssins-2026-10-24",
+      "https://api.smarkets.com/v3/events/45396352/markets/",
+      "https://api.smarkets.com/v3/events/45396333/markets/"
+    ]
+  }
+]
