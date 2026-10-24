@@ -248,6 +248,12 @@ class PublishedRegister(unittest.TestCase):
     def test_the_dated_report_matches_the_audit_it_came_from(self):
         report_path = ROOT / 'data/research/73bc57bd/provenance-2026-10-24.json'
         report = json.loads(report_path.read_text(encoding='utf-8'))
+        after = json.loads((ROOT / 'data/research/73bc57bd/provenance-after-deploy-2026-10-24.json')
+                           .read_text(encoding='utf-8'))
+        self.assertEqual(after['replay']['largest_drift'], 0.0)
+        self.assertEqual(after['replay']['rows_probability_reproduced'],
+                         after['replay']['rows_with_analysis'])
+        self.assertTrue((ROOT / 'data/research/73bc57bd/provenance-after-deploy-2026-10-24.md').exists())
         self.assertEqual(report['replay']['largest_drift'], 0.0)
         self.assertEqual(report['replay']['rows_probability_reproduced'],
                          report['replay']['rows_with_analysis'])
