@@ -139,9 +139,38 @@ test('phone executive summary exposes the source-linked contrarian guardrail', a
   const review = page.locator('#contrarian');
   await expect(review).toBeVisible();
   await expect(review).toContainText('9z vs Aurora');
-  await expect(review).toContainText('15.7%');
-  await expect(review).toContainText('primary pick remains Falcons');
-  expect(await review.locator('a[href^="https://"]').count()).toBeGreaterThan(8);
+
+  // A historical review is permanent; a current watch is not. Derive the
+  // expected branch from this build's canonical snapshot instead of requiring
+  // a stale 9z–Falcons fixture (and its old 15.7% estimate) to exist forever.
+  const snapshot = await (await page.request.get('/snapshot.json')).json();
+  const candidates = (snapshot.matches || []).filter((match) => {
+    const names = new Set((match.teams || []).map((team) => team.name));
+    return match.availability !== 'past' && names.size === 2 && names.has('9z') && names.has('Falcons');
+  });
+  let watch = null;
+  if (candidates.length === 1) {
+    const match = candidates[0];
+    const index = (match.teams || []).findIndex((team) => team.name === '9z');
+    const probability = match.analysis?.probabilities?.[index];
+    if (index >= 0 && typeof probability === 'number' && probability <= 0.25) {
+      watch = {
+        probability,
+        primary: match.pick_index == null ? null : match.teams[match.pick_index]?.name,
+      };
+    }
+  }
+  if (watch) {
+    await expect(review).toContainText(`${(watch.probability * 100).toFixed(1)}%`);
+    await expect(review).toContainText(`primary pick remains ${watch.primary}`);
+    expect(await review.locator('a[href^="https://"]').count()).toBeGreaterThan(8);
+  } else {
+    await expect(review).toContainText('No current exact-pair watch');
+    await expect(review).toContainText('No contrarian selection is published');
+    // Four historical, two roster/rating and two profile sources remain even
+    // when there is no current fixture to add to the source trail.
+    expect(await review.locator('a[href^="https://"]').count()).toBeGreaterThanOrEqual(8);
+  }
 });
 
 test('research deep link reveals evidence despite a contradictory bookmarked filter', async ({ page }) => {

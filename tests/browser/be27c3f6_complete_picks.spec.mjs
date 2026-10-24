@@ -66,22 +66,20 @@ test('overview pick markers retire with the existing evidence-card safety state'
   const rowId = await row.getAttribute('id');
   const card = page.locator('#match-' + rowId.slice(4));
 
-  const label = row.locator('[data-overview-label]');
-  const currentLabel = await row.locator('[data-overview-pick]').getAttribute('data-current-label');
-  const historicalLabel = await row.locator('[data-overview-pick]').getAttribute('data-historical-label');
-
   await card.evaluate((node) => {
     node.setAttribute('data-safety-status', 'current');
     document.dispatchEvent(new CustomEvent('spawn-pick-safety-updated'));
   });
-  await expect(label).toHaveText(currentLabel);
+  await expect(row.locator('[data-overview-current]')).toBeVisible();
+  await expect(row.locator('[data-overview-historical]')).toBeHidden();
   await expect(row).not.toHaveClass(/is-historical/);
 
   await card.evaluate((node) => {
     node.setAttribute('data-safety-status', 'stale-inventory');
     document.dispatchEvent(new CustomEvent('spawn-pick-safety-updated'));
   });
-  await expect(label).toHaveText(historicalLabel);
+  await expect(row.locator('[data-overview-current]')).toBeHidden();
+  await expect(row.locator('[data-overview-historical]')).toBeVisible();
   await expect(row).toHaveClass(/is-historical/);
 });
 

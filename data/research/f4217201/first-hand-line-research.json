@@ -1,0 +1,134 @@
+{
+  "session": "arena-f4217201",
+  "observed_at": "2026-10-24T08:06:00Z",
+  "method": "First-hand reads by the agent's page fetcher: Hotspawn lobby and fixture API, the deployed data/latest.json, HLTV event pages and Polymarket's CCT Europe board. No probability, pick or alias is written here; venue prices are quoted with their observed volume and the origination ladder re-reads them on the next refresh.",
+  "sources_read": [
+    {"name": "Hotspawn lobby", "url": "https://play.hotspawn.com/lobby", "observed_at": "2026-10-24T07:47:00Z", "status": "ok"},
+    {"name": "Hotspawn fixture API", "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1", "observed_at": "2026-10-24T07:45:00Z", "status": "ok"},
+    {"name": "Deployed snapshot", "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json", "observed_at": "2026-10-24T07:45:00Z", "status": "ok", "generated_at": "2026-10-23T20:10:00Z", "age_hours": 11.6},
+    {"name": "Deployed origination", "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json", "observed_at": "2026-10-24T07:45:00Z", "status": "ok"},
+    {"name": "HLTV CCT 2026 Europe Series 11", "url": "https://www.hltv.org/events/9442/cct-2026-europe-series-11", "observed_at": "2026-10-24T07:55:00Z", "status": "ok"},
+    {"name": "HLTV match listing", "url": "https://www.hltv.org/matches", "observed_at": "2026-10-24T07:52:00Z", "status": "ok"},
+    {"name": "Polymarket CS2 board", "url": "https://polymarket.com/esports/cs2", "observed_at": "2026-10-24T07:52:00Z", "status": "ok"},
+    {"name": "Polymarket CCT Europe board", "url": "https://polymarket.com/esports/cs2/cct-europe", "observed_at": "2026-10-24T08:06:00Z", "status": "ok"}
+  ],
+  "counts": {
+    "lobby_future_cards": 25,
+    "published_upcoming": 19,
+    "published_with_pick": 17,
+    "published_unresolved": 2,
+    "rendered_and_published": 16,
+    "rendered_uncovered": 9,
+    "uncovered_with_usable_line": 4,
+    "uncovered_without_usable_line": 5
+  },
+  "fixtures": [
+    {
+      "id": "1079658",
+      "teams": ["Acend", "FORZE Reload"],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-24T08:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/acend-vs-forze-reload-cct-europe-2026-series-11-1079658",
+      "hltv_url": "https://www.hltv.org/events/9442/cct-2026-europe-series-11",
+      "line": {"venue": "Polymarket", "url": "https://polymarket.com/event/cs2-ace1-forzer-2026-10-24", "prices": [0.31, 0.70], "volume_usd": 139.22, "two_sided": true},
+      "verdict": "external-line-available"
+    },
+    {
+      "id": "1079659",
+      "teams": ["Spirit Academy", "Lavked"],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-24T11:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/spirit-academy-vs-lavked-cct-europe-2026-series-11-1079659",
+      "hltv_url": "https://www.hltv.org/events/9442/cct-2026-europe-series-11",
+      "line": {"venue": "Polymarket", "url": "https://polymarket.com/event/cs2-tsa-lavked-2026-10-24", "prices": [0.66, 0.35], "volume_usd": 72.12, "two_sided": true},
+      "verdict": "external-line-available"
+    },
+    {
+      "id": "1079660",
+      "teams": ["INOX Division", "BRUTE"],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-24T14:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/inox-division-vs-brute-cct-europe-2026-series-11-1079660",
+      "hltv_url": "https://www.hltv.org/events/9442/cct-2026-europe-series-11",
+      "line": {"venue": "Polymarket", "url": "https://polymarket.com/event/cs2-inox-brute-2026-10-24", "prices": [0.57, 0.44], "volume_usd": 1550.0, "two_sided": true},
+      "verdict": "external-line-available"
+    },
+    {
+      "id": "1079661",
+      "teams": ["Nuclear TigeRES", "ex-Zero Tenacity"],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-24T17:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-ex-zero-tenacity-cct-europe-2026-series-11-1079661",
+      "hltv_url": "https://www.hltv.org/events/9442/cct-2026-europe-series-11",
+      "line": {"venue": "Polymarket", "url": "https://polymarket.com/event/cs2-ntr-zerote-2026-10-24", "prices": [0.65, 0.36], "volume_usd": 50.16, "two_sided": true},
+      "verdict": "external-line-available"
+    },
+    {
+      "id": "1081152",
+      "teams": ["HAVU", "Azuolas"],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T11:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/havu-vs-azuolas-cct-europe-2026-series-12-1081152",
+      "line": null,
+      "verdict": "unresolved",
+      "limitations": [
+        "No priced two-sided market for this pair appeared in the CCT Europe board blocks read at 08:06Z. That is an observation about this read, not proof that no market exists.",
+        "HLTV identity was not located in the match blocks read; the runner probe re-reads the listing and records the HTTP status and content hash."
+      ]
+    },
+    {
+      "id": "1081153",
+      "teams": ["Saint Sinners", "6yuBoJlbl"],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T14:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/saint-sinners-vs-6yubojlbl-cct-europe-2026-series-12-1081153",
+      "line": {"venue": "Polymarket", "url": "https://polymarket.com/event/cs2-6yuboj-ssins-2026-10-24", "prices": [0.68, 0.85], "volume_usd": 0.0, "two_sided": false},
+      "verdict": "unresolved",
+      "limitations": [
+        "Polymarket's book is crossed (68¢ + 85¢ = 153¢) and carries $0.00 volume; it is not a takeable two-sided price and is refused as a line."
+      ]
+    },
+    {
+      "id": "1081154",
+      "teams": ["BakS", "ILLYRIANS"],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T17:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/baks-vs-illyrians-cct-europe-2026-series-12-1081154",
+      "line": {"venue": "Polymarket", "url": "https://polymarket.com/event/cs2-baks-ill4-2026-10-24", "prices": [0.72, 0.67], "volume_usd": 0.0, "two_sided": false},
+      "verdict": "unresolved",
+      "limitations": [
+        "Polymarket's book is crossed (72¢ + 67¢ = 139¢) and carries $0.00 volume; refused as a line."
+      ]
+    },
+    {
+      "id": "1081156",
+      "teams": ["Spirit Academy", "LFO 10"],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-25T12:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156",
+      "line": {"venue": "Polymarket", "url": "https://polymarket.com/event/cs2-tsa-skr2-2026-10-25", "prices": [0.93, 0.93], "volume_usd": 0.0, "two_sided": false},
+      "verdict": "unresolved",
+      "limitations": [
+        "The provider names the opponent Sokerorg where Hotspawn names LFO 10; without an evidenced alias the identity join fails closed.",
+        "The book is flat (93¢/93¢) at $0.00 volume and is refused as a line."
+      ]
+    },
+    {
+      "id": "1081158",
+      "teams": ["FORZE Reload", "ex-RUSTEC"],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-25T14:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/forze-reload-vs-ex-rustec-cct-europe-2026-series-12-1081158",
+      "line": null,
+      "verdict": "unresolved",
+      "limitations": [
+        "No priced two-sided market for this pair appeared in the CCT Europe board blocks read at 08:06Z; the runner probe retries and records evidence."
+      ]
+    }
+  ],
+  "policy": [
+    "Hotspawn % picked and HLTV fan votes are never probability inputs.",
+    "A venue price becomes a probability only through the published origination ladder; this dossier writes none.",
+    "An unreachable or empty venue is recorded as unresolved with its limitation, never filled with a default 50/50."
+  ]
+}

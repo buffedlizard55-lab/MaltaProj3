@@ -95,13 +95,13 @@ class CompletePicksPhoneStructureTests(unittest.TestCase):
             row = pick.find_parent('tr')
             card = current.select_one('#match-' + row['id'].removeprefix('row-'))
             self.assertEqual(row.get('class', []) == ['is-historical'], card['data-safety-status'] != 'current')
-            expected_attribute = 'data-current-label' if card['data-safety-status'] == 'current' else 'data-historical-label'
-            self.assertEqual(pick.select_one('[data-overview-label]').get_text(), pick[expected_attribute])
+            self.assertEqual(pick.select_one('[data-overview-current]').has_attr('hidden'), card['data-safety-status'] != 'current')
+            self.assertEqual(pick.select_one('[data-overview-historical]').has_attr('hidden'), card['data-safety-status'] == 'current')
 
         historical = BeautifulSoup(build_origination.page(self.data, now=datetime(2027, 1, 1, tzinfo=timezone.utc)), 'html.parser')
         for pick in historical.select('[data-overview-pick]'):
-            self.assertEqual(pick.select_one('[data-overview-label]').get_text(), pick['data-historical-label'])
-            self.assertTrue(pick.select_one('[data-overview-label]').get_text().startswith('Snapshot: '))
+            self.assertTrue(pick.select_one('[data-overview-current]').has_attr('hidden'))
+            self.assertFalse(pick.select_one('[data-overview-historical]').has_attr('hidden'))
             self.assertIn('is-historical', pick.find_parent('tr').get('class', []))
 
     def test_rendering_does_not_mutate_pick_data(self):

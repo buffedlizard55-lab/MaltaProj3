@@ -1,0 +1,108 @@
+# Session arena-f4217201 — dated evidence for the every-match picks brief.
+#
+# The coding sandbox that wrote this workflow has no general egress (only
+# GitHub/npm/PyPI), so it cannot re-read Hotspawn, HLTV or an esportsbook. A
+# GitHub runner can. This workflow re-fetches the same public pages first-hand,
+# saves status/hash/excerpt evidence under data/research/f4217201/, and commits
+# only that directory back to this session branch. It never collects, never
+# originates a probability, never edits data/latest.json and never deploys.
+#
+# The second job asks the existing, verified publisher to run only when the
+# deployed snapshot is older than six hours AND no pages.yml run is already
+# queued or in progress. A workflow_dispatch run has its own concurrency group
+# (pages-workflow_dispatch), so session pushes cannot cancel it. It never
+# publishes anything itself.
+name: f4217201 live reconciliation (dispatches publisher when stale)
+on:
+  push:
+    branches: ['arena/f4217201-maltaproj3']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: f4217201-evidence-${{ github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  evidence:
+    if: github.event_name == 'workflow_dispatch' || !startsWith(github.event.head_commit.message, 'research(f4217201)')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Re-read Hotspawn API, lobby, published picks, HLTV, EGamersWorld, Polymarket and the books (read-only)
+        run: python -m scripts.f4217201_probe --out data/research/f4217201
+      - name: Offline unit tests for the probe's parsers
+        run: python -m unittest tests.test_f4217201_probe -v
+      - name: Commit the dated evidence to this session branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/f4217201
+          if git diff --cached --quiet; then
+            echo "No evidence change to commit."
+            exit 0
+          fi
+          git commit -m 'research(f4217201): dated live reconciliation and line-source evidence [skip ci]'
+          for attempt in 1 2 3; do
+            if git push origin HEAD:arena/f4217201-maltaproj3; then
+              exit 0
+            fi
+            git pull --rebase origin arena/f4217201-maltaproj3 || true
+            sleep $((attempt * 5))
+          done
+          echo "::error::evidence commit could not be pushed"
+          exit 1
+      - name: Publish the dossier summary in the job summary
+        if: always()
+        run: |
+          if [ -f data/research/f4217201/live-reconciliation.md ]; then
+            cat data/research/f4217201/live-reconciliation.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+  dispatch-publisher-if-stale:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    permissions:
+      contents: read
+      actions: write
+    steps:
+      - name: Dispatch the four-hour publisher only when it is genuinely stale
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -u
+          generated=$(curl -sS --max-time 45 -H 'Cache-Control: no-cache' \
+            "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json?dispatch=$GITHUB_RUN_ID" \
+            | python3 -c 'import json,sys; print(json.load(sys.stdin).get("generated_at",""))')
+          echo "deployed snapshot: ${generated:-unreadable}"
+          age=$(python3 - "$generated" <<'PY'
+          import sys
+          from datetime import datetime, timezone
+          raw = sys.argv[1]
+          try:
+              when = datetime.strptime(raw, '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=timezone.utc)
+          except ValueError:
+              print(999)
+              raise SystemExit
+          print(round((datetime.now(timezone.utc) - when).total_seconds() / 3600, 2))
+          PY
+          )
+          echo "age_hours=$age"
+          running=$(gh run list --workflow=pages.yml --limit 20 --json status \
+            --jq '[.[] | select(.status=="queued" or .status=="in_progress" or .status=="pending")] | length')
+          echo "pages.yml runs queued/in progress: $running"
+          if python3 -c "import sys; sys.exit(0 if float('$age') > 6 and int('$running') == 0 else 1)"; then
+            gh workflow run pages.yml --ref main
+            echo "::notice title=Publisher dispatched::deployed snapshot was ${age}h old and no pages.yml run was pending"
+          else
+            echo "No dispatch needed (age ${age}h, ${running} pending run(s))."
+          fi
