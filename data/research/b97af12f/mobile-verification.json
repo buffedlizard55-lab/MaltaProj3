@@ -1,14 +1,14 @@
 {
   "session": "arena-b97af12f",
-  "observed_at": "2026-10-24T06:45:00Z",
-  "environment": "local checkout (offline build of checked-in data)",
+  "observed_at": "2026-10-24T06:52:00Z",
+  "environment": "local checkout after rebase onto origin/main a0c08fa",
   "build": {
-    "output": "/tmp/b97-site (not committed)",
-    "index_bytes": 172438,
-    "internal_links": "829 verified by scripts.build.check_links",
+    "output": "/tmp/b97-site2 (not committed)",
+    "index_bytes": 169376,
+    "internal_links": "verified by scripts.build.check_links",
     "row_source_audit": {
-      "rows": 777,
-      "ok": 758,
+      "rows": 807,
+      "ok": 788,
       "flagged": 9,
       "navigation": 10,
       "violation": 0
@@ -18,7 +18,8 @@
       "pass": 9,
       "info": 1,
       "fail": 0
-    }
+    },
+    "no_line_research_id_count": 1
   },
   "phone_checks": {
     "viewport_meta": true,
@@ -33,15 +34,14 @@
     "b97_record_link": true
   },
   "defects_logged_not_edited": [
-    "b97af12f-duplicate-no-line-research-anchor: built index contains two id=\"no-line-research\" blocks; shared renderer owned by PR #248.",
+    "b97af12f-duplicate-no-line-research-anchor: pre-rebase local build had two id=\"no-line-research\" blocks; after rebasing onto main the build has exactly one. B97 did not edit the shared renderer.",
     "b97af12f-local-snapshot-older-than-live-site: checked-in data/latest.json is 2026-10-15T08:36:13Z while live Pages served 2026-10-23T20:10Z; local build is not the live feed."
   ],
   "sources": [
     "https://buffedlizard55-lab.github.io/MaltaProj3/?cb=b9710646",
     "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/",
     "https://buffedlizard55-lab.github.io/MaltaProj3/picks/",
-    "https://buffedlizard55-lab.github.io/MaltaProj3/review/",
-    "https://github.com/buffedlizard55-lab/MaltaProj3/pull/248"
+    "https://buffedlizard55-lab.github.io/MaltaProj3/review/"
   ],
-  "tests": "tests/test_b97af12f_mobile.py + tests/test_b97af12f_reconciliation.py — 12 passed"
+  "tests": "tests/test_b97af12f_mobile.py + tests/test_b97af12f_reconciliation.py — 12 passed after rebase"
 }

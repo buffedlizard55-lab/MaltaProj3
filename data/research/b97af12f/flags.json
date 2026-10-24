@@ -101,8 +101,8 @@
   {
     "id": "b97af12f-duplicate-no-line-research-anchor",
     "severity": "notice",
-    "title": "Built executive summary still renders two id=\"no-line-research\" blocks; shared renderer is owned by PR #248",
-    "detail": "A local build on this session's checked-in data (2026-10-24T06:45Z, output 171,996 bytes, 0 link failures, 0 row-source violations, acceptance 9 pass / 1 info / 0 fail) renders the dated no-line research section twice with the same HTML id. PR #248 (arena/f43dc4f1-maltaproj3) claims the duplicate-id guard and the phone findings register, so B97 logs the defect here instead of editing scripts/build.py or its tests. The duplicate does not break the brief's acceptance audit but should be resolved by that owner before final integration.",
+    "title": "Duplicate id=\"no-line-research\" seen in B97's pre-rebase build, resolved after rebasing onto main",
+    "detail": "B97's first local build (2026-10-24T06:45Z, before rebasing, output 171,996 bytes, 0 link failures, 0 row-source violations, acceptance 9 pass / 1 info / 0 fail) rendered the dated no-line research section twice with the same HTML id. PR #248/DD43-style duplicate-id guard was already merged to main while B97 worked; after `git pull --rebase origin main` the same offline test build renders exactly one element with that id. B97 never edited scripts/build.py or its tests. This flag keeps the dated observation and the handoff instead of silently deleting either.",
     "match_ids": [],
     "source_urls": [
       "https://github.com/buffedlizard55-lab/MaltaProj3/pull/248",
