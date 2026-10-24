@@ -1,0 +1,50 @@
+{
+  "session_id": "arena-43110640",
+  "observed_at": "2026-10-24T05:26:15Z",
+  "environment": "agent-authoring-path (HLTV and EGamersWorld read first-hand; the GitHub Actions runner records HLTV HTTP 403, documented in earlier sessions)",
+  "scope": "The 2 fixtures with no pick in the published snapshot 2026-10-23T20:10:00Z (19 active, 17 picks, 2 unresolved). Hotspawn % picked and HLTV fan votes were seen and excluded by policy — never probabilities.",
+  "fixtures": [
+    {
+      "fixture_id": "1082858",
+      "teams": ["Ground Zero", "Off Chops"],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "research_order": [
+        {"stage": "HLTV first", "url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026", "finding": "Identity, DFRAG Invitational 2026 and Best of 3 (LAN) confirmed. Ground Zero HLTV #143 / VRS #131; Off Chops HLTV #142. Betting block carries only a Stake US sweepstake promo row ('No promocode available') — no bookmaker decimal odds. HLTV fan poll (42.9%/57.1%) excluded by policy."},
+        {"stage": "Polymarket (existing ladder)", "url": "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25", "finding": "Event exists but the two-sided book is crossed / wider than every published ceiling — rejected by the ladder, not priced."},
+        {"stage": "Smarkets (prior dated sweep)", "url": "https://api.smarkets.com/v3/markets/172960355/quotes/", "finding": "Live two-sided book recorded 2026-10-23 (Ground Zero 0.1429/0.3279, Off Chops 0.6711/0.8547) with ~0.185 spreads, above the 0.15 ceiling — guidance only."},
+        {"stage": "EGamersWorld esportsbook odds", "url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d", "finding": "Betting-odds section lists one named bookmaker (Vave): Ground Zero 3.44, Off Chops 1.24. Page text: 'The bookmakers predict Off Chops to win with 1.24.' EGW team form: Ground Zero last-5 2 wins, Off Chops last-5 3 wins; head-to-head 0-1 (Off Chops won 2-1 on 2026-10-16)."}
+      ],
+      "guided_pick": "Off Chops",
+      "guided_probabilities": [0.265, 0.735],
+      "basis": "No-vig of the EGamersWorld-published bookmaker decimal odds 3.44 / 1.24 (sum of implied 1.097150; 0.290698/1.097150=0.2650, 0.806452/1.097150=0.7350). Aggregated/named-bookmaker reference displayed by EGW — not a first-party bookmaker quote read from the bookmaker's own site, and not yet replayed by the automated ladder.",
+      "limitations": [
+        "Single aggregated reference; confirm the live price with the bookmaker before relying on it.",
+        "From this session the automated EGW index capture (scripts/egw_live.py) retries this rung every refresh; it prices the fixture only when the EGW index lists the match with non-identical odds inside the freshness gate.",
+        "Hotspawn best-of format remains unverified on Hotspawn; HLTV lists BO3."
+      ]
+    },
+    {
+      "fixture_id": "1082792",
+      "teams": ["HOTU", "The Huns"],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "research_order": [
+        {"stage": "HLTV first", "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026", "finding": "Identity, GLuck Moscow Cyber Games 2026 semi-final and Best of 3 (LAN) confirmed. HOTU HLTV #38 / VRS #38, team rating 1.14; The Huns HLTV #134, main lineup Bart4k, controlez, Cozen, DarkMeister, bexyz. Betting block carries only a Stake US sweepstake promo row — no bookmaker odds. HLTV fan poll (77.2%/22.8%) excluded by policy."},
+        {"stage": "EGamersWorld esportsbook odds", "url": "https://egamersworld.com/counterstrike/match/EkalRNMvVx/hotu-vs-the-huns-esports-SfdtzDhiK", "finding": "No Betting-odds section and no bookmaker-average sentence; banner shows the identical 1.8 / 1.8 placeholder, which the reviewed gate rejects as not a market. EGW rating HOTU 46 vs The Huns 59 (EGW's own scale, not a probability); last-5 both 2 wins; head-to-head HOTU 2-0."},
+        {"stage": "Polymarket (existing ladder)", "url": "https://polymarket.com/esports/cs2", "finding": "No unique exact-name, exact-start-time fixture priced by the ladder (a placeholder-wide listing exists; not priced)."},
+        {"stage": "Valve standings identity join", "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md", "finding": "HOTU is standing 31 with 1437 points (unique row). 'The Huns' has two complete rows: standing 122 (944 pts; Annihilation, Bart4k, bexyz, controlez, Cozen) and standing 213 (701 pts; Bart4k, controlez, nin9, sk0R, xerolte). HLTV's current The Huns lineup (Bart4k, controlez, Cozen, DarkMeister, bexyz) shares 4 of 5 players with standing 122 and 2 of 5 with standing 213, so standing 122 (944 pts) is the identity the documented four-of-five roster join selects; DarkMeister is the one-player change."}
+      ],
+      "guided_pick": "HOTU",
+      "guided_probabilities": [0.941, 0.059],
+      "basis": "Valve fit.js logistic used by the existing research model (fixed RD 75, g=0.972821): 1/(1+10^(0.972821*(944-1437)/400)) = 0.9405 for HOTU. Inputs: HOTU 1437 pts (2026-10-05 official standings) and The Huns 944 pts (row selected by the HLTV four-of-five lineup join above). Uncalibrated research-model estimate — not betting odds.",
+      "limitations": [
+        "Uncalibrated model direction only: a 493-point gap produces an extreme percentage; treat the pick (HOTU) as the guidance, not the exact probability.",
+        "The one-player roster change (DarkMeister in, Annihilation out) is an identity join, not a quantified adjustment; current lineups, stand-ins and map veto are unverified.",
+        "The automated ladder cannot yet replay this join because the runner is refused HTTP 403 by HLTV for the lineup page; the four-of-five rule already exists in scripts/originate.py and will price the fixture automatically on any refresh where the HLTV lineup fetch succeeds and stays fresh.",
+        "EGamersWorld's 1.8/1.8 banner is a placeholder and was not used.",
+        "Hotspawn best-of format remains unverified on Hotspawn; HLTV lists BO3."
+      ]
+    }
+  ]
+}

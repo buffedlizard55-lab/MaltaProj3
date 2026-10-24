@@ -75,19 +75,26 @@ class RootPublisherCarriesTheSnapshot(unittest.TestCase):
     def tearDown(self):
         self.tmp.cleanup()
 
+    # Session arena-43110640: pin the reference clock. These tests used the
+    # wall clock against a fixed 2026-10-23 snapshot, so once that snapshot
+    # became 12h old every scheduled pages.yml run failed its regression step
+    # before collecting anything (runs 40037957529, 40048429858, 40063011446).
+    def _plan(self):
+        return root_publish.build_plan(self.output, self.root, now=self.now)
+
     def test_snapshot_json_is_published(self):
-        plan = root_publish.build_plan(self.output, self.root, now=self.now)
+        plan = self._plan()
         self.assertIn('snapshot.json', plan.writes)
 
     def test_the_replay_fixture_is_still_never_published(self):
-        plan = root_publish.build_plan(self.output, self.root, now=self.now)
+        plan = self._plan()
         self.assertFalse([p for p in plan.writes if p.startswith('data/')])
 
     def test_an_older_build_is_still_refused(self):
         self.root.joinpath('index.html').write_text(
             '<html><body data-snapshot-generated="2026-10-24T00:00:00Z">' + 'x' * 60000
             + '</body></html>')
-        plan = root_publish.build_plan(self.output, self.root, now=self.now)
+        plan = self._plan()
         self.assertEqual(plan.writes, {})
         self.assertIn('refusing to move the published site backwards', plan.reason)
 
