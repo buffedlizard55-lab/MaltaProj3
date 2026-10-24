@@ -28,7 +28,7 @@
     "severity": "warning",
     "match_ids": [],
     "title": "The refresh stall was two separate regression-test defects, and the deployed pages still carry the pre-fix build",
-    "detail": "Chain, each link checked by running the repository's own suite: (1) tests/test_ca7e10e5_snapshot.py called root_publish.build_plan() with the wall clock against a fixed 2026-10-23T09:23:57Z fixture; after 12h every scheduled run raised PublishRefused before collecting (runs 40028653350, 40037957529, 40048429858, 40063011446). Fixed in bdb4fc9 (PR #240) by pinning the reference clock. (2) With that fixed, the only failing test left on main was test_the_built_executive_summary_contains_it_once (2 != 1): scripts/build.py emitted id=\"no-line-research\" twice, once from unresolved_register() and once from summary(). Fixed in e360f4c (merged in 4a6c112, PR #241). Verified here: on 4a6c112 the whole tests/ tree was run module by module and every module passes, and a local scripts.build produces a single id=\"no-line-research\". The build that is live at 06:40Z still predates both fixes, so the executive summary still renders the same dated no-line research block twice and the duplicate id still breaks its anchor until the next successful publish.",
+    "detail": "Chain, each link checked by running the repository's own suite: (1) tests/test_ca7e10e5_snapshot.py called root_publish.build_plan() with the wall clock against a fixed 2026-10-23T09:23:57Z fixture; after 12h every scheduled run raised PublishRefused before collecting (runs 40028653350, 40037957529, 40048429858, 40063011446). Fixed in bdb4fc9 (PR #240) by pinning the reference clock. (2) The build that is live at 06:40Z predates the next fix, so the deployed executive summary still renders the same dated 'Fixtures without a betting line' block twice and the duplicate id=\"no-line-research\" still breaks that anchor on a phone; scripts/build.py emitted it from both unresolved_register() and summary(). Fixed in e360f4c (merged in 4a6c112, PR #241); reproduced here against the published tree (2 occurrences) and against a fresh build of the merged code (1). Note for accuracy: the test that pins the duplicate (tests/test_ca7e10e5_snapshot.py::test_the_built_executive_summary_contains_it_once) reads site/index.html and skips itself when that directory does not exist, so it was not by itself the publisher's blocker - it failed here only because a local build tree was present.",
     "source_urls": [
       "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446",
       "https://github.com/buffedlizard55-lab/MaltaProj3/commit/e360f4c",
@@ -46,6 +46,19 @@
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/ec5083b9/coverage-2026-10-24T0640Z.md",
       "https://buffedlizard55-lab.github.io/MaltaProj3/",
       "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/"
+    ]
+  },
+  {
+    "id": "ec5083b9-pytest-import-blocked-the-regression-step",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "A test module needed pytest, which this repository never declares, so the publisher's own test command aborted before any test ran in a clean environment",
+    "detail": "Reproduced in a virtualenv built from requirements.txt alone (requests==2.32.5, beautifulsoup4==4.14.3): `python -m unittest discover -s tests` aborted with `ModuleNotFoundError: No module named 'pytest'`, raised while unittest imported tests/test_b97af12f_reconciliation.py (added 2026-10-24T06:54Z). unittest imports every test module before running anything, so the step exits non-zero even though the module contributed no TestCase of its own. pages.yml and checks.yml both run exactly that command after installing only requirements.txt, which does not list pytest. The module's owner (session arena-b97af12f) converted it to unittest.TestCase on main in the same hour; this session reproduced the failure independently, verified the converted module passes 6/6, and left that file untouched in this PR rather than rewriting another session's work. Full suite on this head: 1440 tests, 0 failures, exit 0.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40069088115",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_b97af12f_reconciliation.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/requirements.txt",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml"
     ]
   }
 ]
