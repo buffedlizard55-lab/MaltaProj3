@@ -147,6 +147,25 @@ moneyline prints `ace1 35c / forzer 69c` on $136.37 volume, and EGamersWorld pri
 "24.10.2026 at 08:00") against `2.80 / 1.35` in its index three minutes earlier — both recorded, neither averaged. No
 probability, pick or alias was written by hand.
 
+**DA-4 — the brief's three site requirements, checked on the built site (not assumed).**
+
+| Requirement | Where it is satisfied | Evidence |
+| --- | --- | --- |
+| An executive summary that links to the updated picks from inside the site | `/` carries `17 picks ready of 17` → `./origination/#picks`, a *Start here · where the picks are* block (`Picks on this page`, `All match picks`, `Unresolved`), and a bottom nav row `./origination/#picks | All match picks` | `site/index.html` built locally at this head |
+| A **separate** unresolved section that states the limitations | `#unresolved-register` on `/`, the full register on `/unresolved/` (per-fixture blocker, every source tried, both probabilities when a model priced it) and `#live-coverage-gaps` fed by the dated lobby record | local build renders 0-gap text for a fresh snapshot and per-card rows otherwise |
+| Phone readability | `@media(max-width:700px)`: tables become cards, fixed bottom `mobile-nav` (Summary / **Picks** / Unresolved …), 44 px minimum tap targets; no `width:` above 320 px anywhere in `assets/scout.css` | `assets/scout.css`, `site/index.html` |
+
+**DA-6 — the freshness guarantee now has a safety net (new file, unclaimed).** Even with DA-1 fixed, *push*-triggered
+publishes share one concurrency group and GitHub cancels the single pending run there on every newer push: today
+`40070626757`, `40071009969`, `40071100402`, `40071346040` and `40071396534` were all cancelled **while pending**, and
+the 06:09Z run did not start within 40 minutes. Scheduled runs are not cancelled that way, but they are only every
+four hours and they queue behind the same saturated pool. `.github/workflows/freshness-watchdog.yml` (30-minute
+schedule, `contents:read` + `actions:write`, publishes nothing itself) re-dispatches `pages.yml` **only** when the
+deployed `data/latest.json` is older than 6 h *and* no `pages.yml` run is queued or in progress. A dispatch lands in
+the `pages-workflow_dispatch` group, which push traffic cannot cancel. `tests/test_da8067f5_watchdog.py` executes the
+workflow's own decision code against a stubbed network (9 tests: fresh → no dispatch, stale+queued → none,
+stale+idle → exactly one POST, dry run → none, unreadable → stale but still gated).
+
 **Verification so far:** `tests.test_origination_upgrade + test_f9d0a5a2 + test_source_integrity + test_43110640_egw_live`
 → **88 tests OK**; `tests.test_da8067f5_pipeline` → **3 OK**; local `scripts.build` → PASS (798 audited rows, 0 without a
 source, acceptance 9 pass / 1 info / 0 fail, 828 internal links); full `unittest discover` running on the final head.
