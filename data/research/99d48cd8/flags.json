@@ -1,54 +1,67 @@
-{
-  "session": "arena-99d48cd8",
-  "read_window_utc": {"start": "2026-10-24T07:28:00Z", "end": "2026-10-24T07:34:00Z"},
-  "flags": [
-    {
-      "id": "99d48cd8-publisher-starvation",
-      "severity": "high",
-      "status": "needs review",
-      "title": "Published snapshot is 2026-10-23T20:10:00Z; 9 of 25 live lobby cards have no published row",
-      "detail": "Lobby read first-hand 2026-10-24T07:28Z renders 25 future CS2 cards; the checked-in snapshot.json (2026-10-23T20:10:00Z, partial-picks) covers 16. Missing: 1079658, 1079659, 1079660, 1079661, 1081152, 1081153, 1081154, 1081156, 1081158. Push-triggered pages.yml runs keep being cancelled while pending (40073897762 cancelled; 40074120319 workflow_dispatch queued; 40074358736 pending at read). The schedule-group crons ('17 */4' + catch-up '47 2-22/4', next 08:47Z) are the guaranteed path. No probability was written by hand for the missing cards.",
-      "sources": ["https://play.hotspawn.com/lobby", "https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/pages.yml"]
-    },
-    {
-      "id": "99d48cd8-duplicate-no-line-research-id-root",
-      "severity": "medium",
-      "status": "needs review",
-      "title": "Checked-in root index.html contains id=\"no-line-research\" twice; scripts/build.py at this base still has two emission sites (lines 1149, 1229)",
-      "detail": "Measured 2026-10-24T07:31Z on base 06f56c2: root index.html count=2, unresolved/index.html count=1, picks/index.html count=0. COORDINATION (arena-73bc57bd) records a one-line dedupe merged via PR #241; whether the rebased main already carries it must be re-verified at integration. This session does not edit scripts/build.py (owned by other sessions); logged here for the integration session. A duplicate id breaks in-page anchor jumps to the no-line register on phones.",
-      "sources": ["https://github.com/buffedlizard55-lab/MaltaProj3/pull/241"]
-    },
-    {
-      "id": "99d48cd8-lfo10-identity-conflict",
-      "severity": "medium",
-      "status": "needs review",
-      "title": "Fixture 1081156 opponent identity conflict: Hotspawn 'LFO 10' vs Polymarket 'Sökerorg' vs EGamersWorld blank name",
-      "detail": "EGamersWorld's blank-named team (id -9k0l7nH6z_) lists Sapec, dottie, redzy, flaw, L00m1; HLTV match 2399301 lists LFO 10 as L00m1, Mann3n, Sapec, flaw, dottie. Four-player roster overlap supports (but does not by itself authorize) a reviewed alias. No alias, price or pick was written. Both books are placeholders today (Polymarket 94/94 cents $0.00 vol; EGamersWorld 1.8/1.8), so the alias alone would not produce a pick.",
-      "sources": ["https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156", "https://polymarket.com/esports/cs2/cct-europe/cs2-tsa-skr2-2026-10-25", "https://egamersworld.com/counterstrike/match/HiXMAaC8L/spirit-academy-vs-zgh7PZE301", "https://www.hltv.org/matches/2399301/forze-reload-vs-lfo-10-cct-2026-europe-series-11"]
-    },
-    {
-      "id": "99d48cd8-placeholder-books-series12",
-      "severity": "medium",
-      "status": "needs review",
-      "title": "All five CCT Europe Series #12 gap fixtures show only placeholder books at both sources checked",
-      "detail": "1081152 HAVU-Azuolas (no Polymarket market rendered on the board read; EGW 1.8/1.8), 1081153 (PM 71/84c $0.00, sum 155; EGW 1.8/1.8), 1081154 (PM 72/64c $0.00, sum 136; EGW 1.8/1.8), 1081156 (PM 94/94c $0.00; EGW 1.8/1.8 blank team), 1081158 (PM 66/94c $0.00, sum 160; EGW 1.8/1.8). Limitation: no percentage can be originated from placeholder displays without inventing numbers; these stay explicitly unresolved until a book posts a real two-sided price or the research model binds both teams.",
-      "sources": ["https://polymarket.com/esports/cs2/cct-europe", "https://egamersworld.com/counterstrike/event/cct-europe-2026-series-12-HiXMAaC8L"]
-    },
-    {
-      "id": "99d48cd8-egw-header-unattributed",
-      "severity": "low",
-      "status": "needs review",
-      "title": "EGamersWorld header decimals recorded unattributed (render read does not name the bookmaker)",
-      "detail": "For the four priced leads (1079658 2.85/1.35; 1079659 1.46/2.42; 1079660 1.68/1.98; 1079661 1.44/2.52) the EGamersWorld match-page header shows two decimals without naming the underlying bookmaker in the fetched render. Earlier sessions attributed a similar block to Thunderpick; this session records prices only. The collector's EGamersWorld rung must re-validate before any number is published.",
-      "sources": ["https://egamersworld.com/counterstrike/match/_rW8GEyWK/acend-vs-forze-reload-FZO8bqMyg"]
-    },
-    {
-      "id": "99d48cd8-lobby-timezone-unverified",
-      "severity": "low",
-      "status": "needs review",
-      "title": "Lobby card times transcribed verbatim; render timezone unverified",
-      "detail": "lobby_time_displayed values (e.g. 'Oct 24, 04:00') come from the rendered lobby in this session's fetch context. No UTC start is inferred from them; UTC starts are joined only from snapshot.json (collector fixture API) for the 16 covered cards, and left null for the 9 missing cards.",
-      "sources": ["https://play.hotspawn.com/lobby"]
-    }
+[
+ {
+  "id": "99d48cd8-publisher-starvation",
+  "severity": "high",
+  "title": "Published snapshot is 2026-10-23T20:10:00Z; 9 of 25 live lobby cards have no published row",
+  "detail": "Lobby read first-hand 2026-10-24T07:28Z renders 25 future CS2 cards; the checked-in snapshot.json (2026-10-23T20:10:00Z, partial-picks) covers 16. Missing: 1079658, 1079659, 1079660, 1079661, 1081152, 1081153, 1081154, 1081156, 1081158. Push-triggered pages.yml runs keep being cancelled while pending (40073897762 cancelled; 40074120319 workflow_dispatch queued; 40074358736 pending at read). The schedule-group crons ('17 */4' + catch-up '47 2-22/4', next 08:47Z) are the guaranteed path. No probability was written by hand for the missing cards. (Session arena-99d48cd8, first-hand read window 2026-10-24T07:28Z-07:34Z; status: needs review.)",
+  "match_ids": [],
+  "source_urls": [
+   "https://play.hotspawn.com/lobby",
+   "https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/pages.yml"
   ]
-}
+ },
+ {
+  "id": "99d48cd8-duplicate-no-line-research-id-root",
+  "severity": "medium",
+  "title": "Checked-in root index.html contains id=\"no-line-research\" twice; scripts/build.py at this base still has two emission sites (lines 1149, 1229)",
+  "detail": "Measured 2026-10-24T07:31Z on base 06f56c2: root index.html count=2, unresolved/index.html count=1, picks/index.html count=0. COORDINATION (arena-73bc57bd) records a one-line dedupe merged via PR #241; whether the rebased main already carries it must be re-verified at integration. This session does not edit scripts/build.py (owned by other sessions); logged here for the integration session. A duplicate id breaks in-page anchor jumps to the no-line register on phones. (Session arena-99d48cd8, first-hand read window 2026-10-24T07:28Z-07:34Z; status: needs review.)",
+  "match_ids": [],
+  "source_urls": [
+   "https://github.com/buffedlizard55-lab/MaltaProj3/pull/241"
+  ]
+ },
+ {
+  "id": "99d48cd8-lfo10-identity-conflict",
+  "severity": "medium",
+  "title": "Fixture 1081156 opponent identity conflict: Hotspawn 'LFO 10' vs Polymarket 'S\u00f6kerorg' vs EGamersWorld blank name",
+  "detail": "EGamersWorld's blank-named team (id -9k0l7nH6z_) lists Sapec, dottie, redzy, flaw, L00m1; HLTV match 2399301 lists LFO 10 as L00m1, Mann3n, Sapec, flaw, dottie. Four-player roster overlap supports (but does not by itself authorize) a reviewed alias. No alias, price or pick was written. Both books are placeholders today (Polymarket 94/94 cents $0.00 vol; EGamersWorld 1.8/1.8), so the alias alone would not produce a pick. (Session arena-99d48cd8, first-hand read window 2026-10-24T07:28Z-07:34Z; status: needs review.)",
+  "match_ids": [],
+  "source_urls": [
+   "https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156",
+   "https://polymarket.com/esports/cs2/cct-europe/cs2-tsa-skr2-2026-10-25",
+   "https://egamersworld.com/counterstrike/match/HiXMAaC8L/spirit-academy-vs-zgh7PZE301",
+   "https://www.hltv.org/matches/2399301/forze-reload-vs-lfo-10-cct-2026-europe-series-11"
+  ]
+ },
+ {
+  "id": "99d48cd8-placeholder-books-series12",
+  "severity": "medium",
+  "title": "All five CCT Europe Series #12 gap fixtures show only placeholder books at both sources checked",
+  "detail": "1081152 HAVU-Azuolas (no Polymarket market rendered on the board read; EGW 1.8/1.8), 1081153 (PM 71/84c $0.00, sum 155; EGW 1.8/1.8), 1081154 (PM 72/64c $0.00, sum 136; EGW 1.8/1.8), 1081156 (PM 94/94c $0.00; EGW 1.8/1.8 blank team), 1081158 (PM 66/94c $0.00, sum 160; EGW 1.8/1.8). Limitation: no percentage can be originated from placeholder displays without inventing numbers; these stay explicitly unresolved until a book posts a real two-sided price or the research model binds both teams. (Session arena-99d48cd8, first-hand read window 2026-10-24T07:28Z-07:34Z; status: needs review.)",
+  "match_ids": [],
+  "source_urls": [
+   "https://polymarket.com/esports/cs2/cct-europe",
+   "https://egamersworld.com/counterstrike/event/cct-europe-2026-series-12-HiXMAaC8L"
+  ]
+ },
+ {
+  "id": "99d48cd8-egw-header-unattributed",
+  "severity": "low",
+  "title": "EGamersWorld header decimals recorded unattributed (render read does not name the bookmaker)",
+  "detail": "For the four priced leads (1079658 2.85/1.35; 1079659 1.46/2.42; 1079660 1.68/1.98; 1079661 1.44/2.52) the EGamersWorld match-page header shows two decimals without naming the underlying bookmaker in the fetched render. Earlier sessions attributed a similar block to Thunderpick; this session records prices only. The collector's EGamersWorld rung must re-validate before any number is published. (Session arena-99d48cd8, first-hand read window 2026-10-24T07:28Z-07:34Z; status: needs review.)",
+  "match_ids": [],
+  "source_urls": [
+   "https://egamersworld.com/counterstrike/match/_rW8GEyWK/acend-vs-forze-reload-FZO8bqMyg"
+  ]
+ },
+ {
+  "id": "99d48cd8-lobby-timezone-unverified",
+  "severity": "low",
+  "title": "Lobby card times transcribed verbatim; render timezone unverified",
+  "detail": "lobby_time_displayed values (e.g. 'Oct 24, 04:00') come from the rendered lobby in this session's fetch context. No UTC start is inferred from them; UTC starts are joined only from snapshot.json (collector fixture API) for the 16 covered cards, and left null for the 9 missing cards. (Session arena-99d48cd8, first-hand read window 2026-10-24T07:28Z-07:34Z; status: needs review.)",
+  "match_ids": [],
+  "source_urls": [
+   "https://play.hotspawn.com/lobby"
+  ]
+ }
+]

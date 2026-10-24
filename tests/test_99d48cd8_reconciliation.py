@@ -131,11 +131,15 @@ class Reconciliation(unittest.TestCase):
                 self.assertIn(src, u["sources_tried"])
 
     def test_flags_are_sourced(self):
-        flags = json.loads(FLAGS.read_text())["flags"]
+        # Repo schema (scripts/build.py globs research/*/flags.json and
+        # iterates a bare list of finding objects with id + source_urls).
+        flags = json.loads(FLAGS.read_text())
+        self.assertIsInstance(flags, list)
         self.assertGreaterEqual(len(flags), 5)
         for f in flags:
-            self.assertTrue(f["sources"], f["id"])
-            for url in f["sources"]:
+            self.assertTrue(f["source_urls"], f["id"])
+            self.assertIn("match_ids", f)
+            for url in f["source_urls"]:
                 self.assertIn(urlparse(url).hostname, ALLOWED_HOSTS, url)
 
 
