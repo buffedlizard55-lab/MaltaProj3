@@ -1,0 +1,2146 @@
+{
+  "schema_version": 1,
+  "title": "Verified team-identity registry for pick origination",
+  "policy": "An alias may join two provider names only when an official or first-party source link demonstrates they are the same team in the same competition, and every alias declares the exact competitions it applies to ('applies_to'). Sponsor/abbreviation spellings are not silently inferred and an alias never crosses into a competition it does not declare. Every alias below carries its evidence links and is displayed on the published page. Any name without a registry entry remains unmatched; missing values stay blank and are flagged.",
+  "updated_at": "2026-10-23T06:26:00Z",
+  "updated_by": "arena-2e8b83a7 research session (every alias carries its own official source links and an explicit competition scope); extended by arena-c07e1b40; extended by arena-35440d12 (2026-10-16); extended by arena-fe48a0df (2026-10-18); extended by arena-1fb85c47 (2026-10-19); extended by arena-c03ef201 (2026-10-19); extended by arena-f9d0a5a2 (2026-10-21); extended by arena-a34bc06b (2026-10-22); extended by arena-f2b91672 (2026-10-22); extended by arena-52aee465 (2026-10-23): competition-scoped first-party joins for CCT Europe 2026 Series #12 (Sokerorg -> LFO 10 on Bovada 32630179), CCT South America 2026 Series #7 (Quintessencia -> QUINTESSÊNCIA on Bovada 32606587 & Pinnacle 1638942963; RED Academy -> RED Canids Academy on Bovada 32606588), NODWIN Clutch Series #13 (FokuS Esports -> FOKUS on Bovada 32627973; UNiTY esports -> UNiTY & BakS eSports -> BakS scope extensions on Polymarket 1238703 & 1238705), Tesla Cup 2026 (FaZe Clan -> FaZe scope extension on Hotspawn 1082898 / HLTV 2399867), and PGL Masters Bucharest 2026 (Team AURORA, FUT Esports, Team Spirit, BB Team, Team Liquid, 9Z Globant, Nemiga Gaming, G2 Esports, FURIA Esports across Bovada & Pinnacle).; extended by arena-92a3e9fb (2026-10-23): competition-scoped first-party joins for NODWIN Clutch Series #13 (FOKUS CS -> FOKUS on bo3.gg/Thunderpick 2872398, INFINITE Gaming -> INFINITE, Team Brute -> BRUTE, Zero Tenacity -> ex-Zero Tenacity), CCT Europe 2026 Series #11 (ex-ZeroTenacity -> ex-Zero Tenacity, RUSTEC -> ex-RUSTEC), and Tesla Cup 2026 (HOTU eSports -> HOTU, 5star gaming -> 5star).",
+  "aliases": [
+    {
+      "alias": "WBT",
+      "canonical": "WROTBERRY",
+      "kind": "abbreviation",
+      "applies_to": [
+        "Elisa BreakOut Series #2",
+        "DraculaN Season 7"
+      ],
+      "competition_note": "Elisa BreakOut Series #2 (HLTV event 9332) Extended by session c07e1b40 to DraculaN Season 7 (HLTV match 2399593, Hotspawn fixture 1081529).",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/team/13683/wrotberry",
+          "source": "HLTV.org team page",
+          "detail": "HLTV's own team page id 13683 carries the URL slug 'wrotberry' and displays the team name 'WBT'. HLTV is the official resolution source for the corresponding Polymarket match markets."
+        },
+        {
+          "url": "https://www.hltv.org/events/9332/elisa-breakout-series-2",
+          "source": "HLTV.org event page",
+          "detail": "HLTV lists team 'WBT' (Ukraine) as the Group A participant in Elisa BreakOut Series 2, the same slot Hotspawn lists as 'WROTBERRY' with identical opponent pairings and start times (WBT/ENCE 12:00 UTC and WBT/BOJONG 16:00 UTC on 2026-10-15)."
+        },
+        {
+          "url": "https://liquipedia.net/counterstrike/CCT/2026/Europe/Contenders_4",
+          "source": "Liquipedia",
+          "detail": "Liquipedia lists the Ukrainian roster under the name WROTBERRY with players svemyy/fl1peR/tired73, matching HLTV team 13683's published player records."
+        },
+        {
+          "url": "https://www.hltv.org/events/9312/digital-crusade-draculan-season-7",
+          "source": "HLTV.org event page",
+          "detail": "HLTV's DraculaN Season 7 bracket lists exactly one 'WBT' (Group B opening round vs Nexus) and no separate 'WROTBERRY' competitor; Hotspawn fixture 1081529 lists 'Nexus vs WROTBERRY' in DraculaN Season 7 at that slot. Checked by session c07e1b40 on 2026-10-15."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399593/wbt-vs-nexus-digital-crusade-draculan-season-7",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists 'WBT' (team id 13683) vs 'Nexus' (team id 7187), Group B opening match, 19 Oct 2026 at 09:00 UTC (BO1 LAN), the exact Hotspawn fixture 1081529 start time."
+        }
+      ],
+      "review_note": "Flagged by session c07e1b40 (2026-10-15): two earlier evidence details could not be reconfirmed — HLTV team 13683 now uses the URL slug 'wbt' (https://www.hltv.org/team/13683/wbt), not 'wrotberry', and lists Psycho, Smash, s4ltovsk1yy, DemQQ and tyr1k (all 1 month on the team), not the svemyy/fl1peR/tired73 players cited from Liquipedia; Liquipedia has no 'WROTBERRY' page. The same-event/same-opponent/same-time evidence above is what currently supports the join."
+    },
+    {
+      "alias": "ROUNDS",
+      "canonical": "RoundsGG",
+      "kind": "organization rename",
+      "applies_to": [
+        "Elisa BreakOut Series #2"
+      ],
+      "competition_note": "Elisa BreakOut Series #2 (HLTV event 9332)",
+      "evidence": [
+        {
+          "url": "https://liquipedia.net/rocketleague/ROUNDS",
+          "source": "Liquipedia",
+          "detail": "Liquipedia's organization page states: 'ROUNDS (formerly RoundsGG) is a Finnish esports organization' based in Tampere — the city hosting Elisa BreakOut Series 2."
+        },
+        {
+          "url": "https://www.hltv.org/events/9332/elisa-breakout-series-2",
+          "source": "HLTV.org event page",
+          "detail": "HLTV lists team 'ROUNDS' (Finland) as the fourth Group B participant of Elisa BreakOut Series 2, with the exact Hotspawn 'RoundsGG' pairings and start times (HAVU 10:00, Phantom 14:00, Voca 16:00 UTC on 2026-10-16)."
+        }
+      ],
+      "review_note": "Flagged by session c07e1b40 (2026-10-15): the Liquipedia citation is the Rocket League wiki (https://liquipedia.net/rocketleague/ROUNDS), not Counter-Strike; the Counter-Strike wiki has no ROUNDS page (https://liquipedia.net/counterstrike/ROUNDS). The CS2 join currently rests on HLTV's same-event, same-slot listing."
+    },
+    {
+      "alias": "HAVU Gaming",
+      "canonical": "HAVU",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "Elisa BreakOut Series #2"
+      ],
+      "competition_note": "Thunderpick display name vs Hotspawn/HLTV/Polymarket 'HAVU'",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/team/7865/havu",
+          "source": "HLTV.org team page",
+          "detail": "HLTV team 7865 is named 'HAVU' (Finland)."
+        },
+        {
+          "url": "https://www.hltv.org/events/9332/elisa-breakout-series-2",
+          "source": "HLTV.org event page",
+          "detail": "Thunderpick's 'HAVU Gaming vs ROUNDS' at 2026-10-16T10:00Z triangulates to HLTV 'HAVU vs ROUNDS' (match 2399425) and Hotspawn 'HAVU vs RoundsGG' (fixture 1080286) at the identical start time and opponent. Polymarket lists the same fixture as 'HAVU vs RoundsGG'."
+        }
+      ]
+    },
+    {
+      "alias": "EA Copenhagen",
+      "canonical": "EAC",
+      "kind": "abbreviation",
+      "applies_to": [
+        "Elisa BreakOut Series #2"
+      ],
+      "competition_note": "Thunderpick display name vs Hotspawn 'EAC'",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/team/13838/eac",
+          "source": "HLTV.org team page",
+          "detail": "HLTV team 13838 is named 'EAC' (Denmark)."
+        },
+        {
+          "url": "https://www.hltv.org/events/9332/elisa-breakout-series-2",
+          "source": "HLTV.org event page",
+          "detail": "Thunderpick's 'EA Copenhagen' rows share EAC's exact Elisa BreakOut Series 2 opponents and start times (vs WBT, vs BOJONG 14:00Z, vs ENCE 18:00Z on 2026-10-15)."
+        }
+      ]
+    },
+    {
+      "alias": "Esport Academy Copenhagen",
+      "canonical": "EAC",
+      "kind": "full-name expansion",
+      "applies_to": [
+        "Elisa BreakOut Series #2"
+      ],
+      "competition_note": "Polymarket display name vs Hotspawn 'EAC'",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/team/13838/eac",
+          "source": "HLTV.org team page",
+          "detail": "HLTV team 13838 is named 'EAC' (Denmark)."
+        },
+        {
+          "url": "https://polymarket.com/esports/cs2",
+          "source": "Polymarket CS2 index",
+          "detail": "Polymarket's Elisa BreakOut Series #2 fixtures use the long form 'Esport Academy Copenhagen' for the team Hotspawn and HLTV list as 'EAC', with identical opponents and start times."
+        }
+      ]
+    },
+    {
+      "alias": "Phantom Esports",
+      "canonical": "Phantom",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "Elisa BreakOut Series #2"
+      ],
+      "competition_note": "Thunderpick display name vs Hotspawn 'Phantom'; NOT the separate team 'Phantom Esports Academy'",
+      "must_not_match": [
+        "Phantom Esports Academy",
+        "Phantom Academy",
+        " Phantom Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/team/13173/phantom",
+          "source": "HLTV.org team page",
+          "detail": "HLTV team 13173 is named 'Phantom' (Poland)."
+        },
+        {
+          "url": "https://www.hltv.org/events/9332/elisa-breakout-series-2",
+          "source": "HLTV.org event page",
+          "detail": "Thunderpick's 'Phantom Esports' rows share Phantom's Elisa BreakOut Series 2 opponents and start times. The distinct roster 'Phantom Esports Academy' plays different opponents/times and is explicitly excluded from this alias."
+        }
+      ]
+    },
+    {
+      "alias": "Team Falcons",
+      "canonical": "Falcons",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "Thunderpick World Championship 2026"
+      ],
+      "competition_note": "Polymarket display name 'Team Falcons' vs Hotspawn/HLTV 'Falcons' in the Thunderpick World Championship 2026 Group A winners' match (HLTV match 2399409, Hotspawn fixture 1080202, 2026-10-15T11:00:00Z).",
+      "evidence": [
+        {
+          "url": "https://polymarket.com/event/cs2-9z-fal2-2026-10-15",
+          "source": "Polymarket event page",
+          "detail": "Polymarket's own market text names the fixture as the \"Counter-Strike Winners' match between 9z and Team Falcons in the Thunderpick World Championship Group A, initially scheduled for October 15, 2026 at 7:00 AM ET\" (= 11:00 UTC), the exact Hotspawn fixture 1080202 start time, and lists HLTV as its resolution source."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399409/9z-vs-falcons-thunderpick-world-championship-2026",
+          "source": "HLTV.org match page",
+          "detail": "HLTV's official day-two schedule for the same event lists this fixture as '9z vs Falcons' on 15/10/2026, linking team 11283."
+        },
+        {
+          "url": "https://www.hltv.org/team/11283/falcons",
+          "source": "HLTV.org team page",
+          "detail": "HLTV publishes the organization as 'Falcons' (team id 11283); no separate 'Team Falcons' competitor exists in this event."
+        }
+      ]
+    },
+    {
+      "alias": "BetBoom Team",
+      "canonical": "BetBoom",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "Thunderpick World Championship 2026",
+        "PGL Masters Bucharest 2026"
+      ],
+      "competition_note": "Polymarket/Kalshi display name 'BetBoom Team' vs Hotspawn 'BetBoom' / HLTV 'BETBOOM' in Thunderpick World Championship 2026 and PGL Masters Bucharest 2026 (HLTV match 2399721, Polymarket event 1199658 at 2026-10-24T10:00:00Z).",
+      "must_not_match": [
+        "BetBoom Academy",
+        "BB Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://polymarket.com/event/cs2-prv-bb3-2026-10-15",
+          "source": "Polymarket event page",
+          "detail": "Polymarket's market text names the fixture as the \"Counter-Strike Elimination match between PARIVISION and BetBoom Team in the Thunderpick World Championship Group B, initially scheduled for October 15, 2026 at 9:30 AM ET\" (= 13:30 UTC), the exact Hotspawn fixture 1080203 start time."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399410/parivision-vs-betboom-thunderpick-world-championship-2026",
+          "source": "HLTV.org match page",
+          "detail": "HLTV's official day-two schedule lists this fixture as 'PARIVISION vs BETBOOM' on 15/10/2026, linking team 12394."
+        },
+        {
+          "url": "https://www.hltv.org/team/12394/betboom",
+          "source": "HLTV.org team page",
+          "detail": "HLTV publishes the organization as 'BETBOOM' (team id 12394), the same competitor Hotspawn lists as 'BetBoom'."
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-ts7-bb3-2026-10-24",
+          "source": "Polymarket event page (event 1199658)",
+          "detail": "Polymarket lists outcomes [\"Spirit\", \"BetBoom Team\"] at 2026-10-24T10:00:00Z matching HLTV match 2399721 'Spirit vs BETBOOM' in PGL Masters Bucharest 2026."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399721/spirit-vs-betboom-pgl-masters-bucharest-2026",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399721 lists 'Spirit vs BETBOOM' BO3 at 2026-10-24T10:00:00Z in PGL Masters Bucharest 2026."
+        }
+      ]
+    },
+    {
+      "alias": "Aurora Gaming",
+      "canonical": "Aurora",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "Thunderpick World Championship 2026",
+        "PGL Masters Bucharest 2026"
+      ],
+      "competition_note": "Polymarket/Kalshi display name 'Aurora Gaming' vs Hotspawn/HLTV 'Aurora' in Thunderpick World Championship 2026 and PGL Masters Bucharest 2026 (HLTV match 2399719, Polymarket event 1199657 at 2026-10-24T07:00:00Z).",
+      "must_not_match": [
+        "Aurora Young Blud",
+        "Aurora YB"
+      ],
+      "evidence": [
+        {
+          "url": "https://polymarket.com/event/cs2-aur1-nip-2026-10-15",
+          "source": "Polymarket event page",
+          "detail": "Polymarket's market text names the fixture as the \"Counter-Strike Elimination match between Aurora Gaming and NIP in the Thunderpick World Championship Group A, initially scheduled for October 15, 2026 at 4:30 AM ET\" (= 08:30 UTC), the exact Hotspawn fixture 1080201 start time."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399408/aurora-vs-ninjas-in-pyjamas-thunderpick-world-championship-2026",
+          "source": "HLTV.org match page",
+          "detail": "HLTV's official day-two schedule lists this fixture as 'Aurora vs Ninjas in Pyjamas' on 15/10/2026, linking team 11861."
+        },
+        {
+          "url": "https://www.hltv.org/team/11861/aurora",
+          "source": "HLTV.org team page",
+          "detail": "HLTV publishes the organization as 'Aurora' (team id 11861) with the roster XANTARES, woxic, Jimpphat, kyxsan and Wicadia."
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-aur1-mglz-2026-10-24",
+          "source": "Polymarket event page (event 1199657)",
+          "detail": "Polymarket lists outcomes [\"Aurora Gaming\", \"TheMongolz\"] at 2026-10-24T07:00:00Z matching HLTV match 2399719 'Aurora vs The MongolZ' in PGL Masters Bucharest 2026."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399719/aurora-vs-the-mongolz-pgl-masters-bucharest-2026",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399719 lists 'Aurora vs The MongolZ' BO3 at 2026-10-24T07:00:00Z in PGL Masters Bucharest 2026."
+        }
+      ]
+    },
+    {
+      "alias": "NIP",
+      "canonical": "Ninjas in Pyjamas",
+      "kind": "abbreviation",
+      "applies_to": [
+        "Thunderpick World Championship 2026",
+        "Stake Pulse Beat III"
+      ],
+      "competition_note": "Polymarket abbreviation 'NIP' vs Hotspawn/HLTV 'Ninjas in Pyjamas' in the Thunderpick World Championship 2026 Group A elimination match (HLTV match 2399408, Hotspawn fixture 1080201). Extended by session c07e1b40 to Stake Pulse Beat III (HLTV match 2399262, Hotspawn fixture 1079586, 2026-10-16T08:00:00Z).",
+      "must_not_match": [
+        "NIP Impact",
+        "NiP Impact",
+        "Young Ninjas",
+        "Ninjas in Pyjamas Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://polymarket.com/event/cs2-aur1-nip-2026-10-15",
+          "source": "Polymarket event page",
+          "detail": "Polymarket's market text resolves to 'NIP' for the same elimination match its own description ties to HLTV as the resolution source."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399408/aurora-vs-ninjas-in-pyjamas-thunderpick-world-championship-2026",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists the opponent as 'Ninjas in Pyjamas' (team id 4411) at the same scheduled start."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399262/ninjas-in-pyjamas-vs-liquid-stake-pulse-beat-iii",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists 'Ninjas in Pyjamas' (team id 4411) vs 'Liquid' (team id 5973) in the Stake Pulse Beat III quarter-final on 16 Oct 2026 at 08:00 UTC, the exact Hotspawn fixture 1079586 slot. Checked by session c07e1b40 on 2026-10-15."
+        },
+        {
+          "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct160400tlnip",
+          "source": "Kalshi market rules (public API event KXCS2GAME-26OCT160400TLNIP)",
+          "detail": "Kalshi's own contract text: 'Stake Pulse Beat III 2026: Liquid vs. NIP CS2 match originally scheduled for Oct 16, 2026 at 4:00 AM EDT' (= 08:00 UTC)."
+        }
+      ]
+    },
+    {
+      "alias": "Liquid",
+      "canonical": "Team Liquid",
+      "kind": "display-name abbreviation",
+      "applies_to": [
+        "Stake Pulse Beat III"
+      ],
+      "competition_note": "Kalshi/Polymarket/HLTV display name 'Liquid' vs Hotspawn/Bovada 'Team Liquid' in the Stake Pulse Beat III quarter-final (HLTV match 2399262, Hotspawn fixture 1079586, 2026-10-16T08:00:00Z). Added by session c07e1b40.",
+      "must_not_match": [
+        "Liquid Academy",
+        "Team Liquid Academy",
+        "Liquid fe",
+        "Team Liquid fe"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399262/ninjas-in-pyjamas-vs-liquid-stake-pulse-beat-iii",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists 'Liquid' (team id 5973) vs 'Ninjas in Pyjamas' in the Stake Pulse Beat III quarter-final on 16 Oct 2026 at 08:00 UTC, the same slot Hotspawn lists as 'Ninjas in Pyjamas vs Team Liquid'."
+        },
+        {
+          "url": "https://www.hltv.org/team/5973/liquid",
+          "source": "HLTV.org team page",
+          "detail": "HLTV publishes the organization as 'Liquid' (team id 5973)."
+        },
+        {
+          "url": "https://www.bovada.lv/sports/esports/counter-strike-2/pulse-beat-iii/ninjas-in-pyjamas-team-liquid-202610160400",
+          "source": "Bovada sportsbook event",
+          "detail": "Bovada lists the same Pulse Beat III fixture as 'Ninjas in Pyjamas vs Team Liquid' at 08:00 UTC (event 32266578) — Hotspawn's exact naming for the slot HLTV and Kalshi call 'Liquid'."
+        },
+        {
+          "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct160400tlnip",
+          "source": "Kalshi market rules",
+          "detail": "Kalshi's contract text names 'Stake Pulse Beat III 2026: Liquid vs. NIP … Oct 16, 2026 at 4:00 AM EDT'."
+        }
+      ]
+    },
+    {
+      "alias": "BET-M 33",
+      "canonical": "BET-M",
+      "kind": "display-name variant",
+      "applies_to": [
+        "NODWIN Clutch Series #13",
+        "NODWIN Clutch Series 13"
+      ],
+      "competition_note": "Hotspawn fixture 1079170 displays the tournament as \"NODWIN Clutch Series #13\" (Hotspawn match page) while the HLTV event is \"NODWIN Clutch Series 13\"; both observed spellings are declared because the registry matching is exact-normalized, never fuzzy. Scoped to this competition only.",
+      "evidence": [
+        {
+          "url": "https://polymarket.com/esports/cs2/nodwin-clutch-series/cs2-33-justpl-2026-10-17",
+          "source": "Polymarket event page",
+          "detail": "Polymarket lists \"Counter-Strike: BET-M 33 vs Just Players (BO3) - NODWIN Clutch Series Group Stage\" with gameStartTime 2026-10-17 08:00:00 UTC — the exact Hotspawn fixture 1079170 slot and opponent name. Observed 2026-10-16T19:43Z."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/markets?slug=cs2-33-justpl-2026-10-17",
+          "source": "Polymarket Gamma API record (market 5769541, event 1198594)",
+          "detail": "Official market record: outcomes [\"BET-M 33\", \"Just Players\"], gameStartTime \"2026-10-17 08:00:00+00\", resolutionSource https://hltv.org. Observed 2026-10-16T19:45Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399087/bet-m-vs-just-players-nodwin-clutch-series-13",
+          "source": "HLTV.org match page",
+          "detail": "HLTV — Polymarket's declared resolution source — lists the same series as \"BET-M vs Just Players\" in NODWIN Clutch Series 13 at the same start time; the only differing string is Polymarket's \"BET-M 33\" suffix. Observed 2026-10-16T19:58Z."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/bet-m-vs-just-players-nodwin-clutch-series-13-1079170",
+          "source": "Hotspawn match page (fixture 1079170)",
+          "detail": "Hotspawn's own fixture page titles the series \"BET-M vs Just Players\" under \"NODWIN Clutch Series #13\", 08:00 17 OCT. Observed 2026-10-16T20:08Z."
+        }
+      ],
+      "review_note": "Added by arena-35440d12 on evidence of same competition, same opponent (exact \"Just Players\"), same start time (08:00 UTC 2026-10-17) and Polymarket's own resolution rules treating suffix variants as the same identifiable team. CLOB order books passed the published spread contract at 2026-10-16T19:46-19:47Z (bid/ask 0.68/0.71 and 0.29/0.32); the live collector re-validates books at every refresh before any pick is used."
+    },
+    {
+      "alias": "Insiders Esport",
+      "canonical": "Insiders",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "DraculaN Season 7"
+      ],
+      "competition_note": "DraculaN Season 7 (HLTV event 9312 \"Digital Crusade DraculaN Season 7\"); Hotspawn fixtures 1081526/1081529 are the same competition where alias WBT->WROTBERRY is already scoped.",
+      "evidence": [
+        {
+          "url": "https://polymarket.com/esports/cs2/draculan/cs2-inf6-ins-2026-10-19",
+          "source": "Polymarket event page",
+          "detail": "Polymarket lists \"Infinite vs Insiders Esport (BO1) - DraculaN Group A\", Oct 19 09:00 UTC — the exact Hotspawn fixture 1081526 slot, opponent and BO1 format. Observed 2026-10-16T19:41Z."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/markets?slug=cs2-inf6-ins-2026-10-19",
+          "source": "Polymarket Gamma API record (market 5650404, event 1183119)",
+          "detail": "Official market record: outcomes [\"Infinite\", \"Insiders Esport\"], gameStartTime \"2026-10-19 09:00:00+00\", resolutionSource https://hltv.org. Observed 2026-10-16T19:46Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399590/infinite-vs-insiders-digital-crusade-draculan-season-7",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists \"Infinite vs Insiders\" BO1 in Digital Crusade DraculaN Season 7 at the same slot. Observed 2026-10-16T19:58Z."
+        }
+      ],
+      "review_note": "Identity join only. At 2026-10-16T19:38Z the CLOB order book for the Infinite side was wide (best bid 0.41 / best ask 0.97, spread 0.56 > 0.12 ceiling), so the money line is NOT usable as a pick input even with the alias; the fixture stays blank until a compliant paired book exists. See data/research/35440d12/unresolved-research.json."
+    },
+    {
+      "alias": "Betclic Apogee Esports",
+      "canonical": "Apogee Betclic",
+      "kind": "display-name variant",
+      "applies_to": [
+        "PGL Bucharest 2027: Closed Qualifier",
+        "PGL Bucharest 2027 Closed Qualifier"
+      ],
+      "competition_note": "Hotspawn fixture 1081515 displays the tournament as \"PGL Bucharest 2027: Closed Qualifier\"; scoped strictly to that declared competition.",
+      "must_not_match": [
+        "Apogee Academy",
+        "Betclic Apogee Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.hotspawn.com/matches/apogee-betclic-vs-nemesis-pgl-bucharest-2027-closed-qualifier-1081515",
+          "source": "Hotspawn match page (fixture 1081515)",
+          "detail": "Hotspawn's own fixture page titles the series \"Apogee Betclic vs Nemesis\" while the team card and team page on the same page name the same club \"Betclic Apogee Esports\" (/counter-strike/teams/betclic-apogee-esports), start 14:00 17 OCT. First-party proof that the two Hotspawn strings are one team. Observed 2026-10-16T20:12Z."
+        },
+        {
+          "url": "https://polymarket.com/esports/cs2/pgl/cs2-bca-nem-2026-10-17",
+          "source": "Polymarket event page",
+          "detail": "Polymarket lists \"Betclic Apogee Esports vs Team Nemesis (BO3) - PGL Bucharest Closed Qualifier Playoffs\", Tomorrow 10:00 AM ET = 14:00 UTC — the exact fixture 1081515 slot. Observed 2026-10-16T19:42Z."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/markets?slug=cs2-bca-nem-2026-10-17",
+          "source": "Polymarket Gamma API record (market 5776037, event 1200120)",
+          "detail": "Official market record: outcomes [\"Betclic Apogee Esports\", \"Team Nemesis\"], gameStartTime \"2026-10-17 14:00:00+00\", resolutionSource https://hltv.org. Observed 2026-10-16T19:44Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399660/betclic-vs-nemesis-pgl-bucharest-2027-closed-qualifier",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists \"Betclic vs Nemesis\" at the same slot in the PGL Bucharest 2027 Closed Qualifier; Hotspawn's own team page for the same roster is \"Betclic Apogee Esports\", closing the chain. Observed 2026-10-16T19:58Z."
+        }
+      ],
+      "review_note": "Added by arena-35440d12 for PGL Bucharest 2027 Closed Qualifier."
+    },
+    {
+      "alias": "Betclic Apogee Esports",
+      "canonical": "Apogee Betclic",
+      "kind": "display-name variant",
+      "applies_to": [
+        "Stake Ranked Episode 6: Closed Qualifier",
+        "PGL Bucharest 2027: Closed Qualifier",
+        "PGL Bucharest 2027 Closed Qualifier"
+      ],
+      "competition_note": "Polymarket event 1231280 lists 'Betclic Apogee Esports' against 'UNiTY esports' at 2026-10-22T14:00:00Z in Stake Ranked Episode 6: Closed Qualifier (Hotspawn fixture 1082882 / HLTV match 2399784).",
+      "must_not_match": [
+        "Apogee Academy",
+        "Betclic Apogee Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://polymarket.com/event/cs2-unity-bca-2026-10-22",
+          "source": "Polymarket event page (event 1231280)",
+          "detail": "Polymarket lists outcomes [\"UNiTY esports\", \"Betclic Apogee Esports\"] with gameStartTime \"2026-10-22 14:00:00+00\" in Stake Ranked Episode 6 Closed Qualifier, matching Hotspawn fixture 1082882 and HLTV match 2399784. Observed 2026-10-22T01:14Z."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/unity-vs-apogee-betclic-stake-ranked-episode-6-closed-qualifier-1082882",
+          "source": "Hotspawn match page (fixture 1082882)",
+          "detail": "Hotspawn schedules \"UNiTY vs Apogee Betclic\" in \"Stake Ranked Episode 6: Closed Qualifier\" at 2026-10-22T14:00:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399784/unity-vs-betclic-stake-ranked-episode-6-closed-qualifier",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399784 schedules \"UNiTY vs Betclic\" BO3 in Stake Ranked Episode 6 Closed Qualifier at 2026-10-22T14:00:00Z with Polish lineup Demho, Prism, Ex1st, ultimate, Qlocuu."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/apogee-betclic-vs-nemesis-pgl-bucharest-2027-closed-qualifier-1081515",
+          "source": "Hotspawn match page (fixture 1081515)",
+          "detail": "Hotspawn's own fixture page titles the series \"Apogee Betclic vs Nemesis\" while the team card and team page on the same page name the same club \"Betclic Apogee Esports\" (/counter-strike/teams/betclic-apogee-esports), start 14:00 17 OCT. First-party proof that the two Hotspawn strings are one team. Observed 2026-10-16T20:12Z."
+        },
+        {
+          "url": "https://polymarket.com/esports/cs2/pgl/cs2-bca-nem-2026-10-17",
+          "source": "Polymarket event page",
+          "detail": "Polymarket lists \"Betclic Apogee Esports vs Team Nemesis (BO3) - PGL Bucharest Closed Qualifier Playoffs\", Tomorrow 10:00 AM ET = 14:00 UTC — the exact fixture 1081515 slot. Observed 2026-10-16T19:42Z."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/markets?slug=cs2-bca-nem-2026-10-17",
+          "source": "Polymarket Gamma API record (market 5776037, event 1200120)",
+          "detail": "Official market record: outcomes [\"Betclic Apogee Esports\", \"Team Nemesis\"], gameStartTime \"2026-10-17 14:00:00+00\", resolutionSource https://hltv.org. Observed 2026-10-16T19:44Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399660/betclic-vs-nemesis-pgl-bucharest-2027-closed-qualifier",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists \"Betclic vs Nemesis\" at the same slot in the PGL Bucharest 2027 Closed Qualifier; Hotspawn's own team page for the same roster is \"Betclic Apogee Esports\", closing the chain. Observed 2026-10-16T19:58Z."
+        }
+      ],
+      "review_note": "Added by session arena-a34bc06b (2026-10-22): separate scoped entry for Stake Ranked Episode 6: Closed Qualifier."
+    },
+    {
+      "alias": "Team Nemesis",
+      "canonical": "Nemesis",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "PGL Bucharest 2027: Closed Qualifier",
+        "PGL Bucharest 2027 Closed Qualifier"
+      ],
+      "competition_note": "PGL Bucharest 2027 Closed Qualifier (Hotspawn fixture 1081515).",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/markets?slug=cs2-bca-nem-2026-10-17",
+          "source": "Polymarket Gamma API record (market 5776037)",
+          "detail": "Outcomes [\"Betclic Apogee Esports\", \"Team Nemesis\"], gameStartTime \"2026-10-17 14:00:00+00\". Observed 2026-10-16T19:44Z."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/apogee-betclic-vs-nemesis-pgl-bucharest-2027-closed-qualifier-1081515",
+          "source": "Hotspawn match page (fixture 1081515)",
+          "detail": "Opponent is Hotspawn's \"Nemesis\" (/counter-strike/teams/nemesis) with lineup tex1y, SELLTER, mag1k3Y, Sdaim, r3salt. Observed 2026-10-16T20:12Z."
+        }
+      ],
+      "review_note": "Display-name expansion only (\"Team\" prefix)."
+    },
+    {
+      "alias": "Team Nemesis",
+      "canonical": "Nemesis",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "CIS LAN Championship #9",
+        "PGL Bucharest 2027: Closed Qualifier",
+        "PGL Bucharest 2027 Closed Qualifier"
+      ],
+      "competition_note": "Added by arena-a34bc06b (2026-10-22) for CIS LAN Championship #9 (Hotspawn fixture 1082767 / HLTV match 2399844 'Nemesis vs WW').",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399844/nemesis-vs-ww-winline-mpkbk-cis-lan-season-9",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399844 lists \"Nemesis vs WW\" in WINLINE MPKBK CIS LAN Season 9, matching Hotspawn fixture 1082767."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/nemesis-vs-ww-cis-lan-championship-9-1082767",
+          "source": "Hotspawn match page (fixture 1082767)",
+          "detail": "Hotspawn schedules \"Nemesis vs WW\" in \"CIS LAN Championship #9\" at 2026-10-22T11:30:00Z."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/markets?slug=cs2-bca-nem-2026-10-17",
+          "source": "Polymarket Gamma API record (market 5776037)",
+          "detail": "Outcomes [\"Betclic Apogee Esports\", \"Team Nemesis\"], gameStartTime \"2026-10-17 14:00:00+00\". Observed 2026-10-16T19:44Z."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/apogee-betclic-vs-nemesis-pgl-bucharest-2027-closed-qualifier-1081515",
+          "source": "Hotspawn match page (fixture 1081515)",
+          "detail": "Opponent is Hotspawn's \"Nemesis\" (/counter-strike/teams/nemesis) with lineup tex1y, SELLTER, mag1k3Y, Sdaim, r3salt. Observed 2026-10-16T20:12Z."
+        }
+      ],
+      "review_note": "Added by session arena-a34bc06b (2026-10-22): separate scoped entry for CIS LAN Championship #9."
+    },
+    {
+      "alias": "BC.Game Esports",
+      "canonical": "BC.Game",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "DraculaN Season 7"
+      ],
+      "competition_note": "DraculaN Season 7; Hotspawn fixture 1081528 \"BC.Game vs Drama\", 09:00 UTC 2026-10-19.",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/markets?slug=cs2-bcg-drama-2026-10-19",
+          "source": "Polymarket Gamma API record (market 5650409, event 1183121)",
+          "detail": "Official market record: \"BC.Game Esports vs Drama eSports (BO1) - DraculaN Group B\", outcomes [\"BC.Game Esports\", \"Drama eSports\"], gameStartTime \"2026-10-19 09:00:00+00\", resolutionSource https://hltv.org. Observed 2026-10-16T19:47Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399592/bcgame-vs-drama-digital-crusade-draculan-season-7",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists \"BCGame vs Drama\" BO1 in the same event at the same slot (the pipeline's own HLTV identity stage already confirmed exact teams/time). Observed 2026-10-16T19:58Z."
+        }
+      ],
+      "review_note": "README irregularity I-10 previously flagged this display-name mismatch. Identity only: the money line replaces the Valve model for fixture 1081528 only if the live collector's paired-book spread/freshness checks pass at refresh; the existing model estimate is preserved as history either way."
+    },
+    {
+      "alias": "Drama eSports",
+      "canonical": "Drama",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "DraculaN Season 7"
+      ],
+      "competition_note": "DraculaN Season 7; Hotspawn fixture 1081528 \"BC.Game vs Drama\".",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/markets?slug=cs2-bcg-drama-2026-10-19",
+          "source": "Polymarket Gamma API record (market 5650409)",
+          "detail": "Outcomes [\"BC.Game Esports\", \"Drama eSports\"], gameStartTime \"2026-10-19 09:00:00+00\". Observed 2026-10-16T19:47Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399592/bcgame-vs-drama-digital-crusade-draculan-season-7",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists the opponent as \"Drama\" in the same event/slot. Observed 2026-10-16T19:58Z."
+        }
+      ],
+      "review_note": "Display-name expansion (\"eSports\" suffix) only."
+    },
+    {
+      "alias": "6666",
+      "canonical": "ex-6666",
+      "kind": "organization rename",
+      "applies_to": [
+        "CCT Europe 2026 Challengers #8",
+        "CCT Europe 2026 Series #12 Play-In",
+        "CCT Europe 2026 Series #11",
+        "CCT Europe 2026 Series #12",
+        "NODWIN Clutch Series #13"
+      ],
+      "competition_note": "Originally CCT 2026 Challengers Europe Series 8 (HLTV event 9453, Hotspawn fixture 1081521 / HLTV match 2399681). Extended by arena-1fb85c47 (2026-10-19) to CCT Europe 2026 Series #12 Play-In and #11, and by arena-a34bc06b (2026-10-22) to CCT Europe 2026 Series #12 (Hotspawn fixture 1081146 / HLTV match 2399496) and NODWIN Clutch Series #13 (Hotspawn fixture 1079188 / HLTV match 2399105).",
+      "evidence": [
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "source": "Valve official regional standings",
+          "detail": "Valve's 2026-10-05 global table lists team '6666' at standing 127 with 923 points and the five-player roster amster, dENZY, kL1o, rendysky, skcH. The Europe table lists the same row at standing 93."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399681/ex-6666-vs-privateer-cct-2026-challengers-europe-series-8",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists 'ex-6666' vs 'Privateer' in CCT 2026 Challengers Europe Series 8 on 18 Oct 2026 at 09:45 (13:45 UTC), the exact Hotspawn fixture 1081521 slot. HLTV's published lineup is skcH, kL1o, amster, rendysky, stefienson."
+        },
+        {
+          "url": "https://www.hltv.org/team/14100/ex-6666",
+          "source": "HLTV.org team page",
+          "detail": "HLTV team id 14100 is named 'ex-6666' (Ukraine). Four of the five players in Valve's '6666' rating row (skcH, kL1o, amster, rendysky) are also in HLTV's current ex-6666 lineup."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/ex-6666-vs-privateer-cct-europe-2026-series-12-play-in-1081131",
+          "source": "Hotspawn match page (fixture 1081131)",
+          "detail": "Hotspawn schedules ex-6666 vs Privateer in CCT Europe 2026 Series #12 Play-In for 2026-10-19T11:00Z and links HLTV match 2399482 as the same fixture. Observed 2026-10-19T04:14Z by the session probe."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399482/ex-6666-vs-privateer-cct-2026-europe-series-12-closed-qualifier",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists ex-6666 vs Privateer at 2026-10-19 13:00 local (11:00 UTC) in the CCT 2026 Europe Series 12 Closed Qualifier, the exact Hotspawn fixture 1081131 slot."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399323/lavked-vs-ex-6666-cct-2026-europe-series-11",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists Lavked vs ex-6666 at 2026-10-20 19:00 local (17:00 UTC) in CCT 2026 Europe Series 11, the exact Hotspawn fixture 1079646 slot."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/lavked-vs-ex-6666-cct-europe-2026-series-11-1079646",
+          "source": "Hotspawn match page (fixture 1081146 / 1079646)",
+          "detail": "Hotspawn schedules Lavked vs ex-6666 in CCT Europe 2026 Series #11 for 2026-10-20T17:00Z; the page links HLTV match 2399323. Observed 2026-10-19T04:14Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399105/bushido-wildcats-vs-ex-6666-nodwin-clutch-series-13",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399105 lists 'Bushido Wildcats vs ex-6666' BO3 in NODWIN Clutch Series 13 at 2026-10-22T08:00:00Z, matching Hotspawn fixture 1079188 with the Ukrainian core amster, rendysky, kL1o, skcH."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399496/6yubojlbl-vs-ex-6666-cct-2026-europe-series-12",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399496 lists '6yuBoJlbl vs ex-6666' BO3 in CCT 2026 Europe Series 12 main stage at 2026-10-22T17:00:00Z, matching Hotspawn fixture 1081146."
+        }
+      ],
+      "review_note": "Flagged 2026-10-18 (session arena-fe48a0df): this is a 4-of-5 roster overlap, not an exact five-player match. Valve's 2026-10-05 snapshot lists dENZY, while HLTV listed stefienson on 2026-10-18, so the joined 923-point rating is a historical team rating rather than a current-lineup rating. Extended 2026-10-22 by arena-a34bc06b to CCT Europe 2026 Series #12 main stage and NODWIN Clutch Series #13 where the same Ukrainian core (amster, rendysky, kL1o, skcH) plays."
+    },
+    {
+      "alias": "Aurora Young Blud",
+      "canonical": "Aurora YB",
+      "kind": "display-name variant",
+      "applies_to": [
+        "Stake Ranked Episode 6: Closed Qualifier"
+      ],
+      "competition_note": "Registry names the provider/Valve spelling (Aurora Young Blud) as the alias and Hotspawn's display name (Aurora YB) as the canonical, matching every other entry: alias = the name another source publishes, canonical = the name Hotspawn shows. Stake Ranked Episode 6: Closed Qualifier, Hotspawn fixture 1082157 / HLTV match 2399777.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399777/sangal-vs-aurora-young-blud-stake-ranked-episode-6-closed-qualifier",
+          "source": "HLTV.org match page",
+          "detail": "HLTV's own match slug and title name the second team \"Aurora Young Blud\" at the same 2026-10-20 12:00 UTC slot as Hotspawn fixture 1082157, which displays \"Aurora YB\"."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/sangal-vs-aurora-yb-stake-ranked-episode-6-closed-qualifier-1082157",
+          "source": "Hotspawn match page (fixture 1082157)",
+          "detail": "Hotspawn schedules Sangal vs Aurora YB in Stake Ranked Episode 6: Closed Qualifier for 2026-10-20T12:00Z and links HLTV match 2399777. Observed 2026-10-19T04:14Z by the session probe."
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "source": "Valve official regional standings",
+          "detail": "Valve's 2026-10-05 global table lists 'Aurora Young Blud' at standing 326 with 526 points and the complete five-player roster k1nco, kurosse, meetyoxanaji, r1pa4, redzed."
+        }
+      ],
+      "review_note": "Added by arena-1fb85c47 on 2026-10-19. This is a display-name variant bounded to one competition: Valve and HLTV both publish \"Aurora Young Blud\" while Hotspawn shows \"Aurora YB\". It feeds only the labelled, uncalibrated Valve model and never a betting price."
+    },
+    {
+      "alias": "Betclic",
+      "canonical": "Apogee Betclic",
+      "kind": "display-name variant",
+      "applies_to": [
+        "Stake Ranked Episode 6: Closed Qualifier"
+      ],
+      "competition_note": "HLTV short display name vs Hotspawn 'Apogee Betclic' in Stake Ranked Episode 6 Closed Qualifier (HLTV match 2399772, Hotspawn fixture 1082152). Related reviewed entry: 'Betclic Apogee Esports' -> 'Apogee Betclic' scoped to PGL Bucharest 2027 Closed Qualifier.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399772/betclic-vs-spirit-academy-stake-ranked-episode-6-closed-qualifier",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists 'Betclic vs Spirit Academy' in Stake Ranked Episode 6 Closed Qualifier at the exact Hotspawn fixture 1082152 start time (2026-10-19T09:00Z) with the exact shared opponent Spirit Academy; Hotspawn lists 'Apogee Betclic vs Spirit Academy'. The collector's own HLTV identity review recorded this record on 2026-10-19 (data/research/c03ef201/live-probe.json)."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/apogee-betclic-vs-spirit-academy-stake-ranked-episode-6-closed-qualifier-1082152",
+          "source": "Hotspawn fixture page",
+          "detail": "Hotspawn fixture 1082152 lists 'Apogee Betclic' in the same event and slot; no separate 'Betclic' competitor exists in the event inventory."
+        }
+      ],
+      "review_note": "Added by session c03ef201 (2026-10-19): same-event/same-slot/shared-opponent triangulation, matching the reviewed 'Betclic Apogee Esports' -> 'Apogee Betclic' display-name precedent. Published on the Flagged for Review page for manual confirmation; the join is competition-scoped and cannot match any other event."
+    },
+    {
+      "alias": "CYBERSHOKE",
+      "canonical": "ex-CYBERSHOKE",
+      "kind": "display-name variant (organization prefix elided)",
+      "applies_to": [
+        "CIS LAN Championship #9"
+      ],
+      "competition_note": "CIS LAN Championship #9 (WINLINE MPKBK CIS LAN Season 9): Hotspawn fixture 1082762 'ex-CYBERSHOKE vs BlinkDagger' at 2026-10-21T15:00:00Z; HLTV match 2399839 'ex-CYBERSHOKE vs BlinkDagger'; Bovada prematch coupon lists 'CYBERSHOKE vs blinkdagger' at 2026-10-21T15:00:00Z.",
+      "must_not_match": [
+        "CYBERSHOKE Academy",
+        "ex-CYBERSHOKE Academy",
+        "CYBERSHOKE Junior"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.hotspawn.com/matches/ex-cybershoke-vs-blinkdagger-cis-lan-championship-9-1082762",
+          "source": "Hotspawn match page (fixture 1082762)",
+          "detail": "Hotspawn schedules 'ex-CYBERSHOKE vs BlinkDagger' in CIS LAN Championship #9 at 2026-10-21T15:00:00Z (lock 14:54Z)."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists 'ex-CYBERSHOKE' vs 'BlinkDagger' in WINLINE MPKBK CIS LAN Season 9, Best of 3, at 2026-10-21T15:00:00Z."
+        },
+        {
+          "url": "https://www.bovada.lv/sports/esports/counter-strike-2/cis-lan-championship/cybershoke-blinkdagger-202610211100",
+          "source": "Bovada esportsbook event",
+          "detail": "Bovada prematch CS2 coupon lists 'CYBERSHOKE vs blinkdagger' at startTime 1792594800000 ms (2026-10-21T15:00:00Z) in CIS LAN Championship with two-way Moneyline odds."
+        }
+      ],
+      "review_note": "Added by session arena-f9d0a5a2 (2026-10-21): Bovada omits the 'ex-' prefix on the former CYBERSHOKE lineup in CIS LAN Championship #9; strictly scoped to this tournament."
+    },
+    {
+      "alias": "CYBERSHOKE Esports",
+      "canonical": "ex-CYBERSHOKE",
+      "kind": "display-name variant (organization suffix and prefix difference)",
+      "applies_to": [
+        "CIS LAN Championship #9"
+      ],
+      "competition_note": "Polymarket Gamma event cs2-cs1-bli4-2026-10-21 lists 'CYBERSHOKE Esports vs BlinkDagger' (BO3, CIS LAN Championship Group C) at 2026-10-21T15:00:00Z resolving on HLTV match 2399839.",
+      "must_not_match": [
+        "CYBERSHOKE Academy",
+        "ex-CYBERSHOKE Academy",
+        "CYBERSHOKE Junior"
+      ],
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-cs1-bli4-2026-10-21",
+          "source": "Polymarket Gamma API event",
+          "detail": "Event cs2-cs1-bli4-2026-10-21 ('Counter-Strike: CYBERSHOKE Esports vs BlinkDagger (BO3) - CIS LAN Championship Group C', market 5971981) starts at 2026-10-21 15:00:00+00 and resolves from HLTV."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399839/ex-cybershoke-vs-blinkdagger-winline-mpkbk-cis-lan-season-9",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists 'ex-CYBERSHOKE vs BlinkDagger' at 2026-10-21T15:00:00Z in WINLINE MPKBK CIS LAN Season 9 Group C."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/ex-cybershoke-vs-blinkdagger-cis-lan-championship-9-1082762",
+          "source": "Hotspawn match page (fixture 1082762)",
+          "detail": "Hotspawn schedules 'ex-CYBERSHOKE vs BlinkDagger' in CIS LAN Championship #9 at 2026-10-21T15:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-f9d0a5a2 (2026-10-21): same Group C BO3 slot, shared opponent BlinkDagger, exact 15:00Z UTC start, and explicit HLTV resolution clause on Polymarket market 5971981."
+    },
+    {
+      "alias": "Team flacons",
+      "canonical": "flacons",
+      "kind": "display-name variant ('Team' prefix)",
+      "applies_to": [
+        "CIS LAN Championship #9"
+      ],
+      "competition_note": "Polymarket Gamma event cs2-upgrad-tf4-2026-10-21 lists 'UPGRADE vs Team flacons' (BO3, CIS LAN Championship Group C) at 2026-10-21T15:00:00Z vs Hotspawn/HLTV 'UPGRADE vs flacons'.",
+      "must_not_match": [
+        "Team Falcons",
+        "Falcons",
+        "Falcons Force"
+      ],
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-upgrad-tf4-2026-10-21",
+          "source": "Polymarket Gamma API event",
+          "detail": "Event cs2-upgrad-tf4-2026-10-21 ('Counter-Strike: UPGRADE vs Team flacons (BO3) - CIS LAN Championship Group C', market 5971986) starts at 2026-10-21 15:00:00+00 against UPGRADE."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399840/upgrade-vs-flacons-winline-mpkbk-cis-lan-season-9",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists 'UPGRADE vs flacons' in WINLINE MPKBK CIS LAN Season 9 Group C at 2026-10-21T15:00:00Z."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/upgrade-vs-flacons-cis-lan-championship-9-1082763",
+          "source": "Hotspawn match page (fixture 1082763)",
+          "detail": "Hotspawn schedules 'UPGRADE vs flacons' in CIS LAN Championship #9 at 2026-10-21T15:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-f9d0a5a2 (2026-10-21): 'flacons' (CIS LAN mix, distinct from Team Falcons — explicitly excluded via must_not_match) carries a 'Team' prefix on Polymarket market 5971986."
+    },
+    {
+      "alias": "Hacha Esports",
+      "canonical": "Hacha",
+      "kind": "display-name variant ('Esports' suffix)",
+      "applies_to": [
+        "CCT South America 2026 Series #7"
+      ],
+      "competition_note": "Polymarket cs2-damaju-hachae-2026-10-21 and Bovada list 'Hacha Esports' against Damajuana at 2026-10-21T19:00:00Z in CCT South America Series 7 Group Stage.",
+      "must_not_match": [
+        "Hacha Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-damaju-hachae-2026-10-21",
+          "source": "Polymarket Gamma API event",
+          "detail": "Event cs2-damaju-hachae-2026-10-21 ('Counter-Strike: Damajuana vs Hacha Esports (BO3) - CCT South America Series 7 Group Stage', market 6001630) starts at 2026-10-21 19:00:00+00."
+        },
+        {
+          "url": "https://bo3.gg/matches/damajuana-vs-hacha-esports-21-10-2026",
+          "source": "bo3.gg match record",
+          "detail": "bo3.gg match 132582 maps slug 'hacha-esports' directly to team name 'Hacha' (id 9764) vs DAMAJUANA at 2026-10-21T19:00:00Z."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/damajuana-vs-hacha-cct-south-america-2026-series-7-1082836",
+          "source": "Hotspawn match page (fixture 1082836)",
+          "detail": "Hotspawn schedules 'Damajuana vs Hacha' in CCT South America 2026 Series #7 at 2026-10-21T19:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-f9d0a5a2 (2026-10-21): bo3.gg match 132582 explicitly links slug 'hacha-esports' to display name 'Hacha' in CCT South America 2026 Series #7."
+    },
+    {
+      "alias": "Damajuanaa",
+      "canonical": "Damajuana",
+      "kind": "display-name spelling variant",
+      "applies_to": [
+        "CCT South America 2026 Series #7"
+      ],
+      "competition_note": "Bovada prematch CS2 board spells 'Damajuana' as 'Damajuanaa' against Hacha Esports at startTime 1792609200000 ms (2026-10-21T19:00:00Z).",
+      "must_not_match": [
+        "Damajuana Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.bovada.lv/sports/esports/counter-strike-2",
+          "source": "Bovada esportsbook board",
+          "detail": "Bovada lists 'Damajuanaa vs Hacha Esports' at startTime 1792609200000 ms (2026-10-21T19:00:00Z), matching Hotspawn fixture 1082836."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/damajuana-vs-hacha-cct-south-america-2026-series-7-1082836",
+          "source": "Hotspawn match page (fixture 1082836)",
+          "detail": "Hotspawn lists 'Damajuana vs Hacha' at 2026-10-21T19:00:00Z in CCT South America 2026 Series #7."
+        }
+      ],
+      "review_note": "Added by session arena-f9d0a5a2 (2026-10-21): single duplicated trailing character on Bovada's listing for the same 19:00Z fixture against Hacha Esports; scoped strictly to CCT South America 2026 Series #7."
+    },
+    {
+      "alias": "Alianza Lima Esports",
+      "canonical": "Zetta",
+      "kind": "roster-acquisition organization name",
+      "applies_to": [
+        "CCT South America 2026 Series #7"
+      ],
+      "competition_note": "Peruvian organization Alianza Lima Esports signed the 5-player Zetta lineup (Slayerhz, zockie, NotJuanjo, BabyRage, Antuanette) during CCT South America 2026 Series #7: Hotspawn/HLTV/Valve still display 'Zetta', while bo3.gg and Polymarket display 'Alianza Lima Esports' for Round 5 at 2026-10-21T22:00:00Z.",
+      "must_not_match": [
+        "Alianza Lima Academy",
+        "Zetta Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-ale1-ln-2026-10-21",
+          "source": "Polymarket Gamma API event",
+          "detail": "Event cs2-ale1-ln-2026-10-21 ('Counter-Strike: Alianza Lima Esports vs Los Niños (BO3) - CCT South America Series 7 Group Stage', market 6001634) starts at 2026-10-21 22:00:00+00 and resolves from HLTV."
+        },
+        {
+          "url": "https://bo3.gg/matches/alianza-lima-esports-vs-los-ninos-21-10-2026",
+          "source": "bo3.gg match record",
+          "detail": "bo3.gg match 132583 lists 'Alianza Lima Esports vs Los Niños' in CCT South America 2026 Series 7 Group Stage Round 5 at 2026-10-21T22:00:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399865 lists the identical Round 5 BO3 against LOS NINOS at 2026-10-21T22:00:00Z under 'Zetta' (Slayerhz, zockie, NotJuanjo, BabyRage, Antuanette — 5/5 Valve VRS Americas roster match)."
+        },
+        {
+          "url": "https://egamersworld.com/counterstrike/match/0U32SId-H/zetta-vs-los-ninos-Wi0PWrNpb",
+          "source": "EGamersWorld match roster record",
+          "detail": "Lists all five players (Slayerhz, zockie, NotJuanjo, BabyRage, Antuanette) on the Zetta side against LOS NINOS at 2026-10-21T22:00:00Z in CCT Season 3 South America Series 7."
+        }
+      ],
+      "review_note": "Added by session arena-f9d0a5a2 (2026-10-21): 5/5 roster match (Slayerhz, zockie, NotJuanjo, BabyRage, Antuanette) + identical CCT SA Series #7 Round 5 22:00Z slot against Los Niños across HLTV, Valve VRS, bo3.gg and Polymarket."
+    },
+    {
+      "alias": "Los Niños",
+      "canonical": "LOS NINOS",
+      "kind": "diacritic spelling variant",
+      "applies_to": [
+        "CCT South America 2026 Series #7"
+      ],
+      "competition_note": "Polymarket cs2-ale1-ln-2026-10-21 and bo3.gg match 132583 print 'Los Niños' (with tilde ñ) whereas Hotspawn 1082837 and HLTV 2399865 print ASCII 'LOS NINOS'.",
+      "must_not_match": [
+        "Los Ninos Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-ale1-ln-2026-10-21",
+          "source": "Polymarket Gamma API event",
+          "detail": "Event cs2-ale1-ln-2026-10-21 lists outcome 'Los Niños' in Round 5 of CCT South America Series 7 Group Stage at 2026-10-21 22:00:00+00."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399865/zetta-vs-los-ninos-cct-2026-south-america-series-7",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399865 lists 'LOS NINOS' at 2026-10-21T22:00:00Z in CCT 2026 South America Series 7."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/zetta-vs-los-ninos-cct-south-america-2026-series-7-1082837",
+          "source": "Hotspawn match page (fixture 1082837)",
+          "detail": "Hotspawn schedules 'Zetta vs LOS NINOS' at 2026-10-21T22:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-f9d0a5a2 (2026-10-21): NFKD diacritic join ('ñ' -> 'n') between Polymarket/bo3.gg 'Los Niños' and Hotspawn/HLTV 'LOS NINOS' in CCT South America 2026 Series #7."
+    },
+    {
+      "alias": "largadosypelados",
+      "canonical": "BARCA",
+      "kind": "pre-signing lineup name",
+      "applies_to": [
+        "Circuit X Curitiba #4"
+      ],
+      "competition_note": "Polymarket cs2-pain-ldp-2026-10-21 and Bovada list pre-signing Brazilian mix 'largadosypelados' / 'Largadosypelados' against paiN Gaming at 2026-10-21T14:00:00Z in Circuit X Curitiba Season 4, whereas Hotspawn 1082831, HLTV 2399832 and Pinnacle list their new name 'BARCA'.",
+      "must_not_match": [
+        "BARCA Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-pain-ldp-2026-10-21",
+          "source": "Polymarket Gamma API event",
+          "detail": "Polymarket lists 'paiN Gaming vs largadosypelados' in Circuit X Curitiba Season 4 at 2026-10-21T14:00:00Z resolving on HLTV."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399832/pain-vs-barca-circuit-x-curitiba-season-4",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists 'paiN vs BARCA' in Circuit X Curitiba Season 4 at 2026-10-21T14:00:00Z."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/pain-vs-barca-circuit-x-curitiba-4-1082831",
+          "source": "Hotspawn match page (fixture 1082831)",
+          "detail": "Hotspawn schedules 'paiN vs BARCA' in Circuit X Curitiba #4 at 2026-10-21T14:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-f9d0a5a2 (2026-10-21): same Circuit X Curitiba #4 14:00Z match slot against paiN across Hotspawn/HLTV/Pinnacle ('BARCA') and Polymarket/Bovada ('largadosypelados')."
+    },
+    {
+      "alias": "paiN Gaming",
+      "canonical": "paiN",
+      "kind": "display-name variant ('Gaming' suffix)",
+      "applies_to": [
+        "Circuit X Curitiba #4"
+      ],
+      "competition_note": "Polymarket cs2-pain-ldp-2026-10-21 and Bovada append 'Gaming' ('paiN Gaming') against largadosypelados/BARCA at 2026-10-21T14:00:00Z in Circuit X Curitiba #4.",
+      "must_not_match": [
+        "paiN Academy",
+        "paiN Gaming Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-pain-ldp-2026-10-21",
+          "source": "Polymarket Gamma API event",
+          "detail": "Polymarket lists 'paiN Gaming vs largadosypelados' at 2026-10-21T14:00:00Z in Circuit X Curitiba Season 4."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399832/pain-vs-barca-circuit-x-curitiba-season-4",
+          "source": "HLTV.org match page",
+          "detail": "HLTV lists 'paiN vs BARCA' at 2026-10-21T14:00:00Z in Circuit X Curitiba Season 4."
+        }
+      ],
+      "review_note": "Added by session arena-f9d0a5a2 (2026-10-21): standard organization suffix variant scoped strictly to Circuit X Curitiba #4."
+    },
+    {
+      "alias": "UNiTY esports",
+      "canonical": "UNiTY",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "Stake Ranked Episode 6: Closed Qualifier",
+        "NODWIN Clutch Series #13"
+      ],
+      "competition_note": "Polymarket event 1231280 ('UNiTY esports') and Bovada event 32573371 ('Unity Esports') vs Hotspawn/HLTV 'UNiTY' at 2026-10-22T14:00:00Z in Stake Ranked Episode 6: Closed Qualifier; extended by session arena-52aee465 to NODWIN Clutch Series #13 (Polymarket event 1238703 'Acend vs UNiTY esports' vs Hotspawn 1082996 / HLTV 2399112 'Acend vs UNiTY' at 2026-10-25T09:00:00Z).",
+      "must_not_match": [
+        "UNiTY Academy",
+        "UNiTY fe"
+      ],
+      "evidence": [
+        {
+          "url": "https://polymarket.com/event/cs2-unity-bca-2026-10-22",
+          "source": "Polymarket event page (event 1231280)",
+          "detail": "Outcomes [\"UNiTY esports\", \"Betclic Apogee Esports\"], gameStartTime \"2026-10-22 14:00:00+00\", resolving on HLTV."
+        },
+        {
+          "url": "https://www.bovada.lv/esports/counter-strike-2/stake-ranked-qualifiers/unity-esports-betclic-apogee-202610221000",
+          "source": "Bovada esportsbook event (32573371)",
+          "detail": "Bovada lists 'Unity Esports vs Betclic Apogee' at 2026-10-22T14:00:00Z in Stake Ranked Qualifiers with two-way Moneyline odds."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399784/unity-vs-betclic-stake-ranked-episode-6-closed-qualifier",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399784 lists 'UNiTY vs Betclic' BO3 in Stake Ranked Episode 6 Closed Qualifier at 2026-10-22T14:00:00Z (lineup Dytor, KWERTZZ, 2high, M1key, Sn0w)."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/unity-vs-apogee-betclic-stake-ranked-episode-6-closed-qualifier-1082882",
+          "source": "Hotspawn match page (fixture 1082882)",
+          "detail": "Hotspawn schedules 'UNiTY vs Apogee Betclic' at 2026-10-22T14:00:00Z in Stake Ranked Episode 6: Closed Qualifier."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/events/1238703",
+          "source": "Polymarket Gamma API (event 1238703)",
+          "detail": "Polymarket event 1238703 (cs2-ace-unity-2026-10-25) lists 'Acend vs UNiTY esports' BO3 in NODWIN Clutch Series Playoffs at 2026-10-25T09:00:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
+          "source": "HLTV.org match page (2399112)",
+          "detail": "HLTV match 2399112 lists 'Acend vs UNiTY' BO3 in NODWIN Clutch Series 13 at 2026-10-25T09:00:00Z (matching Hotspawn fixture 1082996)."
+        },
+        {
+          "url": "https://bo3.gg/matches/acend-vs-unity-esports-25-10-2026",
+          "source": "bo3.gg match record (131196)",
+          "detail": "api.bo3.gg match 131196 schedules \"Acend vs UNiTY esports\" at 2026-10-25T09:00:00Z in NODWIN Clutch Series #13."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
+          "source": "Hotspawn match page (fixture 1082996)",
+          "detail": "Hotspawn schedules \"Acend vs UNiTY\" (id 1082996) at 2026-10-25T09:00:00Z in NODWIN Clutch Series #13."
+        }
+      ],
+      "review_note": "Added by session arena-a34bc06b (2026-10-22); extended by arena-52aee465 (2026-10-23) to NODWIN Clutch Series #13."
+    },
+    {
+      "alias": "Team UNiTY",
+      "canonical": "UNiTY",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "Stake Ranked Episode 6: Closed Qualifier",
+        "NODWIN Clutch Series #13"
+      ],
+      "competition_note": "Thunderpick API event 2865424 ('Team UNiTY vs Apogee Esports') at 2026-10-22T14:00:00Z in Ranked Episode 6: Closed Qualifier.",
+      "must_not_match": [
+        "UNiTY Academy",
+        "Team UNiTY Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://thunderpick.io/api/matches",
+          "source": "Thunderpick CS2 matches API (event 2865424)",
+          "detail": "Thunderpick prematch CS2 match 2865424 lists ['Team UNiTY', 'Apogee Esports'] at 2026-10-22T14:00:00+00:00 in 'Ranked Episode 6: Closed Qualifier' with status=1 Match Winner odds 2.35 / 1.52."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399784/unity-vs-betclic-stake-ranked-episode-6-closed-qualifier",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399784 lists 'UNiTY vs Betclic' BO3 at 2026-10-22T14:00:00Z."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/unity-vs-apogee-betclic-stake-ranked-episode-6-closed-qualifier-1082882",
+          "source": "Hotspawn match page (fixture 1082882)",
+          "detail": "Hotspawn schedules 'UNiTY vs Apogee Betclic' at 2026-10-22T14:00:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
+          "source": "HLTV.org match page (2399112)",
+          "detail": "HLTV match 2399112 schedules BO3 \"Acend vs UNiTY\" in NODWIN Clutch Series #13 at 2026-10-25T09:00:00Z."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
+          "source": "Hotspawn match page (fixture 1082996)",
+          "detail": "Hotspawn schedules \"Acend vs UNiTY\" (id 1082996) at 2026-10-25T09:00:00Z in NODWIN Clutch Series #13."
+        }
+      ],
+      "review_note": "Added by session arena-a34bc06b (2026-10-22): first-party Thunderpick 'Team UNiTY' join for fixture 1082882."
+    },
+    {
+      "alias": "Apogee Esports",
+      "canonical": "Apogee Betclic",
+      "kind": "display-name variant",
+      "applies_to": [
+        "Stake Ranked Episode 6: Closed Qualifier"
+      ],
+      "competition_note": "Thunderpick API event 2865424 ('Team UNiTY vs Apogee Esports') at 2026-10-22T14:00:00Z in Stake Ranked Episode 6: Closed Qualifier.",
+      "must_not_match": [
+        "Apogee Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://thunderpick.io/api/matches",
+          "source": "Thunderpick CS2 matches API (event 2865424)",
+          "detail": "Thunderpick prematch CS2 match 2865424 lists ['Team UNiTY', 'Apogee Esports'] at 2026-10-22T14:00:00+00:00 in 'Ranked Episode 6: Closed Qualifier' with Match Winner odds 2.35 / 1.52."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399784/unity-vs-betclic-stake-ranked-episode-6-closed-qualifier",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399784 lists 'UNiTY vs Betclic' BO3 at 2026-10-22T14:00:00Z."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/unity-vs-apogee-betclic-stake-ranked-episode-6-closed-qualifier-1082882",
+          "source": "Hotspawn match page (fixture 1082882)",
+          "detail": "Hotspawn schedules 'UNiTY vs Apogee Betclic' at 2026-10-22T14:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-a34bc06b (2026-10-22): Thunderpick omits the co-title sponsor 'Betclic' in event 2865424; strictly scoped to Stake Ranked Episode 6: Closed Qualifier."
+    },
+    {
+      "alias": "Betclic Apogee",
+      "canonical": "Apogee Betclic",
+      "kind": "word-order variant",
+      "applies_to": [
+        "Stake Ranked Episode 6: Closed Qualifier"
+      ],
+      "competition_note": "Bovada event 32573371 ('Unity Esports vs Betclic Apogee') word-order variant vs Hotspawn 'Apogee Betclic' at 2026-10-22T14:00:00Z.",
+      "must_not_match": [
+        "Apogee Academy",
+        "Betclic Apogee Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.bovada.lv/esports/counter-strike-2/stake-ranked-qualifiers/unity-esports-betclic-apogee-202610221000",
+          "source": "Bovada esportsbook event (32573371)",
+          "detail": "Bovada lists 'Unity Esports vs Betclic Apogee' at startTime 1792677600000 ms (2026-10-22T14:00:00Z) in Stake Ranked Qualifiers with Moneyline odds 2.400 / 1.540541."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399784/unity-vs-betclic-stake-ranked-episode-6-closed-qualifier",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399784 lists 'UNiTY vs Betclic' BO3 at 2026-10-22T14:00:00Z."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/unity-vs-apogee-betclic-stake-ranked-episode-6-closed-qualifier-1082882",
+          "source": "Hotspawn match page (fixture 1082882)",
+          "detail": "Hotspawn schedules 'UNiTY vs Apogee Betclic' at 2026-10-22T14:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-a34bc06b (2026-10-22): reversed word order of the same two club tokens at the exact 14:00Z slot against UNiTY."
+    },
+    {
+      "alias": "Sangal Esports",
+      "canonical": "Sangal",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "Stake Ranked Episode 6: Closed Qualifier"
+      ],
+      "competition_note": "Bovada event 32583175 ('Sangal Esports vs Metizport') vs Hotspawn/HLTV 'Sangal vs Metizport' at 2026-10-22T16:30:00Z.",
+      "must_not_match": [
+        "Sangal Alter",
+        "Sangal Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.bovada.lv/esports/counter-strike-2/stake-ranked-qualifiers/sangal-esports-metizport-202610221230",
+          "source": "Bovada esportsbook event (32583175)",
+          "detail": "Bovada lists 'Sangal Esports vs Metizport' at 2026-10-22T16:30:00Z in Stake Ranked Qualifiers with Moneyline odds 1.769230 / 2.00."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399785/sangal-vs-metizport-stake-ranked-episode-6-closed-qualifier",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399785 lists 'Sangal vs Metizport' BO3 at 2026-10-22T16:30:00Z."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/sangal-vs-metizport-stake-ranked-episode-6-closed-qualifier-1082180",
+          "source": "Hotspawn match page (fixture 1082180)",
+          "detail": "Hotspawn schedules 'Sangal vs Metizport' at 2026-10-22T16:30:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-a34bc06b (2026-10-22): standard 'Esports' suffix variant scoped to Stake Ranked Episode 6: Closed Qualifier."
+    },
+    {
+      "alias": "Just_Players",
+      "canonical": "Just Players",
+      "kind": "punctuation variant",
+      "applies_to": [
+        "NODWIN Clutch Series #13",
+        "NODWIN Clutch Series 13"
+      ],
+      "competition_note": "Kalshi contract KXCS2GAME-26OCT220700JUSFORZER spells 'Just_Players' with an underscore against 'FORZE Reload' at 2026-10-22T11:00:00Z (07:00 EDT).",
+      "evidence": [
+        {
+          "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/",
+          "source": "Kalshi CS2 market KXCS2GAME-26OCT220700JUSFORZER",
+          "detail": "Kalshi event KXCS2GAME-26OCT220700JUSFORZER lists ['Just_Players', 'FORZE Reload'] at 2026-10-22T11:00:00Z with tight active bid/ask books 0.32/0.36 and 0.64/0.68."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399106/forze-reload-vs-just-players-nodwin-clutch-series-13",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399106 lists 'FORZE Reload vs Just Players' BO3 at 2026-10-22T11:00:00Z in NODWIN Clutch Series 13."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/forze-reload-vs-just-players-nodwin-clutch-series-13-1079189",
+          "source": "Hotspawn match page (fixture 1079189)",
+          "detail": "Hotspawn schedules 'FORZE Reload vs Just Players' at 2026-10-22T11:00:00Z in NODWIN Clutch Series #13."
+        }
+      ],
+      "review_note": "Added by session arena-a34bc06b (2026-10-22): underscore-to-space join unlocking regulated Kalshi exchange order books on fixture 1079189."
+    },
+    {
+      "alias": "JPlay",
+      "canonical": "Just Players",
+      "kind": "abbreviation",
+      "applies_to": [
+        "NODWIN Clutch Series #13",
+        "NODWIN Clutch Series 13"
+      ],
+      "competition_note": "Bovada event 32578372 abbreviates 'Just Players' as 'JPlay' against 'Forze Reload' at 2026-10-22T11:00:00Z in NODWIN Clutch Series.",
+      "evidence": [
+        {
+          "url": "https://www.bovada.lv/esports/counter-strike-2/nodwin-clutch-series/forze-reload-jplay-202610220700",
+          "source": "Bovada esportsbook event (32578372)",
+          "detail": "Bovada lists 'Forze Reload vs JPlay' at 2026-10-22T11:00:00Z in NODWIN Clutch Series with Moneyline odds 1.487805 / 2.550."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399106/forze-reload-vs-just-players-nodwin-clutch-series-13",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399106 lists 'FORZE Reload vs Just Players' BO3 at 2026-10-22T11:00:00Z."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/forze-reload-vs-just-players-nodwin-clutch-series-13-1079189",
+          "source": "Hotspawn match page (fixture 1079189)",
+          "detail": "Hotspawn schedules 'FORZE Reload vs Just Players' at 2026-10-22T11:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-a34bc06b (2026-10-22): Bovada abbreviation at exact 11:00Z slot against shared opponent FORZE Reload."
+    },
+    {
+      "alias": "BakS eSports",
+      "canonical": "BakS",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "CCT Europe 2026 Series #12",
+        "CCT Europe 2026 Series #11",
+        "NODWIN Clutch Series #13"
+      ],
+      "competition_note": "Kalshi contracts KXCS2GAME-26OCT220400AZUBAKS and KXCS2GAME-26OCT231300BAKSBRUTE expand 'BakS' to 'BakS eSports' in CCT Europe 2026 Series #12 (1081143 vs Azuolas) and #11 (1079657 vs BRUTE); extended by session arena-52aee465 to NODWIN Clutch Series #13 (Polymarket event 1238705 'Metizport vs BakS eSports' vs Hotspawn 1079198 / HLTV 2399113 'Metizport vs BAKS' at 2026-10-25T12:00:00Z).",
+      "must_not_match": [
+        "BakS Junior",
+        "BakS Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/",
+          "source": "Kalshi CS2 contracts KXCS2GAME-26OCT220400AZUBAKS & KXCS2GAME-26OCT231300BAKSBRUTE",
+          "detail": "Kalshi lists 'Azuolas vs. BakS eSports' at 2026-10-22T08:00:00Z and 'BakS eSports vs. Brute' at 2026-10-23T17:00:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399493/baks-vs-azuolas-cct-2026-europe-series-12",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399493 lists 'BAKS vs Azuolas' BO3 at 2026-10-22T08:00:00Z in CCT 2026 Europe Series 12."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399334/brute-vs-baks-cct-2026-europe-series-11",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399334 lists 'BRUTE vs BAKS' BO3 at 2026-10-23T17:00:00Z in CCT 2026 Europe Series 11."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/baks-vs-azuolas-cct-europe-2026-series-12-1081143",
+          "source": "Hotspawn match page (fixture 1081143)",
+          "detail": "Hotspawn schedules 'BakS vs Azuolas' at 2026-10-22T08:00:00Z."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/events/1238705",
+          "source": "Polymarket Gamma API (event 1238705)",
+          "detail": "Polymarket event 1238705 (cs2-met-baks-2026-10-25) lists 'Metizport vs BakS eSports' BO3 in NODWIN Clutch Series Playoffs at 2026-10-25T12:00:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13",
+          "source": "HLTV.org match page (2399113)",
+          "detail": "HLTV match 2399113 lists 'Metizport vs BAKS' BO3 in NODWIN Clutch Series 13 at 2026-10-25T12:00:00Z (matching Hotspawn fixture 1079198)."
+        },
+        {
+          "url": "https://bo3.gg/matches/metizport-vs-baks-esports-25-10-2026",
+          "source": "bo3.gg match record (131197)",
+          "detail": "api.bo3.gg match 131197 schedules \"Metizport vs BakS eSports\" at 2026-10-25T12:00:00Z in NODWIN Clutch Series #13."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198",
+          "source": "Hotspawn match page (fixture 1079198)",
+          "detail": "Hotspawn schedules \"Metizport vs BakS\" (id 1079198) at 2026-10-25T12:00:00Z in NODWIN Clutch Series #13."
+        }
+      ],
+      "review_note": "Added by session arena-a34bc06b (2026-10-22); extended by arena-52aee465 (2026-10-23) to NODWIN Clutch Series #13."
+    },
+    {
+      "alias": "Donstu Esports",
+      "canonical": "Donstu",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "CCT Europe 2026 Challengers #8"
+      ],
+      "competition_note": "Kalshi and Polymarket expand 'Donstu' to 'Donstu Esports' in CCT Europe 2026 Challengers #8 (HLTV match 2399697, Hotspawn fixture 1081600).",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399697/donstu-vs-banda-chuya-cct-2026-challengers-europe-series-8",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399697 lists 'DONSTU vs Banda Chuya' BO3 in CCT 2026 Challengers Europe Series 8 at 2026-10-22T13:45:00Z."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/donstu-vs-banda-chuya-cct-europe-2026-challengers-8-1081600",
+          "source": "Hotspawn match page (fixture 1081600)",
+          "detail": "Hotspawn schedules 'Donstu vs Banda chuya' in CCT Europe 2026 Challengers #8 at 2026-10-22T13:45:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-a34bc06b (2026-10-22): scoped strictly to CCT Europe 2026 Challengers #8."
+    },
+    {
+      "alias": "WW Team",
+      "canonical": "WW",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "CIS LAN Championship #9"
+      ],
+      "competition_note": "Polymarket event 1232386 and Kalshi event KXCS2GAME-26OCT220600WWNEM expand 'WW' to 'WW Team' against 'Team Nemesis' in CIS LAN Championship #9.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399844/nemesis-vs-ww-winline-mpkbk-cis-lan-season-9",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399844 lists 'Nemesis vs WW' BO3 in WINLINE MPKBK CIS LAN Season 9."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/nemesis-vs-ww-cis-lan-championship-9-1082767",
+          "source": "Hotspawn match page (fixture 1082767)",
+          "detail": "Hotspawn schedules 'Nemesis vs WW' in CIS LAN Championship #9 at 2026-10-22T11:30:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-a34bc06b (2026-10-22): display-name suffix join scoped to CIS LAN Championship #9."
+    },
+    {
+      "alias": "FaZe Clan",
+      "canonical": "FaZe",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "DraculaN Season 7",
+        "Tesla Cup 2026"
+      ],
+      "competition_note": "Bovada event 32589207 expands 'FaZe' to 'FaZe Clan' against 'BC.Game' at 2026-10-22T13:00:00Z in DraculaN Season 7; extended by session arena-52aee465 to Tesla Cup 2026 (Hotspawn fixture 1082898 / HLTV match 2399867 'Alliance vs FaZe' at 2026-10-27T11:00:00Z).",
+      "must_not_match": [
+        "FaZe fe",
+        "FaZe Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.bovada.lv/esports/counter-strike-2/draculan/faze-clan-bc-game-202610220900",
+          "source": "Bovada esportsbook event (32589207)",
+          "detail": "Bovada lists 'FaZe Clan vs BC.Game' at 2026-10-22T13:00:00Z in DraculaN with Moneyline odds 2.00 / 1.769230."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399635/faze-vs-bcgame-digital-crusade-draculan-season-7",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399635 lists 'FaZe vs BC.Game' BO3 at 2026-10-22T13:00:00Z in Digital Crusade DraculaN Season 7."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399867/alliance-vs-faze-rlg-tesla-cup-2026",
+          "source": "HLTV.org match page (2399867)",
+          "detail": "HLTV match 2399867 lists 'Alliance vs FaZe' BO3 at 2026-10-27T11:00:00Z in RLG Tesla Cup 2026 (matching Hotspawn fixture 1082898 in 'Tesla Cup 2026')."
+        },
+        {
+          "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+          "source": "Hotspawn fixtures API (fixture 1082898)",
+          "detail": "Hotspawn fixture 1082898 schedules 'Alliance vs FaZe' in 'Tesla Cup 2026' at 2026-10-27T11:00:00Z."
+        },
+        {
+          "url": "https://polymarket.com/esports/cs2",
+          "source": "Polymarket CS2 markets",
+          "detail": "Polymarket CS2 lists \"Alliance vs FaZe Clan\" at 2026-10-27T11:00:00Z in Tesla Cup 2026."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/alliance-vs-faze-tesla-cup-2026-1082898",
+          "source": "Hotspawn match page (fixture 1082898)",
+          "detail": "Hotspawn schedules \"Alliance vs FaZe\" (id 1082898, scheduled_start_time 1793098800000 = 2026-10-27T11:00:00Z) in Tesla Cup 2026."
+        }
+      ],
+      "review_note": "Added by session arena-a34bc06b (2026-10-22); extended by arena-52aee465 (2026-10-23) to Tesla Cup 2026."
+    },
+    {
+      "alias": "TheMongolz",
+      "canonical": "The MongolZ",
+      "kind": "whitespace spelling variant",
+      "applies_to": [
+        "1win Private Club Season 2",
+        "PGL Masters Bucharest 2026",
+        "IEM Beijing 2026"
+      ],
+      "competition_note": "Polymarket and Kalshi omit the internal space ('TheMongolz') vs Hotspawn/HLTV/Pinnacle/Bovada 'The MongolZ'.",
+      "must_not_match": [
+        "The MongolZ Academy",
+        "TheMongolz Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://polymarket.com/event/cs2-big5-mglz-2026-10-22",
+          "source": "Polymarket event page (event 1231734)",
+          "detail": "Polymarket lists ['BIG', 'TheMongolz'] at 2026-10-22T11:00:00Z matching HLTV match 2399001 in 1win Private Club Season 2."
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-aur1-mglz-2026-10-24",
+          "source": "Polymarket event page (event 1199657)",
+          "detail": "Polymarket lists ['Aurora Gaming', 'TheMongolz'] at 2026-10-24T07:00:00Z matching HLTV match 2399719 in PGL Masters Bucharest 2026."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399001/big-vs-the-mongolz-1win-private-club-season-2",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399001 lists 'BIG vs The MongolZ' BO3 at 2026-10-22T11:00:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399855/legacy-vs-the-mongolz-iem-beijing-2026",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399855 lists 'Legacy vs The MongolZ' BO3 at 2026-11-02T07:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-a34bc06b (2026-10-22): single-space normalization across three verified tournaments."
+    },
+    {
+      "alias": "MongolZ",
+      "canonical": "The MongolZ",
+      "kind": "article omission variant",
+      "applies_to": [
+        "1win Private Club Season 2",
+        "PGL Masters Bucharest 2026",
+        "IEM Beijing 2026"
+      ],
+      "competition_note": "Thunderpick omits leading 'The' ('MongolZ') in events 2866712, 2835226, and 2859604.",
+      "must_not_match": [
+        "MongolZ Academy",
+        "The MongolZ Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://thunderpick.io/api/matches",
+          "source": "Thunderpick CS2 matches API (events 2866712, 2835226, 2859604)",
+          "detail": "Thunderpick lists ['BIG', 'MongolZ'] (2026-10-22T11:00Z), ['Aurora', 'MongolZ'] (2026-10-24T07:00Z), and ['Legacy', 'MongolZ'] (2026-11-02T07:00Z)."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399001/big-vs-the-mongolz-1win-private-club-season-2",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399001 lists 'BIG vs The MongolZ' at 2026-10-22T11:00:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399719/aurora-vs-the-mongolz-pgl-masters-bucharest-2026",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399719 lists 'Aurora vs The MongolZ' at 2026-10-24T07:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-a34bc06b (2026-10-22): scoped strictly to the three verified events."
+    },
+    {
+      "alias": "DENDELE CS",
+      "canonical": "DENDELE",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "PGL Masters Bucharest 2026"
+      ],
+      "competition_note": "Polymarket event 1199665, Kalshi KXCS2GAME-26OCT241200DENFURIA, Thunderpick 2835245, and Bovada 32415979 list 'DENDELE CS' / 'Dendele Cs' vs HLTV/Pinnacle 'DENDELE' at 2026-10-24T16:00:00Z.",
+      "evidence": [
+        {
+          "url": "https://polymarket.com/event/cs2-furia-dendel-2026-10-24",
+          "source": "Polymarket event page (event 1199665)",
+          "detail": "Polymarket lists ['FURIA', 'DENDELE CS'] at 2026-10-24T16:00:00Z resolving on HLTV."
+        },
+        {
+          "url": "https://www.bovada.lv/esports/counter-strike-2/pgl-masters-bucharest-26/furia-esports-dendele-cs-202610241200",
+          "source": "Bovada esportsbook event (32415979)",
+          "detail": "Bovada lists 'FURIA Esports vs Dendele Cs' at 2026-10-24T16:00:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399726/furia-vs-dendele-pgl-masters-bucharest-2026",
+          "source": "HLTV.org match page",
+          "detail": "HLTV match 2399726 lists 'FURIA vs DENDELE' BO3 at 2026-10-24T16:00:00Z in PGL Masters Bucharest 2026."
+        }
+      ],
+      "review_note": "Added by session arena-a34bc06b (2026-10-22): game-tag suffix 'CS' omitted on HLTV/Pinnacle."
+    },
+    {
+      "alias": "Tropa do KinGui",
+      "canonical": "Projeto do KinGui",
+      "kind": "roster-rename",
+      "applies_to": [
+        "CCT South America 2026 Series #7"
+      ],
+      "competition_note": "Hotspawn fixture 1082919 lists 'Projeto do KinGui vs Martians' at 2026-10-22T13:00:00Z, while HLTV match 2399904, Polymarket event 1232953 (cs2-tdkg-mar1-2026-10-22), and bo3.gg list the identical five-man roster (cutzmeretz, leleo, t9rnay, delboNi,lash) as 'Tropa do KinGui vs Martians' at 2026-10-22T13:00:00Z.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399904/tropa-do-kingui-vs-martians-cct-south-america-2026-series-7",
+          "source": "HLTV.org match page (2399904)",
+          "detail": "HLTV match 2399904 lists 'Tropa do KinGui vs Martians' (BO3, CCT South America 2026 Series 7 Group Stage) at 2026-10-22T13:00:00Z with team IDs 13151 and 13230."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-tdkg-mar1-2026-10-22",
+          "source": "Polymarket Gamma API (event 1232953)",
+          "detail": "Polymarket event 1232953 ('Counter-Strike: Tropa do KinGui vs Martians (BO3) - CCT South America Group Stage') resolves on HLTV at 2026-10-22T13:00:00Z."
+        },
+        {
+          "url": "https://bo3.gg/matches/tropa-do-kingui-vs-martians-22-10-2026",
+          "source": "bo3.gg match page",
+          "detail": "bo3.gg lists 'Tropa do KinGui vs Martians' in CCT South America 2026 Series 7 at 2026-10-22T13:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-f2b91672 (2026-10-22): scoped strictly to CCT South America 2026 Series #7."
+    },
+    {
+      "alias": "Procyon Gaming",
+      "canonical": "Procyon",
+      "kind": "org-suffix",
+      "applies_to": [
+        "CCT South America 2026 Series #7"
+      ],
+      "must_not_match": [
+        "Procyon Academy",
+        "Procyon Gaming Academy"
+      ],
+      "competition_note": "Hotspawn fixture 1082920, HLTV match 2399905, and Pinnacle matchup 1638943044 list 'MEIA NOITE vs Procyon' at 2026-10-22T16:00:00Z, while Polymarket event 1232955 lists 'MEIA NOITE vs Procyon Gaming' at 2026-10-22T16:00:00Z.",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-meiano-pcy-2026-10-22",
+          "source": "Polymarket Gamma API (event 1232955)",
+          "detail": "Polymarket event 1232955 lists outcomes ['MEIA NOITE', 'Procyon Gaming'] at 2026-10-22T16:00:00Z in CCT South America Group Stage."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399905/meia-noite-vs-procyon-cct-south-america-2026-series-7",
+          "source": "HLTV.org match page (2399905)",
+          "detail": "HLTV match 2399905 lists 'MEIA NOITE vs Procyon' (BO3, CCT South America 2026 Series 7) at 2026-10-22T16:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-f2b91672 (2026-10-22): org suffix 'Gaming' on Polymarket."
+    },
+    {
+      "alias": "Yawara Esports",
+      "canonical": "Yawara",
+      "kind": "org-suffix",
+      "applies_to": [
+        "CCT South America 2026 Series #7"
+      ],
+      "must_not_match": [
+        "Yawara Academy",
+        "Yawara Esports Academy"
+      ],
+      "competition_note": "Hotspawn fixture 1082921, HLTV match 2399906, and Pinnacle matchup 1638938930 list 'Yawara vs your end' at 2026-10-22T19:00:00Z, while Polymarket event 1232957 lists 'Yawara Esports vs your end' at 2026-10-22T19:00:00Z.",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-yaw-youren-2026-10-22",
+          "source": "Polymarket Gamma API (event 1232957)",
+          "detail": "Polymarket event 1232957 lists outcomes ['Yawara Esports', 'your end'] at 2026-10-22T19:00:00Z in CCT South America Group Stage."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399906/yawara-vs-your-end-cct-south-america-2026-series-7",
+          "source": "HLTV.org match page (2399906)",
+          "detail": "HLTV match 2399906 lists 'Yawara vs your end' (BO3, CCT South America 2026 Series 7) at 2026-10-22T19:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-f2b91672 (2026-10-22): org suffix 'Esports' on Polymarket."
+    },
+    {
+      "alias": "Low Cortisol",
+      "canonical": "Low Cortisol BR",
+      "kind": "region-tag",
+      "applies_to": [
+        "CCT South America 2026 Series #7"
+      ],
+      "competition_note": "Hotspawn fixture 1082922 and HLTV match 2399907 list 'Low Cortisol BR vs Grêmio' (HLTV disambiguating the Brazilian stack with 'BR'), while Polymarket event 1232958 and Pinnacle matchup 1638943045 list 'Low Cortisol' against 'Grêmio Esports' / 'Gremio' at 2026-10-22T22:00:00Z.",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-lowcor1-grmioe-2026-10-22",
+          "source": "Polymarket Gamma API (event 1232958)",
+          "detail": "Polymarket event 1232958 lists outcomes ['Low Cortisol', 'Grêmio Esports'] at 2026-10-22T22:00:00Z in CCT South America Group Stage."
+        },
+        {
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/235977/matchups",
+          "source": "Pinnacle Arcadia API (league 235977, matchup 1638943045)",
+          "detail": "Pinnacle matchup 1638943045 lists 'Low Cortisol vs Gremio' at 2026-10-22T22:00:00Z in CS2 - CCT South America Series."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399907/low-cortisol-br-vs-grmio-cct-south-america-2026-series-7",
+          "source": "HLTV.org match page (2399907)",
+          "detail": "HLTV match 2399907 lists 'Low Cortisol BR vs Grêmio' (team IDs 14051 and 13912) at 2026-10-22T22:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-f2b91672 (2026-10-22): scoped strictly to CCT South America 2026 Series #7 so European 'Low Cortisol' never collides."
+    },
+    {
+      "alias": "Grêmio Esports",
+      "canonical": "Grêmio",
+      "kind": "org-suffix",
+      "applies_to": [
+        "CCT South America 2026 Series #7"
+      ],
+      "must_not_match": [
+        "Grêmio Academy",
+        "Grêmio Esports Academy"
+      ],
+      "competition_note": "Hotspawn fixture 1082922 and HLTV match 2399907 list 'Low Cortisol BR vs Grêmio' at 2026-10-22T22:00:00Z, while Polymarket event 1232958 lists 'Low Cortisol vs Grêmio Esports' at 2026-10-22T22:00:00Z.",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-lowcor1-grmioe-2026-10-22",
+          "source": "Polymarket Gamma API (event 1232958)",
+          "detail": "Polymarket event 1232958 lists outcomes ['Low Cortisol', 'Grêmio Esports'] at 2026-10-22T22:00:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399907/low-cortisol-br-vs-grmio-cct-south-america-2026-series-7",
+          "source": "HLTV.org match page (2399907)",
+          "detail": "HLTV match 2399907 lists 'Low Cortisol BR vs Grêmio' (team ID 13912) at 2026-10-22T22:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-f2b91672 (2026-10-22): org suffix 'Esports' on Polymarket."
+    },
+    {
+      "alias": "Gremio",
+      "canonical": "Grêmio",
+      "kind": "diacritic-stripping",
+      "applies_to": [
+        "CCT South America 2026 Series #7"
+      ],
+      "must_not_match": [
+        "Gremio Academy"
+      ],
+      "competition_note": "Hotspawn fixture 1082922 and HLTV match 2399907 list 'Grêmio' (with circumflex), while Pinnacle Arcadia league 235977 matchup 1638943045 strips the diacritic to ASCII 'Gremio' at 2026-10-22T22:00:00Z.",
+      "evidence": [
+        {
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/235977/matchups",
+          "source": "Pinnacle Arcadia API (league 235977, matchup 1638943045)",
+          "detail": "Pinnacle matchup 1638943045 lists 'Low Cortisol vs Gremio' at 2026-10-22T22:00:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399907/low-cortisol-br-vs-grmio-cct-south-america-2026-series-7",
+          "source": "HLTV.org match page (2399907)",
+          "detail": "HLTV match 2399907 lists 'Low Cortisol BR vs Grêmio' at 2026-10-22T22:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-f2b91672 (2026-10-22): NFKC name_key preserves 'ê', so ASCII 'Gremio' requires an explicit scoped alias."
+    },
+    {
+      "alias": "Sökerorg",
+      "canonical": "LFO 10",
+      "kind": "translation-alias",
+      "applies_to": [
+        "CCT Europe 2026 Series #12"
+      ],
+      "competition_note": "Hotspawn fixture 1081149 and HLTV match 2399499 list 'FORZE Reload vs LFO 10' at 2026-10-23T14:00:00Z, while Polymarket event 1233762 (cs2-forzer-skr2-2026-10-23) lists the Swedish squad LFO 10 ('Looking For Org', HLTV team 14084: dottie, flaw, Sapec) under its Swedish translation 'Sökerorg' ('söker org').",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-forzer-skr2-2026-10-23",
+          "source": "Polymarket Gamma API (event 1233762)",
+          "detail": "Polymarket event 1233762 lists 'FORZE Reload vs Sökerorg' (BO3, CCT Europe Group Stage) at 2026-10-23T14:00:00Z resolving on HLTV."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399499/forze-reload-vs-lfo-10-cct-europe-2026-series-12",
+          "source": "HLTV.org match page (2399499)",
+          "detail": "HLTV match 2399499 lists 'FORZE Reload vs LFO 10' (BO3, CCT Europe 2026 Series 12) at 2026-10-23T14:00:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/team/14084/lfo-10",
+          "source": "HLTV.org team profile (14084)",
+          "detail": "HLTV team 14084 'LFO 10' is a Swedish CS2 roster (#5 Sweden: dottie, flaw, Sapec); Swedish 'söker org' = English 'LFO' ('looking for org')."
+        }
+      ],
+      "review_note": "Added by session arena-f2b91672 (2026-10-22): scoped strictly to CCT Europe 2026 Series #12."
+    },
+    {
+      "alias": "Sokerorg",
+      "canonical": "LFO 10",
+      "kind": "diacritic-stripped translation-alias",
+      "applies_to": [
+        "CCT Europe 2026 Series #12"
+      ],
+      "competition_note": "NFKC normalization preserves 'ö' in 'Sökerorg', whereas Bovada event 32630179 ('Forze Reload vs Sokerorg', Moneyline 1.181818 / 4.50 at 2026-10-23T08:00:00Z) strips the umlaut to ASCII 'Sokerorg' for Hotspawn fixture 1081149 / HLTV match 2399499 ('FORZE Reload vs LFO 10').",
+      "must_not_match": [
+        "Looking4Org",
+        "LFO"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.bovada.lv/esports/counter-strike-2/cct-europe/series-12/forze-reload-sokerorg-202610230400",
+          "source": "Bovada esportsbook event (32630179)",
+          "detail": "Bovada lists 'Forze Reload vs Sokerorg' at startTime 1792746000000 ms (2026-10-23T08:00:00Z) in CCT Europe Series 12 with Moneyline odds 1.181818 / 4.50."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399499/forze-reload-vs-lfo-10-cct-2026-europe-series-12",
+          "source": "HLTV.org match page (2399499)",
+          "detail": "HLTV match 2399499 lists 'FORZE Reload vs LFO 10' BO3 in CCT 2026 Europe Series 12 at 2026-10-23T08:00:00Z."
+        },
+        {
+          "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+          "source": "Hotspawn fixtures API (fixture 1081149)",
+          "detail": "Hotspawn fixture 1081149 schedules 'FORZE Reload vs LFO 10' in 'CCT Europe 2026 Series #12' at 2026-10-23T08:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-52aee465 (2026-10-23): enables Bovada 32630179 + Polymarket 1233762 cross-family consensus on fixture 1081149."
+    },
+    {
+      "alias": "Quintessencia",
+      "canonical": "QUINTESSÊNCIA",
+      "kind": "diacritic-stripped variant",
+      "applies_to": [
+        "CCT South America 2026 Series #7"
+      ],
+      "competition_note": "NFKC normalization preserves 'ê' in 'QUINTESSÊNCIA', whereas Bovada event 32606587 ('Borracheiros vs Quintessencia', Moneyline 1.645161 / 2.20) and Pinnacle matchup 1638942963 ('Borracheiros vs Quintessencia') strip the circumflex at 2026-10-23T16:00:00Z for Hotspawn fixture 1082924 / HLTV match 2399909.",
+      "must_not_match": [],
+      "evidence": [
+        {
+          "url": "https://www.bovada.lv/esports/counter-strike-2/cct-south-america/series-7/borracheiros-quintessencia-202610231200",
+          "source": "Bovada esportsbook event (32606587)",
+          "detail": "Bovada lists 'Borracheiros vs Quintessencia' at 2026-10-23T16:00:00Z in CCT South America Series 7 with Moneyline odds 1.645161 / 2.20."
+        },
+        {
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/235977/matchups",
+          "source": "Pinnacle Arcadia API (matchup 1638942963)",
+          "detail": "Pinnacle league 235977 lists 'Borracheiros vs Quintessencia' at 2026-10-23T16:00:00Z in CS2 - CCT South America Series."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399909/borracheiros-vs-quintessncia-cct-2026-south-america-series-7",
+          "source": "HLTV.org match page (2399909)",
+          "detail": "HLTV match 2399909 lists 'BORRACHEIROS vs QUINTESSÊNCIA' BO3 in CCT 2026 South America Series 7 at 2026-10-23T16:00:00Z."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/events/1233764",
+          "source": "Polymarket Gamma API (event 1233764)",
+          "detail": "Polymarket event 1233764 lists 'BORRACHEIROS vs QUINTESSÊNCIA' BO3 at 2026-10-23T16:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-52aee465 (2026-10-23): ASCII spelling variant across Bovada and Pinnacle for fixture 1082924."
+    },
+    {
+      "alias": "RED Academy",
+      "canonical": "RED Canids Academy",
+      "kind": "shortened academy name",
+      "applies_to": [
+        "CCT South America 2026 Series #7"
+      ],
+      "competition_note": "Bovada event 32606588 ('Bestia Academy vs RED Academy', Moneyline 2.60 / 1.47619) omits 'Canids' at 2026-10-23T19:00:00Z for Hotspawn fixture 1082925 / HLTV match 2399910 / Pinnacle matchup 1638951761 ('BESTIA Academy vs RED Canids Academy').",
+      "must_not_match": [
+        "RED Canids",
+        "RED"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.bovada.lv/esports/counter-strike-2/cct-south-america/series-7/bestia-academy-red-academy-202610231500",
+          "source": "Bovada esportsbook event (32606588)",
+          "detail": "Bovada lists 'Bestia Academy vs RED Academy' at 2026-10-23T19:00:00Z in CCT South America Series 7 with Moneyline odds 2.60 / 1.47619."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399910/bestia-academy-vs-red-canids-academy-cct-2026-south-america-series-7",
+          "source": "HLTV.org match page (2399910)",
+          "detail": "HLTV match 2399910 lists 'BESTIA Academy vs RED Canids Academy' BO3 in CCT 2026 South America Series 7 at 2026-10-23T19:00:00Z."
+        },
+        {
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/235977/matchups",
+          "source": "Pinnacle Arcadia API (matchup 1638951761)",
+          "detail": "Pinnacle league 235977 lists 'BESTIA Academy vs RED Canids Academy' at 2026-10-23T19:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-52aee465 (2026-10-23): must_not_match blocks main RED Canids roster."
+    },
+    {
+      "alias": "FokuS Esports",
+      "canonical": "FOKUS",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "NODWIN Clutch Series #13"
+      ],
+      "competition_note": "Bovada event 32627973 ('FokuS Esports vs Ex-6666', Moneyline 1.190476 / 4.40) expands 'FOKUS' to 'FokuS Esports' at 2026-10-24T08:00:00Z for Hotspawn fixture 1079193 / HLTV match 2399108 / Polymarket event 1237193 ('FOKUS vs ex-6666').",
+      "must_not_match": [
+        "FOKUS Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.bovada.lv/esports/counter-strike-2/nodwin-clutch-series/fokus-esports-ex-6666-202610240400",
+          "source": "Bovada esportsbook event (32627973)",
+          "detail": "Bovada lists 'FokuS Esports vs Ex-6666' at 2026-10-24T08:00:00Z in NODWIN Clutch Series with Moneyline odds 1.190476 / 4.40."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399108/fokus-vs-ex-6666-nodwin-clutch-series-13",
+          "source": "HLTV.org match page (2399108)",
+          "detail": "HLTV match 2399108 lists 'FOKUS vs ex-6666' BO3 Round of 16 in NODWIN Clutch Series 13 at 2026-10-24T08:00:00Z."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/events/1237193",
+          "source": "Polymarket Gamma API (event 1237193)",
+          "detail": "Polymarket event 1237193 (cs2-fokus-66661-2026-10-24) lists 'FOKUS vs ex-6666' BO3 at 2026-10-24T08:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-52aee465 (2026-10-23): first-party Bovada join for fixture 1079193."
+    },
+    {
+      "alias": "Team AURORA",
+      "canonical": "Aurora",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "PGL Masters Bucharest 2026"
+      ],
+      "competition_note": "Bovada event 32415193 ('Team AURORA vs The MongolZ', Moneyline 1.307692 / 3.30) prefixes 'Team' at 2026-10-24T07:00:00Z for Hotspawn fixture 1082759 / HLTV match 2399719 ('Aurora vs The MongolZ').",
+      "must_not_match": [
+        "Aurora Young Blud",
+        "Aurora YB"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.bovada.lv/esports/counter-strike-2/pgl-masters-bucharest-26/team-aurora-the-mongolz-202610240300",
+          "source": "Bovada esportsbook event (32415193)",
+          "detail": "Bovada lists 'Team AURORA vs The MongolZ' at startTime 1792825200000 ms (2026-10-24T07:00:00Z) in PGL Masters Bucharest '26 with Moneyline odds 1.307692 / 3.30."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399719/aurora-vs-the-mongolz-pgl-masters-bucharest-2026",
+          "source": "HLTV.org match page (2399719)",
+          "detail": "HLTV match 2399719 lists 'Aurora vs The MongolZ' BO3 in PGL Masters Bucharest 2026 at 2026-10-24T07:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-52aee465 (2026-10-23): Bovada PGL Masters Bucharest 2026 display-name join for fixture 1082759."
+    },
+    {
+      "alias": "FUT Esports",
+      "canonical": "FUT",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "PGL Masters Bucharest 2026"
+      ],
+      "competition_note": "Bovada event 32415977 ('FUT Esports vs TYLOO', Moneyline 1.217391 / 4.05) expands 'FUT' to 'FUT Esports' at 2026-10-24T07:00:00Z for Hotspawn fixture 1082760 / HLTV match 2399720 ('FUT vs TYLOO').",
+      "must_not_match": [
+        "FUT Academy",
+        "FUT fe"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.bovada.lv/esports/counter-strike-2/pgl-masters-bucharest-26/fut-esports-tyloo-202610240300",
+          "source": "Bovada esportsbook event (32415977)",
+          "detail": "Bovada lists 'FUT Esports vs TYLOO' at startTime 1792825200000 ms (2026-10-24T07:00:00Z) in PGL Masters Bucharest '26 with Moneyline odds 1.217391 / 4.05."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399720/fut-vs-tyloo-pgl-masters-bucharest-2026",
+          "source": "HLTV.org match page (2399720)",
+          "detail": "HLTV match 2399720 lists 'FUT vs TYLOO' BO3 in PGL Masters Bucharest 2026 at 2026-10-24T07:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-52aee465 (2026-10-23): Bovada PGL Masters Bucharest 2026 display-name join for fixture 1082760."
+    },
+    {
+      "alias": "Team Spirit",
+      "canonical": "Spirit",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "PGL Masters Bucharest 2026"
+      ],
+      "competition_note": "Bovada event 32415194 ('Team Spirit vs BB Team', Moneyline 1.181818 / 4.50) prefixes 'Team' at 2026-10-24T10:00:00Z for Hotspawn fixture 1082761 / HLTV match 2399721 ('Spirit vs BetBoom').",
+      "must_not_match": [
+        "Spirit Academy",
+        "Team Spirit Academy",
+        "Spirit fe"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.bovada.lv/esports/counter-strike-2/pgl-masters-bucharest-26/team-spirit-bb-team-202610240600",
+          "source": "Bovada esportsbook event (32415194)",
+          "detail": "Bovada lists 'Team Spirit vs BB Team' at startTime 1792836000000 ms (2026-10-24T10:00:00Z) in PGL Masters Bucharest '26 with Moneyline odds 1.181818 / 4.50."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399721/spirit-vs-betboom-pgl-masters-bucharest-2026",
+          "source": "HLTV.org match page (2399721)",
+          "detail": "HLTV match 2399721 lists 'Spirit vs BETBOOM' BO3 in PGL Masters Bucharest 2026 at 2026-10-24T10:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-52aee465 (2026-10-23): must_not_match isolates main Spirit roster from Spirit Academy."
+    },
+    {
+      "alias": "BB Team",
+      "canonical": "BetBoom",
+      "kind": "abbreviation",
+      "applies_to": [
+        "PGL Masters Bucharest 2026"
+      ],
+      "competition_note": "Both Bovada event 32415194 ('Team Spirit vs BB Team') and Pinnacle matchup 1638612853 ('Spirit vs BB Team') abbreviate 'BetBoom' as 'BB Team' at 2026-10-24T10:00:00Z for Hotspawn fixture 1082761 / HLTV match 2399721.",
+      "must_not_match": [
+        "BB Youth"
+      ],
+      "evidence": [
+        {
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/258576/matchups",
+          "source": "Pinnacle Arcadia API (matchup 1638612853)",
+          "detail": "Pinnacle league 258576 lists 'Spirit vs BB Team' at 2026-10-24T10:00:00Z in CS2 - PGL Masters Bucharest."
+        },
+        {
+          "url": "https://www.bovada.lv/esports/counter-strike-2/pgl-masters-bucharest-26/team-spirit-bb-team-202610240600",
+          "source": "Bovada esportsbook event (32415194)",
+          "detail": "Bovada lists 'Team Spirit vs BB Team' at 2026-10-24T10:00:00Z in PGL Masters Bucharest '26."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399721/spirit-vs-betboom-pgl-masters-bucharest-2026",
+          "source": "HLTV.org match page (2399721)",
+          "detail": "HLTV match 2399721 lists 'Spirit vs BETBOOM' BO3 in PGL Masters Bucharest 2026 at 2026-10-24T10:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-52aee465 (2026-10-23): Pinnacle & Bovada abbreviation join for fixture 1082761."
+    },
+    {
+      "alias": "Team Liquid",
+      "canonical": "Liquid",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "PGL Masters Bucharest 2026"
+      ],
+      "competition_note": "Hotspawn fixture 1082762, HLTV match 2399722, and Pinnacle matchup 1638612947 list 'MOUZ vs Liquid' at 2026-10-24T10:00:00Z, whereas Bovada event 32415975 lists 'MOUZ vs Team Liquid' (Moneyline 1.133333 / 5.50).",
+      "must_not_match": [
+        "Liquid fe"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.bovada.lv/esports/counter-strike-2/pgl-masters-bucharest-26/mouz-team-liquid-202610240600",
+          "source": "Bovada esportsbook event (32415975)",
+          "detail": "Bovada lists 'MOUZ vs Team Liquid' at startTime 1792836000000 ms (2026-10-24T10:00:00Z) in PGL Masters Bucharest '26 with Moneyline odds 1.133333 / 5.50."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399722/mouz-vs-liquid-pgl-masters-bucharest-2026",
+          "source": "HLTV.org match page (2399722)",
+          "detail": "HLTV match 2399722 lists 'MOUZ vs Liquid' BO3 in PGL Masters Bucharest 2026 at 2026-10-24T10:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-52aee465 (2026-10-23): scoped to PGL Masters Bucharest 2026 where Hotspawn canonicalizes as 'Liquid'."
+    },
+    {
+      "alias": "9Z Globant",
+      "canonical": "9z",
+      "kind": "sponsor suffix expansion",
+      "applies_to": [
+        "PGL Masters Bucharest 2026"
+      ],
+      "competition_note": "Bovada event 32415976 ('Vitality vs 9Z Globant', Moneyline 1.111111 / 6.00) includes co-title sponsor 'Globant' at 2026-10-24T13:00:00Z for Hotspawn fixture 1082763 / HLTV match 2399723 ('Vitality vs 9z').",
+      "must_not_match": [
+        "9z Academy",
+        "9z Globant Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.bovada.lv/esports/counter-strike-2/pgl-masters-bucharest-26/vitality-9z-globant-202610240900",
+          "source": "Bovada esportsbook event (32415976)",
+          "detail": "Bovada lists 'Vitality vs 9Z Globant' at startTime 1792846800000 ms (2026-10-24T13:00:00Z) in PGL Masters Bucharest '26 with Moneyline odds 1.111111 / 6.00."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399723/vitality-vs-9z-pgl-masters-bucharest-2026",
+          "source": "HLTV.org match page (2399723)",
+          "detail": "HLTV match 2399723 lists 'Vitality vs 9z' BO3 in PGL Masters Bucharest 2026 at 2026-10-24T13:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-52aee465 (2026-10-23): Bovada sponsor-expanded team name for fixture 1082763."
+    },
+    {
+      "alias": "Nemiga Gaming",
+      "canonical": "Nemiga",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "PGL Masters Bucharest 2026"
+      ],
+      "competition_note": "Bovada event 32415192 ('Legacy vs Nemiga Gaming', Moneyline 1.322581 / 3.25) appends 'Gaming' at 2026-10-24T13:00:00Z for Hotspawn fixture 1082764 / HLTV match 2399724 ('Legacy vs Nemiga').",
+      "must_not_match": [
+        "Nemiga Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.bovada.lv/esports/counter-strike-2/pgl-masters-bucharest-26/legacy-nemiga-gaming-202610240900",
+          "source": "Bovada esportsbook event (32415192)",
+          "detail": "Bovada lists 'Legacy vs Nemiga Gaming' at startTime 1792846800000 ms (2026-10-24T13:00:00Z) in PGL Masters Bucharest '26 with Moneyline odds 1.322581 / 3.25."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399724/legacy-vs-nemiga-pgl-masters-bucharest-2026",
+          "source": "HLTV.org match page (2399724)",
+          "detail": "HLTV match 2399724 lists 'Legacy vs Nemiga' BO3 in PGL Masters Bucharest 2026 at 2026-10-24T13:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-52aee465 (2026-10-23): Bovada display-name join for fixture 1082764."
+    },
+    {
+      "alias": "G2 Esports",
+      "canonical": "G2",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "PGL Masters Bucharest 2026"
+      ],
+      "competition_note": "Bovada event 32415978 ('G2 Esports vs Natus Vincere', Moneyline 2.05 / 1.741) appends 'Esports' at 2026-10-24T16:00:00Z for Hotspawn fixture 1082765 / HLTV match 2399725 / Pinnacle matchup 1638612855 ('G2 vs Natus Vincere').",
+      "must_not_match": [
+        "G2 Ares",
+        "G2 Oya"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.bovada.lv/esports/counter-strike-2/pgl-masters-bucharest-26/g2-esports-natus-vincere-202610241200",
+          "source": "Bovada esportsbook event (32415978)",
+          "detail": "Bovada lists 'G2 Esports vs Natus Vincere' at startTime 1792857600000 ms (2026-10-24T16:00:00Z) in PGL Masters Bucharest '26 with Moneyline odds 2.05 / 1.741."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399725/g2-vs-natus-vincere-pgl-masters-bucharest-2026",
+          "source": "HLTV.org match page (2399725)",
+          "detail": "HLTV match 2399725 lists 'G2 vs Natus Vincere' BO3 in PGL Masters Bucharest 2026 at 2026-10-24T16:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-52aee465 (2026-10-23): must_not_match excludes G2 Ares / G2 Oya."
+    },
+    {
+      "alias": "FURIA Esports",
+      "canonical": "FURIA",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "PGL Masters Bucharest 2026"
+      ],
+      "competition_note": "Bovada event 32415979 ('FURIA Esports vs Dendele Cs', Moneyline 1.181818 / 4.50) appends 'Esports' at 2026-10-24T16:00:00Z for Hotspawn fixture 1082766 / HLTV match 2399726 ('FURIA vs DENDELE'), pairing with 'DENDELE CS -> DENDELE' so both sides join.",
+      "must_not_match": [
+        "FURIA Academy",
+        "FURIA fe"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.bovada.lv/esports/counter-strike-2/pgl-masters-bucharest-26/furia-esports-dendele-cs-202610241200",
+          "source": "Bovada esportsbook event (32415979)",
+          "detail": "Bovada lists 'FURIA Esports vs Dendele Cs' at startTime 1792857600000 ms (2026-10-24T16:00:00Z) in PGL Masters Bucharest '26 with Moneyline odds 1.181818 / 4.50."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399726/furia-vs-dendele-pgl-masters-bucharest-2026",
+          "source": "HLTV.org match page (2399726)",
+          "detail": "HLTV match 2399726 lists 'FURIA vs DENDELE' BO3 in PGL Masters Bucharest 2026 at 2026-10-24T16:00:00Z."
+        }
+      ],
+      "review_note": "Added by session arena-52aee465 (2026-10-23): completes two-sided Bovada join on fixture 1082766."
+    },
+    {
+      "alias": "FOKUS CS",
+      "canonical": "FOKUS",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "NODWIN Clutch Series #13"
+      ],
+      "competition_note": "bo3.gg match 131192 lists \"FOKUS CS vs ex-6666\" at 2026-10-24T08:00:00Z in NODWIN Clutch Series #13 with Thunderpick Match Winner quote 1.17 / 4.40 (match 2872398), matching Hotspawn fixture 1079193 (\"FOKUS vs ex-6666\").",
+      "must_not_match": [
+        "FOKUS Academy",
+        "FOKUS fe"
+      ],
+      "evidence": [
+        {
+          "url": "https://bo3.gg/matches/fokus-cs-vs-ex-6666-24-10-2026",
+          "source": "bo3.gg match record (131192)",
+          "detail": "api.bo3.gg match 131192 schedules \"FOKUS CS vs ex-6666\" at 2026-10-24T08:00:00Z in NODWIN Clutch Series #13 with Thunderpick bet_updates 1.17 / 4.40."
+        },
+        {
+          "url": "https://thunderpick.io/match/2872398",
+          "source": "Thunderpick prematch CS2 match 2872398",
+          "detail": "Thunderpick prematch link relayed on bo3.gg match 131192 prices FOKUS CS 1.17 vs ex-6666 4.40 at 2026-10-24T08:00:00Z."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/fokus-vs-ex-6666-nodwin-clutch-series-13-1079193",
+          "source": "Hotspawn match page (fixture 1079193)",
+          "detail": "Hotspawn schedules \"FOKUS vs ex-6666\" (id 1079193) at 2026-10-24T08:00:00Z in NODWIN Clutch Series #13."
+        }
+      ],
+      "review_note": "Added by session arena-92a3e9fb (2026-10-23): exact 2026-10-24T08:00:00Z start and shared opponent ex-6666 across Hotspawn 1079193, bo3.gg 131192 and Thunderpick 2872398."
+    },
+    {
+      "alias": "INFINITE Gaming",
+      "canonical": "Infinite",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "NODWIN Clutch Series #13"
+      ],
+      "competition_note": "bo3.gg match 131198 lists \"INFINITE Gaming vs Team Brute\" at 2026-10-25T15:00:00Z in NODWIN Clutch Series #13, matching HLTV 2399114 (\"INFINITE vs BRUTE\") and Hotspawn 1079199 (\"Infinite vs BRUTE\").",
+      "must_not_match": [
+        "INFINITE Academy",
+        "Infinite fe"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399114/infinite-vs-brute-nodwin-clutch-series-13",
+          "source": "HLTV.org match page (2399114)",
+          "detail": "HLTV match 2399114 lists BO3 \"INFINITE vs BRUTE\" at 2026-10-25T15:00:00Z in NODWIN Clutch Series #13 (lineup d1maje, mhN1, CHANKY, zewts, starplajerz)."
+        },
+        {
+          "url": "https://bo3.gg/matches/infinite-gaming-vs-team-brute-25-10-2026",
+          "source": "bo3.gg match record (131198)",
+          "detail": "api.bo3.gg match 131198 schedules \"INFINITE Gaming vs Team Brute\" at 2026-10-25T15:00:00Z in NODWIN Clutch Series #13."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/infinite-vs-brute-nodwin-clutch-series-13-1079199",
+          "source": "Hotspawn match page (fixture 1079199)",
+          "detail": "Hotspawn schedules \"Infinite vs BRUTE\" (id 1079199) at 2026-10-25T15:00:00Z in NODWIN Clutch Series #13."
+        }
+      ],
+      "review_note": "Added by session arena-92a3e9fb (2026-10-23): exact 2026-10-25T15:00:00Z start across HLTV 2399114, bo3.gg 131198 and Hotspawn 1079199."
+    },
+    {
+      "alias": "Team Brute",
+      "canonical": "BRUTE",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "CCT Europe 2026 Series #11",
+        "NODWIN Clutch Series #13"
+      ],
+      "competition_note": "bo3.gg expands \"BRUTE\" to \"Team Brute\" in CCT Europe 2026 Series #11 (fixture 1079657 vs BakS at 2026-10-23T17:00:00Z) and NODWIN Clutch Series #13 (fixture 1079199 vs Infinite at 2026-10-25T15:00:00Z).",
+      "must_not_match": [
+        "BRUTE Academy",
+        "Team Brute Academy",
+        "BRUTE fe"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399334/brute-vs-baks-cct-2026-europe-series-11",
+          "source": "HLTV.org match page (2399334)",
+          "detail": "HLTV match 2399334 schedules BO3 \"BRUTE vs BAKS\" at 2026-10-23T17:00:00Z in CCT 2026 Europe Series 11."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399114/infinite-vs-brute-nodwin-clutch-series-13",
+          "source": "HLTV.org match page (2399114)",
+          "detail": "HLTV match 2399114 schedules BO3 \"INFINITE vs BRUTE\" at 2026-10-25T15:00:00Z in NODWIN Clutch Series #13 (lineup realzen, K1-FiDa, w4rden, Blytz, NIO)."
+        },
+        {
+          "url": "https://bo3.gg/matches/infinite-gaming-vs-team-brute-25-10-2026",
+          "source": "bo3.gg match record (131198)",
+          "detail": "api.bo3.gg match 131198 schedules \"INFINITE Gaming vs Team Brute\" at 2026-10-25T15:00:00Z in NODWIN Clutch Series #13."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/infinite-vs-brute-nodwin-clutch-series-13-1079199",
+          "source": "Hotspawn match page (fixture 1079199)",
+          "detail": "Hotspawn schedules \"Infinite vs BRUTE\" (id 1079199) at 2026-10-25T15:00:00Z in NODWIN Clutch Series #13."
+        }
+      ],
+      "review_note": "Added by session arena-92a3e9fb (2026-10-23): exact start times and shared opponents in CCT Europe Series #11 and NODWIN Clutch Series #13."
+    },
+    {
+      "alias": "Team Abyssal",
+      "canonical": "Abyssal",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "DFRAG Invitational 2026"
+      ],
+      "competition_note": "bo3.gg match 132606 lists \"Rooster vs Team Abyssal\" at 2026-10-27T03:00:00Z in DFRAG Invitational 2026, matching HLTV 2399891 (\"Rooster vs Abyssal\") and Hotspawn 1082861 (\"Rooster vs Abyssal\").",
+      "must_not_match": [
+        "Abyssal Academy",
+        "Team Abyssal Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+          "source": "HLTV.org match page (2399891)",
+          "detail": "HLTV match 2399891 schedules BO3 \"Rooster vs Abyssal\" at 2026-10-27T03:00:00Z in DFRAG Invitational 2026 (lineup Crunch, gump, mechanical, Mingovi, kyson)."
+        },
+        {
+          "url": "https://bo3.gg/matches/rooster-vs-team-abyssal-27-10-2026",
+          "source": "bo3.gg match record (132606)",
+          "detail": "api.bo3.gg match 132606 schedules \"Rooster vs Team Abyssal\" at 2026-10-27T03:00:00Z in DFRAG Invitational 2026."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
+          "source": "Hotspawn match page (fixture 1082861)",
+          "detail": "Hotspawn schedules \"Rooster vs Abyssal\" (id 1082861, scheduled_start_time 1793070000000 = 2026-10-27T03:00:00Z) in DFRAG Invitational 2026."
+        }
+      ],
+      "review_note": "Added by session arena-92a3e9fb (2026-10-23): exact 2026-10-27T03:00:00Z start and shared opponent Rooster across HLTV 2399891, bo3.gg 132606 and Hotspawn 1082861."
+    }
+  ]
+}
