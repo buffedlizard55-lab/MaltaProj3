@@ -8766,3 +8766,15 @@ Constraints: sandbox outbound access cannot directly verify Hotspawn/HLTV/books;
   platform-side queue starvation (63 runs queued at 08:20Z, one running). The two
   concurrency caps above remove the largest recurring source; the publisher's own
   tests pass on this head, so a run that starts inside the window publishes.
+
+## Session arena-9877e53a — independent current deployment acceptance (2026-10-24)
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 9877-1 Independently inspect the latest successful publisher artifact, run rendered acceptance/source/link audits, and record current coverage, source limitations and deployment evidence without modifying other sessions' implementation | in progress | arena-9877e53a | new `data/research/9877e53a/**`, this section only |
+
+Uses Arena's fixed branch `arena/9877e53a-maltaproj3` (branch naming is platform-controlled). Existing open implementation PRs remain untouched. No hand-entered probabilities or picks. Network access here is restricted to GitHub/package hosts: current external claims will be attributed to the publisher's saved evidence, not presented as independent live Hotspawn reads.
+
+**9877-1 result:** done. Dated source-linked acceptance dossier and saved official GitHub job response in `data/research/9877e53a/`; visible limitation flag in `flags.json`. Build passes: 836 internal links, 907 audited rows (0 sourceless), 9 acceptance passes / 1 historical-freshness notice; 32 summary/navigation tests pass. Scheduled publisher 40101099651 and deployment 7299921850 report success, including public-site verification after root-sync. Independent current match/price assertions deliberately left blank: sandbox cannot access external source hosts or Azure artifact redirects. No implementation or other session's evidence modified. Initial pull of this brand-new remote branch found no ref; pulled/rebased `origin/main` before first push instead. Python packages installed in ignored `.venv` after system Python correctly refused a global installation.
+
+**9877 integration checkpoint:** PR https://github.com/buffedlizard55-lab/MaltaProj3/pull/316 opened. Final build after adding the review notice passes: 908 audited rows, 888 linked official, 10 explicitly unverified, 10 navigation, 0 sourceless; 836 internal links. Confirmed notice renders on `site/review/index.html`. Origination CI passed (3m40s); general validation run 40111341574 failed (15m53s). Fetching its failed logs was blocked by GitHub API rate limit (HTTP 403 at 16:40Z), not an authentication failure. The full local unittest sweep also showed failures before completing; it is not represented as green. **PR deliberately not merged**, respecting the no-broken-site requirement. Existing scheduled publisher/deployment success recorded above predates this PR; no claim that this new dossier is live. Remaining integration status: needs review / blocked on failed-check diagnosis and API availability. This notice and evidence stay on the session branch; no other session's source files were altered.

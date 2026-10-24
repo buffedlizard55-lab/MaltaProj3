@@ -1,0 +1,118 @@
+{
+  "schema": 1,
+  "generated_at": "2026-10-24T16:22:51Z",
+  "auditor": "scripts/acceptance_audit.py",
+  "site": "site",
+  "snapshot_generated_at": "2026-10-15T08:36:13Z",
+  "totals": {
+    "checks": 10,
+    "pass": 9,
+    "info": 1,
+    "fail": 0
+  },
+  "checks": [
+    {
+      "key": "glance_rows",
+      "title": "Every listed fixture shows a pick and both win probabilities",
+      "brief_line": "It should cover all matches listed on hotspawn and give probability to win for the team to win and be obvious what the pick is",
+      "status": "pass",
+      "detail": "17 glance rows: every one names a pick, shows both percentages summing to 100, and links an official/primary source (17/17).",
+      "evidence": [
+        "site/index.html#picks-at-a-glance"
+      ]
+    },
+    {
+      "key": "glance_counts",
+      "title": "The summary's coverage sentence matches the rendered list and the snapshot",
+      "brief_line": "I want picks for every match listed on hotspawn for counterstrike 2",
+      "status": "pass",
+      "detail": "17 active fixtures stated and 17 rows rendered; the reconciled snapshot counts 17 active.",
+      "evidence": [
+        "site/index.html#picks-at-a-glance"
+      ]
+    },
+    {
+      "key": "unresolved_register",
+      "title": "A separate unresolved/limitations section sits inside the executive summary",
+      "brief_line": "Create a separate section for any unresolved picks and the limitations for generating picks for them and include this in the executive summary",
+      "status": "pass",
+      "detail": "Register \"Unresolved picks & limitations\" is inside the executive summary with 4 explicit limitations and 0 labelled pick-less card(s).",
+      "evidence": [
+        "site/index.html#unresolved-register"
+      ]
+    },
+    {
+      "key": "exec_links",
+      "title": "The executive summary links in-site to the updated list of picks",
+      "brief_line": "We should have an executive summary that provides links within our site to where an updated list of picks can be found",
+      "status": "pass",
+      "detail": "In-site links to the complete picks list, the picks page and the unresolved section all resolve.",
+      "evidence": [
+        "complete updated picks: ./origination/#picks",
+        "picks page: ./picks/",
+        "unresolved section: ./unresolved/"
+      ]
+    },
+    {
+      "key": "mobile",
+      "title": "Pages are phone-ready: viewport declared, glance is a list, small-screen rules exist",
+      "brief_line": "It should be easily readable and accessible on phone and mobile device",
+      "status": "pass",
+      "detail": "14 pages declare a device-width viewport; the glance list is styled by scout.css and has a small-screen media query.",
+      "evidence": [
+        "site/assets/scout.css"
+      ]
+    },
+    {
+      "key": "cadence",
+      "title": "The refresh schedule stays inside the brief's 4-8 hour window",
+      "brief_line": "So that we have a full list of updated matches and picks for counter strike 2 from hotspawn every 4-8 hours",
+      "status": "pass",
+      "detail": "2 cron entries, largest gap 2.5 h, declared interval 4 h, stale bound 8 h.",
+      "evidence": [
+        "17 */4 * * *; 47 2-22/4 * * *"
+      ]
+    },
+    {
+      "key": "row_sources",
+      "title": "No rendered row is published without a source or an unverified label",
+      "brief_line": "Every table row must have a source link to an official site. If a value can't be confirmed from an official source, leave it blank and flag it as unverified.",
+      "status": "pass",
+      "detail": "907 rows audited, 887 with an official link, 10 explicitly flagged unverified, 0 without a source.",
+      "evidence": [
+        "site/data/row-source-audit.json"
+      ]
+    },
+    {
+      "key": "freshness",
+      "title": "The published snapshot is dated and its age is reported",
+      "brief_line": "The hotspawn site regularly updates new matches so make sure that we have full coverage",
+      "status": "info",
+      "detail": "Snapshot 2026-10-15T08:36:13Z is 223.8 h old; coverage_complete=True; refresh_interval_hours=4. The page is required to warn the reader; see #stale-warning.",
+      "evidence": [
+        "site/data/latest.json"
+      ]
+    },
+    {
+      "key": "snapshot_consistency",
+      "title": "The rendered page and the downloadable snapshot are the same observation",
+      "brief_line": "It should be up to date and list the probabilities for each match based upon known betting lines",
+      "status": "pass",
+      "detail": "Page stamp and snapshot.json agree (2026-10-15T08:36:13Z).",
+      "evidence": [
+        "site/index.html",
+        "site/snapshot.json"
+      ]
+    },
+    {
+      "key": "unresolved_page",
+      "title": "The dedicated unresolved page exists and lists limitations",
+      "brief_line": "Create a separate section for any unresolved picks and the limitations",
+      "status": "pass",
+      "detail": "Dedicated page \"Unresolved picks & limitations\" with 5 stated limitations.",
+      "evidence": [
+        "site/unresolved/index.html"
+      ]
+    }
+  ]
+}
