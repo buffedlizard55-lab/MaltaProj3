@@ -15,12 +15,13 @@
     "id": "be019782-duplicate-summary-landmark",
     "severity": "notice",
     "title": "Fixed: duplicate no-line research landmark on the executive summary",
-    "detail": "Both the summary and its compact unresolved-register child rendered id=no-line-research. The redundant caller is removed, and the global internal-link validator now rejects duplicate HTML ids. Rendered regressions verify exactly one block on each relevant page and keep links to the dedicated unresolved register. The pre-existing full-suite failure reproduced this defect; the repair does not change any probability or source.",
+    "detail": "Both the summary and its compact unresolved-register child rendered id=no-line-research. The redundant caller is removed, and the global internal-link validator now rejects duplicate HTML ids. Rendered regressions verify exactly one block on each relevant page and keep links to the dedicated unresolved register. The pre-existing full-suite failure reproduced this defect; the repair does not change any probability or source. During integration, PR #241 independently removed the child call while this session removed the parent. Git auto-merged both deletions, producing zero dated blocks; the rendered regression reproduced 0 != 1. Integration restores the child as the sole owner and preserves both dossiers, both coordination records and the global duplicate-ID guard.",
     "match_ids": [],
     "source_urls": [
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/validate.py",
-      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_be019782_landmarks.py"
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_be019782_landmarks.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/241"
     ]
   },
   {
