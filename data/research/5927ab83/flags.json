@@ -34,5 +34,17 @@
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build_origination.py",
       "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks"
     ]
+  },
+  {
+    "id": "5927ab83-egw-provider-identity-guard",
+    "severity": "notice",
+    "title": "Fixed: automated EGW prices require independent event identity and time",
+    "detail": "Post-merge review found that the first automated EGW rung matched flattened URL substrings and copied Hotspawn's start into provider evidence, so the later start check could not reject a same-team rematch. The rung now resolves the provider link's exact two-team title through the reviewed alias registry and requires EGW's own machine-readable timestamp with Z or a numeric offset. EGW titles and body text can show different timezone representations without naming a zone in the title, so those strings are never guessed. Missing identity or time produces no price and leaves the existing labelled estimate in place. Seventy-three focused tests pass, including naive-time, substring, reversed-order, stale, placeholder and start-mismatch refusal.",
+    "match_ids": [],
+    "source_urls": [
+      "https://egamersworld.com/counterstrike/matches",
+      "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/egw_live.py"
+    ]
   }
 ]
