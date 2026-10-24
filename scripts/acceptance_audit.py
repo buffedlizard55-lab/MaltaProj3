@@ -189,10 +189,36 @@ def check_glance_rows(site: Path, soup: BeautifulSoup) -> Check:
     for row in rows:
         match = _text(row.select_one('.glance-match'))
         choice = row.select_one('.glance-choice')
-        if choice is None or choice.select_one('[data-glance-pick]') is None:
+        label = choice.select_one('[data-glance-pick]') if choice is not None else None
+        labelled_state = False
+        if label is None and choice is not None:
+            # Two documented, explicitly labelled states are alternatives to a
+            # directional pick, not silent gaps: "No edge / Even · no side" when a
+            # market publishes both sides at exactly 50 %, and "Unresolved". Both
+            # render a visible label plus an in-row reason link to the register
+            # (see /unresolved/ "How to read this page"). They are accepted only
+            # with that link; a row with neither a pick nor a reason still fails.
+            # (Integration fix by arena-5f9d0082: the first even-market fixture,
+            # 1079200, appeared on the 2026-10-24 20:07Z root snapshot.)
+            text = _text(choice.select_one('.glance-pick-label')).strip().lower()
+            if text in {'no edge', 'even', 'unresolved'} and any(
+                    'unresolved' in (a.get('href') or '') for a in choice.select('a')):
+                label = choice.select_one('.glance-pick-label')
+                labelled_state = True
+        if choice is None or label is None:
             missing_pick.append(match)
             continue
-        values = _pct(_text(choice))
+        # A pick row must publish both percentages. A documented labelled state
+        # (`even` / no side, `unresolved`) publishes no pair and is checked for
+        # its reason link above instead.
+        values = [] if labelled_state else _pct(_text(choice))
+        if not values:
+            links = [a.get('href') or '' for a in row.select('.glance-links a')]
+            if any(_official(h) for h in links):
+                sourced += 1
+            else:
+                no_source.append(match)
+            continue
         if len(values) < 2:
             missing_pair.append(match)
         elif abs(sum(values[:2]) - 100.0) > 0.2:

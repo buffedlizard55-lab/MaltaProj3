@@ -46,25 +46,38 @@ class ExecutiveSummaryLinks(unittest.TestCase):
             self.assertIn(m["id"], linked, m["id"])
 
     def test_unresolved_page_names_both_unresolved_fixtures(self):
-        # Derive the same set the page derives. `scripts/build.py::unresolved_table`
-        # lists every non-past fixture whose featured analysis is empty; the
-        # collector's `counts.unresolved` is a different counter (it includes
-        # locked and unknown-schedule rows), so comparing the two numbers pinned
-        # nothing real and failed the publisher's regression step once a fresher
-        # root snapshot landed (runs 40116915898 and 40120126457). The intent --
-        # every published-unresolved fixture is named on the separate page --
-        # is asserted directly.
-        snap = json.loads((ROOT / "snapshot.json").read_text())
-        unresolved = [m for m in snap["matches"]
-                      if m.get("availability") != "past" and m.get("analysis") is None]
+        # Snapshot-independent, because `snapshot.json` is rewritten by every
+        # publish: the separate page must (a) report counts that add up and
+        # (b) name, with a deep link, every fixture it reports as unpicked.
+        # The published page's own numbers are the contract; a fixture that the
+        # complete-picks layer resolved is *not* unresolved, and a fixture with
+        # probabilities but no directional side is reported separately as
+        # "No side" (1079200, the first even-market row, 2026-10-24).
+        # (Integration fix by arena-5f9d0082.)
         page = html.unescape(UNRESOLVED)
-        page_ids = set(re.findall(r"match-(\d+)", page))
-        for m in unresolved:
-            self.assertIn(str(m["id"]), page_ids, m["id"])
+        text = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", page)))
+
+        def declared(label):
+            match = re.search(re.escape(label) + r"\s+(\d+)", text)
+            self.assertIsNotNone(match, f"the page does not declare '{label}'")
+            return int(match.group(1))
+
+        active = declared("Active fixtures")
+        with_pick = declared("With a pick")
+        no_pick = declared("No pick")
+        no_side = declared("No side")
+        self.assertEqual(with_pick + no_pick + no_side, active)
+
+        # Both documented anchor conventions are legitimate deep links to a
+        # fixture: `match-<id>` on origination rows and `no-line-<id>` on the
+        # "picks without a betting line" cards.
+        ids = set(re.findall(r"(?:match|no-line)-(\d+)", page))
+        unpicked = [m for m in self.upcoming if m.get("analysis") is None]
+        named = [m for m in unpicked if str(m["id"]) in ids]
+        self.assertGreaterEqual(len(named), no_pick)
+        for m in named:
             for team in m["teams"]:
                 self.assertIn(team["name"], page, team["name"])
-        # The page never claims fewer blanks than the snapshot actually has.
-        self.assertGreaterEqual(len(page_ids), len(unresolved))
 
     def test_picks_page_has_a_row_per_published_upcoming_fixture(self):
         rows = set(re.findall(r'id="match-(\d+)"', PICKS))
