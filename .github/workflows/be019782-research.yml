@@ -1,0 +1,65 @@
+name: be019782 fresh inventory, source replay and gap research
+on:
+  workflow_dispatch:
+  push:
+    branches: ['arena/be019782-maltaproj3']
+    paths:
+      - '.github/workflows/be019782-research.yml'
+      - 'scripts/be019782_audit.py'
+permissions:
+  contents: write
+concurrency:
+  group: be019782-read-only-research
+  cancel-in-progress: false
+jobs:
+  research:
+    # A research runner can write only this session's branch, never main.
+    if: github.ref == 'refs/heads/arena/be019782-maltaproj3'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Discover every Hotspawn CS2 fixture and the featured external lines
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect
+      - name: Resolve only featured gaps through the reviewed research ladder
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live
+      - name: Replay every source row; HLTV first, then research every no-line fixture
+        run: python -m scripts.be019782_audit
+      - name: Verify all live-data views, sources and internal links
+        run: |
+          python -m scripts.build
+          python -m scripts.audit_rows --site site --strict
+          cp site/data/row-source-audit.json data/research/be019782/row-source-audit.json
+      - name: Record the verified run (not a deployment)
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          report = json.loads(Path('data/research/be019782/source-replay.json').read_text())
+          print('## Fresh, source-replayed CS2 snapshot\n', file=open(os.environ['GITHUB_STEP_SUMMARY'], 'a'))
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as summary:
+              summary.write('Inventory observation: ' + report['inventory_observed_at'] + '\n\n')
+              summary.write('Counts: `' + json.dumps(report['counts']) + '`\n\n')
+              summary.write('Read-only research: no pick, probability or alias is edited; only the production publisher deploys.\n')
+          PY
+      - name: Commit only this session's dated evidence, not runtime/replay inputs
+        if: always()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if [ ! -d data/research/be019782 ]; then exit 0; fi
+          git add data/research/be019782/
+          if git diff --cached --quiet; then echo 'No evidence change.'; exit 0; fi
+          git commit -m 'research(be019782): fresh CS2 inventory replay and HLTV-first gap evidence'
+          git stash push --include-untracked -m 'be019782 uncommitted runtime inputs'
+          git pull --rebase origin arena/be019782-maltaproj3
+          git push origin arena/be019782-maltaproj3

@@ -3,7 +3,7 @@
 The EGW rung used to depend on manual capture files and went stale after
 eight hours. These tests prove the automated capture is fail-closed:
 exact two-team slug joins only, identical placeholder odds rejected by the
-existing reviewed gate, stale observations rejected, and odds re-ordered
+existing reviewed gate, independent source UTC clocks required, stale observations rejected, and odds re-ordered
 to Hotspawn's team order when the listing order differs.
 """
 from __future__ import annotations
@@ -19,9 +19,9 @@ OBSERVED = '2026-10-24T01:30:00Z'
 INDEX_HTML = """
 <html><body>
 <a href="https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d">
-  Ground Zero 3.44 Off Chops 1.24</a>
+  <time datetime="2026-10-26T03:00:00Z"></time> Ground Zero 3.44 Off Chops 1.24</a>
 <a href="https://egamersworld.com/counterstrike/match/EkalRNMvVx/hotu-vs-the-huns-esports-SfdtzDhiK">
-  HOTU 1.8 The Huns Esports 1.8</a>
+  <time datetime="2026-10-31T09:00:00Z"></time> HOTU 1.8 The Huns 1.8</a>
 <a href="https://egamersworld.com/counterstrike/match/xx/aurora-vs-the-mongolz-yy">
   Aurora 1.3 The MongolZ 3.27</a>
 <a href="/counterstrike/match/zz/ground-zero-vs-off-chops-ww">Ground Zero 3.44 Off Chops 1.24</a>

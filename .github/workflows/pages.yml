@@ -159,7 +159,11 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    # The code-check job allows 45 minutes for regression/build/browser checks.
+    # This publisher also collects fresh sources and verifies both Pages/root
+    # publication. Keep 15 minutes of headroom; every test and source gate still
+    # runs and a nonzero regression status still aborts publication.
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
