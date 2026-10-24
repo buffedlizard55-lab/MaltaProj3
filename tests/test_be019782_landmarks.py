@@ -28,13 +28,10 @@ class DatedResearchHasOneOwner(unittest.TestCase):
         }
         return data
 
-    def test_summary_keeps_one_dated_block_next_to_its_limitations_section(self):
+    def test_summary_keeps_one_dated_block_inside_its_separate_limitations_section(self):
         soup = BeautifulSoup(summary(self.data(), './'), 'html.parser')
         self.assertEqual(len(soup.select('#no-line-research')), 1)
-        # main's single-owner contract places the block immediately after the
-        # compact register; the dedicated unresolved page keeps it nested.
-        self.assertIsNotNone(soup.select_one('#unresolved-register'))
-        self.assertIsNotNone(soup.select_one('#unresolved-register + #no-line-research'))
+        self.assertIsNotNone(soup.select_one('#unresolved-register #no-line-research'))
         self.assertIn('./origination/#picks',
                       {a['href'] for a in soup.select('#no-line-research a[href]')})
         self.assertIsNotNone(soup.select_one('#no-line-register'))
