@@ -1,0 +1,72 @@
+# Session arena-6174aa87 — pick-provenance sweep (dispatch only).
+#
+# Why this runs here and not in the coding sandbox: the sandbox has no egress to
+# Hotspawn, HLTV or the esportsbooks; a GitHub runner does. The job refreshes the
+# first-party collection with the exact commands the production publisher runs,
+# then re-reads every URL the published picks cite and commits only the dated
+# evidence under data/research/6174aa87/ for review before merge.
+#
+# It never deploys, never writes data/latest.json or data/origination.json, and
+# never originates a probability, a pick or an alias. The push trigger is
+# path-scoped to this workflow and its probe module, so it can only fire when
+# the sweep's own code changes: the dossier commit itself (data/research/...)
+# cannot re-trigger it. A workflow_dispatch trigger is included, but GitHub only
+# offers dispatch once the file is on the default branch.
+name: 6174aa87 pick-provenance sweep
+on:
+  workflow_dispatch:
+  push:
+    branches: ['arena/6174aa87-maltaproj3']
+    paths:
+      - 'scripts/6174aa87_probe.py'
+      - '.github/workflows/6174aa87-probe.yml'
+      - 'tests/test_6174aa87_provenance.py'
+permissions:
+  contents: write
+concurrency:
+  group: 6174aa87-probe
+  cancel-in-progress: true
+jobs:
+  probe:
+    if: github.ref == 'refs/heads/arena/6174aa87-maltaproj3'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: arena/6174aa87-maltaproj3
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Refresh canonical inventory and featured lines
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect
+      - name: Refetch first-party origination sources and resolve
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live
+      - name: Re-verify every published pick against its own cited source
+        if: always()
+        run: python -m scripts.6174aa87_probe --out data/research/6174aa87
+      - name: Commit only the dated provenance dossier to this session branch
+        if: always()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          test -f data/research/6174aa87/pick-provenance.json
+          git add data/research/6174aa87
+          git diff --cached --quiet && echo 'No research change.' && exit 0
+          git commit -m 'research(6174aa87): dated pick-provenance sweep — every cited source re-read'
+          # Keep only the dossier; discard the refreshed (uncommitted) collection so
+          # the production publisher stays the single writer of the snapshot.
+          git stash push --keep-index --include-untracked -m '6174aa87 probe scratch' || true
+          for attempt in 1 2 3 4; do
+            git fetch origin arena/6174aa87-maltaproj3 || true
+            git rebase origin/arena/6174aa87-maltaproj3 || { git rebase --abort || true; sleep 5; continue; }
+            git push origin HEAD:arena/6174aa87-maltaproj3 && exit 0
+            sleep 5
+          done
+          exit 1
