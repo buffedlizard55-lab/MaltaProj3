@@ -51,11 +51,14 @@ jobs:
           python - <<'PY'
           import json
           d = json.load(open('data/research/3877d48d/probe.json'))
-          rows = [f"| {f['id']} | {f['published_method']} | {f['egw'].get('status') or f['egw'].get('error')} |"]
-          print('## Fallback-line probe\n')
+          print('## Fallback-line probe')
+          print('')
           print('| Fixture | Published method | EGamersWorld |')
           print('| --- | --- | --- |')
-          for line in rows:
-              print(line)
-          print(f"\nInventory: `{d['inventory'].get('status') or d['inventory'].get('error')}`")
+          for f in d['fixtures']:
+              egw = f['egw']
+              state = egw.get('status') or egw.get('error') or 'not found'
+              print('| ' + f['id'] + ' | ' + f['published_method'] + ' | ' + str(state) + ' |')
+          print('')
+          print('Inventory: ' + str(d['inventory'].get('status') or d['inventory'].get('error')))
           PY

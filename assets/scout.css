@@ -323,6 +323,22 @@
 .no-line-model{margin:0;font-size:11px;color:#4a5e6c;line-height:1.7}
 .no-line-why{margin:0;font-size:11px;color:#4a5e6c;line-height:1.85}
 .no-line-why strong{color:#2e5260}
+/* Session arena-3877d48d: the fallback register reuses the no-line card grid and
+   adds only the per-row limitation list, so the phone layout stays unchanged. */
+.fallback-limits{margin:0;padding-left:18px;display:grid;gap:4px}
+.fallback-limits li{font-size:11px;line-height:1.8;color:#4a5e6c;overflow-wrap:anywhere}
+.fallback-register .section-intro strong{color:#2e5260}
+.fallback-compact{list-style:none;margin:0;padding:0 20px 20px;display:grid;gap:7px}
+.fallback-row{display:flex;flex-wrap:wrap;align-items:center;gap:5px 9px;padding:9px 11px;border:1px solid #e6e1ef;border-radius:9px;background:#fdfcff;min-width:0}
+.fallback-row .fallback-teams{font-size:13px;font-weight:650;color:#2e5260;text-decoration:none;overflow-wrap:anywhere}
+.fallback-row .fallback-teams .versus{font-weight:400;color:#576b79;font-size:10px;padding-inline:2px}
+.fallback-row .fallback-pick{font-size:12px;color:#0d5c4a}
+.fallback-row .fallback-pick strong{font-weight:700}
+.fallback-row .badge{font-size:8px}
+.fallback-row .source-link{font-size:9px}
+.fallback-row .tiny{font-size:9px}
+@media(max-width:700px){.fallback-compact{padding:0 14px 16px}.fallback-row{padding:10px 11px}.fallback-row .fallback-teams{font-size:14px;flex:1 1 100%}.fallback-row .fallback-pick{font-size:13px}.fallback-row .source-link{font-size:10px}.fallback-row .tiny{font-size:10px}}
+@media(max-width:700px){.fallback-limits{padding-left:16px}.fallback-limits li{font-size:12px;line-height:1.85}}
 @media(max-width:620px){
   .no-line-register h3{padding-inline:12px;font-size:14px}
   .no-line-card{padding:13px 14px}
