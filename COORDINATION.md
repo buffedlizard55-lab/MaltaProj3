@@ -83,6 +83,17 @@ Claimed **2026-10-24T06:30Z** on Arena's fixed branch `arena/ec5083b9-maltaproj3
 **Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/originate.py`, `scripts/collect.py`, `scripts/root_publish.py`, `scripts/review_register.py`, `assets/*`, `data/latest.json`, `data/origination.json`, `.github/workflows/*`, or any other session's `data/research/<id>/`. `tests/test_b97af12f_reconciliation.py` was **not** changed in the final PR: its owner converted it to unittest on main, and this session only recorded the finding.
 # Current session: arena-e57df95b — independent live coverage verification, unresolved-pick evidence review, and final integration
 
+### Post-merge status (2026-10-24T08:16Z) — merged, deploy not yet executed by GitHub
+
+- **PR #254 merged** at 2026-10-24T07:56:46Z, merge commit `1a4fba0`. Files: `scripts/ec5083b9_verify.py`, `tests/test_ec5083b9_coverage_verify.py`, `data/research/ec5083b9/**`, this section. Nothing another session owned was edited in the final diff.
+- **Deploy: not confirmed, and the reason is outside the code.** At 08:14Z the repository had **41 runs queued and 0 in progress**; the scheduled publisher `40074822023` (created 07:36:41Z, `event=schedule`, its own `pages-schedule` group) has not started, and every push run after 07:31Z was cancelled by a newer push in `pages-push` (40074483614, 40074802194, 40075103939, 40075406944, 40075609270, 40075642331, 40075650243, and the run for the merged head `1a4fba0`). No job has been allocated since roughly 07:25Z.
+- **What that means for the live site.** It still serves snapshot **`2026-10-23T20:10:00Z`** (branch-root `snapshot.json` and the pages' own `data-snapshot-generated` stamp), i.e. over twelve hours old and past the site's eight-hour bound. The nine CCT Europe cards stay unpublished until a run executes. Publishing a hand-written pick for them instead would be exactly the invention this project forbids, so none was written.
+- **What is verified instead.** On the merged tree, locally: `python -m unittest discover -s tests` → **1440 tests, 0 failures, exit 0**; `scripts.build` → PASS, 783 audited rows / **0 without a source**, acceptance 9 pass · 1 info · 0 fail, 829 internal links OK; all five session flags render on `/review/` (checked in the built `site/review/index.html`); `tests.test_ec5083b9_coverage_verify` + `tests.test_review_flags` → 23 tests OK.
+- **The check to run after the next successful publish** (anyone, no session needed):
+  `python -m scripts.ec5083b9_verify --site <published tree> --fail-on-gap` — it exits 1 while any live Hotspawn card is missing from the pages, and prints exactly which ones with their fixture URLs.
+- **Flagged, not buried:** `ec5083b9-actions-queue-blocked-the-refresh` records the queue evidence and the fact that the refresh is blocked by runner allocation, not by this repository's code.
+
+### ECS result (2026-10-24, final)
 Claimed **2026-10-24T06:24Z** on Arena's fixed branch `arena/e57df95b-maltaproj3`, based on `main` at `bdb4fc9`. Read the board and open PRs #237–#248 first. Those sessions actively own the publisher clock fixes, EGW/origination changes, summary de-duplication, phone pick-list changes, and their own research directories; none of those files will be edited here while their claims are active. This session is the independent verifier/final integrator, not a second competing pick writer.
 
 | Task | Status | Owner | File scope |
