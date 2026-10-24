@@ -1,3 +1,19 @@
+# Current session: arena-a244cecd — unblock the stalled four-hour publisher (date-bomb test), fresh full-coverage refresh, HLTV-first research for no-line fixtures, publish
+
+Claimed **2026-10-24T05:23Z** on Arena's fixed branch `arena/a244cecd-maltaproj3` (Arena fixes the branch name, so the `session-<id>/<task>` pattern is recorded here instead), branched from `main` at `2f966a9` (current `origin/main`). Board, open PRs and all 147 branch heads read first: the newest non-main head is `arena/f8736556` at 2026-10-23T14:50Z (>14 h idle), so no claim is live.
+
+**Why this session exists (verified, not assumed):** the last four scheduled *Refresh and deploy CS2 dashboard* runs on `main` failed — [40028653350](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40028653350), [40037957529](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40037957529), [40048429858](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40048429858), [40063011446](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446) — at the *Regression tests* step, so the live site has not been refreshed since run [40015434337](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40015434337). Reproduced locally: `tests/test_ca7e10e5_snapshot.py::RootPublisherCarriesTheSnapshot` builds a fixture stamped `2026-10-23T09:23:57Z` and calls `root_publish.build_plan()` with the wall clock, which refuses anything older than 12 h — a date bomb that went off at 2026-10-23T21:24Z.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| A244-1 Defuse the date bomb (pin `now=` in the test, never relax the 12 h production guard) and sweep the whole unittest suite under the real clock plus +1/+3/+7 days for any other clock-dependent failure | in progress | arena-a244cecd | `tests/test_ca7e10e5_snapshot.py`, new `tests/test_a244cecd_*.py`, any other test file proven clock-dependent (logged here before editing) |
+| A244-2 Fresh live coverage check of the Hotspawn CS2 lobby vs the published snapshot; HLTV-first then esportsbook research for every active fixture that the featured method cannot price. Leads and limitations only — no probability, pick or alias written by hand | in progress | arena-a244cecd | new `data/research/a244cecd/**` |
+| A244-3 Final integration: local build + audits + link check, PR to `main`, merge, confirm the scheduled publisher and GitHub Pages deploy succeed and the live summary is fresh; record links here | unclaimed→in progress | arena-a244cecd | this section, PR |
+
+**Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/originate.py`, `scripts/collect.py`, `scripts/root_publish.py`, `assets/*`, `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `archive/`, `docs/` or any other session's `data/research/<id>/` unless a defect is proven and logged here first. Hotspawn "% picked" and HLTV fan votes are never probabilities.
+
+---
+
 # Current session: arena-43110640 — picks for every match (HLTV-first, then esportsbooks), automated EGW fallback, CI unblock, exec-summary/unresolved — DONE (PR pending record below)
 
 Claimed **2026-10-24** on Arena's fixed branch `arena/43110640-maltaproj3`. Read the board first: prior session arena-103774c3 is DONE (PR #216 merged); recent scheduled `pages.yml` runs are FAILING at the regression step (see S431 result when done).
