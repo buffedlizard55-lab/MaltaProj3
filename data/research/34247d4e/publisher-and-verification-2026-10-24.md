@@ -67,9 +67,12 @@ Consequence: while many sessions push `main` every minute, a merge does **not** 
 
 ## 4. The inventory is behind the live feed — the actual "missing picks" cause
 
-Reading Hotspawn's own scheduled-fixture API at 06:45Z–06:51Z and looking up each returned id in the published `snapshot.json`, these live cards are **absent from the published snapshot entirely**:
+Reading Hotspawn's own scheduled-fixture API through the page-fetch proxy at 06:45Z–06:51Z and looking each returned id up in the published `snapshot.json`, these live cards are **absent from the published snapshot entirely**:
 
-`1079658`, `1079659`, `1079660`, `1081152`, `1081153`, `1081154`, `1081156`, `1081158`, `1083122`, `1083123`, `1083140`, `1082695`
+* **Returned to this session's own read** (API chunks 0, 7 and 8 of 9): `1081156`, `1081158`, `1083122`, `1083123`, `1083140`, `1082695`
+* **From session `73bc57bd`'s 05:31Z lobby read** (PR #241), where this session confirmed only the absence from `snapshot.json`: `1079658`, `1079659`, `1079660`, `1081152`, `1081153`, `1081154`
+
+The full nine-chunk payload was not re-read, so this is a spot reconciliation, not a complete live inventory re-derivation — session `dd433e7f` did the complete one in its runner sweep.
 
 Samples confirmed live ([API](https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1)):
 
@@ -77,7 +80,7 @@ Samples confirmed live ([API](https://phpstack-1372681-6459848.cloudwaysapps.com
 | --- | --- | --- | --- |
 | 1081156 | Spirit Academy vs LFO 10 | CCT Europe 2026 Series #12 | 2026-10-25T12:00Z |
 | 1081158 | FORZE Reload vs ex-RUSTEC | CCT Europe 2026 Series #12 | 2026-10-25T13:00Z |
-| 1082996 | Acend vs UNiTY | NODWIN Clutch Series #13 | 2026-10-25T09:00Z (present, model pick 54.2/45.8) |
+| 1082996 | Acend vs UNiTY | NODWIN Clutch Series #13 | 2026-10-25T09:00Z — **present** in the published snapshot with a model pick (54.2/45.8), i.e. the pipeline does price low-tier fixtures |
 
 So the cards the brief asks about ("low-tier, not on the betting sites") are missing **because no collection has completed since 19:57Z**, not because the resolver refuses them: session `73bc57bd` measured the same gap independently at 05:31Z (25 live cards vs 19 published) and recorded two-sided external prices for several of them ([dossier](../73bc57bd/inventory-reconciliation-2026-10-24.md)). Once a refresh runs, the existing ladder (Polymarket → Kalshi → Thunderpick → Bovada → EGamersWorld → Valve model) prices them automatically; nothing has to be written by hand.
 

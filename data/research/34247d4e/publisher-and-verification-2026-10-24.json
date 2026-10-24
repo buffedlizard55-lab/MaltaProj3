@@ -6,12 +6,45 @@
   "publisher_outage": {
     "summary": "Four consecutive scheduled pages.yml runs failed at the same step, and the published site stayed on the 2026-10-23T20:10:00Z snapshot for 10.5 h (the repository's own stale_after_hours is 8).",
     "failing_runs": [
-      {"run": 40028653350, "created_at": "2026-10-23T21:41:56Z", "head_sha": "2f966a91a103398c4ae5513828c81e32897f8af8", "job": "verify-and-deploy", "failed_step": "Regression tests (repository fixtures, before any cache restore)", "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40028653350"},
-      {"run": 40037957529, "created_at": "2026-10-23T23:08:44Z", "head_sha": "2f966a91a103398c4ae5513828c81e32897f8af8", "job": "verify-and-deploy", "failed_step": "Regression tests (repository fixtures, before any cache restore)", "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40037957529"},
-      {"run": 40048429858, "created_at": "2026-10-24T01:08:36Z", "head_sha": "2f966a91a103398c4ae5513828c81e32897f8af8", "job": "verify-and-deploy", "failed_step": "Regression tests (repository fixtures, before any cache restore)", "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40048429858"},
-      {"run": 40063011446, "created_at": "2026-10-24T04:36:29Z", "head_sha": "2f966a91a103398c4ae5513828c81e32897f8af8", "job": "verify-and-deploy", "failed_step": "Regression tests (repository fixtures, before any cache restore)", "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446"}
+      {
+        "run": 40028653350,
+        "created_at": "2026-10-23T21:41:56Z",
+        "head_sha": "2f966a91a103398c4ae5513828c81e32897f8af8",
+        "job": "verify-and-deploy",
+        "failed_step": "Regression tests (repository fixtures, before any cache restore)",
+        "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40028653350"
+      },
+      {
+        "run": 40037957529,
+        "created_at": "2026-10-23T23:08:44Z",
+        "head_sha": "2f966a91a103398c4ae5513828c81e32897f8af8",
+        "job": "verify-and-deploy",
+        "failed_step": "Regression tests (repository fixtures, before any cache restore)",
+        "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40037957529"
+      },
+      {
+        "run": 40048429858,
+        "created_at": "2026-10-24T01:08:36Z",
+        "head_sha": "2f966a91a103398c4ae5513828c81e32897f8af8",
+        "job": "verify-and-deploy",
+        "failed_step": "Regression tests (repository fixtures, before any cache restore)",
+        "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40048429858"
+      },
+      {
+        "run": 40063011446,
+        "created_at": "2026-10-24T04:36:29Z",
+        "head_sha": "2f966a91a103398c4ae5513828c81e32897f8af8",
+        "job": "verify-and-deploy",
+        "failed_step": "Regression tests (repository fixtures, before any cache restore)",
+        "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446"
+      }
     ],
-    "last_successful_run": {"run": 40015434337, "created_at": "2026-10-23T19:57:15Z", "head_sha": "205ebc03734a8e0366396965f1c1eba74a87cdf4", "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40015434337"},
+    "last_successful_run": {
+      "run": 40015434337,
+      "created_at": "2026-10-23T19:57:15Z",
+      "head_sha": "205ebc03734a8e0366396965f1c1eba74a87cdf4",
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40015434337"
+    },
     "method": "gh run view <id> --json jobs, which reports each job's conclusion and the names of its failed steps. The run log archive itself is hosted on productionresultssa19.blob.core.windows.net, which this sandbox cannot reach (HTTP 403 on the signed URL, curl exit 0 with an EOF body), so the failing test was identified by reproduction instead of by reading the log.",
     "reproduction": {
       "tree": "2f966a91a103398c4ae5513828c81e32897f8af8 (the head of all four failing runs; checked out read-only into a separate git worktree)",
@@ -45,7 +78,16 @@
   "published_state_verified": {
     "snapshot_generated_at": "2026-10-23T20:10:00Z",
     "inventory_observed_at": "2026-10-23T20:09:44Z",
-    "counts": {"inventory": 82, "upcoming": 19, "archived": 63, "market": 9, "bookmaker": 3, "model": 5, "unresolved": 2, "picks": 17},
+    "counts": {
+      "inventory": 82,
+      "upcoming": 19,
+      "archived": 63,
+      "market": 9,
+      "bookmaker": 3,
+      "model": 5,
+      "unresolved": 2,
+      "picks": 17
+    },
     "stale_age_at_0651Z_hours": 10.7,
     "stale_after_hours": 8,
     "rows_published_in_summary_glance_table": 19,
@@ -55,29 +97,115 @@
     {
       "hotspawn_id": "1082897",
       "card": "B8 vs K27 (Tesla Cup 2026)",
-      "published": {"B8": 0.62, "K27": 0.38, "method": "market", "observed_at": "2026-10-23T20:09:49Z"},
-      "re_read": {"endpoint": "https://gamma-api.polymarket.com/markets?slug=cs2-b8-k271-2026-10-27", "market_id": "6024944", "question": "Counter-Strike: B8 vs K27 (BO3) - Tesla Cup Group A", "outcomePrices": ["0.615", "0.385"], "updatedAt": "2026-10-24T06:36:38Z", "gameStartTime_utc": "2026-10-27T08:00:00Z"},
+      "published": {
+        "B8": 0.62,
+        "K27": 0.38,
+        "method": "market",
+        "observed_at": "2026-10-23T20:09:49Z"
+      },
+      "re_read": {
+        "endpoint": "https://gamma-api.polymarket.com/markets?slug=cs2-b8-k271-2026-10-27",
+        "market_id": "6024944",
+        "question": "Counter-Strike: B8 vs K27 (BO3) - Tesla Cup Group A",
+        "outcomePrices": [
+          "0.615",
+          "0.385"
+        ],
+        "updatedAt": "2026-10-24T06:36:38Z",
+        "gameStartTime_utc": "2026-10-27T08:00:00Z"
+      },
       "verdict": "confirmed within one tick (62.0/38.0 published vs 61.5/38.5 now); the Hotspawn start (2026-10-27T08:00:00Z) equals the market's gameStartTime"
     }
   ],
   "inventory_reconciliation": {
-    "method": "read the Hotspawn client's own scheduled-fixture API (the source every published row cites) at 06:45Z-06:51Z and looked up each returned id in the published snapshot.json",
-    "live_ids_checked_and_absent_from_the_published_snapshot": ["1079658", "1079659", "1079660", "1081152", "1081153", "1081154", "1081156", "1081158", "1083122", "1083123", "1083140", "1082695"],
+    "method": "Read Hotspawn's client scheduled-fixture API through the page-fetch proxy at 06:45Z-06:51Z (chunks 0, 7 and 8 of a 9-chunk response) and looked each id up in the published snapshot.json. Six live ids were returned to this session's own read; six more CCT Europe 2026 Series #11/#12 ids come from session 73bc57bd's 05:31Z lobby read (PR #241) and this session confirmed only that they are absent from the published snapshot. The full 9-chunk payload was not re-read, so a complete live inventory re-derivation is not claimed here.",
+    "live_ids_checked_and_absent_from_the_published_snapshot": [
+      "1079658",
+      "1079659",
+      "1079660",
+      "1081152",
+      "1081153",
+      "1081154",
+      "1081156",
+      "1081158",
+      "1083122",
+      "1083123",
+      "1083140",
+      "1082695"
+    ],
     "consequence": "The published inventory is behind the live feed, so some live cards have no published pick for the only reason that matters here: no collection has completed since 2026-10-23T19:57Z. This independently confirms session 73bc57bd's 16-of-25 measurement (PR #241) with a different read.",
     "samples_confirmed_present_in_the_live_feed": [
-      {"hotspawn_id": "1081156", "teams": ["Spirit Academy", "LFO 10"], "competition": "CCT Europe 2026 Series #12", "starts_at_utc": "2026-10-25T12:00:00Z"},
-      {"hotspawn_id": "1081158", "teams": ["FORZE Reload", "ex-RUSTEC"], "competition": "CCT Europe 2026 Series #12", "starts_at_utc": "2026-10-25T13:00:00Z"},
-      {"hotspawn_id": "1082996", "teams": ["Acend", "UNiTY"], "competition": "NODWIN Clutch Series #13", "starts_at_utc": "2026-10-25T09:00:00Z"}
+      {
+        "hotspawn_id": "1081156",
+        "teams": [
+          "Spirit Academy",
+          "LFO 10"
+        ],
+        "competition": "CCT Europe 2026 Series #12",
+        "starts_at_utc": "2026-10-25T12:00:00Z"
+      },
+      {
+        "hotspawn_id": "1081158",
+        "teams": [
+          "FORZE Reload",
+          "ex-RUSTEC"
+        ],
+        "competition": "CCT Europe 2026 Series #12",
+        "starts_at_utc": "2026-10-25T13:00:00Z"
+      },
+      {
+        "hotspawn_id": "1082996",
+        "teams": [
+          "Acend",
+          "UNiTY"
+        ],
+        "competition": "NODWIN Clutch Series #13",
+        "starts_at_utc": "2026-10-25T09:00:00Z"
+      }
     ],
-    "source_link": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
+    "source_link": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "confirmed_by_this_session_live_read": [
+      "1081156",
+      "1081158",
+      "1083122",
+      "1083123",
+      "1083140",
+      "1082695"
+    ],
+    "from_session_73bc57bd_05_31Z_live_read_and_confirmed_absent_from_the_published_snapshot_here": [
+      "1079658",
+      "1079659",
+      "1079660",
+      "1081152",
+      "1081153",
+      "1081154"
+    ]
   },
   "executive_summary_and_phone": {
     "measured_at": "2026-10-24T06:52Z",
-    "in_site_links_from_the_summary": {"./origination/#picks": 17, "./unresolved/": 8, "./coverage/": 8, "./methodology/": 7, "./review/": 7, "./picks/": 3, "./edge/": 4, "./twc-picks/": 4, "./strategy/": 4, "plus one anchor per fixture": 19},
+    "in_site_links_from_the_summary": {
+      "./origination/#picks": 17,
+      "./unresolved/": 8,
+      "./coverage/": 8,
+      "./methodology/": 7,
+      "./review/": 7,
+      "./picks/": 3,
+      "./edge/": 4,
+      "./twc-picks/": 4,
+      "./strategy/": 4,
+      "plus one anchor per fixture": 19
+    },
     "viewport_meta": "width=device-width, initial-scale=1",
     "tables_outside_a_horizontal_scroll_wrapper": 0,
-    "table_scroll_rules": ["assets/scout.css:.table-scroll{overflow-x:auto;max-width:100%}", "assets/scout.css:.matches-wrap,.mini-table-wrap{overflow-x:auto;max-width:100%}"],
-    "responsive_breakpoints_in_css": ["max-width:700px (30 rules)", "max-width:620px (2)", "max-width:375px (9)"],
+    "table_scroll_rules": [
+      "assets/scout.css:.table-scroll{overflow-x:auto;max-width:100%}",
+      "assets/scout.css:.matches-wrap,.mini-table-wrap{overflow-x:auto;max-width:100%}"
+    ],
+    "responsive_breakpoints_in_css": [
+      "max-width:700px (30 rules)",
+      "max-width:620px (2)",
+      "max-width:375px (9)"
+    ],
     "phone_first_element": "the 'Picks at a glance' list (#picks-at-a-glance) renders above every table: 19 rows, each with both team percentages, the pick and an in-site evidence anchor",
     "verdict": "no overflow defect found by static inspection; this agrees with session 73bc57bd's measured 0 px overflow at 320 px and 390 px"
   },
