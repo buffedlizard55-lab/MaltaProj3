@@ -23,6 +23,7 @@ from __future__ import annotations
 import json
 import re
 import unittest
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from scripts import root_publish
@@ -55,6 +56,11 @@ class RootPublisherCarriesTheSnapshot(unittest.TestCase):
         self.output, self.root = base / 'site', base / 'root'
         self.output.mkdir()
         self.root.mkdir()
+        # File layout and monotonic publication are tested at the fixture's
+        # own observation time. Using the wall clock here broke every scheduled
+        # refresh after 21:23Z on 23 October, before it could collect fresh data.
+        # Production's 12-hour guard remains enabled and is tested below.
+        self.now = datetime(2026, 10, 23, 10, tzinfo=timezone.utc)
         snapshot = {
             'schema_version': 1, 'generated_at': '2026-10-23T09:23:57Z',
             'counts': {'inventory': 30, 'upcoming': 30, 'picks': 30},
@@ -70,20 +76,24 @@ class RootPublisherCarriesTheSnapshot(unittest.TestCase):
         self.tmp.cleanup()
 
     def test_snapshot_json_is_published(self):
-        plan = root_publish.build_plan(self.output, self.root)
+        plan = root_publish.build_plan(self.output, self.root, now=self.now)
         self.assertIn('snapshot.json', plan.writes)
 
     def test_the_replay_fixture_is_still_never_published(self):
-        plan = root_publish.build_plan(self.output, self.root)
+        plan = root_publish.build_plan(self.output, self.root, now=self.now)
         self.assertFalse([p for p in plan.writes if p.startswith('data/')])
 
     def test_an_older_build_is_still_refused(self):
         self.root.joinpath('index.html').write_text(
             '<html><body data-snapshot-generated="2026-10-24T00:00:00Z">' + 'x' * 60000
             + '</body></html>')
-        plan = root_publish.build_plan(self.output, self.root)
+        plan = root_publish.build_plan(self.output, self.root, now=self.now)
         self.assertEqual(plan.writes, {})
         self.assertIn('refusing to move the published site backwards', plan.reason)
+
+    def test_the_age_limit_still_rejects_a_stale_snapshot(self):
+        with self.assertRaisesRegex(root_publish.PublishRefused, 'limit 12.0h'):
+            root_publish.build_plan(self.output, self.root, now=self.now + timedelta(hours=13))
 
     def test_the_live_snapshot_url_is_the_published_file(self):
         self.assertTrue(root_publish.LIVE_SNAPSHOT_URL.endswith('/snapshot.json'))
