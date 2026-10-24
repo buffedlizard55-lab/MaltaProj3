@@ -1,17 +1,21 @@
 # Session arena-89c00d8a — fresh, read-only source research (never deploys).
-# Maintainers can dispatch this workflow; pushing a deliberate workflow-file
-# revision on the session branch is the token-compatible bootstrap/retry path.
-# Dispatch only. The runner collects the live lobby and runs the reviewed
+# Maintainers can dispatch this workflow; pushing a deliberate workflow- or
+# probe-code revision on the session branch is the token-compatible retry path.
+# Non-deploying: the runner collects the live lobby and runs the reviewed
 # origination ladder, then commits evidence only under this session's directory.
 name: 89c00d8a fresh CS2 research (never deploys)
 on:
   workflow_dispatch:
   # GitHub only discovers a brand-new dispatch workflow after it reaches the
-  # default branch. This one-time, path-scoped push trigger starts the probe on
-  # the fixed session branch; evidence commits do not retrigger it.
+  # default branch. This path-scoped push trigger starts the probe on the fixed
+  # session branch after a workflow/probe revision; evidence commits do not
+  # retrigger it.
   push:
     branches: [arena/89c00d8a-maltaproj3]
-    paths: [.github/workflows/89c00d8a-research.yml]
+    paths:
+      - .github/workflows/89c00d8a-research.yml
+      - scripts/103774c3_probe.py
+      - scripts/2016c841_research.py
 permissions:
   contents: write
 concurrency:
@@ -45,6 +49,10 @@ jobs:
           cp data/origination.json data/research/89c00d8a/live/origination.json
           cp data/sources.json data/research/89c00d8a/live/sources.json
           cp data/origination/aliases.json data/research/89c00d8a/live/aliases.json
+          # Replace, rather than nest inside, the prior run's saved evidence.
+          # A second `cp -r` into an existing destination would otherwise leave
+          # stale files at the replay paths and hide the fresh copy one level down.
+          rm -rf data/research/89c00d8a/live/evidence data/research/89c00d8a/live/origination-evidence
           cp -r data/evidence data/research/89c00d8a/live/evidence
           cp -r data/origination/evidence data/research/89c00d8a/live/origination-evidence
           date -u +%Y-%m-%dT%H:%M:%SZ > data/research/89c00d8a/live/OBSERVED_AT.txt
