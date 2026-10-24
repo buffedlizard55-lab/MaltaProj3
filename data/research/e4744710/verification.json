@@ -1,0 +1,151 @@
+{
+  "session": "arena-e4744710",
+  "task": "E474-1",
+  "observed_window": "2026-10-24T05:31Z–05:55Z",
+  "branch": "arena/e4744710-maltaproj3",
+  "based_on_main": "2f966a91a103398c4ae5513828c81e32897f8af8",
+  "checks": [
+    {
+      "id": "E474-R01",
+      "check": "Deployed snapshot identity and local parity",
+      "result": "pass",
+      "observed": "Live https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json returns generated_at 2026-10-23T20:10:00Z, inventory_observed_at 2026-10-23T20:09:44Z, coverage_complete true, counts {inventory 82, upcoming 19, market 9, bookmaker 3, model 5, unresolved 2, picks 17}. Branch-root index.html carries data-snapshot-generated=2026-10-23T20:10:00Z (commit 2f966a9 'publish: sync the verified build into the branch root', 2026-10-23T20:14:34Z), so local analysis of the root equals the deployed site.",
+      "sources": [
+        "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/commit/2f966a91a103398c4ae5513828c81e32897f8af8"
+      ]
+    },
+    {
+      "id": "E474-R02",
+      "check": "A pick exists for every active fixture on the deployed site",
+      "result": "pass (19/19) with freshness caveat",
+      "observed": "Deployed executive summary renders '19 active Hotspawn CS2 fixtures in this snapshot, 19 with a directional pick — 12 from an external betting line, 7 from a research model — and 0 explicitly unresolved'. The complete list (/origination/) carries 19 match cards, each with both teams' win percentages, a directional pick and source links. The freshness caveat is E474-R07 (site snapshot is older than its 8-hour bound at observation time).",
+      "sources": [
+        "https://buffedlizard55-lab.github.io/MaltaProj3/",
+        "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks",
+        "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json"
+      ]
+    },
+    {
+      "id": "E474-R03",
+      "check": "Separate unresolved/limitations section exists and is in the executive summary",
+      "result": "pass",
+      "observed": "Summary nav carries 'Unresolved (0)' and 'Blanks in this summary' links; the summary embeds the compact 'Picks without a betting line · limitations' register listing all 7 model-only fixtures (1082996, 1079198, 1079200, 1082858, 1082861, 1082792, 1082793) with pick, both probabilities, the model name and a per-fixture 'Why no line' blocker; /unresolved/ carries the full 'Unresolved picks & limitations' page with per-fixture sections (H2s: Acend vs UNiTY … 5star vs 1WIN), the dated line-source sweep, the per-provider source-probe matrix and 'What has to fail before a match is published as unresolved'.",
+      "sources": [
+        "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/",
+        "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved"
+      ]
+    },
+    {
+      "id": "E474-R04",
+      "check": "Executive summary links in-site to the updated picks",
+      "result": "pass",
+      "observed": "Summary start-here block links '#picks-at-a-glance', './origination/#picks' (All match picks / Complete match picks / All matches, both probabilities & picks), './picks/' (Featured method picks), '#no-line-register' and './unresolved/'; footer and mobile nav repeat Picks/Unresolved/Review routes. Verified on deployed HTML and again in a 320 px browser.",
+      "sources": [
+        "https://buffedlizard55-lab.github.io/MaltaProj3/",
+        "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks"
+      ]
+    },
+    {
+      "id": "E474-R05",
+      "check": "Phone/mobile readability of the deployed pages (real browser)",
+      "result": "pass",
+      "observed": "Playwright measurements against the deployed branch-root HTML at 320 px and 390 px on /, /picks/, /origination/, /unresolved/, /review/, /methodology/: horizontal overflow exactly 0 px on every page/width; bottom mobile-nav tap targets 48 px high (>=44); '/' shows 19 glance rows and one-tap picks/unresolved links; origination (complete list) uses a 'Jump to section' quick-nav that includes 'Main dashboard executive summary', 'Featured picks feed' and 'Flagged for review'. Viewport meta present on all pages; assets/scout.css ships 50 @media rules. Full existing browser suite: 104 passed; new spec e4744710_deployed.spec.mjs: 2 passed against both the deployed root and the fixture build.",
+      "sources": [
+        "https://buffedlizard55-lab.github.io/MaltaProj3/",
+        "https://buffedlizard55-lab.github.io/MaltaProj3/origination/"
+      ],
+      "evidence_file": "data/research/e4744710/phone-deployed-root.json"
+    },
+    {
+      "id": "E474-R06",
+      "check": "Local build audits and test suites (line-by-line tooling verification)",
+      "result": "pass",
+      "observed": "python -m scripts.build on the checked-in data: replay PASS (80 source rows; every published probability and pick replayed from first-party evidence); row-source audit 767 rows, 748 with an official link, 9 flagged unverified, 10 site-map, 0 without a source; acceptance audit 9 pass / 1 info / 0 fail of 10 brief-line checks; 829 internal links/assets/anchors PASS; 9 Pages views built. Targeted suites: 125 tests OK (test_build, test_build_hardening, test_summary, test_summary_navigation, test_row_sources, test_3149e7ae_acceptance, test_eea4c104_audit, test_review_flags, test_current_research_summary, test_mobile_picks_nav, test_3016b0c6_mobile_glance, test_validation, test_unresolved_summary). Deployed build's own row-source audit (data/row-source-audit.json at the branch root): 334 rows, 326 ok, 8 navigation, 0 flagged, 0 violations.",
+      "sources": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/row-source-audit.json"
+      ]
+    },
+    {
+      "id": "E474-R07",
+      "check": "Refresh cadence (4–8 h) and publisher health",
+      "result": "FAIL — flagged, root cause owned by other sessions' claimed fix",
+      "observed": "Deployed snapshot generated 2026-10-23T20:10:00Z; at 2026-10-24T05:36Z that is ~9.4 h old, beyond the site's own 8-hour stale bound. The scheduled 'Refresh and deploy CS2 dashboard' workflow failed four consecutive runs (40028653350, 40037957529, 40048429858, 40063011446) after last success 40015434337, all at the pre-collection regression step: tests/test_ca7e10e5_snapshot.py evaluates a fixed 2026-10-23T09:23:57Z fixture against the real clock and trips the production 12-hour refusal (locally reproduced: PublishRefused 'snapshot … is 20.2h old (limit 12.0h)'). That test file is claimed by three active sessions (be019782 BE-1, 43110640 S431-1, 89c00d8a scope expansion), so this session observed and logged it but did not edit it. Consequence: 9 new lobby cards (E474-R08) cannot appear until a run succeeds.",
+      "sources": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/actions",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446"
+      ]
+    },
+    {
+      "id": "E474-R08",
+      "check": "Live lobby coverage vs deployed site (reverse-engineered lobby read)",
+      "result": "GAP — 9 lobby cards missing from the deployed snapshot",
+      "observed": "First-hand read of https://play.hotspawn.com/lobby at 2026-10-24T05:36–05:45Z: 218 matches this week, CS2 All tiers (88), 25 rendered Closing Soon/Upcoming cards. 16 of 25 are on the deployed site; 9 are not: 1079658, 1081152, 1079659, 1081153, 1079660, 1081154, 1079661, 1081156, 1081158 (all CCT Europe 2026 Series #11/#12). None of the 9 appear in the deployed snapshot inventory (observed 20:09:44Z) nor in yesterday's first-hand lobby enumeration (data/research/42bfa8ea/live-coverage.json, 09:52Z) nor in any of 94 session dossiers. The 3 site-only ids (1082923, 1083025, 1083045) had already started before this observation and are correctly absent from the lobby's future sections. Verdict: new cards + the publisher outage (E474-R07), not a rendered-page defect. Full inventory: data/research/e4744710/lobby-coverage.json.",
+      "sources": [
+        "https://play.hotspawn.com/lobby",
+        "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json"
+      ],
+      "evidence_file": "data/research/e4744710/lobby-coverage.json"
+    },
+    {
+      "id": "E474-R09",
+      "check": "Source spot-replay — Polymarket money line (featured market row)",
+      "result": "pass (same direction; documented drift)",
+      "observed": "Published row 1079193 FOKUS vs ex-6666: pick FOKUS 76.5% / 23.5% from an observed 76–77¢ / 23–24¢ book at 2026-10-23T20:09Z (midpoint 0.765/0.235 replays exactly). Live re-read 2026-10-24T05:47Z of the official event page: Moneyline 'fokus 79¢ / 6666 22¢' ($133 vol), chart FOKUS 79% / ex-6666 22%; event states BO3, NODWIN Clutch Series Playoffs, start October 24 2026 4:00 AM ET (= 2026-10-24T08:00:00Z, matching the card's data-start). Pick direction unchanged; the ~2.5¢ move is post-observation drift, not a discrepancy. Polymarket's US-geo notice was visible; the page was read in view-only mode.",
+      "sources": [
+        "https://polymarket.com/event/cs2-fokus-66661-2026-10-24",
+        "https://www.hotspawn.com/matches/fokus-vs-ex-6666-nodwin-clutch-series-13-1079193"
+      ]
+    },
+    {
+      "id": "E474-R10",
+      "check": "Source spot-replay — Valve rating model rows against the official standings file",
+      "result": "pass — all 6 pairs replay EXACT to the published decimal",
+      "observed": "Fetched Valve's official standings file first-hand through api.github.com (repo ValveSoftware/counter-strike_regional_standings, file live/2026/standings_global_2026_10_05.md, 77,872 bytes) and re-ran the documented transform P(A)=1/(1+10^(g(75)*(ptsB-ptsA)/400)) (site methodology + scripts/form_model.py): Acend 1197 vs UNiTY 1167 -> 54.2/45.8 (published 54.2/45.8); Metizport 1290 vs BAKS 1044 -> 79.9/20.1; Color 1249 vs ex-Zero Tenacity 1066 -> 73.6/26.4; Rooster 718 vs Abyssal 734 -> 47.8/52.2; HOTU 1437 vs The Huns 944 -> 94.1/5.9 (the 944-point row with roster Annihilation/Bart4k/bexyz/controlez/Cozen, i.e. the documented roster-change identity join, not the 701-point same-name row); 5star 1110 vs 1win 1383 -> 17.8/82.2. Every pair matched the published percentages exactly.",
+      "sources": [
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js"
+      ]
+    },
+    {
+      "id": "E474-R11",
+      "check": "Source spot-replay — bookmaker row arithmetic (Thunderpick decimal prices)",
+      "result": "pass",
+      "observed": "Published row 1082923 Alka vs LOS NINOS: observed line 1.22 / 3.80 -> fair 0.819672 / 0.263158 -> normalized 75.7% / 24.3% — equals the published 75.7/24.3 exactly. The row's cited source (thunderpick.io/api/matches) and its HLTV identity link (hltv.org/matches/2399908) are printed on the card.",
+      "sources": [
+        "https://thunderpick.io/api/matches",
+        "https://www.hltv.org/matches/2399908/alka-vs-los-ninos-cct-2026-south-america-series-7"
+      ]
+    },
+    {
+      "id": "E474-R12",
+      "check": "Duplicate HTML id on the deployed executive summary",
+      "result": "FAIL — known, claimed by arena-be019782 (BE-3), not edited here",
+      "observed": "The deployed branch-root index.html (and the fixture build's site/index.html) contain exactly two elements with id=\"no-line-research\" (one in the main summary flow, one inside the compact unresolved register). This is the failure behind tests/test_ca7e10e5_snapshot.py::ExecutiveSummaryCarriesTheDatedNoLineResearch (2 != 1) reproduced locally. Strict <tag id=\"...\"> parsing shows no other real duplicate on index/, unresolved/, picks/ or origination/. arena-be019782 claimed scripts/build.py + scripts/validate.py for this defect on their branch board at 2026-10-24T05:28Z; per the coordination rules this session logged it and left the files untouched.",
+      "sources": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446"
+      ]
+    },
+    {
+      "id": "E474-R13",
+      "check": "Row-source policy: every table row links an official source or is flagged unverified",
+      "result": "pass",
+      "observed": "Deployed audit (branch-root data/row-source-audit.json): policy 'Every table row or pick card links to an allow-listed official/primary source, or is visibly marked unverified', totals {rows 334, ok 326, flagged 0, navigation 8, violation 0}. Fixture build audit: 767 rows, 0 without a source, 9 explicitly flagged unverified (unchanged across sessions). Each of the 19 deployed pick cards was opened and carries at minimum the official Hotspawn match link plus its pricing/model source (Polymarket event, Thunderpick API, HLTV match page, Valve standings, or bo3.gg) — enumerated in data/research/e4744710/verification.md.",
+      "sources": [
+        "https://buffedlizard55-lab.github.io/MaltaProj3/data/row-source-audit.json",
+        "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks"
+      ]
+    }
+  ],
+  "manual_review_links": [
+    "https://play.hotspawn.com/lobby",
+    "https://buffedlizard55-lab.github.io/MaltaProj3/",
+    "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks",
+    "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/",
+    "https://buffedlizard55-lab.github.io/MaltaProj3/review/",
+    "https://github.com/buffedlizard55-lab/MaltaProj3/actions",
+    "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "https://polymarket.com/event/cs2-fokus-66661-2026-10-24",
+    "https://www.hltv.org/matches/2399908/alka-vs-los-ninos-cct-2026-south-america-series-7"
+  ]
+}
