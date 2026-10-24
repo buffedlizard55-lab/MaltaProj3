@@ -176,8 +176,12 @@ class ExecutiveSummaryCarriesTheDatedNoLineResearch(unittest.TestCase):
         source = Path('scripts/build.py').read_text()
         summary_start = source.index('def summary(data, prefix, now=None):')
         summary_body = source[summary_start:source.index('\ndef ', summary_start + 10)]
-        self.assertIn('no_line_research_block(data, prefix)', summary_body)
-        self.assertEqual(summary_body.count('no_line_research_block(data, prefix)'), 1)
+        self.assertIn('unresolved_register(data, prefix, compact=True)', summary_body)
+        self.assertNotIn('no_line_research_block(data, prefix)', summary_body)
+        register_start = source.index('def unresolved_register(')
+        register_body = source[register_start:source.index('\ndef ', register_start + 10)]
+        compact_body = register_body.split('    if compact:', 1)[1].split("    out.append(no_line_register", 1)[0]
+        self.assertEqual(compact_body.count('no_line_research_block(data, prefix)'), 1)
 
     def test_the_built_executive_summary_contains_it_once(self):
         site = Path('site/index.html')
