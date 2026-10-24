@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "session": "arena-cd37caa0",
+  "kind": "read-only EGW integration and fail-closed behaviour audit",
+  "root": "/home/user/MaltaProj3",
+  "status": "fail",
+  "failed_required_checks": [
+    "live-reference-loaded",
+    "original-response-replay",
+    "no-copied-provider-start",
+    "no-substring-team-identity"
+  ],
+  "checks": [
+    {
+      "id": "live-reference-loaded",
+      "status": "fail",
+      "required": true,
+      "detail": "originate.run never calls egw_live.load_live; collected entries are inert."
+    },
+    {
+      "id": "original-response-replay",
+      "status": "fail",
+      "required": true,
+      "detail": "load_live does not prove original-HTML/manifest replay; derived-only evidence is not sufficient."
+    },
+    {
+      "id": "no-copied-provider-start",
+      "status": "fail",
+      "required": true,
+      "detail": "1 entries were emitted without any provider timestamp.",
+      "observed_entries": [
+        {
+          "fixture_id": "1082858",
+          "teams": [
+            "Ground Zero",
+            "Off Chops"
+          ],
+          "provider_teams": [
+            "ground zero",
+            "off chops"
+          ],
+          "starts_at": "2026-10-26T03:00:00Z",
+          "odds": [
+            3.44,
+            1.24
+          ],
+          "source_url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+          "observed_at": "2026-10-24T06:00:00Z",
+          "excerpt": "EGamersWorld CS2 matches index (https://egamersworld.com/counterstrike/matches) lists ground zero vs off chops at decimal odds 3.44 / 1.24 (automated capture 2026-10-24T06:00:00Z; odds re-ordered to Hotspawn team order where the listing order differs).",
+          "excerpt_sha256": "76f3a057ed576768b45f681f796cc8cad8c5ce8b73b8a3beecabfffe3df3489e",
+          "provider": "EGamersWorld (published bookmaker average)",
+          "capture": "automated EGW index capture (scripts/egw_live.py)"
+        }
+      ]
+    },
+    {
+      "id": "no-substring-team-identity",
+      "status": "fail",
+      "required": true,
+      "detail": "1 entries confused Spirit/LFO with Spirit Academy/LFO 10.",
+      "observed_entries": [
+        {
+          "fixture_id": "1081156",
+          "teams": [
+            "Spirit",
+            "LFO"
+          ],
+          "provider_teams": [
+            "spirit",
+            "lfo"
+          ],
+          "starts_at": "2026-10-25T12:00:00Z",
+          "odds": [
+            1.5,
+            2.5
+          ],
+          "source_url": "https://egamersworld.com/counterstrike/match/HiXMAaC8L/spirit-academy-vs-lfo-10-example",
+          "observed_at": "2026-10-24T06:00:00Z",
+          "excerpt": "EGamersWorld CS2 matches index (https://egamersworld.com/counterstrike/matches) lists spirit vs lfo at decimal odds 1.5 / 2.5 (automated capture 2026-10-24T06:00:00Z; odds re-ordered to Hotspawn team order where the listing order differs).",
+          "excerpt_sha256": "277a22ed6a82980080e9f9cac92d841d099e659f86f2d4c6ad7250506f3c9e52",
+          "provider": "EGamersWorld (published bookmaker average)",
+          "capture": "automated EGW index capture (scripts/egw_live.py)"
+        }
+      ]
+    },
+    {
+      "id": "real-sibling-price-markup",
+      "status": "info",
+      "required": false,
+      "detail": "No entry captured when prices are sibling links outside the match anchor; this fail-closed limitation must not be called a successful price capture.",
+      "observed_entries": []
+    }
+  ],
+  "source_ref": "https://github.com/buffedlizard55-lab/MaltaProj3/commit/bdb4fc92a30989e93263d7ef3842cda045fe6571",
+  "label": "main base bdb4fc9 (expected to expose the defect)"
+}

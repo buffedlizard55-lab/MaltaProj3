@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "session": "arena-cd37caa0",
+  "kind": "read-only EGW integration and fail-closed behaviour audit",
+  "root": "/tmp/cd37/pr237-tree",
+  "status": "pass",
+  "failed_required_checks": [],
+  "checks": [
+    {
+      "id": "live-reference-loaded",
+      "status": "pass",
+      "required": true,
+      "detail": "originate.run adds egw_live.load_live to the reference evidence."
+    },
+    {
+      "id": "original-response-replay",
+      "status": "pass",
+      "required": true,
+      "detail": "load_live replays the original index and request manifest."
+    },
+    {
+      "id": "no-copied-provider-start",
+      "status": "pass",
+      "required": true,
+      "detail": "No entry is emitted when the provider has no explicit start timestamp.",
+      "observed_entries": []
+    },
+    {
+      "id": "no-substring-team-identity",
+      "status": "pass",
+      "required": true,
+      "detail": "Academy/sister-team slug substrings do not establish identity.",
+      "observed_entries": []
+    },
+    {
+      "id": "real-sibling-price-markup",
+      "status": "info",
+      "required": false,
+      "detail": "No entry captured when prices are sibling links outside the match anchor; this fail-closed limitation must not be called a successful price capture.",
+      "observed_entries": []
+    }
+  ],
+  "source_ref": "https://github.com/buffedlizard55-lab/MaltaProj3/commit/013eed255e3386cf7fd99c56aa150829a75ab292",
+  "label": "PR 237 candidate head"
+}
