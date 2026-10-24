@@ -51,5 +51,17 @@
       "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/52212e8e/research-coverage-review.md"
     ]
+  },
+  {
+    "id": "52212e8e-main-live-collector-missing-egw-import",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "Merge blocker reproduced: main-line live collector uses egw_live without importing it",
+    "detail": "On the current main/review tree, the f9d0a5a2, origination-upgrade and source-integrity suites ran 81 tests and produced 9 NameError errors at live_collect. PR #246 head a52407d9 adds the missing import and passed the identical 81/81 tests; PR #237 also retains the import and original-response-safe EGW ladder wiring. Final integration must include a verified fix. No active-session production file was edited by this reviewing session.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/commit/a52407d9fe08c65c67690f11161fdb89bf74cbe4",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/246",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237"
+    ]
   }
 ]

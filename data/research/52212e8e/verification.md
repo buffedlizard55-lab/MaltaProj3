@@ -56,7 +56,9 @@ The [EGW CS2 index](https://egamersworld.com/counterstrike/matches) and a [Fokus
 
 - `origin/main` `4a6c112a` was merged locally with the complete shared board preserved. The first ordinary `pull --rebase` attempted to flatten that merge and stopped on a board conflict; the rebase was aborted without losing the merge, then `pull --rebase=merges` completed and the same merge commit `682530bf` pushed as a fast-forward.
 - PR #237 head `013eed255e3386cf7fd99c56aa150829a75ab292` retains `tests/test_be019782_egw_safety.py`. **99 targeted tests passed (2 skipped)** and its standalone build passed (**786 rows / 0 sourceless / 827 internal links**).
-- The current combined review branch passed **50 targeted tests**, build/replay, **783 rows / 0 sourceless**, acceptance **9 pass / 1 info / 0 fail**, and **827 internal links**. Deeper full-tree Python and browser suites are recorded separately when complete.
+- The current combined review branch passed **50 targeted tests**, build/replay, **783 rows / 0 sourceless**, acceptance **9 pass / 1 info / 0 fail**, and **827 internal links**. After the research register was added, its build and **21** review/audit/source tests also passed (**784 rows / 0 sourceless / 827 links**).
+- **Main-line merge blocker independently reproduced:** `tests.test_f9d0a5a2`, `tests.test_origination_upgrade` and `tests.test_source_integrity` ran **81 tests with 9 errors**, all `NameError: egw_live is not defined` in `live_collect`. PR #246 head `a52407d9fe08c65c67690f11161fdb89bf74cbe4` adds the missing import and passed the identical **81/81** suites. PR #237 also retains the import plus the safer `load_live` ladder wiring. The final tree must contain this fix; no owned production file was edited here.
+- Deeper full-tree Python and browser suites are recorded separately when complete.
 
 ## Machine-readable record
 

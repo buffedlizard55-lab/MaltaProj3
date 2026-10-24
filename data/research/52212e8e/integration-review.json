@@ -122,6 +122,20 @@
       ]
     },
     {
+      "id": "S522-IMPORT-001",
+      "severity": "blocking until integrated",
+      "pr": 246,
+      "head": "a52407d9fe08c65c67690f11161fdb89bf74cbe4",
+      "finding": "The current main/review tree calls egw_live in live_collect without importing the module. PR #246's latest head adds the missing import; PR #237 also retains the import and the original-response-safe load_live ladder wiring.",
+      "verification": "On the current review tree, tests.test_f9d0a5a2 + tests.test_origination_upgrade + tests.test_source_integrity ran 81 tests and failed with 9 NameError errors. The identical three suites on PR #246 head a52407d9 passed 81/81.",
+      "handling": "Do not merge the current tree without a verified head containing this fix. No active-session production file was edited by this reviewer.",
+      "source_urls": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/commit/a52407d9fe08c65c67690f11161fdb89bf74cbe4",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/pull/246",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237"
+      ]
+    },
+    {
       "id": "S522-MOBILE-001",
       "severity": "verified",
       "pr": 245,
