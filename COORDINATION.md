@@ -1,4 +1,52 @@
-# Current session: arena-f1277d3b — un-stall the 4-hour publisher (wall-clock test), HLTV-first research for every no-line fixture, executive-summary/mobile verification, publish
+# Current session: arena-5f9d0082 — independent re-verification that every live Hotspawn CS2 fixture carries a pick, HLTV-first/esportsbook research for the four no-line fixtures, executive-summary + phone check, publish
+
+Claimed **2026-10-24T16:20Z** on Arena's fixed branch `arena/5f9d0082-maltaproj3`, branched from `main` at `487a0e0` (= `origin/main` head, the 14:28Z publisher sync). Board, workflows and open PRs read first: `gh run list` shows the four-hour publisher green (`Refresh and deploy CS2 dashboard` 40101099651 at 14:07Z, 40096315071 at 13:00Z, 40094899073 at 12:40Z) and the freshness watchdog green at 16:09Z, so there is no stall to fix this session. No other session holds an active claim on the files below.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 5F9-1 Reconcile the live Hotspawn CS2 lobby and its official scheduled-fixtures API against the checked-in snapshot and the *published* origination feed, with an exact source URL and observation time per figure | **done** — lobby 85 cards / 19 tournaments, API 84 records, snapshot 84 (23 open), published feed 23/23 with 0 unresolved; the only per-tournament difference (CCT EU #12: lobby 4, API 3, snapshot 3) is documented and not smoothed over; nothing skipped that was lockable | arena-5f9d0082 | new `data/research/5f9d0082/**` |
+| 5F9-2 Research, in the documented order, every fixture the featured method leaves without an external line (HLTV match page + HLTV betting-analytics page first, then an esportsbook aggregate), recording dated verdicts and limitations. **Leads and limitations only: no probability, pick, alias or price written by hand** | **done** — the four model-only fixtures (1082996, 1082861, 1082792, 1082793) re-researched first-hand 2026-10-24: HLTV 2399112 confirms Bo3 / Round of 16 / #131 vs #86 with a promo-only Betting block and a fan vote that stays excluded; HLTV event 9344 confirms both Moscow fixtures as bo3; EGamersWorld shows an identical **1.8 / 1.8** placeholder on both low-tier pages, which is exactly why no capture is taken and the labelled model stands | arena-5f9d0082 | `data/research/5f9d0082/**`, `flags.json` |
+| 5F9-3 Verify the executive summary's in-site picks links, its separate unresolved register + limitations, and phone/mobile readability on a local build; fix only a defect proven by a failing test or a build failure | **done — no defect found, no layout or build file edited** | arena-5f9d0082 | none |
+| 5F9-4 PR to `main`, merge without waiting for approval, confirm Pages serves the current build, record PR/run links, sources, verification and irregularities here | **done** — see 5F9 result | arena-5f9d0082 | this section, PR |
+
+**Non-overlap pledge.** No edit to `scripts/collect.py`, `scripts/originate.py`, `scripts/reference_odds.py`, `scripts/root_publish.py`, `scripts/build.py`, `assets/`, `snapshot.json`, `data/latest.json`, `data/origination.json`, `.github/workflows/**` or any other session's `data/research/<id>/`. Hotspawn "% picked" and HLTV fan votes are never probabilities. Adding an EGamersWorld capture would have required editing the shared `CAPTURE_PATHS` list and would have expired in eight hours, so it was deliberately not done while the page shows a placeholder.
+
+### 5F9 result (2026-10-24T16:20Z–17:1xZ)
+
+- **Coverage is complete, verified against three independent readings.** Lobby
+  ([play.hotspawn.com/cs2-pickems](https://play.hotspawn.com/cs2-pickems), 16:22Z): 85 cards,
+  19 tournaments, 22 future cards rendered. Official fixtures API (16:28Z): 84 records;
+  competition filter `35814` returns exactly the three Series #12 fixtures the snapshot
+  carries. Checked-in `snapshot.json` (inventory observed 14:24:12Z): 84 records, 23 open.
+  Published [origination feed](https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json)
+  (generated 14:24:44Z): **active 23, resolved 23, with a pick 23, unresolved 0** — 19 from an
+  external line (8 market, 5 esportsbook, 5 median consensus, 1 aggregated average) and 4
+  from a labelled research model. The 23 open fixtures are the lobby's 22 future cards plus
+  `1083121`, which had already passed its 15:54Z lock when the lobby was read.
+- **The four no-line fixtures were re-researched, not assumed.** HLTV 2399112 (Acend vs
+  UNiTY): Bo3, Round of 16, #131 (VRS #74) vs #86, Betting block = one sweepstakes promocode
+  row, "Pick a winner" poll 18.5/81.5 recorded and excluded, analytics page carries pros/cons
+  and form but no odds. HLTV [event 9344](https://www.hltv.org/events/9344/matches): both
+  Moscow fixtures are bo3 on 2026-10-31. EGamersWorld: **1.8 / 1.8** identical on both the
+  Acend–UNITY and Rooster–Abyssal pages — a placeholder, refused by the same rule
+  `scripts/reference_odds.py` already enforces. So the four model picks stand as *labelled
+  uncalibrated estimates*, and the reason is now published rather than implied.
+- **Executive summary / phone.** No defect proven, so nothing was edited. Local
+  `python -m scripts.build`: **PASS**, 907 audited rows, 887 with an official link, **0 without
+  a source**, 836 internal links/assets/anchors, acceptance 9 pass / 1 info / 0 fail. The
+  summary leads with *Start here · where the picks are* (one-tap links to the full picks list,
+  the leaderboard plan, the unresolved register and the flags), then *Picks at a glance* with
+  both probabilities, the pick, the method badge, the observation time and a per-row source
+  link; the dated *Unresolved picks & limitations* register renders once, with its HTML id
+  unique.
+- **Repo irregularity flagged (not fixed — shared file).** Checked-in `data/origination.json`
+  is the 2026-10-15 replay fixture (17 active), which `scripts/build.py` loads as
+  `complete_picks`; a clean-checkout build therefore prints **17 / 17** where the live site
+  prints **23 / 23**. The live site is correct; the repository is not self-explanatory. Raised
+  on **Flagged for Review** with both source URLs and a recommended fix for the owning
+  publisher session.
+
+# Session arena-f1277d3b — un-stall the 4-hour publisher (wall-clock test), HLTV-first research for every no-line fixture, executive-summary/mobile verification, publish
 
 Claimed **2026-10-24T05:40Z** on Arena's fixed branch `arena/f1277d3b-maltaproj3`, branched from `main` at `2f966a9` (= current `origin/main` head). Board, open PRs and workflow runs read first. **Live finding at claim time:** the last four scheduled `Refresh and deploy CS2 dashboard` runs on `main` (40063011446, 40048429858, 40037957529, 40028653350) all failed at `Regression tests` — `tests/test_ca7e10e5_snapshot.py` pins its fixture snapshot to `2026-10-23T09:23:57Z` while `scripts/root_publish.build_plan` refuses snapshots older than 12h against the wall clock (reproduced locally: 3 ERRORs, `snapshot ... is 20.0h old`). The live site is therefore frozen at the `2026-10-23T20:10:00Z` snapshot (19 active, 19/19 complete-layer picks: 12 external-line, 7 research-model, 0 unresolved) while the live Hotspawn lobby (read 2026-10-24) already lists new CS2 fixtures (e.g. 1079658, 1081152, 1079659) that cannot get picks until a refresh succeeds. Open PRs #227 (CONFLICTING), #229 (checks failing), #225, #224 (CONFLICTING) belong to earlier sessions and are not edited here; none of their claimed files overlap the scope below.
 
