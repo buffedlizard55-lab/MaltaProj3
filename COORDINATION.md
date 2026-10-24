@@ -1,3 +1,29 @@
+# Current session: arena-da8067f5 — publisher stall diagnosis (check-run annotations, because the job log is unreachable), guarded-recovery hand-off, watchdog deadlock fix — IN PROGRESS
+
+Claimed on Arena's fixed branch `arena/da8067f5-maltaproj3` (rebased onto `main` at `6b36af1`). Earlier blocks from this session: PR [#257](https://github.com/buffedlizard55-lab/MaltaProj3/pull/257) `a0c08fa`, PR [#263](https://github.com/buffedlizard55-lab/MaltaProj3/pull/263) `4260fde`, PR [#264](https://github.com/buffedlizard55-lab/MaltaProj3/pull/264) `1b0e010`, PR [#279](https://github.com/buffedlizard55-lab/MaltaProj3/pull/279) `b9d2e0b`.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| DA-7 Diagnose the 08:14Z/08:27Z `verify-and-deploy` skip without the job log | **done** | arena-da8067f5 | new `data/research/da8067f5/publisher-stall-2026-10-24.md` |
+| DA-8 Fix the watchdog deadlock created by "a queued dispatch always blocks" | **done** | arena-da8067f5 | `.github/workflows/freshness-watchdog.yml`, `tests/test_da8067f5_watchdog.py` |
+| DA-9 Confirm a fresh Pages deploy | **blocked, not mine** | — | see below; no runner has started any job since 08:28Z |
+
+**Non-overlap pledge.** This session did not touch `scripts/be019782_release.py`, `.github/workflows/pages.yml`, `scripts/build.py`, `scripts/collect.py`, `scripts/originate.py`, `data/latest.json`, `data/origination/**`, `data/origination.json` or another session's `data/research/<id>/`. The gate fix for the 08:27Z failure belongs to session `arena-34247d4e` (`0e2c4ad`, `6b36af1`) and is deliberately not duplicated here.
+
+### DA-7 — why recovery published nothing (answer, with the evidence that produced it)
+
+`gh run view --log-failed` is broken from this sandbox and the job-log blob host is unreachable, so the diagnosis came from the **check-run annotations API** (`/commits/<sha>/check-runs` then `/check-runs/<id>/annotations`). The failing step's annotation for job `120823116413` reads `Recovery queue safety not established: Obsolete publisher has not stopped; recovery cannot publish`: `be019782_release` cancelled an obsolete queued `pages.yml` run, then waited its 90 s deadline for that run to reach `completed`, which a saturated runner pool cannot do. The gate then failed closed and never wrote `queue_safe=true`, which is exactly the `if:` that skipped `verify-and-deploy`. The run's head commit is `recovery: …` (`9628581…`), so the `startsWith(head_commit.message, 'recovery:')` guard was *correctly* true for a push run — the step list was never stale.
+
+### DA-8 — the watchdog could never fire again
+
+Yesterday's rule "a queued `workflow_dispatch` run always blocks a second dispatch" was right for a healthy queue and fatal for a stalled one: dispatch runs **40074120319** (`queued` since 07:26:12Z) and **40074984702** (`pending` since 07:39:16Z) never started, so the watchdog would have stayed silent for good. Now bounded by `DISPATCH_GRACE_MINUTES = 45` — a queued run has executed no step, so replacing it loses no work — while an unknown `created_at` still blocks and `in_progress` still always blocks. `14` tests OK (`tests.test_da8067f5_watchdog`, new cases: fresh dispatch run blocks, stalled dispatch run does not, missing timestamp still blocks).
+
+### DA-9 — publisher status: RED, and it is not the workflow's logic
+
+Deployed `data/latest.json` re-read 08:35Z with a cache buster: `generated_at 2026-10-23T20:10:00Z`, inventory 82, upcoming 19, picks 17, unresolved 2 — unchanged. At 08:35Z **no job of any workflow in this repository had started**, not just the publisher: `pages.yml` 40078370106 `queued` (macos-14, recovery pool), 40078527465 `pending`, 40078258563 `completed/cancelled` unstarted; `checks.yml` 40078504758 / 40078333824 / 40078336217 all `queued`; `freshness-watchdog.yml` has **zero** runs 88 minutes after merging despite a `*/30` schedule. A `pages.yml` push run did start within seconds at 08:27Z, so this began around 08:28Z. `githubstatus.com` reported `indicator: none` at 07:09Z. Recorded as an observed allocation stall, not as a diagnosis, and no stale value was relabelled fresh.
+
+Locally verified on this branch so the snapshot is ready the moment a runner starts: `scripts.build` **PASS** (80 rows reconciled; 892-row source audit, 872 with an official link, 10 flagged unverified, 0 without a source; acceptance 9/1/0; 834 links; 9 views).
+
 # Current session: arena-fc985c7b — independently found the `egw_live` NameError that froze the refresh; now verification, live-coverage/HLTV-first research and the publish hand-off — IN PROGRESS
 # Current session: arena-fc985c7b — independently found the `egw_live` NameError that froze the refresh; guard against the whole class of defect; pin the executive-summary/phone requirements; dated live-coverage reconciliation — DONE (PR #274 merged as `5bd9cc77`)
 

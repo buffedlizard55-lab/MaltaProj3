@@ -114,6 +114,16 @@ jobs:
           # will never start (2026-10-24: the 06:09Z push run sat queued for 40+
           # minutes and was then cancelled). An in_progress run always counts.
           QUEUED_GRACE_MINUTES = 15
+          # A *queued* dispatch run is normally un-cancellable, so it has to block
+          # (dispatching again would cancel the run this watchdog just queued).
+          # It stops blocking once it is old enough to be stalled rather than
+          # imminent: verified 2026-10-24, dispatch runs 40074120319 (07:26Z) and
+          # 40074984702 (07:39Z) sat queued/pending for over an hour while every
+          # other workflow in the repository was also queued and nothing at all
+          # started. A queued run has executed no step, so replacing it with a
+          # fresh dispatch loses no work; treating it as a live publisher instead
+          # would silence this safety net for good.
+          DISPATCH_GRACE_MINUTES = 45
           try:
               runs = get(f'https://api.github.com/repos/{repo}/actions/workflows/pages.yml/runs?per_page=20',
                          headers)
@@ -128,10 +138,18 @@ jobs:
                       continue
                   if run.get('event') == 'workflow_dispatch':
                       # A dispatched publish is only ever cancelled by another
-                      # dispatch, so this watchdog must never queue a second one:
-                      # dispatching again would cancel the very run it queued.
-                      print(f'queued dispatch run {run.get("id")} blocks a second dispatch')
-                      active.append(run)
+                      # dispatch, so this watchdog must never queue a second one
+                      # while the first can still start.
+                      created = run.get('created_at') or ''
+                      try:
+                          age = (now - datetime.strptime(created, '%Y-%m-%dT%H:%M:%SZ')
+                                 .replace(tzinfo=timezone.utc)).total_seconds() / 60
+                      except ValueError:
+                          active.append(run)     # unknown age: assume it can still start
+                          continue
+                      print(f'queued dispatch run {run.get("id")} age={age:.0f}min')
+                      if age <= DISPATCH_GRACE_MINUTES:
+                          active.append(run)
                       continue
                   created = run.get('created_at') or ''
                   try:
