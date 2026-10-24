@@ -1,30 +1,17 @@
 {
   "schema_version": 1,
   "session": "arena-f1277d3b",
-  "observed_at": "2026-10-24T06:09:03Z",
+  "observed_at": "2026-10-24T07:18:19Z",
   "environment": "github-actions-runner",
   "policy": "Read-only research. HLTV first (identity and ranking only — HLTV publishes no two-sided price and its fan vote is a crowd poll), then esportsbooks, exchanges and betting-line aggregators. Nothing here is a probability or a pick; only a bound fixture with both sides priced is a lead.",
   "target_source": {
     "source_url": "data/origination.json",
     "source": "freshly collected in this run",
     "targets": 11,
-    "active": 25,
-    "snapshot_generated_at": "2026-10-24T06:08:01Z"
+    "active": 31,
+    "snapshot_generated_at": "2026-10-24T07:17:23Z"
   },
   "targets": [
-    {
-      "id": "1081152",
-      "teams": [
-        "HAVU",
-        "Azuolas"
-      ],
-      "competition": "CCT Europe 2026 Series #12",
-      "starts_at": "2026-10-24T11:00:00Z",
-      "current_method": "model",
-      "current_label": "Valve-rating research estimate",
-      "hotspawn_url": "https://www.hotspawn.com/matches/havu-vs-azuolas-cct-europe-2026-series-12-1081152",
-      "hltv_url": "https://www.hltv.org/matches/2399502/havu-vs-azuolas-cct-2026-europe-series-12"
-    },
     {
       "id": "1081153",
       "teams": [
@@ -50,6 +37,19 @@
       "current_label": "Valve-rating research estimate",
       "hotspawn_url": "https://www.hotspawn.com/matches/baks-vs-illyrians-cct-europe-2026-series-12-1081154",
       "hltv_url": "https://www.hltv.org/matches/2399504/baks-vs-illyrians-cct-2026-europe-series-12"
+    },
+    {
+      "id": "1083122",
+      "teams": [
+        "LOS NINOS",
+        "BORRACHEIROS"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-24T19:00:00Z",
+      "current_method": "model",
+      "current_label": "Research model estimate (HLTV world ranking · unranked floor)",
+      "hotspawn_url": "https://www.hotspawn.com/matches/los-ninos-vs-borracheiros-cct-south-america-2026-series-7-1083122",
+      "hltv_url": "https://www.hltv.org/matches/2399914/los-ninos-vs-borracheiros-cct-2026-south-america-series-7"
     },
     {
       "id": "1082996",
@@ -263,9 +263,9 @@
     {
       "name": "DraftKings CS2",
       "url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
-      "status": 200,
-      "final_url": "https://sportsbook.draftkings.com/sports/esports",
-      "bytes": 1672892,
+      "status": 404,
+      "final_url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
+      "bytes": 257267,
       "challenge_markers": [],
       "teams_found": []
     },
@@ -274,7 +274,7 @@
       "url": "https://www.oddsportal.com/esports/counter-strike/",
       "status": 200,
       "final_url": "https://www.oddsportal.com/esports/counter-strike/",
-      "bytes": 338117,
+      "bytes": 337016,
       "challenge_markers": [
         "captcha"
       ],
@@ -347,7 +347,7 @@
       "url": "https://oddspedia.com/esports/counter-strike",
       "status": 410,
       "final_url": "https://oddspedia.com/esports/counter-strike",
-      "bytes": 340005,
+      "bytes": 340006,
       "challenge_markers": [
         "challenge-platform",
         "captcha"
@@ -419,13 +419,13 @@
   ],
   "pinnacle_guest_api": {
     "api": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
-    "matchups_seen": 22927,
+    "matchups_seen": 22698,
     "fixture_hits": []
   },
   "polymarket": {
     "api": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&closed=false&limit=100&offset=0",
     "pages_read": 5,
-    "events_seen": 439,
+    "events_seen": 441,
     "terminal_page": true,
     "bindings": {
       "1081153": {
@@ -438,7 +438,7 @@
           {
             "question": "Counter-Strike: 6yuBoJlbl vs Saint Sinners - Map 1 Winner",
             "best_bid": 0.03,
-            "best_ask": 0.97,
+            "best_ask": 0.96,
             "accepting_orders": true,
             "active": true,
             "closed": false
@@ -446,15 +446,15 @@
           {
             "question": "Counter-Strike: 6yuBoJlbl vs Saint Sinners - Map 2 Winner",
             "best_bid": 0.03,
-            "best_ask": 0.97,
+            "best_ask": 0.96,
             "accepting_orders": true,
             "active": true,
             "closed": false
           },
           {
             "question": "Counter-Strike: 6yuBoJlbl vs Saint Sinners (BO3) - CCT Europe Series #12 Group Stage",
-            "best_bid": 0.12,
-            "best_ask": 0.87,
+            "best_bid": 0.16,
+            "best_ask": 0.71,
             "accepting_orders": true,
             "active": true,
             "closed": false
@@ -487,15 +487,15 @@
           {
             "question": "Counter-Strike: BakS eSports vs ILLYRIANS - Map 2 Winner",
             "best_bid": 0.03,
-            "best_ask": 0.97,
+            "best_ask": 0.96,
             "accepting_orders": true,
             "active": true,
             "closed": false
           },
           {
             "question": "Counter-Strike: BakS eSports vs ILLYRIANS (BO3) - CCT Europe Series #12 Group Stage",
-            "best_bid": 0.33,
-            "best_ask": 0.77,
+            "best_bid": 0.36,
+            "best_ask": 0.72,
             "accepting_orders": true,
             "active": true,
             "closed": false
@@ -535,8 +535,8 @@
           },
           {
             "question": "Counter-Strike: Acend vs UNiTY esports (BO3) - NODWIN Clutch Series Playoffs",
-            "best_bid": 0.11,
-            "best_ask": 0.94,
+            "best_bid": 0.13,
+            "best_ask": 0.93,
             "accepting_orders": true,
             "active": true,
             "closed": false
@@ -609,7 +609,7 @@
           {
             "question": "Counter-Strike: Metizport vs BakS eSports (BO3) - NODWIN Clutch Series Playoffs",
             "best_bid": 0.55,
-            "best_ask": 0.86,
+            "best_ask": 0.85,
             "accepting_orders": true,
             "active": true,
             "closed": false
@@ -690,7 +690,7 @@
           {
             "question": "Counter-Strike: FORZE Reload vs ex-RUSTEC (BO3) - CCT Europe Series #12 Group Stage",
             "best_bid": 0.06,
-            "best_ask": 0.7,
+            "best_ask": 0.66,
             "accepting_orders": true,
             "active": true,
             "closed": false
@@ -714,16 +714,16 @@
         "markets": [
           {
             "question": "Counter-Strike: Ground Zero vs Off Chops - Map 1 Winner",
-            "best_bid": 0.07,
-            "best_ask": 0.95,
+            "best_bid": 0.06,
+            "best_ask": 0.93,
             "accepting_orders": true,
             "active": true,
             "closed": false
           },
           {
             "question": "Counter-Strike: Ground Zero vs Off Chops - Map 2 Winner",
-            "best_bid": 0.08,
-            "best_ask": 0.93,
+            "best_bid": 0.07,
+            "best_ask": 0.92,
             "accepting_orders": true,
             "active": true,
             "closed": false
@@ -893,7 +893,7 @@
           {
             "question": "Counter-Strike: HOTU vs The Huns Esports - Map 2 Winner",
             "best_bid": 0.08,
-            "best_ask": 0.94,
+            "best_ask": 0.92,
             "accepting_orders": true,
             "active": true,
             "closed": false
@@ -901,7 +901,7 @@
           {
             "question": "Counter-Strike: HOTU vs The Huns Esports (BO3) - Moscow Cyber Games Playoffs",
             "best_bid": 0.07,
-            "best_ask": 0.95,
+            "best_ask": 0.93,
             "accepting_orders": true,
             "active": true,
             "closed": false
@@ -917,7 +917,7 @@
           {
             "question": "Map Handicap: HOTU (-1.5) vs The Huns Esports (+1.5)",
             "best_bid": 0.08,
-            "best_ask": 0.94,
+            "best_ask": 0.93,
             "accepting_orders": true,
             "active": true,
             "closed": false
@@ -928,10 +928,10 @@
   },
   "smarkets": {
     "evidence": "data/origination/evidence/live-smarkets-cs.json",
-    "observed_at": "2026-10-24T06:08:11Z",
-    "events_listed": 9,
-    "fixtures_bound": 8,
-    "quoted_two_sided": 7,
+    "observed_at": "2026-10-24T07:17:37Z",
+    "events_listed": 14,
+    "fixtures_bound": 13,
+    "quoted_two_sided": 11,
     "bound_fixtures": [
       {
         "hotspawn_id": "1079193",
@@ -946,6 +946,12 @@
         "event_url": "https://smarkets.com/sport/esports/cs-go/cct-europe/playoffs/2026/10/24/11-00/spirit-academy-vs-lavked"
       },
       {
+        "hotspawn_id": "1083120",
+        "event_id": "45398300",
+        "event_name": "RED Canids Academy vs Isurus",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/24/13-00/red-canids-academy-vs-isurus"
+      },
+      {
         "hotspawn_id": "1079195",
         "event_id": "45396122",
         "event_name": "Nuclear TigeRES vs FORZE Reload",
@@ -956,6 +962,30 @@
         "event_id": "45397974",
         "event_name": "Nuclear TigeRES vs ex-Zero Tenacity",
         "event_url": "https://smarkets.com/sport/esports/cs-go/cct-europe/playoffs/2026/10/24/17-00/nuclear-tigeres-vs-ex-zero-tenacity"
+      },
+      {
+        "hotspawn_id": "1082695",
+        "event_id": "45398297",
+        "event_name": "Galorys vs paiN",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/circuit-x/playoffs/2026/10/24/18-00/galorys-vs-pain"
+      },
+      {
+        "hotspawn_id": "1083122",
+        "event_id": "45398487",
+        "event_name": "Los Niños vs BORRACHEIROS",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/24/19-00/los-ninos-vs-borracheiros"
+      },
+      {
+        "hotspawn_id": "1083140",
+        "event_id": "45398299",
+        "event_name": "BESTIA vs Imperial",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/circuit-x/playoffs/2026/10/24/21-00/bestia-vs-imperial"
+      },
+      {
+        "hotspawn_id": "1083123",
+        "event_id": "45398301",
+        "event_name": "Grêmio Esports vs Yawara Esports",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/24/22-00/gremio-esports-vs-yawara-esports"
       },
       {
         "hotspawn_id": "1082996",
@@ -983,6 +1013,7 @@
       }
     ],
     "target_bindings": [
+      "1083122",
       "1082996",
       "1079198",
       "1082858"
@@ -992,37 +1023,6 @@
     ]
   },
   "bo3": [
-    {
-      "id": "1081152",
-      "teams": [
-        "HAVU",
-        "Azuolas"
-      ],
-      "bound": {
-        "slug": "havu-vs-azuolas-24-10-2026",
-        "start_date": "2026-10-24T11:00:00.000+00:00",
-        "url": "https://bo3.gg/matches/havu-vs-azuolas-24-10-2026"
-      },
-      "bet": null,
-      "lookup": [
-        {
-          "name": "HAVU",
-          "matches": 1,
-          "exact": 1,
-          "id": 627,
-          "slug": "havu",
-          "rank": 124
-        },
-        {
-          "name": "Azuolas",
-          "matches": 1,
-          "exact": 1,
-          "id": 25247,
-          "slug": "azuolas",
-          "rank": 140
-        }
-      ]
-    },
     {
       "id": "1081153",
       "teams": [
@@ -1072,6 +1072,33 @@
           "name": "ILLYRIANS",
           "matches": 0,
           "exact": 0
+        }
+      ]
+    },
+    {
+      "id": "1083122",
+      "teams": [
+        "LOS NINOS",
+        "BORRACHEIROS"
+      ],
+      "bound": null,
+      "bet": null,
+      "lookup": [
+        {
+          "name": "LOS NINOS",
+          "matches": 1,
+          "exact": 1,
+          "id": 25500,
+          "slug": "los-ninos-cs",
+          "rank": null
+        },
+        {
+          "name": "BORRACHEIROS",
+          "matches": 1,
+          "exact": 1,
+          "id": 24668,
+          "slug": "borracheiros",
+          "rank": 209
         }
       ]
     },
@@ -1305,44 +1332,6 @@
   ],
   "per_fixture": [
     {
-      "id": "1081152",
-      "teams": [
-        "HAVU",
-        "Azuolas"
-      ],
-      "competition": "CCT Europe 2026 Series #12",
-      "starts_at": "2026-10-24T11:00:00Z",
-      "current_method": "model",
-      "current_label": "Valve-rating research estimate",
-      "hotspawn_url": "https://www.hotspawn.com/matches/havu-vs-azuolas-cct-europe-2026-series-12-1081152",
-      "hltv_url": "https://www.hltv.org/matches/2399502/havu-vs-azuolas-cct-2026-europe-series-12",
-      "hltv_page": {
-        "name": "HLTV match page",
-        "url": "https://www.hltv.org/matches/2399502/havu-vs-azuolas-cct-2026-europe-series-12",
-        "status": 403,
-        "final_url": "https://www.hltv.org/matches/2399502/havu-vs-azuolas-cct-2026-europe-series-12",
-        "bytes": 5861,
-        "challenge_markers": [
-          "just a moment",
-          "challenge-platform",
-          "enable javascript and cookies"
-        ],
-        "teams_found": [
-          "Azuolas",
-          "HAVU"
-        ]
-      },
-      "polymarket_book": null,
-      "polymarket_state": "no open Polymarket CS2 event bound both exact team names",
-      "bo3_bound_url": "https://bo3.gg/matches/havu-vs-azuolas-24-10-2026",
-      "bo3_bet_two_sided": false,
-      "bo3_bet": null,
-      "pinnacle_matchup": null,
-      "extra_pages_listing_a_team": [],
-      "money_line_lead": false,
-      "verdict": "No two-sided price on any surface probed; the published research estimate and its limitation stand. Polymarket: no open Polymarket CS2 event bound both exact team names."
-    },
-    {
       "id": "1081153",
       "teams": [
         "Saint Sinners",
@@ -1379,7 +1368,7 @@
           {
             "question": "Counter-Strike: 6yuBoJlbl vs Saint Sinners - Map 1 Winner",
             "best_bid": 0.03,
-            "best_ask": 0.97,
+            "best_ask": 0.96,
             "accepting_orders": true,
             "active": true,
             "closed": false
@@ -1387,15 +1376,15 @@
           {
             "question": "Counter-Strike: 6yuBoJlbl vs Saint Sinners - Map 2 Winner",
             "best_bid": 0.03,
-            "best_ask": 0.97,
+            "best_ask": 0.96,
             "accepting_orders": true,
             "active": true,
             "closed": false
           },
           {
             "question": "Counter-Strike: 6yuBoJlbl vs Saint Sinners (BO3) - CCT Europe Series #12 Group Stage",
-            "best_bid": 0.12,
-            "best_ask": 0.87,
+            "best_bid": 0.16,
+            "best_ask": 0.71,
             "accepting_orders": true,
             "active": true,
             "closed": false
@@ -1410,14 +1399,14 @@
           }
         ]
       },
-      "polymarket_state": "event bound (cs2-6yuboj-ssins-2026-10-24); 4 market(s) carried a two-sided best bid/ask, widest recorded spread 0.94 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings",
+      "polymarket_state": "event bound (cs2-6yuboj-ssins-2026-10-24); 4 market(s) carried a two-sided best bid/ask, widest recorded spread 0.93 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings",
       "bo3_bound_url": "https://bo3.gg/matches/6yubojlbl-vs-saint-sinners-24-10-2026",
       "bo3_bet_two_sided": false,
       "bo3_bet": null,
       "pinnacle_matchup": null,
       "extra_pages_listing_a_team": [],
       "money_line_lead": false,
-      "verdict": "No two-sided price on any surface probed; the published research estimate and its limitation stand. Polymarket: event bound (cs2-6yuboj-ssins-2026-10-24); 4 market(s) carried a two-sided best bid/ask, widest recorded spread 0.94 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings."
+      "verdict": "No two-sided price on any surface probed; the published research estimate and its limitation stand. Polymarket: event bound (cs2-6yuboj-ssins-2026-10-24); 4 market(s) carried a two-sided best bid/ask, widest recorded spread 0.93 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings."
     },
     {
       "id": "1081154",
@@ -1465,15 +1454,15 @@
           {
             "question": "Counter-Strike: BakS eSports vs ILLYRIANS - Map 2 Winner",
             "best_bid": 0.03,
-            "best_ask": 0.97,
+            "best_ask": 0.96,
             "accepting_orders": true,
             "active": true,
             "closed": false
           },
           {
             "question": "Counter-Strike: BakS eSports vs ILLYRIANS (BO3) - CCT Europe Series #12 Group Stage",
-            "best_bid": 0.33,
-            "best_ask": 0.77,
+            "best_bid": 0.36,
+            "best_ask": 0.72,
             "accepting_orders": true,
             "active": true,
             "closed": false
@@ -1488,14 +1477,51 @@
           }
         ]
       },
-      "polymarket_state": "event bound (cs2-baks-ill4-2026-10-24); 4 market(s) carried a two-sided best bid/ask, widest recorded spread 0.94 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings",
+      "polymarket_state": "event bound (cs2-baks-ill4-2026-10-24); 4 market(s) carried a two-sided best bid/ask, widest recorded spread 0.93 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings",
       "bo3_bound_url": null,
       "bo3_bet_two_sided": false,
       "bo3_bet": null,
       "pinnacle_matchup": null,
       "extra_pages_listing_a_team": [],
       "money_line_lead": false,
-      "verdict": "No two-sided price on any surface probed; the published research estimate and its limitation stand. Polymarket: event bound (cs2-baks-ill4-2026-10-24); 4 market(s) carried a two-sided best bid/ask, widest recorded spread 0.94 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings."
+      "verdict": "No two-sided price on any surface probed; the published research estimate and its limitation stand. Polymarket: event bound (cs2-baks-ill4-2026-10-24); 4 market(s) carried a two-sided best bid/ask, widest recorded spread 0.93 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings."
+    },
+    {
+      "id": "1083122",
+      "teams": [
+        "LOS NINOS",
+        "BORRACHEIROS"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-24T19:00:00Z",
+      "current_method": "model",
+      "current_label": "Research model estimate (HLTV world ranking · unranked floor)",
+      "hotspawn_url": "https://www.hotspawn.com/matches/los-ninos-vs-borracheiros-cct-south-america-2026-series-7-1083122",
+      "hltv_url": "https://www.hltv.org/matches/2399914/los-ninos-vs-borracheiros-cct-2026-south-america-series-7",
+      "hltv_page": {
+        "name": "HLTV match page",
+        "url": "https://www.hltv.org/matches/2399914/los-ninos-vs-borracheiros-cct-2026-south-america-series-7",
+        "status": 403,
+        "final_url": "https://www.hltv.org/matches/2399914/los-ninos-vs-borracheiros-cct-2026-south-america-series-7",
+        "bytes": 5930,
+        "challenge_markers": [
+          "just a moment",
+          "challenge-platform",
+          "enable javascript and cookies"
+        ],
+        "teams_found": [
+          "BORRACHEIROS"
+        ]
+      },
+      "polymarket_book": null,
+      "polymarket_state": "no open Polymarket CS2 event bound both exact team names",
+      "bo3_bound_url": null,
+      "bo3_bet_two_sided": false,
+      "bo3_bet": null,
+      "pinnacle_matchup": null,
+      "extra_pages_listing_a_team": [],
+      "money_line_lead": false,
+      "verdict": "No two-sided price on any surface probed; the published research estimate and its limitation stand. Polymarket: no open Polymarket CS2 event bound both exact team names."
     },
     {
       "id": "1082996",
@@ -1550,8 +1576,8 @@
           },
           {
             "question": "Counter-Strike: Acend vs UNiTY esports (BO3) - NODWIN Clutch Series Playoffs",
-            "best_bid": 0.11,
-            "best_ask": 0.94,
+            "best_bid": 0.13,
+            "best_ask": 0.93,
             "accepting_orders": true,
             "active": true,
             "closed": false
@@ -1661,7 +1687,7 @@
           {
             "question": "Counter-Strike: Metizport vs BakS eSports (BO3) - NODWIN Clutch Series Playoffs",
             "best_bid": 0.55,
-            "best_ask": 0.86,
+            "best_ask": 0.85,
             "accepting_orders": true,
             "active": true,
             "closed": false
@@ -1813,7 +1839,7 @@
           {
             "question": "Counter-Strike: FORZE Reload vs ex-RUSTEC (BO3) - CCT Europe Series #12 Group Stage",
             "best_bid": 0.06,
-            "best_ask": 0.7,
+            "best_ask": 0.66,
             "accepting_orders": true,
             "active": true,
             "closed": false
@@ -1871,16 +1897,16 @@
         "markets": [
           {
             "question": "Counter-Strike: Ground Zero vs Off Chops - Map 1 Winner",
-            "best_bid": 0.07,
-            "best_ask": 0.95,
+            "best_bid": 0.06,
+            "best_ask": 0.93,
             "accepting_orders": true,
             "active": true,
             "closed": false
           },
           {
             "question": "Counter-Strike: Ground Zero vs Off Chops - Map 2 Winner",
-            "best_bid": 0.08,
-            "best_ask": 0.93,
+            "best_bid": 0.07,
+            "best_ask": 0.92,
             "accepting_orders": true,
             "active": true,
             "closed": false
@@ -2123,7 +2149,7 @@
           {
             "question": "Counter-Strike: HOTU vs The Huns Esports - Map 2 Winner",
             "best_bid": 0.08,
-            "best_ask": 0.94,
+            "best_ask": 0.92,
             "accepting_orders": true,
             "active": true,
             "closed": false
@@ -2131,7 +2157,7 @@
           {
             "question": "Counter-Strike: HOTU vs The Huns Esports (BO3) - Moscow Cyber Games Playoffs",
             "best_bid": 0.07,
-            "best_ask": 0.95,
+            "best_ask": 0.93,
             "accepting_orders": true,
             "active": true,
             "closed": false
@@ -2147,21 +2173,21 @@
           {
             "question": "Map Handicap: HOTU (-1.5) vs The Huns Esports (+1.5)",
             "best_bid": 0.08,
-            "best_ask": 0.94,
+            "best_ask": 0.93,
             "accepting_orders": true,
             "active": true,
             "closed": false
           }
         ]
       },
-      "polymarket_state": "event bound (cs2-hotu-the9-2026-10-31); 5 market(s) carried a two-sided best bid/ask, widest recorded spread 0.88 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings",
+      "polymarket_state": "event bound (cs2-hotu-the9-2026-10-31); 5 market(s) carried a two-sided best bid/ask, widest recorded spread 0.86 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings",
       "bo3_bound_url": null,
       "bo3_bet_two_sided": false,
       "bo3_bet": null,
       "pinnacle_matchup": null,
       "extra_pages_listing_a_team": [],
       "money_line_lead": false,
-      "verdict": "No two-sided price on any surface probed; the published research estimate and its limitation stand. Polymarket: event bound (cs2-hotu-the9-2026-10-31); 5 market(s) carried a two-sided best bid/ask, widest recorded spread 0.88 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings."
+      "verdict": "No two-sided price on any surface probed; the published research estimate and its limitation stand. Polymarket: event bound (cs2-hotu-the9-2026-10-31); 5 market(s) carried a two-sided best bid/ask, widest recorded spread 0.86 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings."
     },
     {
       "id": "1082793",
