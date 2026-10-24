@@ -247,6 +247,37 @@ class AlternateTests(unittest.TestCase):
         self.assertEqual(entry['fallback']['url'], probe.FIXTURES_API)
 
 
+class AliasTests(unittest.TestCase):
+    REGISTRY = [{'alias': 'Sökerorg', 'canonical': 'LFO 10', 'kind': 'translation-alias',
+                 'applies_to': ['CCT Europe 2026 Series #12'],
+                 'evidence': [{'url': 'https://www.hltv.org/matches/2399499/x',
+                               'source': 'HLTV', 'detail': 'same match'}]}]
+
+    def test_a_registry_spelling_confirms_the_line_source(self):
+        citation = {'url': 'https://www.bovada.lv/sports/esports/counter-strike-2/'
+                           'cct-europe/series-11/spirit-academy-sokerorg-202610250800',
+                    'roles': ['Line source'], 'kind': 'price', 'generic': True}
+        body = 'Spirit Academy vs Sokerorg — Counter-Strike 2 — Bovada'
+        entry = probe.verify_citation(fake_fetch({citation['url']: body}), citation,
+                                      ['Spirit Academy', 'LFO 10'], None, self.REGISTRY)
+        self.assertEqual(entry['verdict'], 'confirmed-via-alias')
+        self.assertEqual(entry['alias_evidence']['alias'], 'Sökerorg')
+        self.assertTrue(entry['alias_evidence']['evidence'][0].startswith('https://www.hltv.org/'))
+
+    def test_without_the_registry_entry_the_same_page_is_partial(self):
+        citation = {'url': 'https://www.bovada.lv/x/spirit-academy-sokerorg-202610250800',
+                    'roles': ['Line source'], 'kind': 'price', 'generic': True}
+        body = 'Spirit Academy vs Sokerorg — Counter-Strike 2 — Bovada'
+        entry = probe.verify_citation(fake_fetch({citation['url']: body}), citation,
+                                      ['Spirit Academy', 'LFO 10'])
+        self.assertEqual(entry['verdict'], 'partial')
+
+    def test_alias_needles_only_match_the_named_team(self):
+        needles = probe.alias_needles('LFO 10', self.REGISTRY)
+        self.assertEqual([n['alias'] for n in needles], ['Sökerorg'])
+        self.assertEqual(probe.alias_needles('Spirit Academy', self.REGISTRY), [])
+
+
 class VerdictTests(unittest.TestCase):
     def test_confirmed_when_both_names_are_on_the_page(self):
         citation = {'url': 'https://polymarket.com/event/x', 'roles': ['Quote'],
@@ -306,6 +337,33 @@ class VerdictTests(unittest.TestCase):
         self.assertEqual(result['verdict'], 'needs-review')
         self.assertGreater(result['summary']['unreachable'], 0)
         self.assertEqual(result['summary']['confirmed_via_alternate'], 0)
+
+
+class ArithmeticTests(unittest.TestCase):
+    def test_published_pair_is_recomputed_not_rewritten(self):
+        pick = {'pick_index': 0, 'probabilities': [0.666, 0.334]}
+        result = probe.pick_arithmetic(pick, ['Projeto do KinGui', 'MEIA NOITE'])
+        self.assertEqual(result['sum'], 1.0)
+        self.assertTrue(result['pick_is_larger'])
+        self.assertEqual(result['direction'], 'favourite')
+        self.assertEqual(result['pick_team'], 'Projeto do KinGui')
+
+    def test_an_underdog_pick_is_reported_as_such(self):
+        pick = {'pick_index': 1, 'probabilities': [0.7, 0.3]}
+        result = probe.pick_arithmetic(pick, ['A', 'B'])
+        self.assertFalse(result['pick_is_larger'])
+        self.assertEqual(result['direction'], 'underdog')
+        self.assertAlmostEqual(result['margin'], 0.4, places=6)
+
+    def test_a_row_that_does_not_add_up_is_flagged_not_corrected(self):
+        snapshot = json.loads(json.dumps(SNAPSHOT))
+        snapshot['matches'][1]['analysis']['probabilities'] = [0.542, 0.542]
+        report = probe.build_report(snapshot, ORIGINATION, API_BODY, fake_fetch({}),
+                                    '2026-10-24T16:30:00Z')
+        ids = [flag['id'] for flag in probe.flags_for(report)]
+        self.assertIn('6174aa87-published-row-arithmetic', ids)
+        row = next(f for f in report['provenance']['fixtures'] if f['id'] == '1082996')
+        self.assertAlmostEqual(row['pick']['arithmetic']['sum'], 1.084, places=6)
 
 
 class ReportTests(unittest.TestCase):

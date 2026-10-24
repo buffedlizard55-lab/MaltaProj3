@@ -296,13 +296,46 @@ def citations_for(match: dict, orig: dict | None, pick: dict) -> list[dict]:
     return found
 
 
-def judge_body(body: str, citation: dict, teams: list[str]) -> dict:
+def alias_needles(team: str, aliases: list[dict] | None) -> list[dict]:
+    """Registry-recorded provider spellings for one team, with their evidence."""
+    out = []
+    for entry in aliases or []:
+        if not isinstance(entry, dict):
+            continue
+        canonical = entry.get('canonical') or ''
+        alias = entry.get('alias') or ''
+        if not alias:
+            continue
+        if normalize(canonical) == normalize(team) or normalize(alias) == normalize(team):
+            out.append({'alias': alias, 'canonical': canonical,
+                        'kind': entry.get('kind'),
+                        'applies_to': entry.get('applies_to') or [],
+                        'evidence': [e.get('url') for e in (entry.get('evidence') or [])
+                                     if isinstance(e, dict) and e.get('url')]})
+    return out
+
+
+def judge_body(body: str, citation: dict, teams: list[str],
+               aliases: list[dict] | None = None) -> dict:
     """What the returned body proves, independent of how it was fetched."""
     names = [name_presence(body, team) for team in teams]
+    alias_hit = None
+    if not all(n['level'] != 'absent' for n in names):
+        flat = normalize(body)
+        for name, team in zip(names, teams):
+            if name['level'] != 'absent':
+                continue
+            for candidate in alias_needles(team, aliases):
+                if normalize(candidate['alias']) and normalize(candidate['alias']) in flat:
+                    name.update({'level': 'alias', 'needle': candidate['alias']})
+                    alias_hit = candidate
+                    break
     event_id = citation.get('event_id')
     bound = bool(event_id and re.search(r'\b' + re.escape(str(event_id)) + r'\b', body))
     levels = [n['level'] for n in names]
-    if bound or all(level == 'full' for level in levels):
+    if bound or all(level in ('full', 'alias') for level in levels) and alias_hit:
+        verdict = 'confirmed-via-alias' if alias_hit else 'confirmed'
+    elif bound or all(level == 'full' for level in levels):
         verdict = 'confirmed'
     elif any(level == 'full' for level in levels):
         verdict = 'partial'
@@ -312,18 +345,23 @@ def judge_body(body: str, citation: dict, teams: list[str]) -> dict:
         verdict = 'endpoint-unbound'
     else:
         verdict = 'absent'
-    return {'names': names, 'event_bound': bound, 'verdict': verdict}
+    judged = {'names': names, 'event_bound': bound, 'verdict': verdict}
+    if alias_hit:
+        judged['alias_evidence'] = alias_hit
+    return judged
 
 
-def verify_citation(fetcher, citation: dict, teams: list[str], api_record: dict | None = None) -> dict:
+def verify_citation(fetcher, citation: dict, teams: list[str],
+                    api_record: dict | None = None,
+                    aliases: list[dict] | None = None) -> dict:
     """Re-read one cited URL, then its own API if the page is walled."""
     record = fetcher(citation['url'])
     body = record.pop('_body', '') or ''
     entry = dict(citation)
     entry['read'] = record
     if record.get('status') == 'ok':
-        entry.update(judge_body(body, citation, teams))
-        if entry['verdict'] in ('confirmed', 'partial'):
+        entry.update(judge_body(body, citation, teams, aliases))
+        if entry['verdict'] in ('confirmed', 'confirmed-via-alias', 'partial'):
             return entry
     else:
         entry.update({'names': [], 'event_bound': False, 'verdict': 'blocked'})
@@ -331,7 +369,7 @@ def verify_citation(fetcher, citation: dict, teams: list[str], api_record: dict 
     # JSON record, can prove the same thing. Each attempt is recorded verbatim.
     if citation['kind'] == 'fixture' and api_record:
         fixture_body = json.dumps(api_record)
-        judged = judge_body(fixture_body, citation, teams)
+        judged = judge_body(fixture_body, citation, teams, aliases)
         if judged['verdict'] == 'confirmed':
             entry['fallback'] = {'url': FIXTURES_API,
                                  'label': 'Hotspawn scheduled-fixture record',
@@ -349,7 +387,7 @@ def verify_citation(fetcher, citation: dict, teams: list[str], api_record: dict 
                 {'url': alternate['url'], 'label': alternate['label'],
                  'status': read.get('status'), 'http': read.get('http')})
             continue
-        judged = judge_body(alt_body, citation, teams)
+        judged = judge_body(alt_body, citation, teams, aliases)
         entry.setdefault('alternates_tried', []).append(
             {'url': alternate['url'], 'label': alternate['label'],
              'status': 'ok', 'http': read.get('http'), 'verdict': judged['verdict']})
@@ -367,7 +405,9 @@ def verify_fixture(fetcher, match: dict, orig: dict | None, api_index: dict | No
     pick = pick_of(match, orig)
     citations = citations_for(match, orig, pick)
     api_record = (api_index or {}).get(str(match.get('id')))
-    verified = [verify_citation(fetcher, c, teams, api_record) for c in citations]
+    verified = [verify_citation(fetcher, c, teams, api_record,
+                                (pick.get('aliases_used') or [])) for c in citations]
+    pick = dict(pick, arithmetic=pick_arithmetic(pick, teams))
     price = [c for c in verified if c['kind'] == 'price']
     summary = {
         'citations': len(verified),
@@ -377,6 +417,8 @@ def verify_fixture(fetcher, match: dict, orig: dict | None, api_index: dict | No
         'unreachable': sum(1 for c in verified if c['verdict'] == 'blocked'),
         'confirmed_via_alternate': sum(1 for c in verified
                                        if c['verdict'] == 'confirmed-via-alternate'),
+        'confirmed_via_alias': sum(1 for c in verified
+                                   if c['verdict'] == 'confirmed-via-alias'),
         'endpoint_unbound': sum(1 for c in verified if c['verdict'] == 'endpoint-unbound'),
     }
     if not pick.get('pick'):
@@ -385,7 +427,8 @@ def verify_fixture(fetcher, match: dict, orig: dict | None, api_index: dict | No
                 'starts_at': match.get('starts_at'), 'locks_at': match.get('locks_at'),
                 'pick': pick, 'citations': verified, 'verdict': 'no-pick',
                 'summary': summary}
-    price_ok = any(c['verdict'] in ('confirmed', 'confirmed-via-alternate') for c in price)
+    price_ok = any(c['verdict'] in ('confirmed', 'confirmed-via-alternate',
+                                    'confirmed-via-alias') for c in price)
     price_blocked = all(c['verdict'] in ('unreachable', 'endpoint-unbound', 'absent')
                         for c in price) if price else True
     if price_ok and summary['unreachable'] == 0 and summary['absent'] == 0:
@@ -401,6 +444,35 @@ def verify_fixture(fetcher, match: dict, orig: dict | None, api_index: dict | No
             'starts_at': match.get('starts_at'), 'locks_at': match.get('locks_at'),
             'pick': pick, 'citations': verified, 'verdict': verdict,
             'summary': summary}
+
+
+def pick_arithmetic(pick: dict, teams: list[str]) -> dict:
+    """Recompute the two published numbers' own consistency. No new number.
+
+    The site claims both probabilities and one obvious pick. This checks the
+    published pair adds up and that the pick is the larger side, so a
+    contradictory row is caught by arithmetic rather than by eye.
+    """
+    probabilities = pick.get('probabilities') or []
+    out = {'probabilities': len(probabilities), 'sum': None, 'pick_is_larger': None,
+           'direction': None}
+    if len(probabilities) != 2:
+        return out
+    try:
+        first, second = float(probabilities[0]), float(probabilities[1])
+    except (TypeError, ValueError):
+        return out
+    out['sum'] = round(first + second, 6)
+    index = pick.get('pick_index')
+    if isinstance(index, int) and index in (0, 1):
+        chosen = first if index == 0 else second
+        other = second if index == 0 else first
+        out['pick_is_larger'] = chosen > other
+        out['direction'] = 'draw' if abs(chosen - other) < 1e-9 else (
+            'favourite' if chosen > other else 'underdog')
+        out['pick_team'] = teams[index] if index < len(teams) else None
+        out['margin'] = round(abs(chosen - other), 6)
+    return out
 
 
 def coverage(api_rows: list[dict], snapshot: dict, now: datetime, feed_ok: bool = True) -> dict:
@@ -538,6 +610,27 @@ def flags_for(report: dict) -> list[dict]:
                   'resolver ladder prices each one or publishes it as unresolved.'),
             'source_urls': [FIXTURES_API, PUBLISHED_SNAPSHOT],
         })
+    bad_sum = [f for f in fixtures
+               if (f['pick'].get('arithmetic') or {}).get('sum') not in (None, 1.0)]
+    contradictory = [f for f in fixtures
+                     if (f['pick'].get('arithmetic') or {}).get('pick_is_larger') is False]
+    if bad_sum or contradictory:
+        flags.append({
+            'id': '6174aa87-published-row-arithmetic',
+            'severity': 'review',
+            'match_ids': sorted({f['id'] for f in bad_sum + contradictory}),
+            'title': 'A published row’s own two probabilities do not add up or contradict its pick',
+            'detail': (
+                'Recomputed from the published row only (no new number is produced): '
+                + '; '.join('%s %s — sum %s' % (f['id'], ' vs '.join(f['teams']),
+                                                (f['pick'].get('arithmetic') or {}).get('sum'))
+                            for f in bad_sum)
+                + ('; pick is not the larger side: ' + ', '.join(
+                    '%s %s' % (f['id'], ' vs '.join(f['teams'])) for f in contradictory)
+                   if contradictory else '')
+                + '. The ladder replays every row before deployment, so this should be empty.'),
+            'source_urls': [PUBLISHED_SNAPSHOT, PUBLISHED_ORIGINATION],
+        })
     counts = provenance['counts']
     flags.append({
         'id': '6174aa87-provenance-sweep',
@@ -590,6 +683,9 @@ def render_md(report: dict) -> str:
             fixture.get('starts_at') or '—', pick_text, pick.get('layer') or '—',
             fixture['summary']['citations'], fixture['summary']['confirmed'],
             fixture['summary']['absent'] + fixture['summary']['unreachable']))
+    lines += ['', 'Every row above was also re-checked arithmetically: the two published '
+              'probabilities must sum to 1.0 and the named pick must be the larger side. '
+              'Rows that fail are listed under *A published row’s own two probabilities*.', '']
     lines += [
         '',
         '## Coverage against the live Hotspawn feed',
@@ -621,6 +717,10 @@ def render_md(report: dict) -> str:
                 how = ('event id %s found' % citation.get('event_id')) + ((' · ' + how) if how else '')
             if citation.get('odds'):
                 how = ('quoted odds %s' % citation['odds']) + ((' · ' + how) if how else '')
+            alias_note = (citation.get('alias_evidence') or {}).get('alias')
+            if alias_note:
+                how = ('provider spelling “%s” from the verified alias registry' % alias_note
+                       + ((' · ' + how) if how else ''))
             fallback = citation.get('fallback')
             if fallback:
                 how = ('%s confirmed via %s' % (fallback['label'], fallback['url'])
@@ -635,10 +735,11 @@ def render_md(report: dict) -> str:
               '- Re-verified: **%d**' % counts['verified'],
               '- Needs review: **%d**' % counts['needs_review'],
               '- Citations re-read: **%d** (%d blocked, %d absent, %d endpoint-only, '
-              '%d confirmed through the source’s own API)' % (
+              '%d confirmed through the source’s own API, %d through a registry-recorded '
+              'provider spelling)' % (
                   counts['citations'], counts['unreachable_citations'],
                   counts['absent_citations'], counts['endpoint_citations'],
-                  counts['alternate_citations']),
+                  counts['alternate_citations'], counts['alias_citations']),
               '', 'Source policy: Hotspawn supplies identity only; probabilities come from the '
               'reviewed ladder in `scripts/originate.py`, never from Hotspawn popularity, HLTV fan '
               'votes or this sweep.', '']
@@ -664,6 +765,8 @@ def build_report(snapshot: dict, origination: dict, api_body: str, fetcher, obse
                                   if c['verdict'] == 'endpoint-unbound'),
         'alternate_citations': sum(1 for f in fixtures for c in f['citations']
                                    if c['verdict'] == 'confirmed-via-alternate'),
+        'alias_citations': sum(1 for f in fixtures for c in f['citations']
+                               if c['verdict'] == 'confirmed-via-alias'),
         'no_pick': sum(1 for f in fixtures if f['verdict'] == 'no-pick'),
     }
     return {
