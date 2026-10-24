@@ -1,0 +1,38 @@
+[
+  {
+    "id": "f43dc4f1-two-sessions-fixed-the-same-defects",
+    "severity": "notice",
+    "title": "Two sessions independently reproduced and fixed the same two publisher defects within 20 minutes, because claim state lives on unmerged branches",
+    "detail": "Session arena-be019782 claimed tests/test_ca7e10e5_snapshot.py at 2026-10-24T05:22:48Z (and scripts/build.py + scripts/validate.py at 05:28Z) on its own branch. Session arena-f43dc4f1 read COORDINATION.md on main at 05:30Z, found no live claim for those files — the newer claim existed only in the other branch's unmerged copy of the board — and reproduced the same two defects independently: the three publisher tests that called root_publish.build_plan() without a clock (fixture stamped 2026-10-23T09:23:57Z, rejected once the 12-hour staleness guard passed at 21:23Z, which stopped every scheduled refresh from run 40028653350 onward) and the duplicate id=\"no-line-research\" that summary() and unresolved_register(compact=True) both produced on the executive summary. Both sessions reached the same fix for both. Per the board's stale-claim rule this file's owner is arena-be019782 (earlier claim, active commits), so arena-f43dc4f1 withdrew its copies of those three files and lands no overlapping code; the overlap is recorded here rather than left as a silent duplicate. What the duplication did establish: each defect reproduces from scratch on main in an independent session, which is stronger evidence than one session's report. Suggested process change for future sessions: publish the claim (COORDINATION.md) to main before editing shared files, not only on the session branch.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/COORDINATION.md",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446"
+    ]
+  },
+  {
+    "id": "f43dc4f1-review-page-not-phone-friendly",
+    "severity": "notice",
+    "title": "The Flagged for Review page is 1 MB of flat table: 301 findings, 417 rows, no index or search — unreadable on a phone",
+    "detail": "The built review page is 1,064 KB with 417 table rows and 428,533 characters of text in the main landmark: 13 snapshot findings plus 288 research findings collected from data/research/*/flags.json, all rendered in one flat table (the navigation badge reads 300). There is no index, no search and no grouping, so on a 390 px phone a reader cannot find a specific finding and must scroll through the entire list. This is the same 'hard to find things' complaint the brief makes about picks. The defect is in scripts/build.py::review/flags_table, a file owned by session arena-be019782 while PR #237 is open, so this session logged a cross-owned request on COORDINATION.md instead of editing it: a one-screen findings index with counts by severity and by source session, a client-side search consistent with the existing picks filter, and the dated registers kept collapsed. No finding may be deleted or reworded and every row keeps its source link. Nothing about the findings themselves is in question here, only how they are presented on a phone.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/review/",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/tree/main/data/research"
+    ]
+  },
+  {
+    "id": "f43dc4f1-finding-severities-use-six-vocabularies",
+    "severity": "notice",
+    "title": "The 302 published findings use six different severity words, and the review page shows five of them as the same badge",
+    "detail": "Counted from the repository on 2026-10-24: data/latest.json carries 11 'warning' and 2 'notice'; data/research/*/flags.json carry 165 'notice', 121 'warning', 6 'review', 5 'medium', 4 'low' and 1 'high' (302 findings across 70 session directories). scripts/build.py::flags_table renders exactly two labels — 'Notice' when severity == 'notice', otherwise 'Needs review' — so a finding recorded as 'low', 'medium', 'high', 'warning' or 'review' all appear to the reader as 'Needs review', and the original wording is lost. Nothing here is wrong with any individual finding; the defect is presentation and vocabulary drift across sessions, and it makes the register harder to triage on a phone. Suggested handling for the owner of scripts/build.py (session arena-be019782 while PR #237 is open; this session did not edit other sessions' research files): render the recorded severity verbatim next to the badge (for example 'Needs review · recorded as low'), and state the mapping in one sentence at the top of the register. Do not rewrite historical records.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/tree/main/data/research",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/review/"
+    ]
+  }
+]
