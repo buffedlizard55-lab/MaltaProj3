@@ -32,8 +32,9 @@ concurrency:
   # cancel the four-hour guarantee. Push-triggered runs still serialise among
   # themselves, and a burst of pushes only costs the intermediate push runs.
   # Recovery and the existing catch-up slot use an available independent pool.
-  # Normal four-hour/push behavior is unchanged; every validation still runs.
-  group: pages-${{ (startsWith(github.event.head_commit.message, 'recovery:') || github.event.schedule == '47 2-22/4 * * *') && 'recovery' || github.event_name }}
+  # Keep the event namespace even in recovery: an explicit recovery push must
+  # never replace a pending scheduled catch-up. Every validation still runs.
+  group: pages-${{ github.event_name }}${{ (startsWith(github.event.head_commit.message, 'recovery:') || github.event.schedule == '47 2-22/4 * * *') && '-recovery' || '' }}
   cancel-in-progress: false
 jobs:
   # A push to main also starts the platform's *legacy* Pages build, which

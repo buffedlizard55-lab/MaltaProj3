@@ -250,9 +250,20 @@ class FullPublisherStillGuardsEverySource(unittest.TestCase):
         self.assertEqual(self.text.count("&& 'macos-14' || 'ubuntu-24.04'"), 2)
 
     def test_recovery_is_a_separate_serial_group_not_a_new_publisher(self):
-        self.assertIn("&& 'recovery' || github.event_name", self.text)
+        self.assertIn("group: pages-${{ github.event_name }}${{", self.text)
+        self.assertIn("&& '-recovery' || ''", self.text)
         self.assertIn('cancel-in-progress: false', self.text)
         self.assertIn('needs: [republish-last-verified]', self.fresh)
+
+    def test_even_recovery_pushes_cannot_replace_either_scheduled_lane(self):
+        # The expression is pinned above; exercise the resulting namespace
+        # contract, including the case a simple shared 'recovery' group missed.
+        def group(event, recovery=False):
+            return 'pages-' + event + ('-recovery' if recovery else '')
+        pushes = {group('push'), group('push', True)}
+        scheduled = {group('schedule'), group('schedule', True)}
+        self.assertFalse(pushes & scheduled)
+        self.assertEqual(len(pushes | scheduled), 4)
 
     def test_action_write_is_scoped_to_the_small_job(self):
         default = self.text.split('jobs:', 1)[0]
