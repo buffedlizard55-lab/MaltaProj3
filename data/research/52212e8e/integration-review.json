@@ -236,7 +236,26 @@
         "https://github.com/buffedlizard55-lab/MaltaProj3/pull/256#issuecomment-6381190305",
         "https://thunderpick.io/api/matches",
         "https://github.com/buffedlizard55-lab/MaltaProj3/commit/c1152ed6bf85c6aec26dedc8013ae02db22d4d39"
-      ]
+      ],
+      "cd37_disposable_prototype": {
+        "head": "730561f99a081ed71eb979e48f9bfae281a53575",
+        "report": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/730561f99a081ed71eb979e48f9bfae281a53575/data/research/cd37caa0/combined-prototype.md",
+        "status": "owner-reported disposable simulation only; not independently rerun by S522, not a live collection, merge, or deployment",
+        "boundary": "domain.no_vig requires both decimal legs >1.01",
+        "result": "25 active / 25 resolved / 0 unresolved; 14 external-line + 11 research-model; zero reconciliation problems",
+        "fallback": {
+          "fixture_id": "1082860",
+          "method": "HLTV ranking research model",
+          "probabilities_percent": [
+            52.300959,
+            47.699041
+          ],
+          "pick": "FlyQuest",
+          "limitation": "unranked floor / low confidence; engine output, not hand-filled"
+        },
+        "owner_reported_checks": "166/166 relevant unit + 32/32 dated-fixture tests; 117/117 Playwright; 892 rendered rows / 0 sourceless / 929 links / acceptance 10 pass",
+        "remaining": "Real production heads still need the boundary and a real featured collection + origination rerun."
+      }
     },
     {
       "id": "S522-C6B8-001",
@@ -251,6 +270,54 @@
         "https://egamersworld.com/counterstrike/match/0U32SId-H/los-ninos-vs-borracheiros-qorsZa4d--",
         "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/rooster-vs-team-abyssal-P1tTp3RAg8",
         "https://egamersworld.com/counterstrike/match/cN3l69-7b/hotu-vs-the-huns-esports-SfdtzDhiK"
+      ]
+    },
+    {
+      "id": "S522-COUNTS-001",
+      "severity": "notice",
+      "pr": 253,
+      "head": "1e1da8a9f5d4bced188293054549962868c78748",
+      "finding": "719 prose says 5-of-9 priced and four CCT #12 blanks, but its own rows show 4-of-9 and five CCT #12 blanks.",
+      "verified_details": {
+        "missing_cards": 9,
+        "missing_with_reference_line": 4,
+        "missing_without_reference_line": 5,
+        "missing_cct12_without_reference_line": 5,
+        "all_25_cards_with_reference_line": 5,
+        "priced_card_already_in_published_snapshot": "1079193",
+        "missing_priced_ids": [
+          "1079658",
+          "1079659",
+          "1079660",
+          "1079661"
+        ],
+        "missing_unpriced_ids": [
+          "1081152",
+          "1081153",
+          "1081154",
+          "1081156",
+          "1081158"
+        ]
+      },
+      "handling": "Flagged in S522's review register only; no active 719 record or board block was edited. No price, pick, or probability changed.",
+      "source_urls": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/719a314a/live-coverage-2026-10-24.json",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/719a314a/live-coverage-2026-10-24.md",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/e619b921/live-coverage.json"
+      ]
+    },
+    {
+      "id": "S522-PR238-001",
+      "severity": "notice",
+      "pr": 238,
+      "head": "6d55f34a4416b992d4d6e2ce3a2b5ac86864b4a7",
+      "finding": "The combined mobile + strict-EGW integration candidate passes targeted checks but remains conflicted and has no >1.01 production price boundary.",
+      "verification": "S522 independent archive run: 84 targeted tests passed, 2 skipped; build/replay passed with 825 rows / 0 sourceless / 833 internal links / acceptance 9 pass, 1 info, 0 fail. tests/test_be019782_egw_safety.py is present. Thunderpick admission and domain.no_vig still reject only <=1, so 1.001 remains admissible.",
+      "handling": "Review only; PR #238 owns the active integration. Do not merge this head as final and do not duplicate its claimed mobile/EGW work.",
+      "source_urls": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/pull/238",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237#issuecomment-6381343307",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/730561f99a081ed71eb979e48f9bfae281a53575/data/research/cd37caa0/combined-prototype.md"
       ]
     }
   ],

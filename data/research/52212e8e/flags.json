@@ -194,5 +194,30 @@
       "https://www.hltv.org/matches/2399914/los-ninos-vs-borracheiros-cct-2026-south-america-series-7",
       "https://www.hotspawn.com/matches/los-ninos-vs-borracheiros-cct-south-america-2026-series-7-1083122"
     ]
+  },
+  {
+    "id": "52212e8e-719-count-consistency",
+    "severity": "notice",
+    "title": "719 coverage prose counts an already-published fifth price among the nine missing cards",
+    "detail": "The merged 719 JSON at 2026-10-24T06:26:00Z contains 9 cards absent from the published snapshot. Exactly 4 of those 9 have a non-null reference_line (1079658,1079659,1079660,1079661), and 5 have none (1081152,1081153,1081154,1081156,1081158), all five CCT Europe #12. The fifth reference_line across the full 25-card file is 1079193 FOKUS–ex-6666, which was already in the published snapshot and is not one of the nine. Therefore prose saying “5 of 9” and “four CCT #12 cards” is inconsistent with the record/table; the independent e619 record also states 4 of 9 and 5 without a price. This is a documentation correction flag, not a new pick or probability.",
+    "match_ids": [
+      "1081152",
+      "1081153",
+      "1081154",
+      "1081156",
+      "1081158",
+      "1079658",
+      "1079659",
+      "1079660",
+      "1079661"
+    ],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/719a314a/live-coverage-2026-10-24.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/719a314a/live-coverage-2026-10-24.md",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/e619b921/live-coverage.json",
+      "https://play.hotspawn.com/lobby",
+      "https://egamersworld.com/counterstrike/event/cct-europe-2026-series-11-_rW8GEyWK",
+      "https://egamersworld.com/counterstrike/event/cct-europe-2026-series-12-HiXMAaC8L"
+    ]
   }
 ]

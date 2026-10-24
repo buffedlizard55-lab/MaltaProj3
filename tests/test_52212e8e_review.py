@@ -127,6 +127,33 @@ class ReviewDossierTests(unittest.TestCase):
         self.assertIn("only 3 exact-inventory gate accepts", markdown)
         self.assertIn("No production price or capture path was changed", markdown)
 
+    def test_719_missing_card_counts_exclude_the_already_published_fifth_price(self):
+        coverage = json.loads(
+            (ROOT / "data" / "research" / "719a314a" /
+             "live-coverage-2026-10-24.json").read_text(encoding="utf-8"))
+        missing = [row for row in coverage["cards"]
+                   if not row["in_published_snapshot"]]
+        priced = [row for row in missing if row.get("reference_line")]
+        unpriced = [row for row in missing if not row.get("reference_line")]
+        self.assertEqual(len(missing), 9)
+        self.assertEqual([row["hotspawn_id"] for row in priced],
+                         ["1079658", "1079659", "1079660", "1079661"])
+        self.assertEqual([row["hotspawn_id"] for row in unpriced],
+                         ["1081152", "1081153", "1081154", "1081156", "1081158"])
+        self.assertTrue(all(row["competition"].endswith("#12") for row in unpriced))
+        all_priced = [row for row in coverage["cards"] if row.get("reference_line")]
+        self.assertEqual(len(all_priced), 5)
+        fifth = next(row for row in all_priced if row["hotspawn_id"] == "1079193")
+        self.assertTrue(fifth["in_published_snapshot"])
+        report = load("integration-review.json")
+        finding = next(item for item in report["integration_findings"]
+                       if item["id"] == "S522-COUNTS-001")
+        self.assertEqual(finding["verified_details"]["missing_with_reference_line"], 4)
+        self.assertEqual(finding["verified_details"]["missing_without_reference_line"], 5)
+        flags = load("flags.json")
+        self.assertIn("52212e8e-719-count-consistency",
+                      {flag["id"] for flag in flags})
+
     def test_markdown_keeps_the_acceptance_qualification_visible(self):
         replay = (DOSSIER / "fresh-25-replay.md").read_text(encoding="utf-8")
         verification = (DOSSIER / "verification.md").read_text(encoding="utf-8")
