@@ -1,0 +1,75 @@
+[
+ {
+  "id": "8aa401c8-seven-no-line-fixtures-rechecked",
+  "severity": "notice",
+  "match_ids": [
+   "1082996",
+   "1079198",
+   "1079200",
+   "1082858",
+   "1082861",
+   "1082792",
+   "1082793"
+  ],
+  "title": "HLTV then esportsbooks re-checked for all seven fixtures without a betting line (2026-10-24): no first-party replayable quote, one aggregated bookmaker average already published as a guided pick",
+  "detail": "Read directly 2026-10-24T05:36Z-06:44Z through a fetch path that reaches hltv.org (the four-hour runner records HTTP 403 for the same HLTV URLs). HLTV confirms identity, both rankings and the Bo3 format for Ground Zero vs Off Chops and publishes no winner market with a price on both sides. EGamersWorld publishes two different surfaces for these fixtures: its event pages and match listing show the identical 1.8 / 1.8 on all seven, while the match page for Ground Zero vs Off Chops alone shows an aggregated bookmaker average of 3.44 / 1.24 ('leading bookmakers ... average odds 1.24 ... about 3.44'). That pair is already recorded and published by arena-43110640 as a guided pick (Off Chops 73.5% after de-vig) and is what the merged scripts/egw_live.py rung may replay on a later refresh; this session does not re-price it. The match page for Acend vs UNITY Esports still shows 1.8 / 1.8 with no such sentence, so the template is not merely a compact rendering. Polymarket lists Ground Zero vs Off Chops by exact name and start, but its readable Map 1 book is 0.07 bid / 0.93 ask (0.87 spread), which is not a two-sided quote. Nothing here changes a probability, a pick or an alias; the seven rows keep their labelled research estimates. Dossier: data/research/8aa401c8/direct-observations.json and .md.",
+  "source_urls": [
+   "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+   "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+   "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/acend-vs-unity-esports-iwaKSVfgf",
+   "https://egamersworld.com/counterstrike/event/nodwin-clutch-series-13-Nk9F-Ov54e",
+   "https://egamersworld.com/counterstrike/event/dfrag-invitational-2026-4kaAQWgKEx",
+   "https://egamersworld.com/counterstrike/event/gluck-moscow-cyber-games-2026-EkalRNMvVx",
+   "https://gamma-api.polymarket.com/markets?slug=cs2-gz1-offcho-2026-10-25",
+   "https://play.hotspawn.com/lobby"
+  ]
+ },
+ {
+  "id": "8aa401c8-egamersworld-uniform-1-8-is-a-template",
+  "severity": "notice",
+  "match_ids": [
+   "1082996",
+   "1079198",
+   "1079200",
+   "1082858",
+   "1082861",
+   "1082792",
+   "1082793"
+  ],
+  "title": "EGamersWorld's event pages price every unpriced fixture at an identical 1.8 / 1.8 (a 111% book) while its match pages can carry a real aggregated average \u2014 the template must never be read as a price",
+  "detail": "On all three event pages read at 2026-10-24T05:42Z-05:46Z, every fixture the project has no line for carries the same 1.8 / 1.8 pair: Acend-UNITY, Metizport-BakS, Color-ex-Zero Tenacity (NODWIN Clutch Series 13), Ground Zero-Off Chops and Rooster-Team Abyssal (DFRAG Invitational 2026), HOTU-The Huns and 1WIN-5star (GLuck Moscow Cyber Games 2026). The same widget on the same pages publishes asymmetric pairs for fixtures it prices: 1.22/3.8, 1.5/2.4, 1.78/1.92 (NODWIN), 1.6/2.17 and 1.001/12 (DFRAG). A 1.8 / 1.8 pair implies 1/1.8 + 1/1.8 = 1.111, a 111% book and no information about either team, so a pipeline that read it would publish a fabricated 50/50. The match page for Acend vs UNITY Esports reproduces 1.8 / 1.8 with no bookmaker sentence, while the match page for Ground Zero vs Off Chops carries an aggregated 3.44 / 1.24 \u2014 so the template is a listing default, and the match page is where a real reference can appear. The merged scripts/egw_live.py rung was written to reject identical pairs; this flag records the evidence that the rejection rule is load-bearing, not hypothetical. Recorded as a limitation, not as an excuse for a blank: a placeholder or a blocked surface is never proof that no market exists. One search-engine excerpt showed 1.09/6.8 for HOTU-The Huns; the live page returns 1.8/1.8, so that snippet is not used.",
+  "source_urls": [
+   "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/acend-vs-unity-esports-iwaKSVfgf",
+   "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+   "https://egamersworld.com/counterstrike/event/nodwin-clutch-series-13-Nk9F-Ov54e",
+   "https://egamersworld.com/counterstrike/event/dfrag-invitational-2026-4kaAQWgKEx",
+   "https://egamersworld.com/counterstrike/event/gluck-moscow-cyber-games-2026-EkalRNMvVx"
+  ]
+ },
+ {
+  "id": "8aa401c8-publisher-went-red-on-a-stale-test-clock",
+  "severity": "notice",
+  "match_ids": [],
+  "title": "The four-hour publisher failed four consecutive runs (2026-10-23T21:41Z to 2026-10-24T04:36Z) because a regression test measured a fixed snapshot date against the real clock \u2014 fixed here, no data or site code was at fault",
+  "detail": "tests/test_ca7e10e5_snapshot.py built a publisher plan without passing now=, so scripts/root_publish.py measured the fixture snapshot 2026-10-23T09:23:57Z against the wall clock. At exactly 21:41Z, twelve hours after that stamp and with no code change, the 12-hour staleness guard raised PublishRefused inside the test and three tests became ERRORs (test_snapshot_json_is_published, test_the_replay_fixture_is_still_never_published, test_an_older_build_is_still_refused). Runs 40028653350, 40037957529, 40048429858 and 40063011446 each stopped at 'Regression tests' and the refresh the brief depends on was skipped; the site kept serving the last verified 2026-10-23T20:10Z build through the republish-last-verified job, so no stale page was ever published. The fix passes an explicit now= beside the fixture (so the assertion is about the publisher's rules again) and adds StaleSnapshotIsRefused, which still pins the 12-hour refusal and the allow-stale bypass against an explicit age. The same session also found and fixed a duplicate id=\"no-line-research\" on the executive summary, which made one test fail whenever a build output was present locally (CI skips it because site/ is untracked): the block was rendered both inside the compact unresolved register and by summary() itself.",
+  "source_urls": [
+   "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446",
+   "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40048429858",
+   "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40037957529",
+   "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40028653350",
+   "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/root_publish.py"
+  ]
+ },
+ {
+  "id": "8aa401c8-originate-egw-nameerror",
+  "severity": "notice",
+  "match_ids": [],
+  "title": "A missing egw_live import in scripts/originate.py failed seven unit tests and the originate workflow for every session after PR #240 merged (reproduced here at bdb4fc9; fixed independently by PR #261 and by the one-line guard on this branch)",
+  "detail": "scripts/originate.py:1044 called (evidence_dir / egw_live.EVIDENCE_NAME).unlink(missing_ok=True) before any try block, and the module was never imported, so every scripted call to live_collect raised NameError: name 'egw_live' is not defined. On the branch that built this record it surfaced as seven unittest ERRORs \u2014 three in tests/test_origination_upgrade.py (LiveModelResearch) and one in tests/test_f9d0a5a2.py, plus three more in the same classes \u2014 and as the failing 'Refetch first-party origination sources and resolve' step of the originate workflow (run 40070805381). It reproduces on main at bdb4fc9 with none of this session's changes, so it is a merged-code defect, not a data or research finding. Two independent fixes landed: main took 292ea22 (PR #261, arena-5260ef4e), which imports the module and replays the automated capture; this branch additionally moves the stale-evidence unlink inside the try/except that already guards the EGamersWorld capture, so an evidence-directory problem records a reason instead of aborting a collection. tests.test_origination_upgrade + tests.test_f9d0a5a2 + tests.test_5260ef4e_egw_wiring: 47 tests OK.",
+  "source_urls": [
+   "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/originate.py",
+   "https://github.com/buffedlizard55-lab/MaltaProj3/commit/292ea22",
+   "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40070805381"
+  ]
+ }
+]

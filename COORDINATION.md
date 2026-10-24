@@ -269,6 +269,88 @@ Claimed **2026-10-24T07:15Z** on Arena's fixed branch `arena/d202e156-maltaproj3
 
 ---
 
+# Current session: arena-8aa401c8 — restore the four-hour refresh, fix the duplicate summary anchor, dated HLTV-then-esportsbook re-check of the seven no-line fixtures — DONE (PR #242 merged)
+
+
+Claimed **2026-10-24T05:30Z** on Arena's fixed branch `arena/8aa401c8-maltaproj3`, branched from `main` at `2f966a9` (the `publish:` root sync, current `origin/main` head; no rebase needed). Board and open PRs read first.
+
+Live state at claim time, verified before touching anything: the published build in the branch root carries `data-snapshot-generated` **2026-10-23T20:09:44Z** (19 active Hotspawn CS2 fixtures, 19 directional picks — 12 external line, 7 research model, 0 blank), and `pages.yml` had **failed four consecutive scheduled runs** (40028653350 21:41Z, 40037957529 23:08Z, 40048429858 01:08Z, 40063011446 04:36Z). The failure was at the *regression test* step, before collection, so nothing about sources was involved; the last verified artifact kept being republished by `republish-last-verified`, which is why the site itself never regressed.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 8A-1 Diagnose the red publisher: three `ERROR`s in `RootPublisherCarriesTheSnapshot` since 21:41Z, exactly 12 h after the fixture stamp `2026-10-23T09:23:57Z`. Root cause is a test clock, not site code: `root_publish.build_plan(..., now=None)` fell back to `datetime.now()`, so the 12-hour staleness guard raised `PublishRefused` inside the test | **superseded, not duplicated** — `arena-43110640` (PR #240) and `arena-d39310ae` (PR #239) landed the same pinning fix on `main` while this PR's checks ran; on rebase I dropped my near-identical patch, kept their file, and confirmed their guard test (`test_snapshot_publishing_still_rejects_stale_data`) covers the refusal my `StaleSnapshotIsRefused` was written for | arena-8aa401c8 (dropped), arena-43110640, arena-d39310ae | `tests/test_ca7e10e5_snapshot.py` (no net change from this session) |
+| 8A-2 Remove the duplicate `id="no-line-research"` from the executive summary. The compact unresolved register rendered the dated-research block and `summary()` rendered it again, so `/index.html` carried the same id twice (invalid HTML, and ~5 KB of prose repeated above the picks on a phone) | **superseded, not duplicated** — `arena-73bc57bd` (PR #241) made the identical removal while this PR's checks ran; on rebase I took their merged comment and their code. What this session still adds in `scripts/build.py` is the accuracy fix described under 8A result §5 | arena-73bc57bd (fix), arena-8aa401c8 (wording) | `scripts/build.py` |
+| 8A-3 Dated re-check of every fixture the published snapshot prices only with a research model (7 of 19): HLTV first, then esportsbooks and esports betting lines. Evidence-only, with verbatim excerpts and hashes; no probability, pick or alias written | **done** — see 8A result | arena-8aa401c8 | new `data/research/8aa401c8/**`, this section |
+| 8A-4 Verification: full local build (replay, row-source audit, acceptance audit, internal links), targeted unit suites, phone/a11y browser suite, then PR to `main`, merge, and confirm the Pages deploy serves a fresh snapshot with the refresh interval restored | in progress | arena-8aa401c8 | PR |
+
+**Non-overlap pledge.** No edit to `scripts/collect.py`, `scripts/originate.py`, `scripts/sources.py`, `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `.github/workflows/**`, `assets/**`, `archive/`, `docs/`, or any other session's `data/research/<id>/`. Two idle sessions have open PRs touching `scripts/build.py` and `scripts/collect.py` (`arena-1531ecf1` PR #227, last commit 2026-10-23T13:00Z; `arena-1045efed` PR #229, last commit 11:28Z — both idle >16 h, so the 60-minute handoff rule applies). Their files were read, not edited; my `scripts/build.py` change is three comment/append lines in the compact unresolved branch, which is a different region from both.
+
+### 8A result (2026-10-24)
+
+**1. Why the refresh stopped, line by line.** `scripts/root_publish.py::build_plan` refuses a snapshot older than `max_age_hours=12.0` unless `allow_stale` is passed (`lines 251-259`). `tests/test_ca7e10e5_snapshot.py` built a plan **without** `now=`, on a fixture whose `generated_at` is hard-coded to `2026-10-23T09:23:57Z`. Twelve hours later, to the minute, `age > timedelta(hours=12)` became true inside the test and the three cases became `PublishRefused` ERRORs. Confirmed from the public check annotations, not from log text (the log host is unreachable from here): `gh api .../check-runs/120780438497/annotations` names exactly `test_the_replay_fixture_is_still_never_published`, `test_snapshot_json_is_published`, `test_an_older_build_is_still_refused`, identical on all four runs. Reproduced locally on the untouched tree at 05:38Z (`Ran 15 tests … FAILED (failures=1, errors=3)`), then fixed: the class now passes `now=PUBLISH_AT` and a shared `write_publisher_tree()` helper, and the guard keeps its own two cases in `StaleSnapshotIsRefused`. `Ran 17 tests … OK`.
+
+**2. Duplicate anchor.** `summary()` renders `no_line_research_block(data, prefix)` once at `scripts/build.py:1923`, and `unresolved_register(..., compact=True)` (called only from `summary()`) appended it again at 8A-2's line. The built `/index.html` carried `id="no-line-research"` **twice** (offsets 81670 and 87467 in the pre-fix build). CI never saw it because `site/` is gitignored, so `test_the_built_executive_summary_contains_it_once` skips there — it fails for any session that runs the suite after a build, which is what integration sessions do. After the fix: `occurrences 1`, internal links 829 → 826 (the three links inside the removed duplicate), build still `PASS`.
+
+**3. The seven no-line fixtures, re-checked 05:36Z-05:48Z (dossier `data/research/8aa401c8/direct-observations.{json,md}`).**
+| Fixture | Hotspawn | Surface read | What it published |
+| --- | --- | --- | --- |
+| Acend vs UNiTY | 1082996 | EGamersWorld event page (Thunderpick relay) | `1.8 / 1.8` |
+| Metizport vs BakS | 1079198 | same | `1.8 / 1.8` |
+| Color vs ex-Zero Tenacity | 1079200 | same | `1.8 / 1.8` |
+| Ground Zero vs Off Chops | 1082858 | HLTV 2399888 (HTTP 200) + EGamersWorld event page + EGamersWorld match page + Polymarket | ranks `#142 / VRS #132`, no price; `1.8 / 1.8` on the event page but **aggregated `3.44 / 1.24` on the match page**; Map 1 book `0.07 / 0.93` |
+| Rooster vs Abyssal | 1082861 | EGamersWorld event page | `1.8 / 1.8` |
+| HOTU vs The Huns | 1082792 | EGamersWorld event page | `1.8 / 1.8` |
+| 5star vs 1WIN | 1082793 | EGamersWorld event page | `1.8 / 1.8` |
+
+`1/1.8 + 1/1.8 = 1.111`, a 111 % book with no information about either team. The control is on the same pages: fixtures that widget *does* price are asymmetric (`1.22/3.8`, `1.5/2.4`, `1.78/1.92` on NODWIN; `1.6/2.17`, `1.001/12` on DFRAG). So the uniform pair is a template default, not a market, and any scraper reading it would have invented a 50/50 for seven fixtures. One search-engine excerpt showed `1.09 / 6.8` for HOTU–The Huns; the live event page returns `1.8 / 1.8` at 05:46Z, so the snippet is recorded as not reproducible and **not used**. Result: **0 first-party replayable quotes, 1 aggregated bookmaker average (Ground Zero–Off Chops `3.44 / 1.24`, already published as `arena-43110640`'s guided pick), 1 new identity/format confirmation, 0 probabilities changed, 0 picks changed, 0 aliases added.** The published estimates stand.
+
+The decisive control is the Acend vs UNITY **match page**, read at 06:43Z: it repeats `1.8 / 1.8` and its *Betting tips* section carries no bookmaker sentence at all, while the Ground Zero match page carries the "leading bookmakers … average odds 1.24" sentence. That is what separates a listing default from a price, and it is why this sweep records the template as unusable rather than as a market.
+
+**4. Verification performed** (final rebase onto `main` at `06f56c2`): `python -m scripts.build`: replay **PASS** (80 source rows), row-source audit **784 rows / 0 without a source / 9 flagged unverified**, acceptance audit **9 pass · 1 info · 0 fail**, **829 internal links** OK. Targeted suites: `test_ca7e10e5_snapshot` (17), `test_a7128fdd_direct_observations` (77), `test_eea4c104_audit`, `test_current_research_summary`, `test_review_flags`, `test_42bfa8ea` — all OK. The rendered summary block names the 24 Oct read, 0 new prices, `6 of 6` surfaces refused, and links the dossier; `/unresolved/` carries the full register; `/review/` lists the three flags below.
+
+### Rebase, conflict log and one correction I made to my own record (2026-10-24T06:20-07:10Z)
+
+While PR #242's checks ran, `arena-43110640` merged PR #240 (`bdb4fc9`). The rebase conflicted in exactly two files, both expected: this board (two sessions prepending a section) and `tests/test_ca7e10e5_snapshot.py`, where **PR #240 had independently fixed the same time-bomb** — same diagnosis (wall clock vs the fixed `2026-10-23T09:23:57Z` fixture), same remedy (`now=` pinned), different helper. Resolution keeps #240's merged structure, folds my `_plan()` helper into it, keeps my extra `StaleSnapshotIsRefused` class (the guard and its `--allow-stale` bypass, which #240 did not pin), and credits both sessions in the docstring. No assertion from either side was dropped. 17 tests pass.
+
+The correction matters more than the conflict. My first pass recorded "0 compliant two-sided prices" for all seven fixtures from the EGamersWorld **event pages** alone. PR #240's dossier showed an asymmetric `3.44 / 1.24` for Ground Zero–Off Chops, so I re-read that fixture's **match page** at 06:40Z: the pair is real, published as an *aggregate* of "leading bookmakers" with no named book, no per-book price and no timestamp, and it is the basis of #240's guided pick (Off Chops 73.5 % after de-vig). I then read the **Acend vs UNITY match page** at 06:43Z as a control: `1.8 / 1.8`, no bookmaker sentence. So the accurate statement is: **one aggregated average exists (already recorded and published by #240), zero first-party replayable quotes, and the uniform `1.8 / 1.8` is a listing default — not a market.** The dossier, the two flags and the rendered summary sentence were corrected before merge; nothing was left asserting the earlier, narrower claim.
+
+### Second rebase (2026-10-24T07:20Z) and a cross-session bug that made main red
+
+While the first set of checks ran, `arena-73bc57bd` merged PR #241 (`4a6c112`). Its rebase conflicted only on this board and on the *same* compact-register comment in `scripts/build.py`: **#241 made the identical duplicate-`id` fix independently**, removing the same `out.append(no_line_research_block(...))`. Resolution takes #241's merged comment and drops mine; the code is byte-identical either way, so nothing of either session's is lost. #240's time-bomb fix, #241's reconciliation, and my research dossier all coexist; `137 targeted tests OK`, build `PASS`.
+
+The checks then failed for a reason that is **not mine and not data**: PR #240 added `scripts/originate.py:1044`, which calls `egw_live.EVIDENCE_NAME` **without importing `scripts.egw_live`**, and the call sits *before* the `try` block. Every `live_collect()` therefore raises `NameError: name 'egw_live' is not defined`. That is seven unittest ERRORs (three in `test_origination_upgrade.LiveModelResearch`, one in `test_f9d0a5a2`) plus the failing "Refetch first-party origination sources and resolve" step of the originate workflow (run 40070805381), all reproducible on `main` at `bdb4fc9` without a single line of this branch. Because it blocked every session's red-to-green path, this session fixed it in its own PR rather than logging a request against an idle branch: one import, plus the stale-evidence unlink moved inside the `try` that already guards the EGamersWorld capture. While that PR's checks ran, `arena-5260ef4e` merged **PR #261** (`292ea22`) with the same import and a better follow-on (it replays the automated capture through `egw_live.load_live`). On rebase, git kept a single import line and only this branch's extra `try` guard remains as a difference from `main`; that is the intended outcome and neither session's fix is lost. Published as `8aa401c8-originate-egw-nameerror`, with the failing run and both fixes linked. `test_origination_upgrade` + `test_f9d0a5a2` + `test_5260ef4e_egw_wiring`: **47 tests OK**.
+
+### 5. Two more defects found after the first green run, and how they were settled
+
+* **`scripts/originate.py` used `egw_live` without importing it** (a #240 regression): `NameError` on every `live_collect()`, seven unittest ERRORs, and the originate workflow's refetch step red (run 40070805381), reproducible on `main` without this branch. Fixed here (import + the stale-capture unlink moved inside the guarded `try`); `arena-5260ef4e` landed the import independently in `292ea22` (PR #261) with a better replay, so after rebase only this session's `try` guard remains — nothing of either fix is lost. Published as `8aa401c8-originate-egw-nameerror`.
+* **A renderer sentence over-claimed.** The direct-observation block told every reader that the record's refusals were "identical numbers … a zero-volume listing default and fan votes". This session's record has no fan vote and no zero-volume market — its Polymarket refusal is a *wide* book — so both sentences now read "as applicable to this record, … a wide or zero-volume listing and a fan vote". Same rule, accurate for any record the loader renders.
+
+### 6. Two blockers on `main` that were *not* mine, and one duplicate I dropped
+
+While this PR's checks ran, `main` itself was red: `test_96fbe295.WorkflowWiringTests.test_pushes_cannot_cancel_a_scheduled_refresh`
+asserted the literal `group: pages-${{ github.event_name }}` while `pages.yml` had since moved to the
+recovery-aware `pages-${{ (… ) && 'recovery' || github.event_name }}`, and
+`test_a244cecd_clock_guard` flagged an intentionally unpinned refusal call in
+`test_34247d4e_publisher_clock.py:135`. Because `pages.yml` runs the same regression step, that red
+state is what stopped the four-hour refresh from publishing a fresh snapshot. Both reproduced on
+`origin/main` without this branch, so I patched them here (guard exemption for calls inside
+`assertRaises(PublishRefused)`, and a concurrency assertion that follows the expression instead of a
+frozen string) and verified the whole suite at four pinned absolute clocks. Newer `main` (`6c737a1`)
+fixed both independently, so on rebase I dropped my copies rather than duplicate another session's
+work; the local reproduction and the fixes' reasoning stay in this log, and nothing of theirs was
+reverted.
+
+### Irregularities (published on Flagged for Review, not blocking)
+
+1. `8aa401c8-publisher-went-red-on-a-stale-test-clock` — the four missed refreshes, their run links, and the exact mechanism.
+2. `8aa401c8-egamersworld-uniform-1-8-is-a-template` — the 111 % template pair, with the asymmetric control quoted from the same pages.
+3. `8aa401c8-seven-no-line-fixtures-rechecked` — the 24 Oct re-check and every source link, so a reader can see why seven rows still carry a research estimate.
+4. `8aa401c8-originate-egw-nameerror` — the merged `egw_live` NameError, with the failing run and the one-line fix.
+
+### Cross-session note (recorded, not a re-claim)
+
+`tests/test_a7128fdd_direct_observations.py` asserted that `load_direct_observations()` returns *that session's* stamp. The loader is documented newest-wins, so any later dated dossier necessarily breaks it — mine did. Rather than keep the register frozen at 23 Oct, that one assertion now compares the loader's result with the **newest committed** dossier (`_record_path` included), and a new case checks that *every* committed dossier still satisfies the contract (sibling markdown, hash-matched excerpts, no fabricated price, zero changes). `arena-a7128fdd`'s own scope/manifest test is untouched and still passes. All 77 tests in that file pass.
+
 # Current session: arena-5260ef4e — refresh-pipeline audit (the `egw_live` NameError and the write-only EGW rung), reviewed-first ordering + replay counters, fresh-publish verification
 
 Claimed **2026-10-24T06:20Z** on Arena's fixed branch `arena/5260ef4e-maltaproj3`, branched from `main` at `bdb4fc9` (PR #240). **Update 07:40Z:** while this session was working, sessions `dd433e7f` (PR #252) and `da8067f5` (PR #257) independently found and merged the same two defects (missing `from scripts import egw_live`, no reader for `live-egw-reference.json`). Nothing is discarded: this session rebased onto `1e1da8a` and now contributes only the delta below, and records its own evidence so the fix has two independent sources.

@@ -1,0 +1,285 @@
+{
+ "schema": "8aa401c8-direct-observations/1",
+ "session": "arena-8aa401c8",
+ "observed_at": "2026-10-24T06:44:00Z",
+ "observed_window_utc": [
+  "2026-10-24T05:36:00Z",
+  "2026-10-24T06:44:00Z"
+ ],
+ "environment": "authoring-fetch-path",
+ "environment_note": "Captured by direct page fetch from the agent's page fetcher, NOT from a GitHub Actions runner. The runner reads HLTV, EGamersWorld and several books at HTTP 403/challenge, which is why earlier sweeps recorded those surfaces as unreachable; this path reaches them. The runner-only loader in scripts/build.py::load_no_line_research deliberately ignores this record, so nothing here can enter the priced ladder. It is published as dated evidence only.",
+ "brief_line": "We need to be able to generate picks for every match... Look for information sources to guide pick selections only for any matches that cannot be resolved in the same way as the featured picks. Try hltv, then try looking at esportsbooks and esports betting lines.",
+ "method": "HLTV first, then esportsbooks and esports betting-line surfaces, for every active Hotspawn CS2 fixture the published snapshot prices only with a research model or leaves unpriced: 7 of 19 active fixtures in the snapshot generated 2026-10-23T20:10:00Z. Every page was read at observation time; no search-engine snippet was adopted, and one snippet that disagreed with the live page is recorded as not reproducible rather than used. No probability, pick or alias is written by this record.",
+ "fixture_scope": [
+  {
+   "hotspawn_id": "1082996",
+   "teams": [
+    "Acend",
+    "UNiTY"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at": "2026-10-25T09:00:00Z",
+   "published_method": "model"
+  },
+  {
+   "hotspawn_id": "1079198",
+   "teams": [
+    "Metizport",
+    "BakS"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at": "2026-10-25T12:00:00Z",
+   "published_method": "model"
+  },
+  {
+   "hotspawn_id": "1079200",
+   "teams": [
+    "Color",
+    "ex-Zero Tenacity"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at": "2026-10-25T18:00:00Z",
+   "published_method": "model"
+  },
+  {
+   "hotspawn_id": "1082858",
+   "teams": [
+    "Ground Zero",
+    "Off Chops"
+   ],
+   "competition": "DFRAG Invitational 2026",
+   "starts_at": "2026-10-26T03:00:00Z",
+   "published_method": "model"
+  },
+  {
+   "hotspawn_id": "1082861",
+   "teams": [
+    "Rooster",
+    "Abyssal"
+   ],
+   "competition": "DFRAG Invitational 2026",
+   "starts_at": "2026-10-27T03:00:00Z",
+   "published_method": "model"
+  },
+  {
+   "hotspawn_id": "1082792",
+   "teams": [
+    "HOTU",
+    "The Huns"
+   ],
+   "competition": "Moscow Cyber Games 2026",
+   "starts_at": "2026-10-31T09:00:00Z",
+   "published_method": "model"
+  },
+  {
+   "hotspawn_id": "1082793",
+   "teams": [
+    "5star",
+    "1WIN"
+   ],
+   "competition": "Moscow Cyber Games 2026",
+   "starts_at": "2026-10-31T13:00:00Z",
+   "published_method": "model"
+  }
+ ],
+ "observations": [
+  {
+   "id": "8aa401c8-hltv-ground-zero-off-chops-identity-no-price",
+   "surface": "HLTV match page (read first, per the brief's order)",
+   "url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+   "http_status": 200,
+   "fixture_ids": [
+    "1082858"
+   ],
+   "teams_as_published": [
+    "Ground Zero",
+    "Off Chops"
+   ],
+   "excerpt": "Page title 'Ground Zero vs. Off Chops at DFRAG Invitational 2026' \u00b7 Off Chops [HLTV: #142] [VRS: #132] \u00b7 Ground Zero lineup apocdud, Omichella, vision, tucks, sliimey marked 'Substitute' \u00b7 map-by-map lineup win rates (Cache, Dust2, Mirage, Inferno, Nuke, Ancient, Anubis) published",
+   "verdict": "reachable, identity and both rankings confirmed, no two-sided prematch price published",
+   "reason": "HLTV answers this fetch path (the four-hour runner records HTTP 403 for the same URLs), and the page is the strongest identity evidence available for the fixture: both teams, the event, HLTV's world rank #142 and Valve's VRS #132 for Off Chops, and Ground Zero's five-player lineup with a named substitute. It publishes no winner market with a decimal price on both sides, so it cannot price the row. HLTV's fan poll, where shown, is a crowd vote and is excluded by the project's rule 2.",
+   "usable_as_price": false,
+   "two_sided_price": null,
+   "excerpt_sha256": "22ce9927f102d3b128182f700e0594e63341089b0044f219cec25e7e6ff81964"
+  },
+  {
+   "id": "8aa401c8-egamersworld-nodwin-uniform-1-8",
+   "surface": "EGamersWorld NODWIN Clutch Series 13 event page (Thunderpick relay block and schedule)",
+   "url": "https://egamersworld.com/counterstrike/event/nodwin-clutch-series-13-Nk9F-Ov54e",
+   "http_status": 200,
+   "fixture_ids": [
+    "1082996",
+    "1079198",
+    "1079200"
+   ],
+   "teams_as_published": [
+    "Acend",
+    "UNITY Esports",
+    "Metizport",
+    "BakS eSports",
+    "Color",
+    "ex-Zero Tenacity"
+   ],
+   "excerpt": "Acend 1.8 \u2014 1.8 UNITY Esports (25.10.26 05:00 Bo3) \u00b7 Metizport 1.8 \u2014 1.8 BakS eSports (25.10.26 08:00 Bo3) \u00b7 Color 1.8 \u2014 1.8 ex-Zero Tenacity (25.10.26 14:00 Bo3) \u00b7 same page, same widget: Fokus 1.22 \u2014 3.8 ex-6666 \u00b7 Nuclear TigeRES 1.5 \u2014 2.4 FORZE Reload \u00b7 Infinite Gaming 1.78 \u2014 1.92 Brute",
+   "verdict": "reachable, all three fixtures listed and bound by exact team names and Bo3 format, but each shows the identical 1.8 / 1.8 pair",
+   "reason": "1.8 on both sides implies a 111% book (1/1.8 + 1/1.8) and carries no information about either team, while the same widget on the same page publishes asymmetric pairs (1.22/3.80, 1.50/2.40, 1.78/1.92) for fixtures it does price. That contrast makes the 1.8/1.8 rows a template default, not a quote, so they cannot become a probability. The widget is also a third-party relay of a Thunderpick market with no market id or price timestamp on the fixture row, so the ladder could not replay it even if the numbers differed.",
+   "usable_as_price": false,
+   "two_sided_price": null,
+   "excerpt_sha256": "15cf62438d8344f874f0b2bb3c049682dfd1bba93601245519ccf33c18aed2c8"
+  },
+  {
+   "id": "8aa401c8-egamersworld-dfrag-uniform-1-8",
+   "surface": "EGamersWorld DFRAG Invitational 2026 event page (Thunderpick relay block and schedule)",
+   "url": "https://egamersworld.com/counterstrike/event/dfrag-invitational-2026-4kaAQWgKEx",
+   "http_status": 200,
+   "fixture_ids": [
+    "1082858",
+    "1082861"
+   ],
+   "teams_as_published": [
+    "Ground Zero",
+    "Off Chops",
+    "Rooster",
+    "Team Abyssal"
+   ],
+   "excerpt": "Ground Zero 1.8 \u2014 1.8 Off Chops (25.10.26 23:00 Bo3) \u00b7 Rooster 1.8 \u2014 1.8 Team Abyssal (26.10.26 23:00 Bo3) \u00b7 same page: NEXVOID 1.6 \u2014 2.17 Alter Ego \u00b7 FlyQuest 1.001 \u2014 12 Staqued",
+   "verdict": "reachable, both fixtures listed, both show the identical 1.8 / 1.8 template pair",
+   "reason": "Same template as the NODWIN page, and the same page prices two other fixtures asymmetrically (1.60/2.17 and 1.001/12.00), so the uniform 1.8/1.8 is the widget's unpopulated default. The page's own displayed clock is UTC+4 (23:00 there is 03:00Z on Hotspawn), which is recorded rather than silently converted.",
+   "usable_as_price": false,
+   "two_sided_price": null,
+   "excerpt_sha256": "7e474e6a04afc3443d2f315ad67592c1f2d0ec34bd4c2295cef86f310df34a21"
+  },
+  {
+   "id": "8aa401c8-egamersworld-moscow-uniform-1-8",
+   "surface": "EGamersWorld GLuck Moscow Cyber Games 2026 event page",
+   "url": "https://egamersworld.com/counterstrike/event/gluck-moscow-cyber-games-2026-EkalRNMvVx",
+   "http_status": 200,
+   "fixture_ids": [
+    "1082792",
+    "1082793"
+   ],
+   "teams_as_published": [
+    "HOTU",
+    "The Huns Esports",
+    "1WIN",
+    "5star eSports"
+   ],
+   "excerpt": "HOTU 1.8 \u2014 1.8 The Huns Esports (31.10.26 05:00 Bo3) \u00b7 1WIN 1.8 \u2014 1.8 5star eSports (31.10.26 09:00 Bo3)",
+   "verdict": "reachable, both semifinals listed, both show the identical 1.8 / 1.8 template pair",
+   "reason": "A search-engine excerpt of the EGamersWorld match listing that was indexed earlier showed '1.09 / 6.8' for HOTU\u2013The Huns. Reading the event page itself at 2026-10-24T05:46Z returns 1.8 / 1.8, so the earlier number could not be reproduced on the live page and is not used. Only the reproduced value is recorded here.",
+   "usable_as_price": false,
+   "two_sided_price": null,
+   "excerpt_sha256": "57348d18b9266ff564e4956b38738fc300c783e9fe199a534283cea4b9e2653d"
+  },
+  {
+   "id": "8aa401c8-polymarket-ground-zero-book-still-placeholder-wide",
+   "surface": "Polymarket market and order book (gamma API, public CLOB market record)",
+   "url": "https://gamma-api.polymarket.com/markets?slug=cs2-gz1-offcho-2026-10-25",
+   "http_status": 200,
+   "fixture_ids": [
+    "1082858"
+   ],
+   "teams_as_published": [
+    "Ground Zero",
+    "Off Chops"
+   ],
+   "excerpt": "'Counter-Strike: Ground Zero vs Off Chops (BO3) - DFRAG Invitational Group A' \u00b7 outcomes [Ground Zero, Off Chops] \u00b7 outcomePrices [0.29, 0.71] \u00b7 liquidity 6029.83 \u00b7 Map 1 Winner market bestBid 0.07 bestAsk 0.93 (spread 0.87) \u00b7 updatedAt 2026-10-24T05:34:37Z",
+   "verdict": "listed by exact name and start, but the readable book is far outside the ladder's 12-cent ceiling",
+   "reason": "outcomePrices are the market's last/mid prices, not a two-sided quote, and cannot be turned into one. The Map 1 child market on the same event shows 0.07 bid against 0.93 ask: a 0.87 spread that a naive reader would either call a 50/50 or a 93% favourite. The series book is therefore not a compliant two-sided price at this observation, which is the same verdict the runner's own ladder reached at 20:09Z on 2026-10-23.",
+   "usable_as_price": false,
+   "two_sided_price": null,
+   "excerpt_sha256": "552848865ee30f7a2b7686482c61986c323230fdf1dca748f10ed4ebfc184637"
+  },
+  {
+   "id": "8aa401c8-hotspawn-lobby-covers-all-seven",
+   "surface": "Hotspawn lobby (inventory source of record)",
+   "url": "https://play.hotspawn.com/lobby",
+   "http_status": 200,
+   "fixture_ids": [
+    "1082996",
+    "1079198",
+    "1079200",
+    "1082858",
+    "1082861",
+    "1082792",
+    "1082793"
+   ],
+   "teams_as_published": [
+    "Acend",
+    "UNiTY",
+    "Metizport",
+    "BakS",
+    "Color",
+    "ex-Zero Tenacity",
+    "Ground Zero",
+    "Off Chops",
+    "Rooster",
+    "Abyssal",
+    "HOTU",
+    "The Huns",
+    "5star",
+    "1WIN"
+   ],
+   "excerpt": "Lobby header 'This week 218 matches this week \u00b7 Resets in 1d 18h 22m' \u00b7 CS2 filters list every one of the seven fixtures' competitions (NODWIN Clutch Series #13, DFRAG Invitational 2026, Moscow Cyber Games 2026) \u00b7 cards show locks in 02:16:03 / 05:16:03 / 1d 3h 16m and 'View Match' permalinks such as /matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
+   "verdict": "all seven fixtures are live lobby inventory with permalinks and lock times; the card percentages are crowd picks, not prices",
+   "reason": "The lobby is the inventory source, not a probability source. Its '17% picked / 83% picked' figures are participant shares and are excluded by the project's rule 1 for the same reason HLTV fan votes are excluded. Reading it confirms the seven fixtures my sweep targeted are still current lobby inventory rather than stale snapshot rows.",
+   "usable_as_price": false,
+   "two_sided_price": null,
+   "excerpt_sha256": "c68f052088ddeea929892015fe7d4b1dc191aae0330816472e3d733cbaa2fb17"
+  },
+  {
+   "id": "8aa401c8-egamersworld-match-page-1082858",
+   "surface": "EGamersWorld match page (the second EGW surface, read after the event page)",
+   "url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+   "http_status": 200,
+   "fixture_ids": [
+    "1082858"
+   ],
+   "teams_as_published": [
+    "Ground Zero",
+    "Off Chops"
+   ],
+   "excerpt": "Ground Zero 3.44 \u2014 1.24 Off Chops \u00b7 'According to leading bookmakers predictions, the team Off Chops are the favorite with average odds 1.24 at the moment. Respectively, bookmakers consider Ground Zero to be the outsider of the match with odds on a victory in the sum of about 3.44.'",
+   "excerpt_sha256": "b85c227c67f479003c9922b8edfd1ce510bc720976e04dd1c71f5c3bd5cfe30b",
+   "verdict": "an aggregated bookmaker average (3.44 / 1.24) on the match page, unlike the 1.8 / 1.8 template on the event page",
+   "reason": "This is the one fixture of the seven where EGamersWorld publishes an asymmetric pair, and it comes with the site's own sentence attributing it to 'leading bookmakers' as an average rather than naming one book, with no per-book price and no timestamp on the quote. It is therefore an aggregated reference, not a first-party bookmaker price the ladder can replay on its own; arena-43110640 recorded the same pair at 05:26Z and published it as a *guided* pick (Off Chops 73.5% after de-vig), and the merged scripts/egw_live.py rung is what may replay it on a later refresh. This record changes nothing itself.",
+   "usable_as_price": false,
+   "two_sided_price": null
+  },
+  {
+   "id": "8aa401c8-egamersworld-match-page-for-a-second-fix-1082996",
+   "surface": "EGamersWorld match page for a second fixture (control for the template)",
+   "url": "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/acend-vs-unity-esports-iwaKSVfgf",
+   "http_status": 200,
+   "fixture_ids": [
+    "1082996"
+   ],
+   "teams_as_published": [
+    "Acend",
+    "UNITY Esports"
+   ],
+   "excerpt": "Acend 1.8 \u2014 1.8 UNITY Esports \u00b7 'Betting tips' section carries no bookmaker sentence, only 'ODDS STATS Compare team statistics, analyze performance, and make informed betting decisions.'",
+   "excerpt_sha256": "51386cc9e027bf504ea74baedb3ed3151cf6328e60e46c26c1aa0e3f1907a801",
+   "verdict": "the match page repeats the same 1.8 / 1.8 template and publishes no aggregated bookmaker average at all",
+   "reason": "This rules out the benign explanation that the event-page pair is just a compact rendering: on the fixture's own page the pair is still 1.8 / 1.8 and there is no 'average odds' sentence, so nothing about this fixture has been priced by a bookmaker that EGamersWorld can see. Reading it also gives the five-player lineups for both sides, which is identity evidence only.",
+   "usable_as_price": false,
+   "two_sided_price": null
+  }
+ ],
+ "conclusions": {
+  "fixtures_in_scope": 7,
+  "fixtures_with_a_new_two_sided_price": 0,
+  "fixtures_with_new_official_identity_or_format_evidence": 1,
+  "probabilities_changed": 0,
+  "picks_changed": 0,
+  "aliases_added": 0,
+  "hltv_http_status_on_this_path": 200,
+  "hltv_http_status_on_runner_path": 403,
+  "surfaces_read": 8,
+  "surfaces_publishing_a_usable_price": 0,
+  "placeholder_pairs_seen": 7,
+  "summary": "A 2026-10-24T05:36Z-06:44Z re-check of the seven fixtures the published snapshot prices only with a research model finds no first-party, replayable two-sided quote on any surface read, and one aggregated exception. EGamersWorld publishes two different things for these fixtures and the difference matters: on its event pages and match listing every one of the seven carries the identical 1.8 / 1.8, a 111% book, while on the fixtures it can price the same widget is asymmetric (1.60/2.17, 1.001/12.00, 1.22/3.80, 1.50/2.40, 1.78/1.92). On the match page for Ground Zero vs Off Chops only, the page instead shows an aggregated bookmaker average of 3.44 / 1.24 with the sentence 'leading bookmakers ... average odds 1.24 ... about 3.44'; the match page for Acend vs UNITY Esports still shows 1.8 / 1.8 and no such sentence, which proves the template is not just a compact rendering. That aggregated pair is already recorded and published by arena-43110640 as a guided pick and is what the merged EGW rung may replay; this record does not re-price it and changes no probability, pick or alias. Polymarket lists Ground Zero vs Off Chops by exact name and start but its readable Map 1 book is 0.07 bid / 0.93 ask (0.87 spread), so the series market is not a two-sided quote either. HLTV confirms identity and both rankings for that fixture and publishes no price. An earlier search snippet showing '1.09 / 6.8' for HOTU vs The Huns could not be reproduced on the live page, which returns 1.8 / 1.8, so it is not used.",
+  "aggregated_bookmaker_averages_found": 1,
+  "first_party_replayable_quotes": 0
+ }
+}
