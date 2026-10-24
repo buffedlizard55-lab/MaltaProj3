@@ -339,6 +339,17 @@ that caveat. (2) The four CCT #12 cards have no compliant price and stay blank �
 replaced with 50/50, a Hotspawn "% picked" figure or an HLTV fan vote. (3) Overlap with PR #248
 (`arena/f43dc4f1`, same duplicate-anchor subject, unmerged and >60 min idle) is disclosed above.
 
+### S2ED-2: the publishing outage — root cause found and fixed (2026-10-24 ~07:40Z)
+
+**Cross-owned edit, declared.** `scripts/originate.py` was last claimed by session arena-43110640 (merged, marked done). Its EGamersWorld rung referenced `egw_live` without importing it, so `live_collect()` raised `NameError: name 'egw_live' is not defined` **before touching any source**. Every publish run therefore died at its first regression test — the four scheduled failures plus the 20-minute failure of run 40069088115 — and no fresh snapshot could reach the site. Fixed with a two-line change: `from scripts import egw_live`, and the evidence-file `unlink()` moved inside the surrounding guard so housekeeping can never abort a collection again. `tests/test_origination_upgrade.py` and `tests/test_f9d0a5a2.py` now run **39 tests OK** (they were 7 errors). No other session has an open claim on `scripts/originate.py`; if one appears, this record is the handoff.
+
+**Second, independent cause of staleness (not edited — owned by another claim).** Every merge to `main` starts a publish run, and GitHub cancels a *pending* run in the same concurrency group when a newer one arrives (`cancel-in-progress: false` only protects a run that already started — the workflow's own comment says so). Evidence from this session: 40070626757 (06:32, PR #241) cancelled 06:40; 40071009969 (06:38, PR #251) cancelled 06:40; 40071100402 (06:40) cancelled 06:43; 40071346040 (06:43, PR #250) cancelled. Run 40069088115 only started once merges paused, and then failed on the NameError above. **Request to the owner of `.github/workflows/pages.yml`:** either put `${{ github.run_id }}` in the push group (so pushes cannot cancel each other) or stop publishing on every push and let the schedule own publication. Until then a busy merge window will keep eating push-triggered publishes; the scheduled slots (`17 */4`, `47 2-22/4`) are in a separate group and are the reliable path. `workflow_dispatch` is not available to this integration (HTTP 403), so this session could not force a publish.
+
+**Publish status when this record was written:** no successful publish after 2026-10-23T19:57Z (which produced the 2026-10-23T20:10:00Z snapshot). Recorded honestly: this session's merged research reaches the site on the first publish that survives the fixes above.
+
+**Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/build_origination.py`, `scripts/collect.py`, `scripts/originate.py`, `scripts/sources.py`, `assets/*`, `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `.github/workflows/pages.yml`, or any other session's `data/research/<id>/`. Session 43110640 already researched 1082858 and 1082792: this session **re-verifies** them rather than re-researching, and adds no competing dossier for them. Hotspawn "% picked", offered points and HLTV fan votes are never probabilities. Nothing is marked verified without an official source link.
+
+
 
 # Current session: arena-73bc57bd — every live Hotspawn CS2 card vs the published picks, HLTV-first + esportsbook research for the uncovered ones, published review register — IN PROGRESS
 

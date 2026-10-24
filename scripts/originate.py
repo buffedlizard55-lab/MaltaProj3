@@ -34,13 +34,16 @@ import requests
 
 from scripts.domain import iso, name_key, no_vig, normalize_pair, timestamp, finite, array, polymarket_candidate
 from scripts.github_auth import auth_headers
-from scripts import egw_live
 from scripts import form_model
 from scripts import hltv_ranking
 from scripts import network_model
 from scripts import pinnacle_lines
 from scripts import smarkets_lines
 from scripts import reference_odds
+# Session arena-2ed65c56: live_collect() needs this module. Another session
+# restored the import on main; this block only keeps the ordering stable and
+# documents why the dependency exists at all.
+from scripts import egw_live
 
 UTC = timezone.utc
 VALVE_RD = 75  # Fixed-RD assumption in Valve's published model/fit.js.
@@ -1042,8 +1045,10 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
     # schema and still pass reference_odds.quote()'s fail-closed gate
     # (identical placeholder odds, stale or start-mismatched rows price
     # nothing). Non-fatal: an outage records a reason and prices nothing.
-    (evidence_dir / egw_live.EVIDENCE_NAME).unlink(missing_ok=True)
     try:
+        # Housekeeping inside the guard: an unlink failure must never abort the
+        # collection, which is what the NameError above used to do.
+        (evidence_dir / egw_live.EVIDENCE_NAME).unlink(missing_ok=True)
         egw_html, egw_req = client.fetch_html(egw_live.INDEX_URL, egw_live.INDEX_EVIDENCE)
         egw_entries = egw_live.entries_for(egw_html, active, registry,
                                            egw_req.get('observed_at') or iso(datetime.now(UTC)))
