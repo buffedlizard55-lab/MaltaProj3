@@ -110,6 +110,36 @@ rendered-lobby inventory fallback when the fixture API is refused").
    inventory coverage during API refusals, and the next successful scheduled
    collection reconciles the added fixtures through the normal ladder.
 
+## 4. Post-rebase update (2026-10-24, after main moved from `2f966a9` to `4a6c112`)
+
+While this dossier was in review, two PRs merged onto `main` that change the
+landscape around these fixtures; the observations above stand as first-hand
+evidence and nothing here was rewritten to mimic them.
+
+* **PR #240 (`bdb4fc9`, session 43110640)** added the automated
+  EGamersWorld rung `scripts/egw_live.py` (placeholder `1.8/1.8` rejection,
+  freshness and start-time gates, saved-evidence replay) and defused the
+  wall-clock date bomb in `tests/test_ca7e10e5_snapshot.py`. Its companion
+  dossier (`data/research/43110640/unresolved-guided-picks.md`) independently
+  measured the same Smarkets market at ~0.185 spread (guidance only), read
+  HLTV *match* pages 2399888/2399437 (which display ranks the event pages do
+  not: Ground Zero #143, Off Chops #142, HOTU #38, The Huns #134), and
+  published labelled guided picks: 1082858 Off Chops 73.5/26.5 from a Vave
+  3.44/1.24 aggregated no-vig line, and 1082792 HOTU direction from a Valve
+  standings model because EGW showed only the rejected placeholder for that
+  fixture. Those are flagged review items, not first-party exchange prices.
+* **PR #241 (`e360f4c`, session 73bc57bd)** removed the duplicate
+  `id="no-line-research"` element from the executive summary (its own flag
+  `73bc57bd-duplicate-no-line-research-id` is marked fixed). After rebasing,
+  a local build writes exactly one such anchor in `site/index.html` and
+  `tests.test_ca7e10e5_snapshot` runs 15/15 OK.
+* Net effect on the two fixtures: 1082858 now has an automated aggregated
+  line path plus the still-gated Smarkets book (this dossier's 06:15Z
+  reading shows it tightening: 18.5 pp on 23 Oct → 16.1–16.7 pp on 24 Oct,
+  still above the 0.15 gate); 1082792 still has no two-sided first-party
+  price anywhere reachable and keeps an explicitly uncalibrated model
+  direction with limitations.
+
 ## Files
 
 * `hltv-identity-2026-10-24.json` — official event/bracket identity for both
