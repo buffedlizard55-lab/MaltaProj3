@@ -184,6 +184,7 @@ jobs:
         # lines that appeared instead are synthetic output of patched tests in
         # tests/test_domain.py. A failing step must name its own failing test.
         run: |
+          set +e
           python -m unittest discover -s tests -v 2>&1 | tee unittest-output.log
           status=${PIPESTATUS[0]}
           if [ "$status" -ne 0 ]; then

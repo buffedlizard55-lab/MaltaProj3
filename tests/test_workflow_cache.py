@@ -80,7 +80,7 @@ class PublisherStepOrderTests(unittest.TestCase):
         text = WORKFLOW.read_text()
         # Accept both the single-line and the block-list form of the step's
         # `run:` (the step adopted the checks.yml FAIL/ERROR annotation wrapper).
-        match = re.search(r'run:\s*(?:\|\n\s+)?python -m unittest discover -s tests', text)
+        match = re.search(r'run:\s*(?:\|\n\s+)?(?:set \+e\n\s+)?python -m unittest discover -s tests', text)
         self.assertIsNotNone(match, 'the regression-test step must run the unittest suite')
         tests_at = match.start()
         restore_at = text.index('uses: actions/cache/restore@')
@@ -97,4 +97,6 @@ class PublisherStepOrderTests(unittest.TestCase):
         step = step[:step.index('\n      - name:')]
         self.assertIn('grep -E "^(FAIL|ERROR):"', step)
         self.assertIn('::error title=unittest::', step)
+        self.assertLess(step.index('set +e'), step.index('python -m unittest'),
+                        'bash errexit must not skip failure annotations')
         self.assertIn('PIPESTATUS[0]', step, 'a bare pipeline would return tee\u2019s exit code, masking a suite failure')
