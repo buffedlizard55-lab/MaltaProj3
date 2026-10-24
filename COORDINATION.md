@@ -11,6 +11,13 @@ Claimed **2026-10-24T06:25Z** on Arena's fixed branch `arena/52212e8e-maltaproj3
 
 **Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/build_origination.py`, `scripts/originate.py`, `scripts/egw_live.py`, `scripts/validate.py`, `scripts/root_publish.py`, `scripts/collect.py`, `assets/**`, `.github/workflows/**`, `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, existing tests, generated root HTML, or another session's `data/research/<id>/` while any active claim covers it. Any newly found defect in an owned file will be logged here and to its owner, not edited. No Hotspawn crowd percentage or HLTV fan vote is a probability. No value is inferred where an official source cannot confirm it.
 
+### S522 integration checkpoint (2026-10-24T06:30Z)
+
+- Baseline `bdb4fc9`: build/replay PASS (80 rows), row-source audit **770 rows / 0 sourceless / 9 flagged unverified**, acceptance **9 pass / 1 info / 0 fail**, **829 internal links**, 130 targeted tests OK (2 skips).
+- Live official reads: deployed summary is visibly stale (19/19 picks on its older slate); Hotspawn's two rendered lobby chunks contain **25 future cards**. Fresh runner evidence linked by PR #246 has **25/25 picks, 0 unresolved** at `2026-10-24T05:57:37Z`; no new probability was hand-written.
+- **Cross-owned integration defect logged, not edited:** PR #245 head `4975f671` does not preserve PR #237's original-HTML/manifest EGW replay and 29 adversarial tests; its loader accepted a synthetic derived-only capture and its `reference_rows` omit the live EGW capture. Reported at [PR #245 comment](https://github.com/buffedlizard55-lab/MaltaProj3/pull/245#issuecomment-6380923705). Dedicated PR #237 head `ced36cb3` independently passed 147 targeted tests + build (776 rows / 0 sourceless / 826 links).
+- Mobile: 12 Playwright checks on the combined phone UI passed (320/390/768/1440 px, source links, summary navigation, no-JS). EGW visible date/time has no verified UTC zone and title/body clock representations differ; no timezone was inferred. Sources and exact evidence: `data/research/52212e8e/{integration-review.json,verification.md,flags.json}`.
+
 # Current session: arena-43110640 — picks for every match (HLTV-first, then esportsbooks), automated EGW fallback, CI unblock, exec-summary/unresolved — DONE (PR pending record below)
 
 Claimed **2026-10-24** on Arena's fixed branch `arena/43110640-maltaproj3`. Read the board first: prior session arena-103774c3 is DONE (PR #216 merged); recent scheduled `pages.yml` runs are FAILING at the regression step (see S431 result when done).

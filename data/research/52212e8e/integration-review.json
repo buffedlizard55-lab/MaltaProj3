@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "session": "arena-52212e8e",
+  "observed_at": "2026-10-24T06:30:37Z",
+  "role": "Read-only final-integration review while active source, publisher and mobile claims settle",
+  "baseline": {
+    "head": "bdb4fc92a30989e93263d7ef3842cda045fe6571",
+    "build": {
+      "result": "pass",
+      "replayed_source_rows": 80,
+      "audited_html_rows": 770,
+      "rows_without_a_source": 0,
+      "flagged_unverified": 9,
+      "internal_links": 829,
+      "acceptance": "9 pass, 1 info, 0 fail"
+    },
+    "targeted_tests": "130 passed, 2 skipped",
+    "commands": [
+      ".venv/bin/python -m scripts.build",
+      ".venv/bin/python -m unittest tests.test_43110640_egw_live tests.test_ca7e10e5_snapshot tests.test_origination tests.test_reference_odds tests.test_review_flags tests.test_row_sources tests.test_3149e7ae_acceptance"
+    ]
+  },
+  "live_observations": [
+    {
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "observation": "The page displays its stale-snapshot warning. Its executive summary says 19 active fixtures, 19 directional picks, 12 external-line and 7 research-model picks, 0 explicitly unresolved; the inventory check is labelled 23 Oct 2026 22:09 Europe/Malta.",
+      "limitation": "This is the deployed older snapshot, not the current Hotspawn inventory."
+    },
+    {
+      "url": "https://play.hotspawn.com/cs2-pickems",
+      "observation": "Both rendered chunks were read. Closing Soon plus Upcoming contain 25 future fixture cards, with official Hotspawn match permalinks. Community percentages were not used as evidence or probabilities.",
+      "limitation": "The page displays local times without naming their zone in the extracted text; no time-zone conversion is inferred in this review."
+    },
+    {
+      "url": "https://egamersworld.com/counterstrike/matches",
+      "observation": "The index publishes team names, visible dates/times and two decimal prices on match cards.",
+      "limitation": "The extracted visible date/time does not establish a UTC instant. It must not be copied from Hotspawn or guessed."
+    },
+    {
+      "url": "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/fokus-vs-ex-6666-YL1WJpBDm",
+      "observation": "The match page provides team-specific prices and a visible date/time.",
+      "limitation": "The HTML title and extracted body expose different clock representations without a verified zone in the extracted text. This is a source irregularity, not a license to infer UTC."
+    }
+  ],
+  "runner_evidence_crosscheck": {
+    "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/89c00d8a-maltaproj3/data/research/89c00d8a/live/origination.json",
+    "source_snapshot_at": "2026-10-24T05:57:37Z",
+    "origination_generated_at": "2026-10-24T05:58:10Z",
+    "counts": {
+      "active": 25,
+      "resolved": 25,
+      "with_pick": 25,
+      "unresolved": 0,
+      "market": 13,
+      "bookmaker": 2,
+      "reference": 0,
+      "model": 10,
+      "network": 1
+    },
+    "meaning": "A fresh official-inventory runner capture already resolves every active fixture. Publishing that verified fresh build is the immediate coverage blocker; no additional number is hand-authored from this cross-check."
+  },
+  "integration_findings": [
+    {
+      "id": "S522-EGW-001",
+      "severity": "warning",
+      "pr": 245,
+      "head": "4975f671a4a20543e48f2866e3053ff32c5fe770",
+      "finding": "The combined head does not preserve PR #237's dedicated EGW original-response replay boundary or its tests/test_be019782_egw_safety.py adversarial suite.",
+      "verified_details": [
+        "scripts/egw_live.py::load_live accepts a synthetic derived-only capture (one entry) without original HTML or a successful request manifest.",
+        "The capture excerpt is generated prose rather than literal source markup.",
+        "scripts/originate.py::run builds reference_rows without egw_live.load_live, so automatically captured entries do not enter the ladder.",
+        "scripts/build_origination.py replays only the reviewed static reference capture for family=reference."
+      ],
+      "handling": "Logged to the active owner before merge at https://github.com/buffedlizard55-lab/MaltaProj3/pull/245#issuecomment-6380923705. No active-session file was edited by this reviewer.",
+      "source_urls": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/pull/245",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237"
+      ]
+    },
+    {
+      "id": "S522-EGW-002",
+      "severity": "verified",
+      "pr": 237,
+      "head": "ced36cb30dbcd00451518af7eb0fda7eea063a15",
+      "finding": "The dedicated safety implementation independently reparses original EGW HTML and requires a unique successful original request before a live entry can be replayed.",
+      "verification": "147 targeted tests passed (2 skipped) and scripts.build passed with 776 audited rows, 0 sourceless rows, 826 internal links and acceptance 9 pass / 1 info / 0 fail.",
+      "source_urls": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237#issuecomment-6380923889"
+      ]
+    },
+    {
+      "id": "S522-MOBILE-001",
+      "severity": "verified",
+      "pr": 245,
+      "head": "4975f671a4a20543e48f2866e3053ff32c5fe770",
+      "finding": "The combined phone UI passes the targeted browser checks independently of the EGW integration concern.",
+      "verification": "12 Playwright tests passed: complete-picks finder at 320/390/768/1440 px, source-linked phone picks at 320/390 px, summary navigation, no-JavaScript access and coverage-cadence links.",
+      "source_urls": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/pull/245"
+      ]
+    }
+  ],
+  "probability_policy": "No pick, probability, alias or source value was hand-written. Hotspawn community selection share and EGW/HLTV fan votes were excluded."
+}
