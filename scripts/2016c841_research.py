@@ -615,7 +615,7 @@ def main(argv: list[str] | None = None) -> int:
              f'Source snapshot: `{method_source.get("url")}` '
              f'(generated {method_source.get("generated_at")}); '
              f'{len(fixtures)} Hotspawn fixtures, {len(findings)} with no external line.', '',
-             '| Fixture | Start (UTC) | Published method | HLTV | bo3.gg join | bo3 relay price | Smarkets exchange |',
+             '| Fixture | Start (UTC) | Candidate method (this collection) | HLTV | bo3.gg join | bo3 relay price | Smarkets exchange |',
              '| --- | --- | --- | --- | --- | --- | --- |']
     hltv_status = next((p for p in providers if p['label'] == 'HLTV match listing'), {})
     hltv_note = (f"HTTP {hltv_status.get('http_status')}"
@@ -652,6 +652,12 @@ def main(argv: list[str] | None = None) -> int:
     # published snapshot, one row each, so the executive summary's gap register
     # can quote this sweep instead of one hours older.
     latest_attempt, latest_body = fetch_json(session, LIVE_LATEST)
+    # `methods` above deliberately prefers this run's local origination for
+    # line research. It must not be relabelled as the public site's pick here:
+    # a fresh candidate can exist while the public snapshot still lacks the
+    # fixture. Read the actual published origination for this published-only
+    # column; the line-research candidate selection remains unchanged.
+    live_published_methods, live_published_source = published_methods(session)
     published_ids = set()
     if latest_attempt.get('http_status') == 200:
         published_ids = {str(m.get('id')) for m in latest_body.get('matches') or []
@@ -661,7 +667,7 @@ def main(argv: list[str] | None = None) -> int:
         start = stamp(fixture['starts_at'])
         if start is None or start < opener:
             continue
-        published = methods.get(fixture['id']) or {}
+        published = live_published_methods.get(fixture['id']) or {}
         probability = published.get('probability')
         pick = None
         if isinstance(probability, (int, float)) and fixture['teams'][0]:
@@ -685,6 +691,8 @@ def main(argv: list[str] | None = None) -> int:
         'observer': environment_name(),
         'role': 'Dated inventory and identity research only. No value here is a probability or a pick.',
         'published_site': {'latest_json': LIVE_LATEST,
+                           'origination_json': LIVE_ORIGINATION,
+                           'origination_read': live_published_source,
                            'generated_at': latest_body.get('generated_at')
                            if isinstance(latest_body, dict) else None,
                            'attempt': latest_attempt},
