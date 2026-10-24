@@ -1,0 +1,14 @@
+[
+  {
+    "id": "d39310ae-scheduled-refresh-clock-regression",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Scheduled refresh interrupted by wall-clock-dependent tests (24 October 2026)",
+    "detail": "Four scheduled runs after the 23 October 20:14 UTC root sync failed at repository regression tests, before fresh source collection. Local reproduction ran 1271 tests with exactly three errors: snapshot layout tests used a fixed 23 October timestamp without injecting a clock, causing the real 12-hour publication guard to reject their test fixture. This repair injects a deterministic test clock and adds an explicit stale-rejection test; no production freshness or price guard is disabled. Until a fresh publisher succeeds, older published picks are not verified current. Source-site reachability is not inferred from this CI failure.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_ca7e10e5_snapshot.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/root_publish.py"
+    ]
+  }
+]
