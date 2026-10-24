@@ -20,6 +20,21 @@ on:
       - '.github/workflows/origination.yml'
 permissions:
   contents: read
+# Session arena-f4217201. This audit triggers on every push to any `arena/**`
+# branch (see the trigger above), and it had no concurrency group at all.
+# Measured 2026-10-24T08:20Z: 28 `Origination source audit` runs and 28
+# `Validate dashboard` runs were queued at the same time from session branches
+# while the four-hour publisher's own run sat pending, so the deployed snapshot
+# fell 12 hours behind the lobby. One shared group keeps at most one audit
+# running and one pending; a superseded *pending* audit is dropped rather than
+# run, because this job is advisory (it never deploys, never commits and its
+# findings are re-derived on the next push). The running audit is never
+# cancelled mid-way (`cancel-in-progress: false`), so a report is still produced
+# for the branch that won the slot. This does not touch the publisher's own
+# `pages-*` groups.
+concurrency:
+  group: origination-audit-session-branches
+  cancel-in-progress: false
 jobs:
   originate:
     runs-on: ubuntu-24.04
