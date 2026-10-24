@@ -1,503 +1,21 @@
 {
   "session": "arena-6174aa87",
-  "observed_at": "2026-10-24T16:53:44Z",
+  "observed_at": "2026-10-24T16:59:13Z",
   "policy": "Each cited URL is re-read first-hand. A 2xx answer is not a price; a refusal is not proof a market is absent. Team-name presence is reported verbatim, and no probability, pick or alias is written by this sweep.",
   "provenance": {
     "counts": {
-      "active": 22,
-      "with_pick": 22,
+      "active": 20,
+      "with_pick": 20,
       "verified": 18,
-      "needs_review": 4,
-      "citations": 72,
-      "unreachable_citations": 20,
+      "needs_review": 2,
+      "citations": 65,
+      "unreachable_citations": 18,
       "absent_citations": 0,
-      "endpoint_citations": 6,
-      "alternate_citations": 34,
+      "endpoint_citations": 1,
+      "alternate_citations": 35,
       "no_pick": 0
     },
     "fixtures": [
-      {
-        "id": "1079661",
-        "teams": [
-          "Nuclear TigeRES",
-          "ex-Zero Tenacity"
-        ],
-        "competition": "CCT Europe 2026 Series #11",
-        "starts_at": "2026-10-24T17:00:00Z",
-        "locks_at": "2026-10-24T16:54:00Z",
-        "pick": {
-          "layer": "origination",
-          "method": "market",
-          "label": "Market-implied estimate",
-          "pick_index": 0,
-          "pick": "Nuclear TigeRES",
-          "probabilities": [
-            0.675,
-            0.325
-          ],
-          "source": "Polymarket",
-          "observed_at": "2026-10-24T16:52:30Z",
-          "aliases_used": [],
-          "limitations": [
-            "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
-          ],
-          "quotes": [
-            {
-              "provider": "Polymarket",
-              "family": "market",
-              "odds": null,
-              "observed_at": null,
-              "source_url": "https://polymarket.com/event/cs2-ntr-zerote-2026-10-24",
-              "event_id": null
-            },
-            {
-              "provider": "Polymarket",
-              "family": "market",
-              "odds": null,
-              "observed_at": null,
-              "source_url": "https://polymarket.com/event/cs2-ntr-zerote-2026-10-24",
-              "event_id": null
-            }
-          ],
-          "model_crosscheck": null
-        },
-        "citations": [
-          {
-            "url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-ex-zero-tenacity-cct-europe-2026-series-11-1079661",
-            "roles": [
-              "Hotspawn fixture"
-            ],
-            "kind": "fixture",
-            "generic": true,
-            "read": {
-              "name": "citation",
-              "url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-ex-zero-tenacity-cct-europe-2026-series-11-1079661",
-              "observed_at": "2026-10-24T16:53:46Z",
-              "http": 403,
-              "status": "http-403",
-              "sha256": "b508dcc8b2f4675d79378e595acb9901",
-              "bytes": 5968,
-              "challenge": true,
-              "title": "Just a moment...",
-              "error": null
-            },
-            "names": [
-              {
-                "team": "Nuclear TigeRES",
-                "level": "full",
-                "needle": "nuclear tigeres"
-              },
-              {
-                "team": "ex-Zero Tenacity",
-                "level": "full",
-                "needle": "ex zero tenacity"
-              }
-            ],
-            "event_bound": false,
-            "verdict": "confirmed-via-alternate",
-            "fallback": {
-              "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-              "label": "Hotspawn scheduled-fixture record",
-              "verdict": "confirmed"
-            }
-          },
-          {
-            "url": "https://polymarket.com/event/cs2-ntr-zerote-2026-10-24",
-            "roles": [
-              "Line source",
-              "Quote: Polymarket",
-              "Primary: Polymarket"
-            ],
-            "kind": "price",
-            "generic": false,
-            "source": "Polymarket",
-            "read": {
-              "name": "citation",
-              "url": "https://polymarket.com/event/cs2-ntr-zerote-2026-10-24",
-              "observed_at": "2026-10-24T16:53:46Z",
-              "http": 200,
-              "status": "challenge",
-              "sha256": "c4f3cbf537b6d00d3c3bf2262121d7b8",
-              "bytes": 646446,
-              "challenge": true,
-              "title": "Polymarket",
-              "error": null
-            },
-            "names": [
-              {
-                "team": "Nuclear TigeRES",
-                "level": "full",
-                "needle": "nuclear tigeres"
-              },
-              {
-                "team": "ex-Zero Tenacity",
-                "level": "full",
-                "needle": "ex zero tenacity"
-              }
-            ],
-            "event_bound": false,
-            "verdict": "confirmed-via-alternate",
-            "alternates_tried": [
-              {
-                "url": "https://gamma-api.polymarket.com/events?slug=cs2-ntr-zerote-2026-10-24",
-                "label": "Polymarket Gamma event record",
-                "status": "ok",
-                "http": 200,
-                "verdict": "confirmed"
-              }
-            ],
-            "fallback": {
-              "url": "https://gamma-api.polymarket.com/events?slug=cs2-ntr-zerote-2026-10-24",
-              "label": "Polymarket Gamma event record",
-              "verdict": "confirmed"
-            }
-          }
-        ],
-        "verdict": "verified",
-        "summary": {
-          "citations": 2,
-          "confirmed": 0,
-          "partial": 0,
-          "absent": 0,
-          "unreachable": 0,
-          "confirmed_via_alternate": 2,
-          "endpoint_unbound": 0
-        }
-      },
-      {
-        "id": "1081154",
-        "teams": [
-          "BakS",
-          "ILLYRIANS"
-        ],
-        "competition": "CCT Europe 2026 Series #12",
-        "starts_at": "2026-10-24T17:00:00Z",
-        "locks_at": "2026-10-24T16:54:00Z",
-        "pick": {
-          "layer": "origination",
-          "method": "consensus",
-          "label": "Originated consensus line (median of independent money sources)",
-          "pick_index": 0,
-          "pick": "BakS",
-          "probabilities": [
-            0.68578358,
-            0.31421642
-          ],
-          "source": "Polymarket + Kalshi",
-          "observed_at": "2026-10-24T16:52:57Z",
-          "aliases_used": [
-            {
-              "alias": "BakS eSports",
-              "canonical": "BakS",
-              "kind": "display-name expansion",
-              "applies_to": [
-                "CCT Europe 2026 Series #12",
-                "CCT Europe 2026 Series #11",
-                "NODWIN Clutch Series #13"
-              ],
-              "evidence": [
-                {
-                  "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/",
-                  "source": "Kalshi CS2 contracts KXCS2GAME-26OCT220400AZUBAKS & KXCS2GAME-26OCT231300BAKSBRUTE",
-                  "detail": "Kalshi lists 'Azuolas vs. BakS eSports' at 2026-10-22T08:00:00Z and 'BakS eSports vs. Brute' at 2026-10-23T17:00:00Z."
-                },
-                {
-                  "url": "https://www.hltv.org/matches/2399493/baks-vs-azuolas-cct-2026-europe-series-12",
-                  "source": "HLTV.org match page",
-                  "detail": "HLTV match 2399493 lists 'BAKS vs Azuolas' BO3 at 2026-10-22T08:00:00Z in CCT 2026 Europe Series 12."
-                },
-                {
-                  "url": "https://www.hltv.org/matches/2399334/brute-vs-baks-cct-2026-europe-series-11",
-                  "source": "HLTV.org match page",
-                  "detail": "HLTV match 2399334 lists 'BRUTE vs BAKS' BO3 at 2026-10-23T17:00:00Z in CCT 2026 Europe Series 11."
-                },
-                {
-                  "url": "https://www.hotspawn.com/matches/baks-vs-azuolas-cct-europe-2026-series-12-1081143",
-                  "source": "Hotspawn match page (fixture 1081143)",
-                  "detail": "Hotspawn schedules 'BakS vs Azuolas' at 2026-10-22T08:00:00Z."
-                },
-                {
-                  "url": "https://gamma-api.polymarket.com/events/1238705",
-                  "source": "Polymarket Gamma API (event 1238705)",
-                  "detail": "Polymarket event 1238705 (cs2-met-baks-2026-10-25) lists 'Metizport vs BakS eSports' BO3 in NODWIN Clutch Series Playoffs at 2026-10-25T12:00:00Z."
-                },
-                {
-                  "url": "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13",
-                  "source": "HLTV.org match page (2399113)",
-                  "detail": "HLTV match 2399113 lists 'Metizport vs BAKS' BO3 in NODWIN Clutch Series 13 at 2026-10-25T12:00:00Z (matching Hotspawn fixture 1079198)."
-                },
-                {
-                  "url": "https://bo3.gg/matches/metizport-vs-baks-esports-25-10-2026",
-                  "source": "bo3.gg match record (131197)",
-                  "detail": "api.bo3.gg match 131197 schedules \"Metizport vs BakS eSports\" at 2026-10-25T12:00:00Z in NODWIN Clutch Series #13."
-                },
-                {
-                  "url": "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198",
-                  "source": "Hotspawn match page (fixture 1079198)",
-                  "detail": "Hotspawn schedules \"Metizport vs BakS\" (id 1079198) at 2026-10-25T12:00:00Z in NODWIN Clutch Series #13."
-                }
-              ]
-            }
-          ],
-          "limitations": [],
-          "quotes": [
-            {
-              "provider": "Polymarket",
-              "family": "market",
-              "odds": null,
-              "observed_at": "2026-10-24T16:52:57Z",
-              "source_url": "https://polymarket.com/event/cs2-baks-ill4-2026-10-24",
-              "event_id": "1242983"
-            },
-            {
-              "provider": "Kalshi",
-              "family": "market",
-              "odds": null,
-              "observed_at": "2026-10-24T16:53:05Z",
-              "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct241300illbaks",
-              "event_id": "KXCS2GAME-26OCT241300ILLBAKS"
-            }
-          ],
-          "model_crosscheck": {
-            "provider": "Valve official standings",
-            "family": "model",
-            "probabilities": [
-              0.73481702,
-              0.26518298
-            ],
-            "inputs": [
-              {
-                "name": "BAKS",
-                "points": 1044,
-                "standing": 100,
-                "roster": [
-                  "danistzz",
-                  "Norwi",
-                  "turbo",
-                  "whisper",
-                  "xdENiSZERA"
-                ],
-                "snapshot_date": "2026-10-05",
-                "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
-              },
-              {
-                "name": "Illyrians",
-                "points": 862,
-                "standing": 141,
-                "roster": [
-                  "ammar",
-                  "BledarD",
-                  "cerber",
-                  "vAloN",
-                  "xonn1k"
-                ],
-                "snapshot_date": "2026-10-05",
-                "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
-              }
-            ],
-            "snapshot_date": "2026-10-05",
-            "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-            "evidence_file": "data/origination/evidence/live-valve-standings-text.json",
-            "rd_assumption": 75,
-            "g": 0.9728209910486895,
-            "aliases_used": [],
-            "observed_at": "2026-10-24T16:53:11Z",
-            "evaluation_at": "2026-10-24T16:52:54Z"
-          }
-        },
-        "citations": [
-          {
-            "url": "https://www.hotspawn.com/matches/baks-vs-illyrians-cct-europe-2026-series-12-1081154",
-            "roles": [
-              "Hotspawn fixture"
-            ],
-            "kind": "fixture",
-            "generic": true,
-            "read": {
-              "name": "citation",
-              "url": "https://www.hotspawn.com/matches/baks-vs-illyrians-cct-europe-2026-series-12-1081154",
-              "observed_at": "2026-10-24T16:53:46Z",
-              "http": 403,
-              "status": "http-403",
-              "sha256": "f641d991b89bdc405a10566e25e9af45",
-              "bytes": 5892,
-              "challenge": true,
-              "title": "Just a moment...",
-              "error": null
-            },
-            "names": [
-              {
-                "team": "BakS",
-                "level": "full",
-                "needle": "baks"
-              },
-              {
-                "team": "ILLYRIANS",
-                "level": "full",
-                "needle": "illyrians"
-              }
-            ],
-            "event_bound": false,
-            "verdict": "confirmed-via-alternate",
-            "fallback": {
-              "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-              "label": "Hotspawn scheduled-fixture record",
-              "verdict": "confirmed"
-            }
-          },
-          {
-            "url": "https://polymarket.com/event/cs2-baks-ill4-2026-10-24",
-            "roles": [
-              "Line source",
-              "Quote: Polymarket"
-            ],
-            "kind": "price",
-            "generic": false,
-            "source": "Polymarket + Kalshi",
-            "event_id": "1242983",
-            "read": {
-              "name": "citation",
-              "url": "https://polymarket.com/event/cs2-baks-ill4-2026-10-24",
-              "observed_at": "2026-10-24T16:53:46Z",
-              "http": 200,
-              "status": "challenge",
-              "sha256": "670779536dea289b6561aac9f694b4a8",
-              "bytes": 646112,
-              "challenge": true,
-              "title": "Polymarket",
-              "error": null
-            },
-            "names": [
-              {
-                "team": "BakS",
-                "level": "full",
-                "needle": "baks"
-              },
-              {
-                "team": "ILLYRIANS",
-                "level": "full",
-                "needle": "illyrians"
-              }
-            ],
-            "event_bound": true,
-            "verdict": "confirmed-via-alternate",
-            "alternates_tried": [
-              {
-                "url": "https://gamma-api.polymarket.com/events?slug=cs2-baks-ill4-2026-10-24",
-                "label": "Polymarket Gamma event record",
-                "status": "ok",
-                "http": 200,
-                "verdict": "confirmed"
-              }
-            ],
-            "fallback": {
-              "url": "https://gamma-api.polymarket.com/events?slug=cs2-baks-ill4-2026-10-24",
-              "label": "Polymarket Gamma event record",
-              "verdict": "confirmed"
-            }
-          },
-          {
-            "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct241300illbaks",
-            "roles": [
-              "Quote: Kalshi"
-            ],
-            "kind": "price",
-            "generic": true,
-            "event_id": "KXCS2GAME-26OCT241300ILLBAKS",
-            "read": {
-              "name": "citation",
-              "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct241300illbaks",
-              "observed_at": "2026-10-24T16:53:47Z",
-              "http": 429,
-              "status": "http-429",
-              "sha256": "590ac43f0912b154e256a33190952bcb",
-              "bytes": 31428,
-              "challenge": false,
-              "title": "Vercel Security Checkpoint",
-              "error": null
-            },
-            "names": [],
-            "event_bound": false,
-            "verdict": "blocked",
-            "alternates_tried": [
-              {
-                "url": "https://api.elections.kalshi.com/trade-api/v2/markets/kxcs2game-26oct241300illbaks",
-                "label": "Kalshi market record",
-                "status": "http-404",
-                "http": 404
-              }
-            ]
-          },
-          {
-            "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-            "roles": [
-              "Model cross-check",
-              "Valve research model"
-            ],
-            "kind": "price",
-            "generic": false,
-            "read": {
-              "name": "citation",
-              "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-              "observed_at": "2026-10-24T16:53:47Z",
-              "http": 200,
-              "status": "ok",
-              "sha256": "fb5e2255b4cabc27351b88f51c06ce0b",
-              "bytes": 901854,
-              "challenge": false,
-              "title": "counter-strike_regional_standings/live/2026/standings_global_2026_10_05.md at main · ValveSoftware/counter-strike_regional_standings · GitHub",
-              "error": null
-            },
-            "names": [
-              {
-                "team": "BakS",
-                "level": "full",
-                "needle": "baks"
-              },
-              {
-                "team": "ILLYRIANS",
-                "level": "full",
-                "needle": "illyrians"
-              }
-            ],
-            "event_bound": false,
-            "verdict": "confirmed"
-          },
-          {
-            "url": "https://www.hltv.org/matches/2399504/baks-vs-illyrians-cct-2026-europe-series-12",
-            "roles": [
-              "HLTV research"
-            ],
-            "kind": "identity",
-            "generic": true,
-            "read": {
-              "name": "citation",
-              "url": "https://www.hltv.org/matches/2399504/baks-vs-illyrians-cct-2026-europe-series-12",
-              "observed_at": "2026-10-24T16:53:47Z",
-              "http": 403,
-              "status": "http-403",
-              "sha256": "8c98732e0dd62d7cf7845722811e06dd",
-              "bytes": 5867,
-              "challenge": true,
-              "title": "Just a moment...",
-              "error": null
-            },
-            "names": [],
-            "event_bound": false,
-            "verdict": "blocked"
-          }
-        ],
-        "verdict": "verified-with-open-citations",
-        "summary": {
-          "citations": 5,
-          "confirmed": 1,
-          "partial": 0,
-          "absent": 0,
-          "unreachable": 2,
-          "confirmed_via_alternate": 2,
-          "endpoint_unbound": 0
-        }
-      },
       {
         "id": "1082695",
         "teams": [
@@ -514,11 +32,11 @@
           "pick_index": 1,
           "pick": "paiN",
           "probabilities": [
-            0.42,
-            0.58
+            0.415,
+            0.585
           ],
           "source": "Polymarket",
-          "observed_at": "2026-10-24T16:52:30Z",
+          "observed_at": "2026-10-24T16:58:09Z",
           "aliases_used": [],
           "limitations": [
             "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
@@ -554,10 +72,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hotspawn.com/matches/galorys-vs-pain-circuit-x-curitiba-4-1082695",
-              "observed_at": "2026-10-24T16:53:47Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:13Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "57571d26512fda10c45b228de273e06a",
+              "sha256": "22b449189aad3efc8546073922996f1c",
               "bytes": 5871,
               "challenge": true,
               "title": "Just a moment...",
@@ -596,11 +115,12 @@
             "read": {
               "name": "citation",
               "url": "https://polymarket.com/event/cs2-gls1-pain-2026-10-24",
-              "observed_at": "2026-10-24T16:53:47Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:13Z",
               "http": 200,
               "status": "challenge",
-              "sha256": "a2ad48445d03b9055429070fa5474008",
-              "bytes": 646276,
+              "sha256": "1f801c4dbac30a956d23d4ba1190962a",
+              "bytes": 639494,
               "challenge": true,
               "title": "Polymarket",
               "error": null
@@ -666,7 +186,7 @@
             0.7
           ],
           "source": "Polymarket + Kalshi + Smarkets",
-          "observed_at": "2026-10-24T16:52:57Z",
+          "observed_at": "2026-10-24T16:58:30Z",
           "aliases_used": [
             {
               "alias": "Los Niños",
@@ -700,7 +220,7 @@
               "provider": "Polymarket",
               "family": "market",
               "odds": null,
-              "observed_at": "2026-10-24T16:52:57Z",
+              "observed_at": "2026-10-24T16:58:30Z",
               "source_url": "https://polymarket.com/event/cs2-ln-chama-2026-10-24",
               "event_id": "1244303"
             },
@@ -708,7 +228,7 @@
               "provider": "Kalshi",
               "family": "market",
               "odds": null,
-              "observed_at": "2026-10-24T16:53:05Z",
+              "observed_at": "2026-10-24T16:58:38Z",
               "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct241500lnchama",
               "event_id": "KXCS2GAME-26OCT241500LNCHAMA"
             },
@@ -716,7 +236,7 @@
               "provider": "Smarkets",
               "family": "market",
               "odds": null,
-              "observed_at": "2026-10-24T16:53:07Z",
+              "observed_at": "2026-10-24T16:58:39Z",
               "source_url": "https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/24/19-00/los-ninos-vs-borracheiros",
               "event_id": "45398487"
             }
@@ -734,10 +254,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hotspawn.com/matches/los-ninos-vs-borracheiros-cct-south-america-2026-series-7-1083122",
-              "observed_at": "2026-10-24T16:53:48Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:14Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "5958043eab2920208df6763a82176805",
+              "sha256": "51ff9a4774b995306dace7c6293382dd",
               "bytes": 5956,
               "challenge": true,
               "title": "Just a moment...",
@@ -776,11 +297,12 @@
             "read": {
               "name": "citation",
               "url": "https://polymarket.com/event/cs2-ln-chama-2026-10-24",
-              "observed_at": "2026-10-24T16:53:48Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:14Z",
               "http": 200,
               "status": "challenge",
-              "sha256": "5d56b9fa1a3ba85ad54c6677e4815606",
-              "bytes": 646070,
+              "sha256": "3e3156cf392698c9897920c2c4cea6fb",
+              "bytes": 646027,
               "challenge": true,
               "title": "Polymarket",
               "error": null
@@ -825,11 +347,12 @@
             "read": {
               "name": "citation",
               "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct241500lnchama",
-              "observed_at": "2026-10-24T16:53:48Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:14Z",
               "http": 429,
               "status": "http-429",
-              "sha256": "c944216149e9005300553ad66d5bde36",
-              "bytes": 31428,
+              "sha256": "75e15f114f87365d523d38b2306acd4e",
+              "bytes": 31429,
               "challenge": false,
               "title": "Vercel Security Checkpoint",
               "error": null
@@ -857,18 +380,28 @@
             "read": {
               "name": "citation",
               "url": "https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/24/19-00/los-ninos-vs-borracheiros",
-              "observed_at": "2026-10-24T16:53:48Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:14Z",
               "http": 200,
               "status": "challenge",
-              "sha256": "5b4d36739c530829207abb0875876feb",
-              "bytes": 664931,
+              "sha256": "ebf500673be68d4ca00f5c517d9e2f07",
+              "bytes": 664900,
               "challenge": true,
               "title": "Los Ninos Vs Borracheiros | Smarkets Predictions",
               "error": null
             },
             "names": [],
             "event_bound": false,
-            "verdict": "blocked"
+            "verdict": "blocked",
+            "alternates_tried": [
+              {
+                "url": "https://api.smarkets.com/v3/events/?limit=200",
+                "label": "Smarkets public event list",
+                "status": "ok",
+                "http": 200,
+                "verdict": "absent"
+              }
+            ]
           },
           {
             "url": "https://www.hltv.org/matches/2399914/los-ninos-vs-borracheiros-cct-2026-south-america-series-7",
@@ -880,10 +413,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hltv.org/matches/2399914/los-ninos-vs-borracheiros-cct-2026-south-america-series-7",
-              "observed_at": "2026-10-24T16:53:49Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:15Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "1acfdff887dbbe407e17629fcb8d485a",
+              "sha256": "7cb661d0e9d997125acebe6c30b85bd5",
               "bytes": 5909,
               "challenge": true,
               "title": "Just a moment...",
@@ -925,7 +459,7 @@
             0.665
           ],
           "source": "Polymarket",
-          "observed_at": "2026-10-24T16:52:31Z",
+          "observed_at": "2026-10-24T16:58:09Z",
           "aliases_used": [],
           "limitations": [
             "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
@@ -961,10 +495,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hotspawn.com/matches/bestia-vs-imperial-circuit-x-curitiba-4-1083140",
-              "observed_at": "2026-10-24T16:53:49Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:15Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "ef64c91f2bf1062fe15b377ce63288f9",
+              "sha256": "a664aa88877d0e3778bf4a0bf2ae960b",
               "bytes": 5880,
               "challenge": true,
               "title": "Just a moment...",
@@ -1003,10 +538,11 @@
             "read": {
               "name": "citation",
               "url": "https://polymarket.com/event/cs2-bst-imp11-2026-10-24",
-              "observed_at": "2026-10-24T16:53:49Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:15Z",
               "http": 200,
               "status": "challenge",
-              "sha256": "0beb00b391aec7d537135c0561796d36",
+              "sha256": "c5552bc4fcff2e7bea8c2ef1148038f0",
               "bytes": 646285,
               "challenge": true,
               "title": "Polymarket",
@@ -1073,7 +609,7 @@
             0.72474129
           ],
           "source": "Polymarket + Smarkets + Thunderpick",
-          "observed_at": "2026-10-24T16:52:56Z",
+          "observed_at": "2026-10-24T16:58:29Z",
           "aliases_used": [
             {
               "alias": "Grêmio Esports",
@@ -1142,7 +678,7 @@
               "provider": "Polymarket",
               "family": "market",
               "odds": null,
-              "observed_at": "2026-10-24T16:52:58Z",
+              "observed_at": "2026-10-24T16:58:31Z",
               "source_url": "https://polymarket.com/event/cs2-grmioe-yaw-2026-10-24",
               "event_id": "1240692"
             },
@@ -1150,7 +686,7 @@
               "provider": "Smarkets",
               "family": "market",
               "odds": null,
-              "observed_at": "2026-10-24T16:53:07Z",
+              "observed_at": "2026-10-24T16:58:39Z",
               "source_url": "https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/24/22-00/gremio-esports-vs-yawara-esports",
               "event_id": "45398301"
             },
@@ -1161,7 +697,7 @@
                 2.94,
                 1.34
               ],
-              "observed_at": "2026-10-24T16:52:56Z",
+              "observed_at": "2026-10-24T16:58:29Z",
               "source_url": "https://thunderpick.io/esports/counter-strike",
               "event_id": "2880089"
             }
@@ -1209,8 +745,8 @@
             "rd_assumption": 75,
             "g": 0.9728209910486895,
             "aliases_used": [],
-            "observed_at": "2026-10-24T16:53:11Z",
-            "evaluation_at": "2026-10-24T16:52:54Z"
+            "observed_at": "2026-10-24T16:58:43Z",
+            "evaluation_at": "2026-10-24T16:58:27Z"
           }
         },
         "citations": [
@@ -1224,10 +760,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hotspawn.com/matches/gremio-vs-yawara-cct-south-america-2026-series-7-1083123",
-              "observed_at": "2026-10-24T16:53:50Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:16Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "edeaf99c999dcdbce38859406893a3de",
+              "sha256": "c0b7ca27d34c0f08ac3945551e04d7bf",
               "bytes": 5907,
               "challenge": true,
               "title": "Just a moment...",
@@ -1250,11 +787,12 @@
             "read": {
               "name": "citation",
               "url": "https://polymarket.com/event/cs2-grmioe-yaw-2026-10-24",
-              "observed_at": "2026-10-24T16:53:50Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:16Z",
               "http": 200,
               "status": "challenge",
-              "sha256": "073d5969546136ab28138cdba8578242",
-              "bytes": 646339,
+              "sha256": "44c13206b50c8322f06f5b282cd009db",
+              "bytes": 646296,
               "challenge": true,
               "title": "Polymarket",
               "error": null
@@ -1299,18 +837,28 @@
             "read": {
               "name": "citation",
               "url": "https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/24/22-00/gremio-esports-vs-yawara-esports",
-              "observed_at": "2026-10-24T16:53:50Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:16Z",
               "http": 200,
               "status": "challenge",
-              "sha256": "d1093e9a2d0b6c1186d9f8d2d544a3d9",
-              "bytes": 664966,
+              "sha256": "26053e0c8f9b037e4fd6c821f28936a6",
+              "bytes": 664935,
               "challenge": true,
               "title": "Gremio Esports Vs Yawara Esports | Smarkets Predictions",
               "error": null
             },
             "names": [],
             "event_bound": false,
-            "verdict": "blocked"
+            "verdict": "blocked",
+            "alternates_tried": [
+              {
+                "url": "https://api.smarkets.com/v3/events/?limit=200",
+                "label": "Smarkets public event list",
+                "status": "ok",
+                "http": 200,
+                "verdict": "absent"
+              }
+            ]
           },
           {
             "url": "https://thunderpick.io/esports/counter-strike",
@@ -1327,7 +875,8 @@
             "read": {
               "name": "citation",
               "url": "https://thunderpick.io/esports/counter-strike",
-              "observed_at": "2026-10-24T16:53:50Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:17Z",
               "http": 200,
               "status": "ok",
               "sha256": "427e89dff18a88e80ef2353b5929e426",
@@ -1339,17 +888,31 @@
             "names": [
               {
                 "team": "Grêmio",
-                "level": "absent",
+                "level": "full",
                 "needle": "gremio"
               },
               {
                 "team": "Yawara",
-                "level": "absent",
+                "level": "full",
                 "needle": "yawara"
               }
             ],
-            "event_bound": false,
-            "verdict": "endpoint-unbound"
+            "event_bound": true,
+            "verdict": "confirmed-via-alternate",
+            "alternates_tried": [
+              {
+                "url": "https://thunderpick.io/api/matches",
+                "label": "Thunderpick prematch event list (POST, gameIds=[6])",
+                "status": "ok",
+                "http": 200,
+                "verdict": "confirmed"
+              }
+            ],
+            "fallback": {
+              "url": "https://thunderpick.io/api/matches",
+              "label": "Thunderpick prematch event list (POST, gameIds=[6])",
+              "verdict": "confirmed"
+            }
           },
           {
             "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
@@ -1362,11 +925,12 @@
             "read": {
               "name": "citation",
               "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-              "observed_at": "2026-10-24T16:53:50Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:17Z",
               "http": 200,
               "status": "ok",
-              "sha256": "b7dde6f749bae4cd90a3035afa5583e2",
-              "bytes": 901854,
+              "sha256": "0e53f968f83cbd17b49bcdeffaf9a576",
+              "bytes": 901868,
               "challenge": false,
               "title": "counter-strike_regional_standings/live/2026/standings_global_2026_10_05.md at main · ValveSoftware/counter-strike_regional_standings · GitHub",
               "error": null
@@ -1396,10 +960,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hltv.org/matches/2399915/grmio-vs-yawara-cct-2026-south-america-series-7",
-              "observed_at": "2026-10-24T16:53:51Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:18Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "ec50967d3984acb851c84c99fa066137",
+              "sha256": "d965e8d31a445bdd9d2d566c05ddeb45",
               "bytes": 5879,
               "challenge": true,
               "title": "Just a moment...",
@@ -1417,8 +982,8 @@
           "partial": 0,
           "absent": 0,
           "unreachable": 3,
-          "confirmed_via_alternate": 1,
-          "endpoint_unbound": 1
+          "confirmed_via_alternate": 2,
+          "endpoint_unbound": 0
         }
       },
       {
@@ -1437,11 +1002,11 @@
           "pick_index": 1,
           "pick": "UNiTY",
           "probabilities": [
-            0.4125,
-            0.5875
+            0.45386816,
+            0.54613184
           ],
           "source": "Polymarket + Kalshi",
-          "observed_at": "2026-10-24T16:52:59Z",
+          "observed_at": "2026-10-24T16:58:32Z",
           "aliases_used": [
             {
               "alias": "UNiTY esports",
@@ -1501,7 +1066,7 @@
               "provider": "Polymarket",
               "family": "market",
               "odds": null,
-              "observed_at": "2026-10-24T16:52:59Z",
+              "observed_at": "2026-10-24T16:58:32Z",
               "source_url": "https://polymarket.com/event/cs2-ace1-unity-2026-10-25",
               "event_id": "1238703"
             },
@@ -1509,7 +1074,7 @@
               "provider": "Kalshi",
               "family": "market",
               "odds": null,
-              "observed_at": "2026-10-24T16:53:05Z",
+              "observed_at": "2026-10-24T16:58:38Z",
               "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct250500unityace",
               "event_id": "KXCS2GAME-26OCT250500UNITYACE"
             }
@@ -1557,8 +1122,8 @@
             "rd_assumption": 75,
             "g": 0.9728209910486895,
             "aliases_used": [],
-            "observed_at": "2026-10-24T16:53:11Z",
-            "evaluation_at": "2026-10-24T16:52:54Z"
+            "observed_at": "2026-10-24T16:58:43Z",
+            "evaluation_at": "2026-10-24T16:58:27Z"
           }
         },
         "citations": [
@@ -1572,10 +1137,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
-              "observed_at": "2026-10-24T16:53:51Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:18Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "441436bf7c459f4a02010c68e3b307fd",
+              "sha256": "18a62f568a575062bcf4f983af047463",
               "bytes": 5877,
               "challenge": true,
               "title": "Just a moment...",
@@ -1614,11 +1180,12 @@
             "read": {
               "name": "citation",
               "url": "https://polymarket.com/event/cs2-ace1-unity-2026-10-25",
-              "observed_at": "2026-10-24T16:53:51Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:18Z",
               "http": 200,
               "status": "challenge",
-              "sha256": "2651e08970056b223cdfe715c60a8810",
-              "bytes": 639476,
+              "sha256": "6784765c82a749acc9e09334a7c51703",
+              "bytes": 630597,
               "challenge": true,
               "title": "Polymarket",
               "error": null
@@ -1663,11 +1230,12 @@
             "read": {
               "name": "citation",
               "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct250500unityace",
-              "observed_at": "2026-10-24T16:53:51Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:22Z",
               "http": 429,
               "status": "http-429",
-              "sha256": "8696364f0fc14a62e52a7d4d60cd1033",
-              "bytes": 31428,
+              "sha256": "1c83652e94983f503fe478ffe912ac85",
+              "bytes": 31429,
               "challenge": false,
               "title": "Vercel Security Checkpoint",
               "error": null
@@ -1695,11 +1263,12 @@
             "read": {
               "name": "citation",
               "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-              "observed_at": "2026-10-24T16:53:51Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:22Z",
               "http": 200,
               "status": "ok",
-              "sha256": "03467a13a2e99b3a33e1d5c220cc8bdb",
-              "bytes": 901854,
+              "sha256": "de691411b8af22591bf29ff0d3eb516e",
+              "bytes": 901868,
               "challenge": false,
               "title": "counter-strike_regional_standings/live/2026/standings_global_2026_10_05.md at main · ValveSoftware/counter-strike_regional_standings · GitHub",
               "error": null
@@ -1729,10 +1298,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
-              "observed_at": "2026-10-24T16:53:52Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:22Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "0ace80a70fe9f44978c5b745c06c4b32",
+              "sha256": "9009616b6171c021c029db22e5086fb5",
               "bytes": 5831,
               "challenge": true,
               "title": "Just a moment...",
@@ -1774,7 +1344,7 @@
             0.32315972
           ],
           "source": "Bovada",
-          "observed_at": "2026-10-24T16:53:06Z",
+          "observed_at": "2026-10-24T16:58:38Z",
           "aliases_used": [
             {
               "alias": "BakS eSports",
@@ -1838,7 +1408,7 @@
                 1.384615,
                 2.9
               ],
-              "observed_at": "2026-10-24T16:53:06Z",
+              "observed_at": "2026-10-24T16:58:38Z",
               "source_url": "https://www.bovada.lv/sports/esports/counter-strike-2/nodwin-clutch-series/metizport-baks-esports-202610250800",
               "event_id": "32642574"
             }
@@ -1886,8 +1456,8 @@
             "rd_assumption": 75,
             "g": 0.9728209910486895,
             "aliases_used": [],
-            "observed_at": "2026-10-24T16:53:11Z",
-            "evaluation_at": "2026-10-24T16:52:54Z"
+            "observed_at": "2026-10-24T16:58:43Z",
+            "evaluation_at": "2026-10-24T16:58:27Z"
           }
         },
         "citations": [
@@ -1901,10 +1471,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198",
-              "observed_at": "2026-10-24T16:53:52Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:22Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "dc14df48b5ad82615301ecba2accc447",
+              "sha256": "2ee23b8aee68c7e8a22c76644e5e2502",
               "bytes": 5886,
               "challenge": true,
               "title": "Just a moment...",
@@ -1947,11 +1518,12 @@
             "read": {
               "name": "citation",
               "url": "https://www.bovada.lv/sports/esports/counter-strike-2/nodwin-clutch-series/metizport-baks-esports-202610250800",
-              "observed_at": "2026-10-24T16:53:52Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:22Z",
               "http": 200,
               "status": "ok",
-              "sha256": "ec73bbcc1bd323583d3861ed21f52d58",
-              "bytes": 2526432,
+              "sha256": "2365feac30271ab1192777f82191fdd2",
+              "bytes": 2526562,
               "challenge": false,
               "title": "Nodwin Clutch Series Betting Odds | Counter Strike 2",
               "error": null
@@ -1982,11 +1554,12 @@
             "read": {
               "name": "citation",
               "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-              "observed_at": "2026-10-24T16:53:53Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:24Z",
               "http": 200,
               "status": "ok",
-              "sha256": "bb45beae21249d829b6cefae0b0bd470",
-              "bytes": 901854,
+              "sha256": "4d0cb4d874b3a6c7e5e06c6efdd61adf",
+              "bytes": 901868,
               "challenge": false,
               "title": "counter-strike_regional_standings/live/2026/standings_global_2026_10_05.md at main · ValveSoftware/counter-strike_regional_standings · GitHub",
               "error": null
@@ -2016,10 +1589,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13",
-              "observed_at": "2026-10-24T16:53:53Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:25Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "59582ca7075f47f472ffc7dd7b3ff608",
+              "sha256": "796389ef5a36463557fc7dde3f70e866",
               "bytes": 5840,
               "challenge": true,
               "title": "Just a moment...",
@@ -2061,7 +1635,7 @@
             0.33596843
           ],
           "source": "Bovada",
-          "observed_at": "2026-10-24T16:53:06Z",
+          "observed_at": "2026-10-24T16:58:38Z",
           "aliases_used": [
             {
               "alias": "Sökerorg",
@@ -2123,7 +1697,7 @@
                 1.416667,
                 2.8
               ],
-              "observed_at": "2026-10-24T16:53:06Z",
+              "observed_at": "2026-10-24T16:58:38Z",
               "source_url": "https://www.bovada.lv/sports/esports/counter-strike-2/cct-europe/series-11/spirit-academy-sokerorg-202610250800",
               "event_id": "32684075"
             }
@@ -2141,10 +1715,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156",
-              "observed_at": "2026-10-24T16:53:53Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:25Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "68a69fd82ecd5f92ca84501aef62cfa8",
+              "sha256": "d917d78bd1ec2abba1cf4ab8f78dde72",
               "bytes": 5913,
               "challenge": true,
               "title": "Just a moment...",
@@ -2187,11 +1762,12 @@
             "read": {
               "name": "citation",
               "url": "https://www.bovada.lv/sports/esports/counter-strike-2/cct-europe/series-11/spirit-academy-sokerorg-202610250800",
-              "observed_at": "2026-10-24T16:53:53Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:25Z",
               "http": 200,
               "status": "ok",
-              "sha256": "7f8035603758223dd8c3b33c6f4a4ed6",
-              "bytes": 2527778,
+              "sha256": "c33a81efa4c4f03b0b0b8f9d4e213a15",
+              "bytes": 2527779,
               "challenge": false,
               "title": "Series 11 Betting Odds | Counter Strike 2",
               "error": null
@@ -2221,10 +1797,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12",
-              "observed_at": "2026-10-24T16:53:54Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:28Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "231b6e2c9dab8adf7bc5a9104cb062fb",
+              "sha256": "feec2039d3cfe1487b1ba002b1eb8ebe",
               "bytes": 5888,
               "challenge": true,
               "title": "Just a moment...",
@@ -2266,7 +1843,7 @@
             0.54
           ],
           "source": "Polymarket",
-          "observed_at": "2026-10-24T16:52:31Z",
+          "observed_at": "2026-10-24T16:58:10Z",
           "aliases_used": [],
           "limitations": [
             "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
@@ -2302,10 +1879,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hotspawn.com/matches/infinite-vs-brute-nodwin-clutch-series-13-1079199",
-              "observed_at": "2026-10-24T16:53:54Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:28Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "5aace4bfaf9fb1cf8b731dd8c02ae7de",
+              "sha256": "49cc33991885d965a9f982b7b03be454",
               "bytes": 5886,
               "challenge": true,
               "title": "Just a moment...",
@@ -2344,10 +1922,11 @@
             "read": {
               "name": "citation",
               "url": "https://polymarket.com/event/cs2-inf6-brute-2026-10-25",
-              "observed_at": "2026-10-24T16:53:54Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:28Z",
               "http": 200,
               "status": "challenge",
-              "sha256": "aafc15fa16a36bed828ec2c8ccc08eb2",
+              "sha256": "17ff63c82c47b8b844c7b5b2904ed9da",
               "bytes": 646051,
               "challenge": true,
               "title": "Polymarket",
@@ -2410,11 +1989,11 @@
           "pick_index": 0,
           "pick": "Color",
           "probabilities": [
-            0.51010101,
-            0.48989899
+            0.50879397,
+            0.49120603
           ],
           "source": "Polymarket + Kalshi",
-          "observed_at": "2026-10-24T16:53:01Z",
+          "observed_at": "2026-10-24T16:58:34Z",
           "aliases_used": [],
           "limitations": [],
           "quotes": [
@@ -2422,7 +2001,7 @@
               "provider": "Polymarket",
               "family": "market",
               "odds": null,
-              "observed_at": "2026-10-24T16:53:01Z",
+              "observed_at": "2026-10-24T16:58:34Z",
               "source_url": "https://polymarket.com/event/cs2-color-zerote-2026-10-25",
               "event_id": "1238707"
             },
@@ -2430,7 +2009,7 @@
               "provider": "Kalshi",
               "family": "market",
               "odds": null,
-              "observed_at": "2026-10-24T16:53:05Z",
+              "observed_at": "2026-10-24T16:58:38Z",
               "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct251400exzcol",
               "event_id": "KXCS2GAME-26OCT251400EXZCOL"
             }
@@ -2478,8 +2057,8 @@
             "rd_assumption": 75,
             "g": 0.9728209910486895,
             "aliases_used": [],
-            "observed_at": "2026-10-24T16:53:11Z",
-            "evaluation_at": "2026-10-24T16:52:54Z"
+            "observed_at": "2026-10-24T16:58:43Z",
+            "evaluation_at": "2026-10-24T16:58:27Z"
           }
         },
         "citations": [
@@ -2493,10 +2072,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hotspawn.com/matches/color-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079200",
-              "observed_at": "2026-10-24T16:53:54Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:29Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "0232fc0f154c04482f4ca2d1bafd5f35",
+              "sha256": "8375f1a250757d7474513685833e8537",
               "bytes": 5910,
               "challenge": true,
               "title": "Just a moment...",
@@ -2536,11 +2116,12 @@
             "read": {
               "name": "citation",
               "url": "https://polymarket.com/event/cs2-color-zerote-2026-10-25",
-              "observed_at": "2026-10-24T16:53:55Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:29Z",
               "http": 200,
               "status": "challenge",
-              "sha256": "e5ec72db4fd193b78ad802ab975514d3",
-              "bytes": 630907,
+              "sha256": "3c1cd9e892f064972d6cf3d3b489a205",
+              "bytes": 630833,
               "challenge": true,
               "title": "Polymarket",
               "error": null
@@ -2585,11 +2166,12 @@
             "read": {
               "name": "citation",
               "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct251400exzcol",
-              "observed_at": "2026-10-24T16:53:57Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:31Z",
               "http": 429,
               "status": "http-429",
-              "sha256": "30fd8eaf360ced6a39824931b7186a3a",
-              "bytes": 31428,
+              "sha256": "9dfadfbbf7e3ed2156c38d73b63cab8f",
+              "bytes": 31429,
               "challenge": false,
               "title": "Vercel Security Checkpoint",
               "error": null
@@ -2616,11 +2198,12 @@
             "read": {
               "name": "citation",
               "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-              "observed_at": "2026-10-24T16:53:57Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:31Z",
               "http": 200,
               "status": "ok",
-              "sha256": "e0b24203ec52c5b97dc494dc13734c79",
-              "bytes": 901854,
+              "sha256": "f43df0b9fd156895ad1007bb1a4674ae",
+              "bytes": 901868,
               "challenge": false,
               "title": "counter-strike_regional_standings/live/2026/standings_global_2026_10_05.md at main · ValveSoftware/counter-strike_regional_standings · GitHub",
               "error": null
@@ -2672,7 +2255,7 @@
             0.43668127
           ],
           "source": "Bovada",
-          "observed_at": "2026-10-24T16:53:06Z",
+          "observed_at": "2026-10-24T16:58:38Z",
           "aliases_used": [],
           "limitations": [],
           "quotes": [
@@ -2683,7 +2266,7 @@
                 1.666667,
                 2.15
               ],
-              "observed_at": "2026-10-24T16:53:06Z",
+              "observed_at": "2026-10-24T16:58:38Z",
               "source_url": "https://www.bovada.lv/sports/esports/counter-strike-2/cct-europe/series-11/forze-reload-ex-rustec-202610251400",
               "event_id": "32702991"
             }
@@ -2731,8 +2314,8 @@
             "rd_assumption": 75,
             "g": 0.9728209910486895,
             "aliases_used": [],
-            "observed_at": "2026-10-24T16:53:11Z",
-            "evaluation_at": "2026-10-24T16:52:54Z"
+            "observed_at": "2026-10-24T16:58:43Z",
+            "evaluation_at": "2026-10-24T16:58:27Z"
           }
         },
         "citations": [
@@ -2746,10 +2329,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hotspawn.com/matches/forze-reload-vs-ex-rustec-cct-europe-2026-series-12-1081158",
-              "observed_at": "2026-10-24T16:53:58Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:31Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "8f96ba68d84164bf77c87c9119122754",
+              "sha256": "121319e46cc441b3b120384924f6739a",
               "bytes": 5938,
               "challenge": true,
               "title": "Just a moment...",
@@ -2792,11 +2376,12 @@
             "read": {
               "name": "citation",
               "url": "https://www.bovada.lv/sports/esports/counter-strike-2/cct-europe/series-11/forze-reload-ex-rustec-202610251400",
-              "observed_at": "2026-10-24T16:53:58Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:31Z",
               "http": 200,
               "status": "ok",
-              "sha256": "50f21533a344e0f17addc5b96f962e2e",
-              "bytes": 2527794,
+              "sha256": "96a7a7727b6b071c20753b510cd1f835",
+              "bytes": 2527752,
               "challenge": false,
               "title": "Series 11 Betting Odds | Counter Strike 2",
               "error": null
@@ -2827,11 +2412,12 @@
             "read": {
               "name": "citation",
               "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-              "observed_at": "2026-10-24T16:53:58Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:35Z",
               "http": 200,
               "status": "ok",
-              "sha256": "028daf81c471ce26f1e9147b7cac4840",
-              "bytes": 901863,
+              "sha256": "78b4ddc39890114545c308c74ae0bbae",
+              "bytes": 901859,
               "challenge": false,
               "title": "counter-strike_regional_standings/live/2026/standings_global_2026_10_05.md at main · ValveSoftware/counter-strike_regional_standings · GitHub",
               "error": null
@@ -2861,10 +2447,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hltv.org/matches/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12",
-              "observed_at": "2026-10-24T16:53:59Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:35Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "43759034a8bd32612fc7e9391d7f9f4c",
+              "sha256": "c41e08ec8f4d676e340a58a21788941f",
               "bytes": 5891,
               "challenge": true,
               "title": "Just a moment...",
@@ -2902,11 +2489,11 @@
           "pick_index": 1,
           "pick": "Off Chops",
           "probabilities": [
-            0.44965818991292583,
-            0.5503418100870742
+            0.4519384744290142,
+            0.5480615255709858
           ],
           "source": "Own network model (bo3.gg results graph)",
-          "observed_at": "2026-10-24T16:52:54Z",
+          "observed_at": "2026-10-24T16:58:27Z",
           "aliases_used": [],
           "limitations": [],
           "quotes": [
@@ -2914,7 +2501,7 @@
               "provider": "Own network model (bo3.gg results graph)",
               "family": "network",
               "odds": null,
-              "observed_at": "2026-10-24T16:52:54Z",
+              "observed_at": "2026-10-24T16:58:27Z",
               "source_url": "https://bo3.gg/matches",
               "event_id": null
             }
@@ -2932,10 +2519,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
-              "observed_at": "2026-10-24T16:53:59Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:35Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "f19072aa348d7bf7e04da2f4a56f5722",
+              "sha256": "67a7d9d772b2a6ace49d58c1cf641ea1",
               "bytes": 5907,
               "challenge": true,
               "title": "Just a moment...",
@@ -2973,7 +2561,8 @@
             "read": {
               "name": "citation",
               "url": "https://bo3.gg/matches",
-              "observed_at": "2026-10-24T16:53:59Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:35Z",
               "http": 200,
               "status": "ok",
               "sha256": "ed918ceec359c157dc30fa4176529d36",
@@ -2995,7 +2584,16 @@
               }
             ],
             "event_bound": false,
-            "verdict": "endpoint-unbound"
+            "verdict": "endpoint-unbound",
+            "alternates_tried": [
+              {
+                "url": "https://api.bo3.gg/api/v1/matches?page[limit]=50",
+                "label": "bo3.gg match list (public JSON)",
+                "status": "ok",
+                "http": 200,
+                "verdict": "endpoint-unbound"
+              }
+            ]
           },
           {
             "url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
@@ -3007,10 +2605,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
-              "observed_at": "2026-10-24T16:53:59Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:36Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "602c47efe45c8f5e3371f053248a3603",
+              "sha256": "005a097a6b67e330b96e0559cffa5046",
               "bytes": 5882,
               "challenge": true,
               "title": "Just a moment...",
@@ -3052,7 +2651,7 @@
             0.42480211
           ],
           "source": "Thunderpick",
-          "observed_at": "2026-10-24T16:52:38Z",
+          "observed_at": "2026-10-24T16:58:16Z",
           "aliases_used": [],
           "limitations": [
             "Bookmaker margin removed by proportional normalization. A single source is not a consensus."
@@ -3065,7 +2664,7 @@
                 1.61,
                 2.18
               ],
-              "observed_at": "2026-10-24T16:52:38Z",
+              "observed_at": "2026-10-24T16:58:16Z",
               "source_url": "https://thunderpick.io/api/matches",
               "event_id": "2870940"
             }
@@ -3083,10 +2682,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hotspawn.com/matches/nexvoid-vs-alter-ego-dfrag-invitational-2026-1082859",
-              "observed_at": "2026-10-24T16:53:59Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:36Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "a8b4087d7a2254717c0078712656df54",
+              "sha256": "81fb87671ab7cd261d03c7c46a77e2a1",
               "bytes": 5895,
               "challenge": true,
               "title": "Just a moment...",
@@ -3129,7 +2729,8 @@
             "read": {
               "name": "citation",
               "url": "https://thunderpick.io/api/matches",
-              "observed_at": "2026-10-24T16:53:59Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:36Z",
               "http": 200,
               "status": "ok",
               "sha256": "2e3108e9a0e96f2d89558170eb0a5189",
@@ -3141,17 +2742,31 @@
             "names": [
               {
                 "team": "NEXVOID",
-                "level": "absent",
+                "level": "full",
                 "needle": "nexvoid"
               },
               {
                 "team": "Alter Ego",
-                "level": "absent",
+                "level": "full",
                 "needle": "alter ego"
               }
             ],
-            "event_bound": false,
-            "verdict": "endpoint-unbound"
+            "event_bound": true,
+            "verdict": "confirmed-via-alternate",
+            "alternates_tried": [
+              {
+                "url": "https://thunderpick.io/api/matches",
+                "label": "Thunderpick prematch event list (POST, gameIds=[6])",
+                "status": "ok",
+                "http": 200,
+                "verdict": "confirmed"
+              }
+            ],
+            "fallback": {
+              "url": "https://thunderpick.io/api/matches",
+              "label": "Thunderpick prematch event list (POST, gameIds=[6])",
+              "verdict": "confirmed"
+            }
           },
           {
             "url": "https://www.hltv.org/matches/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026",
@@ -3163,10 +2778,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hltv.org/matches/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026",
-              "observed_at": "2026-10-24T16:53:59Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:36Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "204cc8fb93aebd28e7ee70c3972af3b7",
+              "sha256": "23df53bcaa6edc85694fc5b548f4802a",
               "bytes": 5870,
               "challenge": true,
               "title": "Just a moment...",
@@ -3186,7 +2802,8 @@
             "read": {
               "name": "citation",
               "url": "https://thunderpick.io/esports/counter-strike",
-              "observed_at": "2026-10-24T16:54:00Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:37Z",
               "http": 200,
               "status": "ok",
               "sha256": "427e89dff18a88e80ef2353b5929e426",
@@ -3198,28 +2815,42 @@
             "names": [
               {
                 "team": "NEXVOID",
-                "level": "absent",
+                "level": "full",
                 "needle": "nexvoid"
               },
               {
                 "team": "Alter Ego",
-                "level": "absent",
+                "level": "full",
                 "needle": "alter ego"
               }
             ],
             "event_bound": false,
-            "verdict": "endpoint-unbound"
+            "verdict": "confirmed-via-alternate",
+            "alternates_tried": [
+              {
+                "url": "https://thunderpick.io/api/matches",
+                "label": "Thunderpick prematch event list (POST, gameIds=[6])",
+                "status": "ok",
+                "http": 200,
+                "verdict": "confirmed"
+              }
+            ],
+            "fallback": {
+              "url": "https://thunderpick.io/api/matches",
+              "label": "Thunderpick prematch event list (POST, gameIds=[6])",
+              "verdict": "confirmed"
+            }
           }
         ],
-        "verdict": "needs-review",
+        "verdict": "verified-with-open-citations",
         "summary": {
           "citations": 4,
           "confirmed": 0,
           "partial": 0,
           "absent": 0,
           "unreachable": 1,
-          "confirmed_via_alternate": 1,
-          "endpoint_unbound": 2
+          "confirmed_via_alternate": 3,
+          "endpoint_unbound": 0
         }
       },
       {
@@ -3242,7 +2873,7 @@
             0.07699408
           ],
           "source": "Thunderpick",
-          "observed_at": "2026-10-24T16:52:38Z",
+          "observed_at": "2026-10-24T16:58:16Z",
           "aliases_used": [],
           "limitations": [
             "Bookmaker margin removed by proportional normalization. A single source is not a consensus."
@@ -3255,7 +2886,7 @@
                 1.001,
                 12
               ],
-              "observed_at": "2026-10-24T16:52:38Z",
+              "observed_at": "2026-10-24T16:58:16Z",
               "source_url": "https://thunderpick.io/api/matches",
               "event_id": "2872333"
             }
@@ -3273,10 +2904,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
-              "observed_at": "2026-10-24T16:54:00Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:37Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "7d90b6c6f507ab83f21e94fc1733912f",
+              "sha256": "4b6e0b4e6d892e61499591e5dd8f93b4",
               "bytes": 5892,
               "challenge": true,
               "title": "Just a moment...",
@@ -3319,7 +2951,8 @@
             "read": {
               "name": "citation",
               "url": "https://thunderpick.io/api/matches",
-              "observed_at": "2026-10-24T16:54:00Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:37Z",
               "http": 200,
               "status": "ok",
               "sha256": "2e3108e9a0e96f2d89558170eb0a5189",
@@ -3331,17 +2964,31 @@
             "names": [
               {
                 "team": "FlyQuest",
-                "level": "absent",
+                "level": "full",
                 "needle": "flyquest"
               },
               {
                 "team": "Staqued",
-                "level": "absent",
+                "level": "full",
                 "needle": "staqued"
               }
             ],
-            "event_bound": false,
-            "verdict": "endpoint-unbound"
+            "event_bound": true,
+            "verdict": "confirmed-via-alternate",
+            "alternates_tried": [
+              {
+                "url": "https://thunderpick.io/api/matches",
+                "label": "Thunderpick prematch event list (POST, gameIds=[6])",
+                "status": "ok",
+                "http": 200,
+                "verdict": "confirmed"
+              }
+            ],
+            "fallback": {
+              "url": "https://thunderpick.io/api/matches",
+              "label": "Thunderpick prematch event list (POST, gameIds=[6])",
+              "verdict": "confirmed"
+            }
           },
           {
             "url": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
@@ -3353,10 +3000,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
-              "observed_at": "2026-10-24T16:54:00Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:38Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "0166960f4612edc96f724563223f21f7",
+              "sha256": "087d99f4f7937ba85c103ba98e766e07",
               "bytes": 5867,
               "challenge": true,
               "title": "Just a moment...",
@@ -3376,7 +3024,8 @@
             "read": {
               "name": "citation",
               "url": "https://thunderpick.io/esports/counter-strike",
-              "observed_at": "2026-10-24T16:54:00Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:38Z",
               "http": 200,
               "status": "ok",
               "sha256": "427e89dff18a88e80ef2353b5929e426",
@@ -3388,28 +3037,42 @@
             "names": [
               {
                 "team": "FlyQuest",
-                "level": "absent",
+                "level": "full",
                 "needle": "flyquest"
               },
               {
                 "team": "Staqued",
-                "level": "absent",
+                "level": "full",
                 "needle": "staqued"
               }
             ],
             "event_bound": false,
-            "verdict": "endpoint-unbound"
+            "verdict": "confirmed-via-alternate",
+            "alternates_tried": [
+              {
+                "url": "https://thunderpick.io/api/matches",
+                "label": "Thunderpick prematch event list (POST, gameIds=[6])",
+                "status": "ok",
+                "http": 200,
+                "verdict": "confirmed"
+              }
+            ],
+            "fallback": {
+              "url": "https://thunderpick.io/api/matches",
+              "label": "Thunderpick prematch event list (POST, gameIds=[6])",
+              "verdict": "confirmed"
+            }
           }
         ],
-        "verdict": "needs-review",
+        "verdict": "verified-with-open-citations",
         "summary": {
           "citations": 4,
           "confirmed": 0,
           "partial": 0,
           "absent": 0,
           "unreachable": 1,
-          "confirmed_via_alternate": 1,
-          "endpoint_unbound": 2
+          "confirmed_via_alternate": 3,
+          "endpoint_unbound": 0
         }
       },
       {
@@ -3432,7 +3095,7 @@
             0.52238506
           ],
           "source": "Valve official standings",
-          "observed_at": "2026-10-24T16:52:39Z",
+          "observed_at": "2026-10-24T16:58:18Z",
           "aliases_used": [],
           "limitations": [
             "Research model, not observed betting odds or a verified true win probability.",
@@ -3453,10 +3116,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
-              "observed_at": "2026-10-24T16:54:00Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:38Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "9025dc6f867dc35fc1c8830aa9821aba",
+              "sha256": "cc30b72e93fcd3ec0a2c14cc756df0d4",
               "bytes": 5889,
               "challenge": true,
               "title": "Just a moment...",
@@ -3494,11 +3158,12 @@
             "read": {
               "name": "citation",
               "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-              "observed_at": "2026-10-24T16:54:00Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:38Z",
               "http": 200,
               "status": "ok",
-              "sha256": "7af7cfaef3ca484f27a616614e4acd86",
-              "bytes": 901863,
+              "sha256": "484960467e5c58945866738dc8b23fed",
+              "bytes": 901859,
               "challenge": false,
               "title": "counter-strike_regional_standings/live/2026/standings_global_2026_10_05.md at main · ValveSoftware/counter-strike_regional_standings · GitHub",
               "error": null
@@ -3528,10 +3193,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
-              "observed_at": "2026-10-24T16:54:00Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:38Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "dee8b0e5cc79aab7509018947180933d",
+              "sha256": "2b6f25ee98aecb70f5b1cdd58a82734d",
               "bytes": 5864,
               "challenge": true,
               "title": "Just a moment...",
@@ -3573,7 +3239,7 @@
             0.395
           ],
           "source": "Polymarket",
-          "observed_at": "2026-10-24T16:52:35Z",
+          "observed_at": "2026-10-24T16:58:14Z",
           "aliases_used": [],
           "limitations": [
             "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
@@ -3609,10 +3275,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hotspawn.com/matches/b8-vs-k27-tesla-cup-2026-1082897",
-              "observed_at": "2026-10-24T16:54:01Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:38Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "1dde5f7997190a7da68e0ecbede2003d",
+              "sha256": "24fbfabe730c25f191c01034d6e52939",
               "bytes": 5814,
               "challenge": true,
               "title": "Just a moment...",
@@ -3651,11 +3318,12 @@
             "read": {
               "name": "citation",
               "url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
-              "observed_at": "2026-10-24T16:54:01Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:38Z",
               "http": 200,
               "status": "challenge",
-              "sha256": "6a9a44b3a4c5a6c8b3750e69e674b7ab",
-              "bytes": 630385,
+              "sha256": "6951353db111442102be412097584c5e",
+              "bytes": 630311,
               "challenge": true,
               "title": "Polymarket",
               "error": null
@@ -3721,7 +3389,7 @@
             0.65
           ],
           "source": "Polymarket",
-          "observed_at": "2026-10-24T16:52:36Z",
+          "observed_at": "2026-10-24T16:58:14Z",
           "aliases_used": [],
           "limitations": [
             "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
@@ -3757,10 +3425,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hotspawn.com/matches/alliance-vs-faze-tesla-cup-2026-1082898",
-              "observed_at": "2026-10-24T16:54:04Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:42Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "e32047b02c37a80cc71f7af209437109",
+              "sha256": "e998f9aba0a16c18a3b03bf3175c43b6",
               "bytes": 5835,
               "challenge": true,
               "title": "Just a moment...",
@@ -3799,10 +3468,11 @@
             "read": {
               "name": "citation",
               "url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
-              "observed_at": "2026-10-24T16:54:04Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:42Z",
               "http": 200,
               "status": "challenge",
-              "sha256": "62269557ba43483860150312f97f6399",
+              "sha256": "ff05b09b47a7c4cde0a5a0721b4ece4f",
               "bytes": 639020,
               "challenge": true,
               "title": "Polymarket",
@@ -3869,7 +3539,7 @@
             0.475
           ],
           "source": "Polymarket",
-          "observed_at": "2026-10-24T16:52:36Z",
+          "observed_at": "2026-10-24T16:58:15Z",
           "aliases_used": [],
           "limitations": [
             "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
@@ -3905,10 +3575,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hotspawn.com/matches/luminosity-vs-hotu-tesla-cup-2026-1082900",
-              "observed_at": "2026-10-24T16:54:05Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:42Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "2f5ee3d90210ab6c67652dcd2731611f",
+              "sha256": "f80cc08d19ec23cb500303f1ec87b8c3",
               "bytes": 5841,
               "challenge": true,
               "title": "Just a moment...",
@@ -3947,11 +3618,12 @@
             "read": {
               "name": "citation",
               "url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
-              "observed_at": "2026-10-24T16:54:05Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:42Z",
               "http": 200,
               "status": "challenge",
-              "sha256": "6425cc81506c261e5804fb3944e2b348",
-              "bytes": 630263,
+              "sha256": "e9bb52d1fc3cb532d03aab12065432a2",
+              "bytes": 638970,
               "challenge": true,
               "title": "Polymarket",
               "error": null
@@ -4017,7 +3689,7 @@
             0.545
           ],
           "source": "Polymarket",
-          "observed_at": "2026-10-24T16:52:37Z",
+          "observed_at": "2026-10-24T16:58:15Z",
           "aliases_used": [],
           "limitations": [
             "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
@@ -4053,10 +3725,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hotspawn.com/matches/envy-vs-gamerlegion-tesla-cup-2026-1082901",
-              "observed_at": "2026-10-24T16:54:08Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:43Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "d442172022e01bfa540af5fd7fea6991",
+              "sha256": "d82592ddcd755936aed2db7a5299a190",
               "bytes": 5844,
               "challenge": true,
               "title": "Just a moment...",
@@ -4095,11 +3768,12 @@
             "read": {
               "name": "citation",
               "url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
-              "observed_at": "2026-10-24T16:54:08Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:43Z",
               "http": 200,
               "status": "challenge",
-              "sha256": "f521bb15b5c92949892da774ab66e0e7",
-              "bytes": 630195,
+              "sha256": "e1eea2e9f5847c26c1ea94982ac51270",
+              "bytes": 630238,
               "challenge": true,
               "title": "Polymarket",
               "error": null
@@ -4165,7 +3839,7 @@
             0.05947938
           ],
           "source": "Valve official standings",
-          "observed_at": "2026-10-24T16:53:11Z",
+          "observed_at": "2026-10-24T16:58:43Z",
           "aliases_used": [
             {
               "alias": "The Huns Esports",
@@ -4200,7 +3874,7 @@
               "provider": "Valve official standings",
               "family": "model",
               "odds": null,
-              "observed_at": "2026-10-24T16:53:11Z",
+              "observed_at": "2026-10-24T16:58:43Z",
               "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
               "event_id": null
             }
@@ -4218,10 +3892,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
-              "observed_at": "2026-10-24T16:54:11Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:45Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "b28ac03983c0958f95107e9da22d1145",
+              "sha256": "8923b47133e4db53ba12becb09d81874",
               "bytes": 5883,
               "challenge": true,
               "title": "Just a moment...",
@@ -4259,11 +3934,12 @@
             "read": {
               "name": "citation",
               "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-              "observed_at": "2026-10-24T16:54:11Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:45Z",
               "http": 200,
               "status": "ok",
-              "sha256": "7057ce7570d66fb9b18a5892144d0174",
-              "bytes": 901863,
+              "sha256": "0f62397884b6e60454bd4098e53f2773",
+              "bytes": 901859,
               "challenge": false,
               "title": "counter-strike_regional_standings/live/2026/standings_global_2026_10_05.md at main · ValveSoftware/counter-strike_regional_standings · GitHub",
               "error": null
@@ -4293,11 +3969,12 @@
             "read": {
               "name": "citation",
               "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
-              "observed_at": "2026-10-24T16:54:11Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:46Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "3957dfa183e2f7c2693446994ffa445a",
-              "bytes": 5876,
+              "sha256": "afe1d1003b6e396fee5847c9f0e35094",
+              "bytes": 5855,
               "challenge": true,
               "title": "Just a moment...",
               "error": null
@@ -4338,7 +4015,7 @@
             0.82183098
           ],
           "source": "Valve official standings",
-          "observed_at": "2026-10-24T16:52:39Z",
+          "observed_at": "2026-10-24T16:58:18Z",
           "aliases_used": [],
           "limitations": [
             "Research model, not observed betting odds or a verified true win probability.",
@@ -4359,10 +4036,11 @@
             "read": {
               "name": "citation",
               "url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
-              "observed_at": "2026-10-24T16:54:11Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:46Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "5bce2be0cbcd7d081a48edadae1d94ac",
+              "sha256": "2045dcc101ec44ba01f8d25708e59338",
               "bytes": 5874,
               "challenge": true,
               "title": "Just a moment...",
@@ -4400,11 +4078,12 @@
             "read": {
               "name": "citation",
               "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-              "observed_at": "2026-10-24T16:54:11Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:46Z",
               "http": 200,
               "status": "ok",
-              "sha256": "a1df7ae1b6b26286489f07b61d3d34e5",
-              "bytes": 901854,
+              "sha256": "e500bba03edd896477a23cdb18341b28",
+              "bytes": 901859,
               "challenge": false,
               "title": "counter-strike_regional_standings/live/2026/standings_global_2026_10_05.md at main · ValveSoftware/counter-strike_regional_standings · GitHub",
               "error": null
@@ -4434,11 +4113,12 @@
             "read": {
               "name": "citation",
               "url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
-              "observed_at": "2026-10-24T16:54:11Z",
+              "method": "GET",
+              "observed_at": "2026-10-24T16:59:46Z",
               "http": 403,
               "status": "http-403",
-              "sha256": "171a237e1554e9e0f677e7fa5e7e544b",
-              "bytes": 5867,
+              "sha256": "35cdc7905523fde6006350f5e276e3a0",
+              "bytes": 5846,
               "challenge": true,
               "title": "Just a moment...",
               "error": null
@@ -4460,7 +4140,7 @@
         }
       }
     ],
-    "observed_at": "2026-10-24T16:53:44Z"
+    "observed_at": "2026-10-24T16:59:13Z"
   },
   "coverage": {
     "feed_read": true,
@@ -4470,21 +4150,22 @@
     "published_inventory": 83,
     "live_future_missing": [],
     "past_start_still_published": 61,
-    "observed_at": "2026-10-24T16:53:44Z"
+    "observed_at": "2026-10-24T16:59:13Z"
   },
   "inputs": {
     "snapshot": "data/latest.json",
-    "snapshot_generated_at": "2026-10-24T16:52:40Z",
+    "snapshot_generated_at": "2026-10-24T16:58:18Z",
     "origination": "data/origination.json",
-    "origination_generated_at": "2026-10-24T16:52:54Z",
+    "origination_generated_at": "2026-10-24T16:58:27Z",
     "source_reads": [
       {
         "name": "hotspawn-fixtures",
         "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-        "observed_at": "2026-10-24T16:53:44Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:13Z",
         "http": 200,
         "status": "ok",
-        "sha256": "539032f2b4a9ec51d43c838fa79ae851",
+        "sha256": "765499ef25ebe149753397177e40d686",
         "bytes": 64834,
         "challenge": false,
         "title": "",
@@ -4492,131 +4173,12 @@
       },
       {
         "name": "citation",
-        "url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-ex-zero-tenacity-cct-europe-2026-series-11-1079661",
-        "observed_at": "2026-10-24T16:53:46Z",
-        "http": 403,
-        "status": "http-403",
-        "sha256": "b508dcc8b2f4675d79378e595acb9901",
-        "bytes": 5968,
-        "challenge": true,
-        "title": "Just a moment...",
-        "error": null
-      },
-      {
-        "name": "citation",
-        "url": "https://polymarket.com/event/cs2-ntr-zerote-2026-10-24",
-        "observed_at": "2026-10-24T16:53:46Z",
-        "http": 200,
-        "status": "challenge",
-        "sha256": "c4f3cbf537b6d00d3c3bf2262121d7b8",
-        "bytes": 646446,
-        "challenge": true,
-        "title": "Polymarket",
-        "error": null
-      },
-      {
-        "name": "citation",
-        "url": "https://gamma-api.polymarket.com/events?slug=cs2-ntr-zerote-2026-10-24",
-        "observed_at": "2026-10-24T16:53:46Z",
-        "http": 200,
-        "status": "ok",
-        "sha256": "c9cdc31ae645341c496991081daf4a6a",
-        "bytes": 44329,
-        "challenge": false,
-        "title": "",
-        "error": null
-      },
-      {
-        "name": "citation",
-        "url": "https://www.hotspawn.com/matches/baks-vs-illyrians-cct-europe-2026-series-12-1081154",
-        "observed_at": "2026-10-24T16:53:46Z",
-        "http": 403,
-        "status": "http-403",
-        "sha256": "f641d991b89bdc405a10566e25e9af45",
-        "bytes": 5892,
-        "challenge": true,
-        "title": "Just a moment...",
-        "error": null
-      },
-      {
-        "name": "citation",
-        "url": "https://polymarket.com/event/cs2-baks-ill4-2026-10-24",
-        "observed_at": "2026-10-24T16:53:46Z",
-        "http": 200,
-        "status": "challenge",
-        "sha256": "670779536dea289b6561aac9f694b4a8",
-        "bytes": 646112,
-        "challenge": true,
-        "title": "Polymarket",
-        "error": null
-      },
-      {
-        "name": "citation",
-        "url": "https://gamma-api.polymarket.com/events?slug=cs2-baks-ill4-2026-10-24",
-        "observed_at": "2026-10-24T16:53:47Z",
-        "http": 200,
-        "status": "ok",
-        "sha256": "6e6ae2d3f68dbbb1ac5a6a7bfc2dc280",
-        "bytes": 43199,
-        "challenge": false,
-        "title": "",
-        "error": null
-      },
-      {
-        "name": "citation",
-        "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct241300illbaks",
-        "observed_at": "2026-10-24T16:53:47Z",
-        "http": 429,
-        "status": "http-429",
-        "sha256": "590ac43f0912b154e256a33190952bcb",
-        "bytes": 31428,
-        "challenge": false,
-        "title": "Vercel Security Checkpoint",
-        "error": null
-      },
-      {
-        "name": "citation",
-        "url": "https://api.elections.kalshi.com/trade-api/v2/markets/kxcs2game-26oct241300illbaks",
-        "observed_at": "2026-10-24T16:53:47Z",
-        "http": 404,
-        "status": "http-404",
-        "sha256": "dea78f843e46c45482b84c9d9db6d16b",
-        "bytes": 52,
-        "challenge": false,
-        "title": "",
-        "error": null
-      },
-      {
-        "name": "citation",
-        "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-        "observed_at": "2026-10-24T16:53:47Z",
-        "http": 200,
-        "status": "ok",
-        "sha256": "fb5e2255b4cabc27351b88f51c06ce0b",
-        "bytes": 901854,
-        "challenge": false,
-        "title": "counter-strike_regional_standings/live/2026/standings_global_2026_10_05.md at main · ValveSoftware/counter-strike_regional_standings · GitHub",
-        "error": null
-      },
-      {
-        "name": "citation",
-        "url": "https://www.hltv.org/matches/2399504/baks-vs-illyrians-cct-2026-europe-series-12",
-        "observed_at": "2026-10-24T16:53:47Z",
-        "http": 403,
-        "status": "http-403",
-        "sha256": "8c98732e0dd62d7cf7845722811e06dd",
-        "bytes": 5867,
-        "challenge": true,
-        "title": "Just a moment...",
-        "error": null
-      },
-      {
-        "name": "citation",
         "url": "https://www.hotspawn.com/matches/galorys-vs-pain-circuit-x-curitiba-4-1082695",
-        "observed_at": "2026-10-24T16:53:47Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:13Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "57571d26512fda10c45b228de273e06a",
+        "sha256": "22b449189aad3efc8546073922996f1c",
         "bytes": 5871,
         "challenge": true,
         "title": "Just a moment...",
@@ -4625,11 +4187,12 @@
       {
         "name": "citation",
         "url": "https://polymarket.com/event/cs2-gls1-pain-2026-10-24",
-        "observed_at": "2026-10-24T16:53:47Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:13Z",
         "http": 200,
         "status": "challenge",
-        "sha256": "a2ad48445d03b9055429070fa5474008",
-        "bytes": 646276,
+        "sha256": "1f801c4dbac30a956d23d4ba1190962a",
+        "bytes": 639494,
         "challenge": true,
         "title": "Polymarket",
         "error": null
@@ -4637,11 +4200,12 @@
       {
         "name": "citation",
         "url": "https://gamma-api.polymarket.com/events?slug=cs2-gls1-pain-2026-10-24",
-        "observed_at": "2026-10-24T16:53:48Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:13Z",
         "http": 200,
         "status": "ok",
-        "sha256": "66a603e7da2bcd4677fa92041e858e53",
-        "bytes": 43595,
+        "sha256": "04c5bbb737014cbf91eb241a188c0bae",
+        "bytes": 43641,
         "challenge": false,
         "title": "",
         "error": null
@@ -4649,10 +4213,11 @@
       {
         "name": "citation",
         "url": "https://www.hotspawn.com/matches/los-ninos-vs-borracheiros-cct-south-america-2026-series-7-1083122",
-        "observed_at": "2026-10-24T16:53:48Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:14Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "5958043eab2920208df6763a82176805",
+        "sha256": "51ff9a4774b995306dace7c6293382dd",
         "bytes": 5956,
         "challenge": true,
         "title": "Just a moment...",
@@ -4661,11 +4226,12 @@
       {
         "name": "citation",
         "url": "https://polymarket.com/event/cs2-ln-chama-2026-10-24",
-        "observed_at": "2026-10-24T16:53:48Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:14Z",
         "http": 200,
         "status": "challenge",
-        "sha256": "5d56b9fa1a3ba85ad54c6677e4815606",
-        "bytes": 646070,
+        "sha256": "3e3156cf392698c9897920c2c4cea6fb",
+        "bytes": 646027,
         "challenge": true,
         "title": "Polymarket",
         "error": null
@@ -4673,11 +4239,12 @@
       {
         "name": "citation",
         "url": "https://gamma-api.polymarket.com/events?slug=cs2-ln-chama-2026-10-24",
-        "observed_at": "2026-10-24T16:53:48Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:14Z",
         "http": 200,
         "status": "ok",
-        "sha256": "3580f578738698df17dfe8e21c603e17",
-        "bytes": 23751,
+        "sha256": "12427141ee102977dc93407da02b3f4e",
+        "bytes": 23759,
         "challenge": false,
         "title": "",
         "error": null
@@ -4685,11 +4252,12 @@
       {
         "name": "citation",
         "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct241500lnchama",
-        "observed_at": "2026-10-24T16:53:48Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:14Z",
         "http": 429,
         "status": "http-429",
-        "sha256": "c944216149e9005300553ad66d5bde36",
-        "bytes": 31428,
+        "sha256": "75e15f114f87365d523d38b2306acd4e",
+        "bytes": 31429,
         "challenge": false,
         "title": "Vercel Security Checkpoint",
         "error": null
@@ -4697,7 +4265,8 @@
       {
         "name": "citation",
         "url": "https://api.elections.kalshi.com/trade-api/v2/markets/kxcs2game-26oct241500lnchama",
-        "observed_at": "2026-10-24T16:53:48Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:14Z",
         "http": 404,
         "status": "http-404",
         "sha256": "dea78f843e46c45482b84c9d9db6d16b",
@@ -4709,22 +4278,37 @@
       {
         "name": "citation",
         "url": "https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/24/19-00/los-ninos-vs-borracheiros",
-        "observed_at": "2026-10-24T16:53:48Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:14Z",
         "http": 200,
         "status": "challenge",
-        "sha256": "5b4d36739c530829207abb0875876feb",
-        "bytes": 664931,
+        "sha256": "ebf500673be68d4ca00f5c517d9e2f07",
+        "bytes": 664900,
         "challenge": true,
         "title": "Los Ninos Vs Borracheiros | Smarkets Predictions",
         "error": null
       },
       {
         "name": "citation",
+        "url": "https://api.smarkets.com/v3/events/?limit=200",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:15Z",
+        "http": 200,
+        "status": "ok",
+        "sha256": "296b24a215886b4f9ea4ac9e522b8c5b",
+        "bytes": 35034,
+        "challenge": false,
+        "title": "",
+        "error": null
+      },
+      {
+        "name": "citation",
         "url": "https://www.hltv.org/matches/2399914/los-ninos-vs-borracheiros-cct-2026-south-america-series-7",
-        "observed_at": "2026-10-24T16:53:49Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:15Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "1acfdff887dbbe407e17629fcb8d485a",
+        "sha256": "7cb661d0e9d997125acebe6c30b85bd5",
         "bytes": 5909,
         "challenge": true,
         "title": "Just a moment...",
@@ -4733,10 +4317,11 @@
       {
         "name": "citation",
         "url": "https://www.hotspawn.com/matches/bestia-vs-imperial-circuit-x-curitiba-4-1083140",
-        "observed_at": "2026-10-24T16:53:49Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:15Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "ef64c91f2bf1062fe15b377ce63288f9",
+        "sha256": "a664aa88877d0e3778bf4a0bf2ae960b",
         "bytes": 5880,
         "challenge": true,
         "title": "Just a moment...",
@@ -4745,10 +4330,11 @@
       {
         "name": "citation",
         "url": "https://polymarket.com/event/cs2-bst-imp11-2026-10-24",
-        "observed_at": "2026-10-24T16:53:49Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:15Z",
         "http": 200,
         "status": "challenge",
-        "sha256": "0beb00b391aec7d537135c0561796d36",
+        "sha256": "c5552bc4fcff2e7bea8c2ef1148038f0",
         "bytes": 646285,
         "challenge": true,
         "title": "Polymarket",
@@ -4757,11 +4343,12 @@
       {
         "name": "citation",
         "url": "https://gamma-api.polymarket.com/events?slug=cs2-bst-imp11-2026-10-24",
-        "observed_at": "2026-10-24T16:53:50Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:16Z",
         "http": 200,
         "status": "ok",
-        "sha256": "df13136a2a24dbdc5c09709c55adb6ea",
-        "bytes": 43633,
+        "sha256": "679c7beb1a4c2ebeae1e8b55d1352dbe",
+        "bytes": 43603,
         "challenge": false,
         "title": "",
         "error": null
@@ -4769,10 +4356,11 @@
       {
         "name": "citation",
         "url": "https://www.hotspawn.com/matches/gremio-vs-yawara-cct-south-america-2026-series-7-1083123",
-        "observed_at": "2026-10-24T16:53:50Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:16Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "edeaf99c999dcdbce38859406893a3de",
+        "sha256": "c0b7ca27d34c0f08ac3945551e04d7bf",
         "bytes": 5907,
         "challenge": true,
         "title": "Just a moment...",
@@ -4781,11 +4369,12 @@
       {
         "name": "citation",
         "url": "https://polymarket.com/event/cs2-grmioe-yaw-2026-10-24",
-        "observed_at": "2026-10-24T16:53:50Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:16Z",
         "http": 200,
         "status": "challenge",
-        "sha256": "073d5969546136ab28138cdba8578242",
-        "bytes": 646339,
+        "sha256": "44c13206b50c8322f06f5b282cd009db",
+        "bytes": 646296,
         "challenge": true,
         "title": "Polymarket",
         "error": null
@@ -4793,11 +4382,12 @@
       {
         "name": "citation",
         "url": "https://gamma-api.polymarket.com/events?slug=cs2-grmioe-yaw-2026-10-24",
-        "observed_at": "2026-10-24T16:53:50Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:16Z",
         "http": 200,
         "status": "ok",
-        "sha256": "242609d635187039936abf09524b43d8",
-        "bytes": 24045,
+        "sha256": "fd22b1a8ff1d037c56693843cce39448",
+        "bytes": 24043,
         "challenge": false,
         "title": "",
         "error": null
@@ -4805,19 +4395,34 @@
       {
         "name": "citation",
         "url": "https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/24/22-00/gremio-esports-vs-yawara-esports",
-        "observed_at": "2026-10-24T16:53:50Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:16Z",
         "http": 200,
         "status": "challenge",
-        "sha256": "d1093e9a2d0b6c1186d9f8d2d544a3d9",
-        "bytes": 664966,
+        "sha256": "26053e0c8f9b037e4fd6c821f28936a6",
+        "bytes": 664935,
         "challenge": true,
         "title": "Gremio Esports Vs Yawara Esports | Smarkets Predictions",
         "error": null
       },
       {
         "name": "citation",
+        "url": "https://api.smarkets.com/v3/events/?limit=200",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:17Z",
+        "http": 200,
+        "status": "ok",
+        "sha256": "296b24a215886b4f9ea4ac9e522b8c5b",
+        "bytes": 35034,
+        "challenge": false,
+        "title": "",
+        "error": null
+      },
+      {
+        "name": "citation",
         "url": "https://thunderpick.io/esports/counter-strike",
-        "observed_at": "2026-10-24T16:53:50Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:17Z",
         "http": 200,
         "status": "ok",
         "sha256": "427e89dff18a88e80ef2353b5929e426",
@@ -4828,12 +4433,26 @@
       },
       {
         "name": "citation",
-        "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-        "observed_at": "2026-10-24T16:53:50Z",
+        "url": "https://thunderpick.io/api/matches",
+        "method": "POST",
+        "observed_at": "2026-10-24T16:59:17Z",
         "http": 200,
         "status": "ok",
-        "sha256": "b7dde6f749bae4cd90a3035afa5583e2",
-        "bytes": 901854,
+        "sha256": "b34b18f6ecf08e160ee3ae6756fe9ec7",
+        "bytes": 161034,
+        "challenge": false,
+        "title": "",
+        "error": null
+      },
+      {
+        "name": "citation",
+        "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:17Z",
+        "http": 200,
+        "status": "ok",
+        "sha256": "0e53f968f83cbd17b49bcdeffaf9a576",
+        "bytes": 901868,
         "challenge": false,
         "title": "counter-strike_regional_standings/live/2026/standings_global_2026_10_05.md at main · ValveSoftware/counter-strike_regional_standings · GitHub",
         "error": null
@@ -4841,10 +4460,11 @@
       {
         "name": "citation",
         "url": "https://www.hltv.org/matches/2399915/grmio-vs-yawara-cct-2026-south-america-series-7",
-        "observed_at": "2026-10-24T16:53:51Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:18Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "ec50967d3984acb851c84c99fa066137",
+        "sha256": "d965e8d31a445bdd9d2d566c05ddeb45",
         "bytes": 5879,
         "challenge": true,
         "title": "Just a moment...",
@@ -4853,10 +4473,11 @@
       {
         "name": "citation",
         "url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
-        "observed_at": "2026-10-24T16:53:51Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:18Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "441436bf7c459f4a02010c68e3b307fd",
+        "sha256": "18a62f568a575062bcf4f983af047463",
         "bytes": 5877,
         "challenge": true,
         "title": "Just a moment...",
@@ -4865,11 +4486,12 @@
       {
         "name": "citation",
         "url": "https://polymarket.com/event/cs2-ace1-unity-2026-10-25",
-        "observed_at": "2026-10-24T16:53:51Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:18Z",
         "http": 200,
         "status": "challenge",
-        "sha256": "2651e08970056b223cdfe715c60a8810",
-        "bytes": 639476,
+        "sha256": "6784765c82a749acc9e09334a7c51703",
+        "bytes": 630597,
         "challenge": true,
         "title": "Polymarket",
         "error": null
@@ -4877,11 +4499,12 @@
       {
         "name": "citation",
         "url": "https://gamma-api.polymarket.com/events?slug=cs2-ace1-unity-2026-10-25",
-        "observed_at": "2026-10-24T16:53:51Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:22Z",
         "http": 200,
         "status": "ok",
-        "sha256": "8b8d5821e6d65a6c38d29f9c796358d1",
-        "bytes": 42647,
+        "sha256": "3310f76f4dfab05ee4a82739ea0eda15",
+        "bytes": 42660,
         "challenge": false,
         "title": "",
         "error": null
@@ -4889,11 +4512,12 @@
       {
         "name": "citation",
         "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct250500unityace",
-        "observed_at": "2026-10-24T16:53:51Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:22Z",
         "http": 429,
         "status": "http-429",
-        "sha256": "8696364f0fc14a62e52a7d4d60cd1033",
-        "bytes": 31428,
+        "sha256": "1c83652e94983f503fe478ffe912ac85",
+        "bytes": 31429,
         "challenge": false,
         "title": "Vercel Security Checkpoint",
         "error": null
@@ -4901,7 +4525,8 @@
       {
         "name": "citation",
         "url": "https://api.elections.kalshi.com/trade-api/v2/markets/kxcs2game-26oct250500unityace",
-        "observed_at": "2026-10-24T16:53:51Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:22Z",
         "http": 404,
         "status": "http-404",
         "sha256": "dea78f843e46c45482b84c9d9db6d16b",
@@ -4913,11 +4538,12 @@
       {
         "name": "citation",
         "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-        "observed_at": "2026-10-24T16:53:51Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:22Z",
         "http": 200,
         "status": "ok",
-        "sha256": "03467a13a2e99b3a33e1d5c220cc8bdb",
-        "bytes": 901854,
+        "sha256": "de691411b8af22591bf29ff0d3eb516e",
+        "bytes": 901868,
         "challenge": false,
         "title": "counter-strike_regional_standings/live/2026/standings_global_2026_10_05.md at main · ValveSoftware/counter-strike_regional_standings · GitHub",
         "error": null
@@ -4925,10 +4551,11 @@
       {
         "name": "citation",
         "url": "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
-        "observed_at": "2026-10-24T16:53:52Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:22Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "0ace80a70fe9f44978c5b745c06c4b32",
+        "sha256": "9009616b6171c021c029db22e5086fb5",
         "bytes": 5831,
         "challenge": true,
         "title": "Just a moment...",
@@ -4937,10 +4564,11 @@
       {
         "name": "citation",
         "url": "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198",
-        "observed_at": "2026-10-24T16:53:52Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:22Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "dc14df48b5ad82615301ecba2accc447",
+        "sha256": "2ee23b8aee68c7e8a22c76644e5e2502",
         "bytes": 5886,
         "challenge": true,
         "title": "Just a moment...",
@@ -4949,11 +4577,12 @@
       {
         "name": "citation",
         "url": "https://www.bovada.lv/sports/esports/counter-strike-2/nodwin-clutch-series/metizport-baks-esports-202610250800",
-        "observed_at": "2026-10-24T16:53:52Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:22Z",
         "http": 200,
         "status": "ok",
-        "sha256": "ec73bbcc1bd323583d3861ed21f52d58",
-        "bytes": 2526432,
+        "sha256": "2365feac30271ab1192777f82191fdd2",
+        "bytes": 2526562,
         "challenge": false,
         "title": "Nodwin Clutch Series Betting Odds | Counter Strike 2",
         "error": null
@@ -4961,11 +4590,12 @@
       {
         "name": "citation",
         "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-        "observed_at": "2026-10-24T16:53:53Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:24Z",
         "http": 200,
         "status": "ok",
-        "sha256": "bb45beae21249d829b6cefae0b0bd470",
-        "bytes": 901854,
+        "sha256": "4d0cb4d874b3a6c7e5e06c6efdd61adf",
+        "bytes": 901868,
         "challenge": false,
         "title": "counter-strike_regional_standings/live/2026/standings_global_2026_10_05.md at main · ValveSoftware/counter-strike_regional_standings · GitHub",
         "error": null
@@ -4973,10 +4603,11 @@
       {
         "name": "citation",
         "url": "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13",
-        "observed_at": "2026-10-24T16:53:53Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:25Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "59582ca7075f47f472ffc7dd7b3ff608",
+        "sha256": "796389ef5a36463557fc7dde3f70e866",
         "bytes": 5840,
         "challenge": true,
         "title": "Just a moment...",
@@ -4985,10 +4616,11 @@
       {
         "name": "citation",
         "url": "https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156",
-        "observed_at": "2026-10-24T16:53:53Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:25Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "68a69fd82ecd5f92ca84501aef62cfa8",
+        "sha256": "d917d78bd1ec2abba1cf4ab8f78dde72",
         "bytes": 5913,
         "challenge": true,
         "title": "Just a moment...",
@@ -4997,11 +4629,12 @@
       {
         "name": "citation",
         "url": "https://www.bovada.lv/sports/esports/counter-strike-2/cct-europe/series-11/spirit-academy-sokerorg-202610250800",
-        "observed_at": "2026-10-24T16:53:53Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:25Z",
         "http": 200,
         "status": "ok",
-        "sha256": "7f8035603758223dd8c3b33c6f4a4ed6",
-        "bytes": 2527778,
+        "sha256": "c33a81efa4c4f03b0b0b8f9d4e213a15",
+        "bytes": 2527779,
         "challenge": false,
         "title": "Series 11 Betting Odds | Counter Strike 2",
         "error": null
@@ -5009,10 +4642,11 @@
       {
         "name": "citation",
         "url": "https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12",
-        "observed_at": "2026-10-24T16:53:54Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:28Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "231b6e2c9dab8adf7bc5a9104cb062fb",
+        "sha256": "feec2039d3cfe1487b1ba002b1eb8ebe",
         "bytes": 5888,
         "challenge": true,
         "title": "Just a moment...",
@@ -5021,10 +4655,11 @@
       {
         "name": "citation",
         "url": "https://www.hotspawn.com/matches/infinite-vs-brute-nodwin-clutch-series-13-1079199",
-        "observed_at": "2026-10-24T16:53:54Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:28Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "5aace4bfaf9fb1cf8b731dd8c02ae7de",
+        "sha256": "49cc33991885d965a9f982b7b03be454",
         "bytes": 5886,
         "challenge": true,
         "title": "Just a moment...",
@@ -5033,10 +4668,11 @@
       {
         "name": "citation",
         "url": "https://polymarket.com/event/cs2-inf6-brute-2026-10-25",
-        "observed_at": "2026-10-24T16:53:54Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:28Z",
         "http": 200,
         "status": "challenge",
-        "sha256": "aafc15fa16a36bed828ec2c8ccc08eb2",
+        "sha256": "17ff63c82c47b8b844c7b5b2904ed9da",
         "bytes": 646051,
         "challenge": true,
         "title": "Polymarket",
@@ -5045,11 +4681,12 @@
       {
         "name": "citation",
         "url": "https://gamma-api.polymarket.com/events?slug=cs2-inf6-brute-2026-10-25",
-        "observed_at": "2026-10-24T16:53:54Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:28Z",
         "http": 200,
         "status": "ok",
-        "sha256": "0bdf66889d8a6336a9fd0f6e247f105a",
-        "bytes": 47538,
+        "sha256": "e37d11830f1151e6024ca9e51850763f",
+        "bytes": 47517,
         "challenge": false,
         "title": "",
         "error": null
@@ -5057,10 +4694,11 @@
       {
         "name": "citation",
         "url": "https://www.hotspawn.com/matches/color-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079200",
-        "observed_at": "2026-10-24T16:53:54Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:29Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "0232fc0f154c04482f4ca2d1bafd5f35",
+        "sha256": "8375f1a250757d7474513685833e8537",
         "bytes": 5910,
         "challenge": true,
         "title": "Just a moment...",
@@ -5069,11 +4707,12 @@
       {
         "name": "citation",
         "url": "https://polymarket.com/event/cs2-color-zerote-2026-10-25",
-        "observed_at": "2026-10-24T16:53:55Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:29Z",
         "http": 200,
         "status": "challenge",
-        "sha256": "e5ec72db4fd193b78ad802ab975514d3",
-        "bytes": 630907,
+        "sha256": "3c1cd9e892f064972d6cf3d3b489a205",
+        "bytes": 630833,
         "challenge": true,
         "title": "Polymarket",
         "error": null
@@ -5081,10 +4720,11 @@
       {
         "name": "citation",
         "url": "https://gamma-api.polymarket.com/events?slug=cs2-color-zerote-2026-10-25",
-        "observed_at": "2026-10-24T16:53:57Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:31Z",
         "http": 200,
         "status": "ok",
-        "sha256": "11560079f4ba4b97a4b85fd10df91a21",
+        "sha256": "ff1a9cad6fb00b0f1bd3b6df0b73492e",
         "bytes": 23668,
         "challenge": false,
         "title": "",
@@ -5093,11 +4733,12 @@
       {
         "name": "citation",
         "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct251400exzcol",
-        "observed_at": "2026-10-24T16:53:57Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:31Z",
         "http": 429,
         "status": "http-429",
-        "sha256": "30fd8eaf360ced6a39824931b7186a3a",
-        "bytes": 31428,
+        "sha256": "9dfadfbbf7e3ed2156c38d73b63cab8f",
+        "bytes": 31429,
         "challenge": false,
         "title": "Vercel Security Checkpoint",
         "error": null
@@ -5105,7 +4746,8 @@
       {
         "name": "citation",
         "url": "https://api.elections.kalshi.com/trade-api/v2/markets/kxcs2game-26oct251400exzcol",
-        "observed_at": "2026-10-24T16:53:57Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:31Z",
         "http": 404,
         "status": "http-404",
         "sha256": "dea78f843e46c45482b84c9d9db6d16b",
@@ -5117,11 +4759,12 @@
       {
         "name": "citation",
         "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-        "observed_at": "2026-10-24T16:53:57Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:31Z",
         "http": 200,
         "status": "ok",
-        "sha256": "e0b24203ec52c5b97dc494dc13734c79",
-        "bytes": 901854,
+        "sha256": "f43df0b9fd156895ad1007bb1a4674ae",
+        "bytes": 901868,
         "challenge": false,
         "title": "counter-strike_regional_standings/live/2026/standings_global_2026_10_05.md at main · ValveSoftware/counter-strike_regional_standings · GitHub",
         "error": null
@@ -5129,10 +4772,11 @@
       {
         "name": "citation",
         "url": "https://www.hotspawn.com/matches/forze-reload-vs-ex-rustec-cct-europe-2026-series-12-1081158",
-        "observed_at": "2026-10-24T16:53:58Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:31Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "8f96ba68d84164bf77c87c9119122754",
+        "sha256": "121319e46cc441b3b120384924f6739a",
         "bytes": 5938,
         "challenge": true,
         "title": "Just a moment...",
@@ -5141,11 +4785,12 @@
       {
         "name": "citation",
         "url": "https://www.bovada.lv/sports/esports/counter-strike-2/cct-europe/series-11/forze-reload-ex-rustec-202610251400",
-        "observed_at": "2026-10-24T16:53:58Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:31Z",
         "http": 200,
         "status": "ok",
-        "sha256": "50f21533a344e0f17addc5b96f962e2e",
-        "bytes": 2527794,
+        "sha256": "96a7a7727b6b071c20753b510cd1f835",
+        "bytes": 2527752,
         "challenge": false,
         "title": "Series 11 Betting Odds | Counter Strike 2",
         "error": null
@@ -5153,11 +4798,12 @@
       {
         "name": "citation",
         "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-        "observed_at": "2026-10-24T16:53:58Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:35Z",
         "http": 200,
         "status": "ok",
-        "sha256": "028daf81c471ce26f1e9147b7cac4840",
-        "bytes": 901863,
+        "sha256": "78b4ddc39890114545c308c74ae0bbae",
+        "bytes": 901859,
         "challenge": false,
         "title": "counter-strike_regional_standings/live/2026/standings_global_2026_10_05.md at main · ValveSoftware/counter-strike_regional_standings · GitHub",
         "error": null
@@ -5165,10 +4811,11 @@
       {
         "name": "citation",
         "url": "https://www.hltv.org/matches/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12",
-        "observed_at": "2026-10-24T16:53:59Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:35Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "43759034a8bd32612fc7e9391d7f9f4c",
+        "sha256": "c41e08ec8f4d676e340a58a21788941f",
         "bytes": 5891,
         "challenge": true,
         "title": "Just a moment...",
@@ -5177,10 +4824,11 @@
       {
         "name": "citation",
         "url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
-        "observed_at": "2026-10-24T16:53:59Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:35Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "f19072aa348d7bf7e04da2f4a56f5722",
+        "sha256": "67a7d9d772b2a6ace49d58c1cf641ea1",
         "bytes": 5907,
         "challenge": true,
         "title": "Just a moment...",
@@ -5189,7 +4837,8 @@
       {
         "name": "citation",
         "url": "https://bo3.gg/matches",
-        "observed_at": "2026-10-24T16:53:59Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:35Z",
         "http": 200,
         "status": "ok",
         "sha256": "ed918ceec359c157dc30fa4176529d36",
@@ -5200,11 +4849,25 @@
       },
       {
         "name": "citation",
+        "url": "https://api.bo3.gg/api/v1/matches?page[limit]=50",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:35Z",
+        "http": 200,
+        "status": "ok",
+        "sha256": "6ec0795de6a3407e07e5bb1c21da7eeb",
+        "bytes": 43381,
+        "challenge": false,
+        "title": "",
+        "error": null
+      },
+      {
+        "name": "citation",
         "url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
-        "observed_at": "2026-10-24T16:53:59Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:36Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "602c47efe45c8f5e3371f053248a3603",
+        "sha256": "005a097a6b67e330b96e0559cffa5046",
         "bytes": 5882,
         "challenge": true,
         "title": "Just a moment...",
@@ -5213,10 +4876,11 @@
       {
         "name": "citation",
         "url": "https://www.hotspawn.com/matches/nexvoid-vs-alter-ego-dfrag-invitational-2026-1082859",
-        "observed_at": "2026-10-24T16:53:59Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:36Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "a8b4087d7a2254717c0078712656df54",
+        "sha256": "81fb87671ab7cd261d03c7c46a77e2a1",
         "bytes": 5895,
         "challenge": true,
         "title": "Just a moment...",
@@ -5225,7 +4889,8 @@
       {
         "name": "citation",
         "url": "https://thunderpick.io/api/matches",
-        "observed_at": "2026-10-24T16:53:59Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:36Z",
         "http": 200,
         "status": "ok",
         "sha256": "2e3108e9a0e96f2d89558170eb0a5189",
@@ -5236,11 +4901,25 @@
       },
       {
         "name": "citation",
+        "url": "https://thunderpick.io/api/matches",
+        "method": "POST",
+        "observed_at": "2026-10-24T16:59:36Z",
+        "http": 200,
+        "status": "ok",
+        "sha256": "315e056ec121b2e5a1c564ef139c962c",
+        "bytes": 161097,
+        "challenge": false,
+        "title": "",
+        "error": null
+      },
+      {
+        "name": "citation",
         "url": "https://www.hltv.org/matches/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026",
-        "observed_at": "2026-10-24T16:53:59Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:36Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "204cc8fb93aebd28e7ee70c3972af3b7",
+        "sha256": "23df53bcaa6edc85694fc5b548f4802a",
         "bytes": 5870,
         "challenge": true,
         "title": "Just a moment...",
@@ -5249,7 +4928,8 @@
       {
         "name": "citation",
         "url": "https://thunderpick.io/esports/counter-strike",
-        "observed_at": "2026-10-24T16:54:00Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:37Z",
         "http": 200,
         "status": "ok",
         "sha256": "427e89dff18a88e80ef2353b5929e426",
@@ -5260,11 +4940,25 @@
       },
       {
         "name": "citation",
+        "url": "https://thunderpick.io/api/matches",
+        "method": "POST",
+        "observed_at": "2026-10-24T16:59:37Z",
+        "http": 200,
+        "status": "ok",
+        "sha256": "315e056ec121b2e5a1c564ef139c962c",
+        "bytes": 161097,
+        "challenge": false,
+        "title": "",
+        "error": null
+      },
+      {
+        "name": "citation",
         "url": "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
-        "observed_at": "2026-10-24T16:54:00Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:37Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "7d90b6c6f507ab83f21e94fc1733912f",
+        "sha256": "4b6e0b4e6d892e61499591e5dd8f93b4",
         "bytes": 5892,
         "challenge": true,
         "title": "Just a moment...",
@@ -5273,7 +4967,8 @@
       {
         "name": "citation",
         "url": "https://thunderpick.io/api/matches",
-        "observed_at": "2026-10-24T16:54:00Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:37Z",
         "http": 200,
         "status": "ok",
         "sha256": "2e3108e9a0e96f2d89558170eb0a5189",
@@ -5284,11 +4979,25 @@
       },
       {
         "name": "citation",
+        "url": "https://thunderpick.io/api/matches",
+        "method": "POST",
+        "observed_at": "2026-10-24T16:59:37Z",
+        "http": 200,
+        "status": "ok",
+        "sha256": "315e056ec121b2e5a1c564ef139c962c",
+        "bytes": 161097,
+        "challenge": false,
+        "title": "",
+        "error": null
+      },
+      {
+        "name": "citation",
         "url": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
-        "observed_at": "2026-10-24T16:54:00Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:38Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "0166960f4612edc96f724563223f21f7",
+        "sha256": "087d99f4f7937ba85c103ba98e766e07",
         "bytes": 5867,
         "challenge": true,
         "title": "Just a moment...",
@@ -5297,7 +5006,8 @@
       {
         "name": "citation",
         "url": "https://thunderpick.io/esports/counter-strike",
-        "observed_at": "2026-10-24T16:54:00Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:38Z",
         "http": 200,
         "status": "ok",
         "sha256": "427e89dff18a88e80ef2353b5929e426",
@@ -5308,11 +5018,25 @@
       },
       {
         "name": "citation",
+        "url": "https://thunderpick.io/api/matches",
+        "method": "POST",
+        "observed_at": "2026-10-24T16:59:38Z",
+        "http": 200,
+        "status": "ok",
+        "sha256": "315e056ec121b2e5a1c564ef139c962c",
+        "bytes": 161097,
+        "challenge": false,
+        "title": "",
+        "error": null
+      },
+      {
+        "name": "citation",
         "url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
-        "observed_at": "2026-10-24T16:54:00Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:38Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "9025dc6f867dc35fc1c8830aa9821aba",
+        "sha256": "cc30b72e93fcd3ec0a2c14cc756df0d4",
         "bytes": 5889,
         "challenge": true,
         "title": "Just a moment...",
@@ -5321,11 +5045,12 @@
       {
         "name": "citation",
         "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-        "observed_at": "2026-10-24T16:54:00Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:38Z",
         "http": 200,
         "status": "ok",
-        "sha256": "7af7cfaef3ca484f27a616614e4acd86",
-        "bytes": 901863,
+        "sha256": "484960467e5c58945866738dc8b23fed",
+        "bytes": 901859,
         "challenge": false,
         "title": "counter-strike_regional_standings/live/2026/standings_global_2026_10_05.md at main · ValveSoftware/counter-strike_regional_standings · GitHub",
         "error": null
@@ -5333,10 +5058,11 @@
       {
         "name": "citation",
         "url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
-        "observed_at": "2026-10-24T16:54:00Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:38Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "dee8b0e5cc79aab7509018947180933d",
+        "sha256": "2b6f25ee98aecb70f5b1cdd58a82734d",
         "bytes": 5864,
         "challenge": true,
         "title": "Just a moment...",
@@ -5345,10 +5071,11 @@
       {
         "name": "citation",
         "url": "https://www.hotspawn.com/matches/b8-vs-k27-tesla-cup-2026-1082897",
-        "observed_at": "2026-10-24T16:54:01Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:38Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "1dde5f7997190a7da68e0ecbede2003d",
+        "sha256": "24fbfabe730c25f191c01034d6e52939",
         "bytes": 5814,
         "challenge": true,
         "title": "Just a moment...",
@@ -5357,11 +5084,12 @@
       {
         "name": "citation",
         "url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
-        "observed_at": "2026-10-24T16:54:01Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:38Z",
         "http": 200,
         "status": "challenge",
-        "sha256": "6a9a44b3a4c5a6c8b3750e69e674b7ab",
-        "bytes": 630385,
+        "sha256": "6951353db111442102be412097584c5e",
+        "bytes": 630311,
         "challenge": true,
         "title": "Polymarket",
         "error": null
@@ -5369,11 +5097,12 @@
       {
         "name": "citation",
         "url": "https://gamma-api.polymarket.com/events?slug=cs2-b8-k271-2026-10-27",
-        "observed_at": "2026-10-24T16:54:04Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:42Z",
         "http": 200,
         "status": "ok",
-        "sha256": "c8ebfe6ac0b426ac70004b92e83e88ee",
-        "bytes": 42664,
+        "sha256": "df6493298b61ddc5bc59455d15fa0c09",
+        "bytes": 42660,
         "challenge": false,
         "title": "",
         "error": null
@@ -5381,10 +5110,11 @@
       {
         "name": "citation",
         "url": "https://www.hotspawn.com/matches/alliance-vs-faze-tesla-cup-2026-1082898",
-        "observed_at": "2026-10-24T16:54:04Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:42Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "e32047b02c37a80cc71f7af209437109",
+        "sha256": "e998f9aba0a16c18a3b03bf3175c43b6",
         "bytes": 5835,
         "challenge": true,
         "title": "Just a moment...",
@@ -5393,10 +5123,11 @@
       {
         "name": "citation",
         "url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
-        "observed_at": "2026-10-24T16:54:04Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:42Z",
         "http": 200,
         "status": "challenge",
-        "sha256": "62269557ba43483860150312f97f6399",
+        "sha256": "ff05b09b47a7c4cde0a5a0721b4ece4f",
         "bytes": 639020,
         "challenge": true,
         "title": "Polymarket",
@@ -5405,11 +5136,12 @@
       {
         "name": "citation",
         "url": "https://gamma-api.polymarket.com/events?slug=cs2-all-faze-2026-10-27",
-        "observed_at": "2026-10-24T16:54:05Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:42Z",
         "http": 200,
         "status": "ok",
-        "sha256": "0f484fe7e4c4dd5458f404a04f9f79b7",
-        "bytes": 42461,
+        "sha256": "e92402b4aa1f39deed86a15e859347e7",
+        "bytes": 42482,
         "challenge": false,
         "title": "",
         "error": null
@@ -5417,10 +5149,11 @@
       {
         "name": "citation",
         "url": "https://www.hotspawn.com/matches/luminosity-vs-hotu-tesla-cup-2026-1082900",
-        "observed_at": "2026-10-24T16:54:05Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:42Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "2f5ee3d90210ab6c67652dcd2731611f",
+        "sha256": "f80cc08d19ec23cb500303f1ec87b8c3",
         "bytes": 5841,
         "challenge": true,
         "title": "Just a moment...",
@@ -5429,11 +5162,12 @@
       {
         "name": "citation",
         "url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
-        "observed_at": "2026-10-24T16:54:05Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:42Z",
         "http": 200,
         "status": "challenge",
-        "sha256": "6425cc81506c261e5804fb3944e2b348",
-        "bytes": 630263,
+        "sha256": "e9bb52d1fc3cb532d03aab12065432a2",
+        "bytes": 638970,
         "challenge": true,
         "title": "Polymarket",
         "error": null
@@ -5441,11 +5175,12 @@
       {
         "name": "citation",
         "url": "https://gamma-api.polymarket.com/events?slug=cs2-lg6-hotu-2026-10-27",
-        "observed_at": "2026-10-24T16:54:08Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:43Z",
         "http": 200,
         "status": "ok",
-        "sha256": "8bd1219269dbe800ddf59344d5e2eb0c",
-        "bytes": 42336,
+        "sha256": "02e6683023569b2314994c9ff7fdca57",
+        "bytes": 42370,
         "challenge": false,
         "title": "",
         "error": null
@@ -5453,10 +5188,11 @@
       {
         "name": "citation",
         "url": "https://www.hotspawn.com/matches/envy-vs-gamerlegion-tesla-cup-2026-1082901",
-        "observed_at": "2026-10-24T16:54:08Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:43Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "d442172022e01bfa540af5fd7fea6991",
+        "sha256": "d82592ddcd755936aed2db7a5299a190",
         "bytes": 5844,
         "challenge": true,
         "title": "Just a moment...",
@@ -5465,11 +5201,12 @@
       {
         "name": "citation",
         "url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
-        "observed_at": "2026-10-24T16:54:08Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:43Z",
         "http": 200,
         "status": "challenge",
-        "sha256": "f521bb15b5c92949892da774ab66e0e7",
-        "bytes": 630195,
+        "sha256": "e1eea2e9f5847c26c1ea94982ac51270",
+        "bytes": 630238,
         "challenge": true,
         "title": "Polymarket",
         "error": null
@@ -5477,11 +5214,12 @@
       {
         "name": "citation",
         "url": "https://gamma-api.polymarket.com/events?slug=cs2-envy-gl1-2026-10-27",
-        "observed_at": "2026-10-24T16:54:11Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:45Z",
         "http": 200,
         "status": "ok",
-        "sha256": "53e6fd02fa8d34c5511d0ef62c566cd2",
-        "bytes": 42866,
+        "sha256": "1498598020ddaa22c93d4f26897d4d9d",
+        "bytes": 42844,
         "challenge": false,
         "title": "",
         "error": null
@@ -5489,10 +5227,11 @@
       {
         "name": "citation",
         "url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
-        "observed_at": "2026-10-24T16:54:11Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:45Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "b28ac03983c0958f95107e9da22d1145",
+        "sha256": "8923b47133e4db53ba12becb09d81874",
         "bytes": 5883,
         "challenge": true,
         "title": "Just a moment...",
@@ -5501,11 +5240,12 @@
       {
         "name": "citation",
         "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-        "observed_at": "2026-10-24T16:54:11Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:45Z",
         "http": 200,
         "status": "ok",
-        "sha256": "7057ce7570d66fb9b18a5892144d0174",
-        "bytes": 901863,
+        "sha256": "0f62397884b6e60454bd4098e53f2773",
+        "bytes": 901859,
         "challenge": false,
         "title": "counter-strike_regional_standings/live/2026/standings_global_2026_10_05.md at main · ValveSoftware/counter-strike_regional_standings · GitHub",
         "error": null
@@ -5513,11 +5253,12 @@
       {
         "name": "citation",
         "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
-        "observed_at": "2026-10-24T16:54:11Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:46Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "3957dfa183e2f7c2693446994ffa445a",
-        "bytes": 5876,
+        "sha256": "afe1d1003b6e396fee5847c9f0e35094",
+        "bytes": 5855,
         "challenge": true,
         "title": "Just a moment...",
         "error": null
@@ -5525,10 +5266,11 @@
       {
         "name": "citation",
         "url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
-        "observed_at": "2026-10-24T16:54:11Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:46Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "5bce2be0cbcd7d081a48edadae1d94ac",
+        "sha256": "2045dcc101ec44ba01f8d25708e59338",
         "bytes": 5874,
         "challenge": true,
         "title": "Just a moment...",
@@ -5537,11 +5279,12 @@
       {
         "name": "citation",
         "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
-        "observed_at": "2026-10-24T16:54:11Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:46Z",
         "http": 200,
         "status": "ok",
-        "sha256": "a1df7ae1b6b26286489f07b61d3d34e5",
-        "bytes": 901854,
+        "sha256": "e500bba03edd896477a23cdb18341b28",
+        "bytes": 901859,
         "challenge": false,
         "title": "counter-strike_regional_standings/live/2026/standings_global_2026_10_05.md at main · ValveSoftware/counter-strike_regional_standings · GitHub",
         "error": null
@@ -5549,11 +5292,12 @@
       {
         "name": "citation",
         "url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
-        "observed_at": "2026-10-24T16:54:11Z",
+        "method": "GET",
+        "observed_at": "2026-10-24T16:59:46Z",
         "http": 403,
         "status": "http-403",
-        "sha256": "171a237e1554e9e0f677e7fa5e7e544b",
-        "bytes": 5867,
+        "sha256": "35cdc7905523fde6006350f5e276e3a0",
+        "bytes": 5846,
         "challenge": true,
         "title": "Just a moment...",
         "error": null
