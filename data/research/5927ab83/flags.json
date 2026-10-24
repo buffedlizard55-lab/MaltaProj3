@@ -1,0 +1,14 @@
+[
+  {
+    "id": "5927ab83-date-pinned-tests-stopped-four-hour-refresh",
+    "severity": "warning",
+    "title": "Three wall-clock-dependent tests stopped four scheduled refreshes",
+    "detail": "Runs 40028653350, 40037957529, 40048429858 and 40063011446 failed before Hotspawn collection when a fixed 2026-10-23T09:23:57Z test fixture aged beyond the publisher's correct 12-hour freshness guard. The tests now inject a deterministic evaluation time; the production guard is unchanged and its stale-refusal regression still passes. The last-verified republish job kept the prior site available, but currentness remains blocked until a fresh post-fix publisher run succeeds.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_ca7e10e5_snapshot.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/root_publish.py"
+    ]
+  }
+]
