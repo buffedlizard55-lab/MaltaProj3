@@ -11,6 +11,7 @@ repo's Playwright specs when a browser is available.
 """
 from __future__ import annotations
 
+import html
 import json
 import re
 import unittest
@@ -45,12 +46,25 @@ class ExecutiveSummaryLinks(unittest.TestCase):
             self.assertIn(m["id"], linked, m["id"])
 
     def test_unresolved_page_names_both_unresolved_fixtures(self):
-        unresolved = [m for m in self.upcoming if m.get("pick_index") is None]
+        # Derive the same set the page derives. `scripts/build.py::unresolved_table`
+        # lists every non-past fixture whose featured analysis is empty; the
+        # collector's `counts.unresolved` is a different counter (it includes
+        # locked and unknown-schedule rows), so comparing the two numbers pinned
+        # nothing real and failed the publisher's regression step once a fresher
+        # root snapshot landed (runs 40116915898 and 40120126457). The intent --
+        # every published-unresolved fixture is named on the separate page --
+        # is asserted directly.
         snap = json.loads((ROOT / "snapshot.json").read_text())
-        self.assertEqual(len(unresolved), (snap.get("counts") or {}).get("unresolved"))
+        unresolved = [m for m in snap["matches"]
+                      if m.get("availability") != "past" and m.get("analysis") is None]
+        page = html.unescape(UNRESOLVED)
+        page_ids = set(re.findall(r"match-(\d+)", page))
         for m in unresolved:
+            self.assertIn(str(m["id"]), page_ids, m["id"])
             for team in m["teams"]:
-                self.assertIn(team["name"], UNRESOLVED)
+                self.assertIn(team["name"], page, team["name"])
+        # The page never claims fewer blanks than the snapshot actually has.
+        self.assertGreaterEqual(len(page_ids), len(unresolved))
 
     def test_picks_page_has_a_row_per_published_upcoming_fixture(self):
         rows = set(re.findall(r'id="match-(\d+)"', PICKS))

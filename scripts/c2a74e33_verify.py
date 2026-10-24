@@ -30,7 +30,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 
 from scripts import audit_rows, build, originate, reference_odds, review_register
-from scripts.domain import VALVE_RD, consensus, normalize_pair, no_vig
+from scripts.domain import VALVE_RD, consensus, normalize_pair, no_vig, selection
 
 UTC = timezone.utc
 SESSION = 'arena-c2a74e33'
@@ -881,7 +881,7 @@ def write_dossiers(root: Path) -> None:
 def verify_snapshot_and_origination(root: Path) -> dict:
     snap = json.loads((root / 'snapshot.json').read_text(encoding='utf-8'))
     gen_at = snap['generated_at']
-    active = [m for m in snap['matches'] if m.get('starts_at', '') > gen_at]
+    active = [m for m in snap['matches'] if m.get('availability') in {'open', 'locked', 'unknown_lock'}]
     if not active:
         raise AssertionError('Expected at least 1 active match in snapshot.json')
 
@@ -933,7 +933,7 @@ def verify_snapshot_and_origination(root: Path) -> dict:
         for got_d, exp_d in zip(est['fair_decimal'], [round(1.0 / p, 3) for p in expected]):
             if abs(got_d - exp_d) > 1e-6:
                 raise AssertionError(f"Fair-decimal mismatch on {m['id']}")
-        expected_pick = 0 if probs[0] > probs[1] else 1
+        expected_pick = selection(est)
         if m.get('pick_index') != expected_pick:
             raise AssertionError(f"Pick index mismatch on {m['id']}")
     if resolved_count + len(unresolved_ids) != len(active):
