@@ -41,6 +41,9 @@ UTC = timezone.utc
 EVIDENCE_PATH = Path('research/57b1ee04/reference-odds.json')
 CAPTURE_PATHS = (
     EVIDENCE_PATH,
+    # Independently reviewed EGW match-page capture (E57). The same schema,
+    # identity, hash and eight-hour gates apply; this is not a manual quote.
+    Path('research/e57df95b/reference-odds.json'),
     Path('research/b30bf88b/reference-odds.json'),
     Path('research/a34bc06b/reference-odds.json'),
 )

@@ -109,5 +109,18 @@
    "https://egamersworld.com/counterstrike/matches",
    "https://www.hotspawn.com/matches/fokus-vs-ex-6666-nodwin-clutch-series-13-1079193"
   ]
+ },
+ {
+  "id": "2ed65c56-publisher-nameerror-outage",
+  "severity": "critical",
+  "match_ids": [],
+  "title": "Publishing outage root cause: live collection raised NameError on every run because scripts/originate.py used egw_live without importing it",
+  "detail": "Four consecutive scheduled publish runs failed at \"Regression tests\" (40028653350, 40037957529, 40048429858, 40063011446) and the run for the merge of the time-bomb fix (40069088115) failed at the same step after 20 minutes. The GitHub annotation on that run names four tests, all reaching scripts/originate.py::live_collect, which referenced egw_live.EVIDENCE_NAME without the module ever being imported: every live collection raised NameError before touching any source, so no fresh snapshot could be published and the site served a snapshot older than its own eight-hour bound. Fixed in scripts/originate.py by importing scripts.egw_live and by moving the evidence-file unlink inside the guard so housekeeping can never abort a collection again; the four failing suites (tests/test_origination_upgrade.py, tests/test_f9d0a5a2.py) now run 39 tests OK. Second, independent cause of staleness: every merge to main starts a publish run, and GitHub cancels a PENDING run in the same concurrency group when a newer one arrives, so runs 40070626757, 40071009969, 40071100402 and 40071346040 were each cancelled while pending by the next merge. That is why a push-triggered publish rarely survives a busy merge window; the scheduled refresh uses a separate group and is the reliable path once this defect is fixed.",
+  "source_urls": [
+   "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40069088115",
+   "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40070626757",
+   "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40071009969",
+   "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/originate.py"
+  ]
  }
 ]

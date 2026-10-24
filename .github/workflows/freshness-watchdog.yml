@@ -126,6 +126,13 @@ jobs:
                       continue
                   if status not in {'queued', 'pending', 'requested', 'waiting'}:
                       continue
+                  if run.get('event') == 'workflow_dispatch':
+                      # A dispatched publish is only ever cancelled by another
+                      # dispatch, so this watchdog must never queue a second one:
+                      # dispatching again would cancel the very run it queued.
+                      print(f'queued dispatch run {run.get("id")} blocks a second dispatch')
+                      active.append(run)
+                      continue
                   created = run.get('created_at') or ''
                   try:
                       age = (now - datetime.strptime(created, '%Y-%m-%dT%H:%M:%SZ')

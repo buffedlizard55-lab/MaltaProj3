@@ -92,7 +92,9 @@ class ReadOnlyProbeContractTests(unittest.TestCase):
         self.assertTrue(hasattr(originate, 'egw_live'))
         src = (ROOT / 'scripts' / 'originate.py').read_text(encoding='utf-8')
         self.assertIn('from scripts import egw_live', src)
-        self.assertIn('egw_live.load_live(evidence_dir)', src)
+        # Replay must receive the actual fixtures and verified scoped registry;
+        # the path-only loader cannot independently bind the saved response.
+        self.assertIn("egw_live.load_live(evidence_dir, snapshot['matches'], registry)", src)
 
     def test_probe_is_read_only_and_emits_build_compatible_dossiers(self):
         probe_src = (ROOT / 'scripts' / 'dd433e7f_probe.py').read_text(encoding='utf-8')

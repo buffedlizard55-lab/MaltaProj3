@@ -1,0 +1,77 @@
+[
+  {
+    "id": "ec5083b9-nine-live-cards-have-no-published-pick",
+    "severity": "warning",
+    "match_ids": [
+      "1079658",
+      "1079659",
+      "1079660",
+      "1079661",
+      "1081152",
+      "1081153",
+      "1081154",
+      "1081156",
+      "1081158"
+    ],
+    "title": "Nine cards the Hotspawn lobby renders have no row at all on the published picks",
+    "detail": "Read first-hand at 2026-10-24T06:27Z: https://play.hotspawn.com/lobby renders 25 future CS2 cards. The published pages (branch-root index.html synced from the verified build, snapshot stamp 2026-10-23T20:10:00Z) carry 16 of them. The nine that are absent are all CCT Europe 2026 Series #11/#12: Acend-FORZE Reload (1079658), Spirit Academy-Lavked (1079659), INOX Division-BRUTE (1079660), Nuclear TigeRES-ex-Zero Tenacity (1079661), HAVU-Azuolas (1081152), Saint Sinners-6yuBoJlbl (1081153), BakS-ILLYRIANS (1081154), Spirit Academy-LFO 10 (1081156), FORZE Reload-ex-RUSTEC (1081158). Every one of the 16 published rows that is still live carries a directional pick, both win probabilities and an official source link, so this is missing inventory, not missing analysis. Cause: the four-hour publisher has not completed a collect since run 40015434337 (2026-10-23T19:57:15Z); it failed at the regression step on 40028653350, 40037957529, 40048429858 and 40063011446, and the queued push run 40070626757 (main 4a6c112) had not started at 06:40Z. Dated per-card line evidence for these nine is in data/research/73bc57bd/inventory-reconciliation-2026-10-24.json (same window, session arena-73bc57bd). Reproduce with: python -m scripts.ec5083b9_verify --site <published tree> --fail-on-gap.",
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://www.hotspawn.com/matches/acend-vs-forze-reload-cct-europe-2026-series-11-1079658",
+      "https://www.hotspawn.com/matches/forze-reload-vs-ex-rustec-cct-europe-2026-series-12-1081158",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40070626757",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/ec5083b9/coverage-2026-10-24T0640Z.json"
+    ]
+  },
+  {
+    "id": "ec5083b9-publisher-regression-chain",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "The refresh stall was two separate regression-test defects, and the deployed pages still carry the pre-fix build",
+    "detail": "Chain, each link checked by running the repository's own suite: (1) tests/test_ca7e10e5_snapshot.py called root_publish.build_plan() with the wall clock against a fixed 2026-10-23T09:23:57Z fixture; after 12h every scheduled run raised PublishRefused before collecting (runs 40028653350, 40037957529, 40048429858, 40063011446). Fixed in bdb4fc9 (PR #240) by pinning the reference clock. (2) The build that is live at 06:40Z predates the next fix, so the deployed executive summary still renders the same dated 'Fixtures without a betting line' block twice and the duplicate id=\"no-line-research\" still breaks that anchor on a phone; scripts/build.py emitted it from both unresolved_register() and summary(). Fixed in e360f4c (merged in 4a6c112, PR #241); reproduced here against the published tree (2 occurrences) and against a fresh build of the merged code (1). Note for accuracy: the test that pins the duplicate (tests/test_ca7e10e5_snapshot.py::test_the_built_executive_summary_contains_it_once) reads site/index.html and skips itself when that directory does not exist, so it was not by itself the publisher's blocker - it failed here only because a local build tree was present.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/commit/e360f4c",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_ca7e10e5_snapshot.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py"
+    ]
+  },
+  {
+    "id": "ec5083b9-in-site-links-verified",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Every in-site link on the four pick-bearing pages resolves (1321 checked, 0 broken)",
+    "detail": "Checked with scripts/ec5083b9_verify.py against the published tree at 2026-10-24T06:40Z: 1321 anchors on the executive summary, the unresolved register, the picks list and the origination page. 0 broken; 0 anchors pointing at a missing id; the picks shortcuts the brief asks for (./picks/, ./unresolved/, ./origination/#picks, #no-line-register, #no-line-research, #unresolved-register) all resolve. Targets under data/ are reported separately (artifact-only): scripts/root_publish.py deliberately copies only rendered pages, and the deployed Pages artifact carries the whole data tree. Only relative and project-path links are checked here; external providers are never fetched by this tool.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/ec5083b9/coverage-2026-10-24T0640Z.md",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/"
+    ]
+  },
+  {
+    "id": "ec5083b9-pytest-import-blocked-the-regression-step",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "A test module needed pytest, which this repository never declares, so the publisher's own test command aborted before any test ran in a clean environment",
+    "detail": "Reproduced in a virtualenv built from requirements.txt alone (requests==2.32.5, beautifulsoup4==4.14.3): `python -m unittest discover -s tests` aborted with `ModuleNotFoundError: No module named 'pytest'`, raised while unittest imported tests/test_b97af12f_reconciliation.py (added 2026-10-24T06:54Z). unittest imports every test module before running anything, so the step exits non-zero even though the module contributed no TestCase of its own. pages.yml and checks.yml both run exactly that command after installing only requirements.txt, which does not list pytest. The module's owner (session arena-b97af12f) converted it to unittest.TestCase on main in the same hour; this session reproduced the failure independently, verified the converted module passes 6/6, and left that file untouched in this PR rather than rewriting another session's work. Full suite on this head: 1440 tests, 0 failures, exit 0.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40069088115",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_b97af12f_reconciliation.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/requirements.txt",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml"
+    ]
+  },
+  {
+    "id": "ec5083b9-actions-queue-blocked-the-refresh",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "No GitHub Actions job ran for this repository between 07:25Z and 08:14Z, so the site is still serving the 2026-10-23T20:10:00Z snapshot",
+    "detail": "Observed on 2026-10-24 at 08:14Z: the repository has 41 workflow runs queued or pending and 0 in progress. The scheduled publisher 40074822023 (created 07:36:41Z, event schedule, its own concurrency group pages-schedule) has been queued for 37 minutes without starting; the push run created for the merged head 1a4fba0 was cancelled, as every push run since 07:31Z (40074483614, 40074802194, 40075103939, 40075406944, 40075609270, 40075642331, 40075650243) was, because a newer push enters the same pages-push group first. Consequence: the deployed pages still carry snapshot 2026-10-23T20:10:00Z (read from the branch-root snapshot.json and from the page's own data-snapshot-generated stamp), which is over twelve hours old and past the site's eight-hour bound. Nothing in this session's code is the cause: on the merged tree the publisher's regression command runs clean locally (1440 tests, 0 failures) and scripts.build passes with 0 rows without a source. The refresh resumes by itself as soon as GitHub allocates runners; the nine unpublished CCT Europe cards are what a completed run will pick up. Re-check after the next successful run with python -m scripts.ec5083b9_verify --site <published tree> --fail-on-gap.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40074822023",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40076115326",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml"
+    ]
+  }
+]

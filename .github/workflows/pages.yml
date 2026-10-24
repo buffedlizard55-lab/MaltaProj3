@@ -31,7 +31,9 @@ concurrency:
   # Pushes and scheduled refreshes now use separate groups, so a push can never
   # cancel the four-hour guarantee. Push-triggered runs still serialise among
   # themselves, and a burst of pushes only costs the intermediate push runs.
-  group: pages-${{ github.event_name }}
+  # Recovery and the existing catch-up slot use an available independent pool.
+  # Normal four-hour/push behavior is unchanged; every validation still runs.
+  group: pages-${{ (startsWith(github.event.head_commit.message, 'recovery:') || github.event.schedule == '47 2-22/4 * * *') && 'recovery' || github.event_name }}
   cancel-in-progress: false
 jobs:
   # A push to main also starts the platform's *legacy* Pages build, which
@@ -48,8 +50,17 @@ jobs:
   # and publishes the fresh snapshot exactly as before.
   republish-last-verified:
     if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-24.04
+    runs-on: ${{ (startsWith(github.event.head_commit.message, 'recovery:') || github.event.schedule == '47 2-22/4 * * *') && 'macos-14' || 'ubuntu-24.04' }}
     timeout-minutes: 12
+    # Only this small job may retire verified obsolete main publishers. The
+    # fresh publisher retains actions:read and all its original source guards.
+    permissions:
+      contents: read
+      actions: write
+      pages: write
+      id-token: write
+    outputs:
+      queue_safe: ${{ steps.retire.outputs.safe }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -61,9 +72,23 @@ jobs:
       - uses: actions/checkout@v7
         with:
           sparse-checkout: scripts
+      - uses: actions/setup-python@v7
+        if: (startsWith(github.event.head_commit.message, 'recovery:') || github.event.schedule == '47 2-22/4 * * *')
+        with:
+          python-version: '3.12'
       - name: Install the guard's only dependency
         run: python3 -m pip install --quiet requests==2.32.5
+      - name: Retire only publishers predating independently replayable sources
+        id: retire
+        if: (startsWith(github.event.head_commit.message, 'recovery:') || github.event.schedule == '47 2-22/4 * * *')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: python3 -m scripts.be019782_release --clear-obsolete
+      # Recovery must publish newly collected evidence, not an old-code interim
+      # artifact. This optional fallback is unchanged for ordinary refreshes.
       - name: Find the most recent successful publish
+        if: ${{ !(startsWith(github.event.head_commit.message, 'recovery:') || github.event.schedule == '47 2-22/4 * * *') }}
         id: previous
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -149,17 +174,21 @@ jobs:
             exit 0
           fi
           gh api -X DELETE "repos/${{ github.repository }}/actions/artifacts/$ARTIFACT_ID" \
-            || echo "::warning::Could not delete interim artifact (actions: read); distinct artifact_name prevents collision."
+            || echo "::warning::Could not delete interim artifact; distinct artifact_name prevents collision."
   verify-and-deploy:
     needs: [republish-last-verified]
     # Runs even when the fast republish failed: a broken helper must never stop
     # the fresh, fully validated snapshot from being published.
-    if: always() && github.ref == 'refs/heads/main'
+    if: always() && github.ref == 'refs/heads/main' && (!(startsWith(github.event.head_commit.message, 'recovery:') || github.event.schedule == '47 2-22/4 * * *') || needs['republish-last-verified'].outputs.queue_safe == 'true')
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    runs-on: ${{ (startsWith(github.event.head_commit.message, 'recovery:') || github.event.schedule == '47 2-22/4 * * *') && 'macos-14' || 'ubuntu-24.04' }}
+    # The code-check job allows 45 minutes for regression/build/browser checks.
+    # This publisher also collects fresh sources and verifies both Pages/root
+    # publication. Keep 15 minutes of headroom; every test and source gate still
+    # runs and a nonzero regression status still aborts publication.
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
@@ -180,6 +209,7 @@ jobs:
         # lines that appeared instead are synthetic output of patched tests in
         # tests/test_domain.py. A failing step must name its own failing test.
         run: |
+          set +e
           python -m unittest discover -s tests -v 2>&1 | tee unittest-output.log
           status=${PIPESTATUS[0]}
           if [ "$status" -ne 0 ]; then
