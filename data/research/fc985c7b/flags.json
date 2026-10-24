@@ -1,0 +1,46 @@
+[
+  {
+    "id": "fc985c7b-live-cards-missing-from-published-snapshot",
+    "severity": "warning",
+    "match_ids": [
+      "1079658",
+      "1081152",
+      "1079659",
+      "1081153",
+      "1079660",
+      "1081154",
+      "1079661",
+      "1081156",
+      "1081158"
+    ],
+    "title": "9 open Hotspawn CS2 cards have no row in the published 2026-10-23T20:10:00Z snapshot",
+    "detail": "The rendered lobby showed 25 open CS2 cards at 2026-10-24T07:35Z while the published snapshot carries 19 active fixtures. The nine cards above (all 24\u201325 October) have no row at all, so they carry no pick, no probability and no limitation text. Two of them (1081156, 1081158) were confirmed present in Hotspawn's fixtures API at 2026-10-24T07:47Z, so a successful refresh is what adds them; nothing was inferred for a card that has no row. The refresh has been blocked since 2026-10-23T20:10Z by the publisher regression gate \u2014 see fc985c7b-publisher-gate-blocked-by-missing-import. Record: data/research/fc985c7b/live-coverage-2026-10-24.md",
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json"
+    ]
+  },
+  {
+    "id": "fc985c7b-publisher-gate-blocked-by-missing-import",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "Every four-hour refresh since 2026-10-23T20:10Z failed the regression gate on a missing module import, freezing the site on an 11-hour-old snapshot",
+    "detail": "Step-level evidence: pages.yml runs 40028653350, 40037957529, 40048429858 and 40063011446 all failed at \"Regression tests (repository fixtures, before any cache restore)\", which runs python -m unittest discover -s tests before anything is collected. Running all 99 modules individually isolated 9 failing tests in test_f9d0a5a2, test_origination_upgrade and test_source_integrity: scripts/originate.py:1044 uses egw_live.EVIDENCE_NAME but PR #240 never imported the module, so live_collect() raised NameError outside the try/except that was supposed to make an aggregator outage non-fatal. With the import present the full gate is 1270 tests / 0 failures. Fixed on main by arena-5260ef4e (292ea222) and guarded here by tests/test_fc985c7b_import_guard.py, which fails on any script that references an identifier it never binds.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446"
+    ]
+  },
+  {
+    "id": "fc985c7b-published-snapshot-beyond-the-eight-hour-bound",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "The public site served a snapshot older than the brief's 8-hour bound for roughly eleven hours",
+    "detail": "The deployed /data/latest.json reported generated_at 2026-10-23T20:10:00Z when read at 2026-10-24T07:35Z \u2014 about 11.4 hours, past the 8-hour stale bound the site displays and the 4-hour refresh the brief asks for. Same root cause as fc985c7b-publisher-gate-blocked-by-missing-import. The site's own stale-warning banner is the honest signal in that state; no data was hand-edited to hide it.",
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446"
+    ]
+  }
+]
