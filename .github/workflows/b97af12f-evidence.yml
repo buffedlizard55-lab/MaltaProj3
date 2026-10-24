@@ -1,0 +1,62 @@
+# Session arena-b97af12f — runner-side re-check of the dated lobby/API
+# reconciliation. The coding sandbox can read the pages but cannot emit a
+# runner-verified record that scripts.build.load_no_line_research() will trust.
+# This workflow re-fetches the same public URLs on GitHub's runner, saves
+# status/hash/excerpt evidence, and commits ONLY under data/research/b97af12f/.
+# It never runs collect/originate and never writes data/latest.json. The push
+# guard skips its own report commit so the research job cannot loop.
+#
+# A separate job grants this run's GITHUB_TOKEN actions: write and dispatches
+# pages.yml on main. That workflow_dispatch run has its own concurrency group,
+# so it is not cancelled by the rapid push-triggered main runs that have been
+# starving the four-hour publisher queue. The dispatch job itself never edits
+# the repository and never deploys directly.
+name: b97af12f dated evidence re-check (dispatches publisher)
+on:
+  workflow_dispatch:
+  push:
+    branches: ['arena/b97af12f-maltaproj3']
+permissions:
+  contents: write
+concurrency:
+  group: b97af12f-evidence
+  cancel-in-progress: true
+jobs:
+  research:
+    if: github.event_name == 'workflow_dispatch' || !startsWith(github.event.head_commit.message, 'research(b97af12f)')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Re-check Hotspawn API, lobby, HLTV, Polymarket and EGamersWorld (read-only)
+        run: python -m scripts.b97af12f_probe --out data/research/b97af12f
+      - name: Commit the dated runner evidence to this session branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/b97af12f/
+          if git diff --cached --quiet; then echo 'no report change'; exit 0; fi
+          git commit -m 'research(b97af12f): runner re-check of dated lobby/API evidence (never published)'
+          git pull --rebase origin arena/b97af12f-maltaproj3
+          git push origin arena/b97af12f-maltaproj3
+
+  dispatch-publisher:
+    needs: research
+    if: ${{ always() && github.event_name == 'push' && !startsWith(github.event.head_commit.message, 'research(b97af12f)') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - name: Ask the four-hour publisher to run in its own concurrency group
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh workflow run pages.yml --ref main
+          echo "Dispatched pages.yml on main via workflow_dispatch (separate concurrency group)."

@@ -1,0 +1,99 @@
+[
+  {
+    "id": "be019782-refresh-test-clock",
+    "severity": "notice",
+    "title": "Fixed: an aging regression fixture blocked four scheduled refreshes before collection",
+    "detail": "The three snapshot publication tests used the wall clock against a fixed 2026-10-23T09:23:57Z fixture. The correct 12-hour production guard began rejecting it. Tests now inject their fixture clock and explicitly check rejection after 13 hours; no production age, monotonic-publication or replay-exclusion safeguard was weakened. The four failures and this repair are recorded here; successful deployment must be verified separately, not inferred from a successful research run.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_ca7e10e5_snapshot.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/root_publish.py"
+    ]
+  },
+  {
+    "id": "be019782-duplicate-summary-landmark",
+    "severity": "notice",
+    "title": "Fixed: duplicate no-line research landmark on the executive summary",
+    "detail": "Both the summary and its compact unresolved-register child rendered id=no-line-research. The redundant caller is removed, and the global internal-link validator now rejects duplicate HTML ids. Rendered regressions verify exactly one block on each relevant page and keep links to the dedicated unresolved register. The pre-existing full-suite failure reproduced this defect; the repair does not change any probability or source. During integration, PR #241 independently removed the child call while this session removed the parent. Git auto-merged both deletions, producing zero dated blocks; the rendered regression reproduced 0 != 1. Integration restores the child as the sole owner and preserves both dossiers, both coordination records and the global duplicate-ID guard.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/validate.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_be019782_landmarks.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/241"
+    ]
+  },
+  {
+    "id": "be019782-stale-glance-label",
+    "severity": "notice",
+    "title": "Fixed: the compact summary retained a current Pick label after its observation expired",
+    "detail": "At the 2026-10-24T05:25Z read, the inventory was dated 2026-10-23T20:09:44Z and the global stale warning was visible, but the glance list still labelled FOKUS Pick. It now applies the shared presentation policy at build time and retires open-tab picks after eight hours, missing/future-skewed line clocks, incomplete inventory or unknown deadlines. Historical estimates, both probabilities and source links remain readable as Snapshot; a retired recommendation never reopens automatically. Known valid even estimates also show both percentages without choosing a side; unresolved data stays blank. Synthetic clock/browser regressions cover these distinctions.",
+    "match_ids": [
+      "1079193"
+    ],
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/pick_safety.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/assets/glance-lock.js",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/browser/be019782_landmarks.spec.mjs"
+    ]
+  },
+  {
+    "id": "be019782-hltv-access-is-not-market-absence",
+    "severity": "notice",
+    "title": "Fixed wording: a blocked HLTV request is unknown, not proof that HLTV never displays odds",
+    "detail": "A prior sentence asserted that HLTV publishes no prematch price even for human readers. Replaced with the bounded observation: no paired bookmaker price was verified from the attempted responses. The runner returned 403 for all ten model-only gap pages; the platform reader could read their betting sections and retrieved a US social-casino promotion, not paired numeric odds. Fan polls were excluded. This dated, region-dependent result is not a claim about every visitor or the existence of a betting market.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40066326079",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/be019782/platform-hltv-review.md",
+      "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13"
+    ]
+  },
+  {
+    "id": "be019782-ten-labelled-models-without-qualified-money-line",
+    "severity": "notice",
+    "title": "Dated audit: 25 supported estimates, of which ten still lack an eligible external price",
+    "detail": "The 2026-10-24T05:28Z inventory replay found 25 canonical nonpast fixtures, 25 supported directional estimates, 25 usable at that observation and zero unresolved. Fifteen were external-price estimates (12 market and 3 bookmaker); ten were explicitly uncalibrated research models, including one network-model subset. All ten gaps were researched HLTV first, then original esportsbooks/exchanges; the additional 21-surface probe and exact-identity/start/quote audit yielded zero new qualified price leads. Seven bo3.gg joins were unique; Spirit Academy–LFO 10, HOTU–The Huns and 5star–1WIN lacked a unique upcoming relay join. Smarkets quoted Acend–UNiTY, Metizport–BakS and Ground Zero–Off Chops, but spreads exceeded the ladder ceiling. Model estimates can disagree substantially with those rejected books and should not be represented as calibrated win chances or executable odds. Access refusals and generic landing pages mean unverified, never global market absence. These are dated audit results, not a deployment attestation.",
+    "match_ids": [
+      "1081153",
+      "1081154",
+      "1082996",
+      "1079198",
+      "1081156",
+      "1081158",
+      "1082858",
+      "1082861",
+      "1082792",
+      "1082793"
+    ],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40066326079",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/be019782/source-replay.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/be019782/line-source-research.md",
+      "https://api.smarkets.com/v3/markets/172971947/quotes/",
+      "https://api.smarkets.com/v3/markets/173006596/quotes/",
+      "https://api.smarkets.com/v3/markets/172960355/quotes/",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings"
+    ]
+  },
+  {
+    "id": "be019782-egw-independent-source-binding",
+    "severity": "notice",
+    "title": "Fixed during integration: EGW index discovery could infer a provider clock and select the first name-substring hit",
+    "detail": "PR #240 added an automated EGW rung while this session was validating. Integration review found a missing egw_live import that would crash live collection, missing loader wiring, copied Hotspawn start times masquerading as provider evidence, first-hit substring joins, and generated prose described as a verbatim excerpt. All are repaired without changing any price or alias: a quote needs an independently published timezone-qualified source start, exactly associated named prices, one unique event, a literal captured source anchor/hash and an original successful request. Offline origination and publication replay reparse the original HTML; missing time, rematches, academy-name collisions, ambiguous quotes, derived-only captures and altered/restamped evidence price nothing. The unchanged reference gate still checks freshness, exact start, margin and placeholder odds. Sources lacking those facts remain discovery leads only, with a labelled research model or unresolved blank retained. Existing manual captures and earlier ladder order are preserved. This is a code repair with synthetic regression evidence, not a claim that an additional live quote was found. Later integration preserved PRs #252/#257 and their sourced aliases/review records, retained the fixture-and-registry-bound loader rather than the old path-only call, and strengthened the incoming source-string regression to the validated three-argument contract. Actual Collector.fetch_html wrapper/manifest keys were checked for compatibility. Final integration preserved the new qualified-replay counter/manual priority, upgraded another derived-only positive test to a real-shaped original response and manifest, and added missing-original refusal. Also caught an incoming undeclared pytest import and six tests invisible to unittest; converted them to stdlib unittest with explicit authoring/runner gates, without changing dependencies or source data.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/240#issuecomment-6380775356",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/240#issuecomment-6380792103",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/egw_live.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_be019782_egw_safety.py",
+      "https://egamersworld.com/counterstrike/matches",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/252",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/257",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/261",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/267"
+    ]
+  }
+]
