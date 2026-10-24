@@ -82,6 +82,43 @@ findings; their rendering was verified in the local build (`site/review/index.ht
 four ids exactly once) and by `tests.test_review_flags` + `tests.test_review_register`
 (13 tests OK).
 
+### 5F9 merge conflict log (2026-10-24T19:5xZ)
+
+While PR #322 waited on its checks, parallel sessions merged #318 (`arena/c2a74e33`) and #320
+(`arena/6174aa87`), and #320 had already hardened the same two tests — with a stronger form than
+mine: it derives the unresolved set from `availability != 'past' and analysis is None`, checks the
+page's per-fixture anchors as well as the team names, and keeps always-on invariants (two
+probabilities summing to 1, UTC stamps, a named side unless the market is exactly even) for a
+newer snapshot. Merge conflict on both files resolved by taking **main's** version in full through a
+merge commit; nothing from either session was discarded, my parallel edits to those two files are
+superseded by theirs, and my unique work (dossier, four findings, clock injection, this record)
+remains. Verified after resolution: 13 tests OK in the two modules, full suite 1701 OK.
+
+### 5F9 follow-up (2026-10-24T18:2xZ–19:0xZ): the next publisher run failed on two more dated snapshot tests
+
+Run [40120126457](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40120126457) (push,
+18:18Z) failed at `Regression tests` on
+`test_b72154e1_guided_picks.GuidedPicksTest.test_group_b_are_snapshot_model_picks` and
+`test_99d48cd8_mobile.ExecutiveSummaryLinks.test_unresolved_page_names_both_unresolved_fixtures`.
+Cause, reproduced locally on the 18:00:16Z root snapshot that run 40117004822's own root-sync
+committed (`a77fc77`, 81 records / 20 active):
+
+* `1079200` (Color vs ex-Zero Tenacity) moved from a featured research-model estimate to an
+  **exactly even market line** — probabilities published, no directional side, counted as
+  `no_edge` — so the dossier's "group B are research-model picks" claim no longer describes the
+  live snapshot. Guarded exactly like the sibling `test_group_c_absent_from_snapshot` already is:
+  asserted against the snapshot the dossier names, skipped (with a reason) when the root snapshot
+  is newer. Provenance and arithmetic assertions stay always-on.
+* The mobile test treated `pick_index is None` as "unresolved", which also matches the even-market
+  row; the snapshot's own definition (no published analysis at all) is `analysis is None` and it
+  agrees exactly with `counts.unresolved` (4 of the 20 active). The test now derives the set that
+  way and still asserts that the unresolved page names every such fixture — the intent is
+  unchanged, and it holds for any snapshot.
+
+Both modules green locally (13 tests, 2 skipped). No pick, probability, snapshot, script or site
+file was changed; the live site served 20 of 20 active fixtures with a pick, 0 unresolved, when
+re-read on `/unresolved/` at 18:2xZ.
+
 ### 5F9 pre-merge verification (2026-10-24T16:20Z–17:20Z)
 
 - **Coverage is complete, verified against three independent readings.** Lobby
@@ -8944,6 +8981,14 @@ Constraints: sandbox outbound access cannot directly verify Hotspawn/HLTV/books;
 2. `tests/test_b72154e1_guided_picks.py::test_group_b_are_snapshot_model_picks` required five fixture ids to still carry the *Valve model* label. By 18:00Z the ladder had legitimately upgraded `1079198` to a Bovada line and `1079200` to an even two-sided Polymarket book (`pick_index: null` is correct for an exactly even pair). Pinned expectations now only run against the snapshot the dossier names (`published_snapshot.generated_at`, the same guard f1277d3b added for Group C); for any newer snapshot the always-on invariants run — two probabilities that sum to 1, a UTC observation stamp, and a named side for any row that is not exactly even.
 
 Both modules pass on this head (`Ran 13 tests … OK`), the six other modules that read the root snapshot pass (`Ran 88 tests … OK, skipped=4`), and the full suite is re-running on the final tree. **This is the third occurrence of the same failure class in 24 hours** (runs 40085158851, 40116915898, 40120126457). The durable lesson recorded for the next session: the branch-root `snapshot.json`, `index.html` and `snapshot.json`-driven page files are *publisher output*, not fixtures — a test may derive expectations from them but may never pin them.
+
+### 6174 publish confirmed (2026-10-24T19:18Z–19:50Z)
+
+- **PR [#320](https://github.com/buffedlizard55-lab/MaltaProj3/pull/320) merged as `f88cae4` at 2026-10-24T19:18:13Z**, after both required checks passed on the final head (`Validate dashboard` run [40122322127](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40122322127) 30m00s pass, `Origination source audit` run [40122317068](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40122317068) pass). Local full suite on that head: **1737 tests OK (skipped=4)**.
+- **The publisher is green again.** Post-merge `Refresh and deploy CS2 dashboard` run **[40124677186](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40124677186) completed success** (both jobs: `republish-last-verified`, `verify-and-deploy`). It replaced two failing runs on `main` (schedules 40116915898 and 40122318265, push 40120126457), all of which failed on the two mutable-snapshot tests this session fixed.
+- **Live site re-read after the deploy** (`https://buffedlizard55-lab.github.io/MaltaProj3/`): inventory checked **24 Oct 2026, 21:44 Malta = 19:44Z**, root `snapshot.json` `generated_at 2026-10-24T19:44:34Z`, **18 active fixtures, 17 with a directional pick, 0 explicitly unresolved** (14 external-line, 3 research-model), every row carrying both win probabilities, the pick and its original source link. `assets/scout.css` on `main` carries the phone change (`glance-other 13px`), and `/review/` publishes *Dated pick-provenance sweep: every published pick re-read against its own citation*.
+- **Nuance for manual review (not a defect, by design):** the 19:44Z snapshot prices `1079200 Color vs ex-Zero Tenacity` as an exactly even two-sided Polymarket book (49–51¢ / 49–51¢), so the summary shows **“No edge · Even · no side”** rather than inventing a side, and the featured counter still reports `counts.unresolved 3` (locked/unknown-schedule scope) while the complete researched layer reports **0 without a pick**. Both numbers are labelled with the list they describe; nothing is filled in to force a side.
+- **Irregularity retained for the next session:** the branch-root publisher output (`snapshot.json`, `index.html`, `*/index.html`) is machine-rewritten every four hours. Three publisher failures in 24 hours (40085158851, 40116915898, 40120126457) were all tests pinning it. Tests may derive expectations from it, never pin them.
 
 ## Session arena-3877d48d — picks for every match, fallback-pick register, executive-summary/mobile verification, fresh publish (2026-10-24T16:2xZ)
 
