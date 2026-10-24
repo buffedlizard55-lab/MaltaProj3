@@ -14,8 +14,10 @@ publisher stopped deploying. This is the third such date bomb (see
 ``tests/test_freshness_determinism.py`` for 2026-10-17 and the
 ``tests.test_96fbe295`` entry for 2026-10-23).
 
+The pin itself landed on ``main`` first via arena-43110640 (PR #240, the
+same ``now=2026-10-23T10:00Z`` this session had reproduced independently).
 The production guard is correct and is not relaxed. These tests make the
-contract permanent instead:
+contract permanent so a fourth bomb of this kind cannot reach ``main``:
 
 1. a static check: every call to ``build_plan`` / ``root_publish.main`` inside
    ``tests/`` passes an explicit ``now=`` (or ``allow_stale=``/``**options``);
