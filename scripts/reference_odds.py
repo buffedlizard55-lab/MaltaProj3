@@ -57,7 +57,6 @@ CAPTURE_PATHS = (
 # an entry may only price a fixture when the recorded EGW index request exists,
 # succeeded, and carries the same observation instant. Fail closed otherwise.
 LIVE_REQUEST_ID = 'live-egw-index'
-LIVE_CAPTURE_PREFIX = 'automated'
 PROVIDER = 'EGamersWorld (published bookmaker average)'
 FAMILY = 'reference'
 MIN_ODDS, MAX_ODDS = 1.01, 100.0
