@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "id": "f8736556-legacy-pages-race-2026-10-23",
+  "title": "Historical legacy-Pages race: current HTML beside 15 October plain JSON (23 October)",
+  "observed_at": "2026-10-23T10:00:08Z",
+  "summary": "At 09:53:43Z the plain public executive summary, data/latest.json and data/origination.json agreed on the 09:23:57Z snapshot (30 active fixtures and 30 picks). PR #214 then merged at 09:54:27Z. The interim artifact deployment completed at 09:54:56Z, but that commit's legacy Pages build completed later, at 09:55:18Z. At 10:00:08Z the plain HTML still carried the 09:23:57Z snapshot while both plain JSON files had regressed to the checked-in 15 October fixtures. A later merge at 10:17:37Z produced another legacy build that landed at 10:19:09Z during verification of a 10:18:15Z artifact deployment, and that publisher run failed with stale public HTML. This incident is retained after recovery; it is not a current-picks claim.",
+  "plain_url_observations": {
+    "pass_observed_at": "2026-10-23T09:53:43Z",
+    "fail_observed_at": "2026-10-23T10:00:08Z",
+    "html_snapshot_generated": "2026-10-23T09:23:57Z",
+    "plain_latest_generated_at": "2026-10-15T08:36:13Z",
+    "plain_origination_generated_at": "2026-10-15T09:31:24Z",
+    "pass_commit": "9ef6f63",
+    "fail_commit": "014785d"
+  },
+  "timeline": [
+    {
+      "at": "2026-10-23T09:53:43Z",
+      "event": "Independent plain-URL audit passed on the 09:23:57Z snapshot: 30 active fixtures, 30 directional picks, 22 external-line rows, 8 research-model rows and 0 unresolved."
+    },
+    {
+      "at": "2026-10-23T09:54:27Z",
+      "event": "PR #214 merged to main at eeae869, starting both the legacy Pages build and the Refresh and deploy workflow."
+    },
+    {
+      "at": "2026-10-23T09:54:56Z",
+      "event": "The republish-last-verified job completed its interim artifact deployment."
+    },
+    {
+      "at": "2026-10-23T09:55:18Z",
+      "event": "The same commit's legacy Pages build completed after the interim artifact deployment."
+    },
+    {
+      "at": "2026-10-23T10:00:08Z",
+      "event": "Plain public HTML and plain public JSON disagreed: HTML 2026-10-23T09:23:57Z, latest.json 2026-10-15T08:36:13Z, origination.json 2026-10-15T09:31:24Z."
+    },
+    {
+      "at": "2026-10-23T10:17:37Z",
+      "event": "Another main commit, 90e347d, started a further legacy Pages build while the 09:54 publisher was still building its fresh snapshot."
+    },
+    {
+      "at": "2026-10-23T10:18:15Z",
+      "event": "The 09:54 publisher deployed its fresh artifact."
+    },
+    {
+      "at": "2026-10-23T10:19:09Z",
+      "event": "The 90e347d legacy Pages build completed during the artifact verification window."
+    },
+    {
+      "at": "2026-10-23T10:19:11Z",
+      "event": "Publisher run 39935261830 failed public verification with wrong or stale dashboard HTML."
+    },
+    {
+      "at": "2026-10-23T10:48:49Z",
+      "event": "A later publisher root-sync commit, ab12bf6, published rendered HTML for the 10:43:14Z snapshot; PR #222 merged 11 seconds later, illustrating why deployment ordering must resolve the latest main commit rather than only the workflow's starting SHA."
+    }
+  ],
+  "source_urls": [
+    "https://github.com/buffedlizard55-lab/MaltaProj3/pull/214",
+    "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39935261124",
+    "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39935261830",
+    "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/39935791064",
+    "https://github.com/buffedlizard55-lab/MaltaProj3/blob/014785d/data/research/f8736556/audit.json",
+    "https://github.com/buffedlizard55-lab/MaltaProj3/blob/9ef6f63/data/research/f8736556/audit.json",
+    "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+    "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json"
+  ]
+}

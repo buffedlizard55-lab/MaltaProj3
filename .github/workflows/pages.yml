@@ -128,6 +128,27 @@ jobs:
         with:
           name: github-pages-interim
           path: site
+      # Session f8736556: ordering matters inside this interim job too. On the
+      # 2026-10-23T09:54Z push, this job deployed the previous verified artifact
+      # at about 09:54:58Z, but the same commit's legacy Pages build did not
+      # finish until 09:55:18Z and therefore overwrote it. At 10:00:08Z the
+      # public HTML was current while plain /data/latest.json and
+      # /data/origination.json had regressed to the checked-in 15 October
+      # fixtures. Wait for this commit's legacy build before the interim deploy,
+      # so the verified artifact is the last publisher in this phase as well.
+      - name: Wait for this commit's legacy Pages build before interim deployment
+        if: steps.previous.outputs.skip == 'false' && steps.guard.outputs.proceed == 'true'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          latest_sha=$(gh api "repos/${{ github.repository }}/branches/main" --jq '.commit.sha')
+          if [ -z "$latest_sha" ] || [ "$latest_sha" = "null" ]; then
+            latest_sha="${{ github.sha }}"
+          fi
+          echo "Waiting for the legacy Pages build for latest main $latest_sha"
+          python3 -m scripts.root_publish --wait-legacy-sha "$latest_sha"
       - id: deployment
         if: steps.previous.outputs.skip == 'false' && steps.guard.outputs.proceed == 'true'
         uses: actions/deploy-pages@v5
@@ -349,6 +370,24 @@ jobs:
         with:
           path: data/research/twc-current/
           key: ${{ steps.restore-twc.outputs.cache-primary-key }}
+      # Other sessions can merge to main while this long job is collecting and
+      # testing. Their merge starts another legacy build. On 2026-10-23 a
+      # 10:17Z merge's legacy build landed at 10:19:09Z, after this job's
+      # 10:18:15Z artifact deployment, and the first public verification failed
+      # with stale root HTML. Resolve main again immediately before deployment
+      # and wait for *that* commit's legacy build, not only this run's SHA.
+      - name: Wait for latest main legacy Pages build before artifact deployment
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          latest_sha=$(gh api "repos/${{ github.repository }}/branches/main" --jq '.commit.sha')
+          if [ -z "$latest_sha" ] || [ "$latest_sha" = "null" ]; then
+            latest_sha="${{ github.sha }}"
+          fi
+          echo "Waiting for the legacy Pages build for latest main $latest_sha"
+          python -m scripts.root_publish --wait-legacy-sha "$latest_sha"
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:
@@ -356,6 +395,31 @@ jobs:
       - id: deployment
         uses: actions/deploy-pages@v5
       - name: Verify the public site, its complete data and category pages
+        id: initial_verify
+        continue-on-error: true
+        run: python -m scripts.verify_live --url '${{ steps.deployment.outputs.page_url }}'
+      # A newer main commit can still land its legacy build between the wait
+      # above and the end of the first verification. One recovery is safe: wait
+      # for the newest legacy build, redeploy the same artifact, and verify it
+      # again. A genuine content mismatch still fails on that second verify.
+      - name: Wait for latest main legacy Pages build after a failed first verification
+        if: steps.initial_verify.outcome == 'failure'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          latest_sha=$(gh api "repos/${{ github.repository }}/branches/main" --jq '.commit.sha')
+          if [ -z "$latest_sha" ] || [ "$latest_sha" = "null" ]; then
+            latest_sha="${{ github.sha }}"
+          fi
+          echo "Waiting for the legacy Pages build for latest main $latest_sha"
+          python -m scripts.root_publish --wait-legacy-sha "$latest_sha"
+      - name: Re-deploy the verified artifact after a legacy overwrite
+        if: steps.initial_verify.outcome == 'failure'
+        uses: actions/deploy-pages@v5
+      - name: Verify the public site after legacy-overwrite recovery
+        if: steps.initial_verify.outcome == 'failure'
         run: python -m scripts.verify_live --url '${{ steps.deployment.outputs.page_url }}'
       # The repository's Pages site is still configured in the platform's legacy
       # build mode (the configuration API answers HTTP 403 to this workflow's
@@ -442,7 +506,13 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-        run: python -m scripts.root_publish --wait-legacy-sha "${{ steps.root_sync.outputs.pushed_sha }}"
+        run: |
+          latest_sha=$(gh api "repos/${{ github.repository }}/branches/main" --jq '.commit.sha')
+          if [ -z "$latest_sha" ] || [ "$latest_sha" = "null" ]; then
+            latest_sha="${{ steps.root_sync.outputs.pushed_sha }}"
+          fi
+          echo "Waiting for the legacy Pages build for latest main $latest_sha"
+          python -m scripts.root_publish --wait-legacy-sha "$latest_sha"
       - name: Re-deploy the verified artifact over the legacy root build
         if: steps.root_sync.outputs.pushed_sha != ''
         uses: actions/deploy-pages@v5
