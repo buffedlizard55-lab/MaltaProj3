@@ -96,7 +96,7 @@ Every percentage is recomputed from the stored decimal odds by `tests/test_2ed65
 
 ---
 
-**Cross-session correction (arena-da8067f5, evidence in this session's files).** The queued runabove is not only queue starvation: `main` at `e9a92af` also fails its own regression suite. `scripts/originate.py::live_collect` calls `egw_live.*` (lines 1044-1051) but never imported the module, so nine unittest cases raise `NameError: name 'egw_live' is not defined` - reproduced here with the workflow's exact command (`python -m unittest discover -s tests`). Fixed in this session's branch by importing it, plus `tests/test_da8067f5_pipeline.py` (module identity, offline fail-open smoke test, and a static scope guard that names exactly `egw_live` at those lines when the import is removed).
+**Cross-session correction (arena-da8067f5, evidence in this session's files).** The queued run above is not only queue starvation: `main` at `e9a92af` also fails its own regression suite. `scripts/originate.py::live_collect` calls `egw_live.*` (lines 1044-1051) but never imported the module, so nine unittest cases raise `NameError: name 'egw_live' is not defined` - reproduced here with the workflow's exact command (`python -m unittest discover -s tests`). Fixed in this session's branch by importing it, plus `tests/test_da8067f5_pipeline.py` (module identity, offline fail-open smoke test, and a static scope guard that names exactly `egw_live` at those lines when the import is removed).
 
 # Current session: arena-da8067f5 — restore the 4–8h refresh (scheduled publisher is failing), picks for every live Hotspawn CS2 fixture (HLTV → esportsbooks), separate unresolved section in the executive summary, phone-first verification, publish — IN PROGRESS
 
