@@ -50,6 +50,30 @@ money source and 4 by a research model.
 5. **Model-only picks stay model-only** until a compliant money rung resolves them. Nothing here was
    hand-written into a probability.
 
+## What shipped, and what it fixed (2026-10-24T22:00Z)
+
+PR [#319](https://github.com/buffedlizard55-lab/MaltaProj3/pull/319) merged and published; the live site
+was re-read after the deploy (`snapshot.json` **2026-10-24T21:56:20Z**, 17 active / 17 picks / 0 unresolved):
+
+- **The register the brief asked for.** A separate, source-linked section for every pick that is not a
+  featured market line: full form (each row's source, price, both probabilities and its limitation) on
+  `/unresolved/#fallback-register`, and a one-line-per-fixture list on the executive summary. Research
+  models and wide-book guidance keep their own *Picks without a betting line* register, so **no fixture is
+  listed twice**. On the live build that is 5 money-backed rows (3 consensus, 2 single bookmaker) plus 4
+  cross-linked research rows.
+- **A visible defect fixed.** The `1.001` near-lock quote on FlyQuest vs Staqued was printed as `1.00`,
+  which reads as a zero-payout price. Prices below 1.10 now keep three decimals (`1.001 / 12.00`);
+  ordinary prices are unchanged, and no probability, pick or stored quote moved.
+- **A silent gap closed.** When Polymarket opened a true 0.50/0.50 book on `1079200` (Color vs
+  ex-Zero Tenacity), the summary said "Even · no side" but carried no pick marker, so the rendered-output
+  audit counted it as a fixture with no pick and no explanation and the publisher could not publish. Every
+  glance row now states its own status — Pick, Snapshot, Locked, **Even book**, Unresolved — and an even
+  book still invents no side and still shows both prices.
+- **Two dated tests repaired** (`test_99d48cd8_mobile`, `test_b72154e1_guided_picks`) and one obsolete
+  expectation updated (`test_be019782_landmarks`), so `main`'s publisher is green again for the first time
+  since 19:25Z: run [40134500211](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40134500211)
+  → `verify-and-deploy` success.
+
 ## Artifacts
 
 - `data/research/3877d48d/findings.json` — the same rows, rendered on `/unresolved/#independent-verification`.
@@ -57,3 +81,6 @@ money source and 4 by a research model.
   `<time datetime>`/`startDate` values and decimal tokens per page).
 - `scripts/3877d48d_probe.py`, `.github/workflows/3877d48d-probe.yml` — the probe. It writes evidence
   only; it cannot write a pick.
+- `data/research/3877d48d/flags.json` — the 9 review findings published on `/review/`.
+- `tests/test_3877d48d_fallback.py` — 26 presentation tests (register, price precision, even-book marker,
+  audit acceptance, built-site anchors).
