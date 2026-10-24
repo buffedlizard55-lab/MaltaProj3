@@ -1,6 +1,6 @@
-# Line-source research — 2026-10-24T05:26:37Z
+# Line-source research — 2026-10-24T05:39:16Z
 
-Source snapshot: `data/origination.json` (generated 2026-10-24T05:25:50Z); 88 Hotspawn fixtures, 10 with no external line.
+Source snapshot: `data/origination.json` (generated 2026-10-24T05:38:33Z); 88 Hotspawn fixtures, 10 with no external line.
 
 | Fixture | Start (UTC) | Published method | HLTV | bo3.gg join | bo3 relay price | Smarkets exchange |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -35,7 +35,7 @@ Source snapshot: `data/origination.json` (generated 2026-10-24T05:25:50Z); 88 Ho
 | [1xBet CS2](https://1xbet.com/en/line/counter-strike-2) | 203 | challenge page |
 | [Marathonbet CS2](https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/) | 403 | challenge page |
 | [Betway CS2](https://www.betway.com/en/sports/esports/counter-strike-2) | 404 | blocked |
-| [DraftKings CS2](https://sportsbook.draftkings.com/leagues/esports/counter-strike-2) | 200 | ok |
+| [DraftKings CS2](https://sportsbook.draftkings.com/leagues/esports/counter-strike-2) | 404 | blocked |
 | [OddsPortal CS2](https://www.oddsportal.com/esports/counter-strike/) | 200 | ok |
 | [Oddspedia CS2](https://oddspedia.com/esports/cs-go) | 410 | blocked |
 | [EGamersWorld CS2 matches](https://egamersworld.com/counterstrike/matches) | 403 | challenge page |

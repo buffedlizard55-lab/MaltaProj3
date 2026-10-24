@@ -1,18 +1,18 @@
-# Live Hotspawn lobby vs published snapshot — 2026-10-24T05:26:37Z
+# Live Hotspawn lobby vs published snapshot — 2026-10-24T05:39:16Z
 
 Published `latest.json` generated `2026-10-23T20:10:00Z`; 25 future fixtures compared, 9 missing from the published snapshot.
 
 | Fixture | Start (UTC) | In published snapshot | Published pick |
 | --- | --- | --- | --- |
-| [Acend vs FORZE Reload](https://www.hotspawn.com/matches/acend-vs-forze-reload-cct-europe-2026-series-11-1079658) | 2026-10-24T08:00:00Z | NO | FORZE Reload 68.5% (published Market-implied estimate) |
+| [Acend vs FORZE Reload](https://www.hotspawn.com/matches/acend-vs-forze-reload-cct-europe-2026-series-11-1079658) | 2026-10-24T08:00:00Z | NO | FORZE Reload 67.0% (published Market-implied estimate) |
 | [FOKUS vs ex-6666](https://www.hotspawn.com/matches/fokus-vs-ex-6666-nodwin-clutch-series-13-1079193) | 2026-10-24T08:00:00Z | yes | FOKUS 78.5% (published Market-implied estimate) |
 | [HAVU vs Azuolas](https://www.hotspawn.com/matches/havu-vs-azuolas-cct-europe-2026-series-12-1081152) | 2026-10-24T11:00:00Z | NO | HAVU 78.6% (published Originated market line (Kalshi)) |
 | [Spirit Academy vs Lavked](https://www.hotspawn.com/matches/spirit-academy-vs-lavked-cct-europe-2026-series-11-1079659) | 2026-10-24T11:00:00Z | NO | Spirit Academy 66.0% (published Market-implied estimate) |
 | [Saint Sinners vs 6yuBoJlbl](https://www.hotspawn.com/matches/saint-sinners-vs-6yubojlbl-cct-europe-2026-series-12-1081153) | 2026-10-24T14:00:00Z | NO | 6yuBoJlbl 75.9% (published Valve-rating research estimate) |
-| [INOX Division vs BRUTE](https://www.hotspawn.com/matches/inox-division-vs-brute-cct-europe-2026-series-11-1079660) | 2026-10-24T14:00:00Z | NO | INOX Division 52.4% (published No-vig bookmaker estimate) |
+| [INOX Division vs BRUTE](https://www.hotspawn.com/matches/inox-division-vs-brute-cct-europe-2026-series-11-1079660) | 2026-10-24T14:00:00Z | NO | INOX Division 52.0% (published Market-implied estimate) |
 | [Nuclear TigeRES vs FORZE Reload](https://www.hotspawn.com/matches/nuclear-tigeres-vs-forze-reload-nodwin-clutch-series-13-1079195) | 2026-10-24T14:00:00Z | yes | Nuclear TigeRES 63.5% (published Market-implied estimate) |
 | [BakS vs ILLYRIANS](https://www.hotspawn.com/matches/baks-vs-illyrians-cct-europe-2026-series-12-1081154) | 2026-10-24T17:00:00Z | NO | BakS 73.5% (published Valve-rating research estimate) |
-| [Nuclear TigeRES vs ex-Zero Tenacity](https://www.hotspawn.com/matches/nuclear-tigeres-vs-ex-zero-tenacity-cct-europe-2026-series-11-1079661) | 2026-10-24T17:00:00Z | NO | Nuclear TigeRES 61.0% (published Market-implied estimate) |
+| [Nuclear TigeRES vs ex-Zero Tenacity](https://www.hotspawn.com/matches/nuclear-tigeres-vs-ex-zero-tenacity-cct-europe-2026-series-11-1079661) | 2026-10-24T17:00:00Z | NO | Nuclear TigeRES 62.5% (published Market-implied estimate) |
 | [Acend vs UNiTY](https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996) | 2026-10-25T09:00:00Z | yes | Acend 54.2% (published Valve-rating research estimate) |
 | [Spirit Academy vs LFO 10](https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156) | 2026-10-25T12:00:00Z | NO | Spirit Academy 65.9% (published Own results-based estimate (bo3.gg series results)) |
 | [Metizport vs BakS](https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198) | 2026-10-25T12:00:00Z | yes | Metizport 79.9% (published Valve-rating research estimate) |
