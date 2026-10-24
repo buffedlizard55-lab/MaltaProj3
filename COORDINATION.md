@@ -1,3 +1,24 @@
+# Current session: arena-ebd1ed70 — unattended-refresh proof, complete live-lobby pick coverage (HLTV-first → esportsbooks for anything the featured pipeline can't resolve), exec-summary/mobile verification, integration & publish
+
+Claimed **2026-10-24 06:26Z** on Arena's fixed branch `arena/ebd1ed70-maltaproj3`, branched from `main` at `bdb4fc9` (PR #240 merge; current `origin/main` head). Board read first. Live state at claim time: deployed snapshot `2026-10-23T20:10:00Z` (19 active / 19 with a pick / 12 external-line / 7 model+researched / 0 unresolved) is >8h old and the site shows the stale-snapshot warning; scheduled `pages.yml` runs failed 4x on the `test_ca7e10e5_snapshot` wall-clock time-bomb fixed by PR #240; the post-#240 publisher run [40069088115](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40069088115) is in progress. Open PRs 241–248 from concurrent sessions (minutes old) are mostly namespaced research dossiers; four of them touch `scripts/build.py` and two touch `tests/test_ca7e10e5_snapshot.py` — none of those files are edited here.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| E1 Unattended-refresh proof: confirm the post-#240 publisher (and the next scheduled slot) runs green end-to-end and deploys a fresh snapshot inside the 8h bound; diagnose any failure; fix only in unclaimed files, log cross-owned requests here | in progress | arena-ebd1ed70 | this section; `tests/test_ebd1ed70_*.py` if needed |
+| E2 Complete live-lobby pick coverage: enumerate every CS2 fixture on the Hotspawn lobby, row-by-row reconcile against the deployed picks; for any fixture that cannot be resolved like the featured picks, dated HLTV-first → esportsbooks/esports-betting-lines research with a guided pick + limitations (guidance only — **no probability, pick or alias is written by hand**), replayable evidence saved verbatim | in progress | arena-ebd1ed70 | new `data/research/ebd1ed70/**` |
+| E3 Exec-summary/mobile verification: in-site links to the updated picks list, the separate unresolved/no-line section with limitations, phone readability 320/390px; targeted suites | in progress | arena-ebd1ed70 | this section, new `tests/test_ebd1ed70_*.py` |
+| E4 Integration & publish: record the pending PR #240 merge record below; once concurrent work is mergeable and green, integrate the branches (conflicts resolved without discarding any session's work, all sections kept), re-verify the combined data line by line, confirm the site builds with no broken links, PR to `main`, merge, confirm the Pages deploy serves a fresh snapshot with picks for every live card, record PR/run links, sources, verification and irregularities here | in progress | arena-ebd1ed70 | this section, PR |
+
+**Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/collect.py`, `scripts/originate.py`, `scripts/root_publish.py`, `scripts/egw_live.py`, `assets/*`, `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `.github/workflows/**`, `archive/`, `docs/`, or any other session's `data/research/<id>/` unless a cross-owned fix is unavoidable and logged here first. Hotspawn "% picked" and HLTV fan votes are never probabilities. Every row keeps its official source link; anything unverifiable stays blank and flagged.
+
+### E-record (arena-ebd1ed70)
+
+_(results appended below as work completes)_
+
+### PR #240 merge record (bookkeeping left pending by arena-43110640)
+
+- [PR #240](https://github.com/buffedlizard55-lab/MaltaProj3/pull/240) (`arena/43110640-maltaproj3`) merged to `main` as `bdb4fc9` on 2026-10-24. It carried S431-1 (time-bomb pin in `tests/test_ca7e10e5_snapshot.py`), S431-2 (automated EGW fallback `scripts/egw_live.py` + `scripts/originate.py` rung, fail-closed on 1.8/1.8 placeholders), S431-3 (guided picks for 1082858 / 1082792 in `data/research/43110640/`), and the S431 board section. Publisher run after the merge: [40069088115](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40069088115) — outcome recorded under E1. This entry exists because S431's board note says "PR pending record below" and no record was written before the merge; it claims no S431 file.
+
 # Current session: arena-43110640 — picks for every match (HLTV-first, then esportsbooks), automated EGW fallback, CI unblock, exec-summary/unresolved — DONE (PR pending record below)
 
 Claimed **2026-10-24** on Arena's fixed branch `arena/43110640-maltaproj3`. Read the board first: prior session arena-103774c3 is DONE (PR #216 merged); recent scheduled `pages.yml` runs are FAILING at the regression step (see S431 result when done).
