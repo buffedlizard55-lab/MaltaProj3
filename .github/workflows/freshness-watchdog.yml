@@ -1,0 +1,151 @@
+name: Freshness watchdog
+# Session arena-da8067f5.
+#
+# Why this exists: the 4-hour publisher is correct, but its *push*-triggered runs
+# live in the `pages-push` concurrency group, and GitHub cancels the single
+# pending run in a group as soon as a newer run is queued. While several agent
+# sessions merge into `main` every few minutes, the push publish is therefore
+# queued and cancelled repeatedly (verified 2026-10-24: runs 40071346040,
+# 40071100402, 40071009969, 40070626757 and 40071396534 all "cancelled" while
+# pending; the 06:09Z push run never started in 40 minutes). The scheduled run
+# lives in its own group and is not cancelled by pushes, but it can also be
+# delayed for a long time when the runner pool is saturated.
+#
+# This watchdog is cheap (one HTTPS GET plus at most two API calls), and it
+# re-dispatches the publisher only when BOTH are true:
+#   * the deployed snapshot is older than the threshold (default 6 h, i.e.
+#     inside the 8-hour staleness bound with margin), and
+#   * no `pages.yml` run is currently queued or in progress.
+# A dispatch lands in the `pages-workflow_dispatch` concurrency group, so no
+# amount of session pushes can cancel it. Nothing is published from here: the
+# watchdog only asks the existing, verified publisher to run.
+on:
+  schedule:
+    # Every 30 minutes; the job exits almost immediately when data is fresh.
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+    inputs:
+      max_age_hours:
+        description: 'Dispatch the publisher when the deployed snapshot is older than this many hours'
+        required: false
+        default: '6'
+      dry_run:
+        description: 'Report the decision without dispatching'
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: read
+  actions: write   # only used to read runs and to ask pages.yml to run
+
+concurrency:
+  group: freshness-watchdog
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Decide whether the published snapshot is stale
+        id: decide
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          MAX_AGE_HOURS: ${{ inputs.max_age_hours || '6' }}
+          DRY_RUN: ${{ inputs.dry_run || 'false' }}
+        run: |
+          set -u
+          python3 - <<'PY'
+          import json, os, sys, urllib.request
+
+          repo = os.environ['REPO']
+          max_age = float(os.environ.get('MAX_AGE_HOURS') or 6)
+          dry = str(os.environ.get('DRY_RUN', '')).lower() == 'true'
+          token = os.environ.get('GH_TOKEN', '')
+
+          def get(url, headers=None):
+              request = urllib.request.Request(url, headers=headers or {})
+              with urllib.request.urlopen(request, timeout=45) as response:
+                  return json.loads(response.read().decode('utf-8'))
+
+          # 1. The deployed snapshot. Cache-buster + no-store so a CDN copy is not
+          #    mistaken for fresh data.
+          url = ('https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json'
+                 f'?watchdog={os.environ.get("GITHUB_RUN_ID", "manual")}')
+          generated = ''
+          try:
+              published = get(url, {'Cache-Control': 'no-cache', 'Pragma': 'no-cache'})
+              generated = published.get('generated_at') or ''
+              print(f'deployed generated_at: {generated!r}')
+          except Exception as exc:                                   # noqa: BLE001
+              # An unreadable site is not proof of staleness, but it is never
+              # proof of freshness either: fall through to the "is a publisher
+              # already running?" check and dispatch only if nothing is.
+              print(f'::warning::could not read the deployed snapshot ({type(exc).__name__}: {exc})')
+              print('stale=true')
+              print('reason=deployed snapshot unreadable')
+
+          from datetime import datetime, timezone
+          age_hours = None
+          if generated:
+              try:
+                  when = datetime.strptime(generated, '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=timezone.utc)
+                  age_hours = (datetime.now(timezone.utc) - when).total_seconds() / 3600
+              except ValueError:
+                  print('::warning::deployed snapshot has no parseable generated_at')
+                  print('stale=true')
+                  print('reason=no generated_at')
+          print(f'age_hours={age_hours} threshold={max_age}')
+          if age_hours is not None and age_hours <= max_age:
+              print('stale=false')
+              print('reason=snapshot is inside the freshness bound')
+              sys.exit(0)
+
+          # 2. Never queue a second publish: a queued or running pages.yml run is
+          #    already going to replace this snapshot.
+          headers = {'Accept': 'application/vnd.github+json'}
+          if token:
+              headers['Authorization'] = f'Bearer {token}'
+          try:
+              runs = get(f'https://api.github.com/repos/{repo}/actions/workflows/pages.yml/runs?per_page=20',
+                         headers)
+              active = [r for r in runs.get('workflow_runs', [])
+                        if r.get('status') in {'queued', 'in_progress', 'pending', 'requested', 'waiting'}]
+          except Exception as exc:                                   # noqa: BLE001
+              print(f'::warning::could not list pages.yml runs ({type(exc).__name__}: {exc})')
+              print('stale=true')
+              print('reason=run list unavailable; a dispatch is the safer choice')
+              sys.exit(0)
+
+          if active:
+              ids = ', '.join(str(r.get('id')) for r in active[:5])
+              print(f'stale=false')
+              print(f'reason=a publisher run is already queued or in progress ({ids})')
+              sys.exit(0)
+
+          print('stale=true')
+          if age_hours is None:
+              print('reason=snapshot unreadable and no publisher run is queued')
+          else:
+              print(f'reason=snapshot is {age_hours:.1f}h old (threshold {max_age}h) and no publisher run is queued')
+
+          if dry:
+              print('dry_run=true')
+              sys.exit(0)
+
+          # 3. Ask the verified publisher to run. workflow_dispatch is its own
+          #    concurrency group, so push traffic cannot cancel it.
+          payload = json.dumps({'ref': 'main'}).encode()
+          request = urllib.request.Request(
+              f'https://api.github.com/repos/{repo}/actions/workflows/pages.yml/dispatches',
+              data=payload, method='POST',
+              headers={**headers, 'Content-Type': 'application/json'})
+          try:
+              with urllib.request.urlopen(request, timeout=45) as response:
+                  print(f'dispatched pages.yml on main (HTTP {response.status})')
+          except Exception as exc:                                   # noqa: BLE001
+              print(f'::error::dispatch failed: {type(exc).__name__}: {exc}')
+              sys.exit(1)
+          PY

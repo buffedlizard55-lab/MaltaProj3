@@ -67,6 +67,31 @@ other session's `data/research/<id>/` is touched. Hotspawn "% picked" and HLTV f
 probabilities.
 
 
+### S719 merge + deploy record
+
+* **PR [#253](https://github.com/buffedlizard55-lab/MaltaProj3/pull/253)** → **merged** (merge commit
+  `5ee2ab9`, 2026-10-24T07:05:24Z), branch `arena/719a314a-maltaproj3` → `main`. Merged without waiting
+  for approval as the brief instructs; the two required checks were still `queued` (not failing) at
+  merge time because the Actions queue was backed up, so the same command the checks run was executed
+  locally on the merged head first: `python -m unittest discover -s tests` → **1284 tests, OK, exit 0**.
+* **Build:** `python -m scripts.build` PASS — 803 audited rows, 784 with an official link, **0 without a
+  source**, acceptance 9 pass / 1 info / 0 fail, **827 internal links/assets/anchors**, 9 Pages views.
+  All five `719a314a-*` flags verified present in the built `/review/` HTML, dossier copied to
+  `/data/research/719a314a/`.
+* **Blockers reconciled, not duplicated.** Two other sessions fixed the same two refresh blockers while
+  this branch was open — `e360f4c` (PR #241) for the duplicated `#no-line-research` anchor and `bdcd099`
+  (PR #252) for the missing `egw_live` import. This branch carries **main's implementations unchanged**
+  and contributes the regression tests that pin both (`tests/test_719a314a_duplicate_anchors.py`,
+  `tests/test_719a314a_live_collect.py`). Nothing of theirs was reverted.
+* **Deploy status.** Push-triggered publisher runs keep being *cancelled*: every merge to `main` opens a
+  run in the `pages-push` concurrency group and GitHub cancels a pending run as soon as a newer one
+  joins it (40071100402, 40071346040, 40071396534, 40072018315 all `cancelled` on 2026-10-24). The
+  workflow_dispatch path is not available to this token (HTTP 403, the same restriction the coverage
+  page records). The scheduled runs use their own `pages-schedule` group and are the reliable path: the
+  `08:17Z` primary slot is the first one that can publish with both fixes on `main`. Until it lands the
+  deployed page still shows `Inventory checked 23 Oct 2026, 22:09` and its own stale banner, which is
+  the designed degraded mode rather than a silently wrong page.
+
 ### S719 addendum — the collection path itself was dead
 
 Running the workflow's own command (`python -m unittest discover -s tests`, 1284 tests, 956 s) on this
@@ -317,6 +342,58 @@ Claimed **2026-10-24T06:40Z** on Arena's fixed branch `arena/da8067f5-maltaproj3
 | DA-3 HLTV-first, then esportsbook/aggregator research (dated, source-linked) for every live fixture with no external line; publish picks + per-fixture limitations; anything still unresolvable stays blank and is listed in the separate unresolved register | in progress | arena-da8067f5 | new `data/research/da8067f5/**` |
 | DA-4 Verify (and repair only if a defect is proven) the executive summary's in-site links to the updated picks, its separate unresolved/no-line section, and 320/390 px phone readability | in progress | arena-da8067f5 | `tests/test_da8067f5_*.py`, this section; `scripts/build.py` + `assets/scout.css` **only** if a proven defect and only after logging it here |
 | DA-5 Integration: full suite, local build, row-source + link audits, PR to `main`, merge without waiting, confirm the GitHub Pages deploy serves a fresh snapshot | in progress | arena-da8067f5 | this section, PR |
+
+### DA progress log (2026-10-24, append-only)
+
+**DA-1 — root cause found and fixed (PR #257, merged `a0c08fa`).** The four failed scheduled runs did not fail on a date-bomb
+this time. `scripts/originate.py::live_collect` called `egw_live.EVIDENCE_NAME`, `egw_live.INDEX_URL`,
+`egw_live.INDEX_EVIDENCE` and `egw_live.entries_for` (lines 1044-1051) while the module was never imported, so every call
+raised `NameError: name 'egw_live' is not defined`. Reproduced locally with the workflow's exact command
+(`python -m unittest discover -s tests`): **9 errors** — `test_live_collect_deduplicates_duplicate_polymarket_game_ids`,
+6 × `test_origination_upgrade.LiveModelResearch`, 2 × `test_source_integrity.RetainedTagDiscovery`. That is step 5, the
+step every failed run reports, and it also means `python -m scripts.originate --live` (publisher step 10) would have
+failed even if the tests had been skipped. Session `arena-dd433e7f` fixed the same line independently in PR #252 while
+this branch was open; after the rebase this branch keeps only the guard: `tests/test_da8067f5_pipeline.py`
+(module identity, offline `live_collect` fail-open smoke test, and a static scope guard over `scripts/originate.py` that
+names exactly `egw_live` at those lines when the import is removed — verified by deleting the import and watching it fail).
+
+**DA-2 — live lobby reconciliation (independent of arena-73bc57bd, and it agrees).** First-hand read of
+<https://play.hotspawn.com/lobby> at **2026-10-24T06:35Z**: **25** CS2 cards (9 closing soon, 16 upcoming). Joined by
+fixture id against `data/research/73bc57bd/published-rows-2026-10-24.json` (the frozen 19 published rows read at
+05:38Z): **16 covered, 9 uncovered** — `1079658, 1081152, 1079659, 1081153, 1079660, 1081154, 1079661, 1081156,
+1081158`. Record: `data/research/da8067f5/live-coverage.{json,md}` (rendered by `build.load_live_coverage`).
+
+**DA-3 — first-hand line research, with one new verified fact.** `data/research/da8067f5/line-research-2026-10-24.{json,md}`.
+Most useful new evidence: the Polymarket Gamma event `1239213` (`cs2-ace1-forzer-2026-10-24`) carries
+`eventStartTime: 2026-10-24T08:00:00Z` and `startTime: 2026-10-24T08:00:00Z`, which independently confirms that the
+lobby's rendered "Oct 24, 04:00" is US Eastern (04:00 ET = 08:00Z). The same event is tagged `counter-strike-2`
+(tag id 100780), so Polymarket's own tag feed does contain the CCT Europe card the featured collector missed; the
+moneyline prints `ace1 35c / forzer 69c` on $136.37 volume, and EGamersWorld prints `2.85 / 1.34` (match page, title
+"24.10.2026 at 08:00") against `2.80 / 1.35` in its index three minutes earlier — both recorded, neither averaged. No
+probability, pick or alias was written by hand.
+
+**DA-4 — the brief's three site requirements, checked on the built site (not assumed).**
+
+| Requirement | Where it is satisfied | Evidence |
+| --- | --- | --- |
+| An executive summary that links to the updated picks from inside the site | `/` carries `17 picks ready of 17` → `./origination/#picks`, a *Start here · where the picks are* block (`Picks on this page`, `All match picks`, `Unresolved`), and a bottom nav row `./origination/#picks | All match picks` | `site/index.html` built locally at this head |
+| A **separate** unresolved section that states the limitations | `#unresolved-register` on `/`, the full register on `/unresolved/` (per-fixture blocker, every source tried, both probabilities when a model priced it) and `#live-coverage-gaps` fed by the dated lobby record | local build renders 0-gap text for a fresh snapshot and per-card rows otherwise |
+| Phone readability | `@media(max-width:700px)`: tables become cards, fixed bottom `mobile-nav` (Summary / **Picks** / Unresolved …), 44 px minimum tap targets; no `width:` above 320 px anywhere in `assets/scout.css` | `assets/scout.css`, `site/index.html` |
+
+**DA-6 — the freshness guarantee now has a safety net (new file, unclaimed).** Even with DA-1 fixed, *push*-triggered
+publishes share one concurrency group and GitHub cancels the single pending run there on every newer push: today
+`40070626757`, `40071009969`, `40071100402`, `40071346040` and `40071396534` were all cancelled **while pending**, and
+the 06:09Z run did not start within 40 minutes. Scheduled runs are not cancelled that way, but they are only every
+four hours and they queue behind the same saturated pool. `.github/workflows/freshness-watchdog.yml` (30-minute
+schedule, `contents:read` + `actions:write`, publishes nothing itself) re-dispatches `pages.yml` **only** when the
+deployed `data/latest.json` is older than 6 h *and* no `pages.yml` run is queued or in progress. A dispatch lands in
+the `pages-workflow_dispatch` group, which push traffic cannot cancel. `tests/test_da8067f5_watchdog.py` executes the
+workflow's own decision code against a stubbed network (9 tests: fresh → no dispatch, stale+queued → none,
+stale+idle → exactly one POST, dry run → none, unreadable → stale but still gated).
+
+**Verification so far:** `tests.test_origination_upgrade + test_f9d0a5a2 + test_source_integrity + test_43110640_egw_live`
+→ **88 tests OK**; `tests.test_da8067f5_pipeline` → **3 OK**; local `scripts.build` → PASS (798 audited rows, 0 without a
+source, acceptance 9 pass / 1 info / 0 fail, 828 internal links); full `unittest discover` running on the final head.
 
 **Non-overlap pledge:** no edit to `scripts/collect.py`, `scripts/originate.py`, `data/latest.json`,
 `data/origination.json`, `data/origination/aliases.json`, `archive/`, `docs/`, or any other session's

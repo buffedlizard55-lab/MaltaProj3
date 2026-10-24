@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "session": "arena-da8067f5",
+  "observed_at": "2026-10-24T06:47:00Z",
+  "environment": "agent page-reader (first-hand), not the CI runner",
+  "scope": "the nine live Hotspawn CS2 cards that had no published pick at 2026-10-24T06:35Z",
+  "policy": "Prices are quoted verbatim at their source and timestamp. No probability, pick or alias is written by hand in this file. Hotspawn '% picked' and HLTV fan votes are never used.",
+  "per_fixture": [
+    {
+      "hotspawn_id": "1079658",
+      "teams": [
+        "Acend",
+        "FORZE Reload"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "verdict": "two-sided external price observed",
+      "sources": [
+        {
+          "provider": "Polymarket (Gamma API, original event)",
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-ace1-forzer-2026-10-24",
+          "event_id": "1239213",
+          "read_at": "2026-10-24T06:46:00Z",
+          "quoted": "eventStartTime 2026-10-24T08:00:00Z; Map 1 market bestBid 0.35 / bestAsk 0.37 (Acend side); event volume 136.367821; liquidity 3353.3988",
+          "note": "The event's own eventStartTime is 08:00Z, which is exactly the lobby's rendered 'Oct 24, 04:00' read as US Eastern (04:00 ET = 08:00Z)."
+        },
+        {
+          "provider": "Polymarket (public market page, moneyline)",
+          "url": "https://polymarket.com/esports/cs2/cct-europe/cs2-ace1-forzer-2026-10-24",
+          "read_at": "2026-10-24T06:47:00Z",
+          "quoted": "Moneyline $136 Vol: ace1 35c / forzer 69c",
+          "note": "page render of the same event"
+        },
+        {
+          "provider": "EGamersWorld match page",
+          "url": "https://egamersworld.com/counterstrike/match/_rW8GEyWK/acend-vs-forze-reload-FZO8bqMyg",
+          "read_at": "2026-10-24T06:47:00Z",
+          "quoted": "Acend 2.85 / FORZE Reload 1.34, Bo3, page title 'Acend VS FORZE Reload: 24.10.2026 at 08:00'",
+          "note": "Aggregated reference; the page title's 08:00 corroborates the 08:00Z start."
+        },
+        {
+          "provider": "EGamersWorld CS2 matches index",
+          "url": "https://egamersworld.com/counterstrike/matches",
+          "read_at": "2026-10-24T06:44:00Z",
+          "quoted": "Acend 2.80 / FORZE Reload 1.35",
+          "note": "index print 3 minutes earlier differs from the match page by 0.05/0.01; both recorded, neither averaged"
+        }
+      ],
+      "limitations": [
+        "Polymarket midpoints are not execution prices and fees are excluded.",
+        "The two EGamersWorld prints (index 2.80/1.35 at 06:44Z, match page 2.85/1.34 at 06:47Z) disagree slightly; neither is treated as more authoritative.",
+        "Only one first-party exchange and one aggregator were observed; this is not a multi-book consensus."
+      ]
+    },
+    {
+      "hotspawn_id": "1079193",
+      "teams": [
+        "FOKUS",
+        "ex-6666"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "verdict": "already published as a market pick in the 2026-10-23T20:10Z snapshot (76.5% / 23.5%); re-observed here only for corroboration",
+      "sources": [
+        {
+          "provider": "EGamersWorld CS2 matches index",
+          "url": "https://egamersworld.com/counterstrike/matches",
+          "read_at": "2026-10-24T06:44:00Z",
+          "quoted": "Fokus 1.23 / ex-6666 3.83",
+          "note": "direction agrees with the published market pick; this is a different source and is not used to overwrite it"
+        }
+      ],
+      "limitations": [
+        "Corroboration only. The published percentage is unchanged and stays tied to its own saved quote."
+      ]
+    }
+  ],
+  "unavailable": [
+    {
+      "hotspawn_id": "1081152",
+      "detail": "Only placeholder books observed today by arena-73bc57bd at 05:43Z (EGamersWorld 1.8/1.8). This session did not obtain a compliant two-sided price either."
+    },
+    {
+      "hotspawn_id": "1081153",
+      "detail": "Both Polymarket sides 93-95c on $0.00 volume (not a normalisable two-team book); EGamersWorld 1.8/1.8 placeholder."
+    },
+    {
+      "hotspawn_id": "1081154",
+      "detail": "Both Polymarket sides 93-94c on $0.00 volume; EGamersWorld 1.8/1.8 placeholder."
+    },
+    {
+      "hotspawn_id": "1081156",
+      "detail": "Name conflict: Hotspawn 'LFO 10' vs Polymarket 'Sokerorg' for the same slot; EGamersWorld renders the opponent blank. No alias is invented."
+    },
+    {
+      "hotspawn_id": "1081158",
+      "detail": "Polymarket mids sum to 165c (not a two-team book); EGamersWorld 1.8/1.8 placeholder."
+    }
+  ],
+  "source_urls": [
+    "https://play.hotspawn.com/lobby",
+    "https://polymarket.com/esports/cs2/cct-europe",
+    "https://gamma-api.polymarket.com/events?slug=cs2-ace1-forzer-2026-10-24",
+    "https://egamersworld.com/counterstrike/matches",
+    "https://egamersworld.com/counterstrike/match/_rW8GEyWK/acend-vs-forze-reload-FZO8bqMyg",
+    "https://www.hltv.org/matches"
+  ]
+}
