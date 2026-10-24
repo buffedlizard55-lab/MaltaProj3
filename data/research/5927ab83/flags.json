@@ -15,12 +15,24 @@
     "id": "5927ab83-duplicate-executive-summary-research-anchor",
     "severity": "notice",
     "title": "The executive summary rendered the dated research anchor twice",
-    "detail": "Both the compact unresolved register and summary() appended no_line_research_block, producing two id=no-line-research elements on the published homepage and making anchor navigation ambiguous. The compact register now leaves that block to summary(), while /unresolved/ retains its own full-register copy. No match, pick, probability or source changed. A pre-build unit regression and a 320/390 px every-row browser test now require unique IDs and one research block per page.",
+    "detail": "Both the compact unresolved register and summary() appended no_line_research_block, producing two id=no-line-research elements on the published homepage and making anchor navigation ambiguous. Final integration retains BE-3's single-owner implementation: the compact register renders the executive-summary copy, summary() does not append another, and /unresolved/ retains its own full-register copy. The link validator rejects duplicate IDs globally. No match, pick, probability or source changed. Pre-build regressions and a 320/390 px every-row browser test require unique IDs and one research block per page.",
     "match_ids": [],
     "source_urls": [
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
       "https://buffedlizard55-lab.github.io/MaltaProj3/#no-line-research",
       "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/#no-line-research"
+    ]
+  },
+  {
+    "id": "5927ab83-combined-overview-status-parser",
+    "severity": "notice",
+    "title": "Fixed: combined phone safety labels confused the independent row parser",
+    "detail": "The phone-first complete-picks overview keeps current and historical status markers in the DOM and hides the inapplicable one. The existing offline row parser consumed only one marker, so a historical row could be read as pick 'Snapshot: TEAM' instead of TEAM. The parser now consumes all status markers before capturing the unchanged team. This was found only on the combined tree; 68 targeted unit tests and 12 phone/browser tests pass afterward. No probability, pick, fixture, presentation label or source was changed by the parser repair.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/eea4c104_audit.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build_origination.py",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks"
     ]
   }
 ]
