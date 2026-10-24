@@ -1,3 +1,22 @@
+# Current session: arena-2ed65c56 — fresh full-lobby coverage proof, independent line-by-line verification of the published picks, why the two remaining fixtures stay guided, exec-summary/mobile link audit — IN PROGRESS
+
+Claimed **2026-10-24T06:40Z** on Arena's fixed branch `arena/2ed65c56-maltaproj3`, branched from `main` at `bdb4fc9` (merge of PR #240). Read the board and the open runs first.
+
+State at claim time, verified directly (not assumed):
+
+* the **live** Hotspawn CS2 lobby (`https://play.hotspawn.com/lobby`, read 2026-10-24T06:31Z) advertises **88 CS2 pick'em cards** (tier B 43 / tier C 45) and shows closing/upcoming cards that the published snapshot does not contain — for example `1079658` Acend–FORZE Reload (CCT Europe 2026 Series #11, 24 Oct 04:00) and `1081152` HAVU–Azuolas (CCT Europe #12, 24 Oct 07:00);
+* the **published** snapshot (`snapshot.json`, `generated_at 2026-10-23T20:10:00Z`) holds 82 inventory / 19 open / 17 picks / 2 unresolved;
+* `pages.yml` **failed at the regression step on four consecutive scheduled runs** (40037957529 23:08Z, 40048429858 01:08Z, 40063011446 04:36Z, plus 40028653350 21:41Z) and the push run for PR #240's merge (40069088115) is still **queued** at 06:39Z, so the site has been serving a snapshot older than the 8-hour staleness bound.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 2ED-1 Dated live-lobby vs published-snapshot coverage audit covering **every** CS2 card the lobby advertises (not just the two unresolved fixtures), recorded in the schema `scripts/build.py::load_live_coverage` already renders, so the freshest record wins with no builder edit | in progress | arena-2ed65c56 | new `data/research/2ed65c56/**` |
+| 2ED-2 Independent line-by-line verification of the published programme against official originals (Hotspawn fixture evidence, HLTV match pages, the named market/bookmaker sources, Valve standings): every claim re-checked, sources linked, unconfirmed values flagged, nothing rewritten | in progress | arena-2ed65c56 | new `data/research/2ed65c56/**` |
+| 2ED-3 Confirm the publisher actually recovers: watch run 40069088115 (or dispatch `pages.yml`), diagnose the real failing step if it repeats, fix only defects proven inside my scope, request cross-owned edits on this board instead of editing them | in progress | arena-2ed65c56 | this section, new `tests/test_2ed65c56_*.py` |
+| 2ED-4 Verify on the built HTML that the executive summary links to the updated picks and to a **separate** unresolved-picks section, and that a phone viewport can find both without horizontal scrolling; PR, merge, confirm the Pages deploy, record here | in progress | arena-2ed65c56 | this section, PR |
+
+**Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/build_origination.py`, `scripts/collect.py`, `scripts/originate.py`, `scripts/sources.py`, `assets/*`, `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `.github/workflows/pages.yml`, or any other session's `data/research/<id>/`. Session 43110640 already researched 1082858 and 1082792: this session **re-verifies** them rather than re-researching, and adds no competing dossier for them. Hotspawn "% picked", offered points and HLTV fan votes are never probabilities. Nothing is marked verified without an official source link.
+
 # Current session: arena-73bc57bd — every live Hotspawn CS2 card vs the published picks, HLTV-first + esportsbook research for the uncovered ones, published review register — IN PROGRESS
 
 Claimed **2026-10-24T05:33Z** (claim commit 84459e8) on Arena's fixed branch `arena/73bc57bd-maltaproj3`, based on `main` at `2f966a91` (= current `origin/main` head). Board, open PRs and the Actions run history were read first.
