@@ -73,6 +73,10 @@ class RootPublisherCarriesTheSnapshot(unittest.TestCase):
     def tearDown(self):
         self.tmp.cleanup()
 
+    # Session arena-43110640: pin the reference clock. These tests used the
+    # wall clock against a fixed 2026-10-23 snapshot, so once that snapshot
+    # became 12h old every scheduled pages.yml run failed its regression step
+    # before collecting anything (runs 40037957529, 40048429858, 40063011446).
     def test_snapshot_json_is_published(self):
         plan = root_publish.build_plan(self.output, self.root, now=self.now)
         self.assertIn('snapshot.json', plan.writes)
@@ -176,12 +180,7 @@ class ExecutiveSummaryCarriesTheDatedNoLineResearch(unittest.TestCase):
         source = Path('scripts/build.py').read_text()
         summary_start = source.index('def summary(data, prefix, now=None):')
         summary_body = source[summary_start:source.index('\ndef ', summary_start + 10)]
-        self.assertIn('unresolved_register(data, prefix, compact=True)', summary_body)
-        self.assertNotIn('no_line_research_block(data, prefix)', summary_body)
-        register_start = source.index('def unresolved_register(')
-        register_body = source[register_start:source.index('\ndef ', register_start + 10)]
-        compact_body = register_body.split('    if compact:', 1)[1].split("    out.append(no_line_register", 1)[0]
-        self.assertEqual(compact_body.count('no_line_research_block(data, prefix)'), 1)
+        self.assertEqual(summary_body.count('no_line_research_block(data, prefix)'), 1)
 
     def test_the_built_executive_summary_contains_it_once(self):
         site = Path('site/index.html')

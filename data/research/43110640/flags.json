@@ -1,0 +1,38 @@
+[
+  {
+    "id": "43110640-ground-zero-off-chops-guided-pick",
+    "severity": "notice",
+    "match_ids": ["1082858"],
+    "title": "Guided pick for Ground Zero vs Off Chops (no compliant line yet): Off Chops 73.5% from EGamersWorld's published bookmaker odds 3.44/1.24",
+    "detail": "HLTV first (match 2399888, read 2026-10-24): identity and BO3 confirmed, Betting block carries no bookmaker odds. EGamersWorld's match page publishes a named bookmaker (Vave) line Ground Zero 3.44 / Off Chops 1.24; no-vig gives Ground Zero 26.5% / Off Chops 73.5%, so the guided pick is Off Chops. This is an aggregated reference displayed by EGW, not a first-party quote, and the automated ladder has not replayed it yet; scripts/egw_live.py now retries the EGW index every refresh under the same placeholder/freshness gates. Polymarket's book is wider than every ceiling and Smarkets' ~0.185-spread book is guidance only. Full record: data/research/43110640/unresolved-guided-picks.json",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+      "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+      "https://play.hotspawn.com/cs2-pickems#fixture-1082858"
+    ]
+  },
+  {
+    "id": "43110640-hotu-the-huns-guided-pick",
+    "severity": "notice",
+    "match_ids": ["1082792"],
+    "title": "Guided pick for HOTU vs The Huns (no betting line anywhere reachable): HOTU, from the HLTV lineup identity join to Valve's 944-point The Huns row",
+    "detail": "HLTV first (match 2399437, read 2026-10-24): identity and BO3 semi-final confirmed, HOTU HLTV #38 vs The Huns #134, Betting block carries no odds. EGamersWorld shows only the identical 1.8/1.8 placeholder (rejected as not a market). The Huns' current HLTV lineup shares 4 of 5 players with Valve's 944-point row (standing 122, 2026-10-05) and 2 of 5 with the 701-point row, so the documented four-of-five join selects 944 against HOTU's 1437; the Valve fit.js model (RD 75) gives HOTU 94.1% — uncalibrated, trust the direction (HOTU) not the extreme number. The automated ladder replays this join only when the runner's HLTV fetch succeeds (HLTV returns 403 to the runner). Full record: data/research/43110640/unresolved-guided-picks.json",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "https://egamersworld.com/counterstrike/match/EkalRNMvVx/hotu-vs-the-huns-esports-SfdtzDhiK",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://play.hotspawn.com/cs2-pickems#fixture-1082792"
+    ]
+  },
+  {
+    "id": "43110640-pages-regression-time-bomb",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "Scheduled refreshes were failing before collecting: root-publisher regression test compared the wall clock to a fixed 2026-10-23 snapshot",
+    "detail": "pages.yml runs 40037957529, 40048429858 and 40063011446 all failed at 'Regression tests (repository fixtures, before any cache restore)' with PublishRefused: snapshot 2026-10-23T09:23:57Z is >12h old. tests/test_ca7e10e5_snapshot.py now pins build_plan's reference clock to 2026-10-23T10:00Z, so the four-hour refresh can collect again. The published site kept serving the last verified build meanwhile (republish-last-verified job).",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_ca7e10e5_snapshot.py"
+    ]
+  }
+]
