@@ -1,0 +1,30 @@
+[
+  {
+    "id": "ee124e8b-duplicate-no-line-research-id-on-summary",
+    "severity": "notice",
+    "title": "Executive summary renders two elements with id=\"no-line-research\"; a foreign-owned regression test already fails on main because of it",
+    "detail": "A clean build (verified at base commit 2f966a9 and again on this branch, 2026-10-24) writes site/index.html with two <div class=\"line-sources\" id=\"no-line-research\"> elements: scripts/build.py summary() appends the compact unresolved register (which itself calls no_line_research_block at build.py:1852) and then calls no_line_research_block again at build.py:1923. With the current retained sweep (8 per-fixture records) both calls render, so the anchor is duplicated, which is invalid HTML and makes tests/test_ca7e10e5_snapshot.py ExecutiveSummaryCarriesTheDatedNoLineResearch.test_the_built_executive_summary_contains_it_once assert 2 != 1. The same base-commit run shows the file's full failure set (1 failure + 3 date-bomb ERRORs) without any change from this session, so this is a pre-existing main-branch conflict between the ca7e10e5 pin and the later compact-register change, not a regression from the rendered-lobby fallback. This session owns neither the test nor the no-line block and did not edit either, per COORDINATION.md ownership rules; the owning/integration session should decide whether the summary should drop its standalone call (scripts/eea4c104_audit.py still requires at least one #no-line-research anchor on index.html) or the test should be updated. Flagged for review; it does not block the fallback merge.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_ca7e10e5_snapshot.py",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/"
+    ]
+  },
+  {
+    "id": "ee124e8b-smarkets-groundzero-offchops-book-too-wide",
+    "severity": "notice",
+    "title": "Ground Zero vs Off Chops (1082858) has a real Smarkets order book but it fails the 0.15 spread gate, so it correctly stays without a pick",
+    "detail": "Observed 2026-10-24T06:15Z: Smarkets event 45396333, market 172960355 (WINNER_2_WAY, open) quotes Ground Zero bid 15.62% / offer 31.75% (16.1pp spread) and Off Chops bid 68.03% / offer 84.75% (16.7pp spread). Both exceed MAX_ACCEPTED_SPREAD = 0.15 in scripts/originate.py:60, so the ladder rejects the book and the fixture stays on the unresolved list; the prior session 80c3b4e0 measured 18.5pp on 2026-10-23. No midpoint is used. HOTU vs The Huns (1082792) has no Smarkets event at all (no Moscow Cyber Games listing in the 100-event upcoming catalogue). Full evidence and the source-reachability matrix are in data/research/ee124e8b/. The automated rung will price 1082858 without code changes if the book tightens before its 2026-10-26T03:00Z lock.",
+    "match_ids": [
+      "1082858",
+      "1082792"
+    ],
+    "source_urls": [
+      "https://api.smarkets.com/v3/events/45396333/markets/",
+      "https://api.smarkets.com/v3/markets/172960355/quotes/",
+      "https://www.hltv.org/events/9414/dfrag-invitational-2026",
+      "https://www.hltv.org/events/9344/gluck-moscow-cyber-games-2026"
+    ]
+  }
+]

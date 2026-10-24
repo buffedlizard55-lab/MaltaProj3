@@ -1,0 +1,62 @@
+{
+  "observed_at": "2026-10-24T06:15:00Z",
+  "session": "arena-ee124e8b",
+  "purpose": "Evidence for Hotspawn fixture 1082858 (Ground Zero vs Off Chops, DFRAG Invitational 2026, 2026-10-26T03:00:00Z). Exchange-quoted order book only; not an originated probability and never a probability input.",
+  "event_list_url": "https://api.smarkets.com/v3/events/?type=csgo_match&states=upcoming&limit=100&sort=start_datetime,id",
+  "event": {
+    "id": "45396333",
+    "name": "Ground Zero vs Off Chops",
+    "full_slug": "/sport/esports/cs-go/dfrag-invitational/group-a/2026/10/26/03-00/ground-zero-vs-off-chops",
+    "start_datetime": "2026-10-26T03:00:00Z",
+    "state": "upcoming",
+    "bet_allowed": true,
+    "bettable": true,
+    "inplay_enabled": false,
+    "parent_id": "44336490"
+  },
+  "markets_url": "https://api.smarkets.com/v3/events/45396333/markets/",
+  "market": {
+    "id": "172960355",
+    "name": "Winner",
+    "market_type": "WINNER_2_WAY",
+    "state": "open",
+    "inplay_enabled": false
+  },
+  "contracts_url": "https://api.smarkets.com/v3/markets/172960355/contracts/",
+  "quotes_url": "https://api.smarkets.com/v3/markets/172960355/quotes/",
+  "contracts": [
+    {"id": "477141069", "name": "Ground Zero", "contract_type": "HOME", "state_or_outcome": "open"},
+    {"id": "477141070", "name": "Off Chops", "contract_type": "AWAY", "state_or_outcome": "open"}
+  ],
+  "raw_quotes": {
+    "477141069": {
+      "bids": [{"price": 1562, "quantity": 4321399}],
+      "offers": [
+        {"price": 3175, "quantity": 989012},
+        {"price": 3279, "quantity": 1004314}
+      ]
+    },
+    "477141070": {
+      "bids": [
+        {"price": 6803, "quantity": 992212},
+        {"price": 6711, "quantity": 1005814}
+      ],
+      "offers": [{"price": 8475, "quantity": 4426257}]
+    }
+  },
+  "price_unit": "Smarkets prices are basis points; divide by 10000 for the quoted probability.",
+  "decoded_facts": {
+    "ground_zero_best_bid": 0.1562,
+    "ground_zero_best_offer": 0.3175,
+    "ground_zero_spread": 0.1613,
+    "off_chops_best_bid": 0.6803,
+    "off_chops_best_offer": 0.8475,
+    "off_chops_spread": 0.1672,
+    "sum_of_best_offers": 1.165,
+    "pipeline_spread_ceiling": 0.15,
+    "ceiling_defined_at": "scripts/originate.py:60 MAX_ACCEPTED_SPREAD = 0.15 (books wider than 0.15 are rejected and never become a pick)",
+    "passes_ceiling": false
+  },
+  "interpretation": "A real two-sided prematch book exists with substantial displayed size, but each side's bid/ask spread (16.1% and 16.7%) is wider than the 0.15 ceiling in scripts/originate.py (MAX_ACCEPTED_SPREAD), so the collector correctly rejects it as a qualifying price. The prior session 80c3b4e0 measured the same market at 18.5pp wide on 2026-10-23 (bid 0.1429/0.6711, ask 0.3279/0.8547); the book tightened slightly but still fails the gate. No midpoint or any other figure from this file may be turned into a pick by hand.",
+  "coverage_note": "The same upcoming-events listing (100 csgo_match events, next_page null, covering through 2026-10-26) contains no GLuck Moscow Cyber Games 2026 event and therefore no HOTU vs The Huns (Hotspawn 1082792) market."
+}
