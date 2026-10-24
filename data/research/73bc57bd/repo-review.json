@@ -279,8 +279,8 @@
       "id": "73bc57bd-snapshot-and-page-disagree-on-unresolved",
       "area": "Consistency between published artifacts",
       "status": "needs review",
-      "finding": "One build tells two stories. snapshot.json reports counts.unresolved = 2 and carries no analysis for Ground Zero vs Off Chops (1082858) and HOTU vs The Huns (1082792), while the executive summary says \"0 explicitly unresolved\" and both pages show those fixtures with a directional pick (55.1% and 94.1%). A reader of the JSON sees two missing picks; a reader of the page sees none.",
-      "handling": "The two layers are intentional - the snapshot is the priced layer, the page also carries the origination model - but the mismatch is not disclosed anywhere on the site. Flagged for the owner of the snapshot writer so the JSON either carries the resolved picks or states that its counts describe the priced layer only.",
+      "finding": "One build tells three stories about the same two fixtures. snapshot.json reports counts.unresolved = 2 and carries no analysis for Ground Zero vs Off Chops (1082858) and HOTU vs The Huns (1082792); /origination/ and the executive summary show both with a directional pick (55.1% and 94.1%); /review/ still lists both under \"Unresolved\". The summary line settles it in favour of the page and prints \"0 explicitly unresolved\". A reader of the JSON, a reader of the summary and a reader of the register each get a different answer.",
+      "handling": "The two layers are intentional - the snapshot is the priced layer, the page also carries the origination model - but the disagreement is never stated in one place. Flagged for the owner of the snapshot writer and the summary line so the JSON either carries the resolved picks or labels its counts as the priced layer only, and the summary line names the two fixtures the register still holds open.",
       "evidence": [
         {
           "url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
@@ -289,6 +289,10 @@
         {
           "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082858",
           "detail": "same build shows Off Chops at 55.1%"
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/review/",
+          "detail": "the register lists \"Unresolved: Ground Zero vs Off Chops\" and \"Unresolved: HOTU vs The Huns\""
         }
       ]
     },
