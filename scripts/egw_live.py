@@ -80,6 +80,8 @@ def parse_index(html: str) -> list[dict]:
     out, seen = [], set()
     for anchor in soup.select('a[href*="/counterstrike/match/"]'):
         href = anchor.get('href') or ''
+        if href.startswith('/counterstrike/match/'):
+            href = 'https://egamersworld.com' + href
         if not href.startswith('https://egamersworld.com/counterstrike/match/'):
             continue
         slug = href.rstrip('/').rsplit('/', 1)[-1]

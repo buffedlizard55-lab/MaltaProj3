@@ -24,6 +24,7 @@ INDEX_HTML = """
   HOTU 1.8 The Huns Esports 1.8</a>
 <a href="https://egamersworld.com/counterstrike/match/xx/aurora-vs-the-mongolz-yy">
   Aurora 1.3 The MongolZ 3.27</a>
+<a href="/counterstrike/match/zz/ground-zero-vs-off-chops-ww">Ground Zero 3.44 Off Chops 1.24</a>
 <a href="https://egamersworld.com/counterstrike/teams">not a match</a>
 </body></html>
 """
@@ -39,7 +40,8 @@ MATCH_HOTU = {'id': '1082792', 'competition': 'Moscow Cyber Games 2026',
 class ParseIndex(unittest.TestCase):
     def test_only_match_anchors_with_two_odds(self):
         rows = egw_live.parse_index(INDEX_HTML)
-        self.assertEqual(len(rows), 3)
+        self.assertEqual(len(rows), 4)  # includes the relative-href listing
+        self.assertTrue(all(r['url'].startswith('https://egamersworld.com/') for r in rows))
         self.assertEqual(rows[0]['odds'], [3.44, 1.24])
 
 
