@@ -1,0 +1,68 @@
+# Session arena-dd433e7f — Read-only 2026-10-24 runner collection + HLTV-first
+# line-source research sweep.
+#
+# Dispatch/branch-push only. Never scheduled, never deploys, never commits
+# data/latest.json or data/origination.json (pages.yml remains the sole writer
+# of published snapshots). Commits only dated research artifacts under
+# data/research/dd433e7f/ back to arena/dd433e7f-maltaproj3.
+name: dd433e7f line-source research (dispatch only)
+on:
+  workflow_dispatch:
+  push:
+    branches: ['arena/dd433e7f-maltaproj3']
+    paths:
+      - '.github/workflows/dd433e7f-probe.yml'
+      - 'scripts/dd433e7f_probe.py'
+      - 'data/origination/aliases.json'
+
+permissions:
+  contents: write
+concurrency:
+  group: dd433e7f-probe
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    if: github.ref == 'refs/heads/arena/dd433e7f-maltaproj3'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: arena/dd433e7f-maltaproj3
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Refresh canonical inventory and featured lines (scratch)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect
+      - name: Refetch first-party origination sources and resolve (scratch)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live
+      - name: Run 2026-10-24 HLTV-first research and coverage sweep
+        if: always()
+        run: python -m scripts.dd433e7f_probe --out data/research/dd433e7f
+      - name: Commit only dated research records to arena/dd433e7f-maltaproj3
+        if: always()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          test -f data/research/dd433e7f/line-source-research.json
+          test -f data/research/dd433e7f/live-coverage.json
+          test -f data/research/dd433e7f/live-manifest.json
+          git add data/research/dd433e7f
+          git diff --cached --quiet && echo 'No research change.' && exit 0
+          git commit -m 'research(dd433e7f): 2026-10-24 runner live manifest, coverage and HLTV-first line sweep'
+          git checkout -- .
+          git clean -fd
+          for attempt in 1 2 3 4; do
+            git fetch origin arena/dd433e7f-maltaproj3 || true
+            git rebase origin/arena/dd433e7f-maltaproj3 || { git rebase --abort || true; sleep 5; continue; }
+            git push origin HEAD:arena/dd433e7f-maltaproj3 && exit 0
+            sleep 5
+          done
+          exit 1

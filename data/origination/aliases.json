@@ -2,8 +2,8 @@
   "schema_version": 1,
   "title": "Verified team-identity registry for pick origination",
   "policy": "An alias may join two provider names only when an official or first-party source link demonstrates they are the same team in the same competition, and every alias declares the exact competitions it applies to ('applies_to'). Sponsor/abbreviation spellings are not silently inferred and an alias never crosses into a competition it does not declare. Every alias below carries its evidence links and is displayed on the published page. Any name without a registry entry remains unmatched; missing values stay blank and are flagged.",
-  "updated_at": "2026-10-23T06:26:00Z",
-  "updated_by": "arena-2e8b83a7 research session (every alias carries its own official source links and an explicit competition scope); extended by arena-c07e1b40; extended by arena-35440d12 (2026-10-16); extended by arena-fe48a0df (2026-10-18); extended by arena-1fb85c47 (2026-10-19); extended by arena-c03ef201 (2026-10-19); extended by arena-f9d0a5a2 (2026-10-21); extended by arena-a34bc06b (2026-10-22); extended by arena-f2b91672 (2026-10-22); extended by arena-52aee465 (2026-10-23): competition-scoped first-party joins for CCT Europe 2026 Series #12 (Sokerorg -> LFO 10 on Bovada 32630179), CCT South America 2026 Series #7 (Quintessencia -> QUINTESSÊNCIA on Bovada 32606587 & Pinnacle 1638942963; RED Academy -> RED Canids Academy on Bovada 32606588), NODWIN Clutch Series #13 (FokuS Esports -> FOKUS on Bovada 32627973; UNiTY esports -> UNiTY & BakS eSports -> BakS scope extensions on Polymarket 1238703 & 1238705), Tesla Cup 2026 (FaZe Clan -> FaZe scope extension on Hotspawn 1082898 / HLTV 2399867), and PGL Masters Bucharest 2026 (Team AURORA, FUT Esports, Team Spirit, BB Team, Team Liquid, 9Z Globant, Nemiga Gaming, G2 Esports, FURIA Esports across Bovada & Pinnacle).; extended by arena-92a3e9fb (2026-10-23): competition-scoped first-party joins for NODWIN Clutch Series #13 (FOKUS CS -> FOKUS on bo3.gg/Thunderpick 2872398, INFINITE Gaming -> INFINITE, Team Brute -> BRUTE, Zero Tenacity -> ex-Zero Tenacity), CCT Europe 2026 Series #11 (ex-ZeroTenacity -> ex-Zero Tenacity, RUSTEC -> ex-RUSTEC), and Tesla Cup 2026 (HOTU eSports -> HOTU, 5star gaming -> 5star).",
+  "updated_at": "2026-10-24T05:50:00Z",
+  "updated_by": "arena-2e8b83a7 research session (every alias carries its own official source links and an explicit competition scope); extended by arena-c07e1b40; extended by arena-35440d12 (2026-10-16); extended by arena-fe48a0df (2026-10-18); extended by arena-1fb85c47 (2026-10-19); extended by arena-c03ef201 (2026-10-19); extended by arena-f9d0a5a2 (2026-10-21); extended by arena-a34bc06b (2026-10-22); extended by arena-f2b91672 (2026-10-22); extended by arena-52aee465 (2026-10-23): competition-scoped first-party joins for CCT Europe 2026 Series #12 (Sokerorg -> LFO 10 on Bovada 32630179), CCT South America 2026 Series #7 (Quintessencia -> QUINTESSÊNCIA on Bovada 32606587 & Pinnacle 1638942963; RED Academy -> RED Canids Academy on Bovada 32606588), NODWIN Clutch Series #13 (FokuS Esports -> FOKUS on Bovada 32627973; UNiTY esports -> UNiTY & BakS eSports -> BakS scope extensions on Polymarket 1238703 & 1238705), Tesla Cup 2026 (FaZe Clan -> FaZe scope extension on Hotspawn 1082898 / HLTV 2399867), and PGL Masters Bucharest 2026 (Team AURORA, FUT Esports, Team Spirit, BB Team, Team Liquid, 9Z Globant, Nemiga Gaming, G2 Esports, FURIA Esports across Bovada & Pinnacle).; extended by arena-92a3e9fb (2026-10-23): competition-scoped first-party joins for NODWIN Clutch Series #13 (FOKUS CS -> FOKUS on bo3.gg/Thunderpick 2872398, INFINITE Gaming -> INFINITE, Team Brute -> BRUTE, Zero Tenacity -> ex-Zero Tenacity), CCT Europe 2026 Series #11 (ex-ZeroTenacity -> ex-Zero Tenacity, RUSTEC -> ex-RUSTEC), and Tesla Cup 2026 (HOTU eSports -> HOTU, 5star gaming -> 5star).; extended by arena-dd433e7f (2026-10-24): competition-scoped first-party joins for Moscow Cyber Games 2026 (The Huns Esports -> The Huns across HLTV 2399437, Polymarket cs2-hotu-the9-2026-10-31, and Hotspawn 1082792) and CCT Europe 2026 Series #12 (HAVU Gaming -> HAVU scope extension across HLTV 2399502 and Hotspawn 1081152).",
   "aliases": [
     {
       "alias": "WBT",
@@ -70,9 +70,13 @@
       "canonical": "HAVU",
       "kind": "display-name expansion",
       "applies_to": [
-        "Elisa BreakOut Series #2"
+        "Elisa BreakOut Series #2",
+        "CCT Europe 2026 Series #12"
       ],
-      "competition_note": "Thunderpick display name vs Hotspawn/HLTV/Polymarket 'HAVU'",
+      "competition_note": "Thunderpick/bo3.gg display name vs Hotspawn/HLTV/Polymarket 'HAVU'; extended by arena-dd433e7f (2026-10-24) to CCT Europe 2026 Series #12 (HLTV 2399502, Hotspawn 1081152).",
+      "must_not_match": [
+        "HAVU Academy"
+      ],
       "evidence": [
         {
           "url": "https://www.hltv.org/team/7865/havu",
@@ -83,8 +87,19 @@
           "url": "https://www.hltv.org/events/9332/elisa-breakout-series-2",
           "source": "HLTV.org event page",
           "detail": "Thunderpick's 'HAVU Gaming vs ROUNDS' at 2026-10-16T10:00Z triangulates to HLTV 'HAVU vs ROUNDS' (match 2399425) and Hotspawn 'HAVU vs RoundsGG' (fixture 1080286) at the identical start time and opponent. Polymarket lists the same fixture as 'HAVU vs RoundsGG'."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399502/havu-vs-azuolas-cct-2026-europe-series-12",
+          "source": "HLTV.org match page (2399502)",
+          "detail": "HLTV match 2399502 schedules BO3 'HAVU vs Azuolas' (HLTV team 7865: ottob, 8Juho8, Alxc, p3kko, uli) at 2026-10-24T11:00:00Z in CCT 2026 Europe Series 12."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/havu-vs-azuolas-cct-europe-2026-series-12-1081152",
+          "source": "Hotspawn match page (fixture 1081152)",
+          "detail": "Hotspawn schedules 'HAVU vs Azuolas' (id 1081152, scheduled_start_time 1792839600000 = 2026-10-24T11:00:00Z) in CCT Europe 2026 Series #12."
         }
-      ]
+      ],
+      "review_note": "Extended by session arena-dd433e7f (2026-10-24): exact 2026-10-24T11:00:00Z start and shared opponent Azuolas across HLTV 2399502 and Hotspawn 1081152 in CCT Europe 2026 Series #12."
     },
     {
       "alias": "EA Copenhagen",
@@ -2141,6 +2156,38 @@
         }
       ],
       "review_note": "Added by session arena-92a3e9fb (2026-10-23): exact 2026-10-27T03:00:00Z start and shared opponent Rooster across HLTV 2399891, bo3.gg 132606 and Hotspawn 1082861."
+    },
+    {
+      "alias": "The Huns Esports",
+      "canonical": "The Huns",
+      "kind": "display-name expansion",
+      "applies_to": [
+        "Moscow Cyber Games 2026",
+        "GLuck Moscow Cyber Games 2026"
+      ],
+      "competition_note": "Polymarket market cs2-hotu-the9-2026-10-31 lists 'HOTU vs The Huns Esports' at 2026-10-31T09:00:00Z in Moscow Cyber Games Playoffs, matching HLTV 2399437 ('HOTU vs The Huns') and Hotspawn 1082792 ('HOTU vs The Huns') in Moscow Cyber Games 2026.",
+      "must_not_match": [
+        "The Huns Academy",
+        "The Huns Esports Academy"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+          "source": "HLTV.org match page (2399437)",
+          "detail": "HLTV match 2399437 schedules BO3 semi-final 'HOTU vs The Huns' (HLTV team 12510: Bart4k, controlez, Cozen, DarkMeister, bexyz) at 2026-10-31T09:00:00Z in GLuck Moscow Cyber Games 2026."
+        },
+        {
+          "url": "https://polymarket.com/esports/cs2/moscow-cyber-games/cs2-hotu-the9-2026-10-31",
+          "source": "Polymarket CS2 market page (cs2-hotu-the9-2026-10-31)",
+          "detail": "Polymarket schedules BO3 'Counter-Strike: HOTU vs The Huns Esports (BO3) - Moscow Cyber Games Playoffs' on Oct 31 at 05:00 AM ET (2026-10-31T09:00:00Z)."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+          "source": "Hotspawn match page (fixture 1082792)",
+          "detail": "Hotspawn schedules 'HOTU vs The Huns' (id 1082792, scheduled_start_time 1793437200000 = 2026-10-31T09:00:00Z) in Moscow Cyber Games 2026."
+        }
+      ],
+      "review_note": "Added by session arena-dd433e7f (2026-10-24): exact 2026-10-31T09:00:00Z start and shared opponent HOTU across HLTV 2399437, Polymarket cs2-hotu-the9-2026-10-31, and Hotspawn 1082792."
     }
   ]
 }
