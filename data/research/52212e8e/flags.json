@@ -56,12 +56,44 @@
     "id": "52212e8e-main-live-collector-missing-egw-import",
     "severity": "warning",
     "match_ids": [],
-    "title": "Merge blocker reproduced: main-line live collector uses egw_live without importing it",
-    "detail": "On the current main/review tree, the f9d0a5a2, origination-upgrade and source-integrity suites ran 81 tests and produced 9 NameError errors at live_collect. PR #246 head a52407d9 adds the missing import and passed the identical 81/81 tests; PR #237 also retains the import and original-response-safe EGW ladder wiring. Final integration must include a verified fix. No active-session production file was edited by this reviewing session.",
+    "title": "Historical import blocker reproduced and resolved on main; EGW original-response safety remains separate",
+    "detail": "At 06:49Z the then-current tree produced 9 NameError errors in 81 tests because live_collect lacked the egw_live import. PR #246 passed the fixed 81/81 suites, and main a0c08fa6 subsequently integrated the import plus regression guards through PRs #252/#257. This specific crash is resolved. A separate adversarial review now tracks main's derived-only EGW replay weakness; final integration must preserve PR #237's original-response boundary.",
     "source_urls": [
       "https://github.com/buffedlizard55-lab/MaltaProj3/commit/a52407d9fe08c65c67690f11161fdb89bf74cbe4",
       "https://github.com/buffedlizard55-lab/MaltaProj3/pull/246",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237#issuecomment-6381127387"
+    ]
+  },
+  {
+    "id": "52212e8e-main-derived-only-egw-can-produce-a-quote",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "Final EGW gate: current main can quote synthetic derived-only JSON without original source replay",
+    "detail": "On main a0c08fa6, a temporary synthetic valid-schema live-egw-reference.json was accepted and reference_odds.quote produced a quote even though no original EGW index or successful request manifest existed. PR #237 head 5600a3a2 rejected the same input with 0 rows and no quote. The import crash is fixed, but final integration must preserve the original-response loader and adversarial suite before accepting automated EGW reference picks. No synthetic value was written to repository data.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237#issuecomment-6381127387",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/a0c08fa6d013705e1a84498cd85b295f86463306/scripts/egw_live.py",
       "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237"
+    ]
+  },
+  {
+    "id": "52212e8e-final-inventory-is-newer-than-25-row-certificate",
+    "severity": "warning",
+    "match_ids": [
+      "1083120",
+      "1083121",
+      "1082695",
+      "1083122",
+      "1083140",
+      "1083123"
+    ],
+    "title": "Six newer Hotspawn fixtures require final deployment verification beyond the 25-row replay certificate",
+    "detail": "The 2026-10-24T06:15:55Z runner manifest reports 31 active fixtures, adding six exact Hotspawn IDs to the earlier 05:57 capture and removing none. It reports 31/31 picks and 13 research-only rows with zero eligible new leads. The probe retained derived reports but no origination/evidence artifact, so these values are not independently replayed here. Final acceptance must use the actual Pages root-synced evidence tree and then-current Hotspawn inventory.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40068161258",
+      "https://play.hotspawn.com/cs2-pickems",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/52212e8e/latest-31-inventory-review.md"
     ]
   }
 ]

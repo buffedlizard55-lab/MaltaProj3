@@ -76,7 +76,14 @@
     "unclaimed_residual_rows": 0,
     "report_json": "data/research/52212e8e/research-coverage-review.json",
     "report_markdown": "data/research/52212e8e/research-coverage-review.md",
-    "historical_egw_limitation": "The older Ground Zero–Off Chops manual EGW dossier does not preserve a timezone-qualified provider start or original response body; its percentage is not a current replayed probability input."
+    "historical_egw_limitation": "The older Ground Zero–Off Chops manual EGW dossier does not preserve a timezone-qualified provider start or original response body; its percentage is not a current replayed probability input.",
+    "latest_06_15_observation": {
+      "research_model_rows": 13,
+      "rows_with_dated_hltv_first_esportsbook_research": 13,
+      "new_eligible_money_line_leads": 0,
+      "unclaimed_residual_rows": 0,
+      "report": "data/research/52212e8e/latest-31-inventory-review.json"
+    }
   },
   "integration_findings": [
     {
@@ -123,17 +130,18 @@
     },
     {
       "id": "S522-IMPORT-001",
-      "severity": "blocking until integrated",
+      "severity": "resolved on main a0c08fa6",
       "pr": 246,
       "head": "a52407d9fe08c65c67690f11161fdb89bf74cbe4",
       "finding": "The current main/review tree calls egw_live in live_collect without importing the module. PR #246's latest head adds the missing import; PR #237 also retains the import and the original-response-safe load_live ladder wiring.",
       "verification": "On the current review tree, tests.test_f9d0a5a2 + tests.test_origination_upgrade + tests.test_source_integrity ran 81 tests and failed with 9 NameError errors. The identical three suites on PR #246 head a52407d9 passed 81/81.",
-      "handling": "Do not merge the current tree without a verified head containing this fix. No active-session production file was edited by this reviewer.",
+      "handling": "Resolved on main; continue to require the fix in the final tree. No active-session production file was edited by this reviewer.",
       "source_urls": [
         "https://github.com/buffedlizard55-lab/MaltaProj3/commit/a52407d9fe08c65c67690f11161fdb89bf74cbe4",
         "https://github.com/buffedlizard55-lab/MaltaProj3/pull/246",
         "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237"
-      ]
+      ],
+      "resolution": "Main advanced through PRs #252 and #257 with the import and regression guards. The specific NameError is no longer a current blocker; original-response EGW safety is tracked separately."
     },
     {
       "id": "S522-MOBILE-001",
@@ -145,7 +153,72 @@
       "source_urls": [
         "https://github.com/buffedlizard55-lab/MaltaProj3/pull/245"
       ]
+    },
+    {
+      "id": "S522-EGW-004",
+      "severity": "blocking for final EGW-reference acceptance",
+      "pr": 237,
+      "head": "5600a3a2e31d93fe3f86b81cdf31157a2b313fee",
+      "main_head": "a0c08fa6d013705e1a84498cd85b295f86463306",
+      "finding": "Current main fixes the import crash but still trusts derived-only live EGW JSON; PR #237 retains the original-response replay boundary.",
+      "verification": "Adversarial temporary evidence with one synthetic valid-schema entry and neither original EGW index nor request manifest: main accepted 1 row and reference_odds.quote produced a quote; PR #237 head 5600a3a2 accepted 0 rows and produced no quote.",
+      "handling": "Reported to the active owner at https://github.com/buffedlizard55-lab/MaltaProj3/pull/237#issuecomment-6381127387. Final integration must preserve the safe loader and adversarial suite before accepting automated EGW reference picks.",
+      "source_urls": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237#issuecomment-6381127387",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/a0c08fa6d013705e1a84498cd85b295f86463306/scripts/egw_live.py",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237"
+      ]
+    },
+    {
+      "id": "S522-INVENTORY-001",
+      "severity": "deployment acceptance gate",
+      "pr": 252,
+      "head": "a0c08fa6d013705e1a84498cd85b295f86463306",
+      "finding": "A newer runner observation contains 31 active Hotspawn fixtures, adding six IDs to the independently replayed 25-row capture. All 31 manifest rows have picks and all 13 model-only rows have dated research with zero eligible new leads.",
+      "verification": "Six additions computed by exact Hotspawn ID: 1083120, 1083121, 1082695, 1083122, 1083140, 1083123; no earlier ID removed. The 31-row scratch origination/evidence was not retained as an artifact, so this is a manifest review, not a 31/31 independent replay.",
+      "handling": "The 25-row certificate is dated and non-final. Reconcile and replay the actual final Pages root-sync evidence tree before closeout.",
+      "source_urls": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40068161258",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/a0c08fa6d013705e1a84498cd85b295f86463306/data/research/dd433e7f/live-manifest.json",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/a0c08fa6d013705e1a84498cd85b295f86463306/data/research/dd433e7f/line-source-research.json"
+      ]
+    },
+    {
+      "id": "S522-MOBILE-002",
+      "severity": "verified",
+      "pr": 237,
+      "head": "013eed255e3386cf7fd99c56aa150829a75ab292",
+      "finding": "The complete browser suite on the dedicated safety/summary candidate passes with the repository virtualenv on PATH for fixture generators.",
+      "verification": "108 Playwright tests passed in 6.3 minutes, including 320/390/768/1440px layouts, no-JavaScript behavior and automated WCAG scans. An earlier invocation used system Python without bs4 for fixture subprocesses; that environment setup failure was not counted as a product result and the complete suite was rerun successfully.",
+      "source_urls": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237"
+      ]
     }
   ],
-  "probability_policy": "No pick, probability, alias or source value was hand-written. Hotspawn community selection share and EGW/HLTV fan votes were excluded."
+  "probability_policy": "No pick, probability, alias or source value was hand-written. Hotspawn community selection share and EGW/HLTV fan votes were excluded.",
+  "latest_inventory_crosscheck": {
+    "main_head": "a0c08fa6d013705e1a84498cd85b295f86463306",
+    "manifest_observed_at": "2026-10-24T06:15:55Z",
+    "origination_generated_at": "2026-10-24T06:15:02Z",
+    "active": 31,
+    "with_pick": 31,
+    "unresolved": 0,
+    "money_backed": 18,
+    "research_model": 13,
+    "added_since_25_row_capture": [
+      "1083120",
+      "1083121",
+      "1082695",
+      "1083122",
+      "1083140",
+      "1083123"
+    ],
+    "removed_since_25_row_capture": [],
+    "research_rows_covered": 13,
+    "eligible_new_leads": 0,
+    "unclaimed_residual_rows": 0,
+    "independent_original_evidence_replay": "pending final Pages root-sync; the probe retained derived reports but no origination/evidence artifact",
+    "report_json": "data/research/52212e8e/latest-31-inventory-review.json",
+    "report_markdown": "data/research/52212e8e/latest-31-inventory-review.md"
+  }
 }
