@@ -218,7 +218,7 @@ npm test
 .venv/bin/python -m scripts.build
 
 # Preview from a project root, without hardcoded browser-facing localhost APIs:
-.venv/bin/python -m http.server 8000 --bind 0.0.0.0 --directory site
+.venv/bin/python -m http.server 8123 --bind 0.0.0.0 --directory site
 ```
 
 `site/`, virtual environments, dependency trees, caches, browser reports and screenshots are ignored. Do not run the generator with the repository root as its output; keep other sessions’ source files unchanged. The checked-in current HTML is a fallback snapshot; the published artifact is rebuilt from validated data on every production run.

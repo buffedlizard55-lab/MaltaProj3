@@ -185,8 +185,14 @@ def _even_no_side(choice) -> bool:
     the "Even · no side" wording plus a link into the unresolved register, which
     is how a build made before the marker existed reads.
     """
-    text = _text(choice).lower()
-    if 'even' not in text or 'side' not in text:
+    text = _text(choice)
+    lowered = text.lower()
+    if 'even' not in lowered or 'side' not in lowered:
+        return False
+    values = _pct(text)
+    if len(values) < 2 or abs(sum(values[:2]) - 100.0) > 0.2:
+        # "No side" without both teams' numbers is not an explanation; the row
+        # would tell a phone reader nothing about the match.
         return False
     return any('unresolved' in (a.get('href') or '') for a in choice.select('a[href]'))
 

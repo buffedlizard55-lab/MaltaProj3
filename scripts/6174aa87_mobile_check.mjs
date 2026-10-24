@@ -9,7 +9,7 @@
 // of the executive summary, and readable probability text. It never reads or
 // writes a probability.
 //
-// Usage: PREVIEW_BASE_URL=http://127.0.0.1:8000 node scripts/6174aa87_mobile_check.mjs
+// Usage: PREVIEW_BASE_URL=http://127.0.0.1:8123 node scripts/6174aa87_mobile_check.mjs
 import { chromium as playwrightChromium } from '@playwright/test';
 import sparticuz from '@sparticuz/chromium';
 import fs from 'node:fs';
@@ -17,7 +17,7 @@ import path from 'node:path';
 import zlib from 'node:zlib';
 import { execFileSync } from 'node:child_process';
 
-const BASE = process.env.PREVIEW_BASE_URL || 'http://127.0.0.1:8000';
+const BASE = process.env.PREVIEW_BASE_URL || 'http://127.0.0.1:8123';
 const OUT = path.resolve('data/research/6174aa87/screenshots');
 const REPORT = path.resolve('data/research/6174aa87/mobile-check.json');
 fs.mkdirSync(OUT, { recursive: true });

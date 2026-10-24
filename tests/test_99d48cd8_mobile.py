@@ -64,9 +64,11 @@ class ExecutiveSummaryLinks(unittest.TestCase):
         # collector's `counts.unresolved` is a different counter (it includes
         # locked and unknown-schedule rows), so comparing the two numbers pinned
         # nothing real and failed the publisher's regression step once a fresher
-        # root snapshot landed (runs 40116915898 and 40120126457). The intent --
-        # every published-unresolved fixture is named on the separate page --
-        # is asserted directly.
+        # root snapshot landed (runs 40116915898 and 40120126457). A fixture the
+        # researched layer resolved from a published pick is not unresolved even
+        # when the featured exact-name method left its `analysis` blank. The
+        # intent -- every published-unresolved fixture is named on the separate
+        # page -- is asserted directly.
         snap = json.loads((ROOT / "snapshot.json").read_text())
         unresolved = [m for m in snap["matches"] if m.get("availability") != "past"
                       and m.get("analysis") is None and not has_published_pick(str(m["id"]))]

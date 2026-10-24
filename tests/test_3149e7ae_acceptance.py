@@ -129,6 +129,31 @@ class AcceptanceAuditTests(unittest.TestCase):
         report = audit(self.root, self.site)
         self.assertEqual(self.check(report, 'glance_rows')['status'], 'fail')
 
+    def test_an_explicitly_even_row_is_explained_not_missing(self):
+        # 50/50 is a real published state: both numbers, no side, and a link to
+        # the register that says why. It must not read as a lost pick.
+        even = ('<span class="glance-pick-label" data-glance-outcome="even-no-side">No edge</span>'
+                '<strong>Even · no side</strong><span class="glance-prob">Alpha 50.0%</span>'
+                '<span class="glance-other">Beta 50.0%</span>'
+                '<a class="internal-link" href="./#unresolved-register">Why</a>')
+        self.write_summary(rows=glance_row(has_pick=False).split('<div class="glance-choice">')[0]
+                           + '<div class="glance-choice">' + even + '</div></div>'
+                           '<div class="glance-links"><a class="source-link" href="https://www.hltv.org/matches/1">HLTV</a></div></li>')
+        report = audit(self.root, self.site)
+        self.assertEqual(self.check(report, 'glance_rows')['status'], 'pass',
+                         self.check(report, 'glance_rows')['detail'])
+
+    def test_an_even_row_without_both_numbers_or_a_reason_still_fails(self):
+        # Same words, but nothing to explain: one percentage and no register link.
+        thin = ('<span class="glance-pick-label">No edge</span><strong>Even · no side</strong>'
+                '<span class="glance-prob">Alpha 50.0%</span>')
+        prefix = glance_row(has_pick=False).split('<div class="glance-choice">')[0]
+        links = ('<div class="glance-links"><a class="source-link" href="https://www.hltv.org/matches/1">HLTV</a></div></li>')
+        self.write_summary(rows=prefix + '<div class="glance-choice">' + thin + '</div></div>' + links)
+        report = audit(self.root, self.site)
+        self.assertEqual(self.check(report, 'glance_rows')['status'], 'fail')
+        self.assertIn('no pick', self.check(report, 'glance_rows')['detail'])
+
     def test_a_row_showing_only_one_percentage_fails(self):
         self.write_summary(rows=glance_row(probs=('61.5', '')))
         report = audit(self.root, self.site)
