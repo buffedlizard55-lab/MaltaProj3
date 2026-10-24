@@ -7469,3 +7469,11 @@ Constraints: sandbox outbound access cannot directly verify Hotspawn/HLTV/books;
 **Concurrent integration (24 Oct):** while hosted checks were running, PRs #240/#241 merged independently overlapping clock and duplicate-section fixes. Stopped at the test-file merge conflict; preserved their new EGW provider/research files unchanged. Reconciled the shared tests to use this session's injected clock plus explicit stale-rejection regression. For the summary kept #241's ownership decision (single block directly in `summary`, not compact register) and adjusted the source assertion accordingly; avoided a semantic clean merge that would have removed both copies. Both sessions' substantive fixes retained. Full combined-tree verification follows before merge.
 
 **Second integration checkpoint:** combined-tree regression found 9 `NameError: egw_live` errors in the concurrently merged provider (PR #240), not in this session's clock fix. Its owner and another session repaired that provider on main (#257); fetched and merged that fix plus subsequent research dossiers without editing their scopes. Pulling with plain `--rebase` tried to flatten the earlier integration merge and replay main's commits; aborted without discarding changes and used `git pull --rebase=merges` to preserve the already-resolved merge. Continuing verification on this integrated head rather than merging a known-broken tree.
+
+## Session arena-4f1f313c — restore documented test-environment completeness (2026-10-24)
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| F1-1 Ensure a clean install of the repository's declared Python requirements can import and run the complete unittest suite; add the missing test dependency and verify affected tests | in progress | arena-4f1f313c | `requirements.txt`, this section |
+
+**Non-overlap pledge:** no other files will be edited. The checkout already contains the dashboard, current Hotspawn collection/origination pipeline, mobile pick views, and unresolved/review sections; the initial task is a narrow reproducibility defect discovered while verifying that existing functionality.
