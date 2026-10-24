@@ -1,0 +1,500 @@
+{
+  "schema_version": 1,
+  "session": "arena-b97af12f",
+  "observed_at": "2026-10-24T06:52:00Z",
+  "observer": "agent-authoring-path (first-hand page fetcher)",
+  "role": "Dated inventory and identity research only. No value here is a probability or a pick.",
+  "published_site": {
+    "latest_json": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+    "generated_at": "2026-10-23T20:10:00Z",
+    "site_warning": "Snapshot needs attention: inventory check failed or successful snapshot older than eight hours."
+  },
+  "hotspawn": {
+    "lobby_url": "https://play.hotspawn.com/lobby",
+    "cs2_lobby_url": "https://play.hotspawn.com/cs2-pickems",
+    "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "future_fixtures_compared": 31,
+    "note": "The API is sorted from historical scheduled rows; only starts after 2026-10-24T06:24Z are compared. Six future API rows were not rendered in the fetched lobby HTML and are flagged."
+  },
+  "counts": {
+    "live_future_fixtures": 31,
+    "in_published_snapshot": 16,
+    "missing_from_published": 15,
+    "api_only_rows": 6
+  },
+  "limitations": [
+    "A stale published row is not a current pick; the site itself warns not to use it.",
+    "The fetched lobby did not render six future API rows. They are retained and flagged rather than silently dropped.",
+    "HLTV identity pages and fan polls are not two-sided prematch odds; fan votes are excluded.",
+    "Polymarket zero-volume/crossed books and EGamersWorld identical 1.8/1.8 banners are placeholders and are not prices.",
+    "An EGamersWorld aggregated line is a dated lead only until the automated reviewed ladder replays it.",
+    "The Hotspawn fixture API reports lock_offset_sec=360 (six minutes) while the how-it-works page says five; submit with margin and do not silently alias them."
+  ],
+  "live_fixtures": [
+    {
+      "id": "1079193",
+      "teams": [
+        "FOKUS",
+        "ex-6666"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-24T08:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/fokus-vs-ex-6666-nodwin-clutch-series-13-1079193",
+      "in_published_snapshot": true,
+      "published_method": "Market-implied estimate",
+      "published_pick": "FOKUS 76.5% / ex-6666 23.5% (STALE snapshot, not a current pick)",
+      "in_lobby_rendered": true,
+      "note": "Stale published snapshot; its own page warns not to treat it as a current pick."
+    },
+    {
+      "id": "1079658",
+      "teams": [
+        "Acend",
+        "FORZE Reload"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-24T08:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/acend-vs-forze-reload-cct-europe-2026-series-11-1079658",
+      "in_published_snapshot": false,
+      "published_method": null,
+      "published_pick": null,
+      "in_lobby_rendered": true,
+      "note": "Missing from the stale published snapshot."
+    },
+    {
+      "id": "1079659",
+      "teams": [
+        "Spirit Academy",
+        "Lavked"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-24T11:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/spirit-academy-vs-lavked-cct-europe-2026-series-11-1079659",
+      "in_published_snapshot": false,
+      "published_method": null,
+      "published_pick": null,
+      "in_lobby_rendered": true,
+      "note": "Missing from the stale published snapshot."
+    },
+    {
+      "id": "1081152",
+      "teams": [
+        "HAVU",
+        "Azuolas"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T11:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/havu-vs-azuolas-cct-europe-2026-series-12-1081152",
+      "in_published_snapshot": false,
+      "published_method": null,
+      "published_pick": null,
+      "in_lobby_rendered": true,
+      "note": "Missing from the stale published snapshot."
+    },
+    {
+      "id": "1083120",
+      "teams": [
+        "Isurus",
+        "RED Canids Academy"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-24T13:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1083120",
+      "in_published_snapshot": false,
+      "published_method": null,
+      "published_pick": null,
+      "in_lobby_rendered": false,
+      "note": "Future Hotspawn API row not rendered in the fetched lobby HTML; flagged for review."
+    },
+    {
+      "id": "1079195",
+      "teams": [
+        "Nuclear TigeRES",
+        "FORZE Reload"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-24T14:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-forze-reload-nodwin-clutch-series-13-1079195",
+      "in_published_snapshot": true,
+      "published_method": "Market-implied estimate",
+      "published_pick": "Nuclear TigeRES 62.5% / FORZE Reload 37.5% (STALE snapshot, not a current pick)",
+      "in_lobby_rendered": true,
+      "note": "Stale published snapshot; its own page warns not to treat it as a current pick."
+    },
+    {
+      "id": "1079660",
+      "teams": [
+        "INOX Division",
+        "BRUTE"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-24T14:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/inox-division-vs-brute-cct-europe-2026-series-11-1079660",
+      "in_published_snapshot": false,
+      "published_method": null,
+      "published_pick": null,
+      "in_lobby_rendered": true,
+      "note": "Missing from the stale published snapshot."
+    },
+    {
+      "id": "1081153",
+      "teams": [
+        "Saint Sinners",
+        "6yuBoJlbl"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T14:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/saint-sinners-vs-6yubojlbl-cct-europe-2026-series-12-1081153",
+      "in_published_snapshot": false,
+      "published_method": null,
+      "published_pick": null,
+      "in_lobby_rendered": true,
+      "note": "Missing from the stale published snapshot."
+    },
+    {
+      "id": "1083121",
+      "teams": [
+        "Projeto do KinGui",
+        "MEIA NOITE"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-24T16:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1083121",
+      "in_published_snapshot": false,
+      "published_method": null,
+      "published_pick": null,
+      "in_lobby_rendered": false,
+      "note": "Future Hotspawn API row not rendered in the fetched lobby HTML; flagged for review."
+    },
+    {
+      "id": "1079661",
+      "teams": [
+        "Nuclear TigeRES",
+        "ex-Zero Tenacity"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-24T17:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-ex-zero-tenacity-cct-europe-2026-series-11-1079661",
+      "in_published_snapshot": false,
+      "published_method": null,
+      "published_pick": null,
+      "in_lobby_rendered": true,
+      "note": "Missing from the stale published snapshot."
+    },
+    {
+      "id": "1081154",
+      "teams": [
+        "BakS",
+        "ILLYRIANS"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T17:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/baks-vs-illyrians-cct-europe-2026-series-12-1081154",
+      "in_published_snapshot": false,
+      "published_method": null,
+      "published_pick": null,
+      "in_lobby_rendered": true,
+      "note": "Missing from the stale published snapshot."
+    },
+    {
+      "id": "1082695",
+      "teams": [
+        "Galorys",
+        "paiN"
+      ],
+      "competition": "Circuit X Curitiba #4",
+      "starts_at": "2026-10-24T18:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082695",
+      "in_published_snapshot": false,
+      "published_method": null,
+      "published_pick": null,
+      "in_lobby_rendered": false,
+      "note": "Future Hotspawn API row not rendered in the fetched lobby HTML; flagged for review."
+    },
+    {
+      "id": "1083122",
+      "teams": [
+        "LOS NINOS",
+        "BORRACHEIROS"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-24T19:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1083122",
+      "in_published_snapshot": false,
+      "published_method": null,
+      "published_pick": null,
+      "in_lobby_rendered": false,
+      "note": "Future Hotspawn API row not rendered in the fetched lobby HTML; flagged for review."
+    },
+    {
+      "id": "1083140",
+      "teams": [
+        "BESTIA",
+        "Imperial"
+      ],
+      "competition": "Circuit X Curitiba #4",
+      "starts_at": "2026-10-24T21:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1083140",
+      "in_published_snapshot": false,
+      "published_method": null,
+      "published_pick": null,
+      "in_lobby_rendered": false,
+      "note": "Future Hotspawn API row not rendered in the fetched lobby HTML; flagged for review."
+    },
+    {
+      "id": "1083123",
+      "teams": [
+        "Grêmio",
+        "Yawara"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-24T22:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1083123",
+      "in_published_snapshot": false,
+      "published_method": null,
+      "published_pick": null,
+      "in_lobby_rendered": false,
+      "note": "Future Hotspawn API row not rendered in the fetched lobby HTML; flagged for review."
+    },
+    {
+      "id": "1082996",
+      "teams": [
+        "Acend",
+        "UNiTY"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T09:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
+      "in_published_snapshot": true,
+      "published_method": "Valve-rating research estimate",
+      "published_pick": "Acend 54.2% / UNiTY 45.8% (STALE snapshot, not a current pick)",
+      "in_lobby_rendered": true,
+      "note": "Stale published snapshot; its own page warns not to treat it as a current pick."
+    },
+    {
+      "id": "1079198",
+      "teams": [
+        "Metizport",
+        "BakS"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T12:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198",
+      "in_published_snapshot": true,
+      "published_method": "Valve-rating research estimate",
+      "published_pick": "Metizport 79.9% / BakS 20.1% (STALE snapshot, not a current pick)",
+      "in_lobby_rendered": true,
+      "note": "Stale published snapshot; its own page warns not to treat it as a current pick."
+    },
+    {
+      "id": "1081156",
+      "teams": [
+        "Spirit Academy",
+        "LFO 10"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-25T12:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156",
+      "in_published_snapshot": false,
+      "published_method": null,
+      "published_pick": null,
+      "in_lobby_rendered": true,
+      "note": "Missing from the stale published snapshot."
+    },
+    {
+      "id": "1079199",
+      "teams": [
+        "Infinite",
+        "BRUTE"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T15:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/infinite-vs-brute-nodwin-clutch-series-13-1079199",
+      "in_published_snapshot": true,
+      "published_method": "Market-implied estimate",
+      "published_pick": "BRUTE 52.0% / Infinite 48.0% (STALE snapshot, not a current pick)",
+      "in_lobby_rendered": true,
+      "note": "Stale published snapshot; its own page warns not to treat it as a current pick."
+    },
+    {
+      "id": "1079200",
+      "teams": [
+        "Color",
+        "ex-Zero Tenacity"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T18:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/color-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079200",
+      "in_published_snapshot": true,
+      "published_method": "Valve-rating research estimate",
+      "published_pick": "Color 73.6% / ex-Zero Tenacity 26.4% (STALE snapshot, not a current pick)",
+      "in_lobby_rendered": true,
+      "note": "Stale published snapshot; its own page warns not to treat it as a current pick."
+    },
+    {
+      "id": "1081158",
+      "teams": [
+        "FORZE Reload",
+        "ex-RUSTEC"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-25T18:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/forze-reload-vs-ex-rustec-cct-europe-2026-series-12-1081158",
+      "in_published_snapshot": false,
+      "published_method": null,
+      "published_pick": null,
+      "in_lobby_rendered": true,
+      "note": "Missing from the stale published snapshot."
+    },
+    {
+      "id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
+      "in_published_snapshot": true,
+      "published_method": "Own network estimate (bo3.gg results graph)",
+      "published_pick": "Off Chops 55.1% / Ground Zero 44.9% (STALE snapshot, not a current pick)",
+      "in_lobby_rendered": true,
+      "note": "Stale published snapshot; its own page warns not to treat it as a current pick."
+    },
+    {
+      "id": "1082859",
+      "teams": [
+        "NEXVOID",
+        "Alter Ego"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/nexvoid-vs-alter-ego-dfrag-invitational-2026-1082859",
+      "in_published_snapshot": true,
+      "published_method": "Bookmaker line",
+      "published_pick": "NEXVOID 57.6% / Alter Ego 42.4% (STALE snapshot, not a current pick)",
+      "in_lobby_rendered": true,
+      "note": "Stale published snapshot; its own page warns not to treat it as a current pick."
+    },
+    {
+      "id": "1082860",
+      "teams": [
+        "FlyQuest",
+        "Staqued"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
+      "in_published_snapshot": true,
+      "published_method": "Bookmaker line",
+      "published_pick": "FlyQuest 92.3% / Staqued 7.7% (STALE snapshot, not a current pick)",
+      "in_lobby_rendered": true,
+      "note": "Stale published snapshot; its own page warns not to treat it as a current pick."
+    },
+    {
+      "id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
+      "in_published_snapshot": true,
+      "published_method": "Valve-rating research estimate",
+      "published_pick": "Abyssal 52.2% / Rooster 47.8% (STALE snapshot, not a current pick)",
+      "in_lobby_rendered": true,
+      "note": "Stale published snapshot; its own page warns not to treat it as a current pick."
+    },
+    {
+      "id": "1082897",
+      "teams": [
+        "B8",
+        "K27"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T08:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/b8-vs-k27-tesla-cup-2026-1082897",
+      "in_published_snapshot": true,
+      "published_method": "Market-implied estimate",
+      "published_pick": "B8 62.0% / K27 38.0% (STALE snapshot, not a current pick)",
+      "in_lobby_rendered": true,
+      "note": "Stale published snapshot; its own page warns not to treat it as a current pick."
+    },
+    {
+      "id": "1082898",
+      "teams": [
+        "Alliance",
+        "FaZe"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T11:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/alliance-vs-faze-tesla-cup-2026-1082898",
+      "in_published_snapshot": true,
+      "published_method": "Market-implied estimate",
+      "published_pick": "FaZe 65.0% / Alliance 35.0% (STALE snapshot, not a current pick)",
+      "in_lobby_rendered": true,
+      "note": "Stale published snapshot; its own page warns not to treat it as a current pick."
+    },
+    {
+      "id": "1082900",
+      "teams": [
+        "Luminosity",
+        "HOTU"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T17:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/luminosity-vs-hotu-tesla-cup-2026-1082900",
+      "in_published_snapshot": true,
+      "published_method": "Market-implied estimate",
+      "published_pick": "Luminosity 52.5% / HOTU 47.5% (STALE snapshot, not a current pick)",
+      "in_lobby_rendered": true,
+      "note": "Stale published snapshot; its own page warns not to treat it as a current pick."
+    },
+    {
+      "id": "1082901",
+      "teams": [
+        "Envy",
+        "GamerLegion"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T20:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/envy-vs-gamerlegion-tesla-cup-2026-1082901",
+      "in_published_snapshot": true,
+      "published_method": "Market-implied estimate",
+      "published_pick": "GamerLegion 53.5% / Envy 46.5% (STALE snapshot, not a current pick)",
+      "in_lobby_rendered": true,
+      "note": "Stale published snapshot; its own page warns not to treat it as a current pick."
+    },
+    {
+      "id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+      "in_published_snapshot": true,
+      "published_method": "Research model estimate (Valve official ratings)",
+      "published_pick": "HOTU 94.1% / The Huns 5.9% (STALE snapshot, not a current pick)",
+      "in_lobby_rendered": true,
+      "note": "Stale published snapshot; its own page warns not to treat it as a current pick."
+    },
+    {
+      "id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T13:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
+      "in_published_snapshot": true,
+      "published_method": "Valve-rating research estimate",
+      "published_pick": "1WIN 82.2% / 5star 17.8% (STALE snapshot, not a current pick)",
+      "in_lobby_rendered": true,
+      "note": "Stale published snapshot; its own page warns not to treat it as a current pick."
+    }
+  ]
+}
