@@ -1,6 +1,6 @@
 # E57 independent candidate replay
 
-Generated: `2026-10-24T06:34:21Z`  
+Generated: `2026-10-24T06:34:21Z`
 Candidate: `50bb2017c3ed`
 
 **This is a dated audit, not a deployment attestation.** Hotspawn and HLTV popularity were excluded.

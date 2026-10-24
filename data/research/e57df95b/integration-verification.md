@@ -1,12 +1,12 @@
 # E57 integrated candidate verification
 
-Recorded 2026-10-24T07:01:17Z. **Local candidate passed; full-tree CI and deployment are still pending.**
+Recorded 2026-10-24T07:11:15Z on integrated commit `27ae30e` (including `main@52091c5`). **Local candidate passed; full-tree CI and deployment are still pending.**
 
 ## Inventory and picks
 
 - Official lobby: <https://play.hotspawn.com/cs2-pickems>, independently read at 06:24Z.
 - Featured source snapshot: 2026-10-24T05:57:56Z, 88 source rows and 25 active fixtures.
-- Complete origination regenerated at 06:39:03Z: **25/25 directional picks, zero unresolved**.
+- Complete origination regenerated at 07:03:32Z with the integrated 70-entry alias registry preserved: **25/25 directional picks, zero unresolved**.
 - Methods: **13 market, 2 bookmaker, 1 reviewed aggregate, 9 model**.
 - The exact 25 official lobby IDs match the candidate. Hotspawn popularity is not an input.
 
@@ -19,22 +19,22 @@ The final fresh build passed:
 | Check | Result |
 | --- | ---: |
 | Source rows reconciled | 88 |
-| Rendered row-source audit | 878 |
-| Rows with official source links | 859 |
+| Rendered row-source audit | 911 |
+| Rows with official source links | 892 |
 | Explicitly flagged unverified | 9 |
 | Source-less rows | **0** |
 | Acceptance | **10 pass / 0 info / 0 fail** |
 | Internal links, assets and anchors | **922 passed** |
 
-The deterministic replay-fixture build also passed: 80 source rows, 793 audited rows, zero source-less rows, acceptance 9 pass / 1 info / 0 fail, and 831 internal links.
+The deterministic replay-fixture build also passed after merging `main`: 80 source rows, 826 audited rows, zero source-less rows, acceptance 9 pass / 1 info / 0 fail, and 833 internal links.
 
 ## Phone and browser verification
 
-`npm test` against the fresh final build: **118/118 passed**, zero failed, skipped or flaky (334.77 seconds). Coverage includes 320/390px phones, summary and complete-picks navigation, no-JavaScript rendering, stale/locked pick retirement, findings filters, and automated WCAG A/AA scans.
+`npm test` against the exact post-`main` fresh final build: **122/122 passed**, zero failed, skipped or flaky (383.47 seconds). Coverage includes 320/390px phones, summary and complete-picks navigation, no-JavaScript rendering, stale/locked pick retirement, findings filters, and automated WCAG A/AA scans.
 
 ## Python regression status
 
-The initial full discovery ran 1,353 tests and found nine live-collection errors caused by a missing `egw_live` import, plus two assertions that treated the new “Needs review” filter button as a finding badge. The import was restored and the badge assertions scoped to the actual row badge. The affected command reran **116 tests, all passing**, including live collection and multi-clock determinism; 76 focused integration tests also passed. The full-tree rerun remains a CI merge gate and is not claimed locally.
+The initial full discovery ran 1,353 tests and found nine live-collection errors caused by a missing `egw_live` import, plus two assertions that treated the new “Needs review” filter button as a finding badge. The import was restored and the badge assertions scoped to the actual row badge. The affected command reran **116 tests, all passing**, including live collection and multi-clock determinism; 76 focused integration tests also passed. After the final `main` merge, another **171 source/coverage/replay tests passed**. The full-tree rerun remains a CI merge gate and is not claimed locally.
 
 ## Reviewed reference and expiry
 

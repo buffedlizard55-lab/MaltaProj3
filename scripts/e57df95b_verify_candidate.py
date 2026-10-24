@@ -234,7 +234,7 @@ def close(actual: list[float], expected: list[float], tolerance: float = 5.1e-8)
 def markdown(report: dict) -> str:
     s = report["summary"]
     lines = ["# E57 independent candidate replay", "",
-             f"Generated: `{report['generated_at']}`  ", f"Candidate: `{report['candidate_ref']}`", "",
+             f"Generated: `{report['generated_at']}`", f"Candidate: `{report['candidate_ref']}`", "",
              "**This is a dated audit, not a deployment attestation.** Hotspawn and HLTV popularity were excluded.", "",
              f"- Live official lobby IDs: **{s['live_lobby_fixtures']}**; candidate active rows: **{s['candidate_active_fixtures']}**; exact ID-set match: **{str(s['exact_live_id_set_match']).lower()}**.",
              f"- Rows independently replayed: **{s['passed']}/{s['audited']}**; failures: **{s['failed']}**.",
