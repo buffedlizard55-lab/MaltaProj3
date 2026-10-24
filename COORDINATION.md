@@ -64,6 +64,9 @@ Claimed **2026-10-24T05:22:48Z** on Arena's fixed session branch `arena/be019782
 
 **Final board/CI-only merge (2026-10-24T07:16Z).** Preserve main `df00337` (#268/#249) board updates and board-only CI path ignores; no application, alias, data, test or source algorithm changed. The sole conflict is the board append; both sides retained. Final combined-data build is **822 rows / 803 official + 9 flagged + 10 sitemap / zero sourceless**, **829 links**, nine current views, acceptance 9 PASS/1 INFO/0 FAIL. Core CI and live source audit already explicitly green; the release confirmation continues on the identical application code.
 
+
+**Pre-edit original-response fixture request (2026-10-24T07:18Z; #261).** Main `0f472f8` adds another EGW wiring variant and its `egw_live_replay` count. Preserve that observability and manual-before-live priority, but request narrow edits to `tests/test_5260ef4e_egw_wiring.py`: its positive fixture currently contains only a generated excerpt/derived JSON and explicitly expects the old path-only loader to price it. Under the independently source-bound loader this must be rejected. Replace the positive fixture with real-shaped original HTML containing the independent clock and two exact named prices, derive the retained entry with `entries_for`, save the actual GET manifest/wrapper shape, pass fixtures+registry, and add a missing-original refusal. Strengthen old signature assertions to the validated three-argument call; keep all stale/placeholder/start-mismatch/manual-priority intentions. Scope includes only this test and the already-owned `originate.run` conflict/metric comment; real prices/aliases/research evidence stay untouched. A zero qualified-replay count can be correct rejection, not automatically a wiring regression. All prior 8 phone-smoke and 106 safety checks passed at the 822-row combined build.
+
 ---
 
 
