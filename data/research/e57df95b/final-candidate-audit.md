@@ -1,7 +1,7 @@
 # E57 independent candidate replay
 
-Generated: `2026-10-24T07:04:42Z`
-Candidate: `27ae30e integrated main + 50bb2017c3ed fresh evidence + E57 reference`
+Generated: `2026-10-24T07:37:38Z`
+Candidate: `b66e402 final integrated tree + fresh evidence + E57 reference`
 
 **This is a dated audit, not a deployment attestation.** Hotspawn and HLTV popularity were excluded.
 
