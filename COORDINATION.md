@@ -82,6 +82,43 @@ findings; their rendering was verified in the local build (`site/review/index.ht
 four ids exactly once) and by `tests.test_review_flags` + `tests.test_review_register`
 (13 tests OK).
 
+### 5F9 merge conflict log (2026-10-24T19:5xZ)
+
+While PR #322 waited on its checks, parallel sessions merged #318 (`arena/c2a74e33`) and #320
+(`arena/6174aa87`), and #320 had already hardened the same two tests — with a stronger form than
+mine: it derives the unresolved set from `availability != 'past' and analysis is None`, checks the
+page's per-fixture anchors as well as the team names, and keeps always-on invariants (two
+probabilities summing to 1, UTC stamps, a named side unless the market is exactly even) for a
+newer snapshot. Merge conflict on both files resolved by taking **main's** version in full through a
+merge commit; nothing from either session was discarded, my parallel edits to those two files are
+superseded by theirs, and my unique work (dossier, four findings, clock injection, this record)
+remains. Verified after resolution: 13 tests OK in the two modules, full suite 1701 OK.
+
+### 5F9 follow-up (2026-10-24T18:2xZ–19:0xZ): the next publisher run failed on two more dated snapshot tests
+
+Run [40120126457](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40120126457) (push,
+18:18Z) failed at `Regression tests` on
+`test_b72154e1_guided_picks.GuidedPicksTest.test_group_b_are_snapshot_model_picks` and
+`test_99d48cd8_mobile.ExecutiveSummaryLinks.test_unresolved_page_names_both_unresolved_fixtures`.
+Cause, reproduced locally on the 18:00:16Z root snapshot that run 40117004822's own root-sync
+committed (`a77fc77`, 81 records / 20 active):
+
+* `1079200` (Color vs ex-Zero Tenacity) moved from a featured research-model estimate to an
+  **exactly even market line** — probabilities published, no directional side, counted as
+  `no_edge` — so the dossier's "group B are research-model picks" claim no longer describes the
+  live snapshot. Guarded exactly like the sibling `test_group_c_absent_from_snapshot` already is:
+  asserted against the snapshot the dossier names, skipped (with a reason) when the root snapshot
+  is newer. Provenance and arithmetic assertions stay always-on.
+* The mobile test treated `pick_index is None` as "unresolved", which also matches the even-market
+  row; the snapshot's own definition (no published analysis at all) is `analysis is None` and it
+  agrees exactly with `counts.unresolved` (4 of the 20 active). The test now derives the set that
+  way and still asserts that the unresolved page names every such fixture — the intent is
+  unchanged, and it holds for any snapshot.
+
+Both modules green locally (13 tests, 2 skipped). No pick, probability, snapshot, script or site
+file was changed; the live site served 20 of 20 active fixtures with a pick, 0 unresolved, when
+re-read on `/unresolved/` at 18:2xZ.
+
 ### 5F9 pre-merge verification (2026-10-24T16:20Z–17:20Z)
 
 - **Coverage is complete, verified against three independent readings.** Lobby
