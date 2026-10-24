@@ -34,6 +34,7 @@ from pathlib import Path
 import re
 from typing import Any
 import urllib.error
+import urllib.request
 
 from scripts import originate
 from scripts.domain import name_key, timestamp
@@ -41,6 +42,14 @@ from scripts.domain import name_key, timestamp
 base = importlib.import_module('scripts.3016b0c6_probe')
 bo3probe = importlib.import_module('scripts.bo3_odds_probe')
 smarkets_mod = importlib.import_module('scripts.smarkets_lines')
+
+UA = 'MaltaProj3-dd433e7f-research/1.0 (+https://github.com/buffedlizard55-lab/MaltaProj3)'
+
+
+def _http_get_json(url: str, timeout: int = 20) -> tuple[int, Any]:
+    req = urllib.request.Request(url, headers={'User-Agent': UA, 'Accept': 'application/json'})
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
+        return int(getattr(resp, 'status', 200) or 200), json.loads(resp.read().decode('utf-8'))
 
 LIVE_SNAPSHOT = 'https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json'
 LIVE_ORIG = 'https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json'
@@ -123,7 +132,7 @@ def load_active_origination() -> tuple[dict[str, Any], dict[str, Any], dict[str,
             return doc, latest_doc, {'source': 'data/origination.json (fresh live collection)',
                                      'snapshot_generated_at': doc.get('generated_at')}
     try:
-        doc = json.loads(base.http_get(LIVE_ORIG)[2].decode('utf-8'))
+        _, doc = _http_get_json(LIVE_ORIG, timeout=20)
         return doc, {}, {'source': LIVE_ORIG, 'snapshot_generated_at': doc.get('generated_at')}
     except (urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
         doc = json.loads(local_orig.read_text(encoding='utf-8'))
@@ -168,8 +177,7 @@ def _as_list(val: Any) -> list[Any]:
 
 def _clob_top(token_id: str) -> dict[str, Any]:
     try:
-        _, _, raw = base.http_get(f'{CLOB_BOOK}?token_id={token_id}', timeout=12)
-        book = json.loads(raw.decode('utf-8'))
+        _, book = _http_get_json(f'{CLOB_BOOK}?token_id={token_id}', timeout=12)
     except (urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
         return {'error': f'{type(exc).__name__}: {exc}'[:120]}
     bids = [float(b['price']) for b in book.get('bids') or [] if 'price' in b]
@@ -193,8 +201,7 @@ def polymarket_scan(targets: list[dict[str, Any]], registry: dict[str, Any]) -> 
         for offset in range(0, 1000, 100):
             url = (f'{GAMMA_CS2}?tag_slug=counter-strike-2&active=true&closed=false'
                    f'&limit=100&offset={offset}')
-            _, _, raw = base.http_get(url, timeout=20)
-            page = json.loads(raw.decode('utf-8'))
+            _, page = _http_get_json(url, timeout=20)
             pages += 1
             if not isinstance(page, list):
                 break
@@ -330,15 +337,13 @@ def build_live_coverage(orig_doc: dict[str, Any], observed: str, timeout: int) -
     live_snap_meta: dict[str, Any] = {'snapshot_url': LIVE_SNAPSHOT}
     live_published_ids: set[str] = set()
     try:
-        status, _, raw = base.http_get(LIVE_SNAPSHOT, timeout=timeout)
-        snap = json.loads(raw.decode('utf-8'))
+        status, snap = _http_get_json(LIVE_SNAPSHOT, timeout=timeout)
         live_snap_meta.update({'http_status': status, 'generated_at': snap.get('generated_at')})
     except (urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
         live_snap_meta['error'] = f'{type(exc).__name__}: {exc}'[:160]
 
     try:
-        status, _, raw = base.http_get(LIVE_ORIG, timeout=timeout)
-        live_orig = json.loads(raw.decode('utf-8'))
+        status, live_orig = _http_get_json(LIVE_ORIG, timeout=timeout)
         live_published_ids = {str(m.get('id')) for m in live_orig.get('matches') or [] if m.get('id') is not None}
         live_snap_meta['live_origination_generated_at'] = live_orig.get('generated_at')
     except (urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
@@ -349,8 +354,7 @@ def build_live_coverage(orig_doc: dict[str, Any], observed: str, timeout: int) -
     api_status = None
     api_rows: list[dict[str, Any]] = []
     try:
-        api_status, _, raw = base.http_get(HOTSPAWN_API, timeout=timeout)
-        payload = json.loads(raw.decode('utf-8'))
+        api_status, payload = _http_get_json(HOTSPAWN_API, timeout=timeout)
         api_rows = payload if isinstance(payload, list) else (payload.get('data') or [])
     except (urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
         live_snap_meta['hotspawn_api_error'] = f'{type(exc).__name__}: {exc}'[:160]
