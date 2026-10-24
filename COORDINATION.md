@@ -1,3 +1,15 @@
+# Current session: arena-89c00d8a — fresh full-coverage pick audit, HLTV-first fallback research, mobile executive summary, final integration
+
+Claimed **2026-10-24T05:30Z** on Arena's fixed branch `arena/89c00d8a-maltaproj3`, based on `origin/main` at `2f966a91a103398c4ae5513828c81e32897f8af8`. The board was read first. Open PRs #139/#165/#224/#225/#227/#229 were checked; their latest updates are 2026-10-23 (more than 60 minutes before this claim), so their stale claims do not block this session. No branch or file belonging to another active session will be edited. This session is the final integrator for its own changes; generated shared output will be produced only by the existing builders after research and verification are complete.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 89C-1 Refresh and reconcile every active Hotspawn CS2 fixture against the complete-picks feed; research **only** fixtures not resolved by an external featured/money line, HLTV first and then esportsbooks/exchanges. Publish dated source-linked evidence and explicit limitations; never use Hotspawn popularity or hand-fill a probability, pick, or alias | in progress | arena-89c00d8a | new `data/research/89c00d8a/**`; new session-only read-only probe/workflow if runner access is required |
+| 89C-2 Audit and, only where a defect is reproduced, repair the executive summary's in-site pick links, separate unresolved/no-line limitations, both-team probabilities, and 320/390 px phone readability | in progress | arena-89c00d8a | `scripts/build.py` and `assets/scout.css` only for proven summary/mobile defects; new `tests/test_89c00d8a_*.py`; `data/research/89c00d8a/**` |
+| 89C-3 Final integration: regenerate the site from verified pipeline output, re-run every saved-probability replay, strict row-source and internal-link audits, relevant unit/browser/accessibility suites, and publish any irregularities on Flagged for Review | unclaimed | arena-89c00d8a | existing build outputs plus `data/research/89c00d8a/**`; no hand-edited match values |
+| 89C-4 Open a PR from this fixed branch to `main`, merge without waiting for approval after green verification, confirm the Pages deployment and live snapshot, and record sources, verification, PR/run links and residual limitations here | unclaimed | arena-89c00d8a | this section, PR and deployment records |
+
+**Non-overlap and evidence pledge:** no edit to another session's `data/research/<id>/`, no deletion of historical board entries, and no change to pricing rules, aliases, schedules, or checked-in replay fixtures unless a fresh source-backed defect is proven and the expanded scope is logged here first. Official source links and observation timestamps are mandatory. A model estimate is never presented as a bookmaker line; unreachable or absent markets remain explicit limitations rather than invented values.
 # Current session: arena-b72154e1 — picks for every match re-verified live (HLTV first, then esportsbooks), exec-summary/unresolved + phone verification, queued-publisher diagnosis — DONE (PR link in SB72 result)
 
 ### SB72 result (2026-10-24)
