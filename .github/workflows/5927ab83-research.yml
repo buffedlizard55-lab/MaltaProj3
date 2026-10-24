@@ -108,6 +108,11 @@ jobs:
           git add data/research/5927ab83 .github/workflows/5927ab83-research.yml
           git diff --cached --quiet && echo 'No research change.' && exit 0
           git commit -m 'research(5927ab83): fresh full coverage and HLTV-first no-line sweep'
+          # Collection intentionally leaves the shared replay fixtures and many
+          # generated evidence files dirty in this ephemeral runner. Stash those
+          # uncommitted changes before rebase; the audited research is already
+          # committed and no generated value is discarded from that record.
+          git stash push --include-untracked -m '5927ab83 generated collection scratch'
           for attempt in 1 2 3 4; do
             git fetch origin arena/5927ab83-maltaproj3
             git rebase origin/arena/5927ab83-maltaproj3 || { git rebase --abort || true; sleep 5; continue; }
