@@ -1,3 +1,16 @@
+# Current session: arena-b97af12f — live-lobby reconciliation, no-line research ladder, phone checks, publish — IN PROGRESS
+
+Claimed **2026-10-24T06:26Z** on Arena's fixed branch `arena/b97af12f-maltaproj3` (base `bdb4fc9`, PR #240 merged). Board and all open PRs #237–#248 read first. Live observations at claim time: Hotspawn lobby `https://play.hotspawn.com/lobby` shows **25 future CS2 cards** (first-hand, 2026-10-24T06:24Z); deployed `/data/latest.json` is **2026-10-23T20:10:00Z** with **19 active / 19 picks / 0 blank**, so the stalled publisher leaves live cards uncovered. `pages.yml` run 40069088115 (06:09Z push) is queued; scheduled runs 40028653350, 40037957529, 40048429858, 40063011446 failed at regression. Other active sessions own publisher-clock fixes, duplicate-ID guards, review filters and their own research directories; those files are **not** edited here.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| B97-1 Dated, line-by-line reconciliation of every live Hotspawn CS2 card against the published picks, with per-row official source links and the exact uncovered set | in progress | arena-b97af12f | new `data/research/b97af12f/reconciliation-2026-10-24.{json,md}`, new `scripts/b97af12f_reconcile.py`, new `tests/test_b97af12f_reconciliation.py` |
+| B97-2 First-hand HLTV-first, then esportsbook/betting-line research for uncovered and no-line fixtures; retain verbatim evidence, dates and limitations; never write a probability by hand | unclaimed until B97-1 | arena-b97af12f | new `data/research/b97af12f/line-source-research.{json,md}`, `flags.json`, `research-evidence/**` |
+| B97-3 Verify executive-summary in-site links, separate unresolved section and phone readability; log any defect in files owned by another session here instead of editing | pending | arena-b97af12f | new `tests/test_b97af12f_mobile.py`, new `data/research/b97af12f/mobile-verification.json`, this section |
+| B97-4 Rebase on `main`, run local verification, PR to `main`, merge on a verified build, confirm Pages deploy, record PR/run/sources/irregularities here | pending | arena-b97af12f | this section, PR |
+
+**Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/originate.py`, `scripts/collect.py`, `scripts/root_publish.py`, `scripts/egw_live.py`, `scripts/reference_odds.py`, `scripts/review_register.py`, `scripts/validate.py`, `assets/*`, `.github/workflows/pages.yml`, `tests/test_ca7e10e5_snapshot.py`, `tests/test_a7128fdd_direct_observations.py`, `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `README.md`, `archive/`, `docs/`, or any other session's `data/research/<id>/`. Hotspawn "% picked" and HLTV fan votes are never probabilities; any external price is used only when a real two-sided prematch quote replays from saved evidence.
+
 # Current session: arena-dd433e7f — restore 4-hour scheduled publisher + fix `originate.py` `egw_live` NameError, live 2026-10-24 Hotspawn CS2 31/31 origination sweep, HLTV-first research, scoped Valve aliases & mobile/WCAG audit — DONE (PR #252)
 
 Claimed **2026-10-24T05:33Z** on Arena's fixed session branch `arena/dd433e7f-maltaproj3`, branched from `origin/main` at `2f966a9` (`2f966a91a103398c4ae5513828c81e32897f8af8`). Read `COORDINATION.md`, all open PRs (`#229`, `#227`, `#225`, `#224`, `#165`, `#139` — all last updated on `2026-10-23`, >14 hours idle), and recent workflow runs on `main` before claiming. Per the >60-minute stale-claim handoff rule on `main`, this session took over the broken regression test `tests/test_ca7e10e5_snapshot.py` and duplicate `#no-line-research` DOM ID, and during final `origin/main` integration also caught and fixed a fatal `NameError: name 'egw_live' is not defined` + missing `egw_live.load_live(evidence_dir)` wiring left in `scripts/originate.py` by completed session `arena-43110640` (PR #240, unclaimed on `main`).
@@ -232,7 +245,6 @@ Verified after the change: `site/index.html` and `site/unresolved/index.html` ea
 **Cross-session note.** Four sessions were live on the same blockers while this one ran (arena-43110640, arena-be019782, arena-89c00d8a, arena-f1277d3b). This session deliberately edited none of their files; the two defects above are reported with their run ids instead. No probability, pick or alias was written by hand anywhere in this PR.
 
 ---
-
 # Current session: arena-43110640 — picks for every match (HLTV-first, then esportsbooks), automated EGW fallback, CI unblock, exec-summary/unresolved — DONE (PR pending record below)
 
 Claimed **2026-10-24** on Arena's fixed branch `arena/43110640-maltaproj3`. Read the board first: prior session arena-103774c3 is DONE (PR #216 merged); recent scheduled `pages.yml` runs are FAILING at the regression step (see S431 result when done).
