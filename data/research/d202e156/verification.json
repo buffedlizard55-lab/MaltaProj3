@@ -1,0 +1,158 @@
+{
+  "session": "arena-d202e156",
+  "branch": "arena/d202e156-maltaproj3",
+  "generated_at": "2026-10-24T07:35:00Z",
+  "head_verified": "621d56f2",
+  "head_note": "origin/main head at the time this record was finalised; the egw_live import fix (PR #261, 292ea222) and the pytest declaration + unittest conversion (0427b814, 6c051a73) all landed on main during this session.",
+  "verification_basis": [
+    "Repository's checked-in CI replay fixture data/latest.json (generated 2026-10-15T08:36:13Z) and the site/ tree built from it by python -m scripts.build.",
+    "The live published site, read through the platform page fetcher (snapshot 2026-10-23T20:10:00Z).",
+    "GitHub Actions run history through the public API."
+  ],
+  "checks": [
+    {
+      "id": "D20-1",
+      "claim": "The NameError that failed every scheduled refresh is fixed on main",
+      "result": "pass",
+      "method": "git show origin/main:scripts/originate.py line 37 now reads `from scripts import egw_live`; python -c 'import scripts.originate' succeeds; tests.test_origination_upgrade, tests.test_source_integrity and tests.test_f9d0a5a2 pass (81 tests) where they previously raised NameError in 9 tests.",
+      "sources": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/commit/292ea222",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/pull/261"
+      ]
+    },
+    {
+      "id": "D20-2",
+      "claim": "No module in scripts/ references a sibling module it never imports",
+      "result": "pass",
+      "method": "AST scan of all 64 identifier-named scripts/*.py modules: every loaded Name that matches a sibling module is bound by an import, a local def/class/assignment, or a parameter. Zero findings. The egw_live occurrence on bdb4fc9 was the only one.",
+      "sources": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_d202e156_module_wiring.py"
+      ]
+    },
+    {
+      "id": "D20-2b",
+      "claim": "Every third-party import the test suite and scripts make is installed by requirements.txt",
+      "result": "fail on main at 06f56c2b, fixed on main by 0427b814 + 6c051a73, pinned here",
+      "method": "PR #267 (commit d29a5602) added tests/test_b97af12f_reconciliation.py with a module-level `import pytest`, which requirements.txt never declared. `python -m unittest discover -s tests` therefore reported ERROR: test_b97af12f_reconciliation (ImportError: No module named 'pytest') and exited non-zero, so pages.yml's regression step went red and the four-hour refresh died a second time, one commit after the egw_live NameError was fixed. Reproduced locally on a clean worktree of origin/main at 06f56c2b: \"Ran 1419 tests ... FAILED (errors=1)\". The module was also pytest-style, so unittest collected zero of its six checks. Both halves are fixed on main: 0427b814 declared the dependency and 6c051a73 (owner arena-b97af12f) converted the module to unittest.TestCase. This session pins the contract with tests/test_d202e156_declared_imports.py.",
+      "sources": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/commit/d29a5602",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/commit/0427b814",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/commit/6c051a73"
+      ]
+    },
+    {
+      "id": "D20-3",
+      "claim": "The build replays every published probability and pick from first-party evidence",
+      "result": "pass",
+      "method": "python -m scripts.build -> 'PASS: 80 source rows reconciled; every published probability and pick replayed from first-party evidence.'",
+      "sources": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py"
+      ]
+    },
+    {
+      "id": "D20-4",
+      "claim": "Every rendered table row links an official/primary source or is flagged unverified",
+      "result": "pass",
+      "method": "site/data/row-source-audit.json totals: 826 rows, 807 ok, 9 flagged, 10 navigation, 0 violation. The nine flagged rows sit on final-day/index.html (5) and review/index.html (4).",
+      "sources": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/audit_rows.py"
+      ]
+    },
+    {
+      "id": "D20-5",
+      "claim": "The executive summary links, in-site, to where the updated picks are",
+      "result": "pass",
+      "method": "site/index.html #start-here carries five in-site links, all resolving: ./#picks-at-a-glance, ./origination/#picks, ./strategy/, ./origination/#unresolved, ./#unresolved-register. Every internal <a> on all 11 built pages resolves to an existing page and anchor (tests/test_d202e156_brief_contract.py).",
+      "sources": [
+        "https://buffedlizard55-lab.github.io/MaltaProj3/",
+        "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks"
+      ]
+    },
+    {
+      "id": "D20-6",
+      "claim": "A separate unresolved-picks-and-limitations section sits inside the executive summary",
+      "result": "pass",
+      "method": "site/index.html carries #unresolved-register with #unresolved-register-title reading 'Unresolved picks & limitations', plus the separate #no-line-register ('Picks without a betting line \u00b7 limitations') with one card per model-only fixture, each stating 'No betting line' and linking a source. A dedicated /unresolved/ page also exists.",
+      "sources": [
+        "https://buffedlizard55-lab.github.io/MaltaProj3/#unresolved-register",
+        "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/"
+      ]
+    },
+    {
+      "id": "D20-7",
+      "claim": "The site is phone-ready",
+      "result": "pass with one recorded exception",
+      "method": "All 11 built pages declare a device-width viewport; assets/scout.css collapses .matches-table to block cards at <=850px, shows .mobile-status only at <=700px, sets 44px minimum tap targets, overflow-wrap:anywhere on rows, and a fixed bottom .mobile-nav; no element declares a width or min-width above 320px. Exception: the phone status strip is absent on /origination/ and /strategy/ because their builders overwrite the shell (flag d202e156-phone-status-strip-missing-on-two-views).",
+      "sources": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/assets/scout.css"
+      ]
+    },
+    {
+      "id": "D20-8",
+      "claim": "Every active fixture in the snapshot appears on the summary with both probabilities and a source",
+      "result": "pass",
+      "method": "For each non-past match in site/snapshot.json, a .glance-row was located whose text contains both team names; each such row renders at least two percentages and at least one external source link. On the CI replay fixture that is 17 rows.",
+      "sources": [
+        "https://buffedlizard55-lab.github.io/MaltaProj3/#picks-at-a-glance"
+      ]
+    },
+    {
+      "id": "D20-9",
+      "claim": "The live published site covers every active Hotspawn CS2 fixture",
+      "result": "pass",
+      "method": "Live executive summary (snapshot 2026-10-23T20:10:00Z) states 19 active fixtures, 19 with a directional pick, 12 from an external betting line and 7 from a research model, 0 explicitly unresolved; all 19 rows are listed with both percentages, the pick, the observed price and a source link.",
+      "sources": [
+        "https://buffedlizard55-lab.github.io/MaltaProj3/",
+        "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json"
+      ]
+    },
+    {
+      "id": "D20-10",
+      "claim": "The refresh schedule stays inside the brief's 4-8 hour window",
+      "result": "pass (code), fail (execution)",
+      "method": ".github/workflows/pages.yml declares two cron entries, '17 */4 * * *' and '47 2-22/4 * * *' (largest gap 2.5h), refresh_interval_hours 4 and stale_after_hours 8, and scripts/acceptance_audit.py check 6 passes. Execution is currently starved by parallel push runs \u2014 see flag d202e156-four-hour-publisher-starved-by-parallel-push-runs.",
+      "sources": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml"
+      ]
+    },
+    {
+      "id": "D20-11",
+      "claim": "Hotspawn '% picked' and HLTV fan votes are never used as probabilities",
+      "result": "pass",
+      "method": "Read the published summary: every probability row is badged Market line, Bookmaker or Model/Researched and links Polymarket, Thunderpick, the Valve official standings or bo3.gg; no row cites a Hotspawn crowd percentage or an HLTV vote. scripts/build.py labels the fixture chip 'Hotspawn fixture'.",
+      "sources": [
+        "https://buffedlizard55-lab.github.io/MaltaProj3/",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py"
+      ]
+    },
+    {
+      "id": "D20-12",
+      "claim": "No value in this session was inferred from a page that could not be opened",
+      "result": "pass",
+      "method": "No probability, pick, alias or source was written by this session. The only code changes are two new test modules and this dossier. Every external page quoted here was either read through the platform page fetcher or is a GitHub URL read through the API.",
+      "sources": []
+    }
+  ],
+  "irregularities": [
+    {
+      "flag": "d202e156-phone-status-strip-missing-on-two-views",
+      "severity": "needs review"
+    },
+    {
+      "flag": "d202e156-four-hour-publisher-starved-by-parallel-push-runs",
+      "severity": "needs review"
+    },
+    {
+      "flag": "d202e156-no-general-egress-in-this-sandbox",
+      "severity": "platform limitation"
+    },
+    {
+      "flag": "d202e156-live-lobby-cards-not-in-the-published-snapshot",
+      "severity": "notice"
+    },
+    {
+      "flag": "d202e156-pytest-only-test-module-never-runs-in-ci",
+      "severity": "fixed"
+    }
+  ]
+}
