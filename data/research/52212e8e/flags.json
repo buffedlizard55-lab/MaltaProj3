@@ -95,5 +95,20 @@
       "https://play.hotspawn.com/cs2-pickems",
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/52212e8e/latest-31-inventory-review.md"
     ]
+  },
+  {
+    "id": "52212e8e-thunderpick-raw-price-is-1-001-not-1-00",
+    "severity": "warning",
+    "match_ids": [
+      "1082860"
+    ],
+    "title": "FlyQuest–Staqued raw Thunderpick price is 1.001 / 12, not exactly 1.00 / 12; summary rounding creates a false source reading",
+    "detail": "The retained original Thunderpick response in PR #246 records event 2872333 / market 240164875 with decimal prices 1.001 and 12 (raw SHA-256 a1ed97aee7c99b14f3aa05cef4647742abb593d80ee026f2b48e328448d986b8). On PR #246 head 67d13568 the summary helper formats that as line 1.00 / 12.00. The exact-1.00 premise in the merged e619b921 flag is therefore not supported by the original response. The extreme near-1 price remains an irregularity to review, and the summary must not hide significant source precision. This 05:57Z raw observation is not carried forward as a later deployment-time quote; final evidence must be replayed independently. No pick or probability was changed by hand.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/67d135687e679a4ac3ae005e5c83f039422e11e2/data/research/89c00d8a/live/origination-evidence/live-thunderpick-matches.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/246#issuecomment-6381190173",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/256#issuecomment-6381190305",
+      "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860"
+    ]
   }
 ]

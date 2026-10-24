@@ -37,6 +37,10 @@ The dated HLTV-first/esportsbook sweep records **0 eligible new leads** across a
 | `1082792` | [HOTU vs The Huns](https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792) | [Research model estimate (Valve official ratings)](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md) | [match](https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026) | No |
 | `1082793` | [5star vs 1WIN](https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793) | [Valve-rating research estimate](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md) | [match](https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026) | No |
 
+## Price-source precision correction
+
+For FlyQuest–Staqued (`1082860`), the earlier independently retained 25-row capture contains the **raw** Thunderpick event `2872333` / market `240164875` with decimal prices **1.001 / 12**, not exactly 1.00 / 12. The summary formatter rounds 1.001 to 1.00; this is a display-precision defect and corrects the premise of the merged exact-1.00 review flag. See [`S522-PRICE-001`](integration-review.json) and the [active-integrator comment](https://github.com/buffedlizard55-lab/MaltaProj3/pull/246#issuecomment-6381190173). This raw observation belongs to the 05:57Z capture only: it is **not** asserted as the later 31-row or deployment-time quote, and no probability or pick was changed by hand.
+
 ## Evidence limitation and final gate
 
 The [probe workflow](https://github.com/buffedlizard55-lab/MaltaProj3/blob/a0c08fa6d013705e1a84498cd85b295f86463306/.github/workflows/dd433e7f-probe.yml) commits the derived reports, then cleans its scratch workspace; it uploads no origination/evidence artifact. Consequently this review does **not** claim a 31/31 saved-evidence replay. The successful Pages root-sync must provide `data/latest.json`, `data/origination.json` and the original evidence tree.

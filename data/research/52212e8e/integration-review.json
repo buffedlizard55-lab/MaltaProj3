@@ -193,6 +193,38 @@
       "source_urls": [
         "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237"
       ]
+    },
+    {
+      "id": "S522-REGRESSION-001",
+      "severity": "verified",
+      "pr": 237,
+      "head": "013eed255e3386cf7fd99c56aa150829a75ab292",
+      "finding": "Full Python discovery completed successfully on the reviewed dedicated safety/summary tree.",
+      "verification": "python -m unittest discover -s tests ran 1362 tests in 1157.823 seconds: OK (exit 0). This result is pinned to 013eed25; newer heads still require their own final checks.",
+      "source_urls": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237"
+      ]
+    },
+    {
+      "id": "S522-PRICE-001",
+      "severity": "source-fidelity correction",
+      "pr": 246,
+      "head": "67d135687e679a4ac3ae005e5c83f039422e11e2",
+      "finding": "The retained raw Thunderpick response for FlyQuest–Staqued is 1.001 / 12, not exactly 1.00 / 12; the executive-summary formatter rounds the first leg to 1.00.",
+      "verified_details": [
+        "Raw event 2872333, market 240164875, start 2026-10-27T03:00:00+00:00, contains home odds 1.001 and away odds 12.",
+        "Raw evidence SHA-256 is a1ed97aee7c99b14f3aa05cef4647742abb593d80ee026f2b48e328448d986b8.",
+        "On PR #246 head 67d13568, observed_price_label returns 'line 1.00 / 12.00' for stored odds [1.001, 12], because it formats both legs with two decimal places despite promising exact stored values.",
+        "The merged e619b921 exact-1.00 flag was based on the rounded display and could not re-read the original feed; its exact-1.00 premise is not supported by this retained raw response."
+      ],
+      "handling": "Reported to the active integrator and merged audit at PR #246 comment 6381190173 and PR #256 comment 6381190305. Preserve sufficient decimal precision and correct/qualify the exact-1.00 wording. The near-1 quote remains a review limitation; no pick, probability or replacement price was hand-written.",
+      "limitation": "The raw response belongs to the independently retained 05:57Z 25-row capture. It does not prove the price in the later 31-row manifest or a future deployment; those require their own retained evidence replay.",
+      "source_urls": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/67d135687e679a4ac3ae005e5c83f039422e11e2/data/research/89c00d8a/live/origination-evidence/live-thunderpick-matches.json",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/pull/246#issuecomment-6381190173",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/pull/256#issuecomment-6381190305",
+        "https://thunderpick.io/api/matches"
+      ]
     }
   ],
   "probability_policy": "No pick, probability, alias or source value was hand-written. Hotspawn community selection share and EGW/HLTV fan votes were excluded.",

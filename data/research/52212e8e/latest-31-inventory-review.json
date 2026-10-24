@@ -427,5 +427,19 @@
   },
   "evidence_limitation": "The dd433e7f probe committed derived manifest/research reports, then cleaned the scratch workspace; its workflow uploads no origination/evidence artifact. The 31-row probabilities are therefore not independently replayed by this review. The final Pages root-sync must supply data/latest.json, data/origination.json and the original evidence tree for validation.",
   "workflow_url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/a0c08fa6d013705e1a84498cd85b295f86463306/.github/workflows/dd433e7f-probe.yml",
-  "final_acceptance_gate": "Do not treat the 25-row certificate as final coverage. On the settled deployed/root-synced snapshot, reconcile every then-current Hotspawn fixture (at least these 31 at the 06:15 observation), require a pick or explicit unresolved row and both probabilities where resolved, verify every source link, and replay the retained original evidence."
+  "final_acceptance_gate": "Do not treat the 25-row certificate as final coverage. On the settled deployed/root-synced snapshot, reconcile every then-current Hotspawn fixture (at least these 31 at the 06:15 observation), require a pick or explicit unresolved row and both probabilities where resolved, verify every source link, and replay the retained original evidence.",
+  "price_precision_crosscheck": {
+    "match_id": "1082860",
+    "applies_to": "Earlier independently retained 25-row capture only; not asserted for the 31-row derived manifest",
+    "raw_evidence": "data/research/89c00d8a/live/origination-evidence/live-thunderpick-matches.json on PR #246 head 67d13568",
+    "raw_sha256": "a1ed97aee7c99b14f3aa05cef4647742abb593d80ee026f2b48e328448d986b8",
+    "event_id": "2872333",
+    "market_id": "240164875",
+    "raw_decimal_odds": [
+      1.001,
+      12
+    ],
+    "finding": "The summary rounds 1.001 to 1.00. Do not describe the original provider value as exactly 1.00; replay the actual final deployment evidence and preserve significant price precision.",
+    "review_finding": "S522-PRICE-001"
+  }
 }
