@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "session": "arena-cd37caa0",
+  "kind": "fresh-candidate phone and full-browser verification",
+  "observation_date": "2026-10-24",
+  "candidate_evidence": {
+    "source_pr": 246,
+    "source_head": "50bb2017c3edb3eed2c540830d327f2d9de732e2",
+    "inventory_observed_at": "2026-10-24T05:57:37Z",
+    "active": 25,
+    "resolved": 25,
+    "unresolved": 0,
+    "external_line": 15,
+    "model_without_external_line": 10,
+    "validation_problem_rows": 1,
+    "acceptance_status": "blocked: fixture 1082860 carries non-actionable Thunderpick odds 1.001 / 12.00 and must be rejected and rerun through the ladder",
+    "note": "Scratch-build evidence only; this is not a deployment attestation. Browser success does not make the invalid money-line row acceptable."
+  },
+  "runs": [
+    {
+      "id": "base-fresh-candidate",
+      "code_head": "bdb4fc92a30989e93263d7ef3842cda045fe6571",
+      "build": "PASS: 88 replayed source rows; 855 row-source entries, zero source-less; 10/10 acceptance checks; 924 internal links/assets/anchors",
+      "browser": "Initial candidate spec: 2 passed, 3 failed; all three failures were duplicate id no-line-research on the executive summary"
+    },
+    {
+      "id": "pr237-fresh-candidate",
+      "code_head": "013eed255e3386cf7fd99c56aa150829a75ab292",
+      "build": "PASS: 88 replayed source rows; 871 row-source entries, zero source-less; 10/10 acceptance checks; 925 internal links/assets/anchors",
+      "browser": "Candidate spec 5/5 passed at 320px and 390px, including all 25 cards, both percentages, sources, no overflow, unique IDs, no-JavaScript navigation and WCAG A/AA"
+    },
+    {
+      "id": "pr246-fresh-candidate-full-suite",
+      "code_head": "50bb2017c3edb3eed2c540830d327f2d9de732e2",
+      "build": "PASS: 88 replayed source rows; 857 row-source entries, zero source-less; 10/10 acceptance checks; 920 internal links/assets/anchors",
+      "browser": "Full Playwright suite 109/109 passed, including the five CD37 candidate tests",
+      "final_spec_revision": "The clock-aware/static-safety revision of the CD37 spec subsequently passed 5/5 against the same fresh built site"
+    }
+  ],
+  "current_head_recheck": {
+    "pr237": "5600a3a2e31d93fe3f86b81cdf31157a2b313fee",
+    "pr246": "67d135687e679a4ac3ae005e5c83f039422e11e2",
+    "note": "These newer heads were not covered by the archived 109/109 run. Their EGW audits are recorded separately; do not transfer browser or deployment claims across heads."
+  },
+  "limitations": [
+    "No GitHub Pages deployment was performed by these scratch tests.",
+    "The full PR237 suite was not used as an acceptance result: its first run lacked PYTHONPATH for fixture subprocesses and also contained dated assertions later corrected in PR246.",
+    "Browser success does not waive EGW integration failures. Current PR246 fails three required EGW checks; current PR237 passes all four.",
+    "Browser success also does not waive quote admission: the fresh candidate has one validation-problem row, 1082860, with Thunderpick odds 1.001 / 12.00."
+  ]
+}

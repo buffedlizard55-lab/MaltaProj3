@@ -1,0 +1,31 @@
+[
+  {
+    "id": "cd37caa0-egw-replay-identity-start-regression",
+    "severity": "review",
+    "match_ids": [],
+    "title": "The newly wired EGW fallback still needs original-response replay, an independent provider start and exact team identity before it is safe",
+    "detail": "Read-only recheck on 2026-10-24: main a0c08fa and PR #246 head 67d1356 now load automated EGW entries, so the old missing-loader warning no longer describes them. However, the independent synthetic gate still fails three required checks on PR #246: load_live does not replay original HTML plus its request manifest; a Ground Zero–Off Chops probe is emitted without any provider timestamp; and a Spirit/LFO probe incorrectly matches a Spirit Academy/LFO 10 URL. These are synthetic safety probes, not published picks or probabilities. PR #237 head 5600a3a passes all four required checks. Final integration should preserve that safer implementation and must not call the older derived-only loader verified merely because it is wired. The observed real-markup sibling-price case remains fail-closed with zero entries, so automated real-page capture is not claimed.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/commit/a0c08fa6d013705e1a84498cd85b295f86463306",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/commit/67d135687e679a4ac3ae005e5c83f039422e11e2",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/commit/5600a3a2e31d93fe3f86b81cdf31157a2b313fee",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/246#issuecomment-6381130106",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237#issuecomment-6381130374"
+    ]
+  },
+  {
+    "id": "cd37caa0-fresh-candidate-nonactionable-thunderpick-leg",
+    "severity": "warning",
+    "match_ids": [
+      "1082860"
+    ],
+    "title": "The fresh 25-row candidate still carries the non-actionable Thunderpick 1.001 / 12.00 quote on FlyQuest–Staqued",
+    "detail": "The dated candidate collected at 2026-10-24T05:57:54Z repeats the same fixture-1082860 problem independently flagged on the older deployment by PR #256: Thunderpick odds 1.001 / 12.00 normalize arithmetically to FlyQuest 92.3006% and Staqued 7.6994%, but a leg at or below 1.01 is not an actionable two-sided bookmaker offer. The CD37 reconciler now rejects this row as a validation problem, so the candidate is not acceptance-clean even though its browser suite is green. The owner of the Thunderpick paired-price rung should reject the quote before margin removal and rerun the ladder so this fixture falls back to another independently sourced estimate or is published unresolved with its limitation. No probability or pick was changed by this audit.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
+      "https://thunderpick.io/api/matches",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/256",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/commit/50bb2017c3edb3eed2c540830d327f2d9de732e2"
+    ]
+  }
+]

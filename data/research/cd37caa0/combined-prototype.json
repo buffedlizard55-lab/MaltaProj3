@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "session": "arena-cd37caa0",
+  "kind": "disposable combined-tree verification; simulated featured-quote rejection, not a live collection or deployment",
+  "observation_date": "2026-10-24",
+  "code_inputs": {
+    "main_base": "52091c5c3aac9fbd53cc9e9400a37026a1c27ea9",
+    "egw_and_landmark_source": "5600a3a2e31d93fe3f86b81cdf31157a2b313fee",
+    "fresh_browser_test_source": "50bb2017c3edb3eed2c540830d327f2d9de732e2",
+    "cd37_branch_commit_at_test": "c1152ed6bf85c6aec26dedc8013ae02db22d4d39"
+  },
+  "data_input": {
+    "candidate_source_head": "50bb2017c3edb3eed2c540830d327f2d9de732e2",
+    "inventory_observed_at": "2026-10-24T05:57:37Z",
+    "featured_rejection_simulation": "Only featured analyses whose own stored decimal quote had a leg <= 1.01 were cleared before normal origination; exactly 1082860 matched. No probability, team, start, pick or alias was hand-written.",
+    "corrected_counts": {
+      "active": 25,
+      "resolved": 25,
+      "unresolved": 0,
+      "external_line": 14,
+      "research_model": 11,
+      "validation_problem_rows": 0
+    }
+  },
+  "patch_manifest": [
+    "scripts/domain.py: require both no-vig decimal legs > 1.01",
+    "scripts/egw_live.py and scripts/originate.py: PR237 original-response replay, exact identity/start and loader with fixtures+registry",
+    "scripts/build_origination.py: PR237 fixture-bound reference replay",
+    "scripts/build.py, scripts/validate.py and assets/glance-lock.js: PR237 landmark/freshness and duplicate-ID guards",
+    "tests/browser/dashboard.spec.mjs and phone_picks_92a3e9fb.spec.mjs: PR246 fresh-data assertions",
+    "CD37 read-only audits and browser spec"
+  ],
+  "fallback_1082860": {
+    "teams": ["FlyQuest", "Staqued"],
+    "rejected_quote": [1.001, 12.0],
+    "method": "model",
+    "model_source": "https://www.hltv.org/ranking/teams",
+    "probabilities": [0.52300959, 0.47699041],
+    "pick_index": 0,
+    "limitations": "Uncalibrated HLTV ranking transform; Staqued has no HLTV ranking row and receives the model's stated 0.0-point floor. Low confidence; lineups, stand-ins, form and veto unverified.",
+    "note": "This is the existing engine's output from saved evidence after the quote rejection, not a hand-selected replacement."
+  },
+  "verification": {
+    "egw_required_checks": "4/4 pass; sibling-price real-markup probe remains informational with zero entries",
+    "reconciliation": "25 active / 25 resolved / zero validation-problem rows",
+    "build": "PASS: 88 replayed source rows; 892 rendered row-source entries, 873 official-linked, 9 explicitly unverified, 10 site-map, zero source-less; acceptance 10 pass / 0 info / 0 fail; 929 internal links/assets/anchors",
+    "targeted_unit_fresh_and_isolated": "166/166 pass",
+    "dated_origination_upgrade_on_original_fixtures": "32/32 pass",
+    "full_browser_corrected_candidate": "117/117 pass",
+    "full_python_discovery_older_fixture_tree": "1415 total: 1413 pass / 2 fail in 1084.233s. Both failures are stale implementation-signature assertions (direct summary-block call and one-argument EGW loader); both complete modules pass 25/25 on PR273 after PR237's intentional contract changes. Not claimed as a green full run."
+  },
+  "not_claimed": [
+    "No live featured collection was run; the rejection was simulated from the stored quote in a disposable tree.",
+    "No green full all-tests Python discovery is claimed for the older prototype: its two stale-signature failures are retained explicitly; current full CI remains authoritative.",
+    "No pull request, merge, GitHub Pages deployment or production snapshot is claimed.",
+    "Current moving heads must be rechecked. At 07:11Z PR237 eeb9bc86 still passed EGW but had not added the >1.01 boundary."
+  ]
+}
