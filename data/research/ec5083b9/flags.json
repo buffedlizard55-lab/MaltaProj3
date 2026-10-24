@@ -60,5 +60,18 @@
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/requirements.txt",
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml"
     ]
+  },
+  {
+    "id": "ec5083b9-actions-queue-blocked-the-refresh",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "No GitHub Actions job ran for this repository between 07:25Z and 08:14Z, so the site is still serving the 2026-10-23T20:10:00Z snapshot",
+    "detail": "Observed on 2026-10-24 at 08:14Z: the repository has 41 workflow runs queued or pending and 0 in progress. The scheduled publisher 40074822023 (created 07:36:41Z, event schedule, its own concurrency group pages-schedule) has been queued for 37 minutes without starting; the push run created for the merged head 1a4fba0 was cancelled, as every push run since 07:31Z (40074483614, 40074802194, 40075103939, 40075406944, 40075609270, 40075642331, 40075650243) was, because a newer push enters the same pages-push group first. Consequence: the deployed pages still carry snapshot 2026-10-23T20:10:00Z (read from the branch-root snapshot.json and from the page's own data-snapshot-generated stamp), which is over twelve hours old and past the site's eight-hour bound. Nothing in this session's code is the cause: on the merged tree the publisher's regression command runs clean locally (1440 tests, 0 failures) and scripts.build passes with 0 rows without a source. The refresh resumes by itself as soon as GitHub allocates runners; the nine unpublished CCT Europe cards are what a completed run will pick up. Re-check after the next successful run with python -m scripts.ec5083b9_verify --site <published tree> --fail-on-gap.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40074822023",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40076115326",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml"
+    ]
   }
 ]
