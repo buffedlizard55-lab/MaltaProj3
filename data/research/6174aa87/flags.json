@@ -1,0 +1,70 @@
+[
+  {
+    "id": "6174aa87-cited-source-unreachable-on-recheck",
+    "severity": "notice",
+    "match_ids": [
+      "1079198",
+      "1079199",
+      "1079200",
+      "1079661",
+      "1081154",
+      "1081156",
+      "1081158",
+      "1082695",
+      "1082792",
+      "1082793",
+      "1082858",
+      "1082859",
+      "1082860",
+      "1082861",
+      "1082897",
+      "1082898",
+      "1082900",
+      "1082901",
+      "1082996",
+      "1083122",
+      "1083123",
+      "1083140"
+    ],
+    "title": "A source cited by a published pick could not be re-read on this sweep",
+    "detail": "These URLs are cited on the published pick rows and were re-read by the runner. A refusal, challenge or timeout is not evidence that the market does not exist and no pick was changed because of it: 1079661 Nuclear TigeRES vs ex-Zero Tenacity — https://www.hotspawn.com/matches/nuclear-tigeres-vs-ex-zero-tenacity-cct-europe-2026-series-11-1079661 (http-403); 1079661 Nuclear TigeRES vs ex-Zero Tenacity — https://polymarket.com/event/cs2-ntr-zerote-2026-10-24 (challenge); 1081154 BakS vs ILLYRIANS — https://www.hotspawn.com/matches/baks-vs-illyrians-cct-europe-2026-series-12-1081154 (http-403); 1081154 BakS vs ILLYRIANS — https://polymarket.com/event/cs2-baks-ill4-2026-10-24 (challenge); 1081154 BakS vs ILLYRIANS — https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct241300illbaks (http-429); 1081154 BakS vs ILLYRIANS — https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md (challenge); 1081154 BakS vs ILLYRIANS — https://www.hltv.org/matches/2399504/baks-vs-illyrians-cct-2026-europe-series-12 (http-403); 1082695 Galorys vs paiN — https://www.hotspawn.com/matches/galorys-vs-pain-circuit-x-curitiba-4-1082695 (http-403); 1082695 Galorys vs paiN — https://polymarket.com/event/cs2-gls1-pain-2026-10-24 (challenge); 1083122 LOS NINOS vs BORRACHEIROS — https://www.hotspawn.com/matches/los-ninos-vs-borracheiros-cct-south-america-2026-series-7-1083122 (http-403); 1083122 LOS NINOS vs BORRACHEIROS — https://polymarket.com/event/cs2-ln-chama-2026-10-24 (challenge); 1083122 LOS NINOS vs BORRACHEIROS — https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct241500lnchama (http-429). The ladder re-reads its own sources on the next four-hour refresh.",
+    "source_urls": [
+      "https://bo3.gg/matches",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct241300illbaks",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct241500lnchama",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct250500unityace",
+      "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct251400exzcol",
+      "https://polymarket.com/event/cs2-ace1-unity-2026-10-25",
+      "https://polymarket.com/event/cs2-all-faze-2026-10-27",
+      "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
+      "https://polymarket.com/event/cs2-baks-ill4-2026-10-24",
+      "https://polymarket.com/event/cs2-bst-imp11-2026-10-24",
+      "https://polymarket.com/event/cs2-color-zerote-2026-10-25",
+      "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
+      "https://polymarket.com/event/cs2-gls1-pain-2026-10-24",
+      "https://polymarket.com/event/cs2-grmioe-yaw-2026-10-24",
+      "https://polymarket.com/event/cs2-inf6-brute-2026-10-25",
+      "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
+      "https://polymarket.com/event/cs2-ln-chama-2026-10-24",
+      "https://polymarket.com/event/cs2-ntr-zerote-2026-10-24",
+      "https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/24/19-00/los-ninos-vs-borracheiros",
+      "https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/24/22-00/gremio-esports-vs-yawara-esports",
+      "https://www.bovada.lv/sports/esports/counter-strike-2/cct-europe/series-11/forze-reload-ex-rustec-202610251400",
+      "https://www.bovada.lv/sports/esports/counter-strike-2/cct-europe/series-11/spirit-academy-sokerorg-202610250800",
+      "https://www.bovada.lv/sports/esports/counter-strike-2/nodwin-clutch-series/metizport-baks-esports-202610250800",
+      "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13"
+    ]
+  },
+  {
+    "id": "6174aa87-provenance-sweep",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Dated pick-provenance sweep: every published pick re-read against its own citation",
+    "detail": "Runner sweep observed 2026-10-24T16:47:28Z. 22 active fixtures carried a published pick; 0 were re-verified with at least one cited URL naming both teams or binding the ladder’s event id, 22 need review, 67 citation(s) could not be re-read and 0 fixture-specific page(s) answered without naming the teams. The dated dossier (data/research/6174aa87/pick-provenance.json and .md) carries the HTTP status, hash and an excerpt per URL for manual review.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/6174aa87/pick-provenance.md",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/6174aa87-probe.yml"
+    ]
+  }
+]
