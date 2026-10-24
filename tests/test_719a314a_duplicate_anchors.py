@@ -95,13 +95,14 @@ class OneDatedBlockPerSummary(unittest.TestCase):
             duplicated = {name: n for name, n in counts.items() if n > 1}
             self.assertEqual(duplicated, {}, f'duplicate ids with record={record!r}')
 
-    def test_the_summary_is_the_only_copy_on_the_executive_summary(self):
-        # main's e360f4c (PR #241) fixed the duplicate by dropping the block from
-        # the compact register; the summary keeps exactly one. Pin both halves so
-        # a future change cannot reintroduce the second copy.
+    def test_compact_register_owns_the_only_summary_copy(self):
+        # Integrate both exactly-once fixes without deleting both calls: the
+        # compact register owns this block and summary delegates, keeping it
+        # inside the separate limitations section (BE's rendered regression).
+        # Pin the final contract, not the alternate parent-owner implementation.
         data = self.data(_no_line_research=DATED_RECORD)
         compact = unresolved_register(data, './', compact=True)
-        self.assertNotIn('id="no-line-research"', compact)
+        self.assertEqual(compact.count('id="no-line-research"'), 1)
         self.assertEqual(summary(data, './').count('id="no-line-research"'), 1)
 
     def test_a_summary_without_a_dated_record_publishes_no_such_anchor(self):

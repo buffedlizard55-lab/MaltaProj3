@@ -1861,10 +1861,14 @@ def unresolved_register(data, prefix, title='Unresolved picks &amp; limitations'
         # brief asks for and links straight to that evidence rather than
         # reproducing ~40 KB of tables above the picks.
         out.append(no_line_digest(data, prefix))
-        # summary() owns the single dated research block on the executive
-        # summary. The compact register renders only the per-fixture blockers;
-        # the full register below keeps the block on /unresolved/.
-        # The 22-surface sweep and source-probe matrix also stay there.
+        # The dated per-fixture research record stays on the summary: it is the
+        # evidence behind each no-line blocker and the cross-session audit
+        # (scripts/eea4c104_audit.py) requires the block here. It is rendered
+        # exactly once by this child; summary() delegates instead of appending
+        # another copy. Integrating 73bc57bd's child-call removal with our
+        # parent-call removal would otherwise leave zero blocks. Both fixes'
+        # intent is preserved by one owner and actual rendered regressions.
+        out.append(no_line_research_block(data, prefix))
         # The companion record: what a surface that DID answer actually
         # published, for the same no-line fixtures. Same category as the dated
         # research record above, so it stays on the summary in compact form and
@@ -1929,11 +1933,10 @@ def summary(data, prefix, now=None):
     out += glance(data, prefix, now=now)
     out += live_coverage_gaps(data, prefix)
     out += exec_banner(data, prefix)
-    # Keep the dated evidence on the executive summary with exactly one owner.
-    # The compact register renders the per-fixture limitations; summary() adds
-    # the dated block once. The duplicate-ID link guard fails any regression.
     out += unresolved_register(data, prefix, compact=True)
-    out += no_line_research_block(data, prefix)
+    # The compact unresolved register above already owns the dated no-line
+    # research block. Render it there once: a second call here duplicated the
+    # content and HTML ID, breaking phone anchors and post-build regression.
     if complete:
         if not data['coverage_complete']:
             coverage_label = 'Picks in the retained snapshot'

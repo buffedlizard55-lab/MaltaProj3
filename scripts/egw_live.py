@@ -1,40 +1,16 @@
-"""Automated EGamersWorld aggregated-line capture (session arena-43110640).
+"""Fail-closed automated EGamersWorld reference capture.
 
-Why this exists
----------------
-The brief asks for a pick for *every* Hotspawn CS2 match, including low-tier
-fixtures no first-party market prices. The ladder already tries, in order:
-Polymarket/Kalshi/Smarkets exchanges, Thunderpick/Bovada/Pinnacle esportsbooks,
-bo3.gg-relayed bookmaker prices, the reviewed EGamersWorld aggregated reference,
-then Valve/HLTV research models. Until now the EGamersWorld rung depended on
-*manually reviewed* capture files (`data/research/*/reference-odds.json`), so
-it went stale eight hours after a human last looked and low-tier fixtures fell
-back to models or stayed unresolved.
+The index remains useful for discovery, but its URL/team mentions alone are
+not quote evidence. Promotion requires one unambiguous match anchor whose own
+markup supplies a timezone-qualified ISO start and a decimal price immediately
+associated with each exact outcome name. Never copy Hotspawn's time into provider
+evidence or bind a first substring hit. When the index omits these facts it
+produces no quote; the existing first-party and research-model rungs remain.
 
-This module automates that rung with the same fail-closed contract:
-
-* the source is EGamersWorld's own CS2 matches index
-  (``https://egamersworld.com/counterstrike/matches``), fetched live by the
-  origination collector and saved verbatim as evidence
-  (``live-egw-index.json``), so every derived entry replays offline;
-* an entry is produced only when a match link's own ``Title VS Title`` label
-  resolves to both Hotspawn teams by exact normalized names or the reviewed
-  competition-scoped alias registry. URL substrings are not identity evidence;
-* the listing prints exactly two decimal odds and supplies an independent
-  machine-readable start timestamp with an explicit ``Z`` or numeric offset.
-  Hotspawn's start is never copied into provider evidence. Missing/naive times
-  and same-team rematches with another provider start price nothing;
-* entries are written in the reviewed ``reference_odds`` schema (fixture id,
-  both team orders, provider start, hash-checked excerpt), so the existing
-  ``reference_odds.quote()`` gate still rejects placeholders, stale evidence,
-  identity drift and start mismatches;
-* it remains an *aggregated third-party reference*, labelled as such, and it
-  never overrides a first-party market or esportsbook line (enforced by the
-  ladder order in ``originate_match``, unchanged).
-
-The human-readable EGW title/body can present different timezone representations
-without naming a zone in the title. Those strings are deliberately not guessed.
-Only an explicit machine-readable timestamp is accepted.
+Original HTML is saved by originate.Client. Captures retain the literal anchor
+excerpt and its hash; offline loading reparses that original response and refuses
+old, forged or independently unbound derived entries. Existing reference_odds
+freshness, margin, identical-placeholder and exact-start gates stay unchanged.
 """
 from __future__ import annotations
 
@@ -44,7 +20,7 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 
-from scripts.domain import name_key
+from scripts.domain import iso, name_key, timestamp
 
 UTC = timezone.utc
 INDEX_URL = 'https://egamersworld.com/counterstrike/matches'
@@ -54,55 +30,56 @@ INDEX_EVIDENCE = 'live-egw-index'
 
 _SLUG_CLEAN = re.compile(r'[^a-z0-9]+')
 _ODDS_RE = re.compile(r'(?<![\d.])(\d{1,3}\.\d{1,2})(?![\d.])')
-_TIME_ATTRIBUTES = ('datetime', 'data-datetime', 'data-start', 'data-starts-at', 'data-start-time')
+_ZONE = re.compile(r'(?:Z|[+-]\d{2}:\d{2})$', re.I)
 
 
 def slugify(name: str) -> str:
-    """Retained for slug diagnostics; never sufficient as a team join."""
+    """EGamersWorld URL slug for a team name (lowercase, hyphen-separated)."""
     return _SLUG_CLEAN.sub('-', (name or '').casefold()).strip('-')
 
 
-def _title_teams(anchor) -> list[str] | None:
-    """Read the provider's exact two-team link title, never a slug substring."""
-    title = (anchor.get('title') or '').strip()
-    parts = [part.strip() for part in re.split(r'\s+[Vv][Ss]\s+', title, maxsplit=1)]
-    if len(parts) != 2 or not all(parts) or name_key(parts[0]) == name_key(parts[1]):
+def _slug_keys(name: str) -> set[str]:
+    slug = slugify(name)
+    return {slug, slug.replace('-', '')} if slug else set()
+
+
+def _source_start(anchor) -> str | None:
+    clocks = set()
+    for node in anchor.select('time[datetime]'):
+        value = node.get('datetime') or ''
+        # Naive/local clocks are unverified; no guessed timezone is permitted.
+        parsed = timestamp(value) if _ZONE.search(value) else None
+        if parsed is None:
+            return None
+        clocks.add(iso(parsed))
+    return next(iter(clocks)) if len(clocks) == 1 else None
+
+
+def _literal_anchor(html: str, anchor) -> str | None:
+    if anchor.sourceline is None or anchor.sourcepos is None:
         return None
-    return parts
-
-
-def _explicit_start(anchor) -> str | None:
-    """Return a provider timestamp only when its timezone is explicit."""
-    for node in (anchor, *anchor.find_all(True)):
-        for attribute in _TIME_ATTRIBUTES:
-            raw = node.get(attribute)
-            if not isinstance(raw, str) or not raw.strip():
-                continue
-            value = raw.strip()
-            try:
-                moment = datetime.fromisoformat(value[:-1] + '+00:00'
-                                                if value.endswith('Z') else value)
-            except ValueError:
-                continue
-            if moment.tzinfo is None or moment.utcoffset() is None:
-                continue
-            return moment.astimezone(UTC).isoformat().replace('+00:00', 'Z')
-    return None
+    lines = html.splitlines(keepends=True)
+    start = sum(map(len, lines[:anchor.sourceline - 1])) + anchor.sourcepos
+    closing = re.search(r'</a\s*>', html[start:], re.I)
+    if closing is None:
+        return None
+    excerpt = html[start:start + closing.end()]
+    # Invalid/nested anchors cannot establish a single outcome/quote block.
+    if len(re.findall(r'<a(?:\s|>)', excerpt, re.I)) != 1:
+        return None
+    return excerpt
 
 
 def parse_index(html: str) -> list[dict]:
-    """Parse exact team titles, two odds and any explicit provider start.
+    """Retain two-price discovery anchors, including unverified-time leads.
 
-    Returns dictionaries with ``url``, ``slug``, ``provider_teams``, ``odds``
-    and ``starts_at``. ``starts_at`` is None when the provider has no explicit
-    timezone-bearing machine timestamp; ``entries_for`` rejects that row.
-    Anything with missing/ambiguous team labels or odds is skipped, never
-    repaired from another fixture.
+    All qualifying observations are retained. Duplicate/conflicting events are
+    checked at binding time, not silently hidden by a first-URL-wins scan.
     """
     from bs4 import BeautifulSoup
 
     soup = BeautifulSoup(html or '', 'html.parser')
-    out, seen = [], set()
+    out = []
     for anchor in soup.select('a[href*="/counterstrike/match/"]'):
         href = anchor.get('href') or ''
         if href.startswith('/counterstrike/match/'):
@@ -110,97 +87,116 @@ def parse_index(html: str) -> list[dict]:
         if not href.startswith('https://egamersworld.com/counterstrike/match/'):
             continue
         slug = href.rstrip('/').rsplit('/', 1)[-1]
-        if not slug or href in seen:
-            continue
-        provider_teams = _title_teams(anchor)
-        if provider_teams is None:
-            continue
-        provider_start = _explicit_start(anchor)
-        # A short visible date such as 24.10 looks like a decimal price to a
-        # tokenizer. Time elements are evidence for the start, never odds text.
-        text_soup = BeautifulSoup(str(anchor), 'html.parser')
-        while True:
-            time_node = text_soup.find(
-                lambda tag: tag.name == 'time' or any(tag.has_attr(attr) for attr in _TIME_ATTRIBUTES))
-            if time_node is None:
-                break
-            time_node.decompose()
-        text = text_soup.get_text(' ', strip=True)
+        text = anchor.get_text(' ', strip=True)
         odds = [float(x) for x in _ODDS_RE.findall(text)]
-        if len(odds) != 2:
+        if not slug or len(odds) != 2:
             continue
-        seen.add(href)
-        out.append({'url': href, 'slug': slug, 'provider_teams': provider_teams,
-                    'odds': odds, 'starts_at': provider_start})
+        out.append({'url': href, 'slug': slug, 'odds': odds, 'text': text,
+                    'starts_at': _source_start(anchor),
+                    'excerpt': _literal_anchor(html, anchor)})
     return out
 
 
-def entries_for(html: str, matches: list, registry: dict, observed_at: str) -> list[dict]:
-    """Build reviewed-schema entries only for exact identity and provider time.
+def _named_price(text: str, names: list[str]) -> tuple[str, float] | None:
+    found = {}
+    for name in names:
+        if not name:
+            continue
+        # A price must follow the complete displayed name, not a substring of
+        # an academy/sister team, or an unlabelled positional price list.
+        pattern = r'(?<![\w])' + re.escape(name) + r'\s+(' + _ODDS_RE.pattern + r')(?![\w.])'
+        for match in re.finditer(pattern, text, re.I):
+            found[match.span()] = (match.group(0)[:match.group(0).rfind(match.group(1))].strip(),
+                                   float(match.group(1)))
+    return next(iter(found.values())) if len(found) == 1 else None
 
-    The provider's two title names are independently resolved through the same
-    competition-scoped alias registry as other sources. Odds are reordered to
-    Hotspawn's team order only after that exact two-team join. The provider's
-    own timestamp is retained so ``reference_odds.quote()`` can reject a
-    same-team rematch or schedule mismatch; no timestamp is copied from the
-    Hotspawn row.
+
+def entries_for(html: str, matches: list, registry: dict, observed_at: str) -> list[dict]:
+    """Bind exact named prices and an independently published source start.
+
+    No UTC source clock, ambiguous event or unassociated prices => no entry.
+    The provider time is preserved, never filled from the Hotspawn fixture.
     """
     from scripts.originate import resolve_name  # local: avoids a module cycle
 
     rows = parse_index(html)
+    observed = timestamp(observed_at)
     entries = []
     for match in matches or []:
         teams = [t.get('name') or '' for t in match.get('teams') or []]
-        wanted = [name_key(team) for team in teams]
-        if len(teams) != 2 or len(set(wanted)) != 2 or not match.get('starts_at'):
+        start = timestamp(match.get('starts_at'))
+        if len(teams) != 2 or len({name_key(n) for n in teams}) != 2 or start is None or observed is None or start <= observed:
             continue
+        names = []
+        for team in teams:
+            canonical, _ = resolve_name(team, registry, match.get('competition'))
+            names.append(list(dict.fromkeys([team, canonical])))
+        candidates = {}
         for row in rows:
-            provider_start = row.get('starts_at')
-            if not provider_start:
+            # The reviewed reference gate is exact to the second. Keep that
+            # stronger rule instead of manufacturing the fixture's timestamp.
+            if not row['excerpt'] or timestamp(row['starts_at']) != start:
                 continue
-            provider_names = row['provider_teams']
-            canonical, aliases_used = [], []
-            for name in provider_names:
-                resolved, used = resolve_name(name, registry, match.get('competition'))
-                canonical.append(resolved)
-                aliases_used.extend(used)
-            if len(set(canonical)) != 2 or set(canonical) != set(wanted):
+            paired = [_named_price(row['text'], side) for side in names]
+            if any(p is None for p in paired):
                 continue
-            hotspawn_order = [canonical.index(wanted[0]), canonical.index(wanted[1])]
-            odds = [row['odds'][hotspawn_order[0]], row['odds'][hotspawn_order[1]]]
-            excerpt = (f"EGamersWorld CS2 matches index ({INDEX_URL}) lists "
-                       f"{provider_names[0]} vs {provider_names[1]} at decimal odds "
-                       f"{row['odds'][0]:g} / {row['odds'][1]:g}, provider start "
-                       f"{provider_start} (automated capture {observed_at}; exact "
-                       "title/alias identity; odds re-ordered to Hotspawn team order "
-                       "where the listing order differs).")
-            entries.append({
-                'fixture_id': str(match['id']),
-                'teams': teams,
-                'provider_teams': provider_names,
-                'starts_at': provider_start,
-                'odds': odds,
-                'source_url': row['url'],
-                'observed_at': observed_at,
-                'excerpt': excerpt,
-                'excerpt_sha256': hashlib.sha256(excerpt.encode('utf-8')).hexdigest(),
-                'provider': PROVIDER,
-                'capture': 'automated EGW index capture (scripts/egw_live.py)',
-                'aliases_used': aliases_used,
-            })
-            break
+            provider_names = [p[0] for p in paired]
+            odds = [p[1] for p in paired]
+            slugs = [slugify(n) for n in provider_names]
+            if not any(row['slug'].startswith(slugs[i] + '-vs-' + slugs[1-i] + '-')
+                       for i in (0, 1)):
+                continue
+            # Both displayed outcome-price associations must account for the
+            # two prices on the source; URL order is never used to infer odds.
+            if sorted(odds) != sorted(row['odds']):
+                continue
+            positions = [row['text'].casefold().find(n.casefold()) for n in provider_names]
+            order = sorted(range(2), key=lambda i: positions[i])
+            signature = (row['url'], row['starts_at'], tuple(odds))
+            candidates[signature] = (row, provider_names, odds, order)
+        if len(candidates) != 1:
+            continue
+        row, provider_names, odds, order = next(iter(candidates.values()))
+        excerpt = row['excerpt']
+        entries.append({
+            'fixture_id': str(match['id']), 'teams': teams,
+            'provider_teams': [provider_names[i] for i in order],
+            'starts_at': row['starts_at'], 'odds': odds,
+            'source_url': row['url'], 'source_index_url': INDEX_URL,
+            'observed_at': observed_at, 'excerpt': excerpt,
+            'excerpt_sha256': hashlib.sha256(excerpt.encode('utf-8')).hexdigest(),
+            'provider': PROVIDER,
+            'capture': 'automated EGW source-clock and named-price capture',
+        })
     return entries
 
 
-def load_live(evidence_dir: Path) -> list[dict]:
-    """Replay entries from the saved live capture; missing/malformed is inert."""
-    path = Path(evidence_dir) / EVIDENCE_NAME
-    if not path.exists():
-        return []
+def load_live(evidence_dir: Path, matches: list | None = None,
+              registry: dict | None = None) -> list[dict]:
+    """Replay original HTML; derived-only or tampered captures price nothing."""
+    root = Path(evidence_dir)
     try:
-        data = json.loads(path.read_text())
-    except (OSError, ValueError):
+        data = json.loads((root / EVIDENCE_NAME).read_text())
+        original = json.loads((root / (INDEX_EVIDENCE + '.json')).read_text())
+        manifest = json.loads((root / 'live-collection-manifest.json').read_text())
+        if (not isinstance(data, dict) or not isinstance(original, dict)
+                or original.get('url') != INDEX_URL or data.get('url') != INDEX_URL
+                or not original.get('observed_at')
+                or original['observed_at'] != data.get('observed_at')
+                or not isinstance(original.get('html'), str)):
+            return []
+        if not isinstance(manifest, list):
+            return []
+        attempts = [request for request in manifest if isinstance(request, dict)
+                    and request.get('id') == INDEX_EVIDENCE and request.get('status') == 'ok']
+        if (len(attempts) != 1 or any(attempts[0].get(key) != value for key, value in {
+                'url': INDEX_URL, 'observed_at': original['observed_at'],
+                'evidence': INDEX_EVIDENCE + '.json', 'method': 'GET'}.items())):
+            return []
+        replayed = entries_for(original['html'], matches or [], registry or {}, original['observed_at'])
+        saved = data.get('entries')
+        if not isinstance(saved, list):
+            return []
+        return [entry for entry in replayed if entry in saved]
+    except (OSError, ValueError, TypeError, KeyError):
         return []
-    if not isinstance(data, dict):
-        return []
-    return [e for e in data.get('entries') or [] if isinstance(e, dict)]

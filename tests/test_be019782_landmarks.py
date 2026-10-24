@@ -4,6 +4,7 @@ from __future__ import annotations
 import contextlib
 import io
 import json
+import re
 import tempfile
 import unittest
 from datetime import datetime, timedelta, timezone
@@ -148,6 +149,31 @@ class GlanceFreshnessAndEvenEstimates(unittest.TestCase):
         self.assertIn('Unresolved', soup.get_text())
         self.assertNotIn('50.0%', soup.get_text())
         self.assertIsNone(soup.select_one('.glance-prob'))
+
+
+class GuardedPublisherBudget(unittest.TestCase):
+    def job(self, path, name):
+        text = Path(path).read_text()
+        return text.split('\n  ' + name + ':', 1)[1]
+
+    def budget(self, text):
+        return int(re.search(r'^    timeout-minutes: (\d+)\s*$', text, re.M)[1])
+
+    def test_fresh_publisher_has_headroom_after_the_code_check_budget(self):
+        publisher = self.job('.github/workflows/pages.yml', 'verify-and-deploy')
+        checks = self.job('.github/workflows/checks.yml', 'verify')
+        self.assertGreaterEqual(self.budget(publisher), self.budget(checks) + 15)
+
+    def test_extra_time_does_not_bypass_regression_or_restore_before_it(self):
+        publisher = self.job('.github/workflows/pages.yml', 'verify-and-deploy')
+        regression = publisher.split('- name: Regression tests', 1)[1].split(
+            '- name: Restore last successfully verified public snapshot', 1)[0]
+        self.assertIn('python -m unittest discover -s tests -v', regression)
+        self.assertIn('status=${PIPESTATUS[0]}', regression)
+        self.assertIn('exit "$status"', regression)
+        self.assertNotRegex(regression, r'continue-on-error:\s*true')
+        self.assertLess(publisher.index('- name: Regression tests'),
+                        publisher.index('- name: Restore last successfully verified public snapshot'))
 
 
 if __name__ == '__main__':

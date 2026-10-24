@@ -698,11 +698,18 @@ def validate_origination(data, source):
                 values.append(q['probabilities'][0])
                 continue
             if q.get('family') == 'reference':
-                from scripts import reference_odds
+                from scripts import reference_odds, egw_live
                 capture = reference_odds.load(source)
-                pooled = list(capture.get('entries') or []) + list(capture.get('rejected') or [])
-                entry = next((item for item in pooled if str(item.get('fixture_id')) == str(m['id'])), None)
-                assert entry is not None, 'Reference capture for this fixture is missing'
+                pooled = (list(capture.get('entries') or []) + list(capture.get('rejected') or [])
+                          + egw_live.load_live(source / 'origination/evidence', [raw], registry))
+                specific = [item for item in pooled if str(item.get('fixture_id')) == str(m['id'])
+                            and all(item.get(key) == q.get(key)
+                                    for key in ('source_url', 'observed_at', 'excerpt_sha256'))]
+                assert specific, 'Reference capture for this fixture/source/observation is missing'
+                assert len({json.dumps(item, sort_keys=True) for item in specific}) == 1, 'Reference capture is ambiguous'
+                entry = specific[0]
+                expected, reason = reference_odds.quote(entry, raw, timestamp(data['generated_at']))
+                assert expected is not None, 'Reference source rejected on replay: ' + str(reason)
                 reference_odds.replay(entry, q)
                 values.append(q['probabilities'][0])
                 continue
