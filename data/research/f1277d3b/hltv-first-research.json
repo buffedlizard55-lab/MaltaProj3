@@ -1,0 +1,214 @@
+{
+  "schema_version": 1,
+  "session": "arena-f1277d3b",
+  "recorded_at": "2026-10-24T06:15Z",
+  "observed_window_utc": [
+    "2026-10-24T05:20Z",
+    "2026-10-24T06:10Z"
+  ],
+  "observed_window_note": "Session read window on 2026-10-24; per-page countdowns copied verbatim in each fixture record where the read segment showed them. Exact second of each fetch is not asserted.",
+  "environment": "agent platform egress (read-only page fetches) reaches hltv.org; the GitHub Actions runner historically records HTTP 403 (Cloudflare) for the same URLs, which the companion runner sweep (line-source-research.json, same directory) records per fixture.",
+  "policy": "Read-only research for the fixtures the featured method cannot resolve the way a featured pick is resolved (low tier, or not covered by e.g. Polymarket). HLTV first (identity, format, ranking context, and HLTV's own Betting block), then esportsbooks/exchanges via the companion runner sweep. Nothing here is a probability, a pick or an alias: no value is written into data/latest.json or data/origination.json. HLTV fan polls and Hotspawn community percentages are crowd polls, recorded only to show they were seen and excluded. Ranks are copied only where the segment read displayed them; anything not displayed is left blank, never inferred.",
+  "target_selection": {
+    "source": "published root snapshot.json generated 2026-10-23T20:10:00Z (19 active fixtures, 17 featured picks, 2 featured-unresolved) cross-read with the published /origination/ complete list (19/19 directional picks: 12 external-line, 7 research-model)",
+    "rule": "every active Hotspawn CS2 fixture whose published pick rests only on a labelled research model or that the featured method left unresolved: 7 of 19 active fixtures",
+    "ids": ["1082996", "1079198", "1079200", "1082858", "1082861", "1082792", "1082793"],
+    "prematch_note": "all 7 start 2026-10-25 to 2026-10-31, so every read below is prematch. Fixtures from the same snapshot that started 2026-10-23/24 were not researched retrospectively."
+  },
+  "published_estimates_note": "published_pick / published percentages are copied verbatim from the published /origination/ cards of the 2026-10-23T20:10:00Z snapshot. They are the site's labelled research estimates, not betting lines; the four-hour pipeline re-reads every source and the linked match card is authoritative.",
+  "fixtures": [
+    {
+      "hotspawn_id": "1082996",
+      "teams": ["Acend", "UNiTY"],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T09:00:00Z",
+      "published_pick": "Acend",
+      "published_percentages_snapshot_2010Z": {"Acend": 54.2, "UNiTY": 45.8},
+      "published_basis": "Valve-rating research estimate (featured snapshot method: model)",
+      "site_card": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082996",
+      "hotspawn_url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
+      "hltv": {
+        "url": "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
+        "event": "NODWIN Clutch Series 13 (HLTV event 9440)",
+        "stage": "Round of 16",
+        "format": "Best of 3 (Online)",
+        "countdown_copied": "1d : 3h : 30m : 35s",
+        "betting_block": "present with both team columns; the only row is a Stake US sweepstake promotion ('No promocode available'); no decimal odds for either team",
+        "fan_poll_excluded": {"Acend": 16.7, "UNiTY": 83.3, "note": "HLTV 'Pick a winner' crowd poll; excluded by policy, never a probability input"},
+        "ranks_read": {"Acend": {"hltv": 131, "vrs": 75}, "UNiTY": {"hltv": 86, "vrs": 60}},
+        "ranks_note": "HLTV rank badges link the 2026-10-19 ranking week; VRS badges link HLTV's valve-ranking team pages (teamIds 13518 / 12267)",
+        "lineups_read": {"Acend": ["AwaykeN", "REDSTAR", "Skrimo", "SHiPZ", "SPELLAN"], "UNiTY": ["KWERTZZ", "2high", "M1key", "Sn0w", "Dytor"]}
+      },
+      "crosscheck_note": "Both published ranking orders read on the HLTV page (HLTV #86 vs #131, VRS #60 vs #75) place UNiTY above Acend, while the site's Valve-points model pick is Acend 54.2%. Recorded as a flag for review; no pick is overridden by this dossier — the ladder re-derives from the official Valve ratings file each refresh.",
+      "verdict": "HLTV confirms identity and Bo3 format but publishes no two-sided odds. No money-line lead on HLTV; esportsbook surfaces are in the companion runner sweep. The labelled research-model estimate and its limitation stand until a compliant external line exists."
+    },
+    {
+      "hotspawn_id": "1079198",
+      "teams": ["Metizport", "BakS"],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T12:00:00Z",
+      "published_pick": "Metizport",
+      "published_percentages_snapshot_2010Z": {"Metizport": 79.9, "BakS": 20.1},
+      "published_basis": "Valve-rating research estimate (featured snapshot method: model)",
+      "site_card": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1079198",
+      "hotspawn_url": "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198",
+      "hltv": {
+        "url": "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13",
+        "event": "NODWIN Clutch Series 13 (HLTV event 9440)",
+        "stage": "Round of 16",
+        "format": "Best of 3 (Online)",
+        "countdown_copied": "1d : 6h : 40m : 27s",
+        "name_note": "HLTV styles the second team 'BAKS' (team 11699); Hotspawn lists 'BakS'. Name-case only; no alias is written by this dossier.",
+        "betting_block": "present with both team columns; the only row is a Stake US sweepstake promotion ('No promocode available'); no decimal odds for either team",
+        "fan_poll_excluded": {"Metizport": 81.8, "BAKS": 18.2, "note": "HLTV 'Pick a winner' crowd poll; excluded by policy, never a probability input"},
+        "ranks_read": {"Metizport": {"hltv": 59, "vrs": 67}, "BakS": {"hltv": 99, "vrs": 100}},
+        "lineups_read": {"Metizport": ["forsyy", "F1KU", "stanislaw", "Plopski", "MaiL09"], "BakS": ["Norwi", "glowiing", "whisper", "danistzz", "turbo"]}
+      },
+      "crosscheck_note": "Ranking orders read on HLTV (HLTV #59 vs #99, VRS #67 vs #100) agree in direction with the published model pick. Direction only — the 79.9% is the model's, not recomputed here.",
+      "verdict": "HLTV confirms identity and Bo3 format but publishes no two-sided odds. No money-line lead on HLTV; esportsbook surfaces are in the companion runner sweep."
+    },
+    {
+      "hotspawn_id": "1079200",
+      "teams": ["Color", "ex-Zero Tenacity"],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T18:00:00Z",
+      "published_pick": "Color",
+      "published_percentages_snapshot_2010Z": {"Color": 73.6, "ex-Zero Tenacity": 26.4},
+      "published_basis": "Valve-rating research estimate (featured snapshot method: model)",
+      "site_card": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1079200",
+      "hotspawn_url": "https://www.hotspawn.com/matches/color-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079200",
+      "hltv": {
+        "url": "https://www.hltv.org/matches/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+        "event": "NODWIN Clutch Series 13 (HLTV event 9440)",
+        "stage": "Round of 16",
+        "format": "Best of 3 (Online)",
+        "countdown_copied": "1d : 12h : 14m : 18s",
+        "betting_block": "present with both team columns; the only row is a Stake US sweepstake promotion ('No promocode available'); no decimal odds for either team",
+        "fan_poll_excluded": {"Color": 76.2, "ex-Zero Tenacity": 23.8, "note": "HLTV 'Pick a winner' crowd poll; excluded by policy, never a probability input"},
+        "ranks_read": {"Color": {"hltv": "Unranked (as displayed)", "vrs": 73}, "ex-Zero Tenacity": {"hltv": 67, "vrs": 92}},
+        "lineups_read": {"Color": ["Patsi", "lattykk", "reyoz", "cronuss", "oz1k"], "ex-Zero Tenacity": ["Dragon", "Kind0", "VLDN", "brutmonster", "Cjoffo"]}
+      },
+      "crosscheck_note": "The VRS order read on HLTV (#73 vs #92) agrees in direction with the Valve-points model pick. The HLTV world ranking alone would not: Color is displayed 'Unranked' there, which is exactly the ladder's documented unranked-floor case — the Valve rung sits above the HLTV-ranking rung by design, so no conflict is manufactured.",
+      "verdict": "HLTV confirms identity and Bo3 format but publishes no two-sided odds. No money-line lead on HLTV; esportsbook surfaces are in the companion runner sweep."
+    },
+    {
+      "hotspawn_id": "1082858",
+      "teams": ["Ground Zero", "Off Chops"],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "published_pick": "Off Chops",
+      "published_percentages_snapshot_2010Z": {"Ground Zero": 44.9, "Off Chops": 55.1},
+      "published_basis": "featured method left it unresolved ('Off Chops: no exact-name Valve rating found; crossed or wider-than-12-cent order book'); the complete list carries a labelled research-model pick (own network model on the published card trail)",
+      "site_card": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082858",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
+      "hltv": {
+        "url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+        "event": "DFRAG Invitational 2026 (HLTV event 9414)",
+        "stage": "Group A opening match",
+        "format": "Best of 3 (LAN)",
+        "countdown_copied": "1d : 21h : 40m : 50s",
+        "betting_block": "present with both team columns; the only row is a Stake US sweepstake promotion ('No promocode available'); no decimal odds for either team",
+        "fan_poll_excluded": {"Ground Zero": 42.9, "Off Chops": 57.1, "note": "HLTV 'Pick a winner' crowd poll; excluded by policy, never a probability input"},
+        "ranks_read": {"Ground Zero": {"hltv": 143, "vrs": 131}, "Off Chops": {"hltv": 142, "vrs": 132}},
+        "lineups_read": {"Ground Zero": ["apocdud", "Omichella", "vision", "tucks", "sliimey"], "Off Chops": ["viridian", "dexter", "Liazz", "Gratisfaction", "damyo"]},
+        "lineup_note": "HLTV marks Ground Zero's 'tucks' cell 'Substitute' in the read segment; copied verbatim, not interpreted."
+      },
+      "crosscheck_note": "The two ranking orders read on HLTV disagree with each other by one place (HLTV #142 vs #143 favours Off Chops; VRS #131 vs #132 favours Ground Zero) — a near-tie on published rankings either way. HLTV does display a VRS badge (#132) for Off Chops even though the featured collector found no exact-name row in the official Valve ratings file; that is recorded as an observation for the ladder to re-check, not converted into a rating here.",
+      "verdict": "HLTV confirms identity and Bo3 LAN format but publishes no two-sided odds. Prior sessions found a live but wider-than-ceiling Smarkets book for this fixture; whether it is now inside the ceiling is for the ladder's next refresh and the companion runner sweep to re-read first-hand. No probability is written here."
+    },
+    {
+      "hotspawn_id": "1082861",
+      "teams": ["Rooster", "Abyssal"],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "published_pick": "Abyssal",
+      "published_percentages_snapshot_2010Z": {"Rooster": 47.8, "Abyssal": 52.2},
+      "published_basis": "Valve-rating research estimate (featured snapshot method: model)",
+      "site_card": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082861",
+      "hotspawn_url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
+      "hltv": {
+        "url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+        "event": "DFRAG Invitational 2026 (HLTV event 9414)",
+        "stage": "Group B opening match",
+        "format": "Best of 3 (LAN)",
+        "countdown_copied": "2d : 21h : 29m : 3s",
+        "betting_block": "present with both team columns; the only row is a Stake US sweepstake promotion ('No promocode available'); no decimal odds for either team",
+        "fan_poll_excluded": {"Rooster": 100.0, "Abyssal": 0.0, "note": "HLTV 'Pick a winner' crowd poll; excluded by policy, never a probability input"},
+        "ranks_read": {"Rooster": {"hltv": "Unranked (as displayed)", "vrs": 154}, "Abyssal": {"hltv": 128, "vrs": 130}},
+        "lineups_read": {"Rooster": ["SkulL", "rekonz", "TjP", "foggers", "chelleos"], "Abyssal": ["Forleks", "zune", "dangeR", "vinhy", "blood"]},
+        "lineup_note": "HLTV marks Rooster's 'TjP' and 'foggers' cells 'Substitute' in the read segment; copied verbatim, not interpreted."
+      },
+      "crosscheck_note": "Both orders read on HLTV (VRS #130 vs #154; HLTV #128 vs Unranked) agree in direction with the published model pick, which is near-even (52.2%). Direction only.",
+      "verdict": "HLTV confirms identity and Bo3 LAN format but publishes no two-sided odds. No money-line lead on HLTV; esportsbook surfaces are in the companion runner sweep."
+    },
+    {
+      "hotspawn_id": "1082792",
+      "teams": ["HOTU", "The Huns"],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "published_pick": "HOTU",
+      "published_percentages_snapshot_2010Z": {"HOTU": 94.1, "The Huns": 5.9},
+      "published_basis": "featured method left it unresolved ('The Huns: multiple Valve rosters share this name; identity is unresolved'); the complete list resolves it with a labelled research-model estimate on the published card trail",
+      "site_card": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082792",
+      "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+      "hltv": {
+        "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+        "event": "GLuck Moscow Cyber Games 2026 (HLTV event 9344)",
+        "stage": "Semi-final",
+        "format": "Best of 3 (LAN)",
+        "countdown_copied": "7d : 3h : 36m : 18s",
+        "betting_block": "present with both team columns; the only row is a Stake US sweepstake promotion ('No promocode available'); no decimal odds for either team",
+        "fan_poll_excluded": {"HOTU": 77.2, "The Huns": 22.8, "note": "HLTV 'Pick a winner' crowd poll; excluded by policy, never a probability input"},
+        "ranks_read": {"HOTU": {"hltv": 38, "vrs": 38}, "The Huns": {"hltv": 134, "vrs": 123}},
+        "lineups_read": {"HOTU": ["dwushka", "frontales", "mizu", "n0rb3r7", "kade0"], "The Huns": ["Bart4k", "controlez", "bexyz", "Cozen", "DarkMeister"]}
+      },
+      "crosscheck_note": "HLTV binds 'The Huns' to one team page (12510) and the five-player lineup above; that is the identity evidence class the pipeline's HLTV lineup proof replays against the official Valve standings. The 94.1% is the model's uncalibrated output and stays labelled as such; ranking order (#38 vs #134 / VRS #38 vs #123) agrees in direction only.",
+      "verdict": "HLTV confirms identity and Bo3 LAN format but publishes no two-sided odds. No money-line lead on HLTV; esportsbook surfaces are in the companion runner sweep."
+    },
+    {
+      "hotspawn_id": "1082793",
+      "teams": ["5star", "1WIN"],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T13:00:00Z",
+      "published_pick": "1WIN",
+      "published_percentages_snapshot_2010Z": {"5star": 17.8, "1WIN": 82.2},
+      "published_basis": "Valve-rating research estimate (featured snapshot method: model)",
+      "site_card": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082793",
+      "hotspawn_url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
+      "hltv": {
+        "url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+        "event": "GLuck Moscow Cyber Games 2026 (HLTV event 9344)",
+        "stage": "Semi-final",
+        "format": "Best of 3 (LAN)",
+        "countdown_copied": "7d : 7h : 38m : 32s",
+        "name_note": "HLTV styles the team '1win' (team 10621); Hotspawn lists '1WIN'. Name-case only; no alias is written by this dossier.",
+        "betting_block": "present with both team columns; the only row is a Stake US sweepstake promotion ('No promocode available'); no decimal odds for either team",
+        "fan_poll_excluded": {"1win": 81.1, "5star": 18.9, "note": "HLTV 'Pick a winner' crowd poll; excluded by policy, never a probability input"},
+        "ranks_read": {"1WIN": {"hltv": 14, "vrs": 18}, "5star": {"hltv": 36, "vrs": 64}},
+        "lineups_read": {"1WIN": ["Ax1Le", "ArtFr0st", "fame", "nafany", "BELCHONOKK"], "5star": ["hoolig4n", "rate", "ariucle", "clouden", "NEUZ"]}
+      },
+      "crosscheck_note": "Both orders read on HLTV (HLTV #14 vs #36, VRS #18 vs #64) agree in direction with the published model pick. Direction only.",
+      "verdict": "HLTV confirms identity and Bo3 LAN format but publishes no two-sided odds. No money-line lead on HLTV; esportsbook surfaces are in the companion runner sweep."
+    }
+  ],
+  "summary": {
+    "fixtures_researched": 7,
+    "hltv_pages_read_first_hand": 7,
+    "hltv_betting_blocks_with_two_sided_odds": 0,
+    "identities_and_bo3_formats_confirmed": 7,
+    "ranking_direction_agrees_with_published_model_pick": ["1079198", "1079200", "1082861", "1082792", "1082793"],
+    "ranking_direction_mixed_or_disagreeing": [
+      {"hotspawn_id": "1082996", "state": "both HLTV-displayed orders (HLTV world rank, VRS) place UNiTY above Acend; published Valve-points model pick is Acend — flagged, not overridden"},
+      {"hotspawn_id": "1082858", "state": "HLTV order and VRS order disagree with each other by one place; near-tie on published rankings"}
+    ],
+    "money_line_leads_from_hltv": 0,
+    "esportsbook_sweep": "companion runner record line-source-research.{json,md} in this directory (HLTV HTTP status from runner egress, Polymarket Gamma bindings, Smarkets board state, bo3.gg bindings/relay blocks, Pinnacle guest scan, plus Rivalry/Betano/Betsson/Unibet/Oddspedia/22bet/Bet365/EGamersWorld page answers)"
+  },
+  "limitations_of_this_research": [
+    "HLTV publishes no two-sided prematch price on these match pages: the Betting block is a sweepstake promotion, so HLTV can confirm identity/format/ranking context but can never originate a betting line here. HLTV fan polls were excluded by policy.",
+    "Ranks and lineups are dated observations (HLTV ranking week 2026-10-19 badges; lineups as displayed 2026-10-24). Stand-ins, roster changes after this read and map vetoes are unverified; two pages display 'Substitute' cells, copied verbatim.",
+    "The published percentages remain uncalibrated research-model estimates with the limitations shown on each match card. This dossier adds no probability and changes no pick; only a compliant two-sided external line, replayed by the ladder from saved first-party evidence, can upgrade a row.",
+    "Absence at this observation time is not proof that no market exists anywhere; books open closer to start time, which is why the four-hour pipeline retries every rung.",
+    "The target snapshot (2026-10-23T20:10:00Z) is itself stale because the four-hour publisher stalled on a wall-clock regression test (runs 40028653350-40063011446); fixtures Hotspawn added after that snapshot enter coverage only on the first successful refresh after the fix merges."
+  ]
+}

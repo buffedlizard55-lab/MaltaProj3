@@ -1,0 +1,43 @@
+[
+  {
+    "id": "f1277d3b-publisher-stalled-wall-clock-test",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "Four-hour publisher stalled 2026-10-23/24: a wall-clock regression test froze the site at the 20:10Z snapshot while Hotspawn kept adding fixtures",
+    "detail": "Scheduled 'Refresh and deploy CS2 dashboard' runs 40028653350, 40037957529, 40048429858 and 40063011446 all failed at the 'Regression tests' step before any collection ran. Root cause, reproduced locally on 2026-10-24: tests/test_ca7e10e5_snapshot.py pins its fixture snapshot to 2026-10-23T09:23:57Z while scripts/root_publish.build_plan refuses snapshots older than 12h against the wall clock, so three tests began erroring at 2026-10-23T21:24Z ('snapshot ... is 20.0h old (limit 12.0h)'). The republish-last-verified job kept the last good build (2026-10-23T20:10:00Z, 19 active fixtures) live meanwhile, so nothing stale was presented as fresh — but CS2 fixtures visible in the live Hotspawn lobby on 2026-10-24 (e.g. 1079658 Acend vs FORZE Reload, 1081152 HAVU vs Azuolas) could not receive picks until a refresh succeeds. Session arena-f1277d3b fixes the test to use the injectable clock build_plan already supports (the pattern tests/test_96fbe295.py uses); no publisher code or pick logic changes. This flag stays until a post-merge publisher run succeeds end-to-end and the live snapshot contains the new lobby fixtures with a pick or an explicit unresolved reason for each.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40015434337",
+      "https://play.hotspawn.com/lobby"
+    ]
+  },
+  {
+    "id": "f1277d3b-hltv-first-no-odds-seven-fixtures",
+    "severity": "notice",
+    "match_ids": ["1082996", "1079198", "1079200", "1082858", "1082861", "1082792", "1082793"],
+    "title": "HLTV checked first for all 7 fixtures without a betting line (2026-10-24): identities, Bo3 formats and lineups confirmed; no two-sided odds on any HLTV match page",
+    "detail": "Read first-hand 2026-10-24 through egress that reaches hltv.org. For each of the 7 active fixtures in the 2026-10-23T20:10:00Z snapshot whose pick rests only on a labelled research model (or that the featured method left unresolved), the HLTV match page confirms both teams, the event, the best-of-3 format and five-player lineups, and its Betting block contains only a Stake US sweepstake promotion row ('No promocode available') with no decimal odds for either team. HLTV fan polls were seen on every page and excluded by policy (crowd polls, never probabilities). HLTV world-rank (2026-10-19 week) and VRS badges were copied per fixture in data/research/f1277d3b/hltv-first-research.{json,md}; esportsbook/exchange surfaces (Polymarket Gamma, Smarkets board, bo3.gg relay, Pinnacle guest, Rivalry/Betano/Betsson/Unibet/Oddspedia/22bet/Bet365/EGamersWorld) are in the companion runner sweep data/research/f1277d3b/line-source-research.{json,md}. These rows keep labelled model estimates rather than betting-line probabilities; the four-hour ladder retries every rung and upgrades a row only from replayed first-party evidence.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
+      "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13",
+      "https://www.hltv.org/matches/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+      "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+      "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+      "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026"
+    ]
+  },
+  {
+    "id": "f1277d3b-acend-unity-ranking-order-vs-model-pick",
+    "severity": "notice",
+    "match_ids": ["1082996"],
+    "title": "Acend vs UNiTY (1082996): both HLTV-displayed ranking orders place UNiTY above Acend, while the published Valve-points model pick is Acend — review, not an override",
+    "detail": "On the HLTV match page read 2026-10-24 (ranking week 2026-10-19), UNiTY is HLTV #86 / VRS #60 and Acend is HLTV #131 / VRS #75. The site's published research-model estimate for this fixture is Acend 54.2% / UNiTY 45.8% (snapshot 2026-10-23T20:10:00Z, Valve official ratings). The disagreement is recorded verbatim for manual review: ranking order is not a probability, the Valve rung re-derives from the official ratings file (points, not ordinal rank badges) every refresh, and no session may flip a pick from a badge comparison. If the next refresh replays different official inputs or a compliant external line appears, the ladder changes the row itself; until then the estimate and its 'uncalibrated research model' limitation stand.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
+      "https://www.hltv.org/ranking/teams/2026/october/19/12267",
+      "https://www.hltv.org/ranking/teams/2026/october/19/13518",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings"
+    ]
+  }
+]
