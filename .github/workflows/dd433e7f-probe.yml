@@ -8,12 +8,6 @@
 name: dd433e7f line-source research (dispatch only)
 on:
   workflow_dispatch:
-  push:
-    branches: ['arena/dd433e7f-maltaproj3']
-    paths:
-      - '.github/workflows/dd433e7f-probe.yml'
-      - 'scripts/dd433e7f_probe.py'
-      - 'data/origination/aliases.json'
 
 permissions:
   contents: write

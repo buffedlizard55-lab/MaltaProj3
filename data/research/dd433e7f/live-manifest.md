@@ -1,6 +1,6 @@
 # Live 2026-10-24 Hotspawn CS2 Origination Manifest — 2026-10-24T06:15:55Z
 
-Origination snapshot: `2026-10-24T06:15:02Z` · Active fixtures: **31** (**0** money-backed, **31** research-model, **0** unresolved).
+Origination snapshot: `2026-10-24T06:15:02Z` · Active fixtures: **31** (**18** money-backed, **13** research-model, **0** unresolved).
 
 | ID | Fixture | Competition | Start (UTC) | Basis | Selected | Win % (A / B) | Source |
 | --- | --- | --- | --- | --- | --- | --- | --- |

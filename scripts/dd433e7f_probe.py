@@ -144,13 +144,16 @@ def load_active_origination() -> tuple[dict[str, Any], dict[str, Any], dict[str,
         }
 
 
+MONEY_METHODS = {'market', 'bookmaker', 'bookmaker_relayed'}
+
+
 def extract_targets(orig_doc: dict[str, Any]) -> list[dict[str, Any]]:
     out = []
     for m in orig_doc.get('matches') or []:
         if m.get('availability') not in {'open', 'locked', 'unknown_lock'}:
             continue
         o = m.get('origination') or {}
-        if o.get('money_backed'):
+        if o.get('money_backed') or o.get('method') in MONEY_METHODS:
             continue
         teams = [t.get('name') or '' for t in m.get('teams') or []]
         out.append({
@@ -291,7 +294,7 @@ def build_live_manifest(orig_doc: dict[str, Any], latest_doc: dict[str, Any], ob
             'originated_label': orig.get('label'),
             'originated_source': orig.get('source'),
             'originated_source_url': orig.get('source_url'),
-            'money_backed': bool(orig.get('money_backed')),
+            'money_backed': bool(orig.get('money_backed') or orig.get('method') in MONEY_METHODS),
             'thin_liquidity': bool(orig.get('thin_liquidity')),
             'team_a_win_pct': round(probs[0] * 100, 2) if isinstance(probs, list) and len(probs) == 2 else None,
             'team_b_win_pct': round(probs[1] * 100, 2) if isinstance(probs, list) and len(probs) == 2 else None,
@@ -362,10 +365,9 @@ def build_live_coverage(orig_doc: dict[str, Any], observed: str, timeout: int) -
     live_fixtures: list[dict[str, Any]] = []
     for row in api_rows:
         fid = str(row.get('id') or '')
-        ms = row.get('scheduled_start_time')
-        if not fid or not isinstance(ms, (int, float)):
+        start_dt = timestamp(row.get('scheduled_start_time'))
+        if not fid or start_dt is None:
             continue
-        start_dt = datetime.fromtimestamp(ms / 1000.0, tz=UTC)
         if start_dt < now_dt:
             continue
         starts_iso = start_dt.isoformat(timespec='seconds').replace('+00:00', 'Z')
@@ -374,11 +376,6 @@ def build_live_coverage(orig_doc: dict[str, Any], observed: str, timeout: int) -
         comp = str((row.get('competition') or {}).get('name') or row.get('competition_name') or '')
         fresh = fresh_by_id.get(fid) or {}
         orig = fresh.get('origination') or {}
-        probs = orig.get('probabilities')
-        pick_idx = fresh.get('pick_index')
-        pick_summary = None
-        if isinstance(probs, list) and len(probs) == 2 and isinstance(pick_idx, int) and 0 <= pick_idx < len(teams):
-            pick_summary = f"{teams[pick_idx]} {probs[pick_idx] * 100:.1f}% ({orig.get('label') or orig.get('method')})"
         in_fresh = fid in fresh_by_id
         live_fixtures.append({
             'id': fid,
@@ -390,9 +387,7 @@ def build_live_coverage(orig_doc: dict[str, Any], observed: str, timeout: int) -
             'in_published_snapshot': in_fresh,
             'in_prior_live_origination': fid in live_published_ids,
             'published_method': orig.get('label') or orig.get('method'),
-            'published_pick': pick_summary,
-            'note': ('Resolved in fresh 2026-10-24 collection.' if in_fresh else
-                     'Not yet in snapshot; awaiting next scheduled collect+publish. No probability invented.'),
+            'note': None,
         })
 
     coverage = {
