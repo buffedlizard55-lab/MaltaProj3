@@ -63,10 +63,6 @@ class NoTestMayCallBuildPlanWithoutPinningTheClock(unittest.TestCase):
         offenders = {}
         seen = 0
         for path in sorted(TESTS_DIR.glob("test_*.py")):
-            # This module calls build_plan() unpinned on purpose: that call is
-            # the reproduction of the outage, and it asserts the refusal.
-            if path.name == Path(__file__).name:
-                continue
             source = path.read_text(encoding="utf-8")
             if "build_plan" not in source:
                 continue
@@ -128,11 +124,13 @@ class TheGuardMatchesTheReportedOutage(unittest.TestCase):
     def tearDown(self):
         self.tmp.cleanup()
 
-    def test_an_unpinned_call_refuses_a_stale_fixture(self):
-        # Deterministic: the fixture is in the past for every future run, so the
-        # wall clock always reports an age above the 12h limit.
+    def test_a_pinned_stale_call_refuses_a_stale_fixture(self):
+        # Reproduce the refusal at a fixed instant beyond the twelve-hour
+        # window. This keeps the production guard covered without creating
+        # another wall-clock-dependent test for the static guards to reject.
+        stale_now = PINNED_NOW + timedelta(hours=13)
         with self.assertRaises(root_publish.PublishRefused) as caught:
-            root_publish.build_plan(self.output, self.root)
+            root_publish.build_plan(self.output, self.root, now=stale_now)
         self.assertIn("old (limit 12.0h)", str(caught.exception))
 
     def test_the_pinned_reference_time_keeps_the_fixture_publishable(self):
