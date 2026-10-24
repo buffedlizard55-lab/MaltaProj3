@@ -10,5 +10,17 @@
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_ca7e10e5_snapshot.py",
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/root_publish.py"
     ]
+  },
+  {
+    "id": "5927ab83-duplicate-executive-summary-research-anchor",
+    "severity": "notice",
+    "title": "The executive summary rendered the dated research anchor twice",
+    "detail": "Both the compact unresolved register and summary() appended no_line_research_block, producing two id=no-line-research elements on the published homepage and making anchor navigation ambiguous. The compact register now leaves that block to summary(), while /unresolved/ retains its own full-register copy. No match, pick, probability or source changed. A pre-build unit regression and a 320/390 px every-row browser test now require unique IDs and one research block per page.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/#no-line-research",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/#no-line-research"
+    ]
   }
 ]
