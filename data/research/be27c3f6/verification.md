@@ -50,4 +50,6 @@ Integration checkpoint: the branch was rebased onto `main@bdb4fc9` (PR #240), pr
 
 Latest-main update: rebased onto `main@a0c08fa` (including PRs #241, #250, #251, #252 and #257). The import crash is fixed: 67 targeted publisher/EGW/origination/strict-audit/mobile tests pass, and the build passes with 801 rows, zero sourceless rows, acceptance 9 pass / 1 info / 0 fail and 831 internal links. The EGW adapter still lacks independent provider-time and exact team binding; PR #237's `ced36cb` fail-closed rewrite remains a release-blocking integration requirement.
 
+Final integrated candidate at 08:06Z: PR #237 merged upstream as `275771b` (head `e08537b`), and this branch was rebased onto `main@746118c`; the temporary duplicate integration merge is absent from the final PR. On that exact tree, 172 targeted tests passed with one expected skip, the full unit suite passed **1,497 tests with one expected skip**, and the full Playwright suite passed **118/118**. Build/replay passed with 80 source rows, 841 audited rows / 0 sourceless, acceptance 9 pass / 1 info / 0 fail and 833 internal links. These are local results; PR checks, production refresh and Pages deployment are verified separately.
+
 PR, merge, workflow and live-Pages results are recorded separately on `COORDINATION.md` after they occur; this dossier does not claim them in advance.
