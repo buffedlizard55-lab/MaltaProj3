@@ -115,13 +115,23 @@ def parse_index(html: str) -> list[dict]:
         provider_teams = _title_teams(anchor)
         if provider_teams is None:
             continue
-        text = anchor.get_text(' ', strip=True)
+        provider_start = _explicit_start(anchor)
+        # A short visible date such as 24.10 looks like a decimal price to a
+        # tokenizer. Time elements are evidence for the start, never odds text.
+        text_soup = BeautifulSoup(str(anchor), 'html.parser')
+        while True:
+            time_node = text_soup.find(
+                lambda tag: tag.name == 'time' or any(tag.has_attr(attr) for attr in _TIME_ATTRIBUTES))
+            if time_node is None:
+                break
+            time_node.decompose()
+        text = text_soup.get_text(' ', strip=True)
         odds = [float(x) for x in _ODDS_RE.findall(text)]
         if len(odds) != 2:
             continue
         seen.add(href)
         out.append({'url': href, 'slug': slug, 'provider_teams': provider_teams,
-                    'odds': odds, 'starts_at': _explicit_start(anchor)})
+                    'odds': odds, 'starts_at': provider_start})
     return out
 
 

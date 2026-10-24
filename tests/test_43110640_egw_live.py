@@ -21,7 +21,7 @@ OBSERVED = '2026-10-24T01:30:00Z'
 INDEX_HTML = """
 <html><body>
 <a href="https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d"
-   title="Ground Zero VS Off Chops"><time datetime="2026-10-26T03:00:00Z"></time>
+   title="Ground Zero VS Off Chops"><time datetime="2026-10-26T03:00:00Z">24.10 03:00</time>
   Ground Zero 3.44 Off Chops 1.24</a>
 <a href="https://egamersworld.com/counterstrike/match/EkalRNMvVx/hotu-vs-the-huns-esports-SfdtzDhiK"
    title="HOTU VS The Huns"><time datetime="2026-10-31T09:00:00Z"></time>
@@ -58,7 +58,7 @@ class EntriesFor(unittest.TestCase):
     def entries(self, matches):
         return egw_live.entries_for(INDEX_HTML, matches, {'aliases': []}, OBSERVED)
 
-    def test_exact_slug_join_and_hotspawn_order(self):
+    def test_exact_title_join_and_hotspawn_order(self):
         (entry,) = self.entries([MATCH_GZ])
         self.assertEqual(entry['fixture_id'], '1082858')
         self.assertEqual(entry['teams'], ['Ground Zero', 'Off Chops'])
