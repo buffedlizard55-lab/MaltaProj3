@@ -4,6 +4,12 @@ on:
     branches: [main]
   push:
     branches: ['arena/**']
+    # 65E-1 (arena-65eec73f): a commit that only edits the shared board starts
+    # no validation run. Code pushes are unaffected: any other changed file
+    # still triggers this workflow. Measured 2026-10-24: 98 of the last 100
+    # runs came from arena/** pushes, many of them board-only, starving the
+    # scheduled and main-branch refreshes of runners.
+    paths-ignore: ['COORDINATION.md']
 permissions:
   contents: read
 concurrency:
