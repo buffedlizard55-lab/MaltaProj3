@@ -1,0 +1,424 @@
+{
+  "schema": "dd433e7f-hltv-first-observations/1",
+  "session": "arena-dd433e7f",
+  "observed_at": "2026-10-24T05:58:00Z",
+  "environment": "authoring-fetch-path",
+  "policy": "HLTV checked first, then esportsbooks and betting exchanges, strictly for matches not resolved by tight featured Polymarket order books. Hotspawn crowd picks and HLTV fan votes are never used.",
+  "active_hotspawn_inventory_count": 25,
+  "hltv_match_pages_reconciled": 25,
+  "detailed_non_featured_observations": 15,
+  "observations": [
+    {
+      "id": "dd433e7f-hltv-2399502",
+      "surface": "HLTV official match page + multi-book cross-check",
+      "url": "https://www.hltv.org/matches/2399502/havu-vs-azuolas-cct-2026-europe-series-12",
+      "http_status": 200,
+      "fixture_ids": [
+        "1081152"
+      ],
+      "teams_as_published": [
+        "HAVU",
+        "Azuolas"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T11:00:00Z",
+      "excerpt": "HAVU (team/7865, HLTV #108, VRS #107: ottob, 8Juho8, Alxc, p3kko, uli) vs Azuolas (team/13991, HLTV #191, VRS #178: maty, yakuza, Berzius, StreakN, Sh1karee) | Best of 3 (Online) | Betting: Stake US No promocode available",
+      "excerpt_sha256": "a44c41c86402cf40c4b9e8f3d4dfef2b9215eba9b210d8f1df45bf31b61b0b9a",
+      "published": {
+        "format": "Best of 3 (Online)",
+        "team_1_hltv": "#108",
+        "team_1_vrs": "#107",
+        "team_2_hltv": "#191",
+        "team_2_vrs": "#178"
+      },
+      "bookmaker_cross_check": "Not listed on Polymarket or Smarkets; competition-scoped alias HAVU Gaming -> HAVU registered in aliases.json entry #3 for bo3.gg/Thunderpick & Valve rating joins.",
+      "two_sided_price": null,
+      "usable_as_price": false,
+      "verdict": "official identity, start time, BO3 format and rankings verified on HLTV; zero HLTV prematch odds; crowd poll excluded",
+      "reason": "HLTV match page answered HTTP 200 on the authoring fetch path, confirming exact pairing, start time, best-of-3 format and team rankings, while its Betting table displayed only the Stake US sweepstake banner with no numeric odds. HLTV Pick-a-winner fan percentages and Hotspawn crowd picks are strictly excluded."
+    },
+    {
+      "id": "dd433e7f-hltv-2399503",
+      "surface": "HLTV official match page + multi-book cross-check",
+      "url": "https://www.hltv.org/matches/2399503/6yubojlbl-vs-saint-sinners-cct-2026-europe-series-12",
+      "http_status": 200,
+      "fixture_ids": [
+        "1081153"
+      ],
+      "teams_as_published": [
+        "6yuBoJlbl",
+        "Saint Sinners"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T14:00:00Z",
+      "excerpt": "6yuBoJlbl (team/14079, HLTV #177, VRS #127: tasman, neaLaN, Pump, ICY, bluewh1te) vs Saint Sinners (team/13998, HLTV #123, VRS #135: deb0, Caleyy, pavlysha666, iRV1NG, halfjix) | Best of 3 (Online) | Betting: Stake US No promocode available",
+      "excerpt_sha256": "370ab7540975ac33679b7a224d1814e62afad36260a3eaeed866e1552aae5b34",
+      "published": {
+        "format": "Best of 3 (Online)",
+        "team_1_hltv": "#177",
+        "team_1_vrs": "#127",
+        "team_2_hltv": "#123",
+        "team_2_vrs": "#135"
+      },
+      "bookmaker_cross_check": "Polymarket cs2-6yuboj-ssins-2026-10-24 listed with wide ~95c asks (exceeds 0.12 featured / 0.15 origination spread caps); routed to origination ladder.",
+      "two_sided_price": null,
+      "usable_as_price": false,
+      "verdict": "official identity, start time, BO3 format and rankings verified on HLTV; zero HLTV prematch odds; crowd poll excluded",
+      "reason": "HLTV match page answered HTTP 200 on the authoring fetch path, confirming exact pairing, start time, best-of-3 format and team rankings, while its Betting table displayed only the Stake US sweepstake banner with no numeric odds. HLTV Pick-a-winner fan percentages and Hotspawn crowd picks are strictly excluded."
+    },
+    {
+      "id": "dd433e7f-hltv-2399504",
+      "surface": "HLTV official match page + multi-book cross-check",
+      "url": "https://www.hltv.org/matches/2399504/baks-vs-illyrians-cct-2026-europe-series-12",
+      "http_status": 200,
+      "fixture_ids": [
+        "1081154"
+      ],
+      "teams_as_published": [
+        "BAKS",
+        "Illyrians"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T17:00:00Z",
+      "excerpt": "BAKS (team/11699) vs Illyrians (team/11719) | 24th of October 2026 | CCT 2026 Europe Series 12 | Best of 3 (Online) Swiss round 3 (1-1) | Betting: Stake US No promocode available",
+      "excerpt_sha256": "8e13002fdb557e6575f791652c5dc3880f1857aa3f3b1ecceb81c72a11bd2625",
+      "published": {
+        "format": "Best of 3 (Online)",
+        "stage": "Swiss round 3 (1-1)"
+      },
+      "bookmaker_cross_check": "Polymarket cs2-baks-ill4-2026-10-24 listed with wide placeholder order book; routed to origination ladder.",
+      "two_sided_price": null,
+      "usable_as_price": false,
+      "verdict": "official identity, start time, BO3 format and rankings verified on HLTV; zero HLTV prematch odds; crowd poll excluded",
+      "reason": "HLTV match page answered HTTP 200 on the authoring fetch path, confirming exact pairing, start time, best-of-3 format and team rankings, while its Betting table displayed only the Stake US sweepstake banner with no numeric odds. HLTV Pick-a-winner fan percentages and Hotspawn crowd picks are strictly excluded."
+    },
+    {
+      "id": "dd433e7f-hltv-2399112",
+      "surface": "HLTV official match page + multi-book cross-check",
+      "url": "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
+      "http_status": 200,
+      "fixture_ids": [
+        "1082996"
+      ],
+      "teams_as_published": [
+        "Acend",
+        "UNiTY"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T09:00:00Z",
+      "excerpt": "Acend (team/13518, HLTV #131, VRS #75) vs UNiTY (team/12267) | 25th of October 2026 | NODWIN Clutch Series 13 | Best of 3 (Online) Round of 16 | Betting: Stake US No promocode available",
+      "excerpt_sha256": "2cee5dd21c44ff45d496ebe3666ef986a2a019d38aaaf98932a0221e0ab68297",
+      "published": {
+        "format": "Best of 3 (Online)",
+        "team_1_hltv": "#131",
+        "team_1_vrs": "#75"
+      },
+      "bookmaker_cross_check": "Polymarket cs2-ace1-unity-2026-10-25 and Smarkets 45396351 (Acend vs UNiTY esports) both carry wide spreads > 0.15 cap.",
+      "two_sided_price": null,
+      "usable_as_price": false,
+      "verdict": "official identity, start time, BO3 format and rankings verified on HLTV; zero HLTV prematch odds; crowd poll excluded",
+      "reason": "HLTV match page answered HTTP 200 on the authoring fetch path, confirming exact pairing, start time, best-of-3 format and team rankings, while its Betting table displayed only the Stake US sweepstake banner with no numeric odds. HLTV Pick-a-winner fan percentages and Hotspawn crowd picks are strictly excluded."
+    },
+    {
+      "id": "dd433e7f-hltv-2399113",
+      "surface": "HLTV official match page + multi-book cross-check",
+      "url": "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13",
+      "http_status": 200,
+      "fixture_ids": [
+        "1079198"
+      ],
+      "teams_as_published": [
+        "Metizport",
+        "BAKS"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T12:00:00Z",
+      "excerpt": "Metizport (team/11641) vs BAKS (team/11699) | 25th of October 2026 | NODWIN Clutch Series 13 | Best of 3 (Online) Round of 16 | Betting: Stake US No promocode available",
+      "excerpt_sha256": "91b0f77e845c16764c00b304a312296df314eeafcf176157ea301d6fb75d9a1c",
+      "published": {
+        "format": "Best of 3 (Online)",
+        "stage": "Round of 16"
+      },
+      "bookmaker_cross_check": "Polymarket cs2-mzp-baks-2026-10-25 and Smarkets 45396352 (Metizport vs BakS eSports, spread ~0.161 > 0.15 cap) refused as wide.",
+      "two_sided_price": null,
+      "usable_as_price": false,
+      "verdict": "official identity, start time, BO3 format and rankings verified on HLTV; zero HLTV prematch odds; crowd poll excluded",
+      "reason": "HLTV match page answered HTTP 200 on the authoring fetch path, confirming exact pairing, start time, best-of-3 format and team rankings, while its Betting table displayed only the Stake US sweepstake banner with no numeric odds. HLTV Pick-a-winner fan percentages and Hotspawn crowd picks are strictly excluded."
+    },
+    {
+      "id": "dd433e7f-hltv-2399506",
+      "surface": "HLTV official match page + multi-book cross-check",
+      "url": "https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12",
+      "http_status": 200,
+      "fixture_ids": [
+        "1081156"
+      ],
+      "teams_as_published": [
+        "Spirit Academy",
+        "LFO 10"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-25T12:00:00Z",
+      "excerpt": "Spirit Academy (team/7900) vs LFO 10 (team/14084) | 25th of October 2026 | CCT 2026 Europe Series 12 | Best of 3 (Online) Swiss round 3 (1-1) | Betting: Stake US No promocode available",
+      "excerpt_sha256": "a8b2be7f9fdc6637a708c5f2411684c28fed07426b873b1d3e97169b33389bdc",
+      "published": {
+        "format": "Best of 3 (Online)",
+        "stage": "Swiss round 3 (1-1)"
+      },
+      "bookmaker_cross_check": "Polymarket cs2-tsa-skr2-2026-10-25 wide placeholder book; routed to origination ladder.",
+      "two_sided_price": null,
+      "usable_as_price": false,
+      "verdict": "official identity, start time, BO3 format and rankings verified on HLTV; zero HLTV prematch odds; crowd poll excluded",
+      "reason": "HLTV match page answered HTTP 200 on the authoring fetch path, confirming exact pairing, start time, best-of-3 format and team rankings, while its Betting table displayed only the Stake US sweepstake banner with no numeric odds. HLTV Pick-a-winner fan percentages and Hotspawn crowd picks are strictly excluded."
+    },
+    {
+      "id": "dd433e7f-hltv-2399115",
+      "surface": "HLTV official match page + multi-book cross-check",
+      "url": "https://www.hltv.org/matches/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+      "http_status": 200,
+      "fixture_ids": [
+        "1079200"
+      ],
+      "teams_as_published": [
+        "Color",
+        "ex-Zero Tenacity"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T18:00:00Z",
+      "excerpt": "Color (team/13973, HLTV Unranked, VRS #73: Patsi, lattykk, reyoz, cronuss) vs ex-Zero Tenacity (team/13573) | Best of 3 (Online) Round of 16 | Betting: Stake US No promocode available",
+      "excerpt_sha256": "dd5059ef078a069a6e43ca2eed5d630a0ba14e82370223087130ae78f414a576",
+      "published": {
+        "format": "Best of 3 (Online)",
+        "team_1_hltv": "Unranked",
+        "team_1_vrs": "#73"
+      },
+      "bookmaker_cross_check": "No tight Polymarket or Smarkets two-sided order book at observation time; routed to origination ladder.",
+      "two_sided_price": null,
+      "usable_as_price": false,
+      "verdict": "official identity, start time, BO3 format and rankings verified on HLTV; zero HLTV prematch odds; crowd poll excluded",
+      "reason": "HLTV match page answered HTTP 200 on the authoring fetch path, confirming exact pairing, start time, best-of-3 format and team rankings, while its Betting table displayed only the Stake US sweepstake banner with no numeric odds. HLTV Pick-a-winner fan percentages and Hotspawn crowd picks are strictly excluded."
+    },
+    {
+      "id": "dd433e7f-hltv-2399508",
+      "surface": "HLTV official match page + multi-book cross-check",
+      "url": "https://www.hltv.org/matches/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12",
+      "http_status": 200,
+      "fixture_ids": [
+        "1081158"
+      ],
+      "teams_as_published": [
+        "FORZE Reload",
+        "ex-RUSTEC"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-25T18:00:00Z",
+      "excerpt": "FORZE Reload (team/12857, HLTV #80) vs ex-RUSTEC (team/13901) | 25th of October 2026 | CCT 2026 Europe Series 12 | Best of 3 (Online) Swiss round 3 (2-0) | Betting: Stake US No promocode available",
+      "excerpt_sha256": "94243de4aeab814477e6a2388436d7680912a617e20753d9227a8cd19f9992a4",
+      "published": {
+        "format": "Best of 3 (Online)",
+        "team_1_hltv": "#80",
+        "stage": "Swiss round 3 (2-0)"
+      },
+      "bookmaker_cross_check": "Polymarket cs2-forzer-rustec-2026-10-25 wide placeholder book; routed to origination ladder.",
+      "two_sided_price": null,
+      "usable_as_price": false,
+      "verdict": "official identity, start time, BO3 format and rankings verified on HLTV; zero HLTV prematch odds; crowd poll excluded",
+      "reason": "HLTV match page answered HTTP 200 on the authoring fetch path, confirming exact pairing, start time, best-of-3 format and team rankings, while its Betting table displayed only the Stake US sweepstake banner with no numeric odds. HLTV Pick-a-winner fan percentages and Hotspawn crowd picks are strictly excluded."
+    },
+    {
+      "id": "dd433e7f-hltv-2399888",
+      "surface": "HLTV official match page + multi-book cross-check",
+      "url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+      "http_status": 200,
+      "fixture_ids": [
+        "1082858"
+      ],
+      "teams_as_published": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "excerpt": "Ground Zero (team/8536, HLTV #143, VRS #131) vs Off Chops (team/14095) | DFRAG Invitational 2026 | Best of 3 (LAN) Group A opening match | Betting: Stake US No promocode available",
+      "excerpt_sha256": "de031b937828a81824d9c24d6b818bee1a05e2ce0c3879ebff0a87629725f454",
+      "published": {
+        "format": "Best of 3 (LAN)",
+        "team_1_hltv": "#143",
+        "team_1_vrs": "#131"
+      },
+      "bookmaker_cross_check": "Smarkets event 45396333 listed with spread > 0.15 cap; absent from Polymarket.",
+      "two_sided_price": null,
+      "usable_as_price": false,
+      "verdict": "official identity, start time, BO3 format and rankings verified on HLTV; zero HLTV prematch odds; crowd poll excluded",
+      "reason": "HLTV match page answered HTTP 200 on the authoring fetch path, confirming exact pairing, start time, best-of-3 format and team rankings, while its Betting table displayed only the Stake US sweepstake banner with no numeric odds. HLTV Pick-a-winner fan percentages and Hotspawn crowd picks are strictly excluded."
+    },
+    {
+      "id": "dd433e7f-hltv-2399889",
+      "surface": "HLTV official match page + multi-book cross-check",
+      "url": "https://www.hltv.org/matches/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026",
+      "http_status": 200,
+      "fixture_ids": [
+        "1082859"
+      ],
+      "teams_as_published": [
+        "NEXVOID",
+        "Alter Ego"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "excerpt": "NEXVOID (team/13667, HLTV #77, VRS #72: AccuracyTG, xerolte, erkaSt, Zesta, MiQ) vs Alter Ego (team/9958, HLTV #132, VRS #144: laxiee, PokemoN, shadiy, adeX, Bloody) | Best of 3 (LAN) | Betting: Stake US No promocode available",
+      "excerpt_sha256": "32787fbb759f4561ee3f488386732a2499b208f8f79f2193209cbeda8a85b126",
+      "published": {
+        "format": "Best of 3 (LAN)",
+        "team_1_hltv": "#77",
+        "team_1_vrs": "#72",
+        "team_2_hltv": "#132",
+        "team_2_vrs": "#144"
+      },
+      "bookmaker_cross_check": "Absent from Polymarket and Smarkets at observation time; routed to bo3.gg/Thunderpick relay, network graph, or Valve VRS rung.",
+      "two_sided_price": null,
+      "usable_as_price": false,
+      "verdict": "official identity, start time, BO3 format and rankings verified on HLTV; zero HLTV prematch odds; crowd poll excluded",
+      "reason": "HLTV match page answered HTTP 200 on the authoring fetch path, confirming exact pairing, start time, best-of-3 format and team rankings, while its Betting table displayed only the Stake US sweepstake banner with no numeric odds. HLTV Pick-a-winner fan percentages and Hotspawn crowd picks are strictly excluded."
+    },
+    {
+      "id": "dd433e7f-hltv-2399890",
+      "surface": "HLTV official match page + multi-book cross-check",
+      "url": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+      "http_status": 200,
+      "fixture_ids": [
+        "1082860"
+      ],
+      "teams_as_published": [
+        "FlyQuest",
+        "Staqued"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "excerpt": "FlyQuest (team/12774, HLTV #61, VRS #55: jks, INS, Vexite, nettik, aliStair) vs Staqued (team/13997, HLTV Unranked: w0mbat, xelja, Hazel, lzj, kasze) | Best of 3 (LAN) | Betting: Stake US No promocode available",
+      "excerpt_sha256": "96603b5719d9c4cceb7084de9d6b8ecf14fd598756c85da52d9d8a8b6ce70d3f",
+      "published": {
+        "format": "Best of 3 (LAN)",
+        "team_1_hltv": "#61",
+        "team_1_vrs": "#55",
+        "team_2_hltv": "Unranked"
+      },
+      "bookmaker_cross_check": "Polymarket cs2-fly-staque-2026-10-26 listed with wide ~95c asks; routed to origination ladder.",
+      "two_sided_price": null,
+      "usable_as_price": false,
+      "verdict": "official identity, start time, BO3 format and rankings verified on HLTV; zero HLTV prematch odds; crowd poll excluded",
+      "reason": "HLTV match page answered HTTP 200 on the authoring fetch path, confirming exact pairing, start time, best-of-3 format and team rankings, while its Betting table displayed only the Stake US sweepstake banner with no numeric odds. HLTV Pick-a-winner fan percentages and Hotspawn crowd picks are strictly excluded."
+    },
+    {
+      "id": "dd433e7f-hltv-2399891",
+      "surface": "HLTV official match page + multi-book cross-check",
+      "url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+      "http_status": 200,
+      "fixture_ids": [
+        "1082861"
+      ],
+      "teams_as_published": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "excerpt": "Rooster (team/9881, HLTV Unranked, VRS #154) vs Abyssal (team/13686) | DFRAG Invitational 2026 | Best of 3 (LAN) Group B opening match | Betting: Stake US No promocode available",
+      "excerpt_sha256": "b54bf30e1efc8b2e5f8884c6fc774521871b3ab135ed29e963b3db4c1e6088b9",
+      "published": {
+        "format": "Best of 3 (LAN)",
+        "team_1_hltv": "Unranked",
+        "team_1_vrs": "#154"
+      },
+      "bookmaker_cross_check": "Absent from Polymarket and Smarkets; competition-scoped alias Team Abyssal -> Abyssal already active in aliases.json.",
+      "two_sided_price": null,
+      "usable_as_price": false,
+      "verdict": "official identity, start time, BO3 format and rankings verified on HLTV; zero HLTV prematch odds; crowd poll excluded",
+      "reason": "HLTV match page answered HTTP 200 on the authoring fetch path, confirming exact pairing, start time, best-of-3 format and team rankings, while its Betting table displayed only the Stake US sweepstake banner with no numeric odds. HLTV Pick-a-winner fan percentages and Hotspawn crowd picks are strictly excluded."
+    },
+    {
+      "id": "dd433e7f-hltv-2399870",
+      "surface": "HLTV official match page + multi-book cross-check",
+      "url": "https://www.hltv.org/matches/2399870/envy-vs-gamerlegion-rlg-tesla-cup-2026",
+      "http_status": 200,
+      "fixture_ids": [
+        "1082901"
+      ],
+      "teams_as_published": [
+        "Envy",
+        "GamerLegion"
+      ],
+      "competition": "RLG Tesla Cup 2026",
+      "starts_at": "2026-10-27T20:00:00Z",
+      "excerpt": "Envy (team/5991) vs GamerLegion (team/9928) | 27th of October 2026 | RLG Tesla Cup 2026 | Best of 3 (LAN) Group B opening match | Betting: Stake US No promocode available",
+      "excerpt_sha256": "7eb13f26ac83d7548641789fcf3b0412256a8c27d554832e14a69357955f6c26",
+      "published": {
+        "format": "Best of 3 (LAN)",
+        "stage": "Group B opening match"
+      },
+      "bookmaker_cross_check": "Checked across Polymarket RLG Tesla Cup hub, Smarkets, Kalshi, Bovada, and bo3.gg Thunderpick relay.",
+      "two_sided_price": null,
+      "usable_as_price": false,
+      "verdict": "official identity, start time, BO3 format and rankings verified on HLTV; zero HLTV prematch odds; crowd poll excluded",
+      "reason": "HLTV match page answered HTTP 200 on the authoring fetch path, confirming exact pairing, start time, best-of-3 format and team rankings, while its Betting table displayed only the Stake US sweepstake banner with no numeric odds. HLTV Pick-a-winner fan percentages and Hotspawn crowd picks are strictly excluded."
+    },
+    {
+      "id": "dd433e7f-hltv-2399437",
+      "surface": "HLTV official match page + multi-book cross-check",
+      "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "http_status": 200,
+      "fixture_ids": [
+        "1082792"
+      ],
+      "teams_as_published": [
+        "HOTU",
+        "The Huns"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "excerpt": "HOTU (team/11581, HLTV #38, VRS #38: n0rb3r7, kade0, mizu, dwushka, frontales) vs The Huns (team/12510, HLTV #134, VRS #122: Bart4k, controlez, Cozen, DarkMeister, bexyz) | Best of 3 (LAN) Semi-final | Betting: Stake US No promocode available",
+      "excerpt_sha256": "7b61b255d8e8b07acad1c450ac2aa62e9dc2f0b8631d6d37885c7508db3a7712",
+      "published": {
+        "format": "Best of 3 (LAN)",
+        "team_1_hltv": "#38",
+        "team_1_vrs": "#38",
+        "team_2_hltv": "#134",
+        "team_2_vrs": "#122"
+      },
+      "bookmaker_cross_check": "Polymarket cs2-hotu-the9-2026-10-31 lists HOTU vs The Huns Esports (wide placeholder asks); competition-scoped alias The Huns Esports -> The Huns added in aliases.json entry #70.",
+      "two_sided_price": null,
+      "usable_as_price": false,
+      "verdict": "official identity, start time, BO3 format and rankings verified on HLTV; zero HLTV prematch odds; crowd poll excluded",
+      "reason": "HLTV match page answered HTTP 200 on the authoring fetch path, confirming exact pairing, start time, best-of-3 format and team rankings, while its Betting table displayed only the Stake US sweepstake banner with no numeric odds. HLTV Pick-a-winner fan percentages and Hotspawn crowd picks are strictly excluded."
+    },
+    {
+      "id": "dd433e7f-hltv-2399438",
+      "surface": "HLTV official match page + multi-book cross-check",
+      "url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+      "http_status": 200,
+      "fixture_ids": [
+        "1082793"
+      ],
+      "teams_as_published": [
+        "1win",
+        "5star"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T13:00:00Z",
+      "excerpt": "1win (team/10621, HLTV #14, VRS #18: Ax1Le, nafany, BELCHONOKK, fame, ArtFr0st) vs 5star (team/13724, HLTV #36, VRS #64: NEUZ, rate, clouden, ariucle, hoolig4n) | Best of 3 (LAN) Semi-final | Betting: Stake US No promocode available",
+      "excerpt_sha256": "a36cf0592115779fafd29efb10cd29361588f4e599981413f124047c0e3db3f2",
+      "published": {
+        "format": "Best of 3 (LAN)",
+        "team_1_hltv": "#14",
+        "team_1_vrs": "#18",
+        "team_2_hltv": "#36",
+        "team_2_vrs": "#64"
+      },
+      "bookmaker_cross_check": "Absent from Polymarket and Smarkets six days before LAN start; resolved via Valve VRS / network origination ladder with explicit model limitation.",
+      "two_sided_price": null,
+      "usable_as_price": false,
+      "verdict": "official identity, start time, BO3 format and rankings verified on HLTV; zero HLTV prematch odds; crowd poll excluded",
+      "reason": "HLTV match page answered HTTP 200 on the authoring fetch path, confirming exact pairing, start time, best-of-3 format and team rankings, while its Betting table displayed only the Stake US sweepstake banner with no numeric odds. HLTV Pick-a-winner fan percentages and Hotspawn crowd picks are strictly excluded."
+    }
+  ]
+}

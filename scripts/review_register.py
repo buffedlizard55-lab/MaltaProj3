@@ -31,6 +31,14 @@ REGISTERS = (
     'research/9c4b1f7a/repo-review.json',
     # Session ca7e10e5: published-state verification and the snapshot.json split.
     'research/ca7e10e5/repo-review.json',
+    # Session 73bc57bd: every future Hotspawn CS2 Pick'ems card (25, read
+    # 2026-10-24T05:31Z) reconciled with the pick rows the published site serves
+    # (19), the four failed publisher runs that caused the nine uncovered cards,
+    # and the HLTV-first/esportsbook evidence for each of them.
+    'research/73bc57bd/repo-review.json',
+    # Session dd433e7f: 2026-10-24 publisher clock-pin fix, #no-line-research
+    # deduplication, 25/25 HLTV-first sweep, and competition-scoped aliases.
+    'research/dd433e7f/repo-review.json',
 )
 STATUS = {
     'fixed': ('Fixed', 'green'),
