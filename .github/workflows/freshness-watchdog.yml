@@ -108,11 +108,33 @@ jobs:
           headers = {'Accept': 'application/vnd.github+json'}
           if token:
               headers['Authorization'] = f'Bearer {token}'
+          # A *queued* run is only treated as "a publish is coming" while it is
+          # young. GitHub cancels the single pending run in the push group on
+          # every newer push, so a 40-minute-old queued run is usually a run that
+          # will never start (2026-10-24: the 06:09Z push run sat queued for 40+
+          # minutes and was then cancelled). An in_progress run always counts.
+          QUEUED_GRACE_MINUTES = 15
           try:
               runs = get(f'https://api.github.com/repos/{repo}/actions/workflows/pages.yml/runs?per_page=20',
                          headers)
-              active = [r for r in runs.get('workflow_runs', [])
-                        if r.get('status') in {'queued', 'in_progress', 'pending', 'requested', 'waiting'}]
+              now = datetime.now(timezone.utc)
+              active = []
+              for run in runs.get('workflow_runs', []):
+                  status = run.get('status')
+                  if status == 'in_progress':
+                      active.append(run)
+                      continue
+                  if status not in {'queued', 'pending', 'requested', 'waiting'}:
+                      continue
+                  created = run.get('created_at') or ''
+                  try:
+                      age = (now - datetime.strptime(created, '%Y-%m-%dT%H:%M:%SZ')
+                             .replace(tzinfo=timezone.utc)).total_seconds() / 60
+                  except ValueError:
+                      continue        # unparseable age: not proof that a publish is coming
+                  print(f'queued run {run.get("id")} age={age:.0f}min')
+                  if age <= QUEUED_GRACE_MINUTES:
+                      active.append(run)
           except Exception as exc:                                   # noqa: BLE001
               print(f'::warning::could not list pages.yml runs ({type(exc).__name__}: {exc})')
               print('stale=true')
