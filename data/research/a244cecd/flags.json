@@ -1,0 +1,85 @@
+[
+  {
+    "id": "a244cecd-publisher-date-bomb-2026-10-23",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "Four scheduled publisher runs failed on a clock-dependent test (2026-10-23 21:24Z onward); pin landed via arena-43110640 (PR #240), permanent guard added by arena-a244cecd",
+    "detail": "Scheduled 'Refresh and deploy CS2 dashboard' runs 40028653350, 40037957529, 40048429858 and 40063011446 failed at the regression-test step, so the public snapshot stayed at 2026-10-23T20:10Z and the site showed its 'Snapshot needs attention' banner. Cause (reproduced locally): tests/test_ca7e10e5_snapshot.py::RootPublisherCarriesTheSnapshot built a fixture stamped 2026-10-23T09:23:57Z and called scripts/root_publish.build_plan() with the wall clock; the production guard refuses snapshots older than 12 h, so the tests began raising PublishRefused 12 h after the stamp. Fix: the tests pin now= to 2026-10-23T10:00Z (merged first by arena-43110640 in PR #240; this session reproduced the same fix independently and dropped its duplicate on rebase); the 12 h production guard is unchanged. This session's new guard tests/test_a244cecd_clock_guard.py fails CI if any test calls build_plan/root_publish.main without an explicit reference time, and re-runs the fixed module with the production clock pinned to four absolute instants. This is the third date bomb in this repository (see tests/test_freshness_determinism.py).",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40028653350",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40037957529",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40048429858",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/240"
+    ]
+  },
+  {
+    "id": "a244cecd-hltv-first-no-odds-seven-fixtures",
+    "severity": "notice",
+    "match_ids": [
+      "1082996",
+      "1079198",
+      "1079200",
+      "1082858",
+      "1082861",
+      "1082792",
+      "1082793"
+    ],
+    "title": "HLTV re-read first for all 7 model-only fixtures (2026-10-24 05:28-05:50Z): formats confirmed, no bookmaker odds on any HLTV match page",
+    "detail": "Each HLTV match page confirms both teams, the event and the best-of-3 format (NODWIN Clutch Series 13 Round of 16 online; DFRAG Invitational 2026 group openers on LAN; GLuck Moscow Cyber Games 2026 semi-finals on LAN). The Betting block on all seven carries only a Stake US sweepstake promotion ('No promocode available') and no decimal odds. HLTV fan polls were seen and excluded (crowd votes are never probabilities). Full record: data/research/a244cecd/no-line-research.json.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
+      "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13",
+      "https://www.hltv.org/matches/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+      "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+      "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+      "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026"
+    ]
+  },
+  {
+    "id": "a244cecd-map1-markets-cited-as-match-markets",
+    "severity": "notice",
+    "match_ids": [
+      "1082996",
+      "1082861"
+    ],
+    "title": "Two Polymarket IDs cited in earlier research notes are Map 1 Winner markets, not the series markets (no published pick affected)",
+    "detail": "Earlier session write-ups on the board cite Polymarket 6072788 for Acend vs UNiTY and 6066523 for Rooster vs Abyssal. The Gamma API identifies both as 'Map 1 Winner' (sportsMarketType child_moneyline). The series (BO3) markets are 6072790 (Acend vs UNiTY esports, bid 0.11 / ask 0.94 at 2026-10-24 ~05:41Z) and 6066525 (Rooster vs Abyssal, bid 0.04 / ask 0.96). Both are far wider than the 0.15 ceiling, so the conclusion 'no usable line' is unchanged, and the pipeline itself only accepts sportsMarketType 'moneyline' and rejects map/game questions (scripts/domain.py, scripts/sources.py). Recorded so a reviewer does not reuse the map IDs.",
+    "source_urls": [
+      "https://gamma-api.polymarket.com/markets/6072788",
+      "https://gamma-api.polymarket.com/markets/6072790",
+      "https://gamma-api.polymarket.com/markets/6066523",
+      "https://gamma-api.polymarket.com/markets/6066525"
+    ]
+  },
+  {
+    "id": "a244cecd-color-polymarket-at-ceiling",
+    "severity": "notice",
+    "match_ids": [
+      "1079200"
+    ],
+    "title": "Color vs ex-Zero Tenacity: Polymarket book tightened to exactly the 0.15 ceiling; its midpoint (54.5%) is far below the published model (73.6%)",
+    "detail": "Gamma API market 6072812 (moneyline, BO3) read ~05:41Z on 2026-10-24: bestBid 0.47, bestAsk 0.62, spread 0.15, liquidity 5367, outcomePrices 0.545 / 0.455. scripts/originate.py rejects only spreads strictly above 0.15 (after rounding to 8 dp), so the next four-hour refresh may upgrade this row from the Valve-model estimate to a market midpoint if both paired books still sit inside the ceiling. No probability was written by hand; the published model pick (Color 73.6%) and the market agree on direction but not on confidence.",
+    "source_urls": [
+      "https://gamma-api.polymarket.com/markets/6072812",
+      "https://polymarket.com/event/cs2-color-zerote-2026-10-25",
+      "https://www.hltv.org/matches/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13"
+    ]
+  },
+  {
+    "id": "a244cecd-acend-unity-smarkets-direction-conflict",
+    "severity": "notice",
+    "match_ids": [
+      "1082996"
+    ],
+    "title": "Acend vs UNiTY: Smarkets book is no longer empty and its wide quotes lean UNiTY, the opposite of the published Valve-model pick (Acend 54.2%)",
+    "detail": "Smarkets market 172971947 read ~05:47Z on 2026-10-24 (prices in 1/10000): Acend (contract 477168991) bid 2817 / offer 4425, spread 0.1608; UNiTY esports (contract 477168992) bid 5556 / offer 7194, spread 0.1638. Both exceed the 0.15 ceiling so the pipeline correctly does not price them, but the quotes lean UNiTY while the published research-model estimate picks Acend. Polymarket's series market 6072790 is an unusable 0.11/0.94 book. Treat this pick as low confidence; the four-hour refresh re-reads both venues.",
+    "source_urls": [
+      "https://api.smarkets.com/v3/markets/172971947/quotes/",
+      "https://api.smarkets.com/v3/markets/172971947/contracts/",
+      "https://gamma-api.polymarket.com/markets/6072790",
+      "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13"
+    ]
+  }
+]

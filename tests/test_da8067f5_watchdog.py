@@ -117,9 +117,10 @@ def snapshot_age(hours):
     return {'generated_at': when.strftime('%Y-%m-%dT%H:%M:%SZ')}
 
 
-def queued(minutes_ago, run_id=42):
+def queued(minutes_ago, run_id=42, event='push'):
     when = datetime.now(timezone.utc) - timedelta(minutes=minutes_ago)
-    return {'id': run_id, 'status': 'queued', 'created_at': when.strftime('%Y-%m-%dT%H:%M:%SZ')}
+    return {'id': run_id, 'status': 'queued', 'event': event,
+            'created_at': when.strftime('%Y-%m-%dT%H:%M:%SZ')}
 
 
 class WatchdogContractTests(unittest.TestCase):
@@ -152,6 +153,12 @@ class WatchdogContractTests(unittest.TestCase):
         """A pending push run that GitHub will cancel is not a publish."""
         posted, _ = run_decision(snapshot=snapshot_age(9), runs=[queued(40, run_id=44)], dry='false')
         self.assertEqual(len(posted), 1)
+
+    def test_a_queued_dispatch_run_always_blocks_a_second_dispatch(self):
+        """Dispatching again would cancel the run this watchdog just queued."""
+        posted, _ = run_decision(snapshot=snapshot_age(12),
+                                 runs=[queued(90, run_id=46, event='workflow_dispatch')], dry='false')
+        self.assertEqual(posted, [])
 
     def test_queued_run_without_a_parseable_created_at_is_not_a_publish(self):
         posted, _ = run_decision(snapshot=snapshot_age(9),

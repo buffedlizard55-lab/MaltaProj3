@@ -674,3 +674,16 @@
   .direct-sources-compact h3{font-size:13.5px}
   .direct-sources-compact .direct-scope li{font-size:11px;padding:5px 7px}
 }
+
+/* Session arena-f43dc4f1 — findings register filter (/review/).
+   The register is the longest page on the site (305 findings at 2026-10-24) and
+   had no way to find one of them on a phone. Rows are unchanged and all visible
+   without JavaScript; assets/findings-filter.js only hides rows a reader has
+   filtered out. Nothing here changes a label, a link or a finding. */
+.findings-filter{align-items:flex-end}
+.findings-filter>p{margin:0;font-size:10px;color:#576b79;align-self:center;white-space:nowrap}
+@media(max-width:700px){
+  .findings-filter{padding-bottom:14px}
+  .findings-filter>p{font-size:11px;align-self:flex-start;white-space:normal}
+  .findings-filter .filter-tabs button{min-height:44px}
+}

@@ -1,0 +1,70 @@
+[
+  {
+    "id": "34247d4e-publisher-regression-expired-test",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "The four-hourly publisher stopped for 10.5 hours because its own regression test expired after twelve hours (reproduced, fix verified, guard added)",
+    "detail": "Scheduled runs 40028653350 (2026-10-23T21:41Z), 40037957529 (23:08Z), 40048429858 (2026-10-24T01:08Z) and 40063011446 (04:36Z) all failed the step 'Regression tests (repository fixtures, before any cache restore)' on the same commit 2f966a9, so no collection was published after 2026-10-23T19:57Z and the site served the 2026-10-23T20:10Z snapshot for 10.7 hours against its own 8-hour stale bound. Reproduced by checking that commit out into a separate worktree: tests/test_ca7e10e5_snapshot.py raises 'PublishRefused: snapshot 2026-10-23T09:23:57+00:00 is 21.3h old (limit 12.0h)' in three tests because the test called root_publish.build_plan() without a reference clock. PR #240 (merge bdb4fc9) pins now=datetime(2026,10,23,10,0Z); the same file now reports 'Ran 15 tests - OK (skipped=2)' on merged main. Session arena-34247d4e added tests/test_34247d4e_publisher_clock.py, which fails if any test calls build_plan() against a fixed fixture without pinning now=: run against the two trees it reports three unpinned calls in the pre-fix file and one pinned call after the fix, so it would have blocked this outage. The run log itself could not be read from the sandbox (the Actions log archive host is not reachable), which is why the failing test was identified by reproduction.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40028653350",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40037957529",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40048429858",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40015434337",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_ca7e10e5_snapshot.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_34247d4e_publisher_clock.py"
+    ]
+  },
+  {
+    "id": "34247d4e-push-refresh-runs-cancelled",
+    "severity": "review",
+    "match_ids": [],
+    "title": "Push-triggered refreshes are cancelled while several sessions push main, and a dispatch cannot be created from here, so merges do not reliably refresh the site",
+    "detail": "Measured again at 2026-10-24T08:05Z: of the 20 most recent pages.yml runs, 15 of the 16 push-triggered ones were cancelled while still pending, because a newer push enters the same pages-push concurrency group (the workflow's own comment block documents this). The push run for PR #266's merge (40075406944, 07:45:45Z) was cancelled; the scheduled run 40074822023 was created 49 minutes after its 06:47Z cron slot (platform backlog) and was still queued 29 minutes later; workflow_dispatch runs 40074385075 and 40074984702 were cancelled/pending; and 'gh workflow run pages.yml --ref main' answers HTTP 403 'Resource not accessible by integration', so a session cannot force a publish. Between 06:32Z and 08:05Z the live site therefore stayed on snapshot 2026-10-23T20:10:00Z (verified directly at the published snapshot.json) while self-labelling as stale - #stale-warning is revealed past 8h and #new-snapshot only appears when a newer file really exists. Handling: reported, not changed - .github/workflows/** is shared scope and the concurrency design is deliberate; a reader should treat the page's own observation timestamps, not a merge time, as the freshness signal.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40070626757",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40071009969",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40071346040",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml"
+    ]
+  },
+  {
+    "id": "34247d4e-published-inventory-behind-live-feed",
+    "severity": "notice",
+    "match_ids": [
+      "1079658",
+      "1079659",
+      "1079660",
+      "1081152",
+      "1081153",
+      "1081154",
+      "1081156",
+      "1081158",
+      "1083122",
+      "1083123",
+      "1083140",
+      "1082695"
+    ],
+    "title": "Twelve live Hotspawn CS2 cards are absent from the published snapshot - a collection gap, not a refused pick",
+    "detail": "Reading Hotspawn's own scheduled-fixture API through the page-fetch proxy at 06:45Z-06:51Z on 2026-10-24 and looking each id up in the published snapshot.json, these live ids are absent from the published inventory: 1081156, 1081158, 1083122, 1083123, 1083140, 1082695 (returned to this session's own read) plus 1079658, 1079659, 1079660, 1081152, 1081153, 1081154 (from session 73bc57bd's 05:31Z lobby read, PR #241; this session confirmed only their absence from snapshot.json). Two samples confirmed in the live feed: 1081156 Spirit Academy vs LFO 10 (CCT Europe 2026 Series #12, 2026-10-25T12:00Z) and 1081158 FORZE Reload vs ex-RUSTEC (same event, 2026-10-25T13:00Z). They carry no published pick for one reason only: no collection had completed since 2026-10-23T19:57Z. The full nine-chunk API payload was not re-read here, so this is a spot reconciliation; session dd433e7f's runner sweep 40068161258 is the complete one (31/31 active resolved). Handling: nothing is hand-written; the existing resolver ladder (Polymarket, Kalshi, Thunderpick, Bovada, Smarkets, EGamersWorld, Valve roster model, network fit, HLTV ranking model) prices each card automatically on the next successful refresh, and any card it still cannot price is published on the unresolved page with its blockers.",
+    "source_urls": [
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/"
+    ]
+  },
+  {
+    "id": "34247d4e-recovery-gate-blocks-publication",
+    "severity": "review",
+    "match_ids": [],
+    "title": "A commit added on main at 08:16Z gates publication on an empty queue that the queue itself prevents, so the refresh now fails closed",
+    "detail": "Commit 96285815 ('recovery: publish fully verified current picks on the available runner pool') added a step 'Retire only publishers predating independently replayable sources' (scripts/be019782_release.py --clear-obsolete) and a gate on the deploy job: 'if: always() && github.ref == refs/heads/main && (!(startsWith(head_commit.message, \"recovery:\") || github.event.schedule == \"47 2-22/4 * * *\") || needs[\"republish-last-verified\"].outputs.queue_safe == \"true\")'. For recovery commits and for every ':47' catch-up cron slot, publication therefore requires that the older queued publisher runs have actually stopped. Run 40077233256 (08:17:47Z, head 96285815) failed with the job annotation 'Recovery queue safety not established: Obsolete publisher has not stopped; recovery cannot publish' and its verify-and-deploy job was skipped, so that run published nothing. The same measurement shows why: pushes to main arrived roughly once a minute while a publisher needs about ten minutes, and the pages-push concurrency group cancels the pending run on each new push, so the queue never empties. Observed pending, then cancelled, in order: 40076751917 (08:09), 40076921602 (08:13), 40077220754 (08:16), 40077418957 (08:16), 40077702186 (08:21). The scheduled run 40074822023 (created 07:36:41Z, 49 min after its 06:47Z slot) was still queued at 08:11Z. This session cannot cancel or dispatch runs ('gh run cancel' and 'gh workflow run' both answer HTTP 403 Resource not accessible by integration), so the deadlock can only clear when pushes stop for a full job duration or a runner frees. Reported, not changed: the mechanism belongs to another session's claim and .github/workflows/** is shared scope.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40077233256",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/commit/96285815",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/be019782_release.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40074822023"
+    ]
+  }
+]

@@ -1,0 +1,27 @@
+[
+  {
+    "id": "5260ef4e-refresh-nameerror",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "The four-hour refresh could not publish: scripts/originate.py used egw_live without importing it, so live_collect raised NameError before its own try",
+    "detail": "Reproduced locally with pyflakes (six undefined-name lines at scripts/originate.py:1044-1051) and with the full unittest suite (nine errors in test_f9d0a5a2, test_origination_upgrade and test_source_integrity). That is the step every pages.yml run failed from 2026-10-23T21:41Z, leaving the live site on the 2026-10-23T20:10Z snapshot (~11 h stale). Fixed on main twice, independently: PR #252 (commit 40d1c7b) and PR #257 by other sessions, then PR #261 (commit 0f472f8) which additionally appends the automated EGamersWorld rows after the reviewed manual captures and publishes collection.egw_live / egw_live_replay counters. No probability, pick or alias value was changed by any of these fixes.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40069088115",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/261",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json"
+    ]
+  },
+  {
+    "id": "5260ef4e-publisher-queue-starvation",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "No fresh snapshot had published by 08:05Z because the repository has more queued GitHub Actions runs than runners, not because of a code defect",
+    "detail": "At 2026-10-24T07:20Z the repository reported 129 queued runs and 16 in progress (about twenty parallel session branches, each push triggering Validate dashboard, Origination source audit and pages.yml). githubstatus.com reported Actions operational. The run created by the PR #261 merge (40073476964) was cancelled while still pending because later merges entered the same pages-push concurrency group, and every dispatch also queued. The regression failure itself is fixed on main. This needs a concurrency cap on session-branch checks.yml runs (or a queue drain), which no change inside scripts/ can force.",
+    "source_urls": [
+      "https://www.githubstatus.com/",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/pages.yml",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions?query=is%3Aqueued"
+    ]
+  }
+]

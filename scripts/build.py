@@ -2282,8 +2282,30 @@ def methodology(data, prefix):
 
 
 def flags_table(flags):
-    """Render the source-linked findings register, including supersede links."""
-    out = '<section class="content-section"><div class="section-heading"><div><p class="eyebrow">Research &amp; integrity register</p><h2>All findings</h2></div><span class="muted small">Source-linked, not silently corrected</span></div><div class="table-scroll"><table class="simple-table review-table"><caption class="sr-only">Source-linked irregularities and analysis limitations</caption><thead><tr><th>Finding</th><th>Limitation / handling</th><th>Original sources</th></tr></thead><tbody>'
+    """Render the source-linked findings register, including supersede links.
+
+    Session arena-f43dc4f1: this register is the longest page on the site (305
+    findings, 417 table rows, ~1 MB of HTML at 2026-10-24) and had no way to find
+    one finding inside it on a phone. Every row is still rendered server-side, in
+    the same order, with the same title, detail and source links; a search box
+    and two severity filters let a reader narrow those same rows. The counts come
+    from the rows themselves, so the filter can never claim a finding the table
+    does not show, and with JavaScript off nothing is hidden.
+    """
+    notice_count = sum(1 for f in flags if f.get('severity') == 'notice')
+    out = '<section class="content-section" id="findings"><div class="section-heading"><div><p class="eyebrow">Research &amp; integrity register</p><h2>All findings</h2></div><span class="muted small">Source-linked, not silently corrected</span></div>'
+    out += ('<div class="filter-bar findings-filter">'
+            '<label class="search-box">' + icon('search')
+            + '<span class="sr-only">Find a finding by team, source or session</span>'
+            '<input id="finding-search" type="search" placeholder="Find a finding — team, source or session…" autocomplete="off"></label>'
+            '<div class="filter-tabs" role="group" aria-label="Finding severity">'
+            f'<button type="button" data-finding-filter="all" aria-pressed="true">All<span>{len(flags)}</span></button>'
+            f'<button type="button" data-finding-filter="review" aria-pressed="false">Needs review<span>{len(flags) - notice_count}</span></button>'
+            f'<button type="button" data-finding-filter="notice" aria-pressed="false">Notice<span>{notice_count}</span></button>'
+            '</div><p id="finding-count" aria-live="polite">' + f'{len(flags)} findings</p></div>'
+            '<noscript><p class="tiny muted" style="padding:0 25px 14px">Filtering needs JavaScript. '
+            'Every finding below is rendered either way.</p></noscript>'
+            '<div class="table-scroll"><table class="simple-table review-table"><caption class="sr-only">Source-linked irregularities and analysis limitations</caption><thead><tr><th>Finding</th><th>Limitation / handling</th><th>Original sources</th></tr></thead><tbody>')
     # A later session can settle an earlier finding. Keeping both rows without a
     # link leaves the review page arguing with itself, so a resolving flag names
     # the findings it supersedes and those rows say so in place.
@@ -2297,7 +2319,9 @@ def flags_table(flags):
             label = badge('Superseded', 'purple') + f'<small>Answered by <a href="#flag-{e(resolver)}">a later finding</a></small>'
         else:
             label = badge('Notice' if f['severity'] == 'notice' else 'Needs review', 'purple' if f['severity'] == 'notice' else 'amber') + (f'<small>{len(f["match_ids"])} affected source records</small>' if f['match_ids'] else '')
-        out += f'<tr id="flag-{e(f["id"])}"' + (' class="superseded-flag"' if resolver else '') + f'><th scope="row">{label}<strong>{e(f["title"])}</strong></th><td>{e(f["detail"])}</td><td><div class="evidence-links">'
+        severity = 'notice' if f.get('severity') == 'notice' else 'review'
+        filter_attrs = f' data-finding-severity="{severity}"' + (' data-finding-superseded="true"' if resolver else '')
+        out += f'<tr id="flag-{e(f["id"])}"' + (' class="superseded-flag"' if resolver else '') + filter_attrs + f'><th scope="row">{label}<strong>{e(f["title"])}</strong></th><td>{e(f["detail"])}</td><td><div class="evidence-links">'
         for url in dict.fromkeys(f['source_urls']):
             label = 'Hotspawn' if 'hotspawn' in url or 'cloudwaysapps' in url else 'Valve' if 'ValveSoftware' in url else 'Polymarket' if 'polymarket' in url else 'HLTV' if 'hltv.org' in url else urlparse_host(url)
             out += external(url, label)
@@ -2382,6 +2406,10 @@ def shell(data, key, body, prefix, now=None):
         extra_css += f'<script src="{prefix}assets/pick-safety.js" defer></script>'
     if key == 'summary':
         extra_css += f'<script src="{prefix}assets/glance-lock.js" defer></script>'
+    if key == 'review':
+        # Session arena-f43dc4f1: the findings filter. Self-hosted to satisfy the
+        # page's `script-src 'self'` policy; it hides rows and writes nothing else.
+        extra_css += f'<script src="{prefix}assets/findings-filter.js" defer></script>'
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{e(title)} · Spawn Scout</title><meta name="description" content="Every Hotspawn CS2 match, independent probabilities, clear picks and original evidence. Mobile-friendly, read-only analysis with visible coverage gaps."><meta name="theme-color" content="#142534"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'"><link rel="icon" href="{prefix}assets/scout-mark.svg" type="image/svg+xml"><link rel="stylesheet" href="{prefix}assets/scout.css">{extra_css}<script src="{prefix}assets/scout.js" defer></script></head>
 <body {safety_attrs} data-page="{key}" data-inventory-time="{e(inventory)}" data-inventory-complete="{str(data['coverage_complete']).lower()}" data-snapshot-generated="{e(data['generated_at'])}" data-data-url="{prefix}snapshot.json"><a class="skip-link" href="#main">Skip to content</a>

@@ -1,0 +1,245 @@
+{
+  "schema_version": 1,
+  "session": "arena-34247d4e",
+  "purpose": "Independent reproduction of the four-hourly publisher outage and line-by-line verification of what the deployed site actually shows. No probability, pick or alias is written by this session; every number below is either read from a repository artefact, re-derived from a cited official endpoint, or reproduced locally.",
+  "read_at": "2026-10-24T06:40:00Z",
+  "publisher_outage": {
+    "summary": "Four consecutive scheduled pages.yml runs failed at the same step, and the published site stayed on the 2026-10-23T20:10:00Z snapshot for 10.5 h (the repository's own stale_after_hours is 8).",
+    "failing_runs": [
+      {
+        "run": 40028653350,
+        "created_at": "2026-10-23T21:41:56Z",
+        "head_sha": "2f966a91a103398c4ae5513828c81e32897f8af8",
+        "job": "verify-and-deploy",
+        "failed_step": "Regression tests (repository fixtures, before any cache restore)",
+        "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40028653350"
+      },
+      {
+        "run": 40037957529,
+        "created_at": "2026-10-23T23:08:44Z",
+        "head_sha": "2f966a91a103398c4ae5513828c81e32897f8af8",
+        "job": "verify-and-deploy",
+        "failed_step": "Regression tests (repository fixtures, before any cache restore)",
+        "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40037957529"
+      },
+      {
+        "run": 40048429858,
+        "created_at": "2026-10-24T01:08:36Z",
+        "head_sha": "2f966a91a103398c4ae5513828c81e32897f8af8",
+        "job": "verify-and-deploy",
+        "failed_step": "Regression tests (repository fixtures, before any cache restore)",
+        "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40048429858"
+      },
+      {
+        "run": 40063011446,
+        "created_at": "2026-10-24T04:36:29Z",
+        "head_sha": "2f966a91a103398c4ae5513828c81e32897f8af8",
+        "job": "verify-and-deploy",
+        "failed_step": "Regression tests (repository fixtures, before any cache restore)",
+        "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446"
+      }
+    ],
+    "last_successful_run": {
+      "run": 40015434337,
+      "created_at": "2026-10-23T19:57:15Z",
+      "head_sha": "205ebc03734a8e0366396965f1c1eba74a87cdf4",
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40015434337"
+    },
+    "method": "gh run view <id> --json jobs, which reports each job's conclusion and the names of its failed steps. The run log archive itself is hosted on productionresultssa19.blob.core.windows.net, which this sandbox cannot reach (HTTP 403 on the signed URL, curl exit 0 with an EOF body), so the failing test was identified by reproduction instead of by reading the log.",
+    "reproduction": {
+      "tree": "2f966a91a103398c4ae5513828c81e32897f8af8 (the head of all four failing runs; checked out read-only into a separate git worktree)",
+      "command": "python -m unittest tests.test_ca7e10e5_snapshot -v",
+      "result": "FAILED (errors=3, skipped=2)",
+      "errors": [
+        "ERROR: test_an_older_build_is_still_refused",
+        "ERROR: test_snapshot_json_is_published",
+        "ERROR: test_the_replay_fixture_is_still_never_published"
+      ],
+      "raised": "scripts.root_publish.PublishRefused: snapshot 2026-10-23T09:23:57+00:00 is 21.3h old (limit 12.0h); pass --allow-stale to publish it anyway",
+      "cause": "tests/test_ca7e10e5_snapshot.py called scripts.root_publish.build_plan(self.output, self.root) without a reference clock, so the test compared the wall clock against a fixed 2026-10-23T09:23:57Z fixture. It passed for the first twelve hours after it was written and then failed permanently, which is why 2f966a9's first three scheduled runs (21:41, 23:08, 01:08) failed and every later run would have failed the same way."
+    },
+    "fix_in_tree_and_verified_here": {
+      "commit": "bdb4fc92a30989e93263d7ef3842cda045fe6571 (merge of PR #240, session arena-43110640)",
+      "change": "the three calls now pass now=datetime(2026, 10, 23, 10, 0, tzinfo=timezone.utc)",
+      "result_on_merged_main": "Ran 15 tests in 0.015s -- OK (skipped=2)",
+      "source_link": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_ca7e10e5_snapshot.py"
+    },
+    "guard_added_by_this_session": {
+      "file": "tests/test_34247d4e_publisher_clock.py",
+      "rule": "no test module may call root_publish.build_plan() against a fixed fixture without pinning now= (a **splat whose dict pins now is accepted and asserted separately)",
+      "proof_it_would_have_caught_the_outage": "the same AST scan reports three unpinned calls at lines 73, 77 and 84 of the pre-fix 2f966a9 file and one pinned call in the fixed file"
+    },
+    "second_irregularity_push_runs_starved": {
+      "observation": "While other sessions pushed main roughly once a minute between 06:32Z and 06:44Z, pages.yml push runs 40070626757 (06:32:44Z), 40071009969 (06:38:38Z) and 40071346040 (06:43:44Z) were each cancelled while still pending, as the workflow's own concurrency comment documents. The scheduled slot at 06:47Z (cron '47 2-22/4 * * *') had not started by 06:53Z, and this session's token cannot create a workflow_dispatch run (HTTP 403 Resource not accessible by integration), so freshness could not be forced from here.",
+      "effect": "A merge to main does not reliably refresh the site while many sessions are pushing; the four-hourly schedule is the only dependable trigger.",
+      "action": "Reported here and on the Flagged for Review page. Not changed by this session: .github/workflows/** is shared scope and the concurrency design is deliberate (see the comment block in pages.yml)."
+    }
+  },
+  "published_state_verified": {
+    "snapshot_generated_at": "2026-10-23T20:10:00Z",
+    "inventory_observed_at": "2026-10-23T20:09:44Z",
+    "counts": {
+      "inventory": 82,
+      "upcoming": 19,
+      "archived": 63,
+      "market": 9,
+      "bookmaker": 3,
+      "model": 5,
+      "unresolved": 2,
+      "picks": 17
+    },
+    "stale_age_at_0651Z_hours": 10.7,
+    "stale_after_hours": 8,
+    "rows_published_in_summary_glance_table": 19,
+    "source": "https://buffedlizard55-lab.github.io/MaltaProj3/ (branch-root index.html, 157509 bytes, read 2026-10-24T06:52Z)"
+  },
+  "row_spot_checks": [
+    {
+      "hotspawn_id": "1082897",
+      "card": "B8 vs K27 (Tesla Cup 2026)",
+      "published": {
+        "B8": 0.62,
+        "K27": 0.38,
+        "method": "market",
+        "observed_at": "2026-10-23T20:09:49Z"
+      },
+      "re_read": {
+        "endpoint": "https://gamma-api.polymarket.com/markets?slug=cs2-b8-k271-2026-10-27",
+        "market_id": "6024944",
+        "question": "Counter-Strike: B8 vs K27 (BO3) - Tesla Cup Group A",
+        "outcomePrices": [
+          "0.615",
+          "0.385"
+        ],
+        "updatedAt": "2026-10-24T06:36:38Z",
+        "gameStartTime_utc": "2026-10-27T08:00:00Z"
+      },
+      "verdict": "confirmed within one tick (62.0/38.0 published vs 61.5/38.5 now); the Hotspawn start (2026-10-27T08:00:00Z) equals the market's gameStartTime"
+    }
+  ],
+  "inventory_reconciliation": {
+    "method": "Read Hotspawn's client scheduled-fixture API through the page-fetch proxy at 06:45Z-06:51Z (chunks 0, 7 and 8 of a 9-chunk response) and looked each id up in the published snapshot.json. Six live ids were returned to this session's own read; six more CCT Europe 2026 Series #11/#12 ids come from session 73bc57bd's 05:31Z lobby read (PR #241) and this session confirmed only that they are absent from the published snapshot. The full 9-chunk payload was not re-read, so a complete live inventory re-derivation is not claimed here.",
+    "live_ids_checked_and_absent_from_the_published_snapshot": [
+      "1079658",
+      "1079659",
+      "1079660",
+      "1081152",
+      "1081153",
+      "1081154",
+      "1081156",
+      "1081158",
+      "1083122",
+      "1083123",
+      "1083140",
+      "1082695"
+    ],
+    "consequence": "The published inventory is behind the live feed, so some live cards have no published pick for the only reason that matters here: no collection has completed since 2026-10-23T19:57Z. This independently confirms session 73bc57bd's 16-of-25 measurement (PR #241) with a different read.",
+    "samples_confirmed_present_in_the_live_feed": [
+      {
+        "hotspawn_id": "1081156",
+        "teams": [
+          "Spirit Academy",
+          "LFO 10"
+        ],
+        "competition": "CCT Europe 2026 Series #12",
+        "starts_at_utc": "2026-10-25T12:00:00Z"
+      },
+      {
+        "hotspawn_id": "1081158",
+        "teams": [
+          "FORZE Reload",
+          "ex-RUSTEC"
+        ],
+        "competition": "CCT Europe 2026 Series #12",
+        "starts_at_utc": "2026-10-25T13:00:00Z"
+      },
+      {
+        "hotspawn_id": "1082996",
+        "teams": [
+          "Acend",
+          "UNiTY"
+        ],
+        "competition": "NODWIN Clutch Series #13",
+        "starts_at_utc": "2026-10-25T09:00:00Z"
+      }
+    ],
+    "source_link": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "confirmed_by_this_session_live_read": [
+      "1081156",
+      "1081158",
+      "1083122",
+      "1083123",
+      "1083140",
+      "1082695"
+    ],
+    "from_session_73bc57bd_05_31Z_live_read_and_confirmed_absent_from_the_published_snapshot_here": [
+      "1079658",
+      "1079659",
+      "1079660",
+      "1081152",
+      "1081153",
+      "1081154"
+    ]
+  },
+  "executive_summary_and_phone": {
+    "measured_at": "2026-10-24T06:52Z",
+    "in_site_links_from_the_summary": {
+      "./origination/#picks": 17,
+      "./unresolved/": 8,
+      "./coverage/": 8,
+      "./methodology/": 7,
+      "./review/": 7,
+      "./picks/": 3,
+      "./edge/": 4,
+      "./twc-picks/": 4,
+      "./strategy/": 4,
+      "plus one anchor per fixture": 19
+    },
+    "viewport_meta": "width=device-width, initial-scale=1",
+    "tables_outside_a_horizontal_scroll_wrapper": 0,
+    "table_scroll_rules": [
+      "assets/scout.css:.table-scroll{overflow-x:auto;max-width:100%}",
+      "assets/scout.css:.matches-wrap,.mini-table-wrap{overflow-x:auto;max-width:100%}"
+    ],
+    "responsive_breakpoints_in_css": [
+      "max-width:700px (30 rules)",
+      "max-width:620px (2)",
+      "max-width:375px (9)"
+    ],
+    "phone_first_element": "the 'Picks at a glance' list (#picks-at-a-glance) renders above every table: 19 rows, each with both team percentages, the pick and an in-site evidence anchor",
+    "verdict": "no overflow defect found by static inspection; this agrees with session 73bc57bd's measured 0 px overflow at 320 px and 390 px",
+    "start_here_nav": {
+      "element": "nav#start-here (aria-label='Start here — where the picks are')",
+      "targets": [
+        "./#picks-at-a-glance",
+        "./origination/#picks",
+        "./strategy/",
+        "./origination/#unresolved",
+        "./#unresolved-register"
+      ],
+      "phone_status_strip": "nav.mobile-status: '19 picks ready of 19' -> ./origination/#picks and '0 unresolved · why' -> ./origination/#unresolved",
+      "note": "read from the branch-root index.html at 06:52Z"
+    },
+    "stale_banner_behaviour": {
+      "markup": "#stale-warning is 'hidden' in the HTML and revealed by assets/scout.js once the snapshot is older than stale_after_hours (8)",
+      "observed": "at 11.1 h old the banner text reads 'Do not treat these as current picks. The inventory check failed or the successful snapshot is older than eight hours.'",
+      "second_banner": "#new-snapshot stays hidden unless a newer snapshot.json is actually detected, so the site never claims an update that does not exist"
+    }
+  },
+  "local_build": {
+    "command": "python -m scripts.build",
+    "result": "PASS",
+    "lines": [
+      "PASS: 80 source rows reconciled; every published probability and pick replayed from first-party evidence.",
+      "Row-source audit: 780 rows, 761 with an official link, 9 flagged unverified, 10 site-map, 0 without a source",
+      "Acceptance audit: 9 pass, 1 info, 0 fail of 10 brief-line checks",
+      "PASS: 827 internal links/assets/anchors; project-subpath routing and mobile landmarks checked.",
+      "Built 9 current Pages views, compatible old URLs and explicitly archived session views in site"
+    ]
+  },
+  "limitations": [
+    "The sandbox has no direct egress to hltv.org, polymarket.com, egamersworld.com, smarkets.com or the Actions log blob host; page reads were made through the agent's page-fetch proxy, which returns the rendered text/JSON of a URL but cannot write a byte-for-byte evidence copy into data/evidence/. Every re-read below therefore carries its endpoint and read time instead of a saved payload.",
+    "No live collection could be run from this sandbox, so the 'picks for every live card' claim can only be verified after the publisher completes a run; this session verified the mechanism and the published rows, not a fresh collection.",
+    "The four-hourly publisher could not be dispatched (HTTP 403) and its push-triggered runs were being cancelled while other sessions pushed main; the next scheduled slot at 06:47Z had not started by 06:53Z."
+  ]
+}
