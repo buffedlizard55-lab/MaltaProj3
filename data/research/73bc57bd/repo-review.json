@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "session": "arena-73bc57bd",
+  "review_clock_utc": "2026-10-24T05:29-05:51Z",
+  "scope": "Every future Hotspawn CS2 Pick'ems card read at 2026-10-24T05:31Z (25) reconciled with the pick rows the published site serves (19), plus the line evidence available for the 9 uncovered cards.",
+  "method": "Each row was read first-hand through the agent's page fetcher (the sandbox shell has no route to these hosts) and copied verbatim with a read timestamp into data/research/73bc57bd/observations-2026-10-24.json; scripts/73bc57bd_reconcile.py joins that record with the deployed branch-root pick rows and tests/test_73bc57bd_reconciliation.py re-derives the arithmetic. No probability, pick or alias was written by hand.",
+  "items": [
+    {
+      "id": "73bc57bd-publisher-frozen-nine-cards-unpicked",
+      "area": "Coverage / refresh pipeline",
+      "status": "needs review",
+      "finding": "9 of the 25 future cards on the live Hotspawn lobby have no row, and therefore no pick, on the published site (all CCT Europe 2026 Series #11/#12). The scheduled publisher has failed four consecutive runs at the 'Regression tests' step, so nothing has been collected and published since 2026-10-23T19:57:15Z and the site still serves the 2026-10-23T20:10:00Z snapshot.",
+      "handling": "Recorded here and in the dated dossier with the run ids. The regression that blocked every refresh is fixed in this PR (see 73bc57bd-duplicate-no-line-research-id) after the wall-clock errors were cleared by PR #240; the next scheduled run therefore collects and publishes, and the nine cards enter the normal ladder — five already show a real two-sided external price, four show only placeholder books that the existing policy correctly refuses.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/pages.yml",
+          "detail": "Run history read 05:29Z: 40015434337 success at 2026-10-23T19:57:15Z, then 40028653350, 40037957529, 40048429858 and 40063011446 all failed."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446",
+          "detail": "Latest failure: job verify-and-deploy, failing step 'Regression tests (repository fixtures, before any cache restore)'; no collection or deploy step ran."
+        },
+        {
+          "url": "https://play.hotspawn.com/cs2-pickems",
+          "detail": "Lobby read 05:31Z renders 25 future cards in 'Closing Soon' + 'Upcoming' (All tiers (89) of 218 matches this week)."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/picks/",
+          "detail": "Published picks page read 05:36Z: 19 rows, '19 of 19 matches below carry a pick', snapshot observed 23 Oct 2026, 22:09 with the stale banner."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+          "detail": "Published snapshot generated_at 2026-10-23T20:10:00Z, 19 upcoming, run_status partial-picks."
+        }
+      ]
+    },
+    {
+      "id": "73bc57bd-wall-clock-regression",
+      "area": "CI / regression suite",
+      "status": "needs review",
+      "finding": "Reproduced first-hand: .venv/bin/python -m unittest tests.test_ca7e10e5_snapshot fails with 3 ERRORs (PublishRefused: 'snapshot 2026-10-23T09:23:57+00:00 is 20.2h old (limit 12.0h)') and 1 FAILURE (two id=\"no-line-research\" blocks on the built executive summary). This is the step that stops every scheduled refresh.",
+      "handling": "Reproduced and quoted verbatim in the dossier; the file is claimed by three other live sessions (arena-43110640, arena-be019782, arena-f1277d3b) at the time of writing, so it was not edited here. The production freshness guard itself is behaving correctly — the test fixture, not the guard, is time-bombed.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_ca7e10e5_snapshot.py",
+          "detail": "Pins the fixture snapshot to 2026-10-23T09:23:57Z and calls root_publish.build_plan without an injectable clock."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/root_publish.py",
+          "detail": "build_plan refuses a snapshot older than 12h against the wall clock unless --allow-stale is passed."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446",
+          "detail": "Same test file fails the scheduled run before collection."
+        }
+      ]
+    },
+    {
+      "id": "73bc57bd-duplicate-no-line-research-id",
+      "area": "Accessibility / HTML validity",
+      "status": "fixed",
+      "finding": "The built executive summary carries id=\"no-line-research\" twice (the summary and its compact unresolved register both render the dated block), which is an invalid duplicate landmark target and is asserted against by the existing test.",
+      "handling": "Fixed in this PR after a documented takeover. The defect was claimed by arena-be019782 (PR #237, still open) but main stayed red: run 40063011446 and the next three scheduled runs failed on this assertion, and PR #240 (merged 2026-10-24T06:10Z) only cleared the wall-clock errors. Because a red main means no refresh can publish, the minimal non-destructive change was applied: the compact register no longer emits the block a second time, so summary() renders it exactly once and /unresolved/ keeps its own copy. Nothing else in scripts/build.py changed and none of the owning session's work was reverted; their PR keeps its fuller change set. Verified: site/index.html and site/unresolved/index.html each contain exactly one id=\"no-line-research\"; tests.test_ca7e10e5_snapshot, tests.test_eea4c104_audit, tests.test_42bfa8ea and tests.test_3016b0c6_mobile_glance all pass (76 targeted tests green).",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+          "detail": "summary() and unresolved_register(..., compact=True) both emit the dated research block."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_ca7e10e5_snapshot.py",
+          "detail": "assertEqual(html.count('id=\"no-line-research\"'), 1) fails with 2 != 1 on the local build."
+        }
+      ]
+    },
+    {
+      "id": "73bc57bd-lfo10-name-conflict",
+      "area": "Fixture identity / alias safety",
+      "status": "needs review",
+      "finding": "Hotspawn card 1081156 lists 'Spirit Academy vs LFO 10' for 25 Oct 08:00 (US Eastern) while Polymarket lists 'Spirit Academy vs Sökerorg (BO3) - CCT Europe Series #12 Group Stage' for the same slot, and EGamersWorld renders the opponent name blank. The three sources do not agree on the opponent's name.",
+      "handling": "No alias was created. The row is left unpriced with the conflict stated, so an exact-name join cannot silently pair the wrong team.",
+      "evidence": [
+        {
+          "url": "https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156",
+          "detail": "Hotspawn permalink rendered on the lobby card at 05:31Z."
+        },
+        {
+          "url": "https://polymarket.com/esports/cs2/cct-europe/cs2-tsa-skr2-2026-10-25",
+          "detail": "Polymarket event 'Spirit Academy vs Sökerorg', Tomorrow 8:00 AM, 93¢/94¢ on $0.00 volume (read 05:46Z)."
+        },
+        {
+          "url": "https://egamersworld.com/counterstrike/event/cct-europe-2026-series-12-HiXMAaC8L",
+          "detail": "EGamersWorld schedule row for 25.10.26 08:00 renders 'Spirit Academy VS ' with an empty opponent (read 05:47Z)."
+        }
+      ]
+    },
+    {
+      "id": "73bc57bd-placeholder-books-rejected",
+      "area": "Pricing policy",
+      "status": "verified",
+      "finding": "Four of the nine uncovered cards have only placeholder books today: EGamersWorld shows the identical 1.8/1.8 pair for HAVU-Azuolas, Saint Sinners-6yuBoJlbl, BakS-ILLYRIANS, Spirit Academy-LFO 10 and FORZE Reload-ex-RUSTEC, and Polymarket shows both sides at 93-95¢ on $0.00 volume. A fifth (INOX-Brute) has Polymarket mids summing to 117¢.",
+      "handling": "Correctly refused rather than converted into a probability. The dossier records the verbatim quotes and marks each as placeholder/thin so the pricing ladder does not consume them as fair odds.",
+      "evidence": [
+        {
+          "url": "https://egamersworld.com/counterstrike/event/cct-europe-2026-series-12-HiXMAaC8L",
+          "detail": "Every Series #12 schedule row read at 05:43-05:47Z shows 1.8 / 1.8."
+        },
+        {
+          "url": "https://polymarket.com/esports/cs2/cct-europe/cs2-baks-ill4-2026-10-24",
+          "detail": "BakS 94¢ / ILLYRIANS 93¢ on $0.00 volume — a book that cannot sum to 100."
+        },
+        {
+          "url": "https://polymarket.com/esports/cs2/cct-europe/cs2-inox-brute-2026-10-24",
+          "detail": "INOX Division 61¢ / Brute 56¢ on $0.00 volume (mids sum 117)."
+        }
+      ]
+    },
+    {
+      "id": "73bc57bd-published-pick-cross-check",
+      "area": "Probability provenance",
+      "status": "verified",
+      "finding": "The published FOKUS vs ex-6666 line (76.5% / 23.5%, fair decimal 1.307 / 4.255, price read 2026-10-23T20:09:50Z) sits between two independent sources read 7.5 hours later: Polymarket 79¢ / 22¢ and the Thunderpick block via EGamersWorld at 1.23 / 3.83 (75.7% / 24.3% no-vig).",
+      "handling": "Treated as drift and reported as such, not as an error; the pick is unchanged and no stored value was modified. No cross-check of the remaining 18 rows was attempted in this session, and that limit is stated.",
+      "evidence": [
+        {
+          "url": "https://polymarket.com/esports/cs2/nodwin-clutch-series/cs2-fokus-66661-2026-10-24",
+          "detail": "Read 05:46Z: fokus 79¢ / 6666 22¢, card 79% / 22%, $141.39 series volume."
+        },
+        {
+          "url": "https://egamersworld.com/counterstrike/matches",
+          "detail": "Read 05:34Z: Fokus 1.23 / ex-6666 3.83."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/picks/",
+          "detail": "Published row 1079193 shows FOKUS 76.5% / ex-6666 23.5% and the 20:09:50Z price stamp."
+        }
+      ]
+    },
+    {
+      "id": "73bc57bd-stale-labels-are-honest",
+      "area": "Freshness communication",
+      "status": "verified",
+      "finding": "The published site does not present the 20:10Z snapshot as current: it carries a stale banner ('Do not treat these as current picks. The inventory check failed or the successful snapshot is older than eight hours.'), labels every row 'Stale / unverified freshness · not a current pick', and stamps 'Snapshot observed 23 Oct 2026, 22:09'.",
+      "handling": "No change needed; the degraded mode is working as designed. What is missing is the fresh collection, which is the run failure reported above.",
+      "evidence": [
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/picks/",
+          "detail": "Banner, per-row stale label and observation stamp read at 05:36Z."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+          "detail": "The republish-last-verified job keeps the last good build live while the fresh snapshot is refused."
+        }
+      ]
+    },
+    {
+      "id": "73bc57bd-past-start-rows-retained",
+      "area": "Archival behaviour",
+      "status": "verified",
+      "finding": "Three of the 19 published rows (1083025 paiN-Imperial, 1082923 Alka-LOS NINOS, 1083045 Chinggis Warriors-Rare Atom) are past their start and are absent from the live future lobby; they are kept with their original values and the label 'Past start · status unverified'.",
+      "handling": "Correct per the brief (no retrospective probability is manufactured, nothing is back-filled). Recorded so the count 16 covered + 3 past-start = 19 is auditable.",
+      "evidence": [
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/picks/",
+          "detail": "Rows carry 'Past start · status unverified' and the original scheduled start."
+        },
+        {
+          "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+          "detail": "First-party fixture API read 05:39Z still returns these ids with status 'scheduled' and June-2026 start epochs."
+        }
+      ]
+    },
+    {
+      "id": "73bc57bd-no-general-egress",
+      "area": "Platform limitation",
+      "status": "platform limitation",
+      "finding": "The sandbox shell has no route to Hotspawn, HLTV, Polymarket, EGamersWorld or the Pages site (outbound access is limited to the GitHub, npm and PyPI hosts). Every page quoted in this dossier was read through the agent's page fetcher, so the reads are the fetcher's rendering, not a byte-exact browser capture.",
+      "handling": "Each observation carries its own URL and read timestamp, was copied verbatim, and is committed with the dossier. Anything that could not be read is recorded as 'not observed', never as absent or zero.",
+      "evidence": [
+        {
+          "url": "https://play.hotspawn.com/cs2-pickems",
+          "detail": "Read through the platform fetcher at 05:31Z; TLS to this host fails from the sandbox shell."
+        },
+        {
+          "url": "https://www.hltv.org/matches?date=20261024",
+          "detail": "Read 05:44Z; the CI runner records HTTP 403 on HLTV fixture pages, so this read is the only HLTV evidence in the session."
+        }
+      ]
+    },
+    {
+      "id": "73bc57bd-review-page-is-very-long-on-phone",
+      "area": "Mobile readability",
+      "status": "needs review",
+      "finding": "At 320 px the Flagged for Review page is 247,024 px tall (208,766 px at 390 px) because it renders every session register ever published in publication order; each new session's register is appended last, so the newest findings are the hardest to reach on a phone.",
+      "handling": "Measured first-hand (Playwright, bundled chromium) and published with the numbers. Not changed here: the page renderer (scripts/build.py) is claimed by another live session and reordering registers is a product decision, so this session only records the measurement and the suggestion (newest register first, or one collapsed <details> per session).",
+      "evidence": [
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/review/",
+          "detail": "Deployed page carrying every session register; read 05:36Z."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/review_register.py",
+          "detail": "REGISTERS is rendered in declaration order, so the newest session's block is last."
+        }
+      ]
+    }
+  ]
+}
