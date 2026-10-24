@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "session": "arena-f1277d3b",
+  "recorded_at": "2026-10-24T06:20Z",
+  "observed_window_utc": ["2026-10-24T06:10Z", "2026-10-24T06:18Z"],
+  "why": "The companion runner sweep (line-source-research.json, observed 2026-10-24T06:09:03Z) collected a FRESH snapshot (generated 2026-10-24T06:08:01Z, 25 active fixtures) in which 11 fixtures carry only a research-model pick. Five are fixtures Hotspawn added after the frozen 2026-10-23T20:10:00Z snapshot and were therefore not in hltv-first-research.json; their HLTV match pages are read first-hand here so HLTV-first coverage matches the current lobby. 1079200 (Color vs ex-Zero Tenacity) no longer appears among the model-only targets in the fresh collection: the ladder resolved it above the research-model rungs on its own re-read — exactly the automatic upgrade path; no session input was involved.",
+  "policy": "Same as hltv-first-research.json: read-only, HLTV first, no probability, pick or alias written. Fan polls excluded. For these five pages only the first page segment was read, so ranks/lineups are recorded only where that segment displayed them and left blank otherwise — not inferred.",
+  "fresh_sweep_summary": {
+    "observed_at": "2026-10-24T06:09:03Z",
+    "environment": "github-actions-runner",
+    "run": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40067611062",
+    "active_fixtures_in_fresh_collection": 25,
+    "model_only_targets": 11,
+    "money_line_leads": 0,
+    "hltv_from_runner_egress": "HTTP 403 for every target match page (recorded per fixture in line-source-research.json), which is why the first-hand reads below were made from agent-platform egress",
+    "polymarket": "439 open CS2 events read to a terminal Gamma page; 8 of 11 targets bound an event, every bound book placeholder-wide (widest spreads 0.88-0.94 copied verbatim, never converted)",
+    "smarkets": "board observed 2026-10-24T06:08:11Z; 8 fixtures bound overall, 7 with a two-sided quote; 3 of the 11 targets bound (1082996, 1079198, 1082858) yet all 11 stayed research-model rows, i.e. no bound target quote satisfied the ladder's published ceilings at that observation",
+    "pinnacle_guest": "22927 esports matchups scanned, 0 target-fixture hits",
+    "book_pages": "HLTV/GG.BET/Stake/Marathonbet/Bet365/EGamersWorld 403, BetBoom 401, Unibet 503, Oddspedia 410, Betway/Pinnacle pages 404; BC.Game/DraftKings/OddsPortal/Rivalry/Betano/bo3.gg answered 200 with no target team found by the probe's word-boundary scan"
+  },
+  "fixtures": [
+    {
+      "hotspawn_id": "1081152",
+      "teams": ["HAVU", "Azuolas"],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T11:00:00Z",
+      "hltv": {
+        "url": "https://www.hltv.org/matches/2399502/havu-vs-azuolas-cct-2026-europe-series-12",
+        "event": "CCT 2026 Europe Series 12 (HLTV event 9457)",
+        "stage": "Swiss round 3 (teams with a 0-2 record); losing team is eliminated",
+        "format": "Best of 3 (Online)",
+        "betting_block": "present with both team columns; the only row is a Stake US sweepstake promotion ('No promocode available'); no decimal odds for either team",
+        "fan_poll_excluded": {"HAVU": 91.7, "Azuolas": 8.3, "note": "HLTV 'Pick a winner' crowd poll; excluded by policy, never a probability input"},
+        "ranks_read": null,
+        "ranks_note": "lineup rank badges were below the segment read in this pass; left blank, not inferred"
+      },
+      "verdict": "Identity and Bo3 format confirmed on HLTV; no two-sided odds there or on any surface in the 06:09Z runner sweep. The fresh collection's labelled research-model pick and its limitation stand."
+    },
+    {
+      "hotspawn_id": "1081153",
+      "teams": ["Saint Sinners", "6yuBoJlbl"],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T14:00:00Z",
+      "hltv": {
+        "url": "https://www.hltv.org/matches/2399503/6yubojlbl-vs-saint-sinners-cct-2026-europe-series-12",
+        "event": "CCT 2026 Europe Series 12 (HLTV event 9457)",
+        "stage": "Swiss round 3 (teams with a 1-1 record)",
+        "format": "Best of 3 (Online)",
+        "order_note": "HLTV lists 6yuBoJlbl first; Hotspawn lists Saint Sinners first. Display order only.",
+        "betting_block": "present with both team columns; the only row is a Stake US sweepstake promotion ('No promocode available'); no decimal odds for either team",
+        "fan_poll_excluded": {"6yuBoJlbl": 33.3, "Saint Sinners": 66.7, "note": "HLTV 'Pick a winner' crowd poll; excluded by policy, never a probability input"},
+        "ranks_read": {"6yuBoJlbl": {"hltv": 177}},
+        "ranks_note": "only the first team's HLTV rank badge (2026-10-19 week) was inside the segment read; the rest left blank, not inferred"
+      },
+      "verdict": "Identity and Bo3 format confirmed on HLTV; no two-sided odds there or on any surface in the 06:09Z runner sweep (Polymarket event bound but placeholder-wide)."
+    },
+    {
+      "hotspawn_id": "1081154",
+      "teams": ["BakS", "ILLYRIANS"],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T17:00:00Z",
+      "hltv": {
+        "url": "https://www.hltv.org/matches/2399504/baks-vs-illyrians-cct-2026-europe-series-12",
+        "event": "CCT 2026 Europe Series 12 (HLTV event 9457)",
+        "stage": "Swiss round 3 (teams with a 1-1 record)",
+        "format": "Best of 3 (Online)",
+        "name_note": "HLTV styles the teams 'BAKS' and 'Illyrians' (teams 11699 / 11719); Hotspawn lists 'BakS' and 'ILLYRIANS'. Name-case only; no alias is written by this dossier.",
+        "betting_block": "present with both team columns; the only row is a Stake US sweepstake promotion ('No promocode available'); no decimal odds for either team",
+        "fan_poll_excluded": {"BAKS": 83.3, "Illyrians": 16.7, "note": "HLTV 'Pick a winner' crowd poll; excluded by policy, never a probability input"},
+        "ranks_read": null,
+        "ranks_note": "lineup rank badges were below the segment read in this pass; left blank, not inferred. BakS's ranks read earlier today on match page 2399113 are in hltv-first-research.json (fixture 1079198)."
+      },
+      "verdict": "Identity and Bo3 format confirmed on HLTV; no two-sided odds there or on any surface in the 06:09Z runner sweep (Polymarket event bound but placeholder-wide)."
+    },
+    {
+      "hotspawn_id": "1081156",
+      "teams": ["Spirit Academy", "LFO 10"],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-25T12:00:00Z",
+      "hltv": {
+        "url": "https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12",
+        "event": "CCT 2026 Europe Series 12 (HLTV event 9457)",
+        "stage": "Swiss round 3 (teams with a 1-1 record)",
+        "format": "Best of 3 (Online)",
+        "betting_block": "present with both team columns; the only row is a Stake US sweepstake promotion ('No promocode available'); no decimal odds for either team",
+        "fan_poll_excluded": {"Spirit Academy": 0.0, "LFO 10": 0.0, "note": "HLTV 'Pick a winner' showed 0.0%/0.0% (no votes) in the segment read; excluded by policy regardless"},
+        "ranks_read": null,
+        "ranks_note": "lineup rank badges were below the segment read in this pass; left blank, not inferred"
+      },
+      "verdict": "Identity and Bo3 format confirmed on HLTV; no two-sided odds there or on any surface in the 06:09Z runner sweep (no Polymarket event bound both exact names)."
+    },
+    {
+      "hotspawn_id": "1081158",
+      "teams": ["FORZE Reload", "ex-RUSTEC"],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-25T18:00:00Z",
+      "hltv": {
+        "url": "https://www.hltv.org/matches/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12",
+        "event": "CCT 2026 Europe Series 12 (HLTV event 9457)",
+        "stage": "Swiss round 3 (teams with a 2-0 record); winner advances to playoffs",
+        "format": "Best of 3 (Online)",
+        "betting_block": "present with both team columns; the only row is a Stake US sweepstake promotion ('No promocode available'); no decimal odds for either team",
+        "fan_poll_excluded": {"FORZE Reload": 0.0, "ex-RUSTEC": 0.0, "note": "HLTV 'Pick a winner' showed 0.0%/0.0% (no votes) in the segment read; excluded by policy regardless"},
+        "ranks_read": {"FORZE Reload": {"hltv": 80}},
+        "ranks_note": "only the first team's HLTV rank badge (2026-10-19 week) was inside the segment read; the rest left blank, not inferred"
+      },
+      "verdict": "Identity and Bo3 format confirmed on HLTV; no two-sided odds there or on any surface in the 06:09Z runner sweep (Polymarket event bound but placeholder-wide)."
+    }
+  ],
+  "limitations_of_this_addendum": [
+    "Same limitations as hltv-first-research.json; additionally these five pages were read one segment deep, so most lineup/rank detail is deliberately blank here — the ladder's own HLTV stages re-read identity evidence in CI.",
+    "The fresh collection behind the sweep was produced by the research workflow for target selection only; it is NOT committed as published data. The published site updates when the production pages.yml publisher next succeeds after this session's fix merges."
+  ]
+}

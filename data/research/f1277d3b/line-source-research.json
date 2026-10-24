@@ -1,0 +1,2232 @@
+{
+  "schema_version": 1,
+  "session": "arena-f1277d3b",
+  "observed_at": "2026-10-24T07:18:19Z",
+  "environment": "github-actions-runner",
+  "policy": "Read-only research. HLTV first (identity and ranking only — HLTV publishes no two-sided price and its fan vote is a crowd poll), then esportsbooks, exchanges and betting-line aggregators. Nothing here is a probability or a pick; only a bound fixture with both sides priced is a lead.",
+  "target_source": {
+    "source_url": "data/origination.json",
+    "source": "freshly collected in this run",
+    "targets": 11,
+    "active": 31,
+    "snapshot_generated_at": "2026-10-24T07:17:23Z"
+  },
+  "targets": [
+    {
+      "id": "1081153",
+      "teams": [
+        "Saint Sinners",
+        "6yuBoJlbl"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T14:00:00Z",
+      "current_method": "model",
+      "current_label": "Valve-rating research estimate",
+      "hotspawn_url": "https://www.hotspawn.com/matches/saint-sinners-vs-6yubojlbl-cct-europe-2026-series-12-1081153",
+      "hltv_url": "https://www.hltv.org/matches/2399503/6yubojlbl-vs-saint-sinners-cct-2026-europe-series-12"
+    },
+    {
+      "id": "1081154",
+      "teams": [
+        "BakS",
+        "ILLYRIANS"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T17:00:00Z",
+      "current_method": "model",
+      "current_label": "Valve-rating research estimate",
+      "hotspawn_url": "https://www.hotspawn.com/matches/baks-vs-illyrians-cct-europe-2026-series-12-1081154",
+      "hltv_url": "https://www.hltv.org/matches/2399504/baks-vs-illyrians-cct-2026-europe-series-12"
+    },
+    {
+      "id": "1083122",
+      "teams": [
+        "LOS NINOS",
+        "BORRACHEIROS"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-24T19:00:00Z",
+      "current_method": "model",
+      "current_label": "Research model estimate (HLTV world ranking · unranked floor)",
+      "hotspawn_url": "https://www.hotspawn.com/matches/los-ninos-vs-borracheiros-cct-south-america-2026-series-7-1083122",
+      "hltv_url": "https://www.hltv.org/matches/2399914/los-ninos-vs-borracheiros-cct-2026-south-america-series-7"
+    },
+    {
+      "id": "1082996",
+      "teams": [
+        "Acend",
+        "UNiTY"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T09:00:00Z",
+      "current_method": "model",
+      "current_label": "Valve-rating research estimate",
+      "hotspawn_url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
+      "hltv_url": "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13"
+    },
+    {
+      "id": "1079198",
+      "teams": [
+        "Metizport",
+        "BakS"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T12:00:00Z",
+      "current_method": "model",
+      "current_label": "Valve-rating research estimate",
+      "hotspawn_url": "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198",
+      "hltv_url": "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13"
+    },
+    {
+      "id": "1081156",
+      "teams": [
+        "Spirit Academy",
+        "LFO 10"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-25T12:00:00Z",
+      "current_method": "model",
+      "current_label": "Own results-based estimate (bo3.gg series results)",
+      "hotspawn_url": "https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156",
+      "hltv_url": "https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12"
+    },
+    {
+      "id": "1081158",
+      "teams": [
+        "FORZE Reload",
+        "ex-RUSTEC"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-25T18:00:00Z",
+      "current_method": "model",
+      "current_label": "Valve-rating research estimate",
+      "hotspawn_url": "https://www.hotspawn.com/matches/forze-reload-vs-ex-rustec-cct-europe-2026-series-12-1081158",
+      "hltv_url": "https://www.hltv.org/matches/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12"
+    },
+    {
+      "id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "current_method": "model",
+      "current_label": "Own network estimate (bo3.gg results graph)",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
+      "hltv_url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026"
+    },
+    {
+      "id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "current_method": "model",
+      "current_label": "Valve-rating research estimate",
+      "hotspawn_url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
+      "hltv_url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026"
+    },
+    {
+      "id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "current_method": "model",
+      "current_label": "Research model estimate (Valve official ratings)",
+      "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+      "hltv_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026"
+    },
+    {
+      "id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T13:00:00Z",
+      "current_method": "model",
+      "current_label": "Valve-rating research estimate",
+      "hotspawn_url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
+      "hltv_url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026"
+    }
+  ],
+  "extra_pages": [
+    {
+      "name": "HLTV match listing",
+      "url": "https://www.hltv.org/matches",
+      "status": 403,
+      "final_url": "https://www.hltv.org/matches",
+      "bytes": 5626,
+      "challenge_markers": [
+        "just a moment",
+        "challenge-platform",
+        "enable javascript and cookies"
+      ],
+      "teams_found": []
+    },
+    {
+      "name": "HLTV world ranking",
+      "url": "https://www.hltv.org/ranking/teams",
+      "status": 403,
+      "final_url": "https://www.hltv.org/ranking/teams",
+      "bytes": 5665,
+      "challenge_markers": [
+        "just a moment",
+        "challenge-platform",
+        "enable javascript and cookies"
+      ],
+      "teams_found": []
+    },
+    {
+      "name": "GG.BET CS2",
+      "url": "https://gg.bet/en/counter-strike",
+      "status": 403,
+      "final_url": "https://gg.bet/en/counter-strike",
+      "bytes": 126,
+      "challenge_markers": [],
+      "teams_found": []
+    },
+    {
+      "name": "BetBoom CS2",
+      "url": "https://betboom.ru/sport/cs2",
+      "status": 401,
+      "final_url": "https://betboom.ru/sport/cs2",
+      "bytes": 1802,
+      "challenge_markers": [
+        "captcha"
+      ],
+      "teams_found": []
+    },
+    {
+      "name": "Stake CS2",
+      "url": "https://stake.com/sports/esports/cs2",
+      "status": 403,
+      "final_url": "https://stake.com/sports/esports/cs2",
+      "bytes": 5677,
+      "challenge_markers": [
+        "just a moment",
+        "challenge-platform",
+        "enable javascript and cookies"
+      ],
+      "teams_found": []
+    },
+    {
+      "name": "BC.Game CS2",
+      "url": "https://bc.game/sports/esports",
+      "status": 200,
+      "final_url": "https://bc.game/sports/esports",
+      "bytes": 10680,
+      "challenge_markers": [
+        "challenge-platform"
+      ],
+      "teams_found": []
+    },
+    {
+      "name": "1xBet CS2",
+      "url": "https://1xbet.com/en/line/counter-strike-2",
+      "status": 203,
+      "final_url": "https://1xbet.com/en/block",
+      "bytes": 2622,
+      "challenge_markers": [
+        "challenge-platform"
+      ],
+      "teams_found": []
+    },
+    {
+      "name": "Marathonbet CS2",
+      "url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
+      "status": 403,
+      "final_url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
+      "bytes": 5490,
+      "challenge_markers": [
+        "challenge-platform",
+        "attention required",
+        "captcha"
+      ],
+      "teams_found": []
+    },
+    {
+      "name": "Betway esports",
+      "url": "https://www.betway.com/en/sports/esports/counter-strike-2",
+      "status": 404,
+      "final_url": "https://betway.com/g/en/sports/esports/counter-strike-2",
+      "bytes": 6690,
+      "challenge_markers": [],
+      "teams_found": []
+    },
+    {
+      "name": "DraftKings CS2",
+      "url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
+      "status": 404,
+      "final_url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
+      "bytes": 257267,
+      "challenge_markers": [],
+      "teams_found": []
+    },
+    {
+      "name": "OddsPortal CS2",
+      "url": "https://www.oddsportal.com/esports/counter-strike/",
+      "status": 200,
+      "final_url": "https://www.oddsportal.com/esports/counter-strike/",
+      "bytes": 337016,
+      "challenge_markers": [
+        "captcha"
+      ],
+      "teams_found": []
+    },
+    {
+      "name": "EGamersWorld CS2 matches",
+      "url": "https://egamersworld.com/counterstrike/matches",
+      "status": 403,
+      "final_url": "https://egamersworld.com/counterstrike/matches",
+      "bytes": 5777,
+      "challenge_markers": [
+        "challenge-platform",
+        "attention required",
+        "captcha"
+      ],
+      "teams_found": []
+    },
+    {
+      "name": "Pinnacle CS2 page",
+      "url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+      "status": 404,
+      "final_url": "https://www.pinnacle.com/en/esports/counter-strike-2/",
+      "bytes": 307,
+      "challenge_markers": [],
+      "teams_found": []
+    },
+    {
+      "name": "Rivalry CS2",
+      "url": "https://www.rivalry.com/esports/counter-strike-2",
+      "status": 200,
+      "final_url": "https://www.rivalry.com/",
+      "bytes": 60850,
+      "challenge_markers": [
+        "challenge-platform"
+      ],
+      "teams_found": []
+    },
+    {
+      "name": "Betano CS2",
+      "url": "https://www.betano.com/esports/counter-strike-2/",
+      "status": 200,
+      "final_url": "https://www.betano.com/esports/counter-strike-2/",
+      "bytes": 29481,
+      "challenge_markers": [
+        "challenge-platform"
+      ],
+      "teams_found": []
+    },
+    {
+      "name": "Betsson CS2",
+      "url": "https://www.betsson.com/en/sports/esports/counter-strike",
+      "status": 202,
+      "final_url": "https://www.betsson.com/en/sports/esports/counter-strike",
+      "bytes": 0,
+      "challenge_markers": [],
+      "teams_found": []
+    },
+    {
+      "name": "Unibet CS2",
+      "url": "https://www.unibet.com/betting/sports/filter/counter_strike_2",
+      "status": 503,
+      "final_url": "https://www.unibet.com/betting/sports/filter/counter_strike_2",
+      "bytes": 592,
+      "challenge_markers": [],
+      "teams_found": []
+    },
+    {
+      "name": "Oddspedia CS2",
+      "url": "https://oddspedia.com/esports/counter-strike",
+      "status": 410,
+      "final_url": "https://oddspedia.com/esports/counter-strike",
+      "bytes": 340006,
+      "challenge_markers": [
+        "challenge-platform",
+        "captcha"
+      ],
+      "teams_found": []
+    },
+    {
+      "name": "22bet CS2",
+      "url": "https://22bet.com/line/counter-strike-2",
+      "status": 203,
+      "final_url": "https://22bet.com/line/counter-strike-2",
+      "bytes": 27147,
+      "challenge_markers": [
+        "captcha",
+        "access denied"
+      ],
+      "teams_found": []
+    },
+    {
+      "name": "Bet365 esports",
+      "url": "https://www.bet365.com/#/AS/B18/",
+      "status": 403,
+      "final_url": "https://www.bet365.com/#/AS/B18/",
+      "bytes": 5607,
+      "challenge_markers": [
+        "just a moment",
+        "challenge-platform",
+        "enable javascript and cookies"
+      ],
+      "teams_found": []
+    },
+    {
+      "name": "HLTV search endpoint",
+      "url": "https://www.hltv.org/search?query=counter-strike",
+      "status": 403,
+      "final_url": "https://www.hltv.org/search?query=counter-strike",
+      "bytes": 5743,
+      "challenge_markers": [
+        "just a moment",
+        "challenge-platform",
+        "enable javascript and cookies"
+      ],
+      "teams_found": []
+    },
+    {
+      "name": "bo3.gg matches",
+      "url": "https://bo3.gg/matches",
+      "status": 200,
+      "final_url": "https://bo3.gg/matches",
+      "bytes": 12789,
+      "challenge_markers": [
+        "captcha"
+      ],
+      "teams_found": []
+    },
+    {
+      "name": "EGamersWorld CS2 odds",
+      "url": "https://egamersworld.com/counter-strike/betting",
+      "status": 403,
+      "final_url": "https://egamersworld.com/counter-strike/betting",
+      "bytes": 5777,
+      "challenge_markers": [
+        "challenge-platform",
+        "attention required",
+        "captcha"
+      ],
+      "teams_found": []
+    }
+  ],
+  "pinnacle_guest_api": {
+    "api": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
+    "matchups_seen": 22698,
+    "fixture_hits": []
+  },
+  "polymarket": {
+    "api": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&closed=false&limit=100&offset=0",
+    "pages_read": 5,
+    "events_seen": 441,
+    "terminal_page": true,
+    "bindings": {
+      "1081153": {
+        "event_id": "1242982",
+        "slug": "cs2-6yuboj-ssins-2026-10-24",
+        "title": "Counter-Strike: 6yuBoJlbl vs Saint Sinners (BO3) - CCT Europe Series #12 Group Stage",
+        "url": "https://polymarket.com/event/cs2-6yuboj-ssins-2026-10-24",
+        "start_date": "2026-10-23T22:35:30Z",
+        "markets": [
+          {
+            "question": "Counter-Strike: 6yuBoJlbl vs Saint Sinners - Map 1 Winner",
+            "best_bid": 0.03,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: 6yuBoJlbl vs Saint Sinners - Map 2 Winner",
+            "best_bid": 0.03,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: 6yuBoJlbl vs Saint Sinners (BO3) - CCT Europe Series #12 Group Stage",
+            "best_bid": 0.16,
+            "best_ask": 0.71,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Games Total: O/U 2.5",
+            "best_bid": 0.03,
+            "best_ask": 0.5,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          }
+        ]
+      },
+      "1081154": {
+        "event_id": "1242983",
+        "slug": "cs2-baks-ill4-2026-10-24",
+        "title": "Counter-Strike: BakS eSports vs ILLYRIANS (BO3) - CCT Europe Series #12 Group Stage",
+        "url": "https://polymarket.com/event/cs2-baks-ill4-2026-10-24",
+        "start_date": "2026-10-23T22:35:34Z",
+        "markets": [
+          {
+            "question": "Counter-Strike: BakS eSports vs ILLYRIANS - Map 1 Winner",
+            "best_bid": 0.04,
+            "best_ask": 0.97,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: BakS eSports vs ILLYRIANS - Map 2 Winner",
+            "best_bid": 0.03,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: BakS eSports vs ILLYRIANS (BO3) - CCT Europe Series #12 Group Stage",
+            "best_bid": 0.36,
+            "best_ask": 0.72,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Games Total: O/U 2.5",
+            "best_bid": 0.03,
+            "best_ask": 0.5,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          }
+        ]
+      },
+      "1082996": {
+        "event_id": "1238703",
+        "slug": "cs2-ace1-unity-2026-10-25",
+        "title": "Counter-Strike: Acend vs UNiTY esports (BO3) - NODWIN Clutch Series Playoffs",
+        "url": "https://polymarket.com/event/cs2-ace1-unity-2026-10-25",
+        "start_date": "2026-10-23T04:05:24Z",
+        "markets": [
+          {
+            "question": "Counter-Strike: Acend vs UNiTY esports - Map 1 Winner",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: Acend vs UNiTY esports - Map 2 Winner",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: Acend vs UNiTY esports (BO3) - NODWIN Clutch Series Playoffs",
+            "best_bid": 0.13,
+            "best_ask": 0.93,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Games Total: O/U 2.5",
+            "best_bid": 0.04,
+            "best_ask": 0.5,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map Handicap: UNiTY (-1.5) vs Acend (+1.5)",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 1 Total Rounds: Over/Under 21.5",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 2 Total Rounds: Over/Under 21.5",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 3 Total Rounds: Over/Under 21.5",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          }
+        ]
+      },
+      "1079198": {
+        "event_id": "1238705",
+        "slug": "cs2-mzp-baks-2026-10-25",
+        "title": "Counter-Strike: Metizport vs BakS eSports (BO3) - NODWIN Clutch Series Playoffs",
+        "url": "https://polymarket.com/event/cs2-mzp-baks-2026-10-25",
+        "start_date": "2026-10-23T04:05:27Z",
+        "markets": [
+          {
+            "question": "Counter-Strike: Metizport vs BakS eSports - Map 1 Winner",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: Metizport vs BakS eSports - Map 2 Winner",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: Metizport vs BakS eSports (BO3) - NODWIN Clutch Series Playoffs",
+            "best_bid": 0.55,
+            "best_ask": 0.85,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Games Total: O/U 2.5",
+            "best_bid": 0.04,
+            "best_ask": 0.5,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map Handicap: MZP (-1.5) vs BakS eSports (+1.5)",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 1 Total Rounds: Over/Under 21.5",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 2 Rounds Handicap: Metizport (-3.5) vs BakS eSports (+3.5)",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 2 Total Rounds: Over/Under 21.5",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 3 Total Rounds: Over/Under 21.5",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          }
+        ]
+      },
+      "1081158": {
+        "event_id": "1243020",
+        "slug": "cs2-forzer-rustec-2026-10-25",
+        "title": "Counter-Strike: FORZE Reload vs ex-RUSTEC (BO3) - CCT Europe Series #12 Group Stage",
+        "url": "https://polymarket.com/event/cs2-forzer-rustec-2026-10-25",
+        "start_date": "2026-10-23T22:45:28Z",
+        "markets": [
+          {
+            "question": "Counter-Strike: FORZE Reload vs ex-RUSTEC - Map 1 Winner",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: FORZE Reload vs ex-RUSTEC - Map 2 Winner",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: FORZE Reload vs ex-RUSTEC (BO3) - CCT Europe Series #12 Group Stage",
+            "best_bid": 0.06,
+            "best_ask": 0.66,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Games Total: O/U 2.5",
+            "best_bid": 0.04,
+            "best_ask": 0.5,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          }
+        ]
+      },
+      "1082858": {
+        "event_id": "1237427",
+        "slug": "cs2-gz1-offcho-2026-10-25",
+        "title": "Counter-Strike: Ground Zero vs Off Chops (BO3) - DFRAG Invitational Group A",
+        "url": "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25",
+        "start_date": "2026-10-22T21:35:24Z",
+        "markets": [
+          {
+            "question": "Counter-Strike: Ground Zero vs Off Chops - Map 1 Winner",
+            "best_bid": 0.06,
+            "best_ask": 0.93,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: Ground Zero vs Off Chops - Map 2 Winner",
+            "best_bid": 0.07,
+            "best_ask": 0.92,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: Ground Zero vs Off Chops (BO3) - DFRAG Invitational Group A",
+            "best_bid": 0.13,
+            "best_ask": 0.45,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Games Total: O/U 2.5",
+            "best_bid": 0.04,
+            "best_ask": 0.5,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map Handicap: Off Chops (-1.5) vs Ground Zero (+1.5)",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 1 Rounds Handicap: Off Chops (-3.5) vs Ground Zero (+3.5)",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 1 Total Rounds: Over/Under 21.5",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 2 Rounds Handicap: Off Chops (-3.5) vs Ground Zero (+3.5)",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 2 Total Rounds: Over/Under 21.5",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 3 Rounds Handicap: Off Chops (-3.5) vs Ground Zero (+3.5)",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 3 Total Rounds: Over/Under 21.5",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          }
+        ]
+      },
+      "1082861": {
+        "event_id": "1237430",
+        "slug": "cs2-rstr-abyssa-2026-10-26",
+        "title": "Counter-Strike: Rooster vs Abyssal (BO3) - DFRAG Invitational Group B",
+        "url": "https://polymarket.com/event/cs2-rstr-abyssa-2026-10-26",
+        "start_date": "2026-10-22T21:35:36Z",
+        "markets": [
+          {
+            "question": "Counter-Strike: Rooster vs Abyssal - Map 1 Winner",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: Rooster vs Abyssal - Map 2 Winner",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: Rooster vs Abyssal (BO3) - DFRAG Invitational Group B",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Games Total: O/U 2.5",
+            "best_bid": 0.04,
+            "best_ask": 0.5,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map Handicap: Abyssal (-1.5) vs Rooster (+1.5)",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 1 Total Rounds: Over/Under 21.5",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 2 Total Rounds: Over/Under 21.5",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 3 Total Rounds: Over/Under 21.5",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          }
+        ]
+      },
+      "1082792": {
+        "event_id": "1241313",
+        "slug": "cs2-hotu-the9-2026-10-31",
+        "title": "Counter-Strike: HOTU vs The Huns Esports (BO3) - Moscow Cyber Games Playoffs",
+        "url": "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
+        "start_date": "2026-10-23T16:25:30Z",
+        "markets": [
+          {
+            "question": "Counter-Strike: HOTU vs The Huns Esports - Map 1 Winner",
+            "best_bid": 0.07,
+            "best_ask": 0.93,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: HOTU vs The Huns Esports - Map 2 Winner",
+            "best_bid": 0.08,
+            "best_ask": 0.92,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: HOTU vs The Huns Esports (BO3) - Moscow Cyber Games Playoffs",
+            "best_bid": 0.07,
+            "best_ask": 0.93,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Games Total: O/U 2.5",
+            "best_bid": 0.07,
+            "best_ask": 0.5,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map Handicap: HOTU (-1.5) vs The Huns Esports (+1.5)",
+            "best_bid": 0.08,
+            "best_ask": 0.93,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          }
+        ]
+      }
+    }
+  },
+  "smarkets": {
+    "evidence": "data/origination/evidence/live-smarkets-cs.json",
+    "observed_at": "2026-10-24T07:17:37Z",
+    "events_listed": 14,
+    "fixtures_bound": 13,
+    "quoted_two_sided": 11,
+    "bound_fixtures": [
+      {
+        "hotspawn_id": "1079193",
+        "event_id": "45396121",
+        "event_name": "FOKUS vs ex-6666",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/nodwin-clutch-series/playoffs/2026/10/24/08-00/fokus-vs-ex-6666"
+      },
+      {
+        "hotspawn_id": "1079659",
+        "event_id": "45396446",
+        "event_name": "Spirit Academy vs Lavked",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/cct-europe/playoffs/2026/10/24/11-00/spirit-academy-vs-lavked"
+      },
+      {
+        "hotspawn_id": "1083120",
+        "event_id": "45398300",
+        "event_name": "RED Canids Academy vs Isurus",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/24/13-00/red-canids-academy-vs-isurus"
+      },
+      {
+        "hotspawn_id": "1079195",
+        "event_id": "45396122",
+        "event_name": "Nuclear TigeRES vs FORZE Reload",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/nodwin-clutch-series/playoffs/2026/10/24/14-00/nuclear-tigeres-vs-forze-reload"
+      },
+      {
+        "hotspawn_id": "1079661",
+        "event_id": "45397974",
+        "event_name": "Nuclear TigeRES vs ex-Zero Tenacity",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/cct-europe/playoffs/2026/10/24/17-00/nuclear-tigeres-vs-ex-zero-tenacity"
+      },
+      {
+        "hotspawn_id": "1082695",
+        "event_id": "45398297",
+        "event_name": "Galorys vs paiN",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/circuit-x/playoffs/2026/10/24/18-00/galorys-vs-pain"
+      },
+      {
+        "hotspawn_id": "1083122",
+        "event_id": "45398487",
+        "event_name": "Los Niños vs BORRACHEIROS",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/24/19-00/los-ninos-vs-borracheiros"
+      },
+      {
+        "hotspawn_id": "1083140",
+        "event_id": "45398299",
+        "event_name": "BESTIA vs Imperial",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/circuit-x/playoffs/2026/10/24/21-00/bestia-vs-imperial"
+      },
+      {
+        "hotspawn_id": "1083123",
+        "event_id": "45398301",
+        "event_name": "Grêmio Esports vs Yawara Esports",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/24/22-00/gremio-esports-vs-yawara-esports"
+      },
+      {
+        "hotspawn_id": "1082996",
+        "event_id": "45396351",
+        "event_name": "Acend vs UNiTY esports",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/nodwin-clutch-series/playoffs/2026/10/25/09-00/acend-vs-unity-esports"
+      },
+      {
+        "hotspawn_id": "1079198",
+        "event_id": "45396352",
+        "event_name": "Metizport vs BakS eSports",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/nodwin-clutch-series/playoffs/2026/10/25/12-00/metizport-vs-baks-esports"
+      },
+      {
+        "hotspawn_id": "1079199",
+        "event_id": "45397250",
+        "event_name": "Infinite vs Brute",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/nodwin-clutch-series/playoffs/2026/10/25/15-00/infinite-vs-brute"
+      },
+      {
+        "hotspawn_id": "1082858",
+        "event_id": "45396333",
+        "event_name": "Ground Zero vs Off Chops",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-a/2026/10/26/03-00/ground-zero-vs-off-chops"
+      }
+    ],
+    "target_bindings": [
+      "1083122",
+      "1082996",
+      "1079198",
+      "1082858"
+    ],
+    "errors": [
+      "45398314: 0 open two-way winner markets; not priced"
+    ]
+  },
+  "bo3": [
+    {
+      "id": "1081153",
+      "teams": [
+        "Saint Sinners",
+        "6yuBoJlbl"
+      ],
+      "bound": {
+        "slug": "6yubojlbl-vs-saint-sinners-24-10-2026",
+        "start_date": "2026-10-24T14:00:00.000+00:00",
+        "url": "https://bo3.gg/matches/6yubojlbl-vs-saint-sinners-24-10-2026"
+      },
+      "bet": null,
+      "lookup": [
+        {
+          "name": "Saint Sinners",
+          "matches": 1,
+          "exact": 1,
+          "id": 25223,
+          "slug": "saint-sinners",
+          "rank": 158
+        },
+        {
+          "name": "6yuBoJlbl",
+          "matches": 1,
+          "exact": 1,
+          "id": 25420,
+          "slug": "6yubojlbl",
+          "rank": 110
+        }
+      ]
+    },
+    {
+      "id": "1081154",
+      "teams": [
+        "BakS",
+        "ILLYRIANS"
+      ],
+      "bound": null,
+      "bet": null,
+      "lookup": [
+        {
+          "name": "BakS",
+          "matches": 0,
+          "exact": 0
+        },
+        {
+          "name": "ILLYRIANS",
+          "matches": 0,
+          "exact": 0
+        }
+      ]
+    },
+    {
+      "id": "1083122",
+      "teams": [
+        "LOS NINOS",
+        "BORRACHEIROS"
+      ],
+      "bound": null,
+      "bet": null,
+      "lookup": [
+        {
+          "name": "LOS NINOS",
+          "matches": 1,
+          "exact": 1,
+          "id": 25500,
+          "slug": "los-ninos-cs",
+          "rank": null
+        },
+        {
+          "name": "BORRACHEIROS",
+          "matches": 1,
+          "exact": 1,
+          "id": 24668,
+          "slug": "borracheiros",
+          "rank": 209
+        }
+      ]
+    },
+    {
+      "id": "1082996",
+      "teams": [
+        "Acend",
+        "UNiTY"
+      ],
+      "bound": {
+        "slug": "acend-cs2-vs-unity-25-10-2026",
+        "start_date": "2026-10-25T09:00:00.000+00:00",
+        "url": "https://bo3.gg/matches/acend-cs2-vs-unity-25-10-2026"
+      },
+      "bet": null,
+      "lookup": [
+        {
+          "name": "Acend",
+          "matches": 1,
+          "exact": 1,
+          "id": 21980,
+          "slug": "acend-cs2",
+          "rank": 63
+        },
+        {
+          "name": "UNiTY",
+          "matches": 1,
+          "exact": 1,
+          "id": 3829,
+          "slug": "unity",
+          "rank": 69
+        }
+      ]
+    },
+    {
+      "id": "1079198",
+      "teams": [
+        "Metizport",
+        "BakS"
+      ],
+      "bound": {
+        "slug": "metizport-vs-baks-esports-25-10-2026",
+        "start_date": "2026-10-25T12:00:00.000+00:00",
+        "url": "https://bo3.gg/matches/metizport-vs-baks-esports-25-10-2026"
+      },
+      "bet": null,
+      "lookup": [
+        {
+          "name": "Metizport",
+          "matches": 1,
+          "exact": 1,
+          "id": 1578,
+          "slug": "metizport",
+          "rank": 53
+        },
+        {
+          "name": "BakS",
+          "matches": 0,
+          "exact": 0
+        }
+      ]
+    },
+    {
+      "id": "1081156",
+      "teams": [
+        "Spirit Academy",
+        "LFO 10"
+      ],
+      "bound": null,
+      "bet": null,
+      "lookup": [
+        {
+          "name": "Spirit Academy",
+          "matches": 1,
+          "exact": 1,
+          "id": 1309,
+          "slug": "spirit-academy",
+          "rank": 115
+        },
+        {
+          "name": "LFO 10",
+          "matches": 0,
+          "exact": 0
+        }
+      ]
+    },
+    {
+      "id": "1081158",
+      "teams": [
+        "FORZE Reload",
+        "ex-RUSTEC"
+      ],
+      "bound": {
+        "slug": "forze-reload-vs-ex-rustec-25-10-2026",
+        "start_date": "2026-10-25T18:00:00.000+00:00",
+        "url": "https://bo3.gg/matches/forze-reload-vs-ex-rustec-25-10-2026"
+      },
+      "bet": null,
+      "lookup": [
+        {
+          "name": "FORZE Reload",
+          "matches": 1,
+          "exact": 1,
+          "id": 10703,
+          "slug": "forze-reload",
+          "rank": 84
+        },
+        {
+          "name": "ex-RUSTEC",
+          "matches": 1,
+          "exact": 1,
+          "id": 24857,
+          "slug": "ex-rustec",
+          "rank": 92
+        }
+      ]
+    },
+    {
+      "id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "bound": {
+        "slug": "ground-zero-vs-off-chops-26-10-2026",
+        "start_date": "2026-10-26T03:00:00.000+00:00",
+        "url": "https://bo3.gg/matches/ground-zero-vs-off-chops-26-10-2026"
+      },
+      "bet": null,
+      "lookup": [
+        {
+          "name": "Ground Zero",
+          "matches": 1,
+          "exact": 1,
+          "id": 584,
+          "slug": "ground-zero",
+          "rank": 136
+        },
+        {
+          "name": "Off Chops",
+          "matches": 1,
+          "exact": 1,
+          "id": 25492,
+          "slug": "off-chops",
+          "rank": null
+        }
+      ]
+    },
+    {
+      "id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "bound": {
+        "slug": "rooster-vs-abyssal-27-10-2026",
+        "start_date": "2026-10-27T03:00:00.000+00:00",
+        "url": "https://bo3.gg/matches/rooster-vs-abyssal-27-10-2026"
+      },
+      "bet": null,
+      "lookup": [
+        {
+          "name": "Rooster",
+          "matches": 1,
+          "exact": 1,
+          "id": 151,
+          "slug": "rooster",
+          "rank": 205
+        },
+        {
+          "name": "Abyssal",
+          "matches": 1,
+          "exact": 1,
+          "id": 22732,
+          "slug": "abyssal",
+          "rank": 195
+        }
+      ]
+    },
+    {
+      "id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "bound": null,
+      "bet": null,
+      "lookup": [
+        {
+          "name": "HOTU",
+          "matches": 1,
+          "exact": 1,
+          "id": 2720,
+          "slug": "hotu",
+          "rank": 31
+        },
+        {
+          "name": "The Huns",
+          "matches": 1,
+          "exact": 1,
+          "id": 9127,
+          "slug": "the-huns-esports",
+          "rank": 122
+        }
+      ]
+    },
+    {
+      "id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "bound": null,
+      "bet": null,
+      "lookup": [
+        {
+          "name": "5star",
+          "matches": 1,
+          "exact": 1,
+          "id": 23051,
+          "slug": "5star-esports",
+          "rank": 80
+        },
+        {
+          "name": "1WIN",
+          "matches": 0,
+          "exact": 0
+        }
+      ]
+    }
+  ],
+  "per_fixture": [
+    {
+      "id": "1081153",
+      "teams": [
+        "Saint Sinners",
+        "6yuBoJlbl"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T14:00:00Z",
+      "current_method": "model",
+      "current_label": "Valve-rating research estimate",
+      "hotspawn_url": "https://www.hotspawn.com/matches/saint-sinners-vs-6yubojlbl-cct-europe-2026-series-12-1081153",
+      "hltv_url": "https://www.hltv.org/matches/2399503/6yubojlbl-vs-saint-sinners-cct-2026-europe-series-12",
+      "hltv_page": {
+        "name": "HLTV match page",
+        "url": "https://www.hltv.org/matches/2399503/6yubojlbl-vs-saint-sinners-cct-2026-europe-series-12",
+        "status": 403,
+        "final_url": "https://www.hltv.org/matches/2399503/6yubojlbl-vs-saint-sinners-cct-2026-europe-series-12",
+        "bytes": 5894,
+        "challenge_markers": [
+          "just a moment",
+          "challenge-platform",
+          "enable javascript and cookies"
+        ],
+        "teams_found": [
+          "6yuBoJlbl"
+        ]
+      },
+      "polymarket_book": {
+        "event_id": "1242982",
+        "slug": "cs2-6yuboj-ssins-2026-10-24",
+        "title": "Counter-Strike: 6yuBoJlbl vs Saint Sinners (BO3) - CCT Europe Series #12 Group Stage",
+        "url": "https://polymarket.com/event/cs2-6yuboj-ssins-2026-10-24",
+        "start_date": "2026-10-23T22:35:30Z",
+        "markets": [
+          {
+            "question": "Counter-Strike: 6yuBoJlbl vs Saint Sinners - Map 1 Winner",
+            "best_bid": 0.03,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: 6yuBoJlbl vs Saint Sinners - Map 2 Winner",
+            "best_bid": 0.03,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: 6yuBoJlbl vs Saint Sinners (BO3) - CCT Europe Series #12 Group Stage",
+            "best_bid": 0.16,
+            "best_ask": 0.71,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Games Total: O/U 2.5",
+            "best_bid": 0.03,
+            "best_ask": 0.5,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          }
+        ]
+      },
+      "polymarket_state": "event bound (cs2-6yuboj-ssins-2026-10-24); 4 market(s) carried a two-sided best bid/ask, widest recorded spread 0.93 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings",
+      "bo3_bound_url": "https://bo3.gg/matches/6yubojlbl-vs-saint-sinners-24-10-2026",
+      "bo3_bet_two_sided": false,
+      "bo3_bet": null,
+      "pinnacle_matchup": null,
+      "extra_pages_listing_a_team": [],
+      "money_line_lead": false,
+      "verdict": "No two-sided price on any surface probed; the published research estimate and its limitation stand. Polymarket: event bound (cs2-6yuboj-ssins-2026-10-24); 4 market(s) carried a two-sided best bid/ask, widest recorded spread 0.93 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings."
+    },
+    {
+      "id": "1081154",
+      "teams": [
+        "BakS",
+        "ILLYRIANS"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T17:00:00Z",
+      "current_method": "model",
+      "current_label": "Valve-rating research estimate",
+      "hotspawn_url": "https://www.hotspawn.com/matches/baks-vs-illyrians-cct-europe-2026-series-12-1081154",
+      "hltv_url": "https://www.hltv.org/matches/2399504/baks-vs-illyrians-cct-2026-europe-series-12",
+      "hltv_page": {
+        "name": "HLTV match page",
+        "url": "https://www.hltv.org/matches/2399504/baks-vs-illyrians-cct-2026-europe-series-12",
+        "status": 403,
+        "final_url": "https://www.hltv.org/matches/2399504/baks-vs-illyrians-cct-2026-europe-series-12",
+        "bytes": 5867,
+        "challenge_markers": [
+          "just a moment",
+          "challenge-platform",
+          "enable javascript and cookies"
+        ],
+        "teams_found": [
+          "BakS",
+          "ILLYRIANS"
+        ]
+      },
+      "polymarket_book": {
+        "event_id": "1242983",
+        "slug": "cs2-baks-ill4-2026-10-24",
+        "title": "Counter-Strike: BakS eSports vs ILLYRIANS (BO3) - CCT Europe Series #12 Group Stage",
+        "url": "https://polymarket.com/event/cs2-baks-ill4-2026-10-24",
+        "start_date": "2026-10-23T22:35:34Z",
+        "markets": [
+          {
+            "question": "Counter-Strike: BakS eSports vs ILLYRIANS - Map 1 Winner",
+            "best_bid": 0.04,
+            "best_ask": 0.97,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: BakS eSports vs ILLYRIANS - Map 2 Winner",
+            "best_bid": 0.03,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: BakS eSports vs ILLYRIANS (BO3) - CCT Europe Series #12 Group Stage",
+            "best_bid": 0.36,
+            "best_ask": 0.72,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Games Total: O/U 2.5",
+            "best_bid": 0.03,
+            "best_ask": 0.5,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          }
+        ]
+      },
+      "polymarket_state": "event bound (cs2-baks-ill4-2026-10-24); 4 market(s) carried a two-sided best bid/ask, widest recorded spread 0.93 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings",
+      "bo3_bound_url": null,
+      "bo3_bet_two_sided": false,
+      "bo3_bet": null,
+      "pinnacle_matchup": null,
+      "extra_pages_listing_a_team": [],
+      "money_line_lead": false,
+      "verdict": "No two-sided price on any surface probed; the published research estimate and its limitation stand. Polymarket: event bound (cs2-baks-ill4-2026-10-24); 4 market(s) carried a two-sided best bid/ask, widest recorded spread 0.93 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings."
+    },
+    {
+      "id": "1083122",
+      "teams": [
+        "LOS NINOS",
+        "BORRACHEIROS"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-24T19:00:00Z",
+      "current_method": "model",
+      "current_label": "Research model estimate (HLTV world ranking · unranked floor)",
+      "hotspawn_url": "https://www.hotspawn.com/matches/los-ninos-vs-borracheiros-cct-south-america-2026-series-7-1083122",
+      "hltv_url": "https://www.hltv.org/matches/2399914/los-ninos-vs-borracheiros-cct-2026-south-america-series-7",
+      "hltv_page": {
+        "name": "HLTV match page",
+        "url": "https://www.hltv.org/matches/2399914/los-ninos-vs-borracheiros-cct-2026-south-america-series-7",
+        "status": 403,
+        "final_url": "https://www.hltv.org/matches/2399914/los-ninos-vs-borracheiros-cct-2026-south-america-series-7",
+        "bytes": 5930,
+        "challenge_markers": [
+          "just a moment",
+          "challenge-platform",
+          "enable javascript and cookies"
+        ],
+        "teams_found": [
+          "BORRACHEIROS"
+        ]
+      },
+      "polymarket_book": null,
+      "polymarket_state": "no open Polymarket CS2 event bound both exact team names",
+      "bo3_bound_url": null,
+      "bo3_bet_two_sided": false,
+      "bo3_bet": null,
+      "pinnacle_matchup": null,
+      "extra_pages_listing_a_team": [],
+      "money_line_lead": false,
+      "verdict": "No two-sided price on any surface probed; the published research estimate and its limitation stand. Polymarket: no open Polymarket CS2 event bound both exact team names."
+    },
+    {
+      "id": "1082996",
+      "teams": [
+        "Acend",
+        "UNiTY"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T09:00:00Z",
+      "current_method": "model",
+      "current_label": "Valve-rating research estimate",
+      "hotspawn_url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
+      "hltv_url": "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
+      "hltv_page": {
+        "name": "HLTV match page",
+        "url": "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
+        "status": 403,
+        "final_url": "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
+        "bytes": 5831,
+        "challenge_markers": [
+          "just a moment",
+          "challenge-platform",
+          "enable javascript and cookies"
+        ],
+        "teams_found": [
+          "Acend",
+          "UNiTY"
+        ]
+      },
+      "polymarket_book": {
+        "event_id": "1238703",
+        "slug": "cs2-ace1-unity-2026-10-25",
+        "title": "Counter-Strike: Acend vs UNiTY esports (BO3) - NODWIN Clutch Series Playoffs",
+        "url": "https://polymarket.com/event/cs2-ace1-unity-2026-10-25",
+        "start_date": "2026-10-23T04:05:24Z",
+        "markets": [
+          {
+            "question": "Counter-Strike: Acend vs UNiTY esports - Map 1 Winner",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: Acend vs UNiTY esports - Map 2 Winner",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: Acend vs UNiTY esports (BO3) - NODWIN Clutch Series Playoffs",
+            "best_bid": 0.13,
+            "best_ask": 0.93,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Games Total: O/U 2.5",
+            "best_bid": 0.04,
+            "best_ask": 0.5,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map Handicap: UNiTY (-1.5) vs Acend (+1.5)",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 1 Total Rounds: Over/Under 21.5",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 2 Total Rounds: Over/Under 21.5",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 3 Total Rounds: Over/Under 21.5",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          }
+        ]
+      },
+      "polymarket_state": "event bound (cs2-ace1-unity-2026-10-25); 8 market(s) carried a two-sided best bid/ask, widest recorded spread 0.92 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings",
+      "bo3_bound_url": "https://bo3.gg/matches/acend-cs2-vs-unity-25-10-2026",
+      "bo3_bet_two_sided": false,
+      "bo3_bet": null,
+      "pinnacle_matchup": null,
+      "extra_pages_listing_a_team": [],
+      "money_line_lead": false,
+      "verdict": "No two-sided price on any surface probed; the published research estimate and its limitation stand. Polymarket: event bound (cs2-ace1-unity-2026-10-25); 8 market(s) carried a two-sided best bid/ask, widest recorded spread 0.92 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings."
+    },
+    {
+      "id": "1079198",
+      "teams": [
+        "Metizport",
+        "BakS"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T12:00:00Z",
+      "current_method": "model",
+      "current_label": "Valve-rating research estimate",
+      "hotspawn_url": "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198",
+      "hltv_url": "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13",
+      "hltv_page": {
+        "name": "HLTV match page",
+        "url": "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13",
+        "status": 403,
+        "final_url": "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13",
+        "bytes": 5861,
+        "challenge_markers": [
+          "just a moment",
+          "challenge-platform",
+          "enable javascript and cookies"
+        ],
+        "teams_found": [
+          "BakS",
+          "Metizport"
+        ]
+      },
+      "polymarket_book": {
+        "event_id": "1238705",
+        "slug": "cs2-mzp-baks-2026-10-25",
+        "title": "Counter-Strike: Metizport vs BakS eSports (BO3) - NODWIN Clutch Series Playoffs",
+        "url": "https://polymarket.com/event/cs2-mzp-baks-2026-10-25",
+        "start_date": "2026-10-23T04:05:27Z",
+        "markets": [
+          {
+            "question": "Counter-Strike: Metizport vs BakS eSports - Map 1 Winner",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: Metizport vs BakS eSports - Map 2 Winner",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: Metizport vs BakS eSports (BO3) - NODWIN Clutch Series Playoffs",
+            "best_bid": 0.55,
+            "best_ask": 0.85,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Games Total: O/U 2.5",
+            "best_bid": 0.04,
+            "best_ask": 0.5,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map Handicap: MZP (-1.5) vs BakS eSports (+1.5)",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 1 Total Rounds: Over/Under 21.5",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 2 Rounds Handicap: Metizport (-3.5) vs BakS eSports (+3.5)",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 2 Total Rounds: Over/Under 21.5",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 3 Total Rounds: Over/Under 21.5",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          }
+        ]
+      },
+      "polymarket_state": "event bound (cs2-mzp-baks-2026-10-25); 9 market(s) carried a two-sided best bid/ask, widest recorded spread 0.92 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings",
+      "bo3_bound_url": "https://bo3.gg/matches/metizport-vs-baks-esports-25-10-2026",
+      "bo3_bet_two_sided": false,
+      "bo3_bet": null,
+      "pinnacle_matchup": null,
+      "extra_pages_listing_a_team": [],
+      "money_line_lead": false,
+      "verdict": "No two-sided price on any surface probed; the published research estimate and its limitation stand. Polymarket: event bound (cs2-mzp-baks-2026-10-25); 9 market(s) carried a two-sided best bid/ask, widest recorded spread 0.92 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings."
+    },
+    {
+      "id": "1081156",
+      "teams": [
+        "Spirit Academy",
+        "LFO 10"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-25T12:00:00Z",
+      "current_method": "model",
+      "current_label": "Own results-based estimate (bo3.gg series results)",
+      "hotspawn_url": "https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156",
+      "hltv_url": "https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12",
+      "hltv_page": {
+        "name": "HLTV match page",
+        "url": "https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12",
+        "status": 403,
+        "final_url": "https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12",
+        "bytes": 5888,
+        "challenge_markers": [
+          "just a moment",
+          "challenge-platform",
+          "enable javascript and cookies"
+        ],
+        "teams_found": []
+      },
+      "polymarket_book": null,
+      "polymarket_state": "no open Polymarket CS2 event bound both exact team names",
+      "bo3_bound_url": null,
+      "bo3_bet_two_sided": false,
+      "bo3_bet": null,
+      "pinnacle_matchup": null,
+      "extra_pages_listing_a_team": [],
+      "money_line_lead": false,
+      "verdict": "No two-sided price on any surface probed; the published research estimate and its limitation stand. Polymarket: no open Polymarket CS2 event bound both exact team names."
+    },
+    {
+      "id": "1081158",
+      "teams": [
+        "FORZE Reload",
+        "ex-RUSTEC"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-25T18:00:00Z",
+      "current_method": "model",
+      "current_label": "Valve-rating research estimate",
+      "hotspawn_url": "https://www.hotspawn.com/matches/forze-reload-vs-ex-rustec-cct-europe-2026-series-12-1081158",
+      "hltv_url": "https://www.hltv.org/matches/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12",
+      "hltv_page": {
+        "name": "HLTV match page",
+        "url": "https://www.hltv.org/matches/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12",
+        "status": 403,
+        "final_url": "https://www.hltv.org/matches/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12",
+        "bytes": 5891,
+        "challenge_markers": [
+          "just a moment",
+          "challenge-platform",
+          "enable javascript and cookies"
+        ],
+        "teams_found": [
+          "ex-RUSTEC"
+        ]
+      },
+      "polymarket_book": {
+        "event_id": "1243020",
+        "slug": "cs2-forzer-rustec-2026-10-25",
+        "title": "Counter-Strike: FORZE Reload vs ex-RUSTEC (BO3) - CCT Europe Series #12 Group Stage",
+        "url": "https://polymarket.com/event/cs2-forzer-rustec-2026-10-25",
+        "start_date": "2026-10-23T22:45:28Z",
+        "markets": [
+          {
+            "question": "Counter-Strike: FORZE Reload vs ex-RUSTEC - Map 1 Winner",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: FORZE Reload vs ex-RUSTEC - Map 2 Winner",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: FORZE Reload vs ex-RUSTEC (BO3) - CCT Europe Series #12 Group Stage",
+            "best_bid": 0.06,
+            "best_ask": 0.66,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Games Total: O/U 2.5",
+            "best_bid": 0.04,
+            "best_ask": 0.5,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          }
+        ]
+      },
+      "polymarket_state": "event bound (cs2-forzer-rustec-2026-10-25); 4 market(s) carried a two-sided best bid/ask, widest recorded spread 0.92 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings",
+      "bo3_bound_url": "https://bo3.gg/matches/forze-reload-vs-ex-rustec-25-10-2026",
+      "bo3_bet_two_sided": false,
+      "bo3_bet": null,
+      "pinnacle_matchup": null,
+      "extra_pages_listing_a_team": [],
+      "money_line_lead": false,
+      "verdict": "No two-sided price on any surface probed; the published research estimate and its limitation stand. Polymarket: event bound (cs2-forzer-rustec-2026-10-25); 4 market(s) carried a two-sided best bid/ask, widest recorded spread 0.92 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings."
+    },
+    {
+      "id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "current_method": "model",
+      "current_label": "Own network estimate (bo3.gg results graph)",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
+      "hltv_url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+      "hltv_page": {
+        "name": "HLTV match page",
+        "url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+        "status": 403,
+        "final_url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+        "bytes": 5882,
+        "challenge_markers": [
+          "just a moment",
+          "challenge-platform",
+          "enable javascript and cookies"
+        ],
+        "teams_found": []
+      },
+      "polymarket_book": {
+        "event_id": "1237427",
+        "slug": "cs2-gz1-offcho-2026-10-25",
+        "title": "Counter-Strike: Ground Zero vs Off Chops (BO3) - DFRAG Invitational Group A",
+        "url": "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25",
+        "start_date": "2026-10-22T21:35:24Z",
+        "markets": [
+          {
+            "question": "Counter-Strike: Ground Zero vs Off Chops - Map 1 Winner",
+            "best_bid": 0.06,
+            "best_ask": 0.93,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: Ground Zero vs Off Chops - Map 2 Winner",
+            "best_bid": 0.07,
+            "best_ask": 0.92,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: Ground Zero vs Off Chops (BO3) - DFRAG Invitational Group A",
+            "best_bid": 0.13,
+            "best_ask": 0.45,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Games Total: O/U 2.5",
+            "best_bid": 0.04,
+            "best_ask": 0.5,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map Handicap: Off Chops (-1.5) vs Ground Zero (+1.5)",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 1 Rounds Handicap: Off Chops (-3.5) vs Ground Zero (+3.5)",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 1 Total Rounds: Over/Under 21.5",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 2 Rounds Handicap: Off Chops (-3.5) vs Ground Zero (+3.5)",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 2 Total Rounds: Over/Under 21.5",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 3 Rounds Handicap: Off Chops (-3.5) vs Ground Zero (+3.5)",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 3 Total Rounds: Over/Under 21.5",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          }
+        ]
+      },
+      "polymarket_state": "event bound (cs2-gz1-offcho-2026-10-25); 11 market(s) carried a two-sided best bid/ask, widest recorded spread 0.92 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings",
+      "bo3_bound_url": "https://bo3.gg/matches/ground-zero-vs-off-chops-26-10-2026",
+      "bo3_bet_two_sided": false,
+      "bo3_bet": null,
+      "pinnacle_matchup": null,
+      "extra_pages_listing_a_team": [],
+      "money_line_lead": false,
+      "verdict": "No two-sided price on any surface probed; the published research estimate and its limitation stand. Polymarket: event bound (cs2-gz1-offcho-2026-10-25); 11 market(s) carried a two-sided best bid/ask, widest recorded spread 0.92 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings."
+    },
+    {
+      "id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "current_method": "model",
+      "current_label": "Valve-rating research estimate",
+      "hotspawn_url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
+      "hltv_url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+      "hltv_page": {
+        "name": "HLTV match page",
+        "url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+        "status": 403,
+        "final_url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+        "bytes": 5864,
+        "challenge_markers": [
+          "just a moment",
+          "challenge-platform",
+          "enable javascript and cookies"
+        ],
+        "teams_found": [
+          "Abyssal",
+          "Rooster"
+        ]
+      },
+      "polymarket_book": {
+        "event_id": "1237430",
+        "slug": "cs2-rstr-abyssa-2026-10-26",
+        "title": "Counter-Strike: Rooster vs Abyssal (BO3) - DFRAG Invitational Group B",
+        "url": "https://polymarket.com/event/cs2-rstr-abyssa-2026-10-26",
+        "start_date": "2026-10-22T21:35:36Z",
+        "markets": [
+          {
+            "question": "Counter-Strike: Rooster vs Abyssal - Map 1 Winner",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: Rooster vs Abyssal - Map 2 Winner",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: Rooster vs Abyssal (BO3) - DFRAG Invitational Group B",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Games Total: O/U 2.5",
+            "best_bid": 0.04,
+            "best_ask": 0.5,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map Handicap: Abyssal (-1.5) vs Rooster (+1.5)",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 1 Total Rounds: Over/Under 21.5",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 2 Total Rounds: Over/Under 21.5",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map 3 Total Rounds: Over/Under 21.5",
+            "best_bid": 0.04,
+            "best_ask": 0.96,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          }
+        ]
+      },
+      "polymarket_state": "event bound (cs2-rstr-abyssa-2026-10-26); 8 market(s) carried a two-sided best bid/ask, widest recorded spread 0.92 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings",
+      "bo3_bound_url": "https://bo3.gg/matches/rooster-vs-abyssal-27-10-2026",
+      "bo3_bet_two_sided": false,
+      "bo3_bet": null,
+      "pinnacle_matchup": null,
+      "extra_pages_listing_a_team": [],
+      "money_line_lead": false,
+      "verdict": "No two-sided price on any surface probed; the published research estimate and its limitation stand. Polymarket: event bound (cs2-rstr-abyssa-2026-10-26); 8 market(s) carried a two-sided best bid/ask, widest recorded spread 0.92 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings."
+    },
+    {
+      "id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "current_method": "model",
+      "current_label": "Research model estimate (Valve official ratings)",
+      "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+      "hltv_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "hltv_page": {
+        "name": "HLTV match page",
+        "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+        "status": 403,
+        "final_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+        "bytes": 5876,
+        "challenge_markers": [
+          "just a moment",
+          "challenge-platform",
+          "enable javascript and cookies"
+        ],
+        "teams_found": [
+          "HOTU"
+        ]
+      },
+      "polymarket_book": {
+        "event_id": "1241313",
+        "slug": "cs2-hotu-the9-2026-10-31",
+        "title": "Counter-Strike: HOTU vs The Huns Esports (BO3) - Moscow Cyber Games Playoffs",
+        "url": "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
+        "start_date": "2026-10-23T16:25:30Z",
+        "markets": [
+          {
+            "question": "Counter-Strike: HOTU vs The Huns Esports - Map 1 Winner",
+            "best_bid": 0.07,
+            "best_ask": 0.93,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: HOTU vs The Huns Esports - Map 2 Winner",
+            "best_bid": 0.08,
+            "best_ask": 0.92,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Counter-Strike: HOTU vs The Huns Esports (BO3) - Moscow Cyber Games Playoffs",
+            "best_bid": 0.07,
+            "best_ask": 0.93,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Games Total: O/U 2.5",
+            "best_bid": 0.07,
+            "best_ask": 0.5,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          },
+          {
+            "question": "Map Handicap: HOTU (-1.5) vs The Huns Esports (+1.5)",
+            "best_bid": 0.08,
+            "best_ask": 0.93,
+            "accepting_orders": true,
+            "active": true,
+            "closed": false
+          }
+        ]
+      },
+      "polymarket_state": "event bound (cs2-hotu-the9-2026-10-31); 5 market(s) carried a two-sided best bid/ask, widest recorded spread 0.86 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings",
+      "bo3_bound_url": null,
+      "bo3_bet_two_sided": false,
+      "bo3_bet": null,
+      "pinnacle_matchup": null,
+      "extra_pages_listing_a_team": [],
+      "money_line_lead": false,
+      "verdict": "No two-sided price on any surface probed; the published research estimate and its limitation stand. Polymarket: event bound (cs2-hotu-the9-2026-10-31); 5 market(s) carried a two-sided best bid/ask, widest recorded spread 0.86 — the featured collector re-reads the original order books each refresh and prices only books inside its published ceilings."
+    },
+    {
+      "id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T13:00:00Z",
+      "current_method": "model",
+      "current_label": "Valve-rating research estimate",
+      "hotspawn_url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
+      "hltv_url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+      "hltv_page": {
+        "name": "HLTV match page",
+        "url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+        "status": 403,
+        "final_url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+        "bytes": 5867,
+        "challenge_markers": [
+          "just a moment",
+          "challenge-platform",
+          "enable javascript and cookies"
+        ],
+        "teams_found": [
+          "1WIN",
+          "5star"
+        ]
+      },
+      "polymarket_book": null,
+      "polymarket_state": "no open Polymarket CS2 event bound both exact team names",
+      "bo3_bound_url": null,
+      "bo3_bet_two_sided": false,
+      "bo3_bet": null,
+      "pinnacle_matchup": null,
+      "extra_pages_listing_a_team": [],
+      "money_line_lead": false,
+      "verdict": "No two-sided price on any surface probed; the published research estimate and its limitation stand. Polymarket: no open Polymarket CS2 event bound both exact team names."
+    }
+  ],
+  "leads": []
+}
