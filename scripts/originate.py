@@ -2435,11 +2435,16 @@ def run(output: Path, *, live: bool = False) -> dict:
     snapshot = load_json(output / 'latest.json')
     live_payload = live_collect(evidence_dir, snapshot['matches'], registry) if live else None
     reference_capture = reference_odds.load(output)
-    reference_rows = (
-        list(egw_live.load_live(evidence_dir))
-        + list(reference_capture.get('entries') or [])
-        + list(reference_capture.get('rejected') or [])
-    )
+    reference_rows = list(reference_capture.get('entries') or []) + list(reference_capture.get('rejected') or [])
+    # Session arena-5260ef4e: the automated EGamersWorld index capture written by
+    # every live refresh (`scripts/egw_live.py` -> `live-egw-reference.json`) had no
+    # reader, so the rung it was added for priced nothing. It is replayed here, but
+    # *after* the reviewed manual captures: a hand-checked price always outranks an
+    # automated one. Both go through the same fail-closed gate in
+    # `reference_odds.quote()` (fixture id + both names + 60 s start tolerance,
+    # 8 h freshness, no-vig band, identical 1.8/1.8 placeholders refused).
+    egw_live_rows = egw_live.load_live(evidence_dir)
+    reference_rows = reference_rows + egw_live_rows
     poly_rows = polymarket_rows(output, evidence_dir) + kalshi_rows(evidence_dir) + smarkets_lines.rows(evidence_dir)
     book_rows = thunderpick_rows(output, live_payload) + bovada_rows(evidence_dir) + pinnacle_rows(evidence_dir)
     ratings, valve_meta = valve_rows(output, live_payload)
@@ -2612,7 +2617,12 @@ def run(output: Path, *, live: bool = False) -> dict:
         'live_collection': bool(live),
         'collection': ({key: live_payload.get(key) for key in
                         ('bo3_results', 'bo3_results_error', 'bo3_relay', 'bo3_relay_error', 'valve', 'valve_error',
-                         'vrs_mirror_error', 'thunderpick_error', 'polymarket_discovery')} if live_payload else None),
+                         'vrs_mirror_error', 'thunderpick_error', 'egw_live', 'egw_live_error',
+                         'polymarket_discovery')} if live_payload else None),
+        # Session arena-5260ef4e: how many automated EGamersWorld rows this run
+        # actually replayed into the aggregated-reference rung. Zero here with a
+        # non-empty capture would mean the wiring regressed again.
+        'egw_live_replay': {'entries': len(egw_live_rows)},
         'network_collection': (None if not live_payload else {
             'graph_edges': len((live_payload.get('bo3_graph') or {}).get('edges') or []),
             'graph_pages': (live_payload.get('bo3_graph') or {}).get('pages'),
