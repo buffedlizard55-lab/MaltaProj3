@@ -6,11 +6,12 @@ import io
 import json
 import tempfile
 import unittest
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from bs4 import BeautifulSoup
 
-from scripts.build import summary, unresolved_page
+from scripts.build import glance, summary, unresolved_page
 from scripts.validate import check_links
 
 
@@ -75,6 +76,75 @@ class LinkAuditRejectsAmbiguousAnchors(unittest.TestCase):
         self.page('other.html', '<a href="index.html#research">Back</a><section id="research"></section>')
         with contextlib.redirect_stdout(io.StringIO()):
             check_links(self.site)
+
+
+class GlanceFreshnessAndEvenEstimates(unittest.TestCase):
+    def setUp(self):
+        self.now = datetime(2026, 10, 24, 6, tzinfo=timezone.utc)
+        stamp = self.now.isoformat()
+        self.match = {
+            'id': 'synthetic', 'teams': [{'name': 'Synthetic A'}, {'name': 'Synthetic B'}],
+            'competition': 'Synthetic Cup', 'availability': 'open',
+            'starts_at': '2026-10-26T10:00:00Z', 'locks_at': '2026-10-26T09:54:00Z',
+            'source_url': 'https://play.hotspawn.com/lobby', 'pick_index': 0,
+            'analysis': {'method': 'market', 'probabilities': [0.6, 0.4],
+                         'observed_at': stamp, 'source_url': 'https://polymarket.com/esports/cs2'},
+        }
+        self.data = {'matches': [self.match], 'fallbacks': {},
+                     'inventory_observed_at': stamp, 'coverage_complete': True}
+
+    def label(self, now=None):
+        return BeautifulSoup(glance(self.data, './', now=now or self.now), 'html.parser')
+
+    def test_fresh_open_observation_is_a_pick(self):
+        self.assertEqual(self.label().select_one('[data-glance-pick]').get_text(), 'Pick')
+
+    def test_an_expired_snapshot_is_historical_without_javascript(self):
+        soup = self.label(now=self.now + timedelta(hours=9))
+        self.assertEqual(soup.select_one('[data-glance-pick]').get_text(), 'Snapshot')
+        self.assertEqual(soup.select_one('.glance-prob').get_text(), '60.0%')
+        self.assertIn('Synthetic B 40.0%', soup.get_text())
+        self.assertTrue(soup.select_one('a[href="https://polymarket.com/esports/cs2"]'))
+        self.assertEqual(soup.select_one('.glance-row')['data-glance-inactive'], 'true')
+
+    def test_a_stale_line_cannot_use_a_fresh_inventory_to_become_current(self):
+        self.match['analysis']['observed_at'] = (self.now - timedelta(hours=9)).isoformat()
+        self.assertEqual(self.label().select_one('[data-glance-pick]').get_text(), 'Snapshot')
+
+    def test_missing_or_future_quote_clocks_do_not_qualify(self):
+        for stamp in (None, 'not-a-time', (self.now + timedelta(minutes=6)).isoformat()):
+            with self.subTest(stamp=stamp):
+                self.match['analysis']['observed_at'] = stamp
+                self.assertEqual(self.label().select_one('[data-glance-pick]').get_text(), 'Snapshot')
+
+    def test_an_incomplete_inventory_or_unverified_lock_is_not_a_pick(self):
+        self.data['coverage_complete'] = False
+        self.assertEqual(self.label().select_one('[data-glance-pick]').get_text(), 'Snapshot')
+        self.data['coverage_complete'] = True
+        self.match['locks_at'] = None
+        self.assertEqual(self.label().select_one('[data-glance-pick]').get_text(), 'Snapshot')
+
+    def test_locked_still_means_locked_not_a_current_pick(self):
+        self.assertEqual(self.label(now=datetime(2026, 10, 26, 10, tzinfo=timezone.utc))
+                         .select_one('[data-glance-pick]').get_text(), 'Locked')
+
+    def test_known_even_estimate_shows_both_numbers_but_no_invented_side(self):
+        self.match['analysis']['probabilities'] = [0.5, 0.5]
+        self.match['pick_index'] = None
+        soup = self.label()
+        self.assertIn('Synthetic A 50.0%', soup.get_text())
+        self.assertIn('Synthetic B 50.0%', soup.get_text())
+        self.assertIn('No edge', soup.get_text())
+        self.assertIn('no side', soup.get_text())
+        self.assertIsNone(soup.select_one('[data-glance-pick]'))
+
+    def test_an_unresolved_row_stays_blank_not_a_default_even_estimate(self):
+        self.match['analysis'] = None
+        self.match['pick_index'] = None
+        soup = self.label()
+        self.assertIn('Unresolved', soup.get_text())
+        self.assertNotIn('50.0%', soup.get_text())
+        self.assertIsNone(soup.select_one('.glance-prob'))
 
 
 if __name__ == '__main__':

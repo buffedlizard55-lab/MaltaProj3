@@ -34,3 +34,39 @@ for (const width of [320, 390]) {
     await expect(page.locator('#unresolved-register')).toBeVisible();
   });
 }
+
+test('an open phone tab retires an eight-hour-old pick without hiding either probability or source', async ({ page }) => {
+  await page.clock.install({ time: new Date('2026-10-24T00:00:00Z') });
+  await page.setContent(`<!doctype html><html><body
+    data-inventory-time="2026-10-24T00:00:00Z" data-inventory-complete="true">
+    <ol id="glance-list"><li class="glance-row" data-glance-closed="false"
+      data-glance-inactive="false" data-glance-observed="2026-10-24T00:00:00Z"
+      data-glance-locks="2026-10-26T09:54:00Z" data-glance-starts="2026-10-26T10:00:00Z">
+      <span data-glance-pick>Pick</span><strong>Synthetic A</strong>
+      <span class="glance-prob">60.0%</span><span class="glance-other">Synthetic B 40.0%</span>
+      <a href="https://polymarket.com/esports/cs2">Official source</a>
+    </li></ol></body></html>`);
+  await page.addScriptTag({ path: 'assets/glance-lock.js' });
+  await expect(page.locator('[data-glance-pick]')).toHaveText('Pick');
+  await page.clock.fastForward(8 * 3600000 + 30001);
+  await expect(page.locator('[data-glance-pick]')).toHaveText('Snapshot');
+  await expect(page.locator('.glance-row')).toContainText('60.0%');
+  await expect(page.locator('.glance-row')).toContainText('Synthetic B 40.0%');
+  await expect(page.getByRole('link', { name: 'Official source' })).toHaveAttribute('href', 'https://polymarket.com/esports/cs2');
+  // A clock correction must not reopen a retired recommendation.
+  await page.clock.setSystemTime(new Date('2026-10-24T01:00:00Z'));
+  await page.clock.fastForward(30001);
+  await expect(page.locator('[data-glance-pick]')).toHaveText('Snapshot');
+});
+
+test('missing line freshness is not made current by a fresh inventory', async ({ page }) => {
+  await page.clock.install({ time: new Date('2026-10-24T00:00:00Z') });
+  await page.setContent(`<!doctype html><html><body
+    data-inventory-time="2026-10-24T00:00:00Z" data-inventory-complete="true">
+    <ol id="glance-list"><li class="glance-row" data-glance-closed="false"
+      data-glance-observed="" data-glance-locks="2026-10-26T09:54:00Z"
+      data-glance-starts="2026-10-26T10:00:00Z"><span data-glance-pick>Pick</span>
+    </li></ol></body></html>`);
+  await page.addScriptTag({ path: 'assets/glance-lock.js' });
+  await expect(page.locator('[data-glance-pick]')).toHaveText('Snapshot');
+});
