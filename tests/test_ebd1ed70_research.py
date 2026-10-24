@@ -119,3 +119,56 @@ class Ebd1ed70Research(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class Ebd1ed70ReconcileTool(unittest.TestCase):
+    """scripts/ebd1ed70_reconcile.py must report coverage gaps honestly."""
+
+    def _run(self, snapshot_path, roster_path):
+        import importlib
+        import io
+        import sys as _sys
+        from contextlib import redirect_stdout
+        mod = importlib.import_module('scripts.ebd1ed70_reconcile')
+        buf = io.StringIO()
+        argv = ['prog', '--snapshot', str(snapshot_path), '--roster', str(roster_path)]
+        old_argv = _sys.argv
+        _sys.argv = argv
+        try:
+            with redirect_stdout(buf):
+                try:
+                    code = mod.main()
+                except SystemExit as e:
+                    code = int(e.code or 0)
+        finally:
+            _sys.argv = old_argv
+        return code, buf.getvalue()
+
+    def test_old_fixture_reports_all_25_missing(self):
+        code, out = self._run('data/latest.json', 'data/research/ebd1ed70/live-lobby-2026-10-24.json')
+        self.assertEqual(code, 1)
+        self.assertIn('roster=25 cards, gaps=25', out)
+
+    def test_covered_snapshot_exits_zero_with_pick_and_probs(self):
+        import json, tempfile, os
+        roster = json.loads((BASE / 'live-lobby-2026-10-24.json').read_text())
+        matches = []
+        for card in roster['cards']:
+            matches.append({
+                'id': card['hotspawn_id'],
+                'teams': [{'name': card['team_a']}, {'name': card['team_b']}],
+                'pick_index': 1,
+                'analysis': {'method': 'model', 'probabilities': [0.35, 0.65]},
+                'source_url': card['hotspawn_match_url'],
+                'lobby_url': card['lobby_url'],
+                'research': [], 'limitations': [],
+            })
+        snap = {'generated_at': '2026-10-24T08:00:00Z', 'run_status': 'complete',
+                'counts': {'picks': 25}, 'matches': matches}
+        with tempfile.TemporaryDirectory() as td:
+            sp = os.path.join(td, 'snap.json')
+            json.dump(snap, open(sp, 'w'))
+            code, out = self._run(sp, 'data/research/ebd1ed70/live-lobby-2026-10-24.json')
+        self.assertEqual(code, 0, out)
+        self.assertIn('gaps=0', out)
+        self.assertIn('pick=', out)
