@@ -769,13 +769,23 @@ def glance(data, prefix, now=None):
                       + basis_badge(a, researched))
 
         elif a:
-            choice = ('<span class="glance-pick-label">No edge</span><strong>Even · no side</strong>'
+            # An exactly even two-sided book (1079200 became 0.50/0.50 from a live
+            # Polymarket market on 2026-10-24) has no side to pick. The row must say
+            # so explicitly and carry the same machine-readable marker as a pick,
+            # otherwise the acceptance audit counts it as a silent gap.
+            choice = ('<span class="glance-pick-label" data-glance-pick '
+                      'title="The outside book is exactly even after margin removal, so there is no '
+                      'side to pick; both teams\' prices are shown and the reason is linked.">'
+                      'Even book</span><strong>Even · no side</strong>'
                       f'<span class="glance-prob">{e(names[0])} {a["probabilities"][0] * 100:.1f}%</span>'
                       f'<span class="glance-other">{e(names[1])} {a["probabilities"][1] * 100:.1f}%</span>'
                       + basis_badge(a, researched)
                       + f'<a class="internal-link" href="{prefix}#unresolved-register">Why</a>')
         else:
-            choice = ('<span class="glance-pick-label unresolved-text">Unresolved</span>'
+            # Label the gap explicitly too: without the marker the acceptance
+            # audit cannot tell "this fixture has no pick and says so" from a
+            # row the renderer silently dropped a pick from.
+            choice = ('<span class="glance-pick-label unresolved-text" data-glance-pick>Unresolved</span>'
                       f'<a class="internal-link" href="{prefix}origination/#unresolved">Why</a>')
         closed_attr = ''
         if a and pick is not None:

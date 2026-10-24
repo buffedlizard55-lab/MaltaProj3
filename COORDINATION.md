@@ -9025,3 +9025,25 @@ been replaced by a root sync:
 Files: `tests/test_99d48cd8_mobile.py`, `tests/test_b72154e1_guided_picks.py` (test-only; no data, no
 probability and no pick was changed). Both modules belong to long-finished sessions and no open PR claims
 them. Verification: `python -m unittest tests.test_99d48cd8_mobile tests.test_b72154e1_guided_picks` → 13 OK.
+
+### S387 second fix-forward: why `main`'s publisher was still red, and what changed (2026-10-24T21:1xZ)
+
+After the first two dated-test repairs, `main`'s publisher still failed (runs **40127253463** push and
+**40129278739** PR #323), and a clean clone of `main` reproduced exactly three failures. They were not stale
+dates this time — one was a **real rendering defect**:
+
+| Failure | Real cause | Fix (no data, no probability touched) |
+| --- | --- | --- |
+| `test_81c1058a_verification::test_acceptance_audit_passes_on_both_site_and_branch_root` (+ the cascade in `…built_site_publishes_…`) | Polymarket opened a **true 0.50/0.50** market on `1079200` (Color vs ex-Zero Tenacity) at 20:07Z. With no side to pick, the summary printed "Even · no side" and both prices — but **without any pick marker**, so `check_glance_rows` read the row as "no pick and no unresolved label" and the brief-line check failed. | `scripts/build.py` now stamps the state marker `data-glance-pick` on **every** glance row (Pick / Snapshot / Locked / **Even book** / Unresolved). `scripts/acceptance_audit.py` accepts a pick-less row only when the row itself states "even … no side" **and** links the explanation — a blank pick-less row still fails. |
+| `test_99d48cd8_mobile::test_unresolved_page_names_both_unresolved_fixtures` | derived "unresolved" from `analysis is None`, which counts the three fixtures the **researched layer** resolved (`1081156`, `1082858`, `1082792`). The published picks page gives each of them a `data-method` pick, so they are not gaps. | unresolved is now `analysis is None` **and** no published pick row (`id="match-<id>" … data-method=`) on `/picks/` — the same question the page answers. Every fixture that *is* pick-less must still be named on `/unresolved/`. |
+| `test_be019782_landmarks::…even_estimate_shows_both_numbers_but_no_invented_side` | asserted the even row has **no** marker (the old contract). | asserts the marker reads `Even book`, that the row still invents no side, and that both numbers are still printed. |
+
+**New tests:** two in `tests/test_3877d48d_fallback.py` pin the contract — every glance row carries a marker,
+and the audit passes a labelled even row, passes a *pre-marker* build whose text says so, and still fails a
+blank row.
+
+**Verified on a clean clone of `main`** (`/tmp/clean1`, no `site/`): `python -m unittest
+tests.test_99d48cd8_mobile tests.test_81c1058a_verification` → **10 OK** with only these code changes. Root
+acceptance audit on the untouched committed root: **9 pass / 1 info / 0 fail**. Files:
+`scripts/build.py`, `scripts/acceptance_audit.py`, `tests/test_99d48cd8_mobile.py`,
+`tests/test_be019782_landmarks.py`, `tests/test_3877d48d_fallback.py`, `data/research/3877d48d/flags.json`.

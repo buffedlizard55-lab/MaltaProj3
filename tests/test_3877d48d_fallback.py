@@ -245,3 +245,58 @@ class BuiltSiteFallbackTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class EvenBookGlanceRowTests(unittest.TestCase):
+    """An exactly even outside book is a labelled no-pick, never a silent gap.
+
+    1079200 (Color vs ex-Zero Tenacity) became a true 0.50/0.50 Polymarket book
+    on 2026-10-24. The published page showed both prices and "Even · no side"
+    but carried no pick marker, so the rendered-output audit counted it as a
+    fixture with no pick and no unresolved label and failed the publisher
+    (main runs 40127253463 / 40129278739).
+    """
+
+    def test_every_glance_row_carries_a_pick_marker_whatever_its_state(self):
+        # The rendered-output audit keys on [data-glance-pick]; a row that lacks
+        # it is indistinguishable from a silent gap. So every state carries one:
+        # Pick / Snapshot / Locked, "Even book" for an exactly even two-sided
+        # book, "Unresolved" for a fixture with neither.
+        soup = BeautifulSoup(summary(inventory(), './'), 'html.parser')
+        rows = soup.select('.glance-row')
+        self.assertTrue(rows)
+        for row in rows:
+            marker = row.select_one('[data-glance-pick]')
+            self.assertIsNotNone(marker, row.get('data-glance-id'))
+            self.assertIn(marker.get_text(), {'Pick', 'Snapshot', 'Locked', 'Even book', 'Unresolved'},
+                          row.get('data-glance-id'))
+            if marker.get_text() == 'Even book':
+                choice = row.select_one('.glance-choice')
+                self.assertIn('no side', choice.get_text().lower())
+                self.assertIsNotNone(choice.select_one('a[href*="unresolved"]'))
+
+    def test_the_audit_accepts_a_labelled_even_row_and_still_fails_a_blank_one(self):
+        from scripts import acceptance_audit as A
+        def row(label, text, link=None):
+            extra = f'<a class="internal-link" href="./{link}">Why</a>' if link else ''
+            return (f'<li class="glance-row"><div class="glance-match"><strong>A vs B</strong></div>'
+                    f'<div class="glance-choice"><span class="glance-pick-label"{label}>'
+                    f'{text}</span><span class="glance-prob">A 50.0%</span>'
+                    f'<span class="glance-other">B 50.0%</span>{extra}</div>'
+                    f'<div class="glance-links"><a href="https://www.hltv.org/matches/1/x">HLTV</a></div></li>')
+        labelled = row(' data-glance-pick', 'Even book', 'unresolved/#unresolved-register')
+        legacy = row('', 'Even · no side', 'unresolved/#unresolved-register')
+        blank = row('', 'Unresolved', None)
+        check = A.check_glance_rows(Path('.'),
+                                    BeautifulSoup(f'<html><body><ul>{labelled}</ul></body></html>', 'html.parser'))
+        self.assertEqual(check.status, 'pass', check.detail)
+        check = A.check_glance_rows(Path('.'),
+                                    BeautifulSoup(f'<html><body><ul>{legacy}</ul></body></html>', 'html.parser'))
+        self.assertEqual(check.status, 'pass', 'a pre-marker build must still read as labelled')
+        check = A.check_glance_rows(Path('.'),
+                                    BeautifulSoup(f'<html><body><ul>{blank}</ul></body></html>', 'html.parser'))
+        self.assertEqual(check.status, 'fail', 'an unlabelled pick-less row is still a gap')
+
+
+if __name__ == '__main__':
+    unittest.main()

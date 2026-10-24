@@ -104,5 +104,19 @@
    "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/",
    "https://play.hotspawn.com/lobby"
   ]
+ },
+ {
+  "id": "3877d48d-even-book-row-was-an-unlabelled-gap",
+  "severity": "warning",
+  "match_ids": [
+   "1079200"
+  ],
+  "title": "A true 0.50/0.50 outside book rendered as a pick-less row with no label, which the acceptance audit read as a silent gap",
+  "detail": "Polymarket opened an exactly even two-sided market for Color vs ex-Zero Tenacity (1079200) at 2026-10-24T20:07Z (bid/ask 0.49/0.51 both sides, spread 0.02). There is no side to pick, so the summary correctly printed \"Even · no side\" with both prices — but without a pick marker, so scripts/acceptance_audit.py::check_glance_rows counted it as 'no pick and no unresolved label' and the brief-line check failed. That single check is what kept main's publisher red (runs 40127253463 and 40129278739) after two earlier dated-test failures had been repaired. Fixed in the renderer, not by weakening the requirement: every glance row now carries the machine-readable state marker (Pick / Snapshot / Locked / Even book / Unresolved), the even row still invents no side and still shows both percentages with a link to the register that explains why, and the audit accepts a pre-marker build only when the row itself says 'even … no side' and links the explanation. An unlabelled pick-less row still fails. No probability, pick or price was changed.",
+  "source_urls": [
+   "https://polymarket.com/event/cs2-color-zerote-2026-10-25",
+   "https://gamma-api.polymarket.com/events/1238707",
+   "https://buffedlizard55-lab.github.io/MaltaProj3/#picks-at-a-glance"
+  ]
  }
 ]
