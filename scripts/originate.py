@@ -1034,6 +1034,26 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
             out['bo3_graph'] = collect_bo3_graph(client, evidence_dir)
         except Exception as exc:  # noqa: BLE001 - a results outage prices nothing
             out['bo3_graph_error'] = f'{type(exc).__name__}: {exc}'[:200]
+    # Automated EGamersWorld aggregated reference (session arena-43110640):
+    # the reviewed reference rung used to depend on manual capture files and
+    # went stale after eight hours. The index is fetched and saved verbatim
+    # like every other source; entries are derived from it in the reviewed
+    # schema and still pass reference_odds.quote()'s fail-closed gate
+    # (identical placeholder odds, stale or start-mismatched rows price
+    # nothing). Non-fatal: an outage records a reason and prices nothing.
+    (evidence_dir / egw_live.EVIDENCE_NAME).unlink(missing_ok=True)
+    try:
+        egw_html, egw_req = client.fetch_html(egw_live.INDEX_URL, egw_live.INDEX_EVIDENCE)
+        egw_entries = egw_live.entries_for(egw_html, active, registry,
+                                           egw_req.get('observed_at') or iso(datetime.now(UTC)))
+        (evidence_dir / egw_live.EVIDENCE_NAME).write_text(json.dumps({
+            'source': 'EGamersWorld CS2 matches index (automated capture)',
+            'url': egw_live.INDEX_URL,
+            'observed_at': egw_req.get('observed_at'),
+            'entries': egw_entries}, ensure_ascii=False, indent=2) + '\n')
+        out['egw_live'] = {'entries': len(egw_entries)}
+    except Exception as exc:  # noqa: BLE001 - an aggregator outage prices nothing
+        out['egw_live_error'] = f'{type(exc).__name__}: {exc}'[:300]
     out['requests'] = client.requests
     (evidence_dir / 'live-collection-manifest.json').write_text(json.dumps(out['requests'], ensure_ascii=False, indent=2) + '\n')
     return out
