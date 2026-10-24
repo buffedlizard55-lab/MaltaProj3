@@ -35,6 +35,8 @@ Claimed **2026-10-24T05:22:48Z** on Arena's fixed session branch `arena/be019782
 
 **Additional integration boundary (06:15Z, before editing `scripts/originate.py`).** `live_collect()` references `egw_live.EVIDENCE_NAME` outside its `try` block, but the merged module never imports `egw_live`; any live collection reaching this rung raises `NameError`. The generated live captures also are not merged into `reference_capture` at all, despite the feature's claim. Extend the request/claim to only the new rung's import and validated replay integration in `scripts/originate.py`; add regression coverage for import, fail-closed replay and original-source reparse. No existing pricing rung is reordered or relaxed.
 
+**Replay-validator scope (before editing).** The newly wired live reference must also pass the existing publication replay gate. Claim only the `family=reference` branch of `scripts/build_origination.py::validate_origination`: combine reviewed captures with independently reparsed live source captures, identify the specific retained excerpt/source/observation rather than blindly selecting the first matching fixture id, and retain exact arithmetic/hash replay. This is a required companion to the already-claimed safe import/replay integration, not a relaxation. The binding module plus 23 new adversarial source/replay tests and the preserved 43110640 fixtures already pass **108** targeted tests before this final validator edit. The initial ordinary `pull --rebase` attempted to flatten a local integration merge and conflicted; it was aborted without loss, then `pull --rebase=merges` preserved both parents and was pushed normally (no force push).
+
 ---
 
 
