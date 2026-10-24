@@ -189,6 +189,39 @@ class CitationTests(unittest.TestCase):
         self.assertFalse(any('gg.bet' in url for url in urls))
 
 
+class AlternateTests(unittest.TestCase):
+    def test_public_json_alternates_are_derived_from_the_cited_page(self):
+        poly = probe.alternates('https://polymarket.com/event/cs2-ntr-zerote-2026-10-24')
+        self.assertEqual(poly[0]['url'],
+                         'https://gamma-api.polymarket.com/events?slug=cs2-ntr-zerote-2026-10-24')
+        raw = probe.alternates('https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md')
+        self.assertEqual(raw[0]['url'],
+                         'https://raw.githubusercontent.com/ValveSoftware/counter-strike_regional_standings/main/live/2026/standings_global_2026_10_05.md')
+        kalshi = probe.alternates('https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct241300illbaks')
+        self.assertEqual(kalshi[0]['url'],
+                         'https://api.elections.kalshi.com/trade-api/v2/markets/kxcs2game-26oct241300illbaks')
+        self.assertEqual(probe.alternates('https://www.hotspawn.com/matches/x-1083121'), [])
+
+    def test_a_walled_page_confirmed_by_the_source_api_counts(self):
+        citation = {'url': 'https://polymarket.com/event/cs2-ntr-zerote-2026-10-24',
+                    'roles': ['Quote'], 'kind': 'price', 'generic': False}
+        alternate = probe.alternates(citation['url'])[0]['url']
+        fetcher = fake_fetch({alternate: '[{"title": "Nuclear TigeRES vs ex-Zero Tenacity"}]'})
+        entry = probe.verify_citation(fetcher, citation, ['Nuclear TigeRES', 'ex-Zero Tenacity'])
+        self.assertEqual(entry['verdict'], 'confirmed-via-alternate')
+        self.assertEqual(entry['fallback']['url'], alternate)
+
+    def test_a_walled_fixture_page_is_corroborated_by_the_fixture_feed(self):
+        citation = {'url': 'https://www.hotspawn.com/matches/a-vs-b-1083121',
+                    'roles': ['Hotspawn fixture'], 'kind': 'fixture', 'generic': False}
+        api_record = {'id': '1083121', 'teams': ['Projeto do KinGui', 'MEIA NOITE'],
+                      'competition': 'CCT', 'starts_at': '2026-10-24T16:00:00Z', 'future': True}
+        entry = probe.verify_citation(fake_fetch({}), citation,
+                                      ['Projeto do KinGui', 'MEIA NOITE'], api_record)
+        self.assertEqual(entry['verdict'], 'confirmed-via-alternate')
+        self.assertEqual(entry['fallback']['url'], probe.FIXTURES_API)
+
+
 class VerdictTests(unittest.TestCase):
     def test_confirmed_when_both_names_are_on_the_page(self):
         citation = {'url': 'https://polymarket.com/event/x', 'roles': ['Quote'],
@@ -221,11 +254,11 @@ class VerdictTests(unittest.TestCase):
                                       citation, ['A Team', 'B Team'])
         self.assertEqual(entry['verdict'], 'absent')
 
-    def test_refusal_is_unreachable_never_absent(self):
+    def test_refusal_is_blocked_never_absent(self):
         citation = {'url': 'https://book.example/match/abc', 'roles': ['Quote'],
                     'kind': 'price', 'generic': False}
         entry = probe.verify_citation(fake_fetch({}), citation, ['A Team', 'B Team'])
-        self.assertEqual(entry['verdict'], 'unreachable')
+        self.assertEqual(entry['verdict'], 'blocked')
         self.assertEqual(entry['read']['http'], 403)
 
     def test_fixture_verdict_is_verified_only_with_a_confirmed_price_citation(self):
@@ -247,6 +280,7 @@ class VerdictTests(unittest.TestCase):
         result = probe.verify_fixture(fake_fetch({}), match, orig)
         self.assertEqual(result['verdict'], 'needs-review')
         self.assertGreater(result['summary']['unreachable'], 0)
+        self.assertEqual(result['summary']['confirmed_via_alternate'], 0)
 
 
 class ReportTests(unittest.TestCase):

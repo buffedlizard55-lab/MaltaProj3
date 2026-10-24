@@ -63,8 +63,9 @@ STOPWORDS = {
     'team', 'esports', 'esport', 'academy', 'clan', 'gaming', 'club', 'the',
     'gas', 'and', 'of', 'for', 'with', 'vs', 'sports', 'sport', 'pro',
 }
-CHALLENGE_MARKERS = ('just a moment', 'cf-chl', 'challenge-platform', 'attention required',
-                     'enable javascript and cookies', 'captcha', 'access denied')
+CHALLENGE_MARKERS = ('just a moment', 'cf-chl', 'challenge-platform',
+                     'attention required! | cloudflare', 'enable javascript and cookies to continue',
+                     'please verify you are a human', 'verify you are human')
 #: Path shapes that are provider-wide endpoints, not a fixture-specific page.
 GENERIC_HINTS = ('/api/', '/services/sports/', '/esports/counter-strike', '/matches',
                  '/next-to-go', '/esports-hub/', '/trade-api/', '/markets/kxcs2game',
@@ -124,6 +125,35 @@ def generic_endpoint(url: str) -> bool:
     if path.count('/') <= 1:
         return True
     return any(hint in path for hint in GENERIC_HINTS)
+
+
+def alternates(url: str) -> list[dict]:
+    """The same record through the source's own JSON API, where one is public.
+
+    A Cloudflare interstitial on an HTML page is a block on this reader, not
+    evidence that the citation is wrong. Each of these endpoints publishes the
+    identical event the page shows, so a match here is recorded as
+    ``confirmed-via-alternate`` and never as a price of our own.
+    """
+    parsed = urlparse(url or '')
+    host, path = parsed.netloc.lower(), parsed.path or ''
+    out: list[dict] = []
+    if host.endswith('polymarket.com') and path.startswith('/event/'):
+        slug = path.rstrip('/').split('/')[-1]
+        out.append({'url': 'https://gamma-api.polymarket.com/events?slug=' + slug,
+                    'label': 'Polymarket Gamma event record'})
+    if host == 'github.com':
+        parts = path.strip('/').split('/')
+        if len(parts) >= 5 and parts[2] == 'blob':
+            out.append({'url': 'https://raw.githubusercontent.com/%s/%s/%s/%s' % (
+                parts[0], parts[1], parts[3], '/'.join(parts[4:])),
+                'label': 'raw document in the same repository'})
+    if host.endswith('kalshi.com'):
+        ticker = path.rstrip('/').split('/')[-1]
+        if ticker:
+            out.append({'url': 'https://api.elections.kalshi.com/trade-api/v2/markets/' + ticker,
+                        'label': 'Kalshi market record'})
+    return out
 
 
 def fetch(session: requests.Session, name: str, url: str, *, timeout: int = 35) -> dict:
@@ -247,52 +277,85 @@ def citations_for(match: dict, orig: dict | None, pick: dict) -> list[dict]:
     return found
 
 
-def verify_citation(fetcher, citation: dict, teams: list[str]) -> dict:
-    """Re-read one cited URL and record what it actually shows."""
+def judge_body(body: str, citation: dict, teams: list[str]) -> dict:
+    """What the returned body proves, independent of how it was fetched."""
+    names = [name_presence(body, team) for team in teams]
+    event_id = citation.get('event_id')
+    bound = bool(event_id and re.search(r'\b' + re.escape(str(event_id)) + r'\b', body))
+    levels = [n['level'] for n in names]
+    if bound or all(level == 'full' for level in levels):
+        verdict = 'confirmed'
+    elif any(level == 'full' for level in levels):
+        verdict = 'partial'
+    elif all(level == 'token' for level in levels):
+        verdict = 'token-only'
+    elif citation['generic'] and citation['kind'] in ('price', 'model'):
+        verdict = 'endpoint-unbound'
+    else:
+        verdict = 'absent'
+    return {'names': names, 'event_bound': bound, 'verdict': verdict}
+
+
+def verify_citation(fetcher, citation: dict, teams: list[str], api_record: dict | None = None) -> dict:
+    """Re-read one cited URL, then its own API if the page is walled."""
     record = fetcher(citation['url'])
     body = record.pop('_body', '') or ''
     entry = dict(citation)
     entry['read'] = record
-    status = record.get('status')
-    if status != 'ok':
-        entry['verdict'] = 'unreachable'
-        entry['names'] = []
-        return entry
-    names = [name_presence(body, team) for team in teams]
-    entry['names'] = names
-    levels = [n['level'] for n in names]
-    bound_event = False
-    event_id = citation.get('event_id')
-    if event_id and re.search(r'\b' + re.escape(str(event_id)) + r'\b', body):
-        bound_event = True
-    entry['event_bound'] = bound_event
-    if bound_event:
-        entry['verdict'] = 'confirmed'
-    elif all(level == 'full' for level in levels):
-        entry['verdict'] = 'confirmed'
-    elif any(level == 'full' for level in levels):
-        entry['verdict'] = 'partial'
-    elif all(level == 'token' for level in levels):
-        entry['verdict'] = 'token-only'
-    elif citation['generic'] and citation['kind'] in ('price', 'model'):
-        entry['verdict'] = 'endpoint-unbound'
+    if record.get('status') == 'ok':
+        entry.update(judge_body(body, citation, teams))
+        if entry['verdict'] in ('confirmed', 'partial'):
+            return entry
     else:
-        entry['verdict'] = 'absent'
+        entry.update({'names': [], 'event_bound': False, 'verdict': 'blocked'})
+    # A walled page is not a dead citation: the fixture feed, or the source's own
+    # JSON record, can prove the same thing. Each attempt is recorded verbatim.
+    if citation['kind'] == 'fixture' and api_record:
+        fixture_body = json.dumps(api_record)
+        judged = judge_body(fixture_body, citation, teams)
+        if judged['verdict'] == 'confirmed':
+            entry['fallback'] = {'url': FIXTURES_API,
+                                 'label': 'Hotspawn scheduled-fixture record',
+                                 'verdict': 'confirmed'}
+            entry.update(judged)
+            entry['verdict'] = 'confirmed-via-alternate'
+            return entry
+    for alternate in alternates(citation['url']):
+        read = fetcher(alternate['url'])
+        alt_body = read.pop('_body', '') or ''
+        if read.get('status') != 'ok':
+            entry.setdefault('alternates_tried', []).append(
+                {'url': alternate['url'], 'label': alternate['label'],
+                 'status': read.get('status'), 'http': read.get('http')})
+            continue
+        judged = judge_body(alt_body, citation, teams)
+        entry.setdefault('alternates_tried', []).append(
+            {'url': alternate['url'], 'label': alternate['label'],
+             'status': 'ok', 'http': read.get('http'), 'verdict': judged['verdict']})
+        if judged['verdict'] == 'confirmed':
+            entry['fallback'] = {'url': alternate['url'], 'label': alternate['label'],
+                                 'verdict': 'confirmed'}
+            entry.update(judged)
+            entry['verdict'] = 'confirmed-via-alternate'
+            return entry
     return entry
 
 
-def verify_fixture(fetcher, match: dict, orig: dict | None) -> dict:
+def verify_fixture(fetcher, match: dict, orig: dict | None, api_index: dict | None = None) -> dict:
     teams = [t.get('name') or '' for t in (match.get('teams') or [])][:2]
     pick = pick_of(match, orig)
     citations = citations_for(match, orig, pick)
-    verified = [verify_citation(fetcher, c, teams) for c in citations]
+    api_record = (api_index or {}).get(str(match.get('id')))
+    verified = [verify_citation(fetcher, c, teams, api_record) for c in citations]
     price = [c for c in verified if c['kind'] == 'price']
     summary = {
         'citations': len(verified),
         'confirmed': sum(1 for c in verified if c['verdict'] == 'confirmed'),
         'partial': sum(1 for c in verified if c['verdict'] in ('partial', 'token-only')),
         'absent': sum(1 for c in verified if c['verdict'] == 'absent'),
-        'unreachable': sum(1 for c in verified if c['verdict'] == 'unreachable'),
+        'unreachable': sum(1 for c in verified if c['verdict'] == 'blocked'),
+        'confirmed_via_alternate': sum(1 for c in verified
+                                       if c['verdict'] == 'confirmed-via-alternate'),
         'endpoint_unbound': sum(1 for c in verified if c['verdict'] == 'endpoint-unbound'),
     }
     if not pick.get('pick'):
@@ -301,7 +364,7 @@ def verify_fixture(fetcher, match: dict, orig: dict | None) -> dict:
                 'starts_at': match.get('starts_at'), 'locks_at': match.get('locks_at'),
                 'pick': pick, 'citations': verified, 'verdict': 'no-pick',
                 'summary': summary}
-    price_ok = any(c['verdict'] == 'confirmed' for c in price)
+    price_ok = any(c['verdict'] in ('confirmed', 'confirmed-via-alternate') for c in price)
     price_blocked = all(c['verdict'] in ('unreachable', 'endpoint-unbound', 'absent')
                         for c in price) if price else True
     if price_ok and summary['unreachable'] == 0 and summary['absent'] == 0:
@@ -370,7 +433,7 @@ def flags_for(report: dict) -> list[dict]:
     provenance = report['provenance']
     fixtures = provenance['fixtures']
     unreachable = [(f['id'], f['teams'], c) for f in fixtures for c in f['citations']
-                   if c['verdict'] == 'unreachable']
+                   if c['verdict'] == 'blocked']
     absent = [(f['id'], f['teams'], c) for f in fixtures for c in f['citations']
               if c['verdict'] == 'absent' and not c['generic']]
     no_pick = [f for f in fixtures if f['verdict'] == 'no-pick']
@@ -400,8 +463,9 @@ def flags_for(report: dict) -> list[dict]:
             'match_ids': sorted({fixture_id for fixture_id, _, _ in unreachable}),
             'title': 'A source cited by a published pick could not be re-read on this sweep',
             'detail': (
-                'These URLs are cited on the published pick rows and were re-read by the runner. '
-                'A refusal, challenge or timeout is not evidence that the market does not exist '
+                'These URLs are cited on the published pick rows and were re-read by the runner, '
+                'including each source’s own JSON API where one is public. A refusal, challenge '
+                'or timeout is not evidence that the market does not exist '
                 'and no pick was changed because of it: ' + detail + '. The ladder re-reads its '
                 'own sources on the next four-hour refresh.'),
             'source_urls': sorted({citation['url'] for _, _, citation in unreachable})[:25],
@@ -536,6 +600,10 @@ def render_md(report: dict) -> str:
                 how = ('event id %s found' % citation.get('event_id')) + ((' · ' + how) if how else '')
             if citation.get('odds'):
                 how = ('quoted odds %s' % citation['odds']) + ((' · ' + how) if how else '')
+            fallback = citation.get('fallback')
+            if fallback:
+                how = ('%s confirmed via %s' % (fallback['label'], fallback['url'])
+                       + ((' · ' + how) if how else ''))
             lines.append('| %s %s | %s | %s | %s | %s | %s |' % (
                 fixture['id'], ' vs '.join(fixture['teams']),
                 ', '.join(citation['roles']), citation['url'],
@@ -545,9 +613,11 @@ def render_md(report: dict) -> str:
               '- Active fixtures with a published pick: **%d**' % counts['active'],
               '- Re-verified: **%d**' % counts['verified'],
               '- Needs review: **%d**' % counts['needs_review'],
-              '- Citations re-read: **%d** (%d unreachable, %d absent, %d endpoint-only)' % (
+              '- Citations re-read: **%d** (%d blocked, %d absent, %d endpoint-only, '
+              '%d confirmed through the source’s own API)' % (
                   counts['citations'], counts['unreachable_citations'],
-                  counts['absent_citations'], counts['endpoint_citations']),
+                  counts['absent_citations'], counts['endpoint_citations'],
+                  counts['alternate_citations']),
               '', 'Source policy: Hotspawn supplies identity only; probabilities come from the '
               'reviewed ladder in `scripts/originate.py`, never from Hotspawn popularity, HLTV fan '
               'votes or this sweep.', '']
@@ -557,9 +627,10 @@ def render_md(report: dict) -> str:
 def build_report(snapshot: dict, origination: dict, api_body: str, fetcher, observed_at: str) -> dict:
     now = parse_iso(observed_at) or datetime.now(UTC)
     index = origination_index(origination)
-    fixtures = [verify_fixture(fetcher, match, index.get(str(match.get('id'))))
-                for match in active_matches(snapshot)]
     rows = fixture_rows(api_body, now)
+    api_index = {row['id']: row for row in rows}
+    fixtures = [verify_fixture(fetcher, match, index.get(str(match.get('id'))), api_index)
+                for match in active_matches(snapshot)]
     counts = {
         'active': len(fixtures),
         'with_pick': sum(1 for f in fixtures if f['verdict'] != 'no-pick'),
@@ -570,6 +641,8 @@ def build_report(snapshot: dict, origination: dict, api_body: str, fetcher, obse
         'absent_citations': sum(f['summary']['absent'] for f in fixtures),
         'endpoint_citations': sum(1 for f in fixtures for c in f['citations']
                                   if c['verdict'] == 'endpoint-unbound'),
+        'alternate_citations': sum(1 for f in fixtures for c in f['citations']
+                                   if c['verdict'] == 'confirmed-via-alternate'),
         'no_pick': sum(1 for f in fixtures if f['verdict'] == 'no-pick'),
     }
     return {
