@@ -398,12 +398,23 @@ class WorkflowWiringTests(unittest.TestCase):
         self.assertLess(verify, publish, "a build must be verified before it is committed to the root")
 
     def test_pushes_cannot_cancel_a_scheduled_refresh(self):
-        # GitHub cancels a pending run when a newer run enters its concurrency group.
-        # With one shared `pages` group and a branch pushed every few minutes, the
-        # four-hour refresh was cancelled before it could start (see the comment in
-        # pages.yml). The runs must be grouped per event type.
-        self.assertIn("group: pages-${{ github.event_name }}", self.text)
-        self.assertNotIn("group: pages\n", self.text)
+        # GitHub cancels a pending run when a newer run enters its concurrency
+        # group. With one shared `pages` group and a branch pushed every few
+        # minutes, the four-hour refresh was cancelled before it could start (see
+        # the comment in pages.yml). Session arena-5260ef4e: this used to assert
+        # the *literal* `group: pages-${{ github.event_name }}`, which the recovery
+        # publisher and the scheduled-lane work then extended
+        # (`...${{ (...) && '-recovery' || '' }}`); the literal is gone while the
+        # property is intact, so the publisher failed its own regression step from
+        # 2026-10-23T21:41Z (run 40078370106) and nothing published. Assert the
+        # property instead: the base group is keyed by the event, and the recovery
+        # lanes are split out on top of it.
+        group = next(line for line in self.text.splitlines()
+                     if line.strip().startswith('group:'))
+        self.assertIn('pages-${{ github.event_name }}', group)
+        self.assertTrue("'-recovery'" in group or "'recovery'" in group,
+                        'recovery lanes must not share the ordinary group: ' + group)
+        self.assertNotIn('group: pages\n', self.text)
 
     def test_artifact_is_redeployed_after_root_sync_legacy_build(self):
         publish = self.text.index("name: Publish the verified build into the branch root")
