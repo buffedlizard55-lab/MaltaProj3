@@ -19,6 +19,8 @@
 
   function matches(row) {
     var severity = row.getAttribute('data-finding-severity') || 'review';
+    // A superseded row is retained evidence, not an open finding: it stays
+    // visible under 'All' and is never counted by the severity filters.
     if (mode === 'review' && severity !== 'review') return false;
     if (mode === 'notice' && severity !== 'notice') return false;
     var query = input.value.trim().toLowerCase();
