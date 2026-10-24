@@ -22,6 +22,19 @@ MARKDOWN = ROOT / 'data' / 'research' / 'a7128fdd' / 'direct-observations.md'
 FLAGS = ROOT / 'data' / 'research' / 'a7128fdd' / 'flags.json'
 
 
+
+def committed_records():
+    """Every dated direct-observation dossier in the repository, oldest first."""
+    found = []
+    for path in sorted((ROOT / 'data' / 'research').glob('*/direct-observations.json')):
+        record = json.loads(path.read_text(encoding='utf-8'))
+        found.append(dict(record, _record_path=path.relative_to(ROOT / 'data').as_posix()))
+    return sorted(found, key=lambda item: item['observed_at'])
+
+
+def newest_committed_record():
+    return committed_records()[-1]
+
 def observation(**over):
     base = {
         'id': 'x-surface',
@@ -298,9 +311,17 @@ class CheckedInRecord(unittest.TestCase):
         self.assertTrue(MARKDOWN.is_file())
 
     def test_the_loader_accepts_the_committed_record(self):
+        # Newest wins by design (`load_direct_observations` sorts on observed_at),
+        # so this asserts that the loader renders the newest committed dossier —
+        # which was this one until 2026-10-24, when arena-8aa401c8 committed a
+        # later read. Pinning this session's stamp instead of the loader's own
+        # rule would fail every later session that adds dated evidence, which is
+        # the opposite of the register's purpose.
         got = load_direct_observations(ROOT / 'data')
         self.assertIsNotNone(got)
-        self.assertEqual(got['observed_at'], self.record['observed_at'])
+        newest = newest_committed_record()
+        self.assertEqual(got['observed_at'], newest['observed_at'])
+        self.assertEqual(got['_record_path'], newest['_record_path'])
 
     def test_it_states_its_capture_path_and_does_not_claim_to_be_a_runner(self):
         self.assertEqual(self.record['environment'], 'authoring-fetch-path')
@@ -334,6 +355,28 @@ class CheckedInRecord(unittest.TestCase):
         self.assertEqual(c['probabilities_changed'], 0)
         self.assertEqual(c['picks_changed'], 0)
         self.assertEqual(c['aliases_added'], 0)
+
+    def test_every_committed_dossier_obeys_the_same_contract(self):
+        """The newest record is what readers see, so it must carry the same guarantees."""
+        for record in committed_records():
+            with self.subTest(record=record['_record_path']):
+                self.assertTrue(record.get('observations'), record['_record_path'])
+                sibling = ROOT / 'data' / str(record['_record_path']).replace(
+                    'direct-observations.json', 'direct-observations.md')
+                self.assertTrue(sibling.is_file(), f'{record["_record_path"]} has no markdown')
+                for o in record['observations']:
+                    for key in ('id', 'surface', 'url', 'http_status', 'excerpt',
+                                'excerpt_sha256', 'verdict', 'reason', 'usable_as_price'):
+                        self.assertIn(key, o, f'{o.get("id")} missing {key}')
+                    self.assertEqual(hashlib.sha256(o['excerpt'].encode('utf-8')).hexdigest(),
+                                     o['excerpt_sha256'],
+                                     f'{o["id"]}: excerpt and hash disagree')
+                    if o['two_sided_price'] is None:
+                        self.assertFalse(o['usable_as_price'], o['id'])
+                c = record['conclusions']
+                self.assertEqual(c['probabilities_changed'], 0, record['_record_path'])
+                self.assertEqual(c['picks_changed'], 0, record['_record_path'])
+                self.assertEqual(c['aliases_added'], 0, record['_record_path'])
 
     def test_the_scope_matches_the_runner_manifest_it_cites(self):
         manifest = json.loads((ROOT / 'data' / 'research' / 'a7128fdd'

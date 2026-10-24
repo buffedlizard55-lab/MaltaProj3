@@ -20,6 +20,11 @@ ROOT = Path(__file__).resolve().parents[1]
 RECORD = ROOT / 'data/research/2ed65c56/live-coverage.json'
 FLAGS = ROOT / 'data/research/2ed65c56/flags.json'
 SNAPSHOT = ROOT / 'snapshot.json'
+# The record's snapshot-membership flags are "as of" the snapshot it names. The
+# root snapshot is republished every four hours, so the honest comparison is
+# against that frozen copy -- not against whatever the site serves today, which
+# would fail an unchanged, accurate record on the next publish.
+FROZEN_SNAPSHOT = ROOT / 'tests/fixtures/published-snapshot-2026-10-23T20-10-00Z.json'
 
 SEVERITIES = {'notice', 'warning', 'critical', 'info'}
 
@@ -77,12 +82,16 @@ class RecordShapeTest(unittest.TestCase):
             if line:
                 self.assertTrue(line['source_url'].startswith('https://'))
 
-    @unittest.skipUnless(SNAPSHOT.exists(), 'published snapshot not present in this checkout')
     def test_snapshot_membership_matches_the_published_snapshot(self):
-        published = {str(m['id']) for m in json.loads(SNAPSHOT.read_text())['matches']}
+        frozen = json.loads(FROZEN_SNAPSHOT.read_text())
+        self.assertEqual(frozen['generated_at'], self.record['published_site']['generated_at'],
+                         'the frozen snapshot must be the one this record describes')
+        published = {str(m['id']) for m in frozen['matches']}
         for fixture in self.fixtures:
             with self.subTest(fixture=fixture['id']):
                 self.assertEqual(fixture['in_published_snapshot'], fixture['id'] in published)
+        # And the record stays honest about how old that observation is.
+        self.assertLessEqual(parse_ts(frozen['generated_at']), parse_ts(self.record['observed_at']))
 
 
 class LineArithmeticTest(unittest.TestCase):

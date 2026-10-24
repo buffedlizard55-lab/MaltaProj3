@@ -33,14 +33,23 @@ class ExecutiveSummaryLinks(unittest.TestCase):
             self.assertTrue((ROOT / target / "index.html").exists(), target)
 
     def test_every_published_upcoming_fixture_linked_from_summary(self):
+        # No hard-coded fixture count: the summary must link whatever the
+        # snapshot in this checkout publishes, so the check survives each
+        # four-hourly republish instead of expiring with the data.
         linked = set(re.findall(r"match-(\d+)", INDEX))
-        self.assertEqual(len(self.upcoming), 19)
+        self.assertTrue(self.upcoming, "the published snapshot has no upcoming fixture")
         for m in self.upcoming:
             self.assertIn(m["id"], linked, m["id"])
 
     def test_unresolved_page_names_both_unresolved_fixtures(self):
+        # Same rule: name every fixture the snapshot leaves unresolved, rather
+        # than the two it left unresolved on 2026-10-23.
         unresolved = [m for m in self.upcoming if m.get("pick_index") is None]
-        self.assertEqual(sorted(m["id"] for m in unresolved), ["1082792", "1082858"])
+        snapshot_data = json.loads((ROOT / "snapshot.json").read_text())
+        expected = snapshot_data.get("counts", {}).get("unresolved")
+        if expected is not None:
+            self.assertEqual(len(unresolved), expected,
+                             "every unresolved fixture must appear on the unresolved page")
         for m in unresolved:
             for team in m["teams"]:
                 self.assertIn(team["name"], UNRESOLVED)
