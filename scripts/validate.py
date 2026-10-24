@@ -169,6 +169,11 @@ def check_links(site: Path):
         soup = BeautifulSoup(path.read_text(), 'html.parser')
         require(soup.find('main') is not None, f'{path}: no main landmark')
         require(soup.find('meta', attrs={'name': 'viewport'}) is not None, f'{path}: missing mobile viewport')
+        seen_ids = set()
+        for node in soup.find_all(id=True):
+            identity = node['id']
+            require(identity not in seen_ids, f'{path}: duplicate HTML id "{identity}"; anchor target is ambiguous')
+            seen_ids.add(identity)
         for el in soup.select('[href], [src]'):
             value = el.get('href') if el.has_attr('href') else el.get('src')
             url = urlparse(value)
