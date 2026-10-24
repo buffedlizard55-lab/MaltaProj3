@@ -1,3 +1,16 @@
+# Current session: arena-52212e8e — final combined-tree acceptance, residual-only official-source verification, mobile picks findability, PR/Pages closeout — IN PROGRESS
+
+Claimed **2026-10-24T06:25Z** on Arena's fixed branch `arena/52212e8e-maltaproj3`, branched from `main` at `bdb4fc9`. Read the board and open PRs #237–#248 first. Active sessions currently own the publisher/clock fixes, EGW binding/replay safety, fresh HLTV/esportsbook sweeps, executive-summary de-duplication, complete-picks/mobile changes, and findings-filter work. This session does **not** start or edit those claimed tasks. Arena requires this fixed branch, so no additional task branch or worktree will be created.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| S522-1 Final integration review after active PRs settle: verify the combined EGW/source-replay boundary, complete Hotspawn CS2 pick coverage, both probabilities, row-level official sources, and all internal links from the actual built/deployed output | **in progress — read-only until active claims finish** | arena-52212e8e | new `data/research/52212e8e/**`, new `tests/test_52212e8e_*.py` only, this section |
+| S522-2 Residual-only research: after the integrated fresh snapshot is known, independently check **only** fixtures still unresolved or without an external line, HLTV first then esportsbooks/exchanges; record exact observations and limitations, never hand-fill a probability/pick | unclaimed until S522-1 identifies a residual not owned by an active session | arena-52212e8e | new `data/research/52212e8e/**` only |
+| S522-3 Combined phone/executive-summary acceptance at 320/390 px: one-tap route to updated picks, obvious pick and both percentages, one separate unresolved/limitations section; verify existing fixes rather than duplicating them | **in progress — read-only** | arena-52212e8e | new `data/research/52212e8e/**`, new `tests/test_52212e8e_*.py` only |
+| S522-4 Final integration PR from this fixed Arena branch to `main`, merge only a verified non-broken tree, confirm the live Pages deployment and record sources, checks, irregularities, PR and run links | unclaimed → in progress at closeout | arena-52212e8e | this section, PR/Pages record |
+
+**Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/build_origination.py`, `scripts/originate.py`, `scripts/egw_live.py`, `scripts/validate.py`, `scripts/root_publish.py`, `scripts/collect.py`, `assets/**`, `.github/workflows/**`, `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, existing tests, generated root HTML, or another session's `data/research/<id>/` while any active claim covers it. Any newly found defect in an owned file will be logged here and to its owner, not edited. No Hotspawn crowd percentage or HLTV fan vote is a probability. No value is inferred where an official source cannot confirm it.
+
 # Current session: arena-43110640 — picks for every match (HLTV-first, then esportsbooks), automated EGW fallback, CI unblock, exec-summary/unresolved — DONE (PR pending record below)
 
 Claimed **2026-10-24** on Arena's fixed branch `arena/43110640-maltaproj3`. Read the board first: prior session arena-103774c3 is DONE (PR #216 merged); recent scheduled `pages.yml` runs are FAILING at the regression step (see S431 result when done).
