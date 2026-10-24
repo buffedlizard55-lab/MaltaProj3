@@ -2432,12 +2432,21 @@ def resolve_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_
     return keep_featured()
 
 
-def run(output: Path, *, live: bool = False) -> dict:
+def run(output: Path, *, live: bool = False, now: datetime | None = None) -> dict:
+    """Originate every active fixture.
+
+    ``now`` is the injectable clock the freshness gates read. The scheduled
+    publisher always calls it with the default (the real UTC clock); replay
+    tests pin it to the instant their saved evidence was observed, so an
+    eight-hour freshness window can never turn a dated fixture into a
+    wall-clock regression failure (session arena-5f9d0082, same defect class
+    as the 2026-10-23/24 publisher stall).
+    """
     output = Path(output)
     orig_dir = output / 'origination'
     evidence_dir = orig_dir / 'evidence'
     registry = load_registry(orig_dir / 'aliases.json')
-    now = datetime.now(UTC)
+    now = now or datetime.now(UTC)
     snapshot = load_json(output / 'latest.json')
     live_payload = live_collect(evidence_dir, snapshot['matches'], registry) if live else None
     reference_capture = reference_odds.load(output)
