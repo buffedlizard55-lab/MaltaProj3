@@ -1,4 +1,4 @@
-# Current session: arena-c6b8d58b — 31/31 Hotspawn CS2 + 31/31 HLTV match-page reconciliation (closing the 6 South American Tier-C fixtures), HLTV-first + multi-book/EGW consensus research for all 13 model-only fixtures, scoped South American aliases & mobile/WCAG verification — DONE
+# Current session: arena-c6b8d58b — 31/31 Hotspawn CS2 + 31/31 HLTV match-page reconciliation (closing the 6 South American Tier-C fixtures), HLTV-first + multi-book/EGW consensus research for all 13 model-only fixtures, scoped South American aliases & mobile/WCAG verification — DONE (PR #265)
 
 Claimed **2026-10-24T06:55Z** on Arena's fixed session branch `arena/c6b8d58b-maltaproj3`, rebased onto `origin/main` at `52091c5` (PR #256) and merged with `5ee2ab9` (PR #253). Read `COORDINATION.md` and inspected all open PRs (`#260`, `#237`, `#246`, `#248`, `#259`, `#238`, `#247`, `#255`, `#243`, `#254`, `#245`, `#239`, `#244`, `#242`, `#249`) before claiming to ensure zero file-scope overlap with any active session (`<60` minutes idle).
 
@@ -28,6 +28,7 @@ Claimed **2026-10-24T06:55Z** on Arena's fixed session branch `arena/c6b8d58b-ma
   - `python3 -m scripts.build && python3 -m scripts.audit_rows --site site --strict`: `PASS: 80 source rows reconciled`, `rows=811 ok=792 flagged-unverified=9 site-map=10 violations=0`, `Acceptance audit: 9 pass, 1 info, 0 fail`, `829 internal links/assets/anchors`.
   - Unit tests (`tests/test_c6b8d58b_verification.py` + 5 sibling suites, `68` tests) all green.
   - Published `c6b8d58b-001..004` (`data/research/c6b8d58b/flags.json`) and `C6B8-R01..R04` (`data/research/c6b8d58b/repo-review.json`) on `/review/`, including proof that HLTV Pick-a-winner fan votes are inverted relative to real-money bookmaker odds on `#1083121` (`25%/75%` fan vote vs `62.92%/37.08%` Thunderpick) and `#1083123` (`75%/25%` fan vote vs `30.77%/69.23%` Thunderpick).
+- **PR:** [#265](https://github.com/buffedlizard55-lab/MaltaProj3/pull/265).
 
 ---
 
