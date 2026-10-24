@@ -17,24 +17,24 @@ This module automates that rung with the same fail-closed contract:
   (``https://egamersworld.com/counterstrike/matches``), fetched live by the
   origination collector and saved verbatim as evidence
   (``live-egw-index.json``), so every derived entry replays offline;
-* an entry is produced only when the index links a match page whose URL slug
-  names *both* teams of an active Hotspawn fixture (exact normalised names,
-  or the reviewed competition-scoped alias registry — never fuzzy matching)
-  and the listing prints exactly two decimal odds for that match;
+* an entry is produced only when a match link's own ``Title VS Title`` label
+  resolves to both Hotspawn teams by exact normalized names or the reviewed
+  competition-scoped alias registry. URL substrings are not identity evidence;
+* the listing prints exactly two decimal odds and supplies an independent
+  machine-readable start timestamp with an explicit ``Z`` or numeric offset.
+  Hotspawn's start is never copied into provider evidence. Missing/naive times
+  and same-team rematches with another provider start price nothing;
 * entries are written in the reviewed ``reference_odds`` schema (fixture id,
-  both team orders, published start, hash-checked verbatim excerpt), so the
-  existing ``reference_odds.quote()`` gate decides: identical prices
-  (EGamersWorld's 1.8/1.8 placeholder banner) are rejected, the start time
-  must match to the second, and the observation must be under eight hours old;
+  both team orders, provider start, hash-checked excerpt), so the existing
+  ``reference_odds.quote()`` gate still rejects placeholders, stale evidence,
+  identity drift and start mismatches;
 * it remains an *aggregated third-party reference*, labelled as such, and it
   never overrides a first-party market or esportsbook line (enforced by the
   ladder order in ``originate_match``, unchanged).
 
-Start-time note: the index does not print a UTC instant per match, so the
-entry's ``starts_at`` is taken from the Hotspawn fixture itself and the
-excerpt says so. The identity proof is the two team names in EGamersWorld's
-own match-page URL plus the fixture id; ``reference_odds.quote()`` still
-rejects the entry if the fixture's start ever differs from the recorded one.
+The human-readable EGW title/body can present different timezone representations
+without naming a zone in the title. Those strings are deliberately not guessed.
+Only an explicit machine-readable timestamp is accepted.
 """
 from __future__ import annotations
 
@@ -54,25 +54,50 @@ INDEX_EVIDENCE = 'live-egw-index'
 
 _SLUG_CLEAN = re.compile(r'[^a-z0-9]+')
 _ODDS_RE = re.compile(r'(?<![\d.])(\d{1,3}\.\d{1,2})(?![\d.])')
+_TIME_ATTRIBUTES = ('datetime', 'data-datetime', 'data-start', 'data-starts-at', 'data-start-time')
 
 
 def slugify(name: str) -> str:
-    """EGamersWorld URL slug for a team name (lowercase, hyphen-separated)."""
+    """Retained for slug diagnostics; never sufficient as a team join."""
     return _SLUG_CLEAN.sub('-', (name or '').casefold()).strip('-')
 
 
-def _slug_keys(name: str) -> set[str]:
-    slug = slugify(name)
-    return {slug, slug.replace('-', '')} if slug else set()
+def _title_teams(anchor) -> list[str] | None:
+    """Read the provider's exact two-team link title, never a slug substring."""
+    title = (anchor.get('title') or '').strip()
+    parts = [part.strip() for part in re.split(r'\s+[Vv][Ss]\s+', title, maxsplit=1)]
+    if len(parts) != 2 or not all(parts) or name_key(parts[0]) == name_key(parts[1]):
+        return None
+    return parts
+
+
+def _explicit_start(anchor) -> str | None:
+    """Return a provider timestamp only when its timezone is explicit."""
+    for node in (anchor, *anchor.find_all(True)):
+        for attribute in _TIME_ATTRIBUTES:
+            raw = node.get(attribute)
+            if not isinstance(raw, str) or not raw.strip():
+                continue
+            value = raw.strip()
+            try:
+                moment = datetime.fromisoformat(value[:-1] + '+00:00'
+                                                if value.endswith('Z') else value)
+            except ValueError:
+                continue
+            if moment.tzinfo is None or moment.utcoffset() is None:
+                continue
+            return moment.astimezone(UTC).isoformat().replace('+00:00', 'Z')
+    return None
 
 
 def parse_index(html: str) -> list[dict]:
-    """Match-page links on the EGW CS2 index, each with its printed odds pair.
+    """Parse exact team titles, two odds and any explicit provider start.
 
-    Returns [{'url', 'slug', 'teams_slug', 'odds'}]. An anchor qualifies only
-    when its href is an EGW counterstrike match page and the anchor's own
-    text (which EGW renders as the two team names) yields exactly two decimal
-    odds. Anything else is skipped, never repaired.
+    Returns dictionaries with ``url``, ``slug``, ``provider_teams``, ``odds``
+    and ``starts_at``. ``starts_at`` is None when the provider has no explicit
+    timezone-bearing machine timestamp; ``entries_for`` rejects that row.
+    Anything with missing/ambiguous team labels or odds is skipped, never
+    repaired from another fixture.
     """
     from bs4 import BeautifulSoup
 
@@ -87,22 +112,38 @@ def parse_index(html: str) -> list[dict]:
         slug = href.rstrip('/').rsplit('/', 1)[-1]
         if not slug or href in seen:
             continue
-        text = anchor.get_text(' ', strip=True)
+        provider_teams = _title_teams(anchor)
+        if provider_teams is None:
+            continue
+        provider_start = _explicit_start(anchor)
+        # A short visible date such as 24.10 looks like a decimal price to a
+        # tokenizer. Time elements are evidence for the start, never odds text.
+        text_soup = BeautifulSoup(str(anchor), 'html.parser')
+        while True:
+            time_node = text_soup.find(
+                lambda tag: tag.name == 'time' or any(tag.has_attr(attr) for attr in _TIME_ATTRIBUTES))
+            if time_node is None:
+                break
+            time_node.decompose()
+        text = text_soup.get_text(' ', strip=True)
         odds = [float(x) for x in _ODDS_RE.findall(text)]
         if len(odds) != 2:
             continue
         seen.add(href)
-        out.append({'url': href, 'slug': slug, 'odds': odds})
+        out.append({'url': href, 'slug': slug, 'provider_teams': provider_teams,
+                    'odds': odds, 'starts_at': provider_start})
     return out
 
 
 def entries_for(html: str, matches: list, registry: dict, observed_at: str) -> list[dict]:
-    """Reviewed-schema reference entries joining the EGW index to fixtures.
+    """Build reviewed-schema entries only for exact identity and provider time.
 
-    A fixture joins only when one match-page slug contains the slugs of both
-    of its teams (in either order; odds are re-ordered to Hotspawn's order and
-    the provider's printed order is kept in ``provider_teams``). Alias-registry
-    names are tried for the slug search and recorded when used.
+    The provider's two title names are independently resolved through the same
+    competition-scoped alias registry as other sources. Odds are reordered to
+    Hotspawn's team order only after that exact two-team join. The provider's
+    own timestamp is retained so ``reference_odds.quote()`` can reject a
+    same-team rematch or schedule mismatch; no timestamp is copied from the
+    Hotspawn row.
     """
     from scripts.originate import resolve_name  # local: avoids a module cycle
 
@@ -110,48 +151,44 @@ def entries_for(html: str, matches: list, registry: dict, observed_at: str) -> l
     entries = []
     for match in matches or []:
         teams = [t.get('name') or '' for t in match.get('teams') or []]
-        if len(teams) != 2 or not match.get('starts_at'):
+        wanted = [name_key(team) for team in teams]
+        if len(teams) != 2 or len(set(wanted)) != 2 or not match.get('starts_at'):
             continue
-        candidates = []  # (display name used for the slug, canonical team)
-        for team in teams:
-            canonical, _ = resolve_name(team, registry, match.get('competition'))
-            candidates.append((canonical, team))
-        hit = None
         for row in rows:
-            slug_flat = row['slug'].replace('-', '')
-            positions = []
-            for display, _team in candidates:
-                pos = next((slug_flat.find(k.replace('-', ''))
-                            for k in _slug_keys(display)
-                            if k.replace('-', '') in slug_flat), -1)
-                positions.append(pos)
-            if all(p >= 0 for p in positions) and positions[0] != positions[1]:
-                hit = (row, positions)
-                break
-        if hit is None:
-            continue
-        row, positions = hit
-        provider_order = [0, 1] if positions[0] < positions[1] else [1, 0]
-        provider_teams = [candidates[i][0] for i in provider_order]
-        odds = row['odds'] if provider_order == [0, 1] else [row['odds'][1], row['odds'][0]]
-        excerpt = (f"EGamersWorld CS2 matches index ({INDEX_URL}) lists "
-                   f"{provider_teams[0]} vs {provider_teams[1]} at decimal odds "
-                   f"{row['odds'][0]:g} / {row['odds'][1]:g} (automated capture "
-                   f"{observed_at}; odds re-ordered to Hotspawn team order where "
-                   f"the listing order differs).")
-        entries.append({
-            'fixture_id': str(match['id']),
-            'teams': teams,
-            'provider_teams': provider_teams,
-            'starts_at': match['starts_at'],
-            'odds': odds,
-            'source_url': row['url'],
-            'observed_at': observed_at,
-            'excerpt': excerpt,
-            'excerpt_sha256': hashlib.sha256(excerpt.encode('utf-8')).hexdigest(),
-            'provider': PROVIDER,
-            'capture': 'automated EGW index capture (scripts/egw_live.py)',
-        })
+            provider_start = row.get('starts_at')
+            if not provider_start:
+                continue
+            provider_names = row['provider_teams']
+            canonical, aliases_used = [], []
+            for name in provider_names:
+                resolved, used = resolve_name(name, registry, match.get('competition'))
+                canonical.append(resolved)
+                aliases_used.extend(used)
+            if len(set(canonical)) != 2 or set(canonical) != set(wanted):
+                continue
+            hotspawn_order = [canonical.index(wanted[0]), canonical.index(wanted[1])]
+            odds = [row['odds'][hotspawn_order[0]], row['odds'][hotspawn_order[1]]]
+            excerpt = (f"EGamersWorld CS2 matches index ({INDEX_URL}) lists "
+                       f"{provider_names[0]} vs {provider_names[1]} at decimal odds "
+                       f"{row['odds'][0]:g} / {row['odds'][1]:g}, provider start "
+                       f"{provider_start} (automated capture {observed_at}; exact "
+                       "title/alias identity; odds re-ordered to Hotspawn team order "
+                       "where the listing order differs).")
+            entries.append({
+                'fixture_id': str(match['id']),
+                'teams': teams,
+                'provider_teams': provider_names,
+                'starts_at': provider_start,
+                'odds': odds,
+                'source_url': row['url'],
+                'observed_at': observed_at,
+                'excerpt': excerpt,
+                'excerpt_sha256': hashlib.sha256(excerpt.encode('utf-8')).hexdigest(),
+                'provider': PROVIDER,
+                'capture': 'automated EGW index capture (scripts/egw_live.py)',
+                'aliases_used': aliases_used,
+            })
+            break
     return entries
 
 

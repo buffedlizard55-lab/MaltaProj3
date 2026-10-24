@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "session": "arena-5927ab83",
+  "audited_at": "2026-10-24T06:05:35.537582Z",
+  "source_session": "arena-be019782",
+  "source_run_url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40066326079",
+  "source_snapshot_at": "2026-10-24T05:28:00Z",
+  "source_dossier": "data/research/be019782",
+  "source_sha256": {
+    "audited-fixtures.json": "162af16fd653fc7d25952a60ef3a49a36cf5c56b5440740e52b0a0ad4f0bb491",
+    "source-replay.json": "e9031504c58730d0a3499ba83168bdef66ba47e4ec215756a6cbc7976f9c1cd5",
+    "line-source-research.json": "87f92af1f26f8bfb825cdbfbed6542eb93f8483326b4f2355d2b39fb9a697032",
+    "row-source-audit.json": "8fb49e4e71241d5231db372e871f5b17d925a978dac63444e2f38b6fe1a57794"
+  },
+  "ok": true,
+  "counts": {
+    "official_inventory_rows": 25,
+    "unique_fixture_ids": 25,
+    "normalized_directional_estimates": 25,
+    "replayed_rows": 25,
+    "model_only_targets": 10,
+    "hltv_first_research_rows": 10,
+    "qualified_new_line_leads": 0,
+    "row_source_violations": 0
+  },
+  "methods": {
+    "bookmaker": 3,
+    "market": 12,
+    "model": 10
+  },
+  "model_only_fixture_ids": [
+    "1081153",
+    "1081154",
+    "1082996",
+    "1079198",
+    "1081156",
+    "1081158",
+    "1082858",
+    "1082861",
+    "1082792",
+    "1082793"
+  ],
+  "replay_counts": {
+    "canonical_nonpast_fixtures": 25,
+    "audited_rows": 25,
+    "supported_dated_estimates": 25,
+    "currently_usable_lines": 25,
+    "explicitly_unresolved": 0
+  },
+  "row_source_totals": {
+    "rows": 850,
+    "ok": 831,
+    "flagged": 9,
+    "navigation": 10,
+    "violation": 0
+  },
+  "checks": [
+    "Every inventory ID is unique and has its official Hotspawn fixture URL.",
+    "Every row has two finite in-range probabilities summing to one and a matching directional pick.",
+    "Market/bookmaker estimates cite independent sources, never Hotspawn participation.",
+    "Research targets exactly the model-only IDs; HLTV precedes esportsbook/exchange follow-up.",
+    "Source replay preserves every probability/pick and includes the official fixture link.",
+    "Row-source totals reconcile and contain zero violations; flagged rows remain reviewable."
+  ],
+  "limitations": [
+    "This is an internal-consistency and provenance audit of a dated dossier, not a new market observation.",
+    "It is not a deployment attestation; production freshness and Pages verification are separate gates.",
+    "Blocked, empty or unlisted sources do not establish that no betting market exists anywhere."
+  ]
+}
