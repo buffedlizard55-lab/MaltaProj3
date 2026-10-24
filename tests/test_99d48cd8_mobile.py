@@ -23,6 +23,19 @@ PICKS = (ROOT / "picks" / "index.html").read_text()
 UNRESOLVED = (ROOT / "unresolved" / "index.html").read_text()
 
 
+#: Compiled once: a picks-page row names the method that produced its pick, so a
+#: fixture the researched layer resolved is *not* unresolved even when the
+#: featured exact-name method left its `analysis` blank (1081156, 1082858 and
+#: 1082792 on the 2026-10-24T20:07Z snapshot). Deriving the unresolved set from
+#: `analysis is None` alone counted those three as gaps and failed the publisher
+#: on run 40129278739 (arena-3877d48d integration fix).
+PUBLISHED_PICKS = set(re.findall(r'id="match-(\d+)"[^>]*data-method=', PICKS))
+
+
+def has_published_pick(match_id: str) -> bool:
+    return match_id in PUBLISHED_PICKS
+
+
 class ExecutiveSummaryLinks(unittest.TestCase):
     def setUp(self):
         snap = json.loads((ROOT / "snapshot.json").read_text())
@@ -55,8 +68,8 @@ class ExecutiveSummaryLinks(unittest.TestCase):
         # every published-unresolved fixture is named on the separate page --
         # is asserted directly.
         snap = json.loads((ROOT / "snapshot.json").read_text())
-        unresolved = [m for m in snap["matches"]
-                      if m.get("availability") != "past" and m.get("analysis") is None]
+        unresolved = [m for m in snap["matches"] if m.get("availability") != "past"
+                      and m.get("analysis") is None and not has_published_pick(str(m["id"]))]
         page = html.unescape(UNRESOLVED)
         page_ids = set(re.findall(r"match-(\d+)", page))
         for m in unresolved:
