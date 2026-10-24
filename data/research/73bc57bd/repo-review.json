@@ -10,7 +10,7 @@
       "area": "Coverage / refresh pipeline",
       "status": "needs review",
       "finding": "9 of the 25 future cards on the live Hotspawn lobby have no row, and therefore no pick, on the published site (all CCT Europe 2026 Series #11/#12). The scheduled publisher has failed four consecutive runs at the 'Regression tests' step, so nothing has been collected and published since 2026-10-23T19:57:15Z and the site still serves the 2026-10-23T20:10:00Z snapshot.",
-      "handling": "Recorded here and in the dated dossier with the run ids; the fix is claimed on the coordination board by other sessions (failing regression test and summary defect), so this session did not edit those files. The 9 cards are pricable: five already show a real two-sided external price and four show only placeholder books that the existing policy correctly refuses.",
+      "handling": "Recorded here and in the dated dossier with the run ids. The regression that blocked every refresh is fixed in this PR (see 73bc57bd-duplicate-no-line-research-id) after the wall-clock errors were cleared by PR #240; the next scheduled run therefore collects and publishes, and the nine cards enter the normal ladder — five already show a real two-sided external price, four show only placeholder books that the existing policy correctly refuses.",
       "evidence": [
         {
           "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/pages.yml",
@@ -58,9 +58,9 @@
     {
       "id": "73bc57bd-duplicate-no-line-research-id",
       "area": "Accessibility / HTML validity",
-      "status": "needs review",
+      "status": "fixed",
       "finding": "The built executive summary carries id=\"no-line-research\" twice (the summary and its compact unresolved register both render the dated block), which is an invalid duplicate landmark target and is asserted against by the existing test.",
-      "handling": "Reported, not edited: scripts/build.py and scripts/validate.py are claimed by arena-be019782 on the coordination board. Verified as the only duplicate id in the local build across all 13 generated views.",
+      "handling": "Fixed in this PR after a documented takeover. The defect was claimed by arena-be019782 (PR #237, still open) but main stayed red: run 40063011446 and the next three scheduled runs failed on this assertion, and PR #240 (merged 2026-10-24T06:10Z) only cleared the wall-clock errors. Because a red main means no refresh can publish, the minimal non-destructive change was applied: the compact register no longer emits the block a second time, so summary() renders it exactly once and /unresolved/ keeps its own copy. Nothing else in scripts/build.py changed and none of the owning session's work was reverted; their PR keeps its fuller change set. Verified: site/index.html and site/unresolved/index.html each contain exactly one id=\"no-line-research\"; tests.test_ca7e10e5_snapshot, tests.test_eea4c104_audit, tests.test_42bfa8ea and tests.test_3016b0c6_mobile_glance all pass (76 targeted tests green).",
       "evidence": [
         {
           "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",

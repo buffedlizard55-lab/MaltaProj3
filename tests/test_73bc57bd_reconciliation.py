@@ -246,11 +246,17 @@ class ReviewRegisterIsPublished(unittest.TestCase):
                 self.assertTrue(evidence['detail'])
                 self.assertIn(urlparse(evidence['url']).netloc, ALLOWED_HOSTS)
 
-    def test_the_frozen_publisher_and_duplicate_id_are_published_as_needs_review(self):
+    def test_the_open_findings_are_published_as_needs_review(self):
         by_id = {item['id']: item for item in self.register['items']}
         for key in ('73bc57bd-publisher-frozen-nine-cards-unpicked', '73bc57bd-wall-clock-regression',
-                    '73bc57bd-duplicate-no-line-research-id', '73bc57bd-lfo10-name-conflict'):
+                    '73bc57bd-lfo10-name-conflict', '73bc57bd-review-page-is-very-long-on-phone'):
             self.assertEqual(by_id[key]['status'], 'needs review', key)
+
+    def test_the_duplicate_id_is_published_as_fixed_with_its_takeover_note(self):
+        item = {item['id']: item for item in self.register['items']}['73bc57bd-duplicate-no-line-research-id']
+        self.assertEqual(item['status'], 'fixed')
+        self.assertIn('takeover', item['handling'])
+        self.assertIn('PR #237', item['handling'])
 
     def test_the_register_renders_on_the_review_section(self):
         html = review_register.render(self.register, '../', section_id='session-review-99',
