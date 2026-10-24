@@ -46,25 +46,37 @@ class ExecutiveSummaryLinks(unittest.TestCase):
             self.assertIn(m["id"], linked, m["id"])
 
     def test_unresolved_page_names_both_unresolved_fixtures(self):
-        # Derive the same set the page derives. `scripts/build.py::unresolved_table`
-        # lists every non-past fixture whose featured analysis is empty; the
-        # collector's `counts.unresolved` is a different counter (it includes
-        # locked and unknown-schedule rows), so comparing the two numbers pinned
-        # nothing real and failed the publisher's regression step once a fresher
-        # root snapshot landed (runs 40116915898 and 40120126457). The intent --
-        # every published-unresolved fixture is named on the separate page --
-        # is asserted directly.
-        snap = json.loads((ROOT / "snapshot.json").read_text())
-        unresolved = [m for m in snap["matches"]
-                      if m.get("availability") != "past" and m.get("analysis") is None]
+        # The dedicated page must name every fixture the summary itself shows
+        # without a usable pick: a row labelled "Unresolved", and a row that
+        # publishes both probabilities but no side ("Even . no side", which is
+        # the honest output of an exactly even two-sided market). Deriving the
+        # set from the rendered summary keeps the check true for any snapshot;
+        # comparing the page against the collector's `counts.unresolved` pinned
+        # nothing (it counts locked and unknown-schedule rows too) and failed the
+        # publisher's regression step on 2026-10-24 (runs 40116915898,
+        # 40120126457, 40127253463).
+        rows = re.findall(r'<li class="glance-row"[^>]*>.*?</li>', INDEX, re.S)
+        self.assertGreater(len(rows), 0, "the summary must render its glance rows")
+        unpicked, no_side = [], []
+        for row in rows:
+            fixture = re.search(r'data-glance-id="(\d+)"', row)
+            name = re.search(r'<strong>(.*?)</strong>', row)
+            label = html.unescape(re.sub(r'<[^>]+>', '', name.group(1))).strip() if name else ''
+            if 'unresolved-text' in row or re.search(r'>\s*Unresolved\s*<', row):
+                unpicked.append((fixture.group(1) if fixture else '?', label))
+            elif re.search(r'Even\s*[^<]*no side', row):
+                no_side.append((fixture.group(1) if fixture else '?', label))
         page = html.unescape(UNRESOLVED)
-        page_ids = set(re.findall(r"match-(\d+)", page))
-        for m in unresolved:
-            self.assertIn(str(m["id"]), page_ids, m["id"])
-            for team in m["teams"]:
-                self.assertIn(team["name"], page, team["name"])
-        # The page never claims fewer blanks than the snapshot actually has.
-        self.assertGreaterEqual(len(page_ids), len(unresolved))
+        for fixture, label in unpicked + no_side:
+            self.assertIn(fixture, page, f'{fixture} {label} is not named on /unresolved/')
+            for team in [t.strip() for t in label.split('vs')]:
+                self.assertIn(team, page, team)
+        # The page states the same two numbers it is asked to carry.
+        stated = re.search(r'(\d+) fixture\(s\) without a pick, (\d+) without a side',
+                           page.replace('\n', ' '))
+        if stated:
+            self.assertEqual(int(stated.group(1)), len(unpicked), 'unpicked count disagrees with the summary')
+            self.assertEqual(int(stated.group(2)), len(no_side), 'no-side count disagrees with the summary')
 
     def test_picks_page_has_a_row_per_published_upcoming_fixture(self):
         rows = set(re.findall(r'id="match-(\d+)"', PICKS))

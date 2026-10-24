@@ -63,5 +63,5 @@ python -m scripts.6174aa87_probe --out data/research/6174aa87
 ```
 
 Offline unit cover (no network) is `tests/test_6174aa87_provenance.py`. The phone
-evidence is `PREVIEW_BASE_URL=http://127.0.0.1:8000 node scripts/6174aa87_mobile_check.mjs`
+evidence is `PREVIEW_BASE_URL=http://127.0.0.1:8123 node scripts/6174aa87_mobile_check.mjs`
 against a served build.

@@ -189,7 +189,21 @@ def check_glance_rows(site: Path, soup: BeautifulSoup) -> Check:
     for row in rows:
         match = _text(row.select_one('.glance-match'))
         choice = row.select_one('.glance-choice')
-        if choice is None or choice.select_one('[data-glance-pick]') is None:
+        # A row is decided when it names a side (data-glance-pick) or states,
+        # explicitly, that there is no side to name because the market is
+        # exactly even: two percentages, the words "Even" and "no side", and a
+        # link to the register explaining it. Pages built before the marker
+        # existed (data-glance-outcome) read the same way, so the text decides.
+        # A row that merely lost its pick has no percentages and still fails.
+        if choice is None:
+            missing_pick.append(match)
+            continue
+        explained_even = (choice.select_one('[data-glance-outcome]') is not None
+                          or ('no side' in _text(choice).lower()
+                              and 'even' in _text(choice).lower()
+                              and len(_pct(_text(choice))) >= 2
+                              and choice.select_one('a[href]') is not None))
+        if choice.select_one('[data-glance-pick]') is None and not explained_even:
             missing_pick.append(match)
             continue
         values = _pct(_text(choice))

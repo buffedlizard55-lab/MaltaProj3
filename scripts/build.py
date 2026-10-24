@@ -723,7 +723,13 @@ def glance(data, prefix, now=None):
                       + basis_badge(a, researched))
 
         elif a:
-            choice = ('<span class="glance-pick-label">No edge</span><strong>Even · no side</strong>'
+            # An exactly even two-sided market publishes both numbers and no
+            # side. The state is marked in the markup (data-glance-outcome) so a
+            # reader, the acceptance audit and any later check can tell a
+            # deliberately even row from a row that quietly lost its pick
+            # (session arena-6174aa87).
+            choice = ('<span class="glance-pick-label" data-glance-outcome="even-no-side">No edge</span>'
+                      '<strong>Even · no side</strong>'
                       f'<span class="glance-prob">{e(names[0])} {a["probabilities"][0] * 100:.1f}%</span>'
                       f'<span class="glance-other">{e(names[1])} {a["probabilities"][1] * 100:.1f}%</span>'
                       + basis_badge(a, researched)

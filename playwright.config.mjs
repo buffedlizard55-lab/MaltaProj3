@@ -35,13 +35,19 @@ export default defineConfig({
   reporter: [['list'], ['./scripts/playwright-annotations.mjs'],
              ['json', { outputFile: 'test-results/results.json' }]],
   use: {
-    baseURL: process.env.PREVIEW_BASE_URL || 'http://127.0.0.1:8000',
+    // 8123, not the documented 8000 preview port: a leftover server bound to
+    // the repository root answers on 8000 and is reused, which compares the
+    // built pages against the older checked-in root HTML and fails for a
+    // reason that has nothing to do with the code (seen 2026-10-24, when
+    // tests/browser/summary_navigation.spec.mjs counted 17 built cards against
+    // a 19-card root page). PREVIEW_BASE_URL still points the suite anywhere.
+    baseURL: process.env.PREVIEW_BASE_URL || 'http://127.0.0.1:8123',
     headless: true,
     launchOptions,
   },
   webServer: process.env.PREVIEW_BASE_URL ? undefined : {
-    command: 'python -m http.server 8000 --bind 0.0.0.0 --directory site',
-    url: 'http://127.0.0.1:8000',
+    command: 'python -m http.server 8123 --bind 0.0.0.0 --directory site',
+    url: 'http://127.0.0.1:8123',
     reuseExistingServer: !process.env.CI,
     timeout: 30000,
   },
