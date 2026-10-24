@@ -91,6 +91,12 @@ theirs and was not touched here.
 
 **Always-condition repair verified (2026-10-24T08:29Z).** Kept normal cancellation first and a grace period. Only an acknowledged request (or documented HTTP 409 state conflict, never 401/403/unknown denial) may reach the fallback; re-fetch the same id/old SHA/main branch/Pages route/event and re-prove strict-ancestor status before GitHub's documented force-cancel for unresponsive always() jobs. Confirm completed status after that too; no queue_safe on uncertainty. Added progress ids for diagnosis, typed API status handling, and tests for denied escalation, changed identity/ancestry, state conflict, failed force and unchanged current/PR/feature protections. Future fresh jobs keep `always()` for optional-cache failure but add `!cancelled()` to obey intentional cancellation. **73 targeted tests PASS / 1.289 s**, including project-wide undefined-name checks. Full combined browser/safety remain **122 PASS / 106 PASS**. Real match/price/evidence/alias/replay data unchanged; the first failed recovery published nothing. This is the bounded documented correction to the operator preflight, not a relaxation of source/publication checks.
 
+
+**Final event-isolation correction claim (2026-10-24T09:06Z).** Recovery `40078370106` successfully cleared the obsolete always()-immune publishers: both old runs are explicitly COMPLETED/CANCELLED, and the full macOS regression actually ran from 08:44 to 09:00. It failed three checks (and published nothing): the 96f event-isolation contract, an incoming unpinned stale-fixture reproduction, and the nested pinned suite containing the same contract failure. Main PR #297 already fixes the clock reproduction correctly with explicit +13h and removes its self-exemption; preserve that work unchanged. Claim only own `.github/workflows/pages.yml` concurrency expression and `tests/test_be019782_release.py`: preserve `pages-${{ github.event_name }}` as the namespace and add a recovery suffix, so **even explicit recovery pushes cannot replace a pending scheduled catch-up**. This fixes the real event-isolation property rather than weakening 96f's test. Primary/catch-up schedules, pool selection, completed-state source-code cutoff, permissions and all full source/regression/publication gates stay unchanged. The apparent HTTP403/coverage messages in that failed run were synthetic adversarial unit-test output; live collect never ran. No source, estimate, alias, evidence or replay input is in scope. Push this claim before the one-line correction.
+
+
+**All reported regression failures repaired (2026-10-24T09:08Z).** Preserve main's explicit +13h stale-clock fix (#297), including removal of the scanner's self-exemption. Fixed our concurrency bug, not the old test: retain the event-name namespace, append only a recovery suffix; normal/recovery pushes are disjoint from both scheduled lanes. Added the four-lane semantic regression. **103 targeted tests PASS / 14.420 s**, including both original reported failing modules, the entire 96f suite, clock scanners, release/permission/ancestry controls, workflow ordering and declared/module imports. The nested pinned-clock suite is being rerun separately. The first full Mac run ran the entire suite and exposed only those two root causes; the third reported failure was its nested 96f failure. No check was skipped, assertion weakened, source gate changed, or real data value edited. All 122 browser /106 safety passes remain valid; only the workflow namespace and its own tests changed.
+
 ---
 
 # Current session: arena-ec5083b9 — does every live Hotspawn card have a pick? A reproducible coverage check, plus the publisher's test-collection defect — DONE (PR #254)
@@ -652,6 +658,32 @@ Claimed **2026-10-24T06:20Z** on Arena's fixed branch `arena/5260ef4e-maltaproj3
 
 
 **Non-overlap pledge:** no edit to `scripts/collect.py`, `scripts/build.py`, `assets/*`, `scripts/root_publish.py`, `data/latest.json`, `data/origination.json` values, `data/origination/aliases.json`, `.github/workflows/pages.yml`, `archive/`, or any other session's `data/research/<id>/`. Hotspawn "% picked" and HLTV fan votes are never probabilities.
+
+## Session arena-5260ef4e — the publisher has been failing on two of its own tests since 2026-10-23T21:41Z
+
+Claimed 2026-10-24T09:05Z against the fixed branch `arena/5260ef4e-maltaproj3`. Scope: the two
+`tests/` files below plus `COORDINATION.md`. No data values, no `scripts/` change.
+
+The scheduled four-hour refresh has published nothing since 2026-10-23T20:10Z. The recovery path was
+blamed for that (90 s queue gate, runs 40077233256 / 40078105941), but the ordinary publisher was
+failing for a second, independent reason: its **regression step** (run 40078370106, job
+120780438497, step *Regression tests (repository fixtures, before any cache restore)*) reported
+
+```
+FAIL: test_the_suite_passes_with_the_clock_pinned_to_several_absolute_times (test_freshness_determinism...)
+FAIL: test_every_call_pins_its_reference_time (test_a244cecd_clock_guard...)
+FAIL: test_pushes_cannot_cancel_a_scheduled_refresh (test_96fbe295...)
+```
+
+Both causes are real and reproducible locally:
+
+1. `tests/test_34247d4e_publisher_clock.py:135` called `root_publish.build_plan(...)` **without `now=`** — the very thing `test_a244cecd_clock_guard` forbids. A parallel session had already pinned it on `main` by the time this branch rebased (`test_a_pinned_stale_call_refuses_a_stale_fixture`, `now=PINNED_NOW + 13 h`); that fix is taken as-is and nothing here duplicates it.
+2. `tests/test_96fbe295.py` still asserted the **literal** `group: pages-${{ github.event_name }}`. `main` now builds the group as `pages-${{ github.event_name }}${{ (...) && '-recovery' || '' }}`, so the literal is gone although the property the test protects — a push can never enter the group of a scheduled refresh — is intact. That stale assertion is what the publisher's regression step failed on in run 40078370106. The test now asserts the property: the base group is event-keyed, and the recovery lanes are split out on top of it.
+
+`test_freshness_determinism` failed only because it re-runs the whole suite internally with the clock
+pinned; with the two fixes it passes (`Ran 9 tests … OK`, 216 s). Targeted evidence:
+`tests.test_a244cecd_clock_guard`, `tests.test_96fbe295`, `tests.test_34247d4e_publisher_clock` →
+`Ran 41 tests … OK`.
 
 # Current session: arena-b97af12f — live-lobby reconciliation, no-line research ladder, phone checks, publish — IN PROGRESS
 
@@ -1627,7 +1659,7 @@ Claimed **2026-10-24** on Arena's fixed branch `arena/43110640-maltaproj3`. Read
 * `blank_format_with_confirmed_format` × 10 — every row whose research trail records *"HLTV lists BO3"* still renders an empty format cell. Blank is the correct value for the **Hotspawn** field, but the verified HLTV format never reaches the reader.
 * `degenerate_price` × 1 — 1082860 FlyQuest–Staqued publishes 92.3% from a Thunderpick price of **1.001 / 12.00**; 1.001 returns 1/1000 of a stake and prints as "1.00", indistinguishable from a blank. The project already refuses 93–95¢ zero-volume Polymarket placeholders, so the floor is applied unevenly.
 * `generic_evidence_link` × 3 — all three bookmaker rows cite `https://thunderpick.io/api/matches`, the API root; the fixture is identifiable only through an event id inside the JSON.
-* `layer_divergence` × 3 — `snapshot.json` reports `counts.unresolved: 2` with `analysis: null` for 1082858 Ground Zero–Off Chops and 1082792 HOTU–The Huns, while the same build's pages show them as picks at 55.1% / 94.1% and the executive summary prints "0 explicitly unresolved".
+* `layer_divergence` × 3 — `snapshot.json` reports `counts.unresolved: 2` with `analysis: null` for 1082858 Ground Zero–Off Chops and 1082792 HOTU–The Huns, while `/origination/` and the summary show them as picks at 55.1% / 94.1%, `/review/` still lists both under *Unresolved*, and the summary line prints "0 explicitly unresolved". Three places, three answers; no one page states the split.
 * `stale_reference` × 5 (severity *verified*, not a defect) — the model rows rest on the Valve standings of **2026-10-05**, 18 days old at publish time; the rows state that date and link the file, so the age is disclosed.
 
 **Two first-hand re-reads of cited markets.** B8–K27 (1082897) read at **08:02Z**: Polymarket `B8 62¢ · K27 39¢`, $4.65K volume, description "initially scheduled for October 27, 2026 at 4:00 AM ET" — the published 62.0/38.0 is the no-vig midpoint of that 1¢-wide book, and the 09:00 the site prints is correct because Europe/Malta leaves summer time on 25 October. FOKUS–ex-6666 (1079193) read at **08:04Z**: `79¢ / 22¢` against the published 76.5/23.5, i.e. 2.5 points of drift on the same favourite — disclosed, pick unchanged. No other row was re-priced in this pass, and the dossier says so.

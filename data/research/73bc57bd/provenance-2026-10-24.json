@@ -19,9 +19,10 @@
     "pages_read": [
       "index.html",
       "origination/index.html",
-      "unresolved/index.html"
+      "unresolved/index.html",
+      "review/index.html"
     ],
-    "audit_read_at_utc": "2026-10-24T08:05Z"
+    "audit_read_at_utc": "2026-10-24T09:10Z"
   },
   "replay": {
     "rows_examined": 82,
@@ -160,7 +161,7 @@
       "code": "layer_divergence",
       "severity": "needs review",
       "subject": "1082858",
-      "detail": "/snapshot.json carries no analysis for this fixture and its counts report it as unresolved, while origination/index.html shows a directional pick at 44.9/55.1%. The machine-readable snapshot and the page a reader sees disagree about whether this fixture has a pick.",
+      "detail": "/snapshot.json carries no analysis for this fixture and its counts report it as unresolved, while origination/index.html shows a directional pick at 44.9/55.1%, and /review/ still lists it under \"Unresolved\". The machine-readable snapshot and the rendered pages tell different stories about whether this fixture has a pick; the executive summary resolves it in favour of the page and prints \"0 explicitly unresolved\".",
       "evidence": [
         {
           "url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
@@ -268,7 +269,7 @@
       "code": "layer_divergence",
       "severity": "needs review",
       "subject": "1082792",
-      "detail": "/snapshot.json carries no analysis for this fixture and its counts report it as unresolved, while origination/index.html shows a directional pick at 94.1/5.9%. The machine-readable snapshot and the page a reader sees disagree about whether this fixture has a pick.",
+      "detail": "/snapshot.json carries no analysis for this fixture and its counts report it as unresolved, while origination/index.html shows a directional pick at 94.1/5.9%, and /review/ still lists it under \"Unresolved\". The machine-readable snapshot and the rendered pages tell different stories about whether this fixture has a pick; the executive summary resolves it in favour of the page and prints \"0 explicitly unresolved\".",
       "evidence": [
         {
           "url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
@@ -338,5 +339,6 @@
       "note": "2.5 points of drift against the 22:10Z observation the row carries, on a $141 volume market. The favourite is unchanged and the row publishes the observation time it was priced at, so the drift is disclosed rather than hidden.",
       "pick_changed": false
     }
-  ]
+  ],
+  "summary_unresolved_claim": 0
 }
