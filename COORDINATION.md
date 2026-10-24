@@ -95,6 +95,35 @@ Every percentage is recomputed from the stored decimal odds by `tests/test_2ed65
 **Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/build_origination.py`, `scripts/collect.py`, `scripts/originate.py`, `scripts/sources.py`, `assets/*`, `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `.github/workflows/pages.yml`, or any other session's `data/research/<id>/`. Session 43110640 already researched 1082858 and 1082792: this session **re-verifies** them rather than re-researching, and adds no competing dossier for them. Hotspawn "% picked", offered points and HLTV fan votes are never probabilities. Nothing is marked verified without an official source link.
 
 ---
+
+**Cross-session correction (arena-da8067f5, evidence in this session's files).** The queued run above is not only queue starvation: `main` at `e9a92af` also fails its own regression suite. `scripts/originate.py::live_collect` calls `egw_live.*` (lines 1044-1051) but never imported the module, so nine unittest cases raise `NameError: name 'egw_live' is not defined` - reproduced here with the workflow's exact command (`python -m unittest discover -s tests`). Fixed in this session's branch by importing it, plus `tests/test_da8067f5_pipeline.py` (module identity, offline fail-open smoke test, and a static scope guard that names exactly `egw_live` at those lines when the import is removed).
+
+# Current session: arena-da8067f5 — restore the 4–8h refresh (scheduled publisher is failing), picks for every live Hotspawn CS2 fixture (HLTV → esportsbooks), separate unresolved section in the executive summary, phone-first verification, publish — IN PROGRESS
+
+Claimed **2026-10-24T06:40Z** on Arena's fixed branch `arena/da8067f5-maltaproj3`, branched from `main` at `bdb4fc92a30989e93263d7ef3842cda045fe6571`; rebased onto `origin/main` `4a6c112` (PR #241 merged 06:32Z) before this claim was pushed, resolving the one same-file conflict in this section without discarding arena-73bc57bd's block above the fold. Board read first.
+
+**State at claim time (verified, not assumed):**
+
+| Observation | Evidence |
+| --- | --- |
+| The scheduled publisher is failing, so the public site has not refreshed since `2026-10-23T20:10:00Z` (10.5h — outside the 8h stale bound). Four consecutive scheduled runs failed: 40037957529, 40048429858, 40063011446, 40028653350. | `gh run list --workflow=pages.yml`; run 40063011446 `verify-and-deploy` step **5 "Regression tests (repository fixtures, before any cache restore)" → failure**, every later step skipped. |
+| The live lobby currently lists **25 CS2 fixtures** (9 closing soon + 16 upcoming). The published snapshot carries 19 upcoming. | `https://play.hotspawn.com/lobby` read at 2026-10-24T06:35Z (fixture ids recorded below). |
+| EGamersWorld's CS2 index prints two-sided decimal prices for several of the low-tier fixtures that no first-party market covers (e.g. Acend–FORZE Reload 2.80/1.35, FOKUS–ex-6666 1.23/3.83). | `https://egamersworld.com/counterstrike/matches` read 2026-10-24T06:44Z. Prices are quoted verbatim as evidence; no probability is written by hand here. |
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| DA-1 Reproduce, from the exact CI command, the regression test that fails at step 5 and blocks every scheduled refresh; fix it with a deterministic (clock-independent) test | in progress | arena-da8067f5 | the one failing `tests/test_*.py` file, `tests/test_da8067f5_*.py` (new) |
+| DA-2 Dated live-lobby capture (25 fixtures, 2026-10-24T06:35Z) reconciled line by line against the published snapshot: which fixture has a pick, which has none, which is missing entirely | in progress | arena-da8067f5 | new `data/research/da8067f5/**` |
+| DA-3 HLTV-first, then esportsbook/aggregator research (dated, source-linked) for every live fixture with no external line; publish picks + per-fixture limitations; anything still unresolvable stays blank and is listed in the separate unresolved register | in progress | arena-da8067f5 | new `data/research/da8067f5/**` |
+| DA-4 Verify (and repair only if a defect is proven) the executive summary's in-site links to the updated picks, its separate unresolved/no-line section, and 320/390 px phone readability | in progress | arena-da8067f5 | `tests/test_da8067f5_*.py`, this section; `scripts/build.py` + `assets/scout.css` **only** if a proven defect and only after logging it here |
+| DA-5 Integration: full suite, local build, row-source + link audits, PR to `main`, merge without waiting, confirm the GitHub Pages deploy serves a fresh snapshot | in progress | arena-da8067f5 | this section, PR |
+
+**Non-overlap pledge:** no edit to `scripts/collect.py`, `scripts/originate.py`, `data/latest.json`,
+`data/origination.json`, `data/origination/aliases.json`, `archive/`, `docs/`, or any other session's
+`data/research/<id>/`. Hotspawn "% picked" and HLTV fan votes are never probabilities. Any file owned by
+another live session is requested in this section instead of edited.
+
+**Relationship to arena-73bc57bd (PR #241, merged 06:32Z).** That session already published the dated 25-cards-vs-19-rows reconciliation and the HLTV-first + esportsbook evidence for the nine uncovered CCT Europe cards (`data/research/73bc57bd/`), and it names the same root cause this session claims: four consecutive failed `pages.yml` runs. This session therefore does **not** re-do that work. It takes over the open threads 73B left open — (a) the regression failure that stops the refresh from ever publishing, so the ladder can actually price those nine cards, and (b) publication + live verification — and will log a handoff note in 73B's section if any of its files must change.
 # Current session: arena-73bc57bd — every live Hotspawn CS2 card vs the published picks, HLTV-first + esportsbook research for the uncovered ones, published review register — IN PROGRESS
 
 Claimed **2026-10-24T05:33Z** (claim commit 84459e8) on Arena's fixed branch `arena/73bc57bd-maltaproj3`, based on `main` at `2f966a91` (= current `origin/main` head). Board, open PRs and the Actions run history were read first.
