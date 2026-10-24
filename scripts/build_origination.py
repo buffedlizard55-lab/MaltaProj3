@@ -126,12 +126,12 @@ def picks_overview_table(picks, states):
                 f'<span class="tbl-prob{" is-fav" if pick == 0 else ""}">{e(names[0])}: <strong>{p0 * 100:.1f}%</strong></span>'
                 f'<span class="tbl-prob{" is-fav" if pick == 1 else ""}">{e(names[1])}: <strong>{p1 * 100:.1f}%</strong></span>'
             )
-            current_hidden = '' if current else ' hidden'
-            historical_hidden = ' hidden' if current else ''
+            current_label = f'✓ {names[pick]}'
+            historical_label = f'Snapshot: {names[pick]}'
             pick_cell = (
-                f'<strong class="tbl-pick" data-overview-pick>'
-                f'<span data-overview-current{current_hidden}>✓ </span>'
-                f'<span data-overview-historical{historical_hidden}>Snapshot: </span>{e(names[pick])}</strong>'
+                f'<strong class="tbl-pick" data-overview-pick data-current-label="{e(current_label)}" '
+                f'data-historical-label="{e(historical_label)}">'
+                f'<span data-overview-label>{e(current_label if current else historical_label)}</span></strong>'
                 f'<small>{o["probabilities"][pick] * 100:.1f}% · fair {e(o["fair_decimal"][pick])}</small>'
             )
             basis_cell = f'{badge(b_label, b_kind)}<small>{e(method_label(o))}</small>'
@@ -511,8 +511,8 @@ def page(data, inventory_complete=True, *, now=None):
       var card = document.getElementById('match-' + row.id.slice(4));
       var current = !!card && card.getAttribute('data-safety-status') === 'current';
       row.classList.toggle('is-historical', !current);
-      pick.querySelectorAll('[data-overview-current]').forEach(function (node) { node.hidden = !current; });
-      pick.querySelectorAll('[data-overview-historical]').forEach(function (node) { node.hidden = current; });
+      var label = pick.querySelector('[data-overview-label]');
+      label.textContent = pick.getAttribute(current ? 'data-current-label' : 'data-historical-label');
     });
   }
   document.addEventListener('spawn-pick-safety-updated', syncOverviewSafety);
