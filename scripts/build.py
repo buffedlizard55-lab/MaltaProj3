@@ -2292,17 +2292,35 @@ def flags_table(flags):
     from the rows themselves, so the filter can never claim a finding the table
     does not show, and with JavaScript off nothing is hidden.
     """
-    notice_count = sum(1 for f in flags if f.get('severity') == 'notice')
+    # A finding that a later one has settled is shown as Superseded and is not
+    # counted as an open finding: counting it would let the filter advertise
+    # "Needs review 1" on a page whose only review row is already answered
+    # (tests/test_build.py::GlanceIndexTests asserts that), and the open count is
+    # also the honest triage number. Superseded rows stay visible under "All".
+    resolved = {str(target) for f in flags for target in (f.get('supersedes') or [])}
+    open_flags = [f for f in flags if str(f.get('id')) not in resolved]
+    notice_count = sum(1 for f in open_flags if f.get('severity') == 'notice')
+    review_count = len(open_flags) - notice_count
+    superseded_count = len(flags) - len(open_flags)
     out = '<section class="content-section" id="findings"><div class="section-heading"><div><p class="eyebrow">Research &amp; integrity register</p><h2>All findings</h2></div><span class="muted small">Source-linked, not silently corrected</span></div>'
     out += ('<div class="filter-bar findings-filter">'
             '<label class="search-box">' + icon('search')
             + '<span class="sr-only">Find a finding by team, source or session</span>'
             '<input id="finding-search" type="search" placeholder="Find a finding — team, source or session…" autocomplete="off"></label>'
             '<div class="filter-tabs" role="group" aria-label="Finding severity">'
-            f'<button type="button" data-finding-filter="all" aria-pressed="true">All<span>{len(flags)}</span></button>'
-            f'<button type="button" data-finding-filter="review" aria-pressed="false">Needs review<span>{len(flags) - notice_count}</span></button>'
-            f'<button type="button" data-finding-filter="notice" aria-pressed="false">Notice<span>{notice_count}</span></button>'
-            '</div><p id="finding-count" aria-live="polite">' + f'{len(flags)} findings</p></div>'
+            f'<button type="button" data-finding-filter="all" aria-pressed="true">All<span>{len(flags)}</span></button>')
+    # A filter that is offered must have something behind it, and its badge text
+    # is reserved for the rows it opens (tests/test_build.py relies on that).
+    if review_count:
+        out += f'<button type="button" data-finding-filter="review" aria-pressed="false">Needs review<span>{review_count}</span></button>'
+    if notice_count:
+        out += f'<button type="button" data-finding-filter="notice" aria-pressed="false">Notice<span>{notice_count}</span></button>'
+    if superseded_count:
+        # Superseded findings are retained evidence, not open ones, so they get
+        # their own button: the three open counts plus this one are exactly the
+        # rows under "All", and nothing is silently dropped from the totals.
+        out += f'<button type="button" data-finding-filter="superseded" aria-pressed="false">Superseded<span>{superseded_count}</span></button>'
+    out += ('</div><p id="finding-count" aria-live="polite">' + f'{len(flags)} findings</p></div>'
             '<noscript><p class="tiny muted" style="padding:0 25px 14px">Filtering needs JavaScript. '
             'Every finding below is rendered either way.</p></noscript>'
             '<div class="table-scroll"><table class="simple-table review-table"><caption class="sr-only">Source-linked irregularities and analysis limitations</caption><thead><tr><th>Finding</th><th>Limitation / handling</th><th>Original sources</th></tr></thead><tbody>')
@@ -2319,7 +2337,8 @@ def flags_table(flags):
             label = badge('Superseded', 'purple') + f'<small>Answered by <a href="#flag-{e(resolver)}">a later finding</a></small>'
         else:
             label = badge('Notice' if f['severity'] == 'notice' else 'Needs review', 'purple' if f['severity'] == 'notice' else 'amber') + (f'<small>{len(f["match_ids"])} affected source records</small>' if f['match_ids'] else '')
-        severity = 'notice' if f.get('severity') == 'notice' else 'review'
+        severity = ('superseded' if resolver
+                    else 'notice' if f.get('severity') == 'notice' else 'review')
         filter_attrs = f' data-finding-severity="{severity}"' + (' data-finding-superseded="true"' if resolver else '')
         out += f'<tr id="flag-{e(f["id"])}"' + (' class="superseded-flag"' if resolver else '') + filter_attrs + f'><th scope="row">{label}<strong>{e(f["title"])}</strong></th><td>{e(f["detail"])}</td><td><div class="evidence-links">'
         for url in dict.fromkeys(f['source_urls']):

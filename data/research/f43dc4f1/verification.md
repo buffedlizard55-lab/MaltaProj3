@@ -94,3 +94,25 @@ recorded with it: publish a claim to `main` before editing shared files.
   fixtures (`data/latest.json`, `data/origination.json`).
 * No overlapping edit to `scripts/build.py`, `scripts/validate.py` or
   `tests/test_ca7e10e5_snapshot.py` while session `arena-be019782` holds them.
+
+## 7. Post-merge reconciliation (2026-10-24T08:10Z)
+
+Between this session's start and 08:10Z, `main` moved from `2f966a9` to `39946cd`
+through nine merges, and two other sessions integrated parts of this session's
+work and their own fixes for the same two defects:
+
+| What | Landed as | State on `main` |
+| --- | --- | --- |
+| Date-dependent publisher tests (`build_plan` with no clock) | `7493ea8` (PR #240) | fixed |
+| Dated `#no-line-research` block rendered twice on the summary | `e360f4c`, then PR #237 | fixed |
+| Duplicate-`id` build guard in `scripts/validate.py` | PR #237 / `a0f2afd` | fixed |
+| `egw_live` never imported, so `live_collect` raised `NameError` on every run (7493ea8 → 07:29Z) | PR #237 | fixed; this branch keeps `tests/test_f43dc4f1_egw_import.py` as the regression guard |
+| Findings-register search + severity filter | `a0f2afd` | present, but the first version rendered every severity button unconditionally |
+
+This branch is rebased onto `39946cd` and now carries only the delta that is
+still missing: the severity buttons are rendered only when their count is
+non-zero, superseded findings are counted (and filtered) as retained evidence
+rather than open findings, and `data-finding-severity` distinguishes the three.
+That keeps the three filters summing exactly to the "All" count — 392 rows =
+178 Needs review + 212 Notice + 2 Superseded at 08:12Z — so no reader is left
+wondering where the difference went.

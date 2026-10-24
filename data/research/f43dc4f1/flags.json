@@ -1,5 +1,19 @@
 [
   {
+    "id": "f43dc4f1-egw-import-missing-broke-every-collection",
+    "severity": "review",
+    "title": "Between 06:10Z and 07:29Z on 2026-10-24, main could not collect a single fixture: PR #240 used egw_live without importing it",
+    "detail": "scripts/originate.py::live_collect reads egw_live.EVIDENCE_NAME, egw_live.INDEX_URL and egw_live.entries_for(...), but the import block bound only form_model, hltv_ranking, network_model, pinnacle_lines, smarkets_lines and reference_odds. scripts/egw_live.py existed in the repository; it was simply never imported. live_collect is the first thing the four-hour refresh runs and that reference is its first statement after setup, so at merge commit 7493ea8 (06:10Z) every call raised NameError: name 'egw_live' is not defined before a single fixture was collected. Verified on main bdb4fc9: 7 test errors in one run (tests.test_origination_upgrade.LiveModelResearch x4, tests.test_f9d0a5a2 x1 and two more), and on the PR #248 check run 40069770136, job 120800498997 failed at 'Regression tests' on exactly those tests. Because the publisher's regression step runs before collection and before deploy, this was a second, independent cause of the same production outage the date-dependent publisher test caused: even with that fixed, the refresh would still have gone red. Resolved on main by PR #237 (merge bdb4fc9 -> 07:29Z), which imports the module. This session keeps tests/test_f43dc4f1_egw_import.py as the regression guard: it asserts the binding exists, that every sibling line-source module is still bound, and that live_collect gets past name resolution. No pricing rule, probability, pick or alias was touched, and scripts/egw_live.py itself is unchanged.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/originate.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/egw_live.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/240",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40069770136"
+    ]
+  },
+  {
     "id": "f43dc4f1-two-sessions-fixed-the-same-defects",
     "severity": "notice",
     "title": "Two sessions independently reproduced and fixed the same two publisher defects within 20 minutes, because claim state lives on unmerged branches",
