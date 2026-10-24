@@ -1,0 +1,73 @@
+# Session arena-f1277d3b — HLTV-first line-source research for fixtures
+# without a betting line.
+#
+# Dispatch/push-on-probe only. Never scheduled, never deploys, never writes a
+# probability, a pick or an alias. The coding sandbox has no egress to
+# Hotspawn/HLTV/books; the runner does. This workflow refreshes the first-party
+# collection (the exact commands the production publisher runs), then runs the
+# read-only probe against that fresh snapshot and commits only the dated
+# JSON/Markdown evidence back to this session branch for review before merge.
+# The refreshed data/ files themselves are NOT committed here — the production
+# pages.yml publisher remains the single writer of the published snapshot.
+name: f1277d3b line-source research (dispatch only)
+on:
+  workflow_dispatch:
+  push:
+    branches: ['arena/f1277d3b-maltaproj3']
+    paths:
+      - '.github/workflows/f1277d3b-probe.yml'
+      - 'scripts/f1277d3b_probe.py'
+
+permissions:
+  contents: write
+concurrency:
+  group: f1277d3b-probe
+  cancel-in-progress: true
+jobs:
+  probe:
+    if: github.ref == 'refs/heads/arena/f1277d3b-maltaproj3'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: arena/f1277d3b-maltaproj3
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      # Same first-party refresh as origination.yml / pages.yml, so the probe
+      # targets the fixtures that are without a line *now*, not the checked-in
+      # fixture data. If collection fails, originate is skipped (default
+      # success() gate) and the probe falls back to the live published
+      # snapshot instead of a half-refreshed tree.
+      - name: Refresh canonical inventory and featured lines
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect
+      - name: Refetch first-party origination sources and resolve
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live
+      - name: HLTV-first line-source research for fixtures without a betting line
+        if: always()
+        run: python -m scripts.f1277d3b_probe --out data/research/f1277d3b
+      - name: Commit only the dated research record to this session branch
+        if: always()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          test -f data/research/f1277d3b/line-source-research.json
+          git add data/research/f1277d3b
+          git diff --cached --quiet && echo 'No research change.' && exit 0
+          git commit -m 'research(f1277d3b): HLTV-first line-source sweep — dated evidence'
+          # Rebase against the moving branch head (push race), keep only the research.
+          git stash push --keep-index --include-untracked -m 'f1277d3b probe scratch' || true
+          for attempt in 1 2 3 4; do
+            git fetch origin arena/f1277d3b-maltaproj3 || true
+            git rebase origin/arena/f1277d3b-maltaproj3 || { git rebase --abort || true; sleep 5; continue; }
+            git push origin HEAD:arena/f1277d3b-maltaproj3 && exit 0
+            sleep 5
+          done
+          exit 1
