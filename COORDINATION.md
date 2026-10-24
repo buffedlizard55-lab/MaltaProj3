@@ -8766,3 +8766,17 @@ Constraints: sandbox outbound access cannot directly verify Hotspawn/HLTV/books;
   platform-side queue starvation (63 runs queued at 08:20Z, one running). The two
   concurrency caps above remove the largest recurring source; the publisher's own
   tests pass on this head, so a run that starts inside the window publishes.
+
+## Session arena-3877d48d — picks for every match, fallback-pick register, executive-summary/mobile verification, fresh publish (2026-10-24T16:2xZ)
+
+Claimed on Arena's fixed branch `arena/3877d48d-maltaproj3`, branched from `main` at `487a0e0` (= `origin/main` head; the 14:24:32Z verified snapshot). Board read first. Open PRs #292, #273, #255, #248, #246, #245, #242, #227, #225, #224, #165, #139 belong to earlier sessions and are not edited here; none of their claimed file scopes overlap the scope below.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| S387-1 Line-by-line reconciliation of the live Hotspawn CS2 lobby (read 2026-10-24T16:19Z) against the published `snapshot.json` (14:24:32Z, 84 records / 23 open / 18 picks): confirm every open fixture, its start time and its pick, and record the exact uncovered set | in progress | arena-3877d48d | new `data/research/3877d48d/**` |
+| S387-2 Independent first-hand research for every active fixture whose pick does **not** come from the featured Polymarket book (5 consensus, 5 bookmaker, 1 aggregated reference, 4 research-model): HLTV identity/format/ranking first, then esportsbook and betting-line surfaces (EGamersWorld, Bovada, Thunderpick, Polymarket, Kalshi), with dated URLs, quoted numbers and limitations. Leads only — no probability, pick or alias is written by hand | in progress | arena-3877d48d | `data/research/3877d48d/**`, `data/research/3877d48d/flags.json` |
+| S387-3 A separate, always-published **fallback-pick register** on the site: every active fixture whose pick is not a featured market line, with its source, both probabilities, the observed price and its limitations; a compact summary block on the executive summary linking into it, plus the unresolved register. Verify the executive summary's in-site picks links and phone readability (320/390/768) | in progress | arena-3877d48d | `scripts/build.py` (new section + one summary insertion only), `assets/scout.css` (new section styles only), new `tests/test_3877d48d_fallback.py`, this section |
+| S387-4 Proven presentation defect: the near-lock decimal price `1.001` is rendered as `1.00`, which reads as a 100% / zero-payout quote (FlyQuest–Staqued, 1082860). Render sub-2.00 decimals at full precision and label near-lock prices; keep the number unchanged | in progress | arena-3877d48d | `scripts/build.py` (price formatter only), new `tests/test_3877d48d_fallback.py` |
+| S387-5 Fresh publish inside the 8-hour bound, PR to `main`, merge without waiting for approval, confirm the Pages deploy serves the fresh snapshot, record run ids, sources, verification and irregularities here | unclaimed | arena-3877d48d | this section, PR |
+
+**Non-overlap pledge:** no edit to `scripts/collect.py`, `scripts/originate.py`, `scripts/root_publish.py`, `scripts/egw_live.py`, `scripts/reference_odds.py`, `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `archive/`, `docs/`, or any other session's `data/research/<id>/`. Hotspawn “% picked” and HLTV fan votes are never probabilities.
