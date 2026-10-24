@@ -49,7 +49,13 @@ Session `arena-b97af12f` adds a dated, source-linked reconciliation of the live 
 
 ### Merge / deploy record
 
-- PR: pending
+- PR: [#267](https://github.com/buffedlizard55-lab/MaltaProj3/pull/267) (open)
 - Merge: pending
 - Pages run: pending
 - Live `generated_at`: pending
+
+### Coordination
+
+- PR #241 (merged 06:32Z) independently reconciled the same nine CCT cards; B97 is a later cross-check plus the six API-only rows, the lock-time correction and the runner workflow. No duplicate file edits.
+- PR #265 / session `arena-c6b8d58b` publishes a newer `06:58Z` coverage sweep; `scripts.build.load_live_coverage` correctly selects that newer record over B97's `06:52Z` file. B97's artifact still ships and is downloadable.
+- The `freshness-watchdog.yml` merged by another session and B97's one-step dispatcher both ask `pages.yml` to run in the separate `workflow_dispatch` group, so pending push runs cannot cancel it.
