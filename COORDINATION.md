@@ -1,3 +1,170 @@
+
+# Current session: arena-719a314a — live-lobby coverage audit, picks for every unpublished card, duplicate-anchor build fix, phone exec summary — IN PROGRESS
+
+Claimed **2026-10-24T06:30Z** on Arena's fixed branch `arena/719a314a-maltaproj3`, branched from
+`main` `bdb4fc9` (merge of PR #240). Board and open PRs read first.
+
+**Live state at claim time (verified, not assumed):**
+* The deployed snapshot is `2026-10-23T20:10:00Z` (`coverage_complete`, 82 inventory / 19 upcoming /
+  17 picks / 2 unresolved) — read from
+  <https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json> at 06:28Z.
+* `pages.yml` has not completed a scheduled publish since run 40015434337 (success, ~10 h before the
+  claim). Runs 40037957529, 40048429858 and 40063011446 failed at the regression step. Reproduced
+  locally on this head: `python3 -m scripts.build` PASSes but
+  `tests/test_ca7e10e5_snapshot.py::test_the_built_executive_summary_contains_it_once` FAILS with
+  `AssertionError: 2 != 1` — the built executive summary carries `id="no-line-research"` **twice**
+  (byte offsets 81670 and 87467 in `site/index.html`), because `summary()` calls
+  `unresolved_register(compact=True)` (whose compact branch already appends
+  `no_line_research_block`) and then appends `no_line_research_block(data, prefix)` again.
+* The live Hotspawn lobby (read at 06:26Z, <https://play.hotspawn.com/lobby>) lists **25 upcoming CS2
+  cards**, six more than the deployed snapshot's 19, because the refresh has been stalled.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| S719-1 Remove the duplicate `#no-line-research` anchor so the four-hour publisher's regression step can pass (unblocks `pages.yml`); regression test in a new session file | **done, fixes reconciled** — main's `e360f4c` (PR #241, `arena-73bc57bd`) landed the same fix first while this branch was open (it drops the block from the compact register; this session's branch had guarded the `summary()` call). This branch now carries **main's implementation unchanged** and adds the regression test that pins it: `tests/test_719a314a_duplicate_anchors.py`, 6 tests including a duplicate-id scan of the whole summary | arena-719a314a | new `tests/test_719a314a_duplicate_anchors.py` |
+| S719-2 Dated live-lobby coverage audit: every upcoming Hotspawn CS2 card at 2026-10-24T06:26Z joined to the published picks, naming each card with no pick | **done** — 25 upcoming cards, 16 in the published snapshot, **9 missing** (all CCT Europe #11/#12) | arena-719a314a | new `data/research/719a314a/live-coverage-2026-10-24.{json,md}` |
+| S719-3 HLTV-first, then esportsbook research for each card with no pick, with limitations; publish flags | **done** — 5 of 9 get a two-sided Thunderpick/EGW price and a replayed no-vig probability; the 4 CCT #12 cards carry only the rejected 1.8/1.8 placeholder and stay blank with a stated limitation; 4 flags published on `/review/` | arena-719a314a | new `data/research/719a314a/flags.json`, `scripts/719a314a_live_coverage.py`, `tests/test_719a314a_live_coverage.py` |
+| S719-4 Verify executive-summary in-site links + unresolved section + phone width, PR, merge, confirm Pages deploy | **done** — PR #250 merged; see the result below | arena-719a314a | this section, PR |
+
+**Non-overlap pledge and duplicate-work disclosure.** The `#no-line-research` duplicate was also the
+subject of PR #248 (`arena/f43dc4f1`) and of `arena-73bc57bd`'s `e360f4c` (merged as PR #241 at
+~06:35Z while this branch was still working). `e360f4c` landed first, so this branch does **not**
+carry a competing build fix: it takes main's implementation verbatim and contributes only the
+regression test that pins it. No other session's `data/research/<id>/` is touched. No
+other session's `data/research/<id>/` is touched. Hotspawn "% picked" and HLTV fan votes are never
+probabilities.
+
+
+### S719 addendum — the collection path itself was dead
+
+Running the workflow's own command (`python -m unittest discover -s tests`, 1284 tests, 956 s) on this
+head surfaced **nine ERRORs that all share one cause and none of them is in a file this session
+touched**: `scripts/originate.py::live_collect` calls `egw_live.EVIDENCE_NAME` / `egw_live.INDEX_URL`
+/ `egw_live.entries_for`, but `scripts/egw_live.py` was **never imported** (PR #240 added the calls
+only), so every live collection raised `NameError: name 'egw_live' is not defined` at the
+evidence-cleanup line *before* any provider was queried. Affected on `main` at `4a6c112`:
+`tests/test_f9d0a5a2.py` (1), `tests/test_origination_upgrade.py` (6),
+`tests/test_source_integrity.py` (2). Clearing the duplicate-anchor regression alone would therefore
+**not** have restored the four-hour refresh — the collector would still have died. Main fixed it independently
+(`bdcd099`/PR #252, session `arena-dd433e7f`), so this branch carries **main's implementation
+unchanged** and adds `tests/test_719a314a_live_collect.py`, which pins the module-scope import and the
+attributes `live_collect` uses; the 81 tests in those three files pass on this head. Flag
+`719a314a-originate-egw-import-missing` published. (Two sessions finding the same blocker within the
+hour is the reason the board asks for a claim first — both fixes are recorded here rather than one
+being silently reverted.)
+
+**Merge traffic, not code, is what keeps the site stale.** Every push to `main` starts a `pages.yml`
+run in the `pages-push` concurrency group; GitHub cancels a *pending* run as soon as a newer one
+joins its group, and sessions were merging every few minutes. Observed at 08:20Z: run 40070626757
+(PR #241) and 40071009969 (PR #251) both `cancelled`, 40069088115 (PR #240) still `queued` after 33
+minutes, and no successful publish since 40015434337 (snapshot `2026-10-23T20:10Z`). Scheduled runs
+use their own `pages-schedule` group, so the next `:17` / `:47` slot should publish the first
+snapshot carrying both fixes; the deployed `/data/latest.json` `generated_at` is the way to confirm.
+
+### S719 result (2026-10-24)
+
+**Cause of the stale site, reproduced and fixed.** `python3 -m scripts.build` PASSed on `bdb4fc9`
+but `tests/test_ca7e10e5_snapshot.py::test_the_built_executive_summary_contains_it_once` failed
+`2 != 1`: `site/index.html` carried `id="no-line-research"` twice (offsets 81670 and 87467),
+because `summary()` appended `unresolved_register(..., compact=True)` — whose compact branch
+already appends `no_line_research_block` — and then appended the same block again. That failure
+sits in the publisher's *pre-collection* regression step, so every scheduled run since the
+2026-10-23T20:10Z snapshot died before collecting (runs 40037957529, 40048429858, 40063011446).
+The fix keeps the cross-session contract (`scripts/eea4c104_audit.py` requires the anchor on the
+summary) while emitting exactly one copy. Verified: targeted suites
+`test_ca7e10e5_snapshot` 15/15, `test_42bfa8ea`, `test_eea4c104_audit`, `test_3016b0c6_mobile_glance`
+36 tests OK; `scripts.build` PASS (774 audited rows, 755 with an official link, **0 without a
+source**, acceptance 9 pass / 1 info / 0 fail, 826 internal links); new suite
+`test_719a314a_duplicate_anchors` 6/6 and `test_719a314a_live_coverage` 14/14.
+
+**The actual coverage gap (dated 2026-10-24T06:26Z).** The [lobby](https://play.hotspawn.com/lobby)
+listed **25** upcoming CS2 cards; the published `2026-10-23T20:10Z` snapshot covers **16** of them
+(`/data/latest.json`, the `/picks/` rows and the saved first-party fixture evidence all agree). The
+nine absent cards are the CCT Europe 2026 Series #11/#12 fixtures — this is a *collection* gap from
+the stalled publisher, not a pick-quality gap: the published ladder already resolves 19/19 of the
+fixtures it did collect (17 money-backed + 2 researched fallbacks, 0 blank).
+
+| Fixture | Match | Start (UTC) | Research outcome |
+| --- | --- | --- | --- |
+| 1079658 | Acend–FORZE Reload | 2026-10-24T08:00Z | Thunderpick 2.87/1.35 via EGamersWorld → no-vig 32.0/68.0, pick **FORZE Reload** |
+| 1079659 | Spirit Academy–Lavked | 2026-10-24T11:00Z | 1.49/2.45 → 62.2/37.8, pick **Spirit Academy** |
+| 1079660 | INOX Division–BRUTE | 2026-10-24T14:00Z | 1.76/1.94 → 52.4/47.6, pick **INOX Division** |
+| 1079661 | Nuclear TigeRES–ex-Zero Tenacity | 2026-10-24T17:00Z | 1.45/2.51 → 63.4/36.6, pick **Nuclear TigeRES** |
+| 1081152 | HAVU–Azuolas | 2026-10-24T11:00Z | **blank** — EGW shows the rejected 1.8/1.8 placeholder; HLTV confirms BO3, no odds |
+| 1081153 | Saint Sinners–6yuBoJlbl | 2026-10-24T14:00Z | **blank** — same placeholder |
+| 1081154 | BakS–ILLYRIANS | 2026-10-24T17:00Z | **blank** — same placeholder |
+| 1081156 | Spirit Academy–LFO 10 | 2026-10-25T12:00Z | **blank** — same placeholder |
+| 1081158 | FORZE Reload–ex-RUSTEC | 2026-10-25T18:00Z | **blank** — same placeholder |
+
+Evidence and arithmetic are replayed, not transcribed: `scripts/719a314a_live_coverage.py`
+recomputes every percentage from the stored decimal pair, re-derives the pick, re-checks each UTC
+start against the lobby label plus the documented +4 h lobby-clock offset, and fails closed on a
+tampered number or a silent blank (`tests/test_719a314a_live_coverage.py`, 14 tests).
+
+**Clock finding.** The lobby clock is UTC−4 in this observation: all **16** cards whose first-party
+fixture-API epoch was readable agree exactly with lobby time + 4 h (16/16), e.g. 1079193 shows
+`Oct 24, 04:00` with epoch `1792828800000` = `2026-10-24T08:00:00Z`; the Hotspawn match page for
+1081152 prints 11:00 and HLTV's CCT 2026 Europe Series 12 page prints 13:00 (Europe/Malta UTC+2
+before 2026-10-25). Published starts therefore always come from the fixture-API epoch.
+
+**Published on Flagged for Review** (`/review/`, all four verified in the built HTML):
+`719a314a-publisher-duplicate-anchor`, `719a314a-nine-cct-cards-never-collected`,
+`719a314a-cct12-placeholder-not-a-market`, `719a314a-lobby-clock-is-not-utc`. Dossier:
+`data/research/719a314a/live-coverage-2026-10-24.{json,md}`, copied into the build at
+`/data/research/719a314a/`.
+
+**Irregularities / limitations stated, not hidden.** (1) The EGamersWorld prices are an
+aggregator's display of a Thunderpick board, not a first-party bookmaker API response, so the
+automated ladder must replay them before either card becomes a market pick; each record carries
+that caveat. (2) The four CCT #12 cards have no compliant price and stay blank — a blank is never
+replaced with 50/50, a Hotspawn "% picked" figure or an HLTV fan vote. (3) Overlap with PR #248
+(`arena/f43dc4f1`, same duplicate-anchor subject, unmerged and >60 min idle) is disclosed above.
+
+
+# Current session: arena-73bc57bd — every live Hotspawn CS2 card vs the published picks, HLTV-first + esportsbook research for the uncovered ones, published review register — IN PROGRESS
+
+Claimed **2026-10-24T05:33Z** (claim commit 84459e8) on Arena's fixed branch `arena/73bc57bd-maltaproj3`, based on `main` at `2f966a91` (= current `origin/main` head). Board, open PRs and the Actions run history were read first.
+
+**Live findings at claim time (all first-hand, timestamps in the dossier).** The published snapshot is `2026-10-23T20:10:00Z` (19 upcoming, 17 featured picks, 2 featured-unresolved, `run_status: partial-picks`). The live Hotspawn CS2 Pick'ems lobby read at **05:31Z** renders **25 future cards**; **9 of them have no row and therefore no pick on the published site** (all CCT Europe 2026 Series #11/#12). The cause is not a missing source: the scheduled publisher has failed **four consecutive runs** (40028653350, 40037957529, 40048429858, and the latest 40063011446) at `Regression tests`, so no fresh collection has been published since 2026-10-23T19:57Z. Five of the nine uncovered fixtures already carry a real two-sided external price today (Polymarket and/or Thunderpick via the EGamersWorld aggregate); the other four show only placeholder books (identical `1.8/1.8` on EGamersWorld, both sides ≥93¢ on Polymarket).
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 73B-1 Dated, source-linked reconciliation of the live lobby (25 future cards, read 05:31Z) against the published pick rows (19, read from the deployed branch root), naming every uncovered fixture with its first-party Hotspawn permalink, tournament and lobby time exactly as rendered (US Eastern, never converted) — no inferred values, published as JSON + Markdown dossier | **done** — see 73B result | arena-73bc57bd | new `data/research/73bc57bd/**`, this section |
+| 73B-2 HLTV-first, then esportsbook research for the 9 uncovered fixtures: HLTV identity/format, then Polymarket and EGamersWorld (Thunderpick) two-sided prices copied verbatim with the read timestamp; anything unavailable stays blank with the limitation named. **No probability, pick or alias is written by hand** | **done** — 4 two-sided, 5 placeholder-only, 1 name conflict | arena-73bc57bd | new `data/research/73bc57bd/**` |
+| 73B-3 Publish the irregularities (frozen publisher, uncovered cards, no-liquidity/placeholder books, provider name conflict Spirit Academy–LFO 10 vs Sökerorg) on the Flagged for Review page via a session review register | **done** — 10 items render on `/review/` | arena-73bc57bd | `scripts/review_register.py` (append one path), new `data/research/73bc57bd/repo-review.json` |
+| 73B-4 Unit-verify the dossier (every gap row has an https Hotspawn link, arithmetic reproduces, no invented probability, register validates), rebuild the site locally, PR to `main`, merge, confirm Pages | in progress — 25 tests OK, build PASS; PR #241 open | arena-73bc57bd | new `tests/test_73bc57bd_*.py`, this section |
+
+**Non-overlap pledge.** No edit to `scripts/build.py`, `scripts/collect.py`, `scripts/originate.py`, `scripts/root_publish.py`, `assets/*`, `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `tests/test_ca7e10e5_snapshot.py`, `.github/workflows/pages.yml`, `archive/`, `docs/`, or another session's `data/research/<id>/`.
+
+**Live claims respected.** At 05:25-05:40Z four other sessions claimed overlapping scopes: `arena-43110640` (S431-1 `tests/test_ca7e10e5_snapshot.py`, S431-2 `scripts/egw_live.py` + `scripts/reference_odds.py` + `scripts/originate.py`, S431-3 research), `arena-be019782` (BE-1 the same regression test, BE-3 `scripts/build.py` + `scripts/validate.py`), `arena-89c00d8a` (89C-1 lobby reconciliation research, 89C-2 `scripts/build.py` + `assets/scout.css`) and `arena-f1277d3b` (F127-1 the same test, F127-3 summary/mobile). None are stale, so this session does **not** touch the publisher test or the summary builders; it takes only the new-file scope above plus the one-line register wiring that nobody claimed. If the publisher is still red at integration time and those claims are >60 minutes idle, this section will record a takeover before any edit.
+
+**Verification already performed for this claim (read-only).** `gh run list --workflow=pages.yml` (4 failures, last success 40015434337 at 19:57:15Z); live `picks/index.html` in the branch root → 19 `match-<id>` anchors; live `play.hotspawn.com/cs2-pickems` → 25 future cards; `www.hltv.org/matches?date=20261024` → HLTV match pages 2399335 (Acend–FORZE Reload, CCT 2026 Europe Series 11, Quarterfinal, bo3), 2399336 (Spirit Academy–Lavked, same event, bo3), 2399502 (HAVU–Azuolas, CCT 2026 Europe Series 12, bo3); `polymarket.com/esports/cs2/cct-europe` and the two EGamersWorld CCT event pages → the prices recorded in 73B-2.
+
+### 73B result — what was read, what was found, and what was published (2026-10-24)
+
+**Target set, read first-hand.** The live lobby read at **05:31Z** renders **25 future cards** (`All tiers (89)` inside `218 matches this week`). The published site serves **19 pick rows** from snapshot **2026-10-23T20:10:00Z** (`run_status: partial-picks`). Joining them (reproducible: `python -m scripts.73bc57bd_reconcile`, which parses the deployed `picks/index.html` and the committed observation file) gives **16 covered / 9 uncovered / 3 published rows no longer in the future lobby** (1083025, 1082923, 1083045 — all past start, kept with their original values and the `Past start · status unverified` label).
+
+**Root cause of the 9 uncovered cards, with the primary sources.** The scheduled publisher has failed four consecutive runs — 40028653350 (21:41Z), 40037957529 (23:08Z), 40048429858 (01:08Z), 40063011446 (04:36Z) — while the last success was 40015434337 at **2026-10-23T19:57:15Z**. `gh run view 40063011446` names the failing job/step: `verify-and-deploy` → *Regression tests (repository fixtures, before any cache restore)*; no collect, build or deploy step ran. Reproduced on this machine (05:49Z) with `.venv/bin/python -m unittest tests.test_ca7e10e5_snapshot -v` → **FAILED (failures=1, errors=3)**: three `PublishRefused: snapshot 2026-10-23T09:23:57+00:00 is 20.2h old (limit 12.0h)` errors and one `AssertionError: 2 != 1` for the duplicated `id="no-line-research"`. The production freshness guard is correct; the test fixture is time-bombed, and the summary emits the dated block twice.
+
+**Line evidence for the 9 uncovered cards (HLTV first, then esportsbooks).** HLTV match pages were read for Acend–FORZE Reload (2399335, CCT 2026 Europe Series 11 Quarterfinal, bo3), Spirit Academy–Lavked (2399336, same event/stage) and HAVU–Azuolas (2399502, Series 12, bo3); HLTV carries no usable price. Esportsbooks/exchanges: **4 cards already have a real two-sided price** — Acend–FORZE Reload (Polymarket 31¢/70¢ on $80.96 volume; EGamersWorld block labelled *by Thunderpick* 2.87/1.35), Spirit Academy–Lavked (67¢/35¢ on $20.30; 1.49/2.45), INOX Division–BRUTE (EGamersWorld 1.76/1.94; Polymarket 61¢/56¢ on $0.00 volume), Nuclear TigeRES–ex-Zero Tenacity (EGamersWorld 1.44/2.5; Polymarket 67¢/43¢). **5 cards show only placeholder books** and are correctly unpriced: identical `1.8/1.8` on EGamersWorld for HAVU–Azuolas, Saint Sinners–6yuBoJlbl, BakS–ILLYRIANS, Spirit Academy–LFO 10 and FORZE Reload–ex-RUSTEC; Polymarket 93–95¢ on both sides (sums 187, 189, 165) on $0.00 volume. **One identity conflict is flagged, not aliased**: Hotspawn says `LFO 10`, Polymarket says `Sökerorg` for the same 25 Oct slot, and EGamersWorld renders the opponent blank.
+
+**Published-pick cross-check (one row, stated as one row).** FOKUS–ex-6666 is published at 76.5/23.5 (fair decimal 1.307/4.255, price read 2026-10-23T20:09:50Z). Two independent sources read 7.5 h later bracket it: Polymarket 79¢/22¢ and Thunderpick via EGamersWorld 1.23/3.83 → 75.7/24.3 no-vig. Pick unchanged; drift of ≈2.5 points. The other 18 rows were not re-priced in this session and that limit is stated in the dossier.
+
+**Phone check, measured with the repository's own browser.** Playwright against the local `site/` build (fixture: 17 rows) at 320×800 and 390×800: **0 px horizontal overflow on `/`, `/picks/`, `/unresolved/` and `/review/`**; the summary exposes **50 in-site pick links** and its first pick row starts 1,146 px (320) / 1,006 px (390) down; `/picks/` puts its first row 2,837 px (320) / 2,643 px (390) down; `/review/` is **247,024 px (320) / 208,766 px (390)** tall because every session register is rendered in declaration order; one nav target measures 17 px on its smaller side. `summary_navigation` + `phone_summary_17d77cb3` browser specs pass locally (9 passed).
+
+**What was published.** `data/research/73bc57bd/` — `observations-2026-10-24.json` (every card, every observation with URL + read time, the run history, the local reproduction), `inventory-reconciliation-2026-10-24.{json,md}` (generated by `scripts/73bc57bd_reconcile.py`), and `repo-review.json` (10 items) which renders on `/review/` as `#session-review-12`. `tests/test_73bc57bd_reconciliation.py` (25 tests) re-derives the arithmetic, requires a Hotspawn permalink per card and an allow-listed https source per observation, checks that no probability/pick field exists, that published confidences are restated rather than invented, and that the register validates and renders. Local `scripts.build`: **PASS** — 777 rows, 758 with an official link, **0 without a source**, 9 flagged unverified, acceptance 9 pass / 1 info / 0 fail, **830 internal links** OK.
+
+### 73B takeover note — the duplicate id that kept main red (06:28Z)
+
+The executive summary emitted `id="no-line-research"` twice, so `tests/test_ca7e10e5_snapshot.py` failed with `2 != 1` and **no PR on this repository could be green**. Run 40063011446 failed on exactly that step, as did the three scheduled runs before it; PR #240 (merged 06:10Z as `bdb4fc92`) cleared only the three wall-clock `PublishRefused` errors, and PR #237 (`arena-be019782`, the owner of this fix) went CONFLICTING when #240 landed. The live site has therefore served the 2026-10-23T20:10Z snapshot for more than ten hours while the lobby fills with new cards.
+
+Per the brief's *"If the build, a check, or the deploy fails, fix the problem and retry until the site is live"*, and because a red `main` means the four-hour refresh cannot publish at all, this session applied the **minimal, non-destructive** fix inside its own PR: the compact register stopped emitting the dated block a second time (`scripts/build.py`, one call plus its comment), so `summary()` renders it exactly once and `/unresolved/` keeps its own copy. No other line of `scripts/build.py` was touched, nothing in `arena-be019782`'s branch was reverted, and their fuller change set can still merge after a rebase. This is logged as a handoff, not as a silent grab of their scope; my own register item `73bc57bd-duplicate-no-line-research-id` was moved from *needs review* to *fixed* with the same text.
+
+Verified after the change: `site/index.html` and `site/unresolved/index.html` each contain exactly one `id="no-line-research"` (and one `id="no-line-register"`); `scripts.build` PASS (780 audited rows, 0 without a source, acceptance 9 pass / 1 info / 0 fail, 827 internal links); `tests.test_ca7e10e5_snapshot`, `test_eea4c104_audit`, `test_42bfa8ea`, `test_3016b0c6_mobile_glance`, `test_73bc57bd_reconciliation`, `test_review_register`, `test_current_research_summary` → **76 tests OK**.
+
+**Cross-session note.** Four sessions were live on the same blockers while this one ran (arena-43110640, arena-be019782, arena-89c00d8a, arena-f1277d3b). This session deliberately edited none of their files; the two defects above are reported with their run ids instead. No probability, pick or alias was written by hand anywhere in this PR.
+
+
 # Current session: arena-dd433e7f — restore 4-hour scheduled publisher + fix `originate.py` `egw_live` NameError, live 2026-10-24 Hotspawn CS2 31/31 origination sweep, HLTV-first research, scoped Valve aliases & mobile/WCAG audit — DONE (PR #252)
 
 Claimed **2026-10-24T05:33Z** on Arena's fixed session branch `arena/dd433e7f-maltaproj3`, branched from `origin/main` at `2f966a9` (`2f966a91a103398c4ae5513828c81e32897f8af8`). Read `COORDINATION.md`, all open PRs (`#229`, `#227`, `#225`, `#224`, `#165`, `#139` — all last updated on `2026-10-23`, >14 hours idle), and recent workflow runs on `main` before claiming. Per the >60-minute stale-claim handoff rule on `main`, this session took over the broken regression test `tests/test_ca7e10e5_snapshot.py` and duplicate `#no-line-research` DOM ID, and during final `origin/main` integration also caught and fixed a fatal `NameError: name 'egw_live' is not defined` + missing `egw_live.load_live(evidence_dir)` wiring left in `scripts/originate.py` by completed session `arena-43110640` (PR #240, unclaimed on `main`).
