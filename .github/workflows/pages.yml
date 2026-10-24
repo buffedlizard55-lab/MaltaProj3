@@ -178,8 +178,9 @@ jobs:
   verify-and-deploy:
     needs: [republish-last-verified]
     # Runs even when the fast republish failed: a broken helper must never stop
-    # the fresh, fully validated snapshot from being published.
-    if: always() && github.ref == 'refs/heads/main' && (!(startsWith(github.event.head_commit.message, 'recovery:') || github.event.schedule == '47 2-22/4 * * *') || needs['republish-last-verified'].outputs.queue_safe == 'true')
+    # the fresh, fully validated snapshot from being published. An intentional
+    # workflow cancellation must still stop this job, unlike bare always().
+    if: always() && !cancelled() && github.ref == 'refs/heads/main' && (!(startsWith(github.event.head_commit.message, 'recovery:') || github.event.schedule == '47 2-22/4 * * *') || needs['republish-last-verified'].outputs.queue_safe == 'true')
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
