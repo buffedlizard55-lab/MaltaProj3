@@ -188,6 +188,10 @@ class TheLadderPublishesThePick(unittest.TestCase):
         return tmp
 
     def test_the_capture_becomes_a_published_pick(self):
+        # Pin the reference clock to the capture's own observation time: the 8 h
+        # freshness gate is a wall-clock rule, so leaving `now` implicit made
+        # this assertion expire eight hours after the dated fixture (the class
+        # of failure that stalled the publisher on 2026-10-23/24).
         payload = originate.run(self.data_dir(), live=False, now=NOW)
         row = payload['matches'][0]
         quote = row['origination']
