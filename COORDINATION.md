@@ -1,6 +1,6 @@
 # Current session: arena-73bc57bd — every live Hotspawn CS2 card vs the published picks, HLTV-first + esportsbook research for the uncovered ones, published review register — IN PROGRESS
 
-Claimed **2026-10-24T05:50Z** on Arena's fixed branch `arena/73bc57bd-maltaproj3`, based on `main` at `2f966a91` (= current `origin/main` head). Board, open PRs and the Actions run history were read first.
+Claimed **2026-10-24T05:33Z** (claim commit 84459e8) on Arena's fixed branch `arena/73bc57bd-maltaproj3`, based on `main` at `2f966a91` (= current `origin/main` head). Board, open PRs and the Actions run history were read first.
 
 **Live findings at claim time (all first-hand, timestamps in the dossier).** The published snapshot is `2026-10-23T20:10:00Z` (19 upcoming, 17 featured picks, 2 featured-unresolved, `run_status: partial-picks`). The live Hotspawn CS2 Pick'ems lobby read at **05:31Z** renders **25 future cards**; **9 of them have no row and therefore no pick on the published site** (all CCT Europe 2026 Series #11/#12). The cause is not a missing source: the scheduled publisher has failed **four consecutive runs** (40028653350, 40037957529, 40048429858, and the latest 40063011446) at `Regression tests`, so no fresh collection has been published since 2026-10-23T19:57Z. Five of the nine uncovered fixtures already carry a real two-sided external price today (Polymarket and/or Thunderpick via the EGamersWorld aggregate); the other four show only placeholder books (identical `1.8/1.8` on EGamersWorld, both sides ≥93¢ on Polymarket).
 
