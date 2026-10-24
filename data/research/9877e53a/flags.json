@@ -1,0 +1,14 @@
+[
+  {
+    "id": "9877e53a-independent-verification-scope",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "24 October acceptance: scheduled deploy verified by GitHub; local fixture counts are historical, not live coverage",
+    "detail": "At 16:22Z the local build passed 836 internal links, row-source audit (907 rows; zero sourceless), 9 rendered acceptance checks and 32 summary/navigation tests. Its input snapshot is 2026-10-15T08:36:13Z: local counts must not be represented as current Hotspawn coverage. GitHub reports scheduled publisher 40101099651 successful, including both public-site verification steps, and deployment 7299921850 successful at 14:29:23Z. This sandbox cannot independently fetch the live site, Hotspawn, HLTV or betting providers, or download the Azure-hosted artifact, due to egress restrictions. Current match counts and prices were therefore not independently verified here; none were inserted or inferred. Full scope and saved API evidence: data/research/9877e53a/README.md.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40101099651",
+      "https://api.github.com/repos/buffedlizard55-lab/MaltaProj3/deployments/7299921850/statuses",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/9877e53a-maltaproj3/data/research/9877e53a/README.md"
+    ]
+  }
+]
