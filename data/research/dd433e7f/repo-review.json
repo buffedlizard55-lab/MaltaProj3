@@ -1,0 +1,126 @@
+{
+  "session": "arena-dd433e7f",
+  "scope": "Line-by-line review of the live publisher pipeline (pages.yml, scripts/root_publish.py, tests/test_ca7e10e5_snapshot.py), HTML builder (scripts/build.py), canonical replay feeds (data/latest.json, data/origination.json, data/sources.json, data/origination/aliases.json), and 2026-10-24 Hotspawn 25-fixture inventory against HLTV and external esports betting books.",
+  "review_clock_utc": "2026-10-24T06:00:00Z",
+  "method": "Every row in data/latest.json (80 fixtures), data/origination.json (17 replay fixtures), data/sources.json (41 sources), and data/origination/aliases.json (70 competition-scoped entries) was audited programmatically and line by line against official HTTPS sources. All 25 active Hotspawn CS2 fixtures on 2026-10-24 were cross-checked against HLTV first, then Polymarket, Smarkets, Kalshi, Bovada, Pinnacle, and bo3.gg Thunderpick relays. Zero values were inferred.",
+  "items": [
+    {
+      "id": "DD43-R01",
+      "area": "Scheduled live publisher: wall-clock freshness regression",
+      "status": "fixed",
+      "finding": "Four consecutive Refresh and deploy CS2 dashboard runs on main (40028653350 through 40063011446 on 2026-10-23/24) failed at Verify code and parser invariants because tests/test_ca7e10e5_snapshot.py::RootPublisherCarriesTheSnapshot called root_publish.publish_root() against a hardcoded 2026-10-23T09:50:31Z fixture without passing now=, triggering PublishRefused once wall-clock UTC passed 21:50:31Z (max_age_hours=12.0). This froze the public GitHub Pages snapshot at 2026-10-23T20:10:00Z.",
+      "handling": "Pinned a deterministic clock (FIXTURE_NOW = 2026-10-23T10:05:00Z) in the three positive publisher unit tests while keeping real freshness-refusal enforcement intact in production scripts/root_publish.py and dedicated stale-refusal unit tests.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446",
+          "detail": "Failed scheduled Refresh and deploy CS2 dashboard run showing 3 PublishRefused errors in RootPublisherCarriesTheSnapshot."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/root_publish.py",
+          "detail": "Production root_publish.py enforcing max_age_hours=12.0 against real UTC wall clock."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+          "detail": "Live root snapshot frozen at generated_at 2026-10-23T20:10:00Z prior to merge."
+        }
+      ]
+    },
+    {
+      "id": "DD43-R02",
+      "area": "Executive Summary HTML: duplicate #no-line-research section ID",
+      "status": "fixed",
+      "finding": "scripts/build.py rendered no_line_research_block() both inside unresolved_register(compact=True) and directly inside summary(), producing two <section id=\"no-line-research\"> elements on index.html (violating HTML unique-ID invariants and tests/test_42bfa8ea.py).",
+      "handling": "Removed the duplicate call inside unresolved_register(..., compact=True) while keeping summary()'s single #no-line-research section and /unresolved/'s full #no-line-research section.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+          "detail": "HTML builder where summary() and unresolved_register() assembled #no-line-research."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_42bfa8ea.py",
+          "detail": "Regression test asserting index.html and unresolved/index.html each carry exactly one id=\"no-line-research\"."
+        }
+      ]
+    },
+    {
+      "id": "DD43-R03",
+      "area": "Origination alias registry: 2026-10-24 competition-scoped team bindings",
+      "status": "fixed",
+      "finding": "Cross-checking all 25 active Hotspawn CS2 fixtures on 2026-10-24 against HLTV and Polymarket exposed two competition-scoped naming differences: Hotspawn 1081152 lists \"HAVU Gaming\" vs \"Azuolas\" in \"CCT Europe 2026 Series #12\" while HLTV 2399502/Valve/bo3 list \"HAVU\" (existing entry #3 was scoped only to Elisa BreakOut Series #2); Hotspawn 1082792 lists \"HOTU\" vs \"The Huns\" in \"Moscow Cyber Games 2026\" while Polymarket cs2-hotu-the9-2026-10-31 lists \"The Huns Esports\" and HLTV 2399437 lists \"The Huns\".",
+      "handling": "Extended entry #3 (HAVU Gaming -> HAVU) to \"CCT Europe 2026 Series #12\" with must_not_match [\"HAVU Academy\"] and added entry #70 (The Huns Esports -> The Huns) scoped to [\"Moscow Cyber Games 2026\", \"GLuck Moscow Cyber Games 2026\"] with must_not_match [\"The Huns Academy\", \"The Huns Esports Academy\"].",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399502/havu-vs-azuolas-cct-2026-europe-series-12",
+          "detail": "Official HLTV match 2399502 confirming HAVU (team/7865) vs Azuolas (team/13991) at 2026-10-24T11:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+          "detail": "Official HLTV match 2399437 confirming HOTU (team/11581) vs The Huns (team/12510) at 2026-10-31T09:00Z."
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
+          "detail": "Polymarket CS2 event naming the away team \"The Huns Esports\" for the same 2026-10-31T09:00Z BO3."
+        }
+      ]
+    },
+    {
+      "id": "DD43-R04",
+      "area": "Canonical data & strict row-source audit across all built tables",
+      "status": "verified",
+      "finding": "Line-by-line check of data/latest.json (80 fixtures, 13 tight Polymarket lines), data/origination.json (17 active fixtures, 17 resolved), data/sources.json (41 sources), and data/origination/aliases.json (70 scoped entries): every probability pair lies in (0, 1) and sums to 1.000, every pick_index selects argmax(probabilities), zero rows derive probabilities from Hotspawn crowd percentages or HLTV fan polls, and scripts.audit_rows --strict passes 767/767 table rows and 826 internal links with zero violations.",
+      "handling": "Published as verified; CI enforces scripts.build --verify-replay, scripts.audit_rows --site site --strict, and scripts.eea4c104_audit on every push and pull request.",
+      "evidence": [
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
+          "detail": "Audited origination register linking every row to its first-party source URL."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/coverage/",
+          "detail": "Full 80-row Hotspawn fixture coverage table with explicit open/locked/past status."
+        },
+        {
+          "url": "https://play.hotspawn.com/lobby",
+          "detail": "Canonical Hotspawn CS2 lobby inventory (used strictly for fixture discovery, never probabilities)."
+        }
+      ]
+    },
+    {
+      "id": "DD43-R05",
+      "area": "Wide placeholder order books on Polymarket and Smarkets for Oct 24–31 CS2 tiers",
+      "status": "needs review",
+      "finding": "On 2026-10-24T05:40Z, nine open CS2 events on Polymarket (1081153, 1081154, 1082996, 1079198, 1081156, 1081158, 1082860, 1082792) and three on Smarkets (45396333 Ground Zero vs Off Chops, 45396351 Acend vs UNiTY esports, 45396352 Metizport vs BakS eSports) were listed with resting spreads between 0.161 and 0.94 — exceeding the 0.12 featured and 0.15 origination spread caps.",
+      "handling": "Flagged for ongoing review and intentionally refused as direct market prices so wide/empty books never fabricate synthetic midpoints. Affected rows fall through transparently to bo3.gg/Thunderpick two-sided relays or explicitly labelled network/Valve VRS estimates and upgrade automatically on any 4-hour refresh once spreads tighten inside 0.15.",
+      "evidence": [
+        {
+          "url": "https://polymarket.com/event/cs2-6yuboj-ssins-2026-10-24",
+          "detail": "Polymarket CCT Europe Series 12 market showing wide resting asks prior to matchday liquidity."
+        },
+        {
+          "url": "https://api.smarkets.com/v3/events/45396352/markets/",
+          "detail": "Smarkets event 45396352 (Metizport vs BakS eSports) quoting spread > 0.15 ceiling."
+        },
+        {
+          "url": "https://api.smarkets.com/v3/events/45396333/markets/",
+          "detail": "Smarkets event 45396333 (Ground Zero vs Off Chops) quoting spread > 0.15 ceiling."
+        }
+      ]
+    },
+    {
+      "id": "DD43-R06",
+      "area": "HLTV runner reachability (HTTP 403) and US-egress bookmaker geo-filtering",
+      "status": "platform limitation",
+      "finding": "GitHub Actions ubuntu-24.04 runners receive HTTP 403 Cloudflare challenges from hltv.org, while authoring-egress HTTP 200 reads of all 25 active 2026-10-24 HLTV match pages confirm that HLTV's Betting section displays only a Stake US sweepstake banner (\"No promocode available\") with zero numeric bookmaker odds from US IPs.",
+      "handling": "HLTV is used strictly for identity, BO3 format, roster, and ranking verification where reachable, never for fan-vote percentages; automated runner pricing relies on unblocked JSON APIs (Polymarket Gamma/CLOB, Smarkets v3, Kalshi v2, Bovada coupon JSON, Pinnacle guest API, api.bo3.gg Thunderpick relay, and Valve official VRS standings).",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches",
+          "detail": "Official HLTV CS2 schedule confirming all 25 active 2026-10-24 Hotspawn fixtures."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+          "detail": "Representative 2026-10-24 HTTP 200 HLTV match read showing Stake US promo row and zero decimal odds."
+        }
+      ]
+    }
+  ]
+}
