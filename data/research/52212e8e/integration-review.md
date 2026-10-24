@@ -11,3 +11,7 @@ The 719 file has **9** missing cards: **4** with reference lines and **5** witho
 
 - **PR #238 `6d55f34a`:** independent S522 archive run passed **84 targeted tests (2 skipped)** and build/replay (**825 rows / 0 sourceless / 833 links / acceptance 9 pass, 1 info, 0 fail**). The strict EGW tests survive, but the PR is conflicted and both Thunderpick admission and `domain.no_vig` still reject only `<=1`; this is not a final merge candidate.
 - **CD37 `730561f9`:** the owner reports a disposable `>1.01` prototype producing **25/25 picks, 14 external-line + 11 research-model**, with `1082860` rerunning to the existing HLTV ranking model at **52.300959% / 47.699041%** and explicit unranked-floor limitation. It also reports 166+32 unit tests and 117/117 browser passes. S522 did not rerun that prototype; it is not live collection, merge, or deployment evidence. The real head still needs the boundary and a fresh featured collection.
+
+## S522-TESTDEP-001 — merge-blocking missing test dependency
+
+Main `06f56c2b` and PR #237 `0baf556d` both fail `tests.test_b97af12f_reconciliation` at import with `ModuleNotFoundError: pytest`; the workflows install only a requirements file that does not declare it. Reported to #237 and #267. With pytest installed only in the ignored local virtualenv, #237 `0baf556d` passed **85 targeted tests (2 skips)** and built **831 rows / 0 sourceless / 829 links**. That local workaround is not a runner fix and does not clear final integration.

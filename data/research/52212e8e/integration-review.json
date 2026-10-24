@@ -319,6 +319,22 @@
         "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237#issuecomment-6381343307",
         "https://github.com/buffedlizard55-lab/MaltaProj3/blob/730561f99a081ed71eb979e48f9bfae281a53575/data/research/cd37caa0/combined-prototype.md"
       ]
+    },
+    {
+      "id": "S522-TESTDEP-001",
+      "severity": "error",
+      "pr": 267,
+      "head": "06f56c2b61a1cfe4c42d6453c0ad38943af30a7f",
+      "finding": "B97's reconciliation suite imports pytest but runner dependencies do not declare it, so unittest discovery fails before the suite can pass.",
+      "verification": "Single-module reproduction on main: 1 import error, exit 1. Same on PR #237 0baf556d; wider initial run had 86 tests, 1 import error, 2 skips. After installing pytest 9.1.1 only in S522's ignored local virtualenv, the exact 0baf tree passed 85 targeted tests (2 skips) and build/replay (831 rows / 0 sourceless / 829 links / acceptance 9 pass, 1 info, 0 fail).",
+      "handling": "Reported to active #237 and B97/#267; no owned test, requirements, or workflow file edited. Final integration must either inherit a unittest-only suite or declare/install pytest for every affected runner. A local package install is not acceptance evidence.",
+      "source_urls": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/06f56c2b61a1cfe4c42d6453c0ad38943af30a7f/tests/test_b97af12f_reconciliation.py",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/06f56c2b61a1cfe4c42d6453c0ad38943af30a7f/requirements.txt",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/06f56c2b61a1cfe4c42d6453c0ad38943af30a7f/.github/workflows/pages.yml",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237#issuecomment-6381438998",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/pull/267#issuecomment-6381439193"
+      ]
     }
   ],
   "probability_policy": "No pick, probability, alias or source value was hand-written. Hotspawn community selection share and EGW/HLTV fan votes were excluded.",

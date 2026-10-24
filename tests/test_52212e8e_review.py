@@ -154,6 +154,36 @@ class ReviewDossierTests(unittest.TestCase):
         self.assertIn("52212e8e-719-count-consistency",
                       {flag["id"] for flag in flags})
 
+    def test_inherited_pytest_suite_must_declare_the_runner_dependency(self):
+        suite = ROOT / "tests" / "test_b97af12f_reconciliation.py"
+        if not suite.is_file() or "import pytest" not in suite.read_text(encoding="utf-8"):
+            return  # The suite was not inherited, or its owner made it unittest-only.
+        requirements = (ROOT / "requirements.txt").read_text(encoding="utf-8").lower()
+        declared = any(line.strip().startswith("pytest")
+                       for line in requirements.splitlines())
+        workflow_installs = []
+        for name in ("pages.yml", "checks.yml", "origination.yml"):
+            text = (ROOT / ".github" / "workflows" / name).read_text(encoding="utf-8")
+            workflow_installs.append(any(
+                "pip install" in line and "pytest" in line
+                for line in text.splitlines()))
+        self.assertTrue(
+            declared or all(workflow_installs),
+            "B97 imports pytest, but the Pages/checks/origination runners do not install it")
+
+    def test_dependency_blocker_and_local_workaround_are_not_conflated(self):
+        flags = load("flags.json")
+        flag = next(item for item in flags
+                    if item["id"] == "52212e8e-b97-pytest-dependency")
+        self.assertEqual(flag["severity"], "error")
+        self.assertIn("broken-check/deploy blocker", flag["detail"])
+        self.assertIn("does not fix GitHub runners", flag["detail"])
+        report = load("integration-review.json")
+        finding = next(item for item in report["integration_findings"]
+                       if item["id"] == "S522-TESTDEP-001")
+        self.assertIn("85 targeted tests", finding["verification"])
+        self.assertIn("ignored local virtualenv", finding["verification"])
+
     def test_markdown_keeps_the_acceptance_qualification_visible(self):
         replay = (DOSSIER / "fresh-25-replay.md").read_text(encoding="utf-8")
         verification = (DOSSIER / "verification.md").read_text(encoding="utf-8")

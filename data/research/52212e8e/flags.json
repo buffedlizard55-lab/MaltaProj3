@@ -219,5 +219,19 @@
       "https://egamersworld.com/counterstrike/event/cct-europe-2026-series-11-_rW8GEyWK",
       "https://egamersworld.com/counterstrike/event/cct-europe-2026-series-12-HiXMAaC8L"
     ]
+  },
+  {
+    "id": "52212e8e-b97-pytest-dependency",
+    "severity": "error",
+    "title": "B97 reconciliation test breaks unittest discovery unless pytest is declared",
+    "detail": "Reproduced on main 06f56c2b and PR #237 0baf556d: python -m unittest tests.test_b97af12f_reconciliation exits 1 with ModuleNotFoundError: No module named pytest. requirements.txt contains only beautifulsoup4/requests, while pages.yml, checks.yml and origination.yml install only that file. This is a broken-check/deploy blocker, not a skip. Reported to #237 at comment 6381438998 and B97/#267 at comment 6381439193. Installing pytest in S522's ignored local virtualenv allowed the remaining 85 targeted tests (2 skips) and build to pass, but does not fix GitHub runners.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/06f56c2b61a1cfe4c42d6453c0ad38943af30a7f/tests/test_b97af12f_reconciliation.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/06f56c2b61a1cfe4c42d6453c0ad38943af30a7f/requirements.txt",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/06f56c2b61a1cfe4c42d6453c0ad38943af30a7f/.github/workflows/pages.yml",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/237#issuecomment-6381438998",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/267#issuecomment-6381439193"
+    ]
   }
 ]
