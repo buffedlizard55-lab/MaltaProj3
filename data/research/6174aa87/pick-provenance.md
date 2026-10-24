@@ -1,6 +1,6 @@
 # Pick provenance sweep — session arena-6174aa87
 
-Observed **2026-10-24T16:59:13Z** — a dated, first-hand re-read of every source each published pick cites. The workflow run that produced it is linked from the review page.
+Observed **2026-10-24T17:15:31Z** — a dated, first-hand re-read of every source each published pick cites. The workflow run that produced it is linked from the review page.
 
 Reading guide: *verified* means every cited URL answered and at least one of them named both teams (or contained the exact event id the ladder bound). It does **not** mean the pick is correct, and it adds no probability. *needs-review* rows are listed with the exact reason so they can be checked by hand.
 
@@ -32,9 +32,9 @@ Reading guide: *verified* means every cited URL answered and at least one of the
 | Item | Value |
 | - | - |
 | Hotspawn fixture feed | read |
-| Rows in Hotspawn’s scheduled-fixture API | 83 |
-| Future fixtures in that feed | 22 |
-| Records in the published inventory | 83 |
+| Rows in Hotspawn’s scheduled-fixture API | 81 |
+| Future fixtures in that feed | 20 |
+| Records in the published inventory | 81 |
 | Future feed fixtures missing from the inventory | 0 |
 
 ## Citations re-read
