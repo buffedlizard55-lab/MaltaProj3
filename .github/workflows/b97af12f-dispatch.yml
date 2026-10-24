@@ -22,7 +22,9 @@ concurrency:
 jobs:
   dispatch:
     if: "!startsWith(github.event.head_commit.message, 'research(b97af12f)')"
-    runs-on: ubuntu-24.04
+    # Ubuntu runners are saturated by parallel session workflows on 2026-10-24;
+    # a macOS runner has a separate pool and this job only needs `gh` + bash.
+    runs-on: macos-14
     timeout-minutes: 5
     steps:
       - name: Dispatch the four-hour publisher on main
