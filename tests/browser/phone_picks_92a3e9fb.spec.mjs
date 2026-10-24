@@ -20,7 +20,10 @@ for (const vp of VIEWPORTS) {
 
     // Subpage category links inside <main> reachable directly from Executive Summary on mobile
     for (const target of ['picks/', 'origination/', 'unresolved/', 'coverage/', 'review/']) {
-      await expect(page.locator(`main a[href*="${target}"]`).first()).toBeVisible();
+      // The optional stale warning also contains these destinations but is
+      // intentionally hidden on a fresh build. Assert the reachable summary
+      // links, not that hidden warning's copy of the same URL.
+      await expect(page.locator(`main a[href*="${target}"]:visible`).first()).toBeVisible();
     }
 
     // Mobile "Picks at a glance" surfaces directional pick + win probabilities immediately

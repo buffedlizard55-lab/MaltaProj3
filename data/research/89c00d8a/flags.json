@@ -1,0 +1,45 @@
+[
+  {
+    "id": "89c00d8a-hltv-no-moneylines-ten-fallbacks",
+    "severity": "notice",
+    "match_ids": [
+      "1081153",
+      "1081154",
+      "1082996",
+      "1081156",
+      "1079198",
+      "1081158",
+      "1082858",
+      "1082861",
+      "1082792",
+      "1082793"
+    ],
+    "title": "Direct HLTV review checked all 10 no-external-line fixtures on 2026-10-24; no two-sided HLTV bookmaker prices were shown",
+    "detail": "Each HLTV match page confirmed the team pair, event and schedule and listed Best of 3. Its fetched Betting section contained a Stake US sweepstake promotion rather than two-sided bookmaker decimal prices. HLTV fan votes were excluded. Original betting surfaces were then checked by the runner; only the reviewed collector can admit a valid order book. The picks remain independently originated and explicitly labelled when they use a research fallback. See data/research/89c00d8a/platform-source-review.json and line-source-research.json.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399503/6yubojlbl-vs-saint-sinners-cct-2026-europe-series-12",
+      "https://www.hltv.org/matches/2399504/baks-vs-illyrians-cct-2026-europe-series-12",
+      "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
+      "https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12",
+      "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13",
+      "https://www.hltv.org/matches/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12",
+      "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+      "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+      "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026"
+    ]
+  },
+  {
+    "id": "89c00d8a-stale-test-clock-stalled-publishers",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Four scheduled publisher runs stopped before collection on a date-bound test fixture; the test clock is now pinned",
+    "detail": "Runs 40028653350, 40037957529, 40048429858 and 40063011446 failed in pre-collection regression tests when the real clock moved the fixed fixture beyond the 12-hour freshness guard. The three affected tests now pass their fixture time through the existing build_plan(now=...) parameter. Production freshness refusal remains unchanged. This explains the stale public window and is fixed rather than hidden.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40028653350",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40037957529",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40048429858",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446"
+    ]
+  }
+]
