@@ -1,0 +1,81 @@
+[
+  {
+    "id": "719a314a-publisher-duplicate-anchor",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "Every scheduled refresh was failing before it collected: the executive summary rendered id=\"no-line-research\" twice",
+    "detail": "pages.yml runs 40037957529, 40048429858 and 40063011446 failed at 'Regression tests (repository fixtures, before any cache restore)'. Reproduced at bdb4fc9: python3 -m scripts.build PASSES but tests/test_ca7e10e5_snapshot.py::test_the_built_executive_summary_contains_it_once fails with 2 != 1, because site/index.html carried id=\"no-line-research\" at byte offsets 81670 and 87467. Cause: summary() appends unresolved_register(..., compact=True), whose compact branch already appended no_line_research_block, and then appended the same block again. Main's e360f4c (PR #241, session arena-73bc57bd) landed the fix first while this branch was open, by dropping the block from the compact register; this branch carries that implementation unchanged and contributes the regression test that pins it (tests/test_719a314a_duplicate_anchors.py: one anchor per summary on the retained-record and degraded paths, no duplicate element ids anywhere, every same-page fragment resolves). Overlaps PR #248 (arena/f43dc4f1) and PR #241; reconciled and logged in COORDINATION.md.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_ca7e10e5_snapshot.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/pages.yml"
+    ]
+  },
+  {
+    "id": "719a314a-nine-cct-cards-never-collected",
+    "severity": "warning",
+    "match_ids": [
+      "1079658",
+      "1081152",
+      "1079659",
+      "1081153",
+      "1079660",
+      "1081154",
+      "1079661",
+      "1081156",
+      "1081158"
+    ],
+    "title": "Nine upcoming Hotspawn CS2 cards had no published pick: CCT Europe #11 and #12 fixtures absent from the 2026-10-23T20:10Z snapshot",
+    "detail": "The lobby listed 25 upcoming CS2 cards at 2026-10-24T06:26Z; the published snapshot (82 inventory / 19 upcoming / 17 picks / 2 researched fallbacks) contains 16 of them. The nine absent cards are all CCT Europe 2026 Series #11 and #12: 1079658 Acend-FORZE Reload, 1079659 Spirit Academy-Lavked, 1079660 INOX Division-BRUTE, 1079661 Nuclear TigeRES-ex-Zero Tenacity, 1081152 HAVU-Azuolas, 1081153 Saint Sinners-6yuBoJlbl, 1081154 BakS-ILLYRIANS, 1081156 Spirit Academy-LFO 10, 1081158 FORZE Reload-ex-RUSTEC. They are missing from both the published rows and the saved first-party fixture evidence, so this is a collection gap (caused by the stalled publisher), not a pick-quality gap: the published ladder already resolves 19/19 active fixtures. Research for the gap closed five of the nine: EGamersWorld's CCT #11 event page quotes a two-sided Thunderpick price for each of the four #11 cards (2.87/1.35, 1.49/2.45, 1.76/1.94, 1.45/2.51) and no-vig normalisation gives FORZE Reload 68.0%, Spirit Academy 62.2%, INOX Division 52.4%, Nuclear TigeRES 63.4%; the fifth, NODWIN 1079193 FOKUS-ex-6666 (already in the snapshot), quotes 1.23/3.83 -> FOKUS 75.7%. The four #12 cards have no usable price and stay blank with a stated limitation. Full dated record: data/research/719a314a/live-coverage-2026-10-24.json (replayed by scripts/719a314a_live_coverage.py). These reference prices are an aggregator's display, not a first-party bookmaker response, so the automated ladder must replay them before either card becomes a market pick. Independently corroborated by session arena-73bc57bd (record data/research/73bc57bd/inventory-reconciliation-2026-10-24.json, PR #241), which reached the same 9 of 25 count and the same card list and recorded the same EGamersWorld 'by Thunderpick' pairs for three of the four CCT #11 cards; that record keeps them as leads only. One pair differs between the two reads - Nuclear TigeRES/ex-Zero Tenacity 1.45/2.51 here versus 1.49/2.33 there plus a Polymarket 67c/43c segment - because the boards were read minutes apart; the ladder must replay whichever it can fetch.",
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/hotspawn-fixtures.json",
+      "https://egamersworld.com/counterstrike/event/cct-europe-2026-series-11-_rW8GEyWK",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
+    ]
+  },
+  {
+    "id": "719a314a-cct12-placeholder-not-a-market",
+    "severity": "notice",
+    "match_ids": [
+      "1081152",
+      "1081153",
+      "1081154",
+      "1081156",
+      "1081158"
+    ],
+    "title": "Four CCT Europe #12 cards carry only the 1.8 / 1.8 placeholder on EGamersWorld \u2014 left blank, not converted",
+    "detail": "For HAVU-Azuolas (1081152), Saint Sinners-6yuBoJlbl (1081153), BakS-ILLYRIANS (1081154), Spirit Academy-LFO 10 (1081156) and FORZE Reload-ex-RUSTEC (1081158) the EGamersWorld CCT Europe 2026 Series #12 schedule shows the identical 1.8 / 1.8 pair, which this repository already documents as a placeholder and rejects (it implies a 111% book with no information; see tests/test_43110640_egw_live.py). HLTV confirms the fixtures and BO3 format on event 9457 but publishes no bookmaker odds, and no Polymarket book was confirmed for these four cards at read time. They therefore stay blank in this dossier, with the limitation stated rather than a 50/50 default. Every four-hour refresh retries them.",
+    "source_urls": [
+      "https://egamersworld.com/counterstrike/event/cct-europe-2026-series-12-HiXMAaC8L",
+      "https://www.hltv.org/events/9457/cct-2026-europe-series-12",
+      "https://polymarket.com/esports/cs2"
+    ]
+  },
+  {
+    "id": "719a314a-lobby-clock-is-not-utc",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "The Hotspawn lobby clock is not UTC (UTC-4 at this observation); all 16 checkable cards agree only after a +4 h conversion",
+    "detail": "Fixture 1079193 is displayed on the lobby as 'Oct 24, 04:00' while its own first-party API epoch is 1792828800000 = 2026-10-24T08:00:00Z. The same +4 h relation holds for all 16 upcoming cards whose epoch could be read from the saved fixture evidence, so the lobby clock reads UTC-4 here and a displayed time must never be published as a start time. Independent checks agree with the converted values: the Hotspawn match page for 1081152 prints 11:00 and HLTV's CCT 2026 Europe Series 12 event page prints 13:00 for the same fixture (Europe/Malta is UTC+2 before 2026-10-25, UTC+1 after). The fixture API epoch stays authoritative and is re-read on every refresh.",
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://www.hotspawn.com/matches/havu-vs-azuolas-cct-europe-2026-series-12-1081152",
+      "https://www.hltv.org/events/9457/cct-2026-europe-series-12"
+    ]
+  },
+  {
+    "id": "719a314a-originate-egw-import-missing",
+    "severity": "error",
+    "match_ids": [],
+    "title": "Live collection could never run: scripts/originate.py used egw_live without importing it (NameError before the ladder)",
+    "detail": "PR #240 added the EGamersWorld reference rung to scripts/originate.py::live_collect but never imported scripts/egw_live, so every live_collect() call raised NameError: name 'egw_live' is not defined at the evidence-cleanup line before any provider was queried. The full unittest suite run for this session (1284 tests) reported nine ERRORs from it (tests/test_f9d0a5a2.py 1, tests/test_origination_upgrade.py 6, tests/test_source_integrity.py 2), and the four-hour publisher would have hit the same failure in its collection step even after the duplicate-anchor regression was cleared. Session arena-dd433e7f fixed it on main (merged as PR #252) while this branch was open; this branch therefore carries main's implementation unchanged and contributes tests/test_719a314a_live_collect.py, which pins the module-scope import and the attributes live_collect uses so the failure cannot return silently. Verified: the 81 tests in those three files pass on this head.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/originate.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/egw_live.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/240"
+    ]
+  }
+]

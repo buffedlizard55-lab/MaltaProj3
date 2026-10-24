@@ -262,6 +262,47 @@ class TheLadderPublishesThePick(unittest.TestCase):
         self.assertIsNone(row['pick_index'])
 
 
+class ReviewedCapturesComeFirst(unittest.TestCase):
+    """A hand-reviewed price outranks the automated one, by behaviour not by comment.
+
+    ``reference_odds.CAPTURE_PATHS`` is ordered reviewed-captures-first and
+    ``quote()`` stops at the first fixture that resolves, so a fresh manual
+    capture wins even when the automated capture covers the same match.
+    """
+
+    def test_the_live_capture_is_last_in_the_pool(self):
+        self.assertIs(reference_odds.CAPTURE_PATHS[-1], reference_odds.LIVE_EVIDENCE_PATH)
+        self.assertNotIn(reference_odds.LIVE_EVIDENCE_PATH,
+                         reference_odds.CAPTURE_PATHS[:-1])
+
+    def test_a_fresh_reviewed_capture_outranks_the_automated_one(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            source = Path(tmp)
+            (source / 'origination' / 'evidence').mkdir(parents=True)
+            (source / 'research' / '57b1ee04').mkdir(parents=True)
+            observed = NOW.strftime('%Y-%m-%dT%H:%M:%SZ')
+            automated = live_entry(observed_at=observed)
+            reviewed = live_entry(observed_at=observed,
+                                  source_url='https://egamersworld.com/counterstrike/match/reviewed/gz-vs-oc',
+                                  odds=[2.00, 1.80])
+            (source / 'research/57b1ee04/reference-odds.json').write_text(json.dumps(
+                {'entries': [reviewed], 'rejected': [], 'observed_at': observed}))
+            (source / 'origination/evidence' / egw_live.EVIDENCE_NAME).write_text(json.dumps(
+                {'entries': [automated], 'observed_at': observed}))
+            (source / 'origination/evidence/live-collection-manifest.json').write_text(json.dumps(
+                [{'id': 'live-egw-index', 'url': egw_live.INDEX_URL, 'observed_at': observed,
+                  'status': 'ok'}]))
+            rows = reference_odds.load(source)['entries']
+            quote = None
+            for entry in rows:                      # exactly the ladder's loop
+                quote, _reason = reference_odds.quote(entry, MATCH, NOW)
+                if quote:
+                    break
+            self.assertIsNotNone(quote)
+            self.assertEqual(quote['source_url'], reviewed['source_url'])
+            self.assertEqual(quote['odds'], [2.00, 1.80])
+
+
 class NoUndefinedNamesInScripts(unittest.TestCase):
     """The class of defect above, caught statically on every run."""
 

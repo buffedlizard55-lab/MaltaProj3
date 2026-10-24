@@ -1847,9 +1847,12 @@ def unresolved_register(data, prefix, title='Unresolved picks &amp; limitations'
         out.append(no_line_digest(data, prefix))
         # The dated per-fixture research record stays on the summary: it is the
         # evidence behind each no-line blocker and the cross-session audit
-        # (scripts/eea4c104_audit.py) requires the block here. It is compact;
-        # the 22-surface sweep and the source-probe matrix stay on /unresolved/.
-        out.append(no_line_research_block(data, prefix))
+        # (scripts/eea4c104_audit.py) requires the block here. It is rendered
+        # exactly once, by summary() itself: this compact register used to emit
+        # it a second time, which duplicated the element id on the executive
+        # summary (tests/test_ca7e10e5_snapshot.py asserts a single occurrence)
+        # and failed the publisher's regression step on every scheduled run from
+        # 2026-10-23T21:41Z. The full register on /unresolved/ keeps its own copy.
         # The companion record: what a surface that DID answer actually
         # published, for the same no-line fixtures. Same category as the dated
         # research record above, so it stays on the summary in compact form and
@@ -1915,11 +1918,7 @@ def summary(data, prefix, now=None):
     out += live_coverage_gaps(data, prefix)
     out += exec_banner(data, prefix)
     out += unresolved_register(data, prefix, compact=True)
-    # Session ca7e10e5: the dated no-line research block was rendered only on
-    # /unresolved/, while scripts/eea4c104_audit.py (and its regression test)
-    # requires it on the executive summary the brief names. Without this call
-    # `tests.test_eea4c104_audit` failed on main and the four-hour publisher
-    # stopped at its regression step, so the deployed site went stale.
+    # The compact register omits this block; keep exactly one dated summary.
     out += no_line_research_block(data, prefix)
     if complete:
         if not data['coverage_complete']:
