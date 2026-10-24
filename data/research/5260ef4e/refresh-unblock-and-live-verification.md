@@ -107,3 +107,20 @@ While this session was verifying the fix, sessions `dd433e7f` (PR #252, commit `
   across many parallel session branches, reported independently by sessions b72154e1 and
   2ed65c56). A green code fix cannot publish if no runner starts; the deploy is confirmed below
   only once a run actually completes.
+
+## 6. Addendum 08:35Z — the recovery gate, not only the code
+
+The only publisher that *completed* between 06:09Z and 08:35Z was run
+[40077233256](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40077233256) (head `9628581`,
+merge subject `recovery: …`). It failed in `republish-last-verified` at
+*Retire only publishers predating independently replayable sources* with
+`Recovery queue safety not established: Obsolete publisher has not stopped; recovery cannot publish`
+(job 120823116413), so `verify-and-deploy` was skipped by the workflow's own guard
+(`needs['republish-last-verified'].outputs.queue_safe == 'true'`). The gate is
+`scripts/be019782_release.py`: it cancels main-branch pages runs whose commit is behind `CORE_COMMIT`
+and then waits 90 s for them to reach `completed`.
+
+Ordinary push publishers target `ubuntu-24.04`; the recovery/catch-up path targets `macos-14`.
+At 08:40Z the repository showed **3 queued / 2 pending / 0 in progress** main publishers, so a recovery
+retry is legitimate rather than a shortcut: it reuses the project's own guarded path and every gate
+(regression tests, replay, row-source audit, live verification) still runs before anything deploys.
