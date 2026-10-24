@@ -1,0 +1,64 @@
+[
+  {
+    "id": "a5b59ee6-egw-rung-nameerror-stalled-the-publisher",
+    "severity": "review",
+    "match_ids": [],
+    "title": "Every scheduled refresh since 2026-10-23T21:41Z deployed nothing: the automated fallback rung used a module it never imported",
+    "detail": "scripts/originate.py called egw_live.INDEX_URL / egw_live.EVIDENCE_NAME / egw_live.entries_for() but did not import egw_live, so the module raised NameError: name 'egw_live' is not defined. Reproduced locally on merge commit bdb4fc92 by running the repository's own suite: tests/test_f9d0a5a2, tests/test_origination_upgrade and tests/test_source_integrity fail with that NameError. That is the first step of the publisher, so scheduled workflow runs 40028653350 (21:41Z), 40037957529 (23:08Z), 40048429858 (01:08Z) and 40063011446 (04:36Z) each failed at 'Regression tests (repository fixtures, before any cache restore)' and skipped collect, build, deploy and verify. The last successful scheduled run seen is 40015434337 (2026-10-23T19:57Z), so the published snapshot has not been refreshed for the last four scheduled slots. Fixed in this session by importing the module; the three affected test modules now pass. In production the same NameError was swallowed by the rung's own except clause and recorded as egw_live_error, so no fixture could ever be priced by the automated rung while it was broken. Nested in PR #240, which added the rung. Full record: data/research/a5b59ee6/publisher-stall.json",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/bdb4fc92a30989e93263d7ef3842cda045fe6571/scripts/originate.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/240",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40048429858",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml"
+    ]
+  },
+  {
+    "id": "a5b59ee6-egw-capture-was-written-and-never-read",
+    "severity": "review",
+    "match_ids": [],
+    "title": "The 'automated EGamersWorld fallback' saved a capture on every refresh and nothing ever read it back, so it could not change a single pick",
+    "detail": "The previous session's record said scripts/egw_live.py 'merges them into the existing EGW reference rung'. It does not: egw_live.load_live has no caller anywhere in the repository. live_collect writes data/origination/evidence/live-egw-reference.json, while scripts/originate.py builds the reference rung from reference_odds.load(), whose CAPTURE_PATHS was a fixed three-item allowlist of hand-reviewed captures (research/57b1ee04, b30bf88b, a34bc06b). Verified by replaying the ladder on the same saved EGamersWorld anchor with the import fixed but the pool unchanged: the fixture stays blank (method None, no pick). Fixed here by adding the live capture to the pool, and by requiring the request manifest to witness the fetch. The two tests test_the_automated_capture_becomes_a_published_pick and test_removing_the_capture_from_the_pool_leaves_the_fixture_blank pin both directions. Nothing overrides a first-party market or esportsbook line: the rung's position in the ladder, the 1.8/1.8 placeholder rejection, the eight-hour freshness rule, the exact-start rule and the excerpt hash check are unchanged. Full record: data/research/a5b59ee6/wiring-reproduction.json",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/bdb4fc92a30989e93263d7ef3842cda045fe6571/scripts/egw_live.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/bdb4fc92a30989e93263d7ef3842cda045fe6571/scripts/reference_odds.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/240",
+      "https://egamersworld.com/counterstrike/matches"
+    ]
+  },
+  {
+    "id": "a5b59ee6-reference-replay-selected-by-fixture-id-only",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Reference replay picked the first capture with a matching fixture id, which would have failed the build once two captures covered one match",
+    "detail": "build_origination.validate_origination replayed every published reference row against the first pooled entry carrying the same Hotspawn fixture id. With the automated capture added, a hand-reviewed row and an automated row can both cover a fixture, and the two can disagree (a reviewed row that went stale is skipped by the quote gate in favour of a fresh automated one). The audit would then replay the wrong entry and either fail the build or, worse, compare a quote to itself. It now selects by provenance - the source_url, observation instant and excerpt SHA-256 the published quote records - through reference_odds.entry_for(). Two new tests cover the two-capture case and the forged-quote case. This is a defect of the audit path only; no published probability or pick was computed from it.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/bdb4fc92a30989e93263d7ef3842cda045fe6571/scripts/build_origination.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/reference_odds.py"
+    ]
+  },
+  {
+    "id": "a5b59ee6-four-hour-refresh-not-met-under-parallel-pushes",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "The four-hour refresh guarantee is not being met while many session branches push: five push runs were cancelled pending between 06:32Z and 06:44Z",
+    "detail": "pages.yml keeps push runs and scheduled runs in separate concurrency groups (group pages-${{ github.event_name }}), which protects the scheduled slot from being cancelled by a push. It does not stop repeated pushes from cancelling each other while pending: runs 40070626757, 40071009969, 40071100402 and 40071346040 were all cancelled within twelve minutes on 2026-10-24 while 13 session pull requests were open, and the run for the current main head (40069088115, the PR #240 merge, 06:09:39Z) was still queued more than 35 minutes later. Combined with the failing regression step above, the public snapshot has not been refreshed since 2026-10-23T19:57Z. This is an operational finding for review, not a code defect fixed here: the 4-hour schedule itself is correct, the backlog and the red step are what stop it.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40069088115",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40071346040"
+    ]
+  },
+  {
+    "id": "a5b59ee6-live-lobby-not-readable-from-this-sandbox",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "This session could not read the live Hotspawn lobby, HLTV or EGamersWorld directly; the fix is proved by replay of saved evidence, not by a fresh fetch",
+    "detail": "This sandbox's network reaches GitHub, PyPI and npm only. HTTPS to play.hotspawn.com, www.hltv.org, egamersworld.com and the public Pages host failed at the TLS handshake, so no live inventory, no live betting line and no rendered production page could be read here. Everything this session asserts about coverage comes from (a) the repository's own saved evidence and its replay gates and (b) workflow results fetched through the GitHub API. The automation this session repaired is what performs the live collection: it runs on the Actions runner, which does reach Hotspawn and EGamersWorld. Any statement in the brief about the current live lobby should be checked against the post-merge publisher run, whose result is recorded in COORDINATION.md for this session. No probability, pick or team alias was written by hand in this session.",
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://www.hltv.org/matches",
+      "https://egamersworld.com/counterstrike/matches"
+    ]
+  }
+]

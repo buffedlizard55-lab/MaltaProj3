@@ -1,0 +1,35 @@
+{
+  "session": "arena-a5b59ee6",
+  "observed_at": "2026-10-24T06:40:00Z",
+  "subject": "Does the automated EGamersWorld fallback actually produce a pick?",
+  "method": "Replay scripts.originate.run() on a throwaway copy of data/ holding one active fixture (Hotspawn 1082858 Ground Zero vs Off Chops), the reviewed alias registry, one saved EGamersWorld index anchor (3.44 / 1.24) and the request manifest entry that proves the fetch. No network access, no hand-entered probability.",
+  "saved_source": {
+    "index": "https://egamersworld.com/counterstrike/matches",
+    "match_page": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+    "printed_odds": [3.44, 1.24],
+    "note": "The same pair the previous session recorded from EGW on 2026-10-24 (data/research/43110640/unresolved-guided-picks.json)."
+  },
+  "before_this_session": {
+    "stage_reached": "none",
+    "pick": null,
+    "reason": "egw_live was never imported (NameError, swallowed) and the capture file was never read by reference_odds.load(); the reference rung saw an empty pool.",
+    "reproduced_by": "reference_odds.CAPTURE_PATHS limited to the three hand-reviewed captures"
+  },
+  "after_this_session": {
+    "method": "reference",
+    "provider": "EGamersWorld (published bookmaker average)",
+    "probabilities": {"Ground Zero": 0.26495726, "Off Chops": 0.73504274},
+    "pick": "Off Chops",
+    "pick_index": 1,
+    "source_url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+    "gate": "reference_odds.quote(): identity, exact start, freshness under 8 h, non-identical odds, no_vig margin band, excerpt SHA-256"
+  },
+  "fail_closed_cases_proved": [
+    "request manifest missing -> entry rejected, nothing priced",
+    "manifest request status != ok -> entry rejected",
+    "manifest observation instant differs from the entry -> entry rejected as unwitnessed",
+    "identical 1.8 / 1.8 placeholder -> rejected (unchanged gate)",
+    "quote whose source_url/observed_at/excerpt_sha256 match no capture -> audit finds no entry"
+  ],
+  "automated_test": "tests/test_a5b59ee6_publisher_wiring.py::TheLadderPublishesThePick (13 tests total in the module)"
+}
