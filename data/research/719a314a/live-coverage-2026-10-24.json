@@ -1,0 +1,447 @@
+{
+  "schema": "719a314a-live-coverage/1",
+  "observed_at": "2026-10-24T06:26:00Z",
+  "lobby_url": "https://play.hotspawn.com/lobby",
+  "fixture_api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+  "published_snapshot": {
+    "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+    "generated_at": "2026-10-23T20:10:00Z",
+    "inventory": 82,
+    "upcoming": 19,
+    "picks": 17,
+    "unresolved": 2,
+    "read_at": "2026-10-24T06:28:00Z",
+    "pages": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/picks/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/hotspawn-fixtures.json"
+    ]
+  },
+  "counts": {
+    "lobby_upcoming": 25,
+    "in_published_snapshot": 16,
+    "missing_from_published_snapshot": 9,
+    "with_reference_two_sided_line": 5
+  },
+  "method": "The Hotspawn lobby is read first for the card list; each card id is the numeric suffix of its 'View Match' permalink. Every id is then looked up in the published snapshot (deployed /data/latest.json, the /picks/ rows and the saved first-party fixture evidence). Cards with no published row were researched HLTV first, then on esportsbooks and esports odds aggregators. Only a two-sided prematch price becomes a probability, by proportional (no-vig) normalisation; Hotspawn '% picked' and HLTV fan votes are never inputs.",
+  "clock_verification": "The lobby clock is not UTC. All 16 lobby-visible cards that also carry a first-party fixture-API epoch agree exactly with lobby time + 4 h (e.g. 1079193 displayed 'Oct 24, 04:00' = epoch 1792828800000 = 2026-10-24T08:00:00Z), so the start_utc column is that verified conversion. Cards with start_verified_by_fixture_api=false are the nine absent from the saved evidence, so their start comes from the lobby clock only; the fixture API epoch is authoritative and is re-read on every refresh.",
+  "cards": [
+    {
+      "hotspawn_id": "1079658",
+      "teams": [
+        "Acend",
+        "FORZE Reload"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "lobby_displayed_start": "Oct 24, 04:00",
+      "start_utc": "2026-10-24T08:00:00Z",
+      "start_verified_by_fixture_api": false,
+      "in_published_snapshot": false,
+      "published_pick": "none \u2014 card absent from the published snapshot",
+      "reference_line": {
+        "provider": "Thunderpick (quoted on EGamersWorld's event page)",
+        "page": "https://egamersworld.com/counterstrike/event/cct-europe-2026-series-11-_rW8GEyWK",
+        "quoted_decimal_odds": {
+          "Acend": 2.87,
+          "FORZE Reload": 1.35
+        },
+        "implied_overround": 1.0892,
+        "no_vig_probabilities": {
+          "Acend": 32.0,
+          "FORZE Reload": 68.0
+        },
+        "pick": "FORZE Reload",
+        "caveat": "A second-hand quote displayed by an odds aggregator, not a first-party bookmaker API response; the automated ladder must replay it before it becomes a market pick."
+      }
+    },
+    {
+      "hotspawn_id": "1079193",
+      "teams": [
+        "FOKUS",
+        "ex-6666"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "lobby_displayed_start": "Oct 24, 04:00",
+      "start_utc": "2026-10-24T08:00:00Z",
+      "start_verified_by_fixture_api": true,
+      "in_published_snapshot": true,
+      "published_pick": "yes \u2014 see /picks/#match-1079193",
+      "reference_line": {
+        "provider": "Thunderpick (quoted on EGamersWorld's event page)",
+        "page": "https://egamersworld.com/counterstrike/matches",
+        "quoted_decimal_odds": {
+          "FOKUS": 1.23,
+          "ex-6666": 3.83
+        },
+        "implied_overround": 1.0741,
+        "no_vig_probabilities": {
+          "FOKUS": 75.7,
+          "ex-6666": 24.3
+        },
+        "pick": "FOKUS",
+        "caveat": "A second-hand quote displayed by an odds aggregator, not a first-party bookmaker API response; the automated ladder must replay it before it becomes a market pick."
+      }
+    },
+    {
+      "hotspawn_id": "1081152",
+      "teams": [
+        "HAVU",
+        "Azuolas"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "lobby_displayed_start": "Oct 24, 07:00",
+      "start_utc": "2026-10-24T11:00:00Z",
+      "start_verified_by_fixture_api": false,
+      "in_published_snapshot": false,
+      "published_pick": "none \u2014 card absent from the published snapshot",
+      "reference_line": null,
+      "limitation": "EGamersWorld's Series #12 schedule shows the identical 1.8 / 1.8 pair for these fixtures, which this repository documents as a placeholder and rejects (tests/test_43110640_egw_live.py). No two-sided price was confirmed, so no probability is published for this card."
+    },
+    {
+      "hotspawn_id": "1079659",
+      "teams": [
+        "Spirit Academy",
+        "Lavked"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "lobby_displayed_start": "Oct 24, 07:00",
+      "start_utc": "2026-10-24T11:00:00Z",
+      "start_verified_by_fixture_api": false,
+      "in_published_snapshot": false,
+      "published_pick": "none \u2014 card absent from the published snapshot",
+      "reference_line": {
+        "provider": "Thunderpick (quoted on EGamersWorld's event page)",
+        "page": "https://egamersworld.com/counterstrike/event/cct-europe-2026-series-11-_rW8GEyWK",
+        "quoted_decimal_odds": {
+          "Spirit Academy": 1.49,
+          "Lavked": 2.45
+        },
+        "implied_overround": 1.0793,
+        "no_vig_probabilities": {
+          "Spirit Academy": 62.2,
+          "Lavked": 37.8
+        },
+        "pick": "Spirit Academy",
+        "caveat": "A second-hand quote displayed by an odds aggregator, not a first-party bookmaker API response; the automated ladder must replay it before it becomes a market pick."
+      }
+    },
+    {
+      "hotspawn_id": "1081153",
+      "teams": [
+        "Saint Sinners",
+        "6yuBoJlbl"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "lobby_displayed_start": "Oct 24, 10:00",
+      "start_utc": "2026-10-24T14:00:00Z",
+      "start_verified_by_fixture_api": false,
+      "in_published_snapshot": false,
+      "published_pick": "none \u2014 card absent from the published snapshot",
+      "reference_line": null,
+      "limitation": "EGamersWorld's Series #12 schedule shows the identical 1.8 / 1.8 pair for these fixtures, which this repository documents as a placeholder and rejects (tests/test_43110640_egw_live.py). No two-sided price was confirmed, so no probability is published for this card."
+    },
+    {
+      "hotspawn_id": "1079660",
+      "teams": [
+        "INOX Division",
+        "BRUTE"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "lobby_displayed_start": "Oct 24, 10:00",
+      "start_utc": "2026-10-24T14:00:00Z",
+      "start_verified_by_fixture_api": false,
+      "in_published_snapshot": false,
+      "published_pick": "none \u2014 card absent from the published snapshot",
+      "reference_line": {
+        "provider": "Thunderpick (quoted on EGamersWorld's event page)",
+        "page": "https://egamersworld.com/counterstrike/event/cct-europe-2026-series-11-_rW8GEyWK",
+        "quoted_decimal_odds": {
+          "INOX Division": 1.76,
+          "BRUTE": 1.94
+        },
+        "implied_overround": 1.0836,
+        "no_vig_probabilities": {
+          "INOX Division": 52.4,
+          "BRUTE": 47.6
+        },
+        "pick": "INOX Division",
+        "caveat": "A second-hand quote displayed by an odds aggregator, not a first-party bookmaker API response; the automated ladder must replay it before it becomes a market pick."
+      }
+    },
+    {
+      "hotspawn_id": "1079195",
+      "teams": [
+        "Nuclear TigeRES",
+        "FORZE Reload"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "lobby_displayed_start": "Oct 24, 10:00",
+      "start_utc": "2026-10-24T14:00:00Z",
+      "start_verified_by_fixture_api": true,
+      "in_published_snapshot": true,
+      "published_pick": "yes \u2014 see /picks/#match-1079195"
+    },
+    {
+      "hotspawn_id": "1081154",
+      "teams": [
+        "BakS",
+        "ILLYRIANS"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "lobby_displayed_start": "Oct 24, 13:00",
+      "start_utc": "2026-10-24T17:00:00Z",
+      "start_verified_by_fixture_api": false,
+      "in_published_snapshot": false,
+      "published_pick": "none \u2014 card absent from the published snapshot",
+      "reference_line": null,
+      "limitation": "EGamersWorld's Series #12 schedule shows the identical 1.8 / 1.8 pair for these fixtures, which this repository documents as a placeholder and rejects (tests/test_43110640_egw_live.py). No two-sided price was confirmed, so no probability is published for this card."
+    },
+    {
+      "hotspawn_id": "1079661",
+      "teams": [
+        "Nuclear TigeRES",
+        "ex-Zero Tenacity"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "lobby_displayed_start": "Oct 24, 13:00",
+      "start_utc": "2026-10-24T17:00:00Z",
+      "start_verified_by_fixture_api": false,
+      "in_published_snapshot": false,
+      "published_pick": "none \u2014 card absent from the published snapshot",
+      "reference_line": {
+        "provider": "Thunderpick (quoted on EGamersWorld's event page)",
+        "page": "https://egamersworld.com/counterstrike/event/cct-europe-2026-series-11-_rW8GEyWK",
+        "quoted_decimal_odds": {
+          "Nuclear TigeRES": 1.45,
+          "ex-Zero Tenacity": 2.51
+        },
+        "implied_overround": 1.0881,
+        "no_vig_probabilities": {
+          "Nuclear TigeRES": 63.4,
+          "ex-Zero Tenacity": 36.6
+        },
+        "pick": "Nuclear TigeRES",
+        "caveat": "A second-hand quote displayed by an odds aggregator, not a first-party bookmaker API response; the automated ladder must replay it before it becomes a market pick."
+      }
+    },
+    {
+      "hotspawn_id": "1082996",
+      "teams": [
+        "Acend",
+        "UNiTY"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "lobby_displayed_start": "Oct 25, 05:00",
+      "start_utc": "2026-10-25T09:00:00Z",
+      "start_verified_by_fixture_api": true,
+      "in_published_snapshot": true,
+      "published_pick": "yes \u2014 see /picks/#match-1082996"
+    },
+    {
+      "hotspawn_id": "1081156",
+      "teams": [
+        "Spirit Academy",
+        "LFO 10"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "lobby_displayed_start": "Oct 25, 08:00",
+      "start_utc": "2026-10-25T12:00:00Z",
+      "start_verified_by_fixture_api": false,
+      "in_published_snapshot": false,
+      "published_pick": "none \u2014 card absent from the published snapshot",
+      "reference_line": null,
+      "limitation": "EGamersWorld's Series #12 schedule shows the identical 1.8 / 1.8 pair for these fixtures, which this repository documents as a placeholder and rejects (tests/test_43110640_egw_live.py). No two-sided price was confirmed, so no probability is published for this card."
+    },
+    {
+      "hotspawn_id": "1079198",
+      "teams": [
+        "Metizport",
+        "BakS"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "lobby_displayed_start": "Oct 25, 08:00",
+      "start_utc": "2026-10-25T12:00:00Z",
+      "start_verified_by_fixture_api": true,
+      "in_published_snapshot": true,
+      "published_pick": "yes \u2014 see /picks/#match-1079198"
+    },
+    {
+      "hotspawn_id": "1079199",
+      "teams": [
+        "Infinite",
+        "BRUTE"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "lobby_displayed_start": "Oct 25, 11:00",
+      "start_utc": "2026-10-25T15:00:00Z",
+      "start_verified_by_fixture_api": true,
+      "in_published_snapshot": true,
+      "published_pick": "yes \u2014 see /picks/#match-1079199"
+    },
+    {
+      "hotspawn_id": "1081158",
+      "teams": [
+        "FORZE Reload",
+        "ex-RUSTEC"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "lobby_displayed_start": "Oct 25, 14:00",
+      "start_utc": "2026-10-25T18:00:00Z",
+      "start_verified_by_fixture_api": false,
+      "in_published_snapshot": false,
+      "published_pick": "none \u2014 card absent from the published snapshot",
+      "reference_line": null,
+      "limitation": "EGamersWorld's Series #12 schedule shows the identical 1.8 / 1.8 pair for these fixtures, which this repository documents as a placeholder and rejects (tests/test_43110640_egw_live.py). No two-sided price was confirmed, so no probability is published for this card."
+    },
+    {
+      "hotspawn_id": "1079200",
+      "teams": [
+        "Color",
+        "ex-Zero Tenacity"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "lobby_displayed_start": "Oct 25, 14:00",
+      "start_utc": "2026-10-25T18:00:00Z",
+      "start_verified_by_fixture_api": true,
+      "in_published_snapshot": true,
+      "published_pick": "yes \u2014 see /picks/#match-1079200"
+    },
+    {
+      "hotspawn_id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "lobby_displayed_start": "Oct 25, 23:00",
+      "start_utc": "2026-10-26T03:00:00Z",
+      "start_verified_by_fixture_api": true,
+      "in_published_snapshot": true,
+      "published_pick": "yes \u2014 see /picks/#match-1082858"
+    },
+    {
+      "hotspawn_id": "1082859",
+      "teams": [
+        "NEXVOID",
+        "Alter Ego"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "lobby_displayed_start": "Oct 25, 23:00",
+      "start_utc": "2026-10-26T03:00:00Z",
+      "start_verified_by_fixture_api": true,
+      "in_published_snapshot": true,
+      "published_pick": "yes \u2014 see /picks/#match-1082859"
+    },
+    {
+      "hotspawn_id": "1082860",
+      "teams": [
+        "FlyQuest",
+        "Staqued"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "lobby_displayed_start": "Oct 26, 23:00",
+      "start_utc": "2026-10-27T03:00:00Z",
+      "start_verified_by_fixture_api": true,
+      "in_published_snapshot": true,
+      "published_pick": "yes \u2014 see /picks/#match-1082860"
+    },
+    {
+      "hotspawn_id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "lobby_displayed_start": "Oct 26, 23:00",
+      "start_utc": "2026-10-27T03:00:00Z",
+      "start_verified_by_fixture_api": true,
+      "in_published_snapshot": true,
+      "published_pick": "yes \u2014 see /picks/#match-1082861"
+    },
+    {
+      "hotspawn_id": "1082897",
+      "teams": [
+        "B8",
+        "K27"
+      ],
+      "competition": "Tesla Cup 2026",
+      "lobby_displayed_start": "Oct 27, 04:00",
+      "start_utc": "2026-10-27T08:00:00Z",
+      "start_verified_by_fixture_api": true,
+      "in_published_snapshot": true,
+      "published_pick": "yes \u2014 see /picks/#match-1082897"
+    },
+    {
+      "hotspawn_id": "1082898",
+      "teams": [
+        "Alliance",
+        "FaZe"
+      ],
+      "competition": "Tesla Cup 2026",
+      "lobby_displayed_start": "Oct 27, 07:00",
+      "start_utc": "2026-10-27T11:00:00Z",
+      "start_verified_by_fixture_api": true,
+      "in_published_snapshot": true,
+      "published_pick": "yes \u2014 see /picks/#match-1082898"
+    },
+    {
+      "hotspawn_id": "1082900",
+      "teams": [
+        "Luminosity",
+        "HOTU"
+      ],
+      "competition": "Tesla Cup 2026",
+      "lobby_displayed_start": "Oct 27, 13:00",
+      "start_utc": "2026-10-27T17:00:00Z",
+      "start_verified_by_fixture_api": true,
+      "in_published_snapshot": true,
+      "published_pick": "yes \u2014 see /picks/#match-1082900"
+    },
+    {
+      "hotspawn_id": "1082901",
+      "teams": [
+        "Envy",
+        "GamerLegion"
+      ],
+      "competition": "Tesla Cup 2026",
+      "lobby_displayed_start": "Oct 27, 16:00",
+      "start_utc": "2026-10-27T20:00:00Z",
+      "start_verified_by_fixture_api": true,
+      "in_published_snapshot": true,
+      "published_pick": "yes \u2014 see /picks/#match-1082901"
+    },
+    {
+      "hotspawn_id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "lobby_displayed_start": "Oct 31, 05:00",
+      "start_utc": "2026-10-31T09:00:00Z",
+      "start_verified_by_fixture_api": true,
+      "in_published_snapshot": true,
+      "published_pick": "yes \u2014 see /picks/#match-1082792"
+    },
+    {
+      "hotspawn_id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "lobby_displayed_start": "Oct 31, 09:00",
+      "start_utc": "2026-10-31T13:00:00Z",
+      "start_verified_by_fixture_api": true,
+      "in_published_snapshot": true,
+      "published_pick": "yes \u2014 see /picks/#match-1082793"
+    }
+  ],
+  "independent_cross_check": {
+    "session": "arena-73bc57bd",
+    "record": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/73bc57bd/inventory-reconciliation-2026-10-24.json",
+    "agreement": "An independent session reading the lobby at 2026-10-24T05:31Z and the fixture API at 05:39Z reached the same count (9 of 25 upcoming cards uncovered) and the same card list, and recorded the same EGamersWorld 'by Thunderpick' pairs for Acend/FORZE Reload (2.87/1.35), Spirit Academy/Lavked (1.49/2.45) and INOX Division/Brute (1.76/1.94). That record was merged as PR #241.",
+    "divergence": "For Nuclear TigeRES vs ex-Zero Tenacity this read of the CCT Europe #11 event page shows 1.45/2.51, while their record shows 1.49/2.33 and a separate Polymarket-derived 1.49x 67c / 2.33x 43c segment. Both are aggregator displays captured minutes apart, so the pair moved; neither is a first-party bookmaker response and the ladder must replay whichever it can fetch at refresh time.",
+    "not_claimed": "Their dossier deliberately records leads only and writes no pick or probability. The picks and no-vig percentages here are this session's replay of the quoted pairs and remain reference estimates until the automated ladder replays them."
+  }
+}

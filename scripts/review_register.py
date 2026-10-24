@@ -39,6 +39,10 @@ REGISTERS = (
     # Session dd433e7f: 2026-10-24 publisher clock-pin fix, #no-line-research
     # deduplication, 25/25 HLTV-first sweep, and competition-scoped aliases.
     'research/dd433e7f/repo-review.json',
+    # Session c6b8d58b: 31/31 Hotspawn + 31/31 HLTV match-page reconciliation
+    # (closing the 6 South American fixtures), EGW consensus capture across the
+    # 13 model-only fixtures, and scoped CCT South America #7 aliases.
+    'research/c6b8d58b/repo-review.json',
 )
 STATUS = {
     'fixed': ('Fixed', 'green'),
