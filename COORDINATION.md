@@ -1,3 +1,82 @@
+# Current session: arena-a5b59ee6 — the automated fallback rung was dead twice (missing import + no consumer); publisher red on `main`; picks-for-every-match fallback wired and reproduced end to end
+
+Claimed **2026-10-24T06:35Z** on Arena's fixed branch `arena/a5b59ee6-maltaproj3`, branched from `main` at `bdb4fc9` (PR #240 merge). Board read first; the 13 open PRs listed below touch `scripts/build.py`, `assets/*`, `data/research/<other id>/**` and `tests/browser/*` — none touches the files claimed here.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| A5B-1 Restore the four-hour publisher: reproduce the `Regression tests` failure on `main` and fix its cause | **done** — see result | arena-a5b59ee6 | `scripts/originate.py` (import line only) |
+| A5B-2 Make the automated EGamersWorld fallback actually price a fixture: wire the live capture into the reference rung *and* into the replay audit, fail closed on an unwitnessed capture | **done** — see result | arena-a5b59ee6 | `scripts/reference_odds.py`, `scripts/build_origination.py` |
+| A5B-3 Regression cover for the whole class of defect (rung written but never called, undefined name), plus an end-to-end ladder replay | **done** — 13 tests, all pass | arena-a5b59ee6 | new `tests/test_a5b59ee6_publisher_wiring.py`, `requirements.txt` (adds the static checker) |
+| A5B-4 Publish the findings as flags + dossier with source links, verify the build/links/exec summary/unresolved/mobile contract, PR, merge, confirm Pages | **done** — PR #260 (see results) | arena-a5b59ee6 | new `data/research/a5b59ee6/**`, this section |
+
+**Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/collect.py`, `scripts/root_publish.py`, `scripts/review_register.py`, `assets/*`, `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `.github/workflows/**`, `archive/`, `docs/`, or any other session's `data/research/<id>/`. Hotspawn "% picked" and HLTV fan votes are never probabilities. Nothing in this session writes a probability, pick or alias by hand: the only new numbers published are recomputed from a saved EGamersWorld index response by the existing no-vig gate.
+
+### A5B-1 result — why every scheduled refresh since 21:41Z has deployed nothing
+
+- **Reproduced locally on `bdb4fc9`** (not inferred): `python -m unittest discover -s tests` fails at `tests/test_f9d0a5a2`, `tests/test_origination_upgrade`, `tests/test_source_integrity` with `NameError: name 'egw_live' is not defined`. `scripts/originate.py` calls `egw_live.INDEX_URL`, `egw_live.EVIDENCE_NAME` and `egw_live.entries_for(...)` at lines 1044-1055 but imports every neighbouring module except that one (`git show bdb4fc9:scripts/originate.py`). The merge in PR #240 added the rung without its import.
+- **That is the step the publisher dies on.** Scheduled runs [400286335](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/400286335) (21:41Z), 40037957529 (23:08Z), 40048429858 (01:08Z) and 40063011446 (04:36Z) all fail at job step 5, `Regression tests (repository fixtures, before any cache restore)` — every later step (collect, build, deploy, verify) is skipped. The public site has therefore been frozen on the last good snapshot while the 06:09Z merge commit's own run sat queued behind 13 concurrent session branches.
+- **In production the same line is silent, not loud:** the rung's own `except Exception` writes `egw_live_error = "NameError: ..."` and prices nothing, so the "automated EGW fallback" marked done in the previous session never produced one quote.
+- **Fix:** `from scripts import egw_live` in `scripts/originate.py`. Verified: the three failing modules now pass (81 tests), and `pyflakes scripts/` reports **no undefined name** anywhere in `scripts/` (`git show bdb4fc9:scripts/originate.py` was the only occurrence).
+
+### A5B-2 result — the capture was written and never read
+
+- **Second defect, found by following the data rather than the commit message:** `egw_live.load_live` had **no caller**. `live_collect` writes `data/origination/evidence/live-egw-reference.json` on every refresh, but the reference rung is built in `originate.run` from `reference_odds.load(output)`, whose `CAPTURE_PATHS` was a fixed three-item allowlist of hand-reviewed captures. With the import fixed but this unfixed, the rung still prices nothing — reproduced: the same evidence yields `method=None, pick_index=None`.
+- **Fix, in three linked parts:** (1) `reference_odds.CAPTURE_PATHS` now ends with `LIVE_EVIDENCE_PATH = origination/evidence/live-egw-reference.json`, so publisher and replay audit read one pool; (2) a live entry is priced only when `live-collection-manifest.json` carries a single successful `live-egw-index` request with the *same* `observed_at` — otherwise it is retained in `rejected` with that reason and prices nothing (fail closed: missing manifest, failed fetch and a restamped fetch are all covered); (3) `build_origination.validate_origination` selects the capture a published reference row was actually priced from, by `source_url` + `observed_at` + `excerpt_sha256` (`reference_odds.entry_for`), instead of the first row that shares the fixture id — otherwise a stale hand review and a fresh automated capture covering the same fixture would fail the build's replay assertion.
+- **Nothing overrides a first-party line:** the ladder order is unchanged (markets → books → bo3.gg relay → this aggregated reference → models), the 1.8/1.8 placeholder, freshness, identity, start-time and hash gates are unchanged, and the provider label still says *aggregated*.
+- **End-to-end proof** (`TheLadderPublishesThePick`): with a saved index response for Ground Zero vs Off Chops (3.44 / 1.24) and a fresh manifest, `originate.run()` publishes **Off Chops 73.5% / Ground Zero 26.5%**, `pick_index=1`, `method=reference`, source `https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d`. Removing the capture from the pool leaves the same fixture blank — the two tests together prove the wiring is load-bearing.
+
+### A5B-3 result — the class, not the instance
+
+`tests/test_a5b59ee6_publisher_wiring.py` (13 tests, all pass) pins: the rung is imported, `live_collect` reaches it under the real collector, a witnessed capture prices, an unwitnessed / failed / manifest-less capture cannot, hand-reviewed captures still need no manifest, the replay picks the right capture when two cover one fixture, a forged quote still finds no capture, 1.8/1.8 stays rejected, the ladder publishes the pick end to end, and — as a static guard — `pyflakes` finds **no undefined name** in `scripts/`. `pyflakes==4.0.3` is added to `requirements.txt` so the guard runs in CI rather than skipping.
+
+### A5B-4 result — merged with main's stricter fixes, and what this branch actually keeps
+
+While this session reproduced the two defects, four other sessions fixed them on `main`:
+PR #261 (`arena/5260ef4e`) wired `egw_live.load_live` into the reference rung, PR #270
+(`arena/b97af12f`) replaced index-only binding with a strict evidence chain (the anchor's own
+timezone-qualified start and a price bound to each exact outcome name; the saved original HTML,
+the derived entry and the request manifest must all agree) and made `validate_origination`
+select a capture by provenance instead of by fixture id, PR #271 (`arena/2ed65c56`) added
+further verification, and the import landed three times (#261, #270, commit `6cb7dbe`).
+
+**Their versions are stricter than this session's.** The merge therefore drops this branch's
+`reference_odds.py` / `build_origination.py` / `originate.py` edits (a `CAPTURE_PATHS` entry
+with a manifest-only witness gate, and an `entry_for()` provenance selector) in favour of the
+merged code, and keeps only what is not a duplicate:
+
+| Kept | Why |
+| --- | --- |
+| new `tests/test_a5b59ee6_publisher_wiring.py` (10 tests) | the merged rung has no test that exercises *reachability* (the rung is actually called by `live_collect`), the whole chain end to end through `originate.run()`, or the reviewed-capture precedence behaviourally |
+| `requirements.txt` + `pyflakes==4.0.3` | `scripts/` is now checked for undefined names on every run, so the class of defect that stopped four scheduled refreshes fails in CI in ~2 s instead of after a merge |
+| `data/research/a5b59ee6/**`, five flags | the reproduction, the workflow-run evidence and the plain-word limitations |
+| this section | the record, including the merge-resolution note |
+
+- **Merged-tree verification (after `git merge origin/main`, conflicts resolved by union):**
+  `python -m scripts.build` **PASS** — 80 source rows reconciled and replayed; row-source audit
+  **838 rows, 819 with an official link, 0 without a source**, 9 flagged unverified; acceptance
+  audit 9 pass / 1 info / 0 fail; 829 internal links/anchors OK. Targeted suites green
+  (`test_a5b59ee6_publisher_wiring` 10, `test_5260ef4e_egw_wiring`, `test_dd433e7f_verification`,
+  `test_f9d0a5a2`, `test_origination_upgrade`, `test_source_integrity`, `test_43110640_egw_live`).
+- **A defect this session found in passing, now fixed upstream:** on clean `bdb4fc9` the built
+  executive summary carried `id="no-line-research"` **twice** (`summary()` appends
+  `unresolved_register(compact=True)`, which already emits the block, and then appends the block
+  again); reproduced on a clean export with no changes from this session. The merged tree builds
+  **once** — the duplicate is gone. No flag was filed because the fix is already on `main` and
+  `arena-f43dc4f1` (PR #248) additionally adds a duplicate-id rejection to `validate.check_links`.
+- **Merge-resolution notes (nothing discarded):** (1) `COORDINATION.md` resolved as a union —
+  this section first, all 86 of `main`'s sections retained, 0 lines lost (checked line by line
+  against `git show origin/main:COORDINATION.md`); (2) `scripts/originate.py` keeps main's
+  `egw_live.load_live(evidence_dir, snapshot['matches'], registry)` call and its append, and
+  this session's dedupe line was removed once main's reader proved stricter; (3) the only test
+  this session edited that another session owns is `tests/test_5260ef4e_egw_wiring.py` — and in
+  the final resolution it was restored to `main` unchanged.
+- **Irregularities recorded, not fixed here:** the four failed scheduled runs and the backlog
+  above; five push runs cancelled while pending between 06:32Z and 06:44Z under parallel-session
+  load; and this sandbox cannot reach Hotspawn, HLTV, EGamersWorld or the public Pages host
+  (TLS handshake failures), so the live lobby was not read here — flag
+  `a5b59ee6-live-lobby-not-readable-from-this-sandbox`.
+
+
 # Current session: arena-be019782 — restore unattended refresh, verify every CS2 pick, HLTV-first gap research, mobile executive summary and publication
 
 Claimed **2026-10-24T05:22:48Z** on Arena's fixed session branch `arena/be019782-maltaproj3`, based on `main` at `2f966a9`. Read the existing board, repository structure, open PRs and current publisher runs before claiming. This session is the final integrator for its scoped changes; the Arena branch name is fixed, so no extra branch/worktree will be created.

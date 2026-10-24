@@ -1,0 +1,48 @@
+{
+  "session": "arena-a5b59ee6",
+  "observed_at": "2026-10-24T06:40:00Z",
+  "finalised_at": "2026-10-24T07:55:00Z",
+  "subject": "Was the automated EGamersWorld fallback able to price a fixture at all?",
+  "verdict": "No, on two independent counts, both reproduced from scratch on bdb4fc92 and both since fixed on main by other sessions; this session contributes the reproduction, the integration cover and the static guard.",
+  "defect_1_missing_import": {
+    "where": "scripts/originate.py lines 1044-1055 call egw_live.* with no import",
+    "reproduced_by": "python -m unittest discover -s tests on bdb4fc92 -> NameError in tests/test_f9d0a5a2, tests/test_origination_upgrade, tests/test_source_integrity",
+    "fixed_on_main_by": ["https://github.com/buffedlizard55-lab/MaltaProj3/pull/261", "https://github.com/buffedlizard55-lab/MaltaProj3/pull/270", "commit 6cb7dbe"]
+  },
+  "defect_2_no_reader": {
+    "where": "egw_live.load_live had no caller; reference_odds.CAPTURE_PATHS was a fixed three-item allowlist",
+    "reproduced_by": "replaying the ladder on the same saved EGamersWorld observation with the import fixed: method None, pick_index None",
+    "fixed_on_main_by": ["https://github.com/buffedlizard55-lab/MaltaProj3/pull/261"],
+    "hardened_on_main_by": "https://github.com/buffedlizard55-lab/MaltaProj3/pull/270 (source-clock + exact named price + original-HTML/manifest agreement)"
+  },
+  "replay_proved_here_after_the_merge": {
+    "saved_observation": {
+      "index": "https://egamersworld.com/counterstrike/matches",
+      "anchor": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+      "printed_odds": [3.44, 1.24],
+      "source_start": "2026-10-26T03:00:00Z"
+    },
+    "fixture": {"id": "1082858", "teams": ["Ground Zero", "Off Chops"], "starts_at": "2026-10-26T03:00:00Z"},
+    "result": {
+      "method": "reference",
+      "provider": "EGamersWorld (published bookmaker average)",
+      "probabilities": {"Ground Zero": 0.26495726, "Off Chops": 0.73504274},
+      "pick": "Off Chops",
+      "pick_index": 1,
+      "source_url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d"
+    },
+    "gates_exercised": [
+      "reference_odds.quote(): exact fixture id, both names, exact start, freshness under 8 h, non-identical odds, no-vig margin band, excerpt SHA-256",
+      "egw_live.load_live(): reparse of the saved original HTML, one successful manifest request with matching url/observed_at/evidence/method, replayed entry must equal the saved entry"
+    ]
+  },
+  "fail_closed_cases_proved": [
+    "original HTML evidence missing -> no automated rows",
+    "manifest request status != ok -> no automated rows",
+    "manifest observation instant differs from the original response -> no automated rows",
+    "derived capture edited after the fact (odds not in the saved HTML) -> no automated rows",
+    "capture with no chain at all -> the fixture stays blank (method None, no pick)",
+    "identical 1.8 / 1.8 placeholder -> rejected by the unchanged reference gate"
+  ],
+  "automated_test": "tests/test_a5b59ee6_publisher_wiring.py (10 tests: reachability, whole-chain replay, five fail-closed cases, ladder end to end, reviewed-capture precedence, static undefined-name guard)"
+}
