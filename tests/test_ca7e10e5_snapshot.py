@@ -23,6 +23,7 @@ from __future__ import annotations
 import json
 import re
 import unittest
+from datetime import datetime, timezone
 from pathlib import Path
 
 from scripts import root_publish
@@ -48,6 +49,16 @@ class BuildPublishesTheDownloadableSnapshot(unittest.TestCase):
 
 
 class RootPublisherCarriesTheSnapshot(unittest.TestCase):
+    # Sessions arena-43110640 and arena-89c00d8a independently proved the
+    # same defect; keep one fixture clock on the 2026-10-23 snapshot.
+    # Using the wall clock made three unrelated file-layout tests start raising
+    # PublishRefused after 21:23Z, blocking pages.yml before live collection
+    # (runs 40028653350, 40037957529, 40048429858 and 40063011446).
+    NOW = datetime(2026, 10, 23, 10, 0, tzinfo=timezone.utc)
+
+    def plan(self):
+        return root_publish.build_plan(self.output, self.root, now=self.NOW)
+
     def setUp(self):
         import tempfile
         self.tmp = tempfile.TemporaryDirectory()
@@ -69,30 +80,19 @@ class RootPublisherCarriesTheSnapshot(unittest.TestCase):
     def tearDown(self):
         self.tmp.cleanup()
 
-    # Session arena-43110640: pin the reference clock. These tests used the
-    # wall clock against a fixed 2026-10-23 snapshot, so once that snapshot
-    # became 12h old every scheduled pages.yml run failed its regression step
-    # before collecting anything (runs 40037957529, 40048429858, 40063011446).
-    NOW = None
-
-    def _plan(self):
-        from datetime import datetime, timezone
-        return root_publish.build_plan(self.output, self.root,
-                                       now=datetime(2026, 10, 23, 10, 0, tzinfo=timezone.utc))
-
     def test_snapshot_json_is_published(self):
-        plan = self._plan()
+        plan = self.plan()
         self.assertIn('snapshot.json', plan.writes)
 
     def test_the_replay_fixture_is_still_never_published(self):
-        plan = self._plan()
+        plan = self.plan()
         self.assertFalse([p for p in plan.writes if p.startswith('data/')])
 
     def test_an_older_build_is_still_refused(self):
         self.root.joinpath('index.html').write_text(
             '<html><body data-snapshot-generated="2026-10-24T00:00:00Z">' + 'x' * 60000
             + '</body></html>')
-        plan = self._plan()
+        plan = self.plan()
         self.assertEqual(plan.writes, {})
         self.assertIn('refusing to move the published site backwards', plan.reason)
 
