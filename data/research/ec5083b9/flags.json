@@ -73,5 +73,18 @@
       "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml"
     ]
+  },
+  {
+    "id": "ec5083b9-recovery-runner-and-guard-block-the-publish",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "The publisher now waits on a macOS runner and a queue-safety gate that fails, so even scheduled refreshes skip the publish job",
+    "detail": "Checked at 2026-10-24T08:20Z-08:42Z on the two pages.yml runs that actually completed: 40077233256 (push, 08:14:05Z) and 40078105941 (push, 08:27:26Z). Both fail in the republish-last-verified job at the step 'Retire only publishers predating independently replayable sources' with 'Recovery queue safety not established: Obsolete publisher has not stopped; recovery cannot publish' (scripts/be019782_release.py::retire_obsolete). Because verify-and-deploy is gated on needs['republish-last-verified'].outputs.queue_safe == 'true' for recovery/scheduled runs, the job that would collect and deploy was skipped in both runs. Separately, the same change pins the publisher to runs-on macos-14 for recovery and scheduled runs (.github/workflows/pages.yml), and GitHub's own annotation on those runs reads 'Due to capacity constraints, jobs targeting macOS arm64 runners may experience longer queue times' - which matches the 37-minute queued scheduled run 40074822023 that never started. Net effect: the site still serves snapshot 2026-10-23T20:10:00Z and the nine CCT Europe cards stay unpublished. This is not something this session can fix without editing another session's workflow and release script, so it is recorded here as a cross-session request: either let the scheduled publisher run on ubuntu-24.04 (the previous behaviour), or make retire_obsolete treat a queued-not-running obsolete publisher as retired, and let verify-and-deploy run when the queue guard is inconclusive but the code gates are green.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40078105941",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40077233256",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/be019782_release.py"
+    ]
   }
 ]
