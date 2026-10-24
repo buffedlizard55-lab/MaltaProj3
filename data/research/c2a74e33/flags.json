@@ -1,0 +1,83 @@
+[
+  {
+    "id": "c2a74e33-001",
+    "severity": "notice",
+    "title": "Live Polymarket CLOB orderbook on 1082996 (Acend vs UNiTY) tightened to a 0.05 spread, resolving the earlier Valve-VRS inversion",
+    "detail": "In the 2026-10-24T14:24:32Z snapshot, fixture 1082996 (Acend vs UNiTY, 2026-10-25T09:00:00Z, NODWIN Clutch Series #13) fell through to the Oct 5 Valve VRS rating snapshot (Acend 54.2% / UNiTY 45.8%) because Polymarket market 6072790 (cs2-ace1-unity-2026-10-25) exceeded the spread ceiling. Direct Gamma + CLOB orderbook verification at 2026-10-24T16:31:27Z ($1,574.59 liquidity) confirms tight two-sided quotes on both tokens: Acend 0.36/0.41 (mid 38.5%, spread 0.05 <= 0.12) and UNiTY esports 0.59/0.64 (mid 61.5%, spread 0.05 <= 0.12), matching HLTV 2399112 world rank (#131 Acend vs #86 UNiTY) and EGamersWorld index (2.35 / 1.50). Existing NODWIN alias UNiTY esports -> UNiTY will promote 1082996 automatically on the next live refresh.",
+    "match_ids": [
+      "1082996"
+    ],
+    "source_urls": [
+      "https://gamma-api.polymarket.com/events/1238703",
+      "https://clob.polymarket.com/book?token_id=70739776158623819204556862140110042694226402323251073812600083606213507639618",
+      "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13"
+    ]
+  },
+  {
+    "id": "c2a74e33-002",
+    "severity": "notice",
+    "title": "Refreshed <8h EGamersWorld match-page capture in CAPTURE_PATHS preserves 1082858 (Ground Zero vs Off Chops) when Actions hits HTTP 403",
+    "detail": "GitHub Actions runners receive Cloudflare HTTP 403 on egamersworld.com (egw_live_error: 403), and the earlier 06:29:25Z manual capture for 1082858 (Ground Zero vs Off Chops, 2026-10-26T03:00:00Z) aged past MAX_PRICE_AGE_HOURS = 8. First-hand verification at 2026-10-24T16:42:00Z confirms the verbatim EGWxxxBOT match-page bookmaker average (3.44 / 1.24 -> 26.5% / 73.5% Off Chops, corroborated by Prematch Vave 3.44/1.24, Smarkets 45396333 mid 23.7%/76.3% at 0.161 spread, and Polymarket 6066508 mid 33.0%/67.0% at 0.26 spread, whereas Hotspawn crowd picks sit 88% on Ground Zero). Registered in scripts/reference_odds.py::CAPTURE_PATHS alongside fresh match-page backups for 1083122, 1083123, and 1079200.",
+    "match_ids": [
+      "1082858",
+      "1083122",
+      "1083123",
+      "1079200"
+    ],
+    "source_urls": [
+      "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+      "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+      "https://smarkets.com/event/45396333",
+      "https://gamma-api.polymarket.com/events/1237427"
+    ]
+  },
+  {
+    "id": "c2a74e33-003",
+    "severity": "warning",
+    "title": "HLTV match pages document multiple substitutes on 1081156 (LFO 10: 3 stand-ins) and 1082861 (Rooster: 2 stand-ins)",
+    "detail": "First-hand HLTV lineup verification flags elevated roster variance on two active fixtures: (1) On 1081156 (Spirit Academy vs LFO 10, 2026-10-25T12:00:00Z, CCT Europe Series #12), HLTV 2399506 lists LFO 10 with 3 substitutes (L00m1, Toshas, Mann3n alongside Sapec and dottie) while Bovada prices the slot under former org name Sokerorg (-230 / +170 -> 66.4% / 33.6% Spirit Academy). (2) On 1082861 (Rooster vs Abyssal, 2026-10-27T03:00:00Z, DFRAG Invitational LAN), HLTV 2399891 lists Rooster with 2 substitutes (TjP and foggers alongside asap, nettik, DannyG).",
+    "match_ids": [
+      "1081156",
+      "1082861"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12",
+      "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+      "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike"
+    ]
+  },
+  {
+    "id": "c2a74e33-004",
+    "severity": "warning",
+    "title": "Three active fixtures (1082861, 1082792, 1082793) remain on official Valve VRS model estimates due to wide exchange spreads and 7-day-out empty books",
+    "detail": "Across Polymarket, Smarkets, Bovada, Kalshi, Pinnacle, bo3.gg, and EGamersWorld at 2026-10-24T16:42Z: 1082861 (Rooster vs Abyssal, Oct 27) has wide spreads on Polymarket (0.25 > 0.15) and Smarkets (0.161 > 0.15) and 1.8/1.8 on its EGW match page; 1082792 (HOTU vs The Huns, Oct 31) has a 0.43 Polymarket spread and 1.8/1.8 on its EGW match page; and 1082793 (5star vs 1WIN, Oct 31) has zero exchange/bookmaker markets 7 days out and 1.8/1.8 on EGW. All three stay honestly labelled as official Git-blob-verified Valve VRS model estimates (Abyssal 52.2%, HOTU 94.1%, 1WIN 82.2%).",
+    "match_ids": [
+      "1082861",
+      "1082792",
+      "1082793"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+      "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings"
+    ]
+  },
+  {
+    "id": "c2a74e33-005",
+    "severity": "notice",
+    "title": "Hotspawn CDN edge lag verified (83 cache-busted vs 84/85 cached) and inverted crowd picks excluded on 1082858 and 1083122",
+    "detail": "At 2026-10-24T16:42Z, cache-busted play.hotspawn.com/lobby?cb=1792860000 served 83 CS2 records (61 archived + 22 open future cards, exact 22/22 parity with the scheduled API after 1083121 started at 16:00Z), whereas unbusted /lobby (84) and /cs2-pickems (85) served stale edge HTML. Hotspawn crowd picks remain sharply inverted against real-money bookmakers on 1082858 (88% crowd on Ground Zero vs 73.5% bookmaker favorite Off Chops) and 1083122 (76% crowd on LOS NINOS vs 68.7% bookmaker favorite BORRACHEIROS) and are never used.",
+    "match_ids": [
+      "1083121",
+      "1082858",
+      "1083122"
+    ],
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+      "https://egamersworld.com/counterstrike/match/0U32SId-H/los-ninos-vs-borracheiros-qorsZa4d--"
+    ]
+  }
+]

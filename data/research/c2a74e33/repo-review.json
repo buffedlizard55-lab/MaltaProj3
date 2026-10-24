@@ -1,0 +1,97 @@
+{
+  "session": "arena-c2a74e33",
+  "scope": "Line-by-line audit of all 23 active CS2 fixtures in the 2026-10-24T14:24:32Z snapshot and 22 live future Hotspawn lobby cards at 16:42Z, HLTV-first + multi-exchange/sportsbook fallback verification, <8h EGamersWorld reference-odds refresh in CAPTURE_PATHS, and mobile/WCAG browser verification.",
+  "review_clock_utc": "2026-10-24T16:42:00Z",
+  "method": "Replayed all 18 featured active rows in snapshot.json to 1e-8 and audited all 23 complete-pick cards in origination/index.html; fetched cache-busted Hotspawn lobby + API, HLTV match pages, Polymarket Gamma/CLOB, Smarkets, Bovada, Kalshi, Pinnacle, bo3.gg, and EGamersWorld first-hand.",
+  "items": [
+    {
+      "id": "C2A7-R01",
+      "area": "8-hour reference-odds freshness gap on 1082858 (Ground Zero vs Off Chops)",
+      "status": "fixed",
+      "finding": "GitHub Actions hits HTTP 403 on egamersworld.com (egw_live_error: 403), and the 06:29:25Z manual capture for 1082858 in research/e57df95b/reference-odds.json aged past MAX_PRICE_AGE_HOURS = 8, which would drop 1082858 from its 26.5% / 73.5% bookmaker-average line to the uncalibrated network model.",
+      "handling": "Verified the live EGW match-page bookmaker-average quote at 2026-10-24T16:42:00Z (3.44 / 1.24 -> 26.50% / 73.50% Off Chops, plus backup match-page captures for 1083122, 1083123, and 1079200) and registered research/c2a74e33/reference-odds.json ahead of e57df95b in scripts/reference_odds.py::CAPTURE_PATHS.",
+      "evidence": [
+        {
+          "url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+          "detail": "Match page publishing verbatim EGWxxxBOT average odds 3.44 / 1.24 and Prematch Vave 3.44 / 1.24."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+          "detail": "HLTV match 2399888 confirming BO3 LAN schedule at 2026-10-26T03:00:00Z."
+        }
+      ]
+    },
+    {
+      "id": "C2A7-R02",
+      "area": "Mathematical replay & official-source link audit across all 23 active fixtures",
+      "status": "verified",
+      "finding": "Replayed all 18 featured active rows in snapshot.json (10 Polymarket midpoints and 8 Valve VRS ratings with VALVE_RD=75) to 1e-8 and audited all 23 pick cards in origination/index.html and 907 site table/card rows: 0 arithmetic drift, 0 crowd-% fields, 0 unofficial links.",
+      "handling": "Codified deterministic replay and row-level official-link checks in scripts/c2a74e33_verify.py and tests/test_c2a74e33_verification.py.",
+      "evidence": [
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings",
+          "detail": "Official Valve Regional Standings repository supplying the Git-blob-verified ratings."
+        },
+        {
+          "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+          "detail": "Hotspawn scheduled CS2 fixtures API returning 83 scheduled records (22 future open at 16:42Z)."
+        }
+      ]
+    },
+    {
+      "id": "C2A7-R03",
+      "area": "Live Polymarket CLOB tightening on 1082996 & lineup stand-in flags on 1081156 / 1082861",
+      "status": "verified",
+      "finding": "Polymarket 1238703 / 6072790 (Acend vs UNiTY) now quotes 0.36/0.41 vs 0.59/0.64 (spread 0.05 <= 0.12, 38.5% / 61.5% UNiTY), ready for automatic promotion on the next live refresh; HLTV 2399506 and 2399891 document 3 substitutes on LFO 10 and 2 on Rooster.",
+      "handling": "Published verbatim SHA-256 excerpts in data/research/c2a74e33/hltv-first-observations.{json,md} and review notices/warnings c2a74e33-001..004 in data/research/c2a74e33/flags.json.",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events/1238703",
+          "detail": "Polymarket event 1238703 (market 6072790) quoting $1,574.59 liquidity and 0.05 spread."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12",
+          "detail": "HLTV match 2399506 listing L00m1, Toshas, and Mann3n as substitutes for LFO 10."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+          "detail": "HLTV match 2399891 listing TjP and foggers as substitutes for Rooster."
+        }
+      ]
+    },
+    {
+      "id": "C2A7-R04",
+      "area": "Uncached Hotspawn lobby parity & phone Executive Summary readability",
+      "status": "verified",
+      "finding": "Uncached play.hotspawn.com/lobby?cb=1792860000 reports 83 CS2 records (61 archived + 22 open), matching the scheduled API 22/22 while unbusted /lobby (84) and /cs2-pickems (85) lag by 1-2 started fixtures. Phone viewports (320/375/390px) surface both teams win percentages, the obvious pick, and working in-site links without horizontal overflow.",
+      "handling": "Published data/research/c2a74e33/live-coverage.{json,md} (22/22 Hotspawn + 22/22 HLTV links) and automated phone viewport assertions in tests/browser/phone_c2a74e33.spec.mjs.",
+      "evidence": [
+        {
+          "url": "https://play.hotspawn.com/lobby",
+          "detail": "Hotspawn Pick-ems lobby verified with ?cb= cache-busting at 2026-10-24T16:42:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches",
+          "detail": "HLTV matches schedule cross-checked across all 22 live future Hotspawn fixtures."
+        }
+      ]
+    },
+    {
+      "id": "C2A7-R05",
+      "area": "Regression wall-clock pin in tests/test_a5b59ee6_publisher_wiring.py",
+      "status": "fixed",
+      "finding": "TheLadderPublishesThePick stamped its synthetic EGW chain at 2026-10-24T06:30:00Z while originate.run(live=False) read wall-clock datetime.now(UTC), causing two tests to fail MAX_PRICE_AGE_HOURS = 8 starting at 2026-10-24T14:30:01Z (blocking both checks.yml and pages.yml step 5 Regression tests).",
+      "handling": "Independently reproduced and pinned the clock locally; adopted session arena-5f9d0082 PR #317 merged originate.run(..., now=NOW) signature at integration so the suite stays deterministic at every wall clock.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+          "detail": "Scheduled 4-hour publisher workflow gating deployment on python -m unittest discover."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/checks.yml",
+          "detail": "PR validation workflow running the full Python unittest regression suite."
+        }
+      ]
+    }
+  ]
+}

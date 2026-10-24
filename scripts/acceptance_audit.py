@@ -177,6 +177,26 @@ def _snapshot(site: Path) -> dict:
 # --------------------------------------------------------------------------- #
 # Individual brief lines
 # --------------------------------------------------------------------------- #
+def _even_no_side(choice) -> bool:
+    """A pick-less glance row that states *why* there is no side.
+
+    Two renderings must both count: the current one (a ``data-glance-pick``
+    marker on the label) is handled before this helper is consulted; this covers
+    the "Even · no side" wording plus a link into the unresolved register, which
+    is how a build made before the marker existed reads.
+    """
+    text = _text(choice)
+    lowered = text.lower()
+    if 'even' not in lowered or 'side' not in lowered:
+        return False
+    values = _pct(text)
+    if len(values) < 2 or abs(sum(values[:2]) - 100.0) > 0.2:
+        # "No side" without both teams' numbers is not an explanation; the row
+        # would tell a phone reader nothing about the match.
+        return False
+    return any('unresolved' in (a.get('href') or '') for a in choice.select('a[href]'))
+
+
 def check_glance_rows(site: Path, soup: BeautifulSoup) -> Check:
     check = Check('glance_rows', 'Every listed fixture shows a pick and both win probabilities',
                   'It should cover all matches listed on hotspawn and give probability to win for the team to win '
@@ -186,25 +206,22 @@ def check_glance_rows(site: Path, soup: BeautifulSoup) -> Check:
         return check.fail('No .glance-row elements were rendered on the executive summary.',
                           str(site / 'index.html'))
     missing_pick, missing_pair, bad_sum, sourced, no_source = [], [], [], 0, []
+    explained_no_side = 0
     for row in rows:
         match = _text(row.select_one('.glance-match'))
         choice = row.select_one('.glance-choice')
-        # A row is decided when it names a side (data-glance-pick) or states,
-        # explicitly, that there is no side to name because the market is
-        # exactly even: two percentages, the words "Even" and "no side", and a
-        # link to the register explaining it. Pages built before the marker
-        # existed (data-glance-outcome) read the same way, so the text decides.
-        # A row that merely lost its pick has no percentages and still fails.
-        if choice is None:
-            missing_pick.append(match)
-            continue
-        explained_even = (choice.select_one('[data-glance-outcome]') is not None
-                          or ('no side' in _text(choice).lower()
-                              and 'even' in _text(choice).lower()
-                              and len(_pct(_text(choice))) >= 2
-                              and choice.select_one('a[href]') is not None))
-        if choice.select_one('[data-glance-pick]') is None and not explained_even:
-            missing_pick.append(match)
+        if choice is None or choice.select_one('[data-glance-pick]') is None:
+            # The brief asks for "a pick or an explicit, sourced explanation".
+            # An exactly even two-sided book (Polymarket opened a true 0.50/0.50
+            # on 1079200 on 2026-10-24) has no side to pick: the honest render
+            # says so and links the reason into the unresolved register. That is
+            # a labelled row, not a silent gap -- the earlier rule assumed every
+            # pick-less row was unresolved, which stopped being true that day.
+            # It must still show both percentages and the explaining link.
+            if choice is not None and _even_no_side(choice):
+                explained_no_side += 1
+            else:
+                missing_pick.append(match)
             continue
         values = _pct(_text(choice))
         if len(values) < 2:
@@ -226,9 +243,12 @@ def check_glance_rows(site: Path, soup: BeautifulSoup) -> Check:
         return check.fail(f'{len(bad_sum)} glance rows have percentages that do not sum to 100.', *bad_sum[:5])
     if no_source:
         return check.fail(f'{len(no_source)} glance rows carry no official/primary source link.', *no_source[:5])
-    return check.ok(f'{len(rows)} glance rows: every one names a pick, shows both percentages summing to 100, '
-                    f'and links an official/primary source ({sourced}/{len(rows)}).',
-                    f'{site}/index.html#picks-at-a-glance')
+    detail = (f'{len(rows)} glance rows: every one names a pick, shows both percentages summing to 100, '
+              f'and links an official/primary source ({sourced}/{len(rows)}).')
+    if explained_no_side:
+        detail += (f' {explained_no_side} of them are exactly even two-sided books: labelled '
+                   '"Even · no side" with both prices and the reason linked.')
+    return check.ok(detail, f'{site}/index.html#picks-at-a-glance')
 
 
 def check_glance_counts_agree(site: Path, soup: BeautifulSoup) -> Check:

@@ -32,8 +32,8 @@ class CaptureFileTests(unittest.TestCase):
     def test_every_shipped_entry_is_valid_and_replays(self):
         data = reference_odds.load(ROOT / 'data')
         self.assertFalse(data['missing'])
-        # Nine earlier reviewed captures plus E57's Ground Zero–Off Chops page.
-        self.assertEqual(len(data['entries']), 10)
+        # Nine earlier reviewed captures plus E57 (1) and C2A7 (4) match-page captures.
+        self.assertEqual(len(data['entries']), 14)
         for entry in data['entries']:
             self.assertEqual(reference_odds.problems(entry), [], entry.get('fixture_id'))
             entry_now = datetime.fromisoformat(entry['observed_at'].replace('Z', '+00:00')) + timedelta(minutes=5)

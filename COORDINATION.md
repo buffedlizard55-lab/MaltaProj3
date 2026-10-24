@@ -1,3 +1,29 @@
+# Current session: arena-c2a74e33 — live Hotspawn CS2 full-inventory verification, HLTV-first + esportsbook/exchange gap research & alias audit, line-by-line repo review, mobile/WCAG verification, and publish
+
+Claimed **2026-10-24T16:27Z** on Arena's fixed branch `arena/c2a74e33-maltaproj3`, branched from `main` at `487a0e0` (= current `origin/main` head; the `2026-10-24T14:24:32Z` verified snapshot). Read `COORDINATION.md`, all open PRs (#292, #273, #255, #248, #246, #245, #242, #227, #225, #224, #165, #139 — all >4.8h stale without commits), and active parallel branch `arena/3877d48d-maltaproj3` first. Active session `arena-3877d48d` owns `data/research/3877d48d/**`, `scripts/build.py`, `assets/scout.css`, `tests/test_3877d48d_fallback.py`, and the bottom section of `COORDINATION.md`; none of those files or hunks are touched here.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| C2A7-1 Line-by-line live Hotspawn CS2 API + rendered lobby reconciliation against the deployed `2026-10-24T14:24:32Z` snapshot (`snapshot.json` + `/data/origination.json`), plus independent arithmetic replay of every active match's win probabilities and directional pick from first-party evidence (0% Hotspawn `% picked` / HLTV fan votes) | completed | arena-c2a74e33 | new `data/research/c2a74e33/**`, new `scripts/c2a74e33_verify.py`, top section of `COORDINATION.md` |
+| C2A7-2 HLTV-first, then esportsbook/exchange research ONLY for matches not resolved by the featured exact-name method (`1083121`, `1083122`, `1081156`, `1082858`, `1082792`), the 4 active model-only/no-betting-line rows (`1082996`, `1082861`, `1082792`, `1082793`), and any newly added live Hotspawn lobby fixtures: check HLTV match/ranking pages first, then Polymarket, Kalshi, Smarkets, Bovada, Thunderpick, Pinnacle, bo3.gg, and EGamersWorld; wire only verified competition-scoped aliases (`data/origination/aliases.json`) if proven by official https evidence; never hand-write probabilities or picks | completed | arena-c2a74e33 | `data/research/c2a74e33/**`, `data/origination/aliases.json` (no change needed; existing scoped aliases already bind all reachable books), `scripts/reference_odds.py` (`CAPTURE_PATHS` entry only), `tests/test_reference_odds.py` (shipped-entry count update only) |
+| C2A7-3 Line-by-line repository & workflow review (`pages.yml` 4h + catch-up schedule, `freshness-watchdog.yml`, `checks.yml`, `origination.yml`, `audit_rows.py`, `originate.py`, `collect.py`), structured `Flagged for Review` publication (`flags.json` + `repo-review.json`), deterministic clock fix for the `14:30Z` wall-clock regression failure in `tests/test_a5b59ee6_publisher_wiring.py`, and Executive Summary + phone/desktop (320/390/768/1440px + WCAG A/AA) verification | completed | arena-c2a74e33 | `data/research/c2a74e33/**`, `scripts/review_register.py` (`REGISTERS` entry only), `tests/test_a5b59ee6_publisher_wiring.py` (wall-clock pin fix — superseded at merge by `arena-5f9d0082` PR #317 `now=NOW`, adopted verbatim), new `tests/test_c2a74e33_verification.py`, new `tests/browser/phone_c2a74e33.spec.mjs` |
+| C2A7-4 Final integration check (preserving any merged parallel work without conflict), full regression/build/link/row-source/browser verification, PR to `main`, merge without waiting for approval, confirm live GitHub Pages deployment serves a healthy verified build, and record PR + deploy result here | in progress | arena-c2a74e33 | top section of `COORDINATION.md`, PR [#318](https://github.com/buffedlizard55-lab/MaltaProj3/pull/318) |
+
+**Non-overlap pledge:** no edit to `scripts/build.py`, `assets/scout.css`, `data/research/3877d48d/**`, `tests/test_3877d48d_fallback.py` (actively owned by `arena-3877d48d`), nor `scripts/collect.py`, `scripts/originate.py`, `scripts/root_publish.py`, `.github/workflows/pages.yml`, `data/latest.json`, `data/origination.json`, `archive/`, `docs/`, or any other session's `data/research/<id>/`. Any cross-owned defect found during verification will be logged here rather than edited directly. Hotspawn `% picked` and HLTV fan votes are never used as probability inputs; unsupported values stay blank and flagged.
+
+**C2A7 integration conflict log (2026-10-24T18:50Z):** while PR [#318](https://github.com/buffedlizard55-lab/MaltaProj3/pull/318) checks ran, parallel session `arena-5f9d0082` merged PRs [#317](https://github.com/buffedlizard55-lab/MaltaProj3/pull/317) (`a63e0d0`) and [#321](https://github.com/buffedlizard55-lab/MaltaProj3/pull/321) (`2527081`), and `pages.yml` run `40117004822` root-synced the `18:00:16Z` build (`a77fc77` — promoting `1082996` to Polymarket `57.4% UNiTY`, moving `1079200` to `0.50/0.50` market tie, and dropping `1082858` from `26.5%/73.5%` bookmaker line to `45.0%/55.0%` model after `e57df95b`'s `06:29Z` capture aged past 8h, proving why PR #318's `16:42Z` capture is needed). Reconciled `origin/main` (`2527081`) cleanly: kept `arena-5f9d0082`'s entire board section and `data/research/5f9d0082/**` untouched, adopted `arena-5f9d0082`'s `originate.run(..., now=NOW)` fix in `tests/test_a5b59ee6_publisher_wiring.py` verbatim, adopted `arena-6174aa87`'s (PR #320) byte-identical fix-forward hunks on `tests/test_99d48cd8_mobile.py` and `tests/test_b72154e1_guided_picks.py` (which otherwise fail on `a77fc77`), and hardened `scripts/c2a74e33_verify.py` / `tests/test_c2a74e33_verification.py` against mutable root snapshots (`selection(est)` for 50/50 ties + `availability` upcoming filter + date-guarded `14:24:32Z` counts).
+
+### Summary of findings, sources & verification (`arena-c2a74e33`, 2026-10-24T17:27Z)
+
+- **Live Hotspawn CS2 inventory parity (`C2A7-1`):** Cache-busted `https://play.hotspawn.com/lobby?cb=1792860000` serves **83** weekly CS2 fixtures (`All tiers (83) · B (35) · C (48)` = **61** archived + **22** open future cards `1079661`..`1082793`; `1083121` started at `16:00:00Z`), matching `api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1` 100% while unbusted `/lobby` (`84`) and `/cs2-pickems` (`85`) lag by 1–2 started cards. Replayed all **18** featured-resolved active rows in `snapshot.json` (`14:24:32Z`) to `1e-8` and verified all **23/23** complete-pick cards in `origination/index.html` (`0` crowd-% inputs, `0` unofficial URLs).
+- **HLTV-first + multi-book fallback research & `<8h` reference capture (`C2A7-2`):**
+  - **Refreshed `<8h` EGW match-page capture (`data/research/c2a74e33/reference-odds.json`, registered in `scripts/reference_odds.py::CAPTURE_PATHS`):** Because GitHub Actions receives HTTP `403` on `egamersworld.com` (`egw_live_error: 403`) and `e57df95b`'s `06:29:25Z` capture aged past `MAX_PRICE_AGE_HOURS = 8`, registered a fresh `2026-10-24T16:42:00Z` SHA-256-checked capture preserving `1082858` (`Ground Zero vs Off Chops`, `3.44 / 1.24 -> 26.50% / 73.50% ✓ Off Chops` vs `88%` Hotspawn crowd pick on Ground Zero) plus match-page `EGWxxxBOT` backups for `1083122` (`2.92 / 1.33`), `1083123` (`2.945 / 1.325`), and `1079200` (`1.55 / 2.22`), while rejecting 9 placeholder / index-only pages (`1082996`, `1079198`, `1079199`, `1082861`, `1082792`, `1082793`, `1081154`, `1081156`, `1081158`).
+  - **Live Polymarket CLOB tightening on `1082996` (`Acend vs UNiTY`):** Direct Gamma (`events/1238703`) + CLOB (`6072790`) check at `16:31:27Z` (`$1,574.59` liq) confirms `0.36/0.41` Acend (`38.5%`) vs `0.59/0.64` UNiTY esports (`61.5%`, `spread = 0.05 <= 0.12`), ready to auto-promote on the merged `pages.yml` run via existing `UNiTY esports -> UNiTY` NODWIN alias.
+  - **Lineup stand-in & wide-book flags (`1081156`, `1082861`, `1082792`, `1082793`):** HLTV `2399506` lists **3 substitutes** (`L00m1`, `Toshas`, `Mann3n`) on `LFO 10` (`1081156`, Bovada `Sökerorg`); HLTV `2399891` lists **2 substitutes** (`TjP`, `foggers`) on `Rooster` (`1082861`); `1082861`, `1082792`, and `1082793` remain honestly labelled on official Git-blob-verified Valve VRS ratings due to wide Polymarket/Smarkets spreads (`0.25`, `0.161`, `0.43 > 0.15`) and empty 7-day-out books.
+- **Publisher regression fix & local verification (`C2A7-3`):** Independently reproduced and fixed the `14:30Z` wall-clock regression in `tests/test_a5b59ee6_publisher_wiring.py::TheLadderPublishesThePick` (adopted `arena-5f9d0082`'s equivalent `originate.run(..., now=NOW)` fix from PR #317 at merge). Verified locally across all 5 CI gates: `python -m scripts.c2a74e33_verify --check` (0 errors), `unittest` across all modules (`OK`), `scripts.build --data data --output site`, `scripts.audit_rows --site site --strict` (`0 violations`), `node tests/pick-safety-browser.mjs` (`106` assertions), and `npx playwright test` (`128 passed` across 320/375/390/768/1440px + axe WCAG 2A/2AA).
+
+---
+
 # Current session: arena-5f9d0082 — independent re-verification that every live Hotspawn CS2 fixture carries a pick, HLTV-first/esportsbook research for the four no-line fixtures, executive-summary + phone check, publish
 
 Claimed **2026-10-24T16:20Z** on Arena's fixed branch `arena/5f9d0082-maltaproj3`, branched from `main` at `487a0e0` (= `origin/main` head, the 14:28Z publisher sync). Board, workflows and open PRs read first: `gh run list` shows the four-hour publisher green (`Refresh and deploy CS2 dashboard` 40101099651 at 14:07Z, 40096315071 at 13:00Z, 40094899073 at 12:40Z) and the freshness watchdog green at 16:09Z, so there is no stall to fix this session. No other session holds an active claim on the files below.
@@ -12,7 +38,88 @@ Claimed **2026-10-24T16:20Z** on Arena's fixed branch `arena/5f9d0082-maltaproj3
 
 **Non-overlap pledge.** No edit to `scripts/collect.py`, ~~`scripts/originate.py`~~ (one exception, task 5F9-5: the injectable clock only, because the check was red on `main` and blocks every scheduled publisher after 14:20Z today), `scripts/reference_odds.py`, `scripts/root_publish.py`, `scripts/build.py`, `assets/`, `snapshot.json`, `data/latest.json`, `data/origination.json`, `.github/workflows/**` or any other session's `data/research/<id>/`. Hotspawn "% picked" and HLTV fan votes are never probabilities. Adding an EGamersWorld capture would have required editing the shared `CAPTURE_PATHS` list and would have expired in eight hours, so it was deliberately not done while the page shows a placeholder.
 
-### 5F9 result (2026-10-24T16:20Z–17:1xZ)
+### 5F9 result (2026-10-24T16:20Z–18:2xZ)
+
+**Published.** PR [#317](https://github.com/buffedlizard55-lab/MaltaProj3/pull/317) merged to
+`main` as **`a63e0d0`** at 2026-10-24T17:38Z after its `Rows, build, links, mobile and
+accessibility` check passed (18m22s, run
+[40115280187](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40115280187)); the
+`originate` check passed in 3m (`40113859899`). Local full suite on the merged tree:
+**1701 tests OK (4 skipped)** in 1383 s.
+
+**The check was red before this PR, for a new reason — and it was fixed here.** The first
+`Validate dashboard` run on this PR failed on
+`test_a5b59ee6_publisher_wiring.TheLadderPublishesThePick` (2 failures, `unexpectedly None`).
+Reproduced locally in 1.4 s: the test pins its EGamersWorld evidence chain to
+`NOW = 2026-10-24T06:30Z` but called `originate.run(...)`, which read the real clock, so the
+ladder's eight-hour freshness gate refused the capture from 14:20Z onwards. Not caused by this
+session's files, and not cosmetic: the scheduled publisher run
+[40116915898](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40116915898)
+(17:36Z, before the merge) **failed at `Regression tests`** for exactly this reason, i.e. the
+2026-10-23/24 stall had already restarted. Minimal fix (task 5F9-5): `originate.run` accepts the
+injectable clock the project already uses elsewhere; the default is unchanged, so the publisher
+behaves identically. After the merge the same step passed in run
+[40117004822](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40117004822)
+(17:38Z): collect, originate, reconcile, build, `deploy-pages`, *Verify the public site*, the
+legacy-publisher re-read and the root-sync publish all green.
+
+**One residual, platform-side.** That run then failed its last step, *Re-deploy the verified
+artifact over the legacy root build*, with `Failed to create deployment (status: 400) ... due to
+in progress deployment` — a Pages deployment collision with the legacy root build's own deploy,
+not a build or data failure. The verified artifact was already deployed and verified earlier in
+the same job, and the following `pages build and deployment` run
+[40119018271](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40119018271)
+(18:04Z) **succeeded**, so the live site is the merged build. `gh run rerun --failed` was refused
+(`workflow file may be broken` for a superseded head), so the confirmation of a fully green
+end-to-end publisher is taken from the next scheduled slot rather than from a replayed one.
+
+**Live re-read after the merge.** `https://buffedlizard55-lab.github.io/MaltaProj3/review/`
+renders *Inventory checked 24 Oct 2026, 19:59 Europe/Malta* (17:59Z) with 420 findings, and the
+publisher's own post-deploy read printed `active 20, resolved 20, with_pick 20, unresolved 0`
+(four fixtures had locked since the 14:24Z observation). The build in run 40117004822 was made
+from merge commit `a63e0d0a31b7f1cbc59fa7fb0c76d6d3838dc17c`, which contains this session's four
+findings; their rendering was verified in the local build (`site/review/index.html` contains all
+four ids exactly once) and by `tests.test_review_flags` + `tests.test_review_register`
+(13 tests OK).
+
+### 5F9 merge conflict log (2026-10-24T19:5xZ)
+
+While PR #322 waited on its checks, parallel sessions merged #318 (`arena/c2a74e33`) and #320
+(`arena/6174aa87`), and #320 had already hardened the same two tests — with a stronger form than
+mine: it derives the unresolved set from `availability != 'past' and analysis is None`, checks the
+page's per-fixture anchors as well as the team names, and keeps always-on invariants (two
+probabilities summing to 1, UTC stamps, a named side unless the market is exactly even) for a
+newer snapshot. Merge conflict on both files resolved by taking **main's** version in full through a
+merge commit; nothing from either session was discarded, my parallel edits to those two files are
+superseded by theirs, and my unique work (dossier, four findings, clock injection, this record)
+remains. Verified after resolution: 13 tests OK in the two modules, full suite 1701 OK.
+
+### 5F9 follow-up (2026-10-24T18:2xZ–19:0xZ): the next publisher run failed on two more dated snapshot tests
+
+Run [40120126457](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40120126457) (push,
+18:18Z) failed at `Regression tests` on
+`test_b72154e1_guided_picks.GuidedPicksTest.test_group_b_are_snapshot_model_picks` and
+`test_99d48cd8_mobile.ExecutiveSummaryLinks.test_unresolved_page_names_both_unresolved_fixtures`.
+Cause, reproduced locally on the 18:00:16Z root snapshot that run 40117004822's own root-sync
+committed (`a77fc77`, 81 records / 20 active):
+
+* `1079200` (Color vs ex-Zero Tenacity) moved from a featured research-model estimate to an
+  **exactly even market line** — probabilities published, no directional side, counted as
+  `no_edge` — so the dossier's "group B are research-model picks" claim no longer describes the
+  live snapshot. Guarded exactly like the sibling `test_group_c_absent_from_snapshot` already is:
+  asserted against the snapshot the dossier names, skipped (with a reason) when the root snapshot
+  is newer. Provenance and arithmetic assertions stay always-on.
+* The mobile test treated `pick_index is None` as "unresolved", which also matches the even-market
+  row; the snapshot's own definition (no published analysis at all) is `analysis is None` and it
+  agrees exactly with `counts.unresolved` (4 of the 20 active). The test now derives the set that
+  way and still asserts that the unresolved page names every such fixture — the intent is
+  unchanged, and it holds for any snapshot.
+
+Both modules green locally (13 tests, 2 skipped). No pick, probability, snapshot, script or site
+file was changed; the live site served 20 of 20 active fixtures with a pick, 0 unresolved, when
+re-read on `/unresolved/` at 18:2xZ.
+
+### 5F9 pre-merge verification (2026-10-24T16:20Z–17:20Z)
 
 - **Coverage is complete, verified against three independent readings.** Lobby
   ([play.hotspawn.com/cs2-pickems](https://play.hotspawn.com/cs2-pickems), 16:22Z): 85 cards,
@@ -8882,3 +8989,61 @@ Both modules pass on this head (`Ran 13 tests … OK`), the six other modules th
 - **Live site re-read after the deploy** (`https://buffedlizard55-lab.github.io/MaltaProj3/`): inventory checked **24 Oct 2026, 21:44 Malta = 19:44Z**, root `snapshot.json` `generated_at 2026-10-24T19:44:34Z`, **18 active fixtures, 17 with a directional pick, 0 explicitly unresolved** (14 external-line, 3 research-model), every row carrying both win probabilities, the pick and its original source link. `assets/scout.css` on `main` carries the phone change (`glance-other 13px`), and `/review/` publishes *Dated pick-provenance sweep: every published pick re-read against its own citation*.
 - **Nuance for manual review (not a defect, by design):** the 19:44Z snapshot prices `1079200 Color vs ex-Zero Tenacity` as an exactly even two-sided Polymarket book (49–51¢ / 49–51¢), so the summary shows **“No edge · Even · no side”** rather than inventing a side, and the featured counter still reports `counts.unresolved 3` (locked/unknown-schedule scope) while the complete researched layer reports **0 without a pick**. Both numbers are labelled with the list they describe; nothing is filled in to force a side.
 - **Irregularity retained for the next session:** the branch-root publisher output (`snapshot.json`, `index.html`, `*/index.html`) is machine-rewritten every four hours. Three publisher failures in 24 hours (40085158851, 40116915898, 40120126457) were all tests pinning it. Tests may derive expectations from it, never pin them.
+
+## Session arena-3877d48d — picks for every match, fallback-pick register, executive-summary/mobile verification, fresh publish (2026-10-24T16:2xZ)
+
+Claimed on Arena's fixed branch `arena/3877d48d-maltaproj3`, branched from `main` at `487a0e0` (= `origin/main` head; the 14:24:32Z verified snapshot). Board read first. Open PRs #292, #273, #255, #248, #246, #245, #242, #227, #225, #224, #165, #139 belong to earlier sessions and are not edited here; none of their claimed file scopes overlap the scope below.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| S387-1 Line-by-line reconciliation of the live Hotspawn CS2 lobby (read 2026-10-24T16:19Z) against the published `snapshot.json` (14:24:32Z, 84 records / 23 open / 23 picks): confirm every open fixture, its start time and its pick, and record the exact uncovered set | **done** — lobby still lists 84 CS2 matches this week (B 35 · C 49), the same inventory total; 22 of the 23 open fixtures were still pickable (1083121 Projeto do KinGui vs MEIA NOITE had passed its 16:00Z lock); **uncovered set: empty**. Recorded in `data/research/3877d48d/findings.{json,md}` | arena-3877d48d | `data/research/3877d48d/**` |
+| S387-2 Independent first-hand research for every active fixture whose pick does **not** come from the featured Polymarket book (5 consensus, 5 bookmaker, 1 aggregated reference, 4 research-model): HLTV identity/format/ranking first, then esportsbook and betting-line surfaces (EGamersWorld, Bovada, Thunderpick, Polymarket, Kalshi), with dated URLs, quoted numbers and limitations. Leads only — no probability, pick or alias is written by hand | **done** — 13 dated source observations in `findings.json` (+ `findings.md`): EGamersWorld confirms 1082858 (3.44/1.24) and exposes 1082860's near-lock 1.001/12.00; four unrelated fixtures display the same 1.80/1.80 placeholder (refused); HLTV displays its own 77.1% on 1082792 and 81.6% on 1082793 (cross-check only); Polymarket event 1238703 is live and binds 1082996 at the exact start; two Bovada URLs sit under a `series-11` path. Runner probe (`probe.json`) recorded **HTTP 403 on all ten EGamersWorld pages**. Nothing was written into a probability, pick or alias | arena-3877d48d | `data/research/3877d48d/**` |
+| S387-3 A separate, always-published **fallback-pick register** on the site: every active fixture whose pick is not a featured market line, with its source, both probabilities, the observed price and its limitations; a compact list on the executive summary linking into it, plus the unresolved register. Verify the executive summary's in-site picks links and phone readability (320/390/768) | **done** — `fallback_register()` renders the money-backed fallback rows (consensus/bookmaker/reference) in full on `/unresolved/#fallback-register` with every limit, and as a one-line-per-fixture list on the executive summary; research models and wide-book guidance keep their existing register so no fixture is listed twice; `research_verification_block()` publishes the dated outside research on `/unresolved/#independent-verification`; 8 new flags on `/review/`. Phone: 13 existing Playwright phone specs pass at 320/390/768/1440, no horizontal overflow; a sixth `start-here` tile was rejected by `phone_summary_17d77cb3` (first pick fell below the fold) so the register is linked from the pick index's intro sentence instead | arena-3877d48d | `scripts/build.py`, `assets/scout.css`, new `tests/test_3877d48d_fallback.py`, `data/research/3877d48d/flags.json`, this section |
+| S387-4 Proven presentation defect: the near-lock decimal price `1.001` is rendered as `1.00`, which reads as a 100% / zero-payout quote (FlyQuest–Staqued, 1082860). Render sub-1.10 decimals at full precision and label near-lock prices; keep the number unchanged | **done** — new `decimal_price()` keeps three decimals below 1.10 (`1.001 / 12.00`) and leaves every ordinary price unchanged; the register states that a winning bet on a sub-1.02 quote returns under 2%. No probability, pick or stored quote changed | arena-3877d48d | `scripts/build.py`, `tests/test_3877d48d_fallback.py` |
+| S387-5 Fresh publish inside the 8-hour bound, PR to `main`, merge without waiting for approval, confirm the Pages deploy serves the fresh snapshot, record run ids, sources, verification and irregularities here | unclaimed | arena-3877d48d | this section, PR |
+
+**Non-overlap pledge:** no edit to `scripts/collect.py`, `scripts/originate.py`, `scripts/root_publish.py`, `scripts/egw_live.py`, `scripts/reference_odds.py`, `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `archive/`, `docs/`, or any other session's `data/research/<id>/`. Hotspawn “% picked” and HLTV fan votes are never probabilities.
+
+### S387 integration note (2026-10-24T18:0xZ)
+
+- **Rebased onto `main` before the PR** (`d98056d` → `origin/main` `a77fc77`, pulled with `--rebase=merges`; no conflict was discarded). Two merges landed while this session worked: PR #317 (session 5f9d0082) added its own coverage research and, in `10d79ba`, **injected a clock into `originate.run`** — the better fix for the same wall-clock failure class this session had repaired with a real-clock capture stamp in `tests/test_a5b59ee6_publisher_wiring.py`. This session **adopted main's version and dropped its own test patch**; the file now carries main's `now=NOW` form and all 10 tests pass on the merged tree. Nothing of the other session's work was reverted.
+- **Probe workflow is dispatch-only again.** Starting the first sweep needed a `push` trigger (dispatch requires default-branch registration), but its evidence commit re-entered the branch and cancelled that ref's `Validate dashboard` run (40116642184, cancelled 12m57s in). The trigger is removed; the evidence is already committed.
+- **Post-merge verification on the integrated tree:** `python -m scripts.build` PASS — 932 audited rows, 912 with an official link, 0 without a source, 858 internal links/assets/anchors, 9 Pages views; acceptance audit 9 pass / 1 info / 0 fail. Full `python -m unittest discover -s tests`: **1,725 tests OK (4 skipped)**. Full Playwright suite: **124 passed** (320/390/768/1440, no horizontal overflow, first pick above the fold at both phone widths).
+
+### S387 fix-forward: two dated tests that were failing on `main` (2026-10-24T18:4xZ)
+
+`main`'s own publisher was red before this session touched anything: `Refresh and deploy CS2 dashboard`
+run 40117004822 failed, and the same two assertions reproduce on `origin/main` (`git checkout origin/main`
+→ 8 tests, 2 failures). Both are the known class — a dated expectation pinned to a snapshot that has since
+been replaced by a root sync:
+
+| Test | Failure on `main` | Fix here (intent preserved) |
+| --- | --- | --- |
+| `tests/test_99d48cd8_mobile.py::test_unresolved_page_names_both_unresolved_fixtures` | compared `upcoming` fixtures with a blank `pick_index` (5) to `counts.unresolved` (4) — two different counters | the equality now binds only to the snapshot that session's own `reconciliation-2026-10-24.json` names; the requirement that every pick-less upcoming fixture is named on `/unresolved/` stays unconditional |
+| `tests/test_b72154e1_guided_picks.py::test_group_b_are_snapshot_model_picks` | asserted fixture 1079200 still carries its research-model pick from the 2026-10-23T20:10:00Z snapshot; the fresh 18:00Z snapshot re-classified it | the dossier's own group/probability-shape and sourcing assertions stay unconditional; the snapshot-bound comparisons are made only when `snapshot.json` is the snapshot the dossier names — the same guard already applied to `group_c` |
+
+Files: `tests/test_99d48cd8_mobile.py`, `tests/test_b72154e1_guided_picks.py` (test-only; no data, no
+probability and no pick was changed). Both modules belong to long-finished sessions and no open PR claims
+them. Verification: `python -m unittest tests.test_99d48cd8_mobile tests.test_b72154e1_guided_picks` → 13 OK.
+
+### S387 second fix-forward: why `main`'s publisher was still red, and what changed (2026-10-24T21:1xZ)
+
+After the first two dated-test repairs, `main`'s publisher still failed (runs **40127253463** push and
+**40129278739** PR #323), and a clean clone of `main` reproduced exactly three failures. They were not stale
+dates this time — one was a **real rendering defect**:
+
+| Failure | Real cause | Fix (no data, no probability touched) |
+| --- | --- | --- |
+| `test_81c1058a_verification::test_acceptance_audit_passes_on_both_site_and_branch_root` (+ the cascade in `…built_site_publishes_…`) | Polymarket opened a **true 0.50/0.50** market on `1079200` (Color vs ex-Zero Tenacity) at 20:07Z. With no side to pick, the summary printed "Even · no side" and both prices — but **without any pick marker**, so `check_glance_rows` read the row as "no pick and no unresolved label" and the brief-line check failed. | `scripts/build.py` now stamps the state marker `data-glance-pick` on **every** glance row (Pick / Snapshot / Locked / **Even book** / Unresolved). `scripts/acceptance_audit.py` accepts a pick-less row only when the row itself states "even … no side" **and** links the explanation — a blank pick-less row still fails. |
+| `test_99d48cd8_mobile::test_unresolved_page_names_both_unresolved_fixtures` | derived "unresolved" from `analysis is None`, which counts the three fixtures the **researched layer** resolved (`1081156`, `1082858`, `1082792`). The published picks page gives each of them a `data-method` pick, so they are not gaps. | unresolved is now `analysis is None` **and** no published pick row (`id="match-<id>" … data-method=`) on `/picks/` — the same question the page answers. Every fixture that *is* pick-less must still be named on `/unresolved/`. |
+| `test_be019782_landmarks::…even_estimate_shows_both_numbers_but_no_invented_side` | asserted the even row has **no** marker (the old contract). | asserts the marker reads `Even book`, that the row still invents no side, and that both numbers are still printed. |
+
+**New tests:** two in `tests/test_3877d48d_fallback.py` pin the contract — every glance row carries a marker,
+and the audit passes a labelled even row, passes a *pre-marker* build whose text says so, and still fails a
+blank row.
+
+**Verified on a clean clone of `main`** (`/tmp/clean1`, no `site/`): `python -m unittest
+tests.test_99d48cd8_mobile tests.test_81c1058a_verification` → **10 OK** with only these code changes. Root
+acceptance audit on the untouched committed root: **9 pass / 1 info / 0 fail**. Files:
+`scripts/build.py`, `scripts/acceptance_audit.py`, `tests/test_99d48cd8_mobile.py`,
+`tests/test_be019782_landmarks.py`, `tests/test_3877d48d_fallback.py`, `data/research/3877d48d/flags.json`.
