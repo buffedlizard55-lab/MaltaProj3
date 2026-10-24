@@ -1,0 +1,47 @@
+[
+  {
+    "id": "5f9d0082-coverage-complete-23-of-23",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Re-verified 2026-10-24 (session arena-5f9d0082): the deployed site prices all 23 open Hotspawn CS2 fixtures; the collector matches its official API exactly",
+    "detail": "Read first-hand 2026-10-24 between 16:20Z and 16:32Z. The live pick'ems lobby showed 85 cards across 19 tournaments; the official scheduled-fixtures API returned 84 records; the checked-in snapshot (inventory observed 14:24:12Z) holds the same 84 with 23 open, and the published feed generated 14:24:44Z reports active 23, resolved 23, with_pick 23, unresolved 0 (19 external-line: 8 market + 5 esportsbook + 5 median consensus + 1 aggregated average; 4 labelled research model). Per-tournament counts agree for 18 of 19 tournaments. The single difference is CCT Europe 2026 Series #12 (lobby 4, API 3, snapshot 3): the API returns exactly the three fixtures the snapshot carries (1081154, 1081156, 1081158), so no lockable card was skipped; the fourth lobby card is a week-counter entry that is no longer returned as scheduled, and its state is not asserted because it could not be confirmed from a first-party page. Evidence and exact read window: data/research/5f9d0082/live-coverage-verification-2026-10-24.json.",
+    "source_urls": [
+      "https://play.hotspawn.com/cs2-pickems",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1&competition_id=35814",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json"
+    ]
+  },
+  {
+    "id": "5f9d0082-egamersworld-180-placeholder",
+    "severity": "notice",
+    "match_ids": ["1082996", "1082861"],
+    "title": "EGamersWorld displays an identical 1.8 / 1.8 price for both low-tier fixtures checked, so its widget is a placeholder and cannot be used as a betting line",
+    "detail": "Read first-hand 2026-10-24: the EGamersWorld match pages for Acend vs UNITY Esports (NODWIN Clutch Series #13, fixture 1082996) and Rooster vs Team Abyssal (DFRAG Invitational 2026, fixture 1082861) both display 1.8 on each side of a 'Make a bet' widget. Two identical prices imply no edge and are exactly the pattern scripts/reference_odds.py refuses as a site placeholder, so neither page was captured as a line and neither pick was changed. This is the concrete reason two of the four no-betting-line fixtures continue to carry a clearly labelled, uncalibrated research-model estimate instead of a market number. Anyone re-checking these fixtures should treat the EGW widget as non-informative until the two prices differ.",
+    "source_urls": [
+      "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/acend-vs-unity-esports-iwaKSVfgf",
+      "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/rooster-vs-team-abyssal-P1tTp3RAg8"
+    ]
+  },
+  {
+    "id": "5f9d0082-hltv-betting-block-promo-only",
+    "severity": "notice",
+    "match_ids": ["1082996"],
+    "title": "HLTV publishes no two-sided prematch line for Acend vs UNiTY: the Betting block is a single sweepstakes promocode row and the visible percentage is a fan vote",
+    "detail": "Read first-hand 2026-10-24 on HLTV match 2399112 (Acend vs UNiTY, NODWIN Clutch Series 13): the match is Best of 3 (Online) at the Round of 16 stage, HLTV ranks are #131 Acend (VRS #74) and #86 UNiTY, and the Betting block contains one promocode advertisement only ('Stake - Sweapstake - US', 'No promocode available'). The only percentages on the page are the 'Pick a winner' community poll (18.5% Acend / 81.5% UNiTY) and the HLTV betting-analytics page, which carries pros/cons and recent form but no odds. HLTV therefore acts here as an identity, format and ranking source - exactly the role the project policy assigns it - and its fan vote is never an input. HLTV pages also return a Cloudflare challenge to the automation runner, which is why this leg is documented as a dated manual read.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
+      "https://www.hltv.org/betting/analytics/2399112/acend-vs-unity-nodwin-clutch-series-13"
+    ]
+  },
+  {
+    "id": "5f9d0082-checked-in-origination-replay-fixture-is-stale",
+    "severity": "review",
+    "match_ids": [],
+    "title": "Repo review: checked-in data/origination.json is a 2026-10-15 replay fixture (17 fixtures) while snapshot.json is current, so a local build prints 17 / 17 where the live site prints 23 / 23",
+    "detail": "Found while verifying this head line by line. data/origination.json carries generated_at 2026-10-15T09:31:24Z with counts active 17, and scripts/build.py loads it as complete_picks, so `python -m scripts.build` on a clean checkout renders 'Directional picks for every active match: 17 / 17' in the executive summary and 17-fixture numbers in the coverage dial, while the deployed site (built by the publisher from the fresh origination it generates in the same run) renders 23 / 23. Nothing on the public site is wrong: the published feed read at 16:26Z reports active 23. The irregularity is for manual review of the repository: a reader who replays the build from checked-in data sees a different coverage count from the one on the live site, and the two disagree by six fixtures with no note in the repository explaining that data/origination.json is a deterministic CI replay fixture. Recommendation, not applied here because the file is shared integration data owned by the publisher: either annotate the replay fixture in the README/COORDINATION or have the build label which origination source it read.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json"
+    ]
+  }
+]

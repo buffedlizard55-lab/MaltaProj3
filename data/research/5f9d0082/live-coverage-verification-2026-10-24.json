@@ -1,0 +1,190 @@
+{
+  "session": "arena-5f9d0082",
+  "title": "Independent re-verification of Hotspawn CS2 pick coverage and of the no-line fallback for the four fixtures with no betting line, read first-hand on 2026-10-24",
+  "observed_at": "2026-10-24T16:30:00Z",
+  "read_window": "2026-10-24T16:20:00Z..2026-10-24T16:32:00Z",
+  "method": [
+    "Read the live Hotspawn CS2 pick'ems lobby and its official scheduled-fixtures API directly, then reconciled both against the checked-in snapshot.json (inventory_observed_at 2026-10-24T14:24:12Z).",
+    "Read the live published origination feed to confirm what the deployed site actually shows, rather than assuming the checked-in replay fixture matches it.",
+    "For the fixtures the featured exact-name method could not price, read HLTV (match page and betting-analytics page) first, then an esportsbook aggregate (EGamersWorld), first-hand.",
+    "No probability, pick, alias or price was written by hand. Every number quoted below is either a provider-published price, an official HLTV display, or a value read out of the repository's own published files."
+  ],
+  "sources": [
+    {"id": "lobby", "url": "https://play.hotspawn.com/cs2-pickems", "role": "Official Hotspawn CS2 pick'ems lobby (tier and tournament filter counts)", "observed_at": "2026-10-24T16:22:00Z"},
+    {"id": "fixtures", "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1", "role": "Official Hotspawn scheduled-fixtures API used by the collector", "observed_at": "2026-10-24T16:28:00Z"},
+    {"id": "fixtures-series12", "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1&competition_id=35814", "role": "CCT Europe 2026 Series #12 subset of the same official API", "observed_at": "2026-10-24T16:28:00Z"},
+    {"id": "published-origination", "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json", "role": "Live published complete-picks feed served by the deployed site", "observed_at": "2026-10-24T16:26:00Z"},
+    {"id": "hltv-acend-unity", "url": "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13", "role": "HLTV match page: format, stage, ranks, betting block, fan vote", "observed_at": "2026-10-24T16:24:00Z"},
+    {"id": "hltv-analytics-acend-unity", "url": "https://www.hltv.org/betting/analytics/2399112/acend-vs-unity-nodwin-clutch-series-13", "role": "HLTV betting-analytics page: ranks, form, absence of any money line", "observed_at": "2026-10-24T16:25:00Z"},
+    {"id": "hltv-moscow", "url": "https://www.hltv.org/events/9344/matches", "role": "HLTV event page: GLuck Moscow Cyber Games 2026 fixtures 2399437 and 2399438 with format", "observed_at": "2026-10-24T16:26:00Z"},
+    {"id": "egw-acend-unity", "url": "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/acend-vs-unity-esports-iwaKSVfgf", "role": "EGamersWorld match page: displayed prices for Acend vs UNITY Esports", "observed_at": "2026-10-24T16:29:00Z"},
+    {"id": "egw-rooster-abyssal", "url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/rooster-vs-team-abyssal-P1tTp3RAg8", "role": "EGamersWorld match page: displayed prices for Rooster vs Team Abyssal", "observed_at": "2026-10-24T16:31:00Z"}
+  ],
+  "lobby_reconciliation": {
+    "lobby_tier_total": 85,
+    "lobby_tournament_counts": {
+      "CCT Europe 2026 Challengers #4": 8,
+      "CCT Europe 2026 Series #11": 2,
+      "CCT Europe 2026 Series #12": 4,
+      "CCT South America 2026 Series #3": 8,
+      "CCT South America 2026 Series #7": 4,
+      "Circuit X Curitiba #4": 2,
+      "DACH CS Masters Season 5": 1,
+      "DFRAG Invitational 2026": 4,
+      "DraculaN Season 7": 6,
+      "European Pro League Series 8": 1,
+      "European Pro League Series 8 Play-In": 6,
+      "LG UltraGear Tournament 2026": 1,
+      "Moscow Cyber Games 2026": 2,
+      "NODWIN Clutch Series #13": 4,
+      "Rainhas do Clutch 2026": 2,
+      "Svenska CS-Ligan 2026": 6,
+      "Tesla Cup 2026": 4,
+      "Thunderpick World Championship 2026: South American Series #1": 8,
+      "Urban Riga Open #5": 12
+    },
+    "checked_in_snapshot": {
+      "file": "snapshot.json",
+      "inventory_observed_at": "2026-10-24T14:24:12Z",
+      "records": 84,
+      "open": 23,
+      "past": 61,
+      "tournament_counts": {
+        "CCT Europe 2026 Challengers #4": 8,
+        "CCT Europe 2026 Series #11": 2,
+        "CCT Europe 2026 Series #12": 3,
+        "CCT South America 2026 Series #3": 8,
+        "CCT South America 2026 Series #7": 4,
+        "Circuit X Curitiba #4": 2,
+        "DACH CS Masters Season 5": 1,
+        "DFRAG Invitational 2026": 4,
+        "European Pro League Series 8": 1,
+        "European Pro League Series 8 Play-In": 6,
+        "LG UltraGear Tournament 2026": 1,
+        "Moscow Cyber Games 2026": 2,
+        "NODWIN Clutch Series #13": 4,
+        "Rainhas do Clutch 2026": 2,
+        "Svenska CS-Ligan 2026": 6,
+        "Tesla Cup 2026": 4,
+        "Thunderpick World Championship 2026: South American Series #1": 8,
+        "Urban Riga Open #5": 12
+      }
+    },
+    "differences": [
+      {
+        "tournament": "CCT Europe 2026 Series #12",
+        "lobby_count": 4,
+        "snapshot_count": 3,
+        "api_count_for_competition_35814": 3,
+        "finding": "The official scheduled-fixtures API returns exactly the three fixtures the snapshot carries (1081154, 1081156, 1081158), so the collector is complete against its own source. The lobby, which counts every card in the current pick'em week including cards that are no longer returned as scheduled, shows one further Series #12 card.",
+        "status": "flagged, not resolved",
+        "note": "The extra lobby card is not a pick that was skipped: it is absent from the scheduled API, and the lobby rendered only future cards, so no lockable Series #12 card was available to pick. Whether it is a completed, cancelled or de-listed fixture could not be verified from a first-party page, so it is not asserted here."
+      }
+    ],
+    "future_cards_rendered_by_lobby": 22,
+    "note_on_rendered_cards": "The lobby render listed 22 future cards (10 Closing Soon, 12 Upcoming). The snapshot's 23 open fixtures are those 22 plus 1083121 (Projeto do KinGui vs MEIA NOITE, start 2026-10-24T16:00:00Z), which had already passed its 15:54Z lock when the lobby was read and therefore no longer rendered as pickable.",
+    "conclusion": "Every copy of fixture data read for this session agrees on the pickable set: 23 open fixtures at the 14:24:12Z observation, and the one per-tournament count difference is explained by the lobby week counter, with the collector matching its official API exactly."
+  },
+  "published_pick_coverage": {
+    "source": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+    "generated_at": "2026-10-24T14:24:44Z",
+    "source_snapshot_at": "2026-10-24T14:24:12Z",
+    "counts": {
+      "active": 23,
+      "resolved": 23,
+      "with_pick": 23,
+      "unresolved": 0,
+      "consensus": 5,
+      "market": 8,
+      "bookmaker": 5,
+      "reference": 1,
+      "model": 4,
+      "alias_joined": 7
+    },
+    "finding": "The deployed site prices all 23 open fixtures: 19 from an external line (8 market + 5 bookmaker + 5 median consensus + 1 aggregated bookmaker average) and 4 from a labelled research model. Header and complete-list counts on the live pages agree (23 picks ready of 23, 0 unresolved).",
+    "collector_health_in_the_same_run": {
+      "egw_live_error": "403 Client Error: Forbidden for url: https://egamersworld.com/counterstrike/matches",
+      "bo3_relay": {"fixtures_bound": 12, "rows_fetched": 258, "with_quote": 12, "rejections": 9},
+      "note": "The EGamersWorld live index is blocked for the GitHub Actions runner (403, Cloudflare) while the same public pages answered a first-hand read from this session's egress; that is an automation obstacle, not evidence that no market exists."
+    }
+  },
+  "no_line_fixture_research": [
+    {
+      "fixture_id": "1082996",
+      "teams": ["Acend", "UNiTY"],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T09:00:00Z",
+      "published_pick_source": "Valve-rating research model (uncalibrated)",
+      "hltv": {
+        "match_id": 2399112,
+        "url": "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13",
+        "format": "Best of 3 (Online), Round of 16",
+        "ranks": "HLTV #131 Acend (VRS #74) vs HLTV #86 UNiTY",
+        "betting_block": "One row only: 'Stake - Sweapstake - US ... America's Social Casino - Play For Free ... No promocode available'. No two-sided money line is published.",
+        "fan_vote": "18.5% Acend / 81.5% UNiTY - a community poll, excluded from every calculation by project policy",
+        "analytics_page": "https://www.hltv.org/betting/analytics/2399112/acend-vs-unity-nodwin-clutch-series-13 publishes pros/cons and form ('UNiTY has won 5 out of the last 5 matches', 'Acend has won 3 out of the last 5 matches') and no odds."
+      },
+      "esportsbook": {
+        "provider": "EGamersWorld",
+        "url": "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/acend-vs-unity-esports-iwaKSVfgf",
+        "displayed_prices": [1.8, 1.8],
+        "verdict": "Both sides show an identical 1.8. Identical two-sided prices are a site placeholder, not a market: they imply no edge and are the exact pattern scripts/reference_odds.py refuses. Rejected as a line."
+      },
+      "verdict": "No usable external money line found first-hand. The published research-model estimate stands, and the limitation is that it is an uncalibrated rating estimate, not a price."
+    },
+    {
+      "fixture_id": "1082861",
+      "teams": ["Rooster", "Abyssal"],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "published_pick_source": "Valve-rating research model (uncalibrated)",
+      "hltv": {
+        "match_id": 2399891,
+        "url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+        "format": "not re-read first-hand in this session; the match page URL is retained from the repository's earlier HLTV research",
+        "note": "Only the identity join is relied on here; no format or rank claim is made."
+      },
+      "esportsbook": {
+        "provider": "EGamersWorld",
+        "url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/rooster-vs-team-abyssal-P1tTp3RAg8",
+        "displayed_prices": [1.8, 1.8],
+        "verdict": "Identical 1.8/1.8 placeholder on both sides. Rejected as a line."
+      },
+      "verdict": "No usable external money line found first-hand; the labelled research model stands."
+    },
+    {
+      "fixture_id": "1082792",
+      "teams": ["HOTU", "The Huns"],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "published_pick_source": "Valve-rating research model (uncalibrated)",
+      "hltv": {
+        "match_id": 2399437,
+        "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+        "format": "bo3, Saturday 2026-10-31, listed on the event page https://www.hltv.org/events/9344/matches",
+        "note": "HLTV publishes an 'Odds & prediction for match' link on the event listing; the match page betting block was not re-read first-hand in this session."
+      },
+      "verdict": "Identity and best-of confirmed first-hand; no external money line was obtained in this session. The site's own record for this fixture states the Polymarket series-winner book was 0.43 wide and Kalshi had no usable two-sided book, which is why the model stands."
+    },
+    {
+      "fixture_id": "1082793",
+      "teams": ["5star", "1WIN"],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T13:00:00Z",
+      "published_pick_source": "Valve-rating research model (uncalibrated)",
+      "hltv": {
+        "match_id": 2399438,
+        "url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+        "format": "bo3, Saturday 2026-10-31, listed on the event page https://www.hltv.org/events/9344/matches",
+        "naming_note": "HLTV orders this fixture as 1win vs 5star; Hotspawn lists 5star first. Same two teams, same start; no alias was created."
+      },
+      "verdict": "Identity and best-of confirmed first-hand; no external money line obtained in this session."
+    }
+  ],
+  "limitations": [
+    "This session's sandbox had no direct outbound HTTP except through a page-reading tool, so no raw response body could be saved and hash-replayed for these reads; the URLs, the exact displayed values and the read window are recorded instead.",
+    "EGamersWorld match pages render a price widget that reads 1.8/1.8 for both of the low-tier fixtures checked. That is not a market and is deliberately not converted into a probability.",
+    "HLTV publishes no two-sided prematch line for 2399112 (promo row only). Its fan vote and 'pros/cons' panel are context, never inputs.",
+    "No probability, pick, alias or price was authored by hand in this session, and no checked-in data file was rewritten."
+  ]
+}
