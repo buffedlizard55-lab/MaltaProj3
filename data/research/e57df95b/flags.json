@@ -1,0 +1,18 @@
+[
+  {
+    "id": "e57df95b-egw-match-page-line-not-index-placeholder",
+    "severity": "warning",
+    "match_ids": [
+      "1082858"
+    ],
+    "title": "Ground Zero–Off Chops: EGW match page has a real aggregate while its event index still shows a placeholder",
+    "detail": "Independent review found Ground Zero 3.44 / Off Chops 1.24 on the linked EGW match page (no-vig 26.4957% / 73.5043%), while the event schedule shows the rejected 1.8/1.8 placeholder. Candidate 50bb2017c3ed instead carries a low-confidence own-network estimate (44.9373% / 55.0627%). A dated, hash-checked reviewed capture is retained under data/research/e57df95b/reference-odds.json for final integration through the existing reference rung; it is not a first-party quote and must expire after eight hours. Smarkets confirms exact identity/start but both spreads exceed 0.15, so it remains guidance only.",
+    "source_urls": [
+      "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+      "https://egamersworld.com/counterstrike/event/dfrag-invitational-2026-4kaAQWgKEx",
+      "https://api.smarkets.com/v3/events/45396333/",
+      "https://api.smarkets.com/v3/markets/172960355/quotes/",
+      "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026"
+    ]
+  }
+]

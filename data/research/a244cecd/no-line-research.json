@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "session": "arena-a244cecd",
+  "recorded_at": "2026-10-24T05:55:00Z",
+  "observed_window_utc": "2026-10-24T05:28Z..2026-10-24T05:50Z",
+  "environment": "Arena platform egress (reaches hltv.org, gamma-api.polymarket.com, clob.polymarket.com, api.smarkets.com). The GitHub Actions runner that builds the site records HTTP 403 from hltv.org, so HLTV reads are done here and recorded as dated evidence.",
+  "policy": [
+    "Leads and limitations only. No probability, pick or alias is written by hand; the four-hour pipeline (scripts/originate.py) alone decides whether a line is usable.",
+    "HLTV is read first for every fixture, then exchanges/markets.",
+    "Hotspawn 'picked_percent' and HLTV 'Pick a winner' fan polls are crowd votes, never probabilities; they are recorded as excluded evidence only.",
+    "A map-winner market (Polymarket sportsMarketType 'child_moneyline') is never a series line.",
+    "A value that could not be read from an official page is left null and marked unverified."
+  ],
+  "target_selection": {
+    "basis": "Every active fixture whose published pick rests only on a labelled research model in the live snapshot served at https://buffedlizard55-lab.github.io/MaltaProj3/ (snapshot 2026-10-23T20:10Z, page read 2026-10-24T05:25Z): 19 active, 12 external-line, 7 research-model, 0 unresolved.",
+    "hotspawn_inventory_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "match_ids": ["1082996", "1079198", "1079200", "1082858", "1082861", "1082792", "1082793"]
+  },
+  "fixtures": [
+    {
+      "hotspawn_id": "1082996", "teams": ["Acend", "UNiTY"], "event": "NODWIN Clutch Series #13",
+      "hotspawn_url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
+      "published_estimate_as_displayed": "Acend 54.2% / UNiTY 45.8% (Valve rating model)",
+      "hltv": {"url": "https://www.hltv.org/matches/2399112/acend-vs-unity-nodwin-clutch-series-13", "format": "Best of 3 (Online), Round of 16", "ranks": {"Acend": "HLTV #131, VRS #75", "UNiTY": null}, "betting_block": "Stake US sweepstake promo row only ('No promocode available'); no decimal odds", "fan_poll_excluded": "Acend 16.7% / UNiTY 83.3%"},
+      "polymarket": {"match_market_id": "6072790", "url": "https://polymarket.com/event/cs2-ace1-unity-2026-10-25", "api_url": "https://gamma-api.polymarket.com/markets/6072790", "sportsMarketType": "moneyline", "outcomes": ["Acend", "UNiTY esports"], "bestBid": 0.11, "bestAsk": 0.94, "spread": 0.83, "liquidity": "645.0796", "gameStartTime": "2026-10-25 09:00:00+00", "verdict": "placeholder-wide book; spread 0.83 > 0.15 ceiling",
+        "not_the_match_market": {"id": "6072788", "api_url": "https://gamma-api.polymarket.com/markets/6072788", "question": "Counter-Strike: Acend vs UNiTY esports - Map 1 Winner", "sportsMarketType": "child_moneyline"}},
+      "smarkets": {"market_id": "172971947", "quotes_url": "https://api.smarkets.com/v3/markets/172971947/quotes/", "contracts_url": "https://api.smarkets.com/v3/markets/172971947/contracts/", "Acend": {"contract": "477168991", "bid": 0.2817, "offer": 0.4425, "spread": 0.1608}, "UNiTY esports": {"contract": "477168992", "bid": 0.5556, "offer": 0.7194, "spread": 0.1638}, "verdict": "book is no longer empty (it was at 2026-10-23T09:52Z) but both spreads exceed 0.15; not usable"},
+      "result": "no compliant line"
+    },
+    {
+      "hotspawn_id": "1079198", "teams": ["Metizport", "BakS"], "event": "NODWIN Clutch Series #13",
+      "hotspawn_url": "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198",
+      "published_estimate_as_displayed": "Metizport 79.9% / BakS 20.1% (Valve rating model)",
+      "hltv": {"url": "https://www.hltv.org/matches/2399113/metizport-vs-baks-nodwin-clutch-series-13", "format": "Best of 3 (Online), Round of 16", "ranks": {"Metizport": null, "BakS": null}, "betting_block": "Stake US sweepstake promo row only; no decimal odds", "fan_poll_excluded": "Metizport 81.8% / BAKS 18.2%"},
+      "polymarket": {"match_market_id": "6072799", "url": "https://polymarket.com/event/cs2-mzp-baks-2026-10-25", "api_url": "https://gamma-api.polymarket.com/markets/6072799", "sportsMarketType": "moneyline", "outcomes": ["Metizport", "BakS eSports"], "bestBid": 0.55, "bestAsk": 0.86, "spread": 0.31, "liquidity": "4413.4682", "gameStartTime": "2026-10-25 12:00:00+00", "verdict": "spread 0.31 > 0.15 ceiling"},
+      "smarkets": null,
+      "result": "no compliant line"
+    },
+    {
+      "hotspawn_id": "1079200", "teams": ["Color", "ex-Zero Tenacity"], "event": "NODWIN Clutch Series #13",
+      "hotspawn_url": "https://www.hotspawn.com/matches/color-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079200",
+      "published_estimate_as_displayed": "Color 73.6% / ex-Zero Tenacity 26.4% (Valve rating model)",
+      "hltv": {"url": "https://www.hltv.org/matches/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13", "format": "Best of 3 (Online), Round of 16", "ranks": {"Color": "HLTV Unranked, VRS #73", "ex-Zero Tenacity": null}, "betting_block": "Stake US sweepstake promo row only; no decimal odds", "fan_poll_excluded": "Color 76.2% / ex-Zero Tenacity 23.8%"},
+      "polymarket": {"match_market_id": "6072812", "url": "https://polymarket.com/event/cs2-color-zerote-2026-10-25", "api_url": "https://gamma-api.polymarket.com/markets/6072812", "sportsMarketType": "moneyline", "outcomes": ["Color", "ex-Zero Tenacity"], "bestBid": 0.47, "bestAsk": 0.62, "spread": 0.15, "liquidity": "5367.2313", "gameStartTime": "2026-10-25 18:00:00+00", "verdict": "first-outcome spread is exactly at the 0.15 ceiling (scripts/originate.py rounds to 8 dp and rejects only > 0.15); the pipeline reads both paired books itself on the next refresh and decides. Gamma midpoint 0.545 for Color is well below the published 73.6% model figure"},
+      "smarkets": null,
+      "result": "lead: possibly usable at next refresh (pipeline decides)"
+    },
+    {
+      "hotspawn_id": "1082858", "teams": ["Ground Zero", "Off Chops"], "event": "DFRAG Invitational 2026",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
+      "published_estimate_as_displayed": "Off Chops 55.1% / Ground Zero 44.9% (bo3.gg results network model)",
+      "hltv": {"url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026", "format": "Best of 3 (LAN), Group A opening match", "ranks": {"Ground Zero": "HLTV #143, VRS #131", "Off Chops": null}, "betting_block": "Stake US sweepstake promo row only; no decimal odds", "fan_poll_excluded": "Ground Zero 42.9% / Off Chops 57.1%"},
+      "polymarket": {"match_market_id": "6066508", "url": "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25", "api_url": "https://gamma-api.polymarket.com/markets?id=6066508", "book_url": "https://clob.polymarket.com/book?token_id=23392161878494733528543908259805136150910607299184518987206538712056573817539", "sportsMarketType": null, "outcomes": ["Ground Zero", "Off Chops"], "ground_zero_best_bid": 0.13, "ground_zero_best_ask": 0.45, "spread": 0.32, "book_timestamp_ms": "1792820275066", "liquidity": "6046.4786", "gameStartTime": "2026-10-26 03:00:00+00", "verdict": "spread 0.32 > 0.15 ceiling; outcomePrices 0.29/0.71 is a display midpoint, no last trade"},
+      "smarkets": {"market_id": "172960355", "quotes_url": "https://api.smarkets.com/v3/markets/172960355/quotes/", "contracts_url": "https://api.smarkets.com/v3/markets/172960355/contracts/", "Ground Zero": {"contract": "477141069", "bid": 0.1562, "offer": 0.3175, "spread": 0.1613}, "Off Chops": {"contract": "477141070", "bid": 0.6803, "offer": 0.8475, "spread": 0.1672}, "verdict": "tighter than at 2026-10-23T09:52Z (0.185) but still above 0.15"},
+      "result": "no compliant line"
+    },
+    {
+      "hotspawn_id": "1082861", "teams": ["Rooster", "Abyssal"], "event": "DFRAG Invitational 2026",
+      "hotspawn_url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
+      "published_estimate_as_displayed": "Abyssal 52.2% / Rooster 47.8% (Valve rating model)",
+      "hltv": {"url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026", "format": "Best of 3 (LAN), Group B opening match", "ranks": {"Rooster": "HLTV Unranked, VRS #154", "Abyssal": null}, "betting_block": "Stake US sweepstake promo row only; no decimal odds", "fan_poll_excluded": "Rooster 100.0% / Abyssal 0.0%"},
+      "polymarket": {"match_market_id": "6066525", "url": "https://polymarket.com/event/cs2-rstr-abyssa-2026-10-26", "api_url": "https://gamma-api.polymarket.com/markets/6066525", "sportsMarketType": "moneyline", "outcomes": ["Rooster", "Abyssal"], "bestBid": 0.04, "bestAsk": 0.96, "spread": 0.92, "liquidity": "116.5197", "gameStartTime": "2026-10-27 03:00:00+00", "verdict": "empty placeholder book (0.04/0.96)",
+        "not_the_match_market": {"id": "6066523", "api_url": "https://gamma-api.polymarket.com/markets/6066523", "question": "Counter-Strike: Rooster vs Abyssal - Map 1 Winner", "sportsMarketType": "child_moneyline"}},
+      "smarkets": null,
+      "result": "no compliant line"
+    },
+    {
+      "hotspawn_id": "1082792", "teams": ["HOTU", "The Huns"], "event": "Moscow Cyber Games 2026",
+      "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+      "published_estimate_as_displayed": "HOTU 94.1% / The Huns 5.9% (Valve rating model)",
+      "hltv": {"url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026", "format": "Best of 3 (LAN), Semi-final", "ranks": {"HOTU": "HLTV #38, VRS #38", "The Huns": null}, "betting_block": "Stake US sweepstake promo row only; no decimal odds", "fan_poll_excluded": "HOTU 77.2% / The Huns 22.8%"},
+      "polymarket": null, "smarkets": null,
+      "result": "no market located this session (fixture is 7 days out)"
+    },
+    {
+      "hotspawn_id": "1082793", "teams": ["5star", "1WIN"], "event": "Moscow Cyber Games 2026",
+      "hotspawn_url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
+      "published_estimate_as_displayed": "1WIN 82.2% / 5star 17.8% (Valve rating model)",
+      "hltv": {"url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026", "format": "Best of 3 (LAN), Semi-final", "ranks": {"1WIN": "HLTV #14, VRS #18", "5star": null}, "betting_block": "Stake US sweepstake promo row only; no decimal odds", "fan_poll_excluded": "1win 81.1% / 5star 18.9%"},
+      "polymarket": null, "smarkets": null,
+      "result": "no market located this session (fixture is 7 days out)"
+    }
+  ],
+  "summary": {
+    "fixtures_checked": 7,
+    "hltv_pages_read": 7,
+    "hltv_pages_with_bookmaker_odds": 0,
+    "compliant_lines_found": 0,
+    "leads_for_next_refresh": ["1079200 Color vs ex-Zero Tenacity: Polymarket 6072812 spread exactly 0.15"],
+    "direction_conflicts_noted": ["1082996 Acend vs UNiTY: Smarkets wide-book midpoints favour UNiTY (~0.36/0.64) while the published Valve model picks Acend 54.2%", "1079200 Color vs ex-Zero Tenacity: Polymarket midpoint 0.545 Color vs published model 73.6% Color (same direction, much lower confidence)"]
+  },
+  "limitations_of_this_research": [
+    "HLTV renders match times in the viewer's timezone, so HLTV clock times are not recorded as UTC; UTC starts are taken from Polymarket gameStartTime where shown.",
+    "Ranks are recorded only where the page segment read showed them; the rest are null (unverified), not inferred.",
+    "Wide-book midpoints are recorded as observations only and are never converted into a published probability by hand.",
+    "Bookmakers that render odds client-side or geo-block (e.g. Pinnacle, Bovada, Thunderpick UI) were not re-read this session; the pipeline's own Thunderpick/Pinnacle rungs run every refresh."
+  ]
+}

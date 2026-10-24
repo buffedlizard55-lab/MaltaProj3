@@ -1,0 +1,348 @@
+{
+  "audited_at": "2026-10-24T05:45:17.095554Z",
+  "audit_scope": "Read-only consistency/source audit of the last published root artifacts. This is not a fresh market-availability or probability re-derivation.",
+  "page": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
+  "snapshot": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+  "source_snapshot_at": "2026-10-23T20:09:44Z",
+  "snapshot_generated_at": "2026-10-23T20:10:00Z",
+  "snapshot_coverage_complete": true,
+  "active_snapshot_fixtures": 19,
+  "overview_rows": 19,
+  "evidence_cards": 19,
+  "row_source_audit": {
+    "rows": 50,
+    "ok": 50,
+    "flagged": 0,
+    "navigation": 0,
+    "violation": 0
+  },
+  "checks": [
+    {
+      "match_id": "1079193",
+      "teams": [
+        "FOKUS",
+        "ex-6666"
+      ],
+      "fixture_source": "https://www.hotspawn.com/matches/fokus-vs-ex-6666-nodwin-clutch-series-13-1079193",
+      "analysis_sources": [
+        "https://polymarket.com/event/cs2-fokus-66661-2026-10-24"
+      ],
+      "probabilities_percent": [
+        76.5,
+        23.5
+      ],
+      "pick": "FOKUS",
+      "snapshot_analysis_comparison": "matched-snapshot-analysis"
+    },
+    {
+      "match_id": "1079195",
+      "teams": [
+        "Nuclear TigeRES",
+        "FORZE Reload"
+      ],
+      "fixture_source": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-forze-reload-nodwin-clutch-series-13-1079195",
+      "analysis_sources": [
+        "https://polymarket.com/event/cs2-ntr-forzer-2026-10-24"
+      ],
+      "probabilities_percent": [
+        62.5,
+        37.5
+      ],
+      "pick": "Nuclear TigeRES",
+      "snapshot_analysis_comparison": "matched-snapshot-analysis"
+    },
+    {
+      "match_id": "1079198",
+      "teams": [
+        "Metizport",
+        "BakS"
+      ],
+      "fixture_source": "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198",
+      "analysis_sources": [
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ],
+      "probabilities_percent": [
+        79.9,
+        20.1
+      ],
+      "pick": "Metizport",
+      "snapshot_analysis_comparison": "matched-snapshot-analysis"
+    },
+    {
+      "match_id": "1079199",
+      "teams": [
+        "Infinite",
+        "BRUTE"
+      ],
+      "fixture_source": "https://www.hotspawn.com/matches/infinite-vs-brute-nodwin-clutch-series-13-1079199",
+      "analysis_sources": [
+        "https://polymarket.com/event/cs2-inf6-brute-2026-10-25"
+      ],
+      "probabilities_percent": [
+        48.0,
+        52.0
+      ],
+      "pick": "BRUTE",
+      "snapshot_analysis_comparison": "matched-snapshot-analysis"
+    },
+    {
+      "match_id": "1079200",
+      "teams": [
+        "Color",
+        "ex-Zero Tenacity"
+      ],
+      "fixture_source": "https://www.hotspawn.com/matches/color-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079200",
+      "analysis_sources": [
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ],
+      "probabilities_percent": [
+        73.6,
+        26.4
+      ],
+      "pick": "Color",
+      "snapshot_analysis_comparison": "matched-snapshot-analysis"
+    },
+    {
+      "match_id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "fixture_source": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+      "analysis_sources": [
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ],
+      "probabilities_percent": [
+        94.1,
+        5.9
+      ],
+      "pick": "HOTU",
+      "snapshot_analysis_comparison": "not-applicable-complete-layer-supplement"
+    },
+    {
+      "match_id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "fixture_source": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
+      "analysis_sources": [
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ],
+      "probabilities_percent": [
+        17.8,
+        82.2
+      ],
+      "pick": "1WIN",
+      "snapshot_analysis_comparison": "matched-snapshot-analysis"
+    },
+    {
+      "match_id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "fixture_source": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
+      "analysis_sources": [
+        "https://bo3.gg/matches",
+        "https://bo3.gg/teams/584",
+        "https://bo3.gg/teams/25492"
+      ],
+      "probabilities_percent": [
+        44.9,
+        55.1
+      ],
+      "pick": "Off Chops",
+      "snapshot_analysis_comparison": "not-applicable-complete-layer-supplement"
+    },
+    {
+      "match_id": "1082859",
+      "teams": [
+        "NEXVOID",
+        "Alter Ego"
+      ],
+      "fixture_source": "https://www.hotspawn.com/matches/nexvoid-vs-alter-ego-dfrag-invitational-2026-1082859",
+      "analysis_sources": [
+        "https://thunderpick.io/api/matches"
+      ],
+      "probabilities_percent": [
+        57.6,
+        42.4
+      ],
+      "pick": "NEXVOID",
+      "snapshot_analysis_comparison": "matched-snapshot-analysis"
+    },
+    {
+      "match_id": "1082860",
+      "teams": [
+        "FlyQuest",
+        "Staqued"
+      ],
+      "fixture_source": "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
+      "analysis_sources": [
+        "https://thunderpick.io/api/matches"
+      ],
+      "probabilities_percent": [
+        92.3,
+        7.7
+      ],
+      "pick": "FlyQuest",
+      "snapshot_analysis_comparison": "matched-snapshot-analysis"
+    },
+    {
+      "match_id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "fixture_source": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
+      "analysis_sources": [
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ],
+      "probabilities_percent": [
+        47.8,
+        52.2
+      ],
+      "pick": "Abyssal",
+      "snapshot_analysis_comparison": "matched-snapshot-analysis"
+    },
+    {
+      "match_id": "1082897",
+      "teams": [
+        "B8",
+        "K27"
+      ],
+      "fixture_source": "https://www.hotspawn.com/matches/b8-vs-k27-tesla-cup-2026-1082897",
+      "analysis_sources": [
+        "https://polymarket.com/event/cs2-b8-k271-2026-10-27"
+      ],
+      "probabilities_percent": [
+        62.0,
+        38.0
+      ],
+      "pick": "B8",
+      "snapshot_analysis_comparison": "matched-snapshot-analysis"
+    },
+    {
+      "match_id": "1082898",
+      "teams": [
+        "Alliance",
+        "FaZe"
+      ],
+      "fixture_source": "https://www.hotspawn.com/matches/alliance-vs-faze-tesla-cup-2026-1082898",
+      "analysis_sources": [
+        "https://polymarket.com/event/cs2-all-faze-2026-10-27"
+      ],
+      "probabilities_percent": [
+        35.0,
+        65.0
+      ],
+      "pick": "FaZe",
+      "snapshot_analysis_comparison": "matched-snapshot-analysis"
+    },
+    {
+      "match_id": "1082900",
+      "teams": [
+        "Luminosity",
+        "HOTU"
+      ],
+      "fixture_source": "https://www.hotspawn.com/matches/luminosity-vs-hotu-tesla-cup-2026-1082900",
+      "analysis_sources": [
+        "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27"
+      ],
+      "probabilities_percent": [
+        52.5,
+        47.5
+      ],
+      "pick": "Luminosity",
+      "snapshot_analysis_comparison": "matched-snapshot-analysis"
+    },
+    {
+      "match_id": "1082901",
+      "teams": [
+        "Envy",
+        "GamerLegion"
+      ],
+      "fixture_source": "https://www.hotspawn.com/matches/envy-vs-gamerlegion-tesla-cup-2026-1082901",
+      "analysis_sources": [
+        "https://polymarket.com/event/cs2-envy-gl1-2026-10-27"
+      ],
+      "probabilities_percent": [
+        46.5,
+        53.5
+      ],
+      "pick": "GamerLegion",
+      "snapshot_analysis_comparison": "matched-snapshot-analysis"
+    },
+    {
+      "match_id": "1082923",
+      "teams": [
+        "Alka",
+        "LOS NINOS"
+      ],
+      "fixture_source": "https://www.hotspawn.com/matches/alka-vs-los-ninos-cct-south-america-2026-series-7-1082923",
+      "analysis_sources": [
+        "https://thunderpick.io/api/matches"
+      ],
+      "probabilities_percent": [
+        75.7,
+        24.3
+      ],
+      "pick": "Alka",
+      "snapshot_analysis_comparison": "matched-snapshot-analysis"
+    },
+    {
+      "match_id": "1082996",
+      "teams": [
+        "Acend",
+        "UNiTY"
+      ],
+      "fixture_source": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
+      "analysis_sources": [
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ],
+      "probabilities_percent": [
+        54.2,
+        45.8
+      ],
+      "pick": "Acend",
+      "snapshot_analysis_comparison": "matched-snapshot-analysis"
+    },
+    {
+      "match_id": "1083025",
+      "teams": [
+        "paiN",
+        "Imperial"
+      ],
+      "fixture_source": "https://www.hotspawn.com/matches/imperial-vs-pain-circuit-x-curitiba-4-1083025",
+      "analysis_sources": [
+        "https://polymarket.com/event/cs2-pain-imp11-2026-10-23"
+      ],
+      "probabilities_percent": [
+        35.0,
+        65.0
+      ],
+      "pick": "Imperial",
+      "snapshot_analysis_comparison": "matched-snapshot-analysis"
+    },
+    {
+      "match_id": "1083045",
+      "teams": [
+        "Chinggis Warriors",
+        "Rare Atom"
+      ],
+      "fixture_source": "https://www.hotspawn.com/matches/chinggis-warriors-vs-rare-atom-void-autumn-cup-2026-1083045",
+      "analysis_sources": [
+        "https://polymarket.com/event/cs2-cw-ra1-2026-10-23"
+      ],
+      "probabilities_percent": [
+        59.0,
+        41.0
+      ],
+      "pick": "Chinggis Warriors",
+      "snapshot_analysis_comparison": "matched-snapshot-analysis"
+    }
+  ],
+  "violations": [],
+  "status": "pass"
+}
