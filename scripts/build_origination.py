@@ -140,15 +140,18 @@ def picks_overview_table(picks, states):
                 f'<span class="tbl-prob">{e(names[1])}: <strong>{p1 * 100:.1f}%</strong></span>'
             )
             pick_cell = '<span class="unverified">— unverified <small>(even estimate · no side)</small></span>'
-            basis_cell = f'{badge("Even estimate · no side", "amber")}<small>{e(method_label(o))}</small>'
+            basis_cell = (f'{badge("Even estimate · no side", "amber")}<small>{e(method_label(o))}</small>'
+                          f'<a class="src limitation-link" href="#even-{e(m["id"])}">Why no side →</a>')
         else:
             counts['unresolved'] += 1
             probs_cell = '<span class="unverified">— unverified</span>'
             pick_cell = '<span class="unverified">Unresolved <small>(no verified inputs)</small></span>'
-            basis_cell = badge('No verified pick', 'amber')
+            basis_cell = (f'{badge("No verified pick", "amber")}'
+                          f'<a class="src limitation-link" href="#unresolved-{e(m["id"])}">Why unresolved →</a>')
         links = ' · '.join(match_source_links(m, o))
+        search_text = ' '.join(names + [m.get('competition') or '']).lower()
         rows_html.append(
-            f'<tr id="row-{e(m["id"])}" data-filter-group="{e(group if (o and pick is not None) else "unresolved")}">'
+            f'<tr id="row-{e(m["id"])}" data-filter-group="{e(group if (o and pick is not None) else "unresolved")}" data-search="{e(search_text)}">'
             f'<th scope="row"><a class="src" href="#match-{e(m["id"])}">{e(names[0])} vs {e(names[1])}</a>'
             f'<small>{e(m.get("competition") or "Unverified tournament")} · {local_time(m["starts_at"])}</small></th>'
             f'<td data-label="Win %">{probs_cell}</td>'
@@ -157,19 +160,29 @@ def picks_overview_table(picks, states):
             '</tr>'
         )
     toolbar = (
-        '<div class="filter-bar" role="toolbar" aria-label="Filter picks table">'
-        f'<button type="button" class="filter-btn is-active" data-filter="all" aria-pressed="true">All ({counts["all"]})</button>'
-        f'<button type="button" class="filter-btn" data-filter="money" aria-pressed="false">Money-backed ({counts["money"]})</button>'
-        f'<button type="button" class="filter-btn" data-filter="model" aria-pressed="false">Research models ({counts["model"]})</button>'
-        f'<button type="button" class="filter-btn" data-filter="unresolved" aria-pressed="false">Unresolved / even ({counts["unresolved"]})</button>'
+        '<div class="filter-bar" role="toolbar" aria-label="Filter picks by analysis type">'
+        f'<button type="button" class="filter-btn is-active" data-filter="all" aria-pressed="true" aria-controls="picks-table-body">All ({counts["all"]})</button>'
+        f'<button type="button" class="filter-btn" data-filter="money" aria-pressed="false" aria-controls="picks-table-body">Money-backed ({counts["money"]})</button>'
+        f'<button type="button" class="filter-btn" data-filter="model" aria-pressed="false" aria-controls="picks-table-body">Research models ({counts["model"]})</button>'
+        f'<button type="button" class="filter-btn" data-filter="unresolved" aria-pressed="false" aria-controls="picks-table-body">Unresolved / even ({counts["unresolved"]})</button>'
+        '</div>'
+    )
+    controls = (
+        '<div class="picks-controls">'
+        '<div class="picks-search"><label for="picks-query">Find a team or tournament</label>'
+        '<div class="search-row"><input id="picks-query" type="search" placeholder="Start typing a name" '
+        'autocomplete="off" spellcheck="false" data-picks-query aria-controls="picks-table-body" aria-describedby="picks-filter-status">'
+        '<button type="button" class="clear-search" data-clear-picks hidden>Clear</button></div></div>'
+        f'{toolbar}<p class="filter-status" id="picks-filter-status" data-picks-status role="status" aria-live="polite">Showing all {counts["all"]} matches.</p>'
+        '<p class="empty-filter" data-picks-empty hidden>No matches fit this search and filter. Clear them to see every fixture.</p>'
         '</div>'
     )
     return (
-        f'{toolbar}<div class="table-wrap picks-table-wrap">'
+        f'{controls}<div class="table-wrap picks-table-wrap">'
         '<table class="simple picks-table" aria-label="All active Hotspawn CS2 picks overview">'
         '<thead><tr><th scope="col">Match &amp; schedule</th><th scope="col">Win probabilities</th>'
         '<th scope="col">Clear pick</th><th scope="col">Analysis &amp; official sources</th></tr></thead>'
-        f'<tbody>{"".join(rows_html)}</tbody></table></div>'
+        f'<tbody id="picks-table-body">{"".join(rows_html)}</tbody></table></div>'
     )
 
 
@@ -396,23 +409,24 @@ def section_sources(data):
 
 def executive_summary(data):
     c = data['counts']
-    out = ['<section class="hero" id="summary"><p class="kicker">EXECUTIVE SUMMARY · COMPLETE SOURCE SNAPSHOT · INDEPENDENT LINES</p>',
+    out = ['<section class="hero" id="summary"><p class="kicker">EXECUTIVE SUMMARY · ALL HOTSPAWN CS2 FIXTURES</p>',
            '<h1>Hotspawn CS2 match picks.<br>Source-backed or explicitly unresolved.</h1>']
     out.append(f'<p class="hero-stats"><strong>{c["active"]}</strong> snapshot fixtures · <strong>{c["with_pick"]}</strong> with a sourced lean · '
                f'<strong>{c["unresolved"]}</strong> unresolved · {c["consensus"]} consensus, {c["market"] + c["bookmaker"]} single-source, '
                f'{c.get("reference", 0)} aggregated, {c["model"]} model-backed.</p>')
     out.append('<nav class="quick" aria-label="Jump to section">'
-               '<a class="q primary" href="#picks">📋 Updated picks list <small>all matches</small></a>'
-               '<a class="q" href="#unresolved">🚩 Unresolved &amp; limitations <small>what we can’t verify</small></a>'
-               '<a class="q" href="#method">🧭 Methodology <small>how the line is made</small></a>'
-               '<a class="q" href="#aliases">🔗 Verified aliases <small>name joins</small></a>'
-               '<a class="q" href="#sources">📚 Sources <small>first-party links</small></a>'
-               '<a class="q" href="../">🏠 Main dashboard <small>executive summary</small></a>'
-               '<a class="q" href="../picks/">🎯 Featured picks feed <small>market pipeline</small></a>'
-               '<a class="q" href="../review/">🚩 Flagged for review <small>main register</small></a>'
+               '<a class="q primary" href="#picks">Updated picks list <small>all matches</small></a>'
+               '<a class="q" href="#unresolved">Unresolved &amp; limitations <small>what we can’t verify</small></a>'
+               '<a class="q" href="#method">How picks work <small>methods &amp; thresholds</small></a>'
+               '<a class="q" href="#aliases">Verified team names <small>alias evidence</small></a>'
+               '<a class="q" href="#sources">Source register <small>official links</small></a>'
+               '<a class="q" href="../">Main dashboard <small>executive summary</small></a>'
+               '<a class="q" href="../picks/">Featured picks audit <small>exact-name feed</small></a>'
+               '<a class="q" href="../review/">Flagged for review <small>data &amp; source issues</small></a>'
                '</nav>')
-    out.append('<p class="hero-note">Probabilities are calculated from external betting markets and official ratings — '
-               'never from Hotspawn popularity. Pick percentages are estimates, not guarantees. Featured money-backed estimates are preserved. Alias-aware research also runs for fixtures the featured methods did not resolve and for fixtures whose featured estimate is only the uncalibrated Valve model; a verified money line replaces that model and the card says so.</p></section>')
+    out.append('<details class="hero-method"><summary>How these picks are sourced</summary>'
+               '<p class="hero-note">Probabilities are calculated from external betting markets and official ratings — '
+               'never from Hotspawn popularity. Pick percentages are estimates, not guarantees. Featured money-backed estimates are preserved. Alias-aware research also runs for fixtures the featured methods did not resolve and for fixtures whose featured estimate is only the uncalibrated Valve model; a verified money line replaces that model and the card says so.</p></details></section>')
     return ''.join(out)
 
 
@@ -433,23 +447,61 @@ def page(data, inventory_complete=True, *, now=None):
     overview = picks_overview_table(picks, states)
     cards = ''.join(pick_row(m, states[m['id']]) for m in picks) if picks else '<div class="ok-note">No active fixtures in this snapshot. Check the <a class="src" href="../coverage/">source status</a>.</div>'
     filter_script = '''<script>
-document.addEventListener('click', function (ev) {
-  var btn = ev.target.closest('.filter-btn');
-  if (!btn) return;
-  var group = btn.getAttribute('data-filter');
-  document.querySelectorAll('.filter-btn').forEach(function (b) {
-    var active = b === btn;
-    b.classList.toggle('is-active', active);
-    b.setAttribute('aria-pressed', active ? 'true' : 'false');
+(function () {
+  var input = document.querySelector('[data-picks-query]');
+  if (!input) return;
+  var rows = Array.from(document.querySelectorAll('.picks-table tbody tr'));
+  var buttons = Array.from(document.querySelectorAll('.filter-btn'));
+  var clear = document.querySelector('[data-clear-picks]');
+  var status = document.querySelector('[data-picks-status]');
+  var empty = document.querySelector('[data-picks-empty]');
+  var group = 'all';
+
+  function applyFilters() {
+    var query = input.value.trim().toLowerCase();
+    var visible = 0;
+    rows.forEach(function (tr) {
+      var methodMatches = group === 'all' || tr.getAttribute('data-filter-group') === group;
+      var searchMatches = !query || (tr.getAttribute('data-search') || '').includes(query);
+      var show = methodMatches && searchMatches;
+      tr.hidden = !show;
+      if (show) visible += 1;
+    });
+    var filtered = group !== 'all' || query.length > 0;
+    status.textContent = filtered ? visible + ' of ' + rows.length + ' matches shown.' : 'Showing all ' + rows.length + ' matches.';
+    clear.hidden = !filtered;
+    empty.hidden = visible !== 0;
+  }
+
+  buttons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      group = btn.getAttribute('data-filter');
+      buttons.forEach(function (other) {
+        var active = other === btn;
+        other.classList.toggle('is-active', active);
+        other.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      applyFilters();
+    });
   });
-  document.querySelectorAll('.picks-table tbody tr').forEach(function (tr) {
-    tr.hidden = group !== 'all' && tr.getAttribute('data-filter-group') !== group;
+  input.addEventListener('input', applyFilters);
+  clear.addEventListener('click', function () {
+    input.value = '';
+    group = 'all';
+    buttons.forEach(function (btn) {
+      var active = btn.getAttribute('data-filter') === 'all';
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+    applyFilters();
+    input.focus();
   });
-});
+  applyFilters();
+}());
 </script>'''
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Originated CS2 picks — every Hotspawn match · Spawn Scout</title>
+<title>Complete CS2 match picks — every Hotspawn fixture · Spawn Scout</title>
 <meta name="description" content="A researched pick and win probability for every Hotspawn CS2 fixture, from external betting lines, HLTV identity research and official Valve ratings. Mobile-friendly.">
 <meta name="theme-color" content="#142534">
 <link rel="icon" href="../assets/scout-mark.svg" type="image/svg+xml">
@@ -457,7 +509,7 @@ document.addEventListener('click', function (ev) {
 <script src="../assets/pick-safety.js" defer></script>
 </head><body {body_attributes(data["source_snapshot_at"], inventory_complete)}>
 <a class="skip" href="#main">Skip to content</a>
-<header class="top"><p class="brand"><a href="../">spawn<strong>scout</strong></a> <span>· originated picks</span></p>
+<header class="top"><p class="brand"><a href="../">spawn<strong>scout</strong></a> <span>· complete match picks</span></p>
 <p class="snap">Snapshot {local_time(data['source_snapshot_at'])} · generated {local_time(data['generated_at'])}</p></header>
 <main id="main">
 {warn}
@@ -468,6 +520,8 @@ document.addEventListener('click', function (ev) {
 <section class="block" id="picks"><h2>Updated picks — all matches</h2>
 <p class="lede">Every active Hotspawn CS2 fixture, sorted by start time, in a scannable overview table followed by full evidence cards. The check-marked team is a current pick only while its line, inventory and confirmed lock remain usable. A “Snapshot lean” is historical or unverified for current use, not a submission recommendation. Both teams’ sourced estimates and original observation times stay visible.</p>
 {overview}
+<div class="evidence-heading" id="evidence-cards"><h3>Full evidence &amp; research trails</h3>
+<p>These cards repeat the same fixtures in the overview so you can inspect lock times, observed prices, model inputs and limitations. Select any match name above to jump directly to its card.</p></div>
 <div class="cards">{cards}</div></section>
 {section_unresolved(data)}
 {section_method(data)}
@@ -477,6 +531,9 @@ document.addEventListener('click', function (ev) {
 <footer><p><strong>Better context. Clearer picks.</strong></p>
 <p>Independent research dashboard · not affiliated with Hotspawn, HLTV, Valve, Polymarket or any betting provider. Informational use only. 18+ where applicable. No bets are placed.</p>
 <p class="tiny"><a class="src" href="../methodology/">Main methodology</a> · <a class="src" href="../review/">Flagged for Review</a> · <a class="src" href="{REPO}">Source repository</a></p></footer>
+<nav class="mobile-quick" aria-label="Mobile picks navigation">
+<a href="../">Summary</a><a href="#picks">Picks</a><a href="#unresolved">Unresolved</a><a href="../review/">Review</a>
+</nav>
 {filter_script}
 </body></html>'''
 
