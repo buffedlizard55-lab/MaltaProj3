@@ -120,11 +120,12 @@ def entries_for(html: str, matches: list, registry: dict, observed_at: str) -> l
     from scripts.originate import resolve_name  # local: avoids a module cycle
 
     rows = parse_index(html)
+    observed = timestamp(observed_at)
     entries = []
     for match in matches or []:
         teams = [t.get('name') or '' for t in match.get('teams') or []]
         start = timestamp(match.get('starts_at'))
-        if len(teams) != 2 or len({name_key(n) for n in teams}) != 2 or start is None:
+        if len(teams) != 2 or len({name_key(n) for n in teams}) != 2 or start is None or observed is None or start <= observed:
             continue
         names = []
         for team in teams:
@@ -177,11 +178,20 @@ def load_live(evidence_dir: Path, matches: list | None = None,
     try:
         data = json.loads((root / EVIDENCE_NAME).read_text())
         original = json.loads((root / (INDEX_EVIDENCE + '.json')).read_text())
+        manifest = json.loads((root / 'live-collection-manifest.json').read_text())
         if (not isinstance(data, dict) or not isinstance(original, dict)
                 or original.get('url') != INDEX_URL or data.get('url') != INDEX_URL
                 or not original.get('observed_at')
                 or original['observed_at'] != data.get('observed_at')
                 or not isinstance(original.get('html'), str)):
+            return []
+        if not isinstance(manifest, list):
+            return []
+        attempts = [request for request in manifest if isinstance(request, dict)
+                    and request.get('id') == INDEX_EVIDENCE and request.get('status') == 'ok']
+        if (len(attempts) != 1 or any(attempts[0].get(key) != value for key, value in {
+                'url': INDEX_URL, 'observed_at': original['observed_at'],
+                'evidence': INDEX_EVIDENCE + '.json', 'method': 'GET'}.items())):
             return []
         replayed = entries_for(original['html'], matches or [], registry or {}, original['observed_at'])
         saved = data.get('entries')

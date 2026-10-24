@@ -1051,7 +1051,8 @@ def live_collect(evidence_dir: Path, matches: list, registry: dict) -> dict:
             'url': egw_live.INDEX_URL,
             'observed_at': egw_req.get('observed_at'),
             'entries': egw_entries}, ensure_ascii=False, indent=2) + '\n')
-        out['egw_live'] = {'entries': len(egw_entries)}
+        out['egw_live'] = {'entries': len(egw_entries),
+                           'policy': 'Only independently source-timed, exact named-price captures; unverified index leads price nothing.'}
     except Exception as exc:  # noqa: BLE001 - an aggregator outage prices nothing
         out['egw_live_error'] = f'{type(exc).__name__}: {exc}'[:300]
     out['requests'] = client.requests
@@ -2609,7 +2610,7 @@ def run(output: Path, *, live: bool = False) -> dict:
         'live_collection': bool(live),
         'collection': ({key: live_payload.get(key) for key in
                         ('bo3_results', 'bo3_results_error', 'bo3_relay', 'bo3_relay_error', 'valve', 'valve_error',
-                         'vrs_mirror_error', 'thunderpick_error', 'polymarket_discovery')} if live_payload else None),
+                         'vrs_mirror_error', 'thunderpick_error', 'polymarket_discovery', 'egw_live', 'egw_live_error')} if live_payload else None),
         'network_collection': (None if not live_payload else {
             'graph_edges': len((live_payload.get('bo3_graph') or {}).get('edges') or []),
             'graph_pages': (live_payload.get('bo3_graph') or {}).get('pages'),
