@@ -1,0 +1,1418 @@
+{
+  "session": "arena-f4217201",
+  "observed_at": "2026-10-24T09:21:40Z",
+  "policy": "HLTV first for fixture identity (never a price), then esportsbook and exchange lines. A line is recorded only when a two-sided prematch quote was actually retrieved; identical decimal placeholders are refused.",
+  "fixtures": [
+    {
+      "id": "1081152",
+      "teams": [
+        "HAVU",
+        "Azuolas"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T11:00:00Z",
+      "verdict": "no-source-found",
+      "probes": [
+        {
+          "source": "HLTV match listing (identity only; no price is taken from HLTV)",
+          "url": "https://www.hltv.org/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "6511156fd6d25389b3f29b919596194b",
+          "excerpt": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-6gjO6rL9OLSE1TEhTH0Wvw&#39; &#39;"
+        },
+        {
+          "source": "EGamersWorld CS2 matches index",
+          "url": "https://egamersworld.com/counterstrike/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "76fc9213cb3109cc034b895d5bd99dfa"
+        },
+        {
+          "source": "Polymarket tagged CS2 discovery",
+          "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100",
+          "status": "ok",
+          "found": false,
+          "http": 200,
+          "sha256": "cb0a891322cb2beca87f23270c2e9ced"
+        },
+        {
+          "source": "Thunderpick matches feed",
+          "url": "https://thunderpick.io/api/matches",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3f5402c4bd4633c627d742c421e064f1",
+          "bytes": 186678,
+          "note": null
+        },
+        {
+          "source": "Bovada CS2 coupon feed",
+          "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3cec64077ccac37fdc47f47b36eedf03",
+          "bytes": 464010,
+          "note": null
+        },
+        {
+          "source": "Pinnacle guest matchups",
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
+          "status": "ok",
+          "http": 200,
+          "sha256": "ffee69083f198a877a042fbdf1c685b1",
+          "bytes": 67696903,
+          "note": null
+        },
+        {
+          "source": "Kalshi CS2 exchange",
+          "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&limit=100",
+          "status": "ok",
+          "http": 200,
+          "sha256": "d9381df21268faf2c79986eee5479538",
+          "bytes": 58306,
+          "note": null
+        },
+        {
+          "source": "bo3.gg match feed",
+          "url": "https://api.bo3.gg/api/v1/matches?page[limit]=50",
+          "status": "ok",
+          "http": 200,
+          "sha256": "6ec0795de6a3407e07e5bb1c21da7eeb",
+          "bytes": 43381,
+          "note": null
+        }
+      ],
+      "limitations": [
+        "No reachable source published a two-sided prematch winner market for this fixture at the observation time. Absence of a retrieved line is not proof that no market exists."
+      ]
+    },
+    {
+      "id": "1079659",
+      "teams": [
+        "Spirit Academy",
+        "Lavked"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-24T11:00:00Z",
+      "verdict": "external-line-found",
+      "probes": [
+        {
+          "source": "HLTV match listing (identity only; no price is taken from HLTV)",
+          "url": "https://www.hltv.org/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "6511156fd6d25389b3f29b919596194b",
+          "excerpt": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-6gjO6rL9OLSE1TEhTH0Wvw&#39; &#39;"
+        },
+        {
+          "source": "EGamersWorld CS2 matches index",
+          "url": "https://egamersworld.com/counterstrike/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "76fc9213cb3109cc034b895d5bd99dfa"
+        },
+        {
+          "source": "Polymarket event (tagged CS2 discovery)",
+          "url": "https://polymarket.com/event/cs2-lavked-tsa-2026-04-25",
+          "status": "ok",
+          "markets": [
+            {
+              "question": "Counter-Strike: Lavked vs Spirit Academy (BO3) - Exort Series Playoffs",
+              "outcomes": [
+                "Lavked",
+                "Spirit Academy"
+              ],
+              "prices": [
+                0.0,
+                1.0
+              ],
+              "volume": 1661.187563,
+              "closed": true
+            },
+            {
+              "question": "Counter-Strike: Lavked vs Spirit Academy - Map 1 Winner",
+              "outcomes": [
+                "Lavked",
+                "Spirit Academy"
+              ],
+              "prices": [
+                1.0,
+                0.0
+              ],
+              "volume": 406.631072,
+              "closed": true
+            },
+            {
+              "question": "Counter-Strike: Lavked vs Spirit Academy - Map 2 Winner",
+              "outcomes": [
+                "Lavked",
+                "Spirit Academy"
+              ],
+              "prices": [
+                0.0,
+                1.0
+              ],
+              "volume": 363.007065,
+              "closed": true
+            },
+            {
+              "question": "Games Total: O/U 2.5",
+              "outcomes": [
+                "Over",
+                "Under"
+              ],
+              "prices": [
+                1.0,
+                0.0
+              ],
+              "volume": 55.58,
+              "closed": true
+            }
+          ]
+        },
+        {
+          "source": "Thunderpick matches feed",
+          "url": "https://thunderpick.io/api/matches",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3f5402c4bd4633c627d742c421e064f1",
+          "bytes": 186678,
+          "note": null
+        },
+        {
+          "source": "Bovada CS2 coupon feed",
+          "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3cec64077ccac37fdc47f47b36eedf03",
+          "bytes": 464010,
+          "note": null
+        },
+        {
+          "source": "Pinnacle guest matchups",
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
+          "status": "ok",
+          "http": 200,
+          "sha256": "ffee69083f198a877a042fbdf1c685b1",
+          "bytes": 67696903,
+          "note": null
+        },
+        {
+          "source": "Kalshi CS2 exchange",
+          "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&limit=100",
+          "status": "ok",
+          "http": 200,
+          "sha256": "d9381df21268faf2c79986eee5479538",
+          "bytes": 58306,
+          "note": null
+        },
+        {
+          "source": "bo3.gg match feed",
+          "url": "https://api.bo3.gg/api/v1/matches?page[limit]=50",
+          "status": "ok",
+          "http": 200,
+          "sha256": "6ec0795de6a3407e07e5bb1c21da7eeb",
+          "bytes": 43381,
+          "note": null
+        }
+      ],
+      "limitations": [
+        "No reachable source published a two-sided prematch winner market for this fixture at the observation time. Absence of a retrieved line is not proof that no market exists."
+      ]
+    },
+    {
+      "id": "1083120",
+      "teams": [
+        "Isurus",
+        "RED Canids Academy"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-24T13:00:00Z",
+      "verdict": "no-source-found",
+      "probes": [
+        {
+          "source": "HLTV match listing (identity only; no price is taken from HLTV)",
+          "url": "https://www.hltv.org/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "6511156fd6d25389b3f29b919596194b",
+          "excerpt": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-6gjO6rL9OLSE1TEhTH0Wvw&#39; &#39;"
+        },
+        {
+          "source": "EGamersWorld CS2 matches index",
+          "url": "https://egamersworld.com/counterstrike/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "76fc9213cb3109cc034b895d5bd99dfa"
+        },
+        {
+          "source": "Polymarket tagged CS2 discovery",
+          "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100",
+          "status": "ok",
+          "found": false,
+          "http": 200,
+          "sha256": "cb0a891322cb2beca87f23270c2e9ced"
+        },
+        {
+          "source": "Thunderpick matches feed",
+          "url": "https://thunderpick.io/api/matches",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3f5402c4bd4633c627d742c421e064f1",
+          "bytes": 186678,
+          "note": null
+        },
+        {
+          "source": "Bovada CS2 coupon feed",
+          "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3cec64077ccac37fdc47f47b36eedf03",
+          "bytes": 464010,
+          "note": null
+        },
+        {
+          "source": "Pinnacle guest matchups",
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
+          "status": "ok",
+          "http": 200,
+          "sha256": "ffee69083f198a877a042fbdf1c685b1",
+          "bytes": 67696903,
+          "note": null
+        },
+        {
+          "source": "Kalshi CS2 exchange",
+          "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&limit=100",
+          "status": "ok",
+          "http": 200,
+          "sha256": "d9381df21268faf2c79986eee5479538",
+          "bytes": 58306,
+          "note": null
+        },
+        {
+          "source": "bo3.gg match feed",
+          "url": "https://api.bo3.gg/api/v1/matches?page[limit]=50",
+          "status": "ok",
+          "http": 200,
+          "sha256": "6ec0795de6a3407e07e5bb1c21da7eeb",
+          "bytes": 43381,
+          "note": null
+        }
+      ],
+      "limitations": [
+        "No reachable source published a two-sided prematch winner market for this fixture at the observation time. Absence of a retrieved line is not proof that no market exists."
+      ]
+    },
+    {
+      "id": "1081153",
+      "teams": [
+        "Saint Sinners",
+        "6yuBoJlbl"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T14:00:00Z",
+      "verdict": "no-source-found",
+      "probes": [
+        {
+          "source": "HLTV match listing (identity only; no price is taken from HLTV)",
+          "url": "https://www.hltv.org/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "6511156fd6d25389b3f29b919596194b",
+          "excerpt": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-6gjO6rL9OLSE1TEhTH0Wvw&#39; &#39;"
+        },
+        {
+          "source": "EGamersWorld CS2 matches index",
+          "url": "https://egamersworld.com/counterstrike/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "76fc9213cb3109cc034b895d5bd99dfa"
+        },
+        {
+          "source": "Polymarket tagged CS2 discovery",
+          "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100",
+          "status": "ok",
+          "found": false,
+          "http": 200,
+          "sha256": "cb0a891322cb2beca87f23270c2e9ced"
+        },
+        {
+          "source": "Thunderpick matches feed",
+          "url": "https://thunderpick.io/api/matches",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3f5402c4bd4633c627d742c421e064f1",
+          "bytes": 186678,
+          "note": null
+        },
+        {
+          "source": "Bovada CS2 coupon feed",
+          "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3cec64077ccac37fdc47f47b36eedf03",
+          "bytes": 464010,
+          "note": null
+        },
+        {
+          "source": "Pinnacle guest matchups",
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
+          "status": "ok",
+          "http": 200,
+          "sha256": "ffee69083f198a877a042fbdf1c685b1",
+          "bytes": 67696903,
+          "note": null
+        },
+        {
+          "source": "Kalshi CS2 exchange",
+          "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&limit=100",
+          "status": "ok",
+          "http": 200,
+          "sha256": "d9381df21268faf2c79986eee5479538",
+          "bytes": 58306,
+          "note": null
+        },
+        {
+          "source": "bo3.gg match feed",
+          "url": "https://api.bo3.gg/api/v1/matches?page[limit]=50",
+          "status": "ok",
+          "http": 200,
+          "sha256": "6ec0795de6a3407e07e5bb1c21da7eeb",
+          "bytes": 43381,
+          "note": null
+        }
+      ],
+      "limitations": [
+        "No reachable source published a two-sided prematch winner market for this fixture at the observation time. Absence of a retrieved line is not proof that no market exists."
+      ]
+    },
+    {
+      "id": "1079660",
+      "teams": [
+        "INOX Division",
+        "BRUTE"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-24T14:00:00Z",
+      "verdict": "no-source-found",
+      "probes": [
+        {
+          "source": "HLTV match listing (identity only; no price is taken from HLTV)",
+          "url": "https://www.hltv.org/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "6511156fd6d25389b3f29b919596194b",
+          "excerpt": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-6gjO6rL9OLSE1TEhTH0Wvw&#39; &#39;"
+        },
+        {
+          "source": "EGamersWorld CS2 matches index",
+          "url": "https://egamersworld.com/counterstrike/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "76fc9213cb3109cc034b895d5bd99dfa"
+        },
+        {
+          "source": "Polymarket tagged CS2 discovery",
+          "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100",
+          "status": "ok",
+          "found": false,
+          "http": 200,
+          "sha256": "cb0a891322cb2beca87f23270c2e9ced"
+        },
+        {
+          "source": "Thunderpick matches feed",
+          "url": "https://thunderpick.io/api/matches",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3f5402c4bd4633c627d742c421e064f1",
+          "bytes": 186678,
+          "note": null
+        },
+        {
+          "source": "Bovada CS2 coupon feed",
+          "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3cec64077ccac37fdc47f47b36eedf03",
+          "bytes": 464010,
+          "note": null
+        },
+        {
+          "source": "Pinnacle guest matchups",
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
+          "status": "ok",
+          "http": 200,
+          "sha256": "ffee69083f198a877a042fbdf1c685b1",
+          "bytes": 67696903,
+          "note": null
+        },
+        {
+          "source": "Kalshi CS2 exchange",
+          "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&limit=100",
+          "status": "ok",
+          "http": 200,
+          "sha256": "d9381df21268faf2c79986eee5479538",
+          "bytes": 58306,
+          "note": null
+        },
+        {
+          "source": "bo3.gg match feed",
+          "url": "https://api.bo3.gg/api/v1/matches?page[limit]=50",
+          "status": "ok",
+          "http": 200,
+          "sha256": "6ec0795de6a3407e07e5bb1c21da7eeb",
+          "bytes": 43381,
+          "note": null
+        }
+      ],
+      "limitations": [
+        "No reachable source published a two-sided prematch winner market for this fixture at the observation time. Absence of a retrieved line is not proof that no market exists."
+      ]
+    },
+    {
+      "id": "1083121",
+      "teams": [
+        "Projeto do KinGui",
+        "MEIA NOITE"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-24T16:00:00Z",
+      "verdict": "no-source-found",
+      "probes": [
+        {
+          "source": "HLTV match listing (identity only; no price is taken from HLTV)",
+          "url": "https://www.hltv.org/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "6511156fd6d25389b3f29b919596194b",
+          "excerpt": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-6gjO6rL9OLSE1TEhTH0Wvw&#39; &#39;"
+        },
+        {
+          "source": "EGamersWorld CS2 matches index",
+          "url": "https://egamersworld.com/counterstrike/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "76fc9213cb3109cc034b895d5bd99dfa"
+        },
+        {
+          "source": "Polymarket tagged CS2 discovery",
+          "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100",
+          "status": "ok",
+          "found": false,
+          "http": 200,
+          "sha256": "cb0a891322cb2beca87f23270c2e9ced"
+        },
+        {
+          "source": "Thunderpick matches feed",
+          "url": "https://thunderpick.io/api/matches",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3f5402c4bd4633c627d742c421e064f1",
+          "bytes": 186678,
+          "note": null
+        },
+        {
+          "source": "Bovada CS2 coupon feed",
+          "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3cec64077ccac37fdc47f47b36eedf03",
+          "bytes": 464010,
+          "note": null
+        },
+        {
+          "source": "Pinnacle guest matchups",
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
+          "status": "ok",
+          "http": 200,
+          "sha256": "ffee69083f198a877a042fbdf1c685b1",
+          "bytes": 67696903,
+          "note": null
+        },
+        {
+          "source": "Kalshi CS2 exchange",
+          "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&limit=100",
+          "status": "ok",
+          "http": 200,
+          "sha256": "d9381df21268faf2c79986eee5479538",
+          "bytes": 58306,
+          "note": null
+        },
+        {
+          "source": "bo3.gg match feed",
+          "url": "https://api.bo3.gg/api/v1/matches?page[limit]=50",
+          "status": "ok",
+          "http": 200,
+          "sha256": "6ec0795de6a3407e07e5bb1c21da7eeb",
+          "bytes": 43381,
+          "note": null
+        }
+      ],
+      "limitations": [
+        "No reachable source published a two-sided prematch winner market for this fixture at the observation time. Absence of a retrieved line is not proof that no market exists."
+      ]
+    },
+    {
+      "id": "1081154",
+      "teams": [
+        "BakS",
+        "ILLYRIANS"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T17:00:00Z",
+      "verdict": "no-source-found",
+      "probes": [
+        {
+          "source": "HLTV match listing (identity only; no price is taken from HLTV)",
+          "url": "https://www.hltv.org/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "6511156fd6d25389b3f29b919596194b",
+          "excerpt": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-6gjO6rL9OLSE1TEhTH0Wvw&#39; &#39;"
+        },
+        {
+          "source": "EGamersWorld CS2 matches index",
+          "url": "https://egamersworld.com/counterstrike/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "76fc9213cb3109cc034b895d5bd99dfa"
+        },
+        {
+          "source": "Polymarket tagged CS2 discovery",
+          "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100",
+          "status": "ok",
+          "found": false,
+          "http": 200,
+          "sha256": "cb0a891322cb2beca87f23270c2e9ced"
+        },
+        {
+          "source": "Thunderpick matches feed",
+          "url": "https://thunderpick.io/api/matches",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3f5402c4bd4633c627d742c421e064f1",
+          "bytes": 186678,
+          "note": null
+        },
+        {
+          "source": "Bovada CS2 coupon feed",
+          "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3cec64077ccac37fdc47f47b36eedf03",
+          "bytes": 464010,
+          "note": null
+        },
+        {
+          "source": "Pinnacle guest matchups",
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
+          "status": "ok",
+          "http": 200,
+          "sha256": "ffee69083f198a877a042fbdf1c685b1",
+          "bytes": 67696903,
+          "note": null
+        },
+        {
+          "source": "Kalshi CS2 exchange",
+          "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&limit=100",
+          "status": "ok",
+          "http": 200,
+          "sha256": "d9381df21268faf2c79986eee5479538",
+          "bytes": 58306,
+          "note": null
+        },
+        {
+          "source": "bo3.gg match feed",
+          "url": "https://api.bo3.gg/api/v1/matches?page[limit]=50",
+          "status": "ok",
+          "http": 200,
+          "sha256": "6ec0795de6a3407e07e5bb1c21da7eeb",
+          "bytes": 43381,
+          "note": null
+        }
+      ],
+      "limitations": [
+        "No reachable source published a two-sided prematch winner market for this fixture at the observation time. Absence of a retrieved line is not proof that no market exists."
+      ]
+    },
+    {
+      "id": "1079661",
+      "teams": [
+        "Nuclear TigeRES",
+        "ex-Zero Tenacity"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-24T17:00:00Z",
+      "verdict": "no-source-found",
+      "probes": [
+        {
+          "source": "HLTV match listing (identity only; no price is taken from HLTV)",
+          "url": "https://www.hltv.org/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "6511156fd6d25389b3f29b919596194b",
+          "excerpt": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-6gjO6rL9OLSE1TEhTH0Wvw&#39; &#39;"
+        },
+        {
+          "source": "EGamersWorld CS2 matches index",
+          "url": "https://egamersworld.com/counterstrike/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "76fc9213cb3109cc034b895d5bd99dfa"
+        },
+        {
+          "source": "Polymarket tagged CS2 discovery",
+          "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100",
+          "status": "ok",
+          "found": false,
+          "http": 200,
+          "sha256": "cb0a891322cb2beca87f23270c2e9ced"
+        },
+        {
+          "source": "Thunderpick matches feed",
+          "url": "https://thunderpick.io/api/matches",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3f5402c4bd4633c627d742c421e064f1",
+          "bytes": 186678,
+          "note": null
+        },
+        {
+          "source": "Bovada CS2 coupon feed",
+          "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3cec64077ccac37fdc47f47b36eedf03",
+          "bytes": 464010,
+          "note": null
+        },
+        {
+          "source": "Pinnacle guest matchups",
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
+          "status": "ok",
+          "http": 200,
+          "sha256": "ffee69083f198a877a042fbdf1c685b1",
+          "bytes": 67696903,
+          "note": null
+        },
+        {
+          "source": "Kalshi CS2 exchange",
+          "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&limit=100",
+          "status": "ok",
+          "http": 200,
+          "sha256": "d9381df21268faf2c79986eee5479538",
+          "bytes": 58306,
+          "note": null
+        },
+        {
+          "source": "bo3.gg match feed",
+          "url": "https://api.bo3.gg/api/v1/matches?page[limit]=50",
+          "status": "ok",
+          "http": 200,
+          "sha256": "6ec0795de6a3407e07e5bb1c21da7eeb",
+          "bytes": 43381,
+          "note": null
+        }
+      ],
+      "limitations": [
+        "No reachable source published a two-sided prematch winner market for this fixture at the observation time. Absence of a retrieved line is not proof that no market exists."
+      ]
+    },
+    {
+      "id": "1082695",
+      "teams": [
+        "Galorys",
+        "paiN"
+      ],
+      "competition": "Circuit X Curitiba #4",
+      "starts_at": "2026-10-24T18:00:00Z",
+      "verdict": "no-source-found",
+      "probes": [
+        {
+          "source": "HLTV match listing (identity only; no price is taken from HLTV)",
+          "url": "https://www.hltv.org/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "6511156fd6d25389b3f29b919596194b",
+          "excerpt": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-6gjO6rL9OLSE1TEhTH0Wvw&#39; &#39;"
+        },
+        {
+          "source": "EGamersWorld CS2 matches index",
+          "url": "https://egamersworld.com/counterstrike/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "76fc9213cb3109cc034b895d5bd99dfa"
+        },
+        {
+          "source": "Polymarket tagged CS2 discovery",
+          "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100",
+          "status": "ok",
+          "found": false,
+          "http": 200,
+          "sha256": "cb0a891322cb2beca87f23270c2e9ced"
+        },
+        {
+          "source": "Thunderpick matches feed",
+          "url": "https://thunderpick.io/api/matches",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3f5402c4bd4633c627d742c421e064f1",
+          "bytes": 186678,
+          "note": null
+        },
+        {
+          "source": "Bovada CS2 coupon feed",
+          "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3cec64077ccac37fdc47f47b36eedf03",
+          "bytes": 464010,
+          "note": null
+        },
+        {
+          "source": "Pinnacle guest matchups",
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
+          "status": "ok",
+          "http": 200,
+          "sha256": "ffee69083f198a877a042fbdf1c685b1",
+          "bytes": 67696903,
+          "note": null
+        },
+        {
+          "source": "Kalshi CS2 exchange",
+          "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&limit=100",
+          "status": "ok",
+          "http": 200,
+          "sha256": "d9381df21268faf2c79986eee5479538",
+          "bytes": 58306,
+          "note": null
+        },
+        {
+          "source": "bo3.gg match feed",
+          "url": "https://api.bo3.gg/api/v1/matches?page[limit]=50",
+          "status": "ok",
+          "http": 200,
+          "sha256": "6ec0795de6a3407e07e5bb1c21da7eeb",
+          "bytes": 43381,
+          "note": null
+        }
+      ],
+      "limitations": [
+        "No reachable source published a two-sided prematch winner market for this fixture at the observation time. Absence of a retrieved line is not proof that no market exists."
+      ]
+    },
+    {
+      "id": "1083122",
+      "teams": [
+        "LOS NINOS",
+        "BORRACHEIROS"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-24T19:00:00Z",
+      "verdict": "no-source-found",
+      "probes": [
+        {
+          "source": "HLTV match listing (identity only; no price is taken from HLTV)",
+          "url": "https://www.hltv.org/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "6511156fd6d25389b3f29b919596194b",
+          "excerpt": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-6gjO6rL9OLSE1TEhTH0Wvw&#39; &#39;"
+        },
+        {
+          "source": "EGamersWorld CS2 matches index",
+          "url": "https://egamersworld.com/counterstrike/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "76fc9213cb3109cc034b895d5bd99dfa"
+        },
+        {
+          "source": "Polymarket tagged CS2 discovery",
+          "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100",
+          "status": "ok",
+          "found": false,
+          "http": 200,
+          "sha256": "cb0a891322cb2beca87f23270c2e9ced"
+        },
+        {
+          "source": "Thunderpick matches feed",
+          "url": "https://thunderpick.io/api/matches",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3f5402c4bd4633c627d742c421e064f1",
+          "bytes": 186678,
+          "note": null
+        },
+        {
+          "source": "Bovada CS2 coupon feed",
+          "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3cec64077ccac37fdc47f47b36eedf03",
+          "bytes": 464010,
+          "note": null
+        },
+        {
+          "source": "Pinnacle guest matchups",
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
+          "status": "ok",
+          "http": 200,
+          "sha256": "ffee69083f198a877a042fbdf1c685b1",
+          "bytes": 67696903,
+          "note": null
+        },
+        {
+          "source": "Kalshi CS2 exchange",
+          "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&limit=100",
+          "status": "ok",
+          "http": 200,
+          "sha256": "d9381df21268faf2c79986eee5479538",
+          "bytes": 58306,
+          "note": null
+        },
+        {
+          "source": "bo3.gg match feed",
+          "url": "https://api.bo3.gg/api/v1/matches?page[limit]=50",
+          "status": "ok",
+          "http": 200,
+          "sha256": "6ec0795de6a3407e07e5bb1c21da7eeb",
+          "bytes": 43381,
+          "note": null
+        }
+      ],
+      "limitations": [
+        "No reachable source published a two-sided prematch winner market for this fixture at the observation time. Absence of a retrieved line is not proof that no market exists."
+      ]
+    },
+    {
+      "id": "1083140",
+      "teams": [
+        "BESTIA",
+        "Imperial"
+      ],
+      "competition": "Circuit X Curitiba #4",
+      "starts_at": "2026-10-24T21:00:00Z",
+      "verdict": "no-source-found",
+      "probes": [
+        {
+          "source": "HLTV match listing (identity only; no price is taken from HLTV)",
+          "url": "https://www.hltv.org/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "6511156fd6d25389b3f29b919596194b",
+          "excerpt": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-6gjO6rL9OLSE1TEhTH0Wvw&#39; &#39;"
+        },
+        {
+          "source": "EGamersWorld CS2 matches index",
+          "url": "https://egamersworld.com/counterstrike/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "76fc9213cb3109cc034b895d5bd99dfa"
+        },
+        {
+          "source": "Polymarket tagged CS2 discovery",
+          "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100",
+          "status": "ok",
+          "found": false,
+          "http": 200,
+          "sha256": "cb0a891322cb2beca87f23270c2e9ced"
+        },
+        {
+          "source": "Thunderpick matches feed",
+          "url": "https://thunderpick.io/api/matches",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3f5402c4bd4633c627d742c421e064f1",
+          "bytes": 186678,
+          "note": null
+        },
+        {
+          "source": "Bovada CS2 coupon feed",
+          "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3cec64077ccac37fdc47f47b36eedf03",
+          "bytes": 464010,
+          "note": null
+        },
+        {
+          "source": "Pinnacle guest matchups",
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
+          "status": "ok",
+          "http": 200,
+          "sha256": "ffee69083f198a877a042fbdf1c685b1",
+          "bytes": 67696903,
+          "note": null
+        },
+        {
+          "source": "Kalshi CS2 exchange",
+          "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&limit=100",
+          "status": "ok",
+          "http": 200,
+          "sha256": "d9381df21268faf2c79986eee5479538",
+          "bytes": 58306,
+          "note": null
+        },
+        {
+          "source": "bo3.gg match feed",
+          "url": "https://api.bo3.gg/api/v1/matches?page[limit]=50",
+          "status": "ok",
+          "http": 200,
+          "sha256": "6ec0795de6a3407e07e5bb1c21da7eeb",
+          "bytes": 43381,
+          "note": null
+        }
+      ],
+      "limitations": [
+        "No reachable source published a two-sided prematch winner market for this fixture at the observation time. Absence of a retrieved line is not proof that no market exists."
+      ]
+    },
+    {
+      "id": "1083123",
+      "teams": [
+        "Gr\u00eamio",
+        "Yawara"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "starts_at": "2026-10-24T22:00:00Z",
+      "verdict": "no-source-found",
+      "probes": [
+        {
+          "source": "HLTV match listing (identity only; no price is taken from HLTV)",
+          "url": "https://www.hltv.org/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "6511156fd6d25389b3f29b919596194b",
+          "excerpt": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-6gjO6rL9OLSE1TEhTH0Wvw&#39; &#39;"
+        },
+        {
+          "source": "EGamersWorld CS2 matches index",
+          "url": "https://egamersworld.com/counterstrike/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "76fc9213cb3109cc034b895d5bd99dfa"
+        },
+        {
+          "source": "Polymarket tagged CS2 discovery",
+          "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100",
+          "status": "ok",
+          "found": false,
+          "http": 200,
+          "sha256": "cb0a891322cb2beca87f23270c2e9ced"
+        },
+        {
+          "source": "Thunderpick matches feed",
+          "url": "https://thunderpick.io/api/matches",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3f5402c4bd4633c627d742c421e064f1",
+          "bytes": 186678,
+          "note": null
+        },
+        {
+          "source": "Bovada CS2 coupon feed",
+          "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3cec64077ccac37fdc47f47b36eedf03",
+          "bytes": 464010,
+          "note": null
+        },
+        {
+          "source": "Pinnacle guest matchups",
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
+          "status": "ok",
+          "http": 200,
+          "sha256": "ffee69083f198a877a042fbdf1c685b1",
+          "bytes": 67696903,
+          "note": null
+        },
+        {
+          "source": "Kalshi CS2 exchange",
+          "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&limit=100",
+          "status": "ok",
+          "http": 200,
+          "sha256": "d9381df21268faf2c79986eee5479538",
+          "bytes": 58306,
+          "note": null
+        },
+        {
+          "source": "bo3.gg match feed",
+          "url": "https://api.bo3.gg/api/v1/matches?page[limit]=50",
+          "status": "ok",
+          "http": 200,
+          "sha256": "6ec0795de6a3407e07e5bb1c21da7eeb",
+          "bytes": 43381,
+          "note": null
+        }
+      ],
+      "limitations": [
+        "No reachable source published a two-sided prematch winner market for this fixture at the observation time. Absence of a retrieved line is not proof that no market exists."
+      ]
+    },
+    {
+      "id": "1081156",
+      "teams": [
+        "Spirit Academy",
+        "LFO 10"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-25T12:00:00Z",
+      "verdict": "no-source-found",
+      "probes": [
+        {
+          "source": "HLTV match listing (identity only; no price is taken from HLTV)",
+          "url": "https://www.hltv.org/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "6511156fd6d25389b3f29b919596194b",
+          "excerpt": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-6gjO6rL9OLSE1TEhTH0Wvw&#39; &#39;"
+        },
+        {
+          "source": "EGamersWorld CS2 matches index",
+          "url": "https://egamersworld.com/counterstrike/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "76fc9213cb3109cc034b895d5bd99dfa"
+        },
+        {
+          "source": "Polymarket tagged CS2 discovery",
+          "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100",
+          "status": "ok",
+          "found": false,
+          "http": 200,
+          "sha256": "cb0a891322cb2beca87f23270c2e9ced"
+        },
+        {
+          "source": "Thunderpick matches feed",
+          "url": "https://thunderpick.io/api/matches",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3f5402c4bd4633c627d742c421e064f1",
+          "bytes": 186678,
+          "note": null
+        },
+        {
+          "source": "Bovada CS2 coupon feed",
+          "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3cec64077ccac37fdc47f47b36eedf03",
+          "bytes": 464010,
+          "note": null
+        },
+        {
+          "source": "Pinnacle guest matchups",
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
+          "status": "ok",
+          "http": 200,
+          "sha256": "ffee69083f198a877a042fbdf1c685b1",
+          "bytes": 67696903,
+          "note": null
+        },
+        {
+          "source": "Kalshi CS2 exchange",
+          "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&limit=100",
+          "status": "ok",
+          "http": 200,
+          "sha256": "d9381df21268faf2c79986eee5479538",
+          "bytes": 58306,
+          "note": null
+        },
+        {
+          "source": "bo3.gg match feed",
+          "url": "https://api.bo3.gg/api/v1/matches?page[limit]=50",
+          "status": "ok",
+          "http": 200,
+          "sha256": "6ec0795de6a3407e07e5bb1c21da7eeb",
+          "bytes": 43381,
+          "note": null
+        }
+      ],
+      "limitations": [
+        "No reachable source published a two-sided prematch winner market for this fixture at the observation time. Absence of a retrieved line is not proof that no market exists."
+      ]
+    },
+    {
+      "id": "1081158",
+      "teams": [
+        "FORZE Reload",
+        "ex-RUSTEC"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-25T18:00:00Z",
+      "verdict": "no-source-found",
+      "probes": [
+        {
+          "source": "HLTV match listing (identity only; no price is taken from HLTV)",
+          "url": "https://www.hltv.org/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "6511156fd6d25389b3f29b919596194b",
+          "excerpt": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-6gjO6rL9OLSE1TEhTH0Wvw&#39; &#39;"
+        },
+        {
+          "source": "EGamersWorld CS2 matches index",
+          "url": "https://egamersworld.com/counterstrike/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "76fc9213cb3109cc034b895d5bd99dfa"
+        },
+        {
+          "source": "Polymarket tagged CS2 discovery",
+          "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100",
+          "status": "ok",
+          "found": false,
+          "http": 200,
+          "sha256": "cb0a891322cb2beca87f23270c2e9ced"
+        },
+        {
+          "source": "Thunderpick matches feed",
+          "url": "https://thunderpick.io/api/matches",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3f5402c4bd4633c627d742c421e064f1",
+          "bytes": 186678,
+          "note": null
+        },
+        {
+          "source": "Bovada CS2 coupon feed",
+          "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3cec64077ccac37fdc47f47b36eedf03",
+          "bytes": 464010,
+          "note": null
+        },
+        {
+          "source": "Pinnacle guest matchups",
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
+          "status": "ok",
+          "http": 200,
+          "sha256": "ffee69083f198a877a042fbdf1c685b1",
+          "bytes": 67696903,
+          "note": null
+        },
+        {
+          "source": "Kalshi CS2 exchange",
+          "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&limit=100",
+          "status": "ok",
+          "http": 200,
+          "sha256": "d9381df21268faf2c79986eee5479538",
+          "bytes": 58306,
+          "note": null
+        },
+        {
+          "source": "bo3.gg match feed",
+          "url": "https://api.bo3.gg/api/v1/matches?page[limit]=50",
+          "status": "ok",
+          "http": 200,
+          "sha256": "6ec0795de6a3407e07e5bb1c21da7eeb",
+          "bytes": 43381,
+          "note": null
+        }
+      ],
+      "limitations": [
+        "No reachable source published a two-sided prematch winner market for this fixture at the observation time. Absence of a retrieved line is not proof that no market exists."
+      ]
+    },
+    {
+      "id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "verdict": "no-source-found",
+      "probes": [
+        {
+          "source": "HLTV match listing (identity only; no price is taken from HLTV)",
+          "url": "https://www.hltv.org/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "6511156fd6d25389b3f29b919596194b",
+          "excerpt": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-6gjO6rL9OLSE1TEhTH0Wvw&#39; &#39;"
+        },
+        {
+          "source": "EGamersWorld CS2 matches index",
+          "url": "https://egamersworld.com/counterstrike/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "76fc9213cb3109cc034b895d5bd99dfa"
+        },
+        {
+          "source": "Polymarket tagged CS2 discovery",
+          "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100",
+          "status": "ok",
+          "found": false,
+          "http": 200,
+          "sha256": "cb0a891322cb2beca87f23270c2e9ced"
+        },
+        {
+          "source": "Thunderpick matches feed",
+          "url": "https://thunderpick.io/api/matches",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3f5402c4bd4633c627d742c421e064f1",
+          "bytes": 186678,
+          "note": null
+        },
+        {
+          "source": "Bovada CS2 coupon feed",
+          "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3cec64077ccac37fdc47f47b36eedf03",
+          "bytes": 464010,
+          "note": null
+        },
+        {
+          "source": "Pinnacle guest matchups",
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
+          "status": "ok",
+          "http": 200,
+          "sha256": "ffee69083f198a877a042fbdf1c685b1",
+          "bytes": 67696903,
+          "note": null
+        },
+        {
+          "source": "Kalshi CS2 exchange",
+          "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&limit=100",
+          "status": "ok",
+          "http": 200,
+          "sha256": "d9381df21268faf2c79986eee5479538",
+          "bytes": 58306,
+          "note": null
+        },
+        {
+          "source": "bo3.gg match feed",
+          "url": "https://api.bo3.gg/api/v1/matches?page[limit]=50",
+          "status": "ok",
+          "http": 200,
+          "sha256": "6ec0795de6a3407e07e5bb1c21da7eeb",
+          "bytes": 43381,
+          "note": null
+        }
+      ],
+      "limitations": [
+        "No reachable source published a two-sided prematch winner market for this fixture at the observation time. Absence of a retrieved line is not proof that no market exists."
+      ]
+    },
+    {
+      "id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "verdict": "no-source-found",
+      "probes": [
+        {
+          "source": "HLTV match listing (identity only; no price is taken from HLTV)",
+          "url": "https://www.hltv.org/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "6511156fd6d25389b3f29b919596194b",
+          "excerpt": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-6gjO6rL9OLSE1TEhTH0Wvw&#39; &#39;"
+        },
+        {
+          "source": "EGamersWorld CS2 matches index",
+          "url": "https://egamersworld.com/counterstrike/matches",
+          "status": "http-403",
+          "found": false,
+          "http": 403,
+          "sha256": "76fc9213cb3109cc034b895d5bd99dfa"
+        },
+        {
+          "source": "Polymarket tagged CS2 discovery",
+          "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100",
+          "status": "ok",
+          "found": false,
+          "http": 200,
+          "sha256": "cb0a891322cb2beca87f23270c2e9ced"
+        },
+        {
+          "source": "Thunderpick matches feed",
+          "url": "https://thunderpick.io/api/matches",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3f5402c4bd4633c627d742c421e064f1",
+          "bytes": 186678,
+          "note": null
+        },
+        {
+          "source": "Bovada CS2 coupon feed",
+          "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2",
+          "status": "ok",
+          "http": 200,
+          "sha256": "3cec64077ccac37fdc47f47b36eedf03",
+          "bytes": 464010,
+          "note": null
+        },
+        {
+          "source": "Pinnacle guest matchups",
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
+          "status": "ok",
+          "http": 200,
+          "sha256": "ffee69083f198a877a042fbdf1c685b1",
+          "bytes": 67696903,
+          "note": null
+        },
+        {
+          "source": "Kalshi CS2 exchange",
+          "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&limit=100",
+          "status": "ok",
+          "http": 200,
+          "sha256": "d9381df21268faf2c79986eee5479538",
+          "bytes": 58306,
+          "note": null
+        },
+        {
+          "source": "bo3.gg match feed",
+          "url": "https://api.bo3.gg/api/v1/matches?page[limit]=50",
+          "status": "ok",
+          "http": 200,
+          "sha256": "6ec0795de6a3407e07e5bb1c21da7eeb",
+          "bytes": 43381,
+          "note": null
+        }
+      ],
+      "limitations": [
+        "No reachable source published a two-sided prematch winner market for this fixture at the observation time. Absence of a retrieved line is not proof that no market exists."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,785 @@
+{
+  "session": "arena-f4217201",
+  "observed_at": "2026-10-24T09:21:40Z",
+  "counts": {
+    "api_scheduled": 90,
+    "api_future": 29,
+    "lobby_rendered": 31,
+    "snapshot_upcoming": 19,
+    "snapshot_with_pick": 13,
+    "uncovered": 16
+  },
+  "snapshot": {
+    "generated_at": "2026-10-23T20:10:00Z",
+    "age_hours": 13.19,
+    "counts": {
+      "inventory": 82,
+      "upcoming": 19,
+      "archived": 63,
+      "unknown_schedule": 0,
+      "market": 9,
+      "bookmaker": 3,
+      "model": 5,
+      "unresolved": 2,
+      "picks": 17,
+      "no_edge": 0
+    },
+    "stale_over_8h": true
+  },
+  "rows": [
+    {
+      "id": "1081152",
+      "teams": [
+        "HAVU",
+        "Azuolas"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "tier": "b",
+      "starts_at": "2026-10-24T11:00:00Z",
+      "locks_at": "2026-10-24T10:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": false,
+      "coverage": "not in published snapshot",
+      "pick": null
+    },
+    {
+      "id": "1079659",
+      "teams": [
+        "Spirit Academy",
+        "Lavked"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "tier": "b",
+      "starts_at": "2026-10-24T11:00:00Z",
+      "locks_at": "2026-10-24T10:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": false,
+      "coverage": "not in published snapshot",
+      "pick": null
+    },
+    {
+      "id": "1083120",
+      "teams": [
+        "Isurus",
+        "RED Canids Academy"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "tier": "c",
+      "starts_at": "2026-10-24T13:00:00Z",
+      "locks_at": "2026-10-24T12:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": false,
+      "coverage": "not in published snapshot",
+      "pick": null
+    },
+    {
+      "id": "1081153",
+      "teams": [
+        "Saint Sinners",
+        "6yuBoJlbl"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "tier": "b",
+      "starts_at": "2026-10-24T14:00:00Z",
+      "locks_at": "2026-10-24T13:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": false,
+      "coverage": "not in published snapshot",
+      "pick": null
+    },
+    {
+      "id": "1079660",
+      "teams": [
+        "INOX Division",
+        "BRUTE"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "tier": "b",
+      "starts_at": "2026-10-24T14:00:00Z",
+      "locks_at": "2026-10-24T13:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": false,
+      "coverage": "not in published snapshot",
+      "pick": null
+    },
+    {
+      "id": "1079195",
+      "teams": [
+        "Nuclear TigeRES",
+        "FORZE Reload"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "tier": "b",
+      "starts_at": "2026-10-24T14:00:00Z",
+      "locks_at": "2026-10-24T13:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": true,
+      "coverage": "published pick",
+      "pick": {
+        "method": "market",
+        "pick": null,
+        "probabilities": [
+          0.625,
+          0.375
+        ],
+        "source_url": "https://polymarket.com/event/cs2-ntr-forzer-2026-10-24"
+      }
+    },
+    {
+      "id": "1083121",
+      "teams": [
+        "Projeto do KinGui",
+        "MEIA NOITE"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "tier": "c",
+      "starts_at": "2026-10-24T16:00:00Z",
+      "locks_at": "2026-10-24T15:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": false,
+      "coverage": "not in published snapshot",
+      "pick": null
+    },
+    {
+      "id": "1081154",
+      "teams": [
+        "BakS",
+        "ILLYRIANS"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "tier": "b",
+      "starts_at": "2026-10-24T17:00:00Z",
+      "locks_at": "2026-10-24T16:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": false,
+      "coverage": "not in published snapshot",
+      "pick": null
+    },
+    {
+      "id": "1079661",
+      "teams": [
+        "Nuclear TigeRES",
+        "ex-Zero Tenacity"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "tier": "b",
+      "starts_at": "2026-10-24T17:00:00Z",
+      "locks_at": "2026-10-24T16:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": false,
+      "coverage": "not in published snapshot",
+      "pick": null
+    },
+    {
+      "id": "1082695",
+      "teams": [
+        "Galorys",
+        "paiN"
+      ],
+      "competition": "Circuit X Curitiba #4",
+      "tier": "c",
+      "starts_at": "2026-10-24T18:00:00Z",
+      "locks_at": "2026-10-24T17:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": false,
+      "coverage": "not in published snapshot",
+      "pick": null
+    },
+    {
+      "id": "1083122",
+      "teams": [
+        "LOS NINOS",
+        "BORRACHEIROS"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "tier": "c",
+      "starts_at": "2026-10-24T19:00:00Z",
+      "locks_at": "2026-10-24T18:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": false,
+      "coverage": "not in published snapshot",
+      "pick": null
+    },
+    {
+      "id": "1083140",
+      "teams": [
+        "BESTIA",
+        "Imperial"
+      ],
+      "competition": "Circuit X Curitiba #4",
+      "tier": "c",
+      "starts_at": "2026-10-24T21:00:00Z",
+      "locks_at": "2026-10-24T20:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": false,
+      "coverage": "not in published snapshot",
+      "pick": null
+    },
+    {
+      "id": "1083123",
+      "teams": [
+        "Gr\u00eamio",
+        "Yawara"
+      ],
+      "competition": "CCT South America 2026 Series #7",
+      "tier": "c",
+      "starts_at": "2026-10-24T22:00:00Z",
+      "locks_at": "2026-10-24T21:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": false,
+      "coverage": "not in published snapshot",
+      "pick": null
+    },
+    {
+      "id": "1082996",
+      "teams": [
+        "Acend",
+        "UNiTY"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "tier": "b",
+      "starts_at": "2026-10-25T09:00:00Z",
+      "locks_at": "2026-10-25T08:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": true,
+      "coverage": "published pick",
+      "pick": {
+        "method": "model",
+        "pick": null,
+        "probabilities": [
+          0.54190155,
+          0.45809845
+        ],
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      }
+    },
+    {
+      "id": "1081156",
+      "teams": [
+        "Spirit Academy",
+        "LFO 10"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "tier": "b",
+      "starts_at": "2026-10-25T12:00:00Z",
+      "locks_at": "2026-10-25T11:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": false,
+      "coverage": "not in published snapshot",
+      "pick": null
+    },
+    {
+      "id": "1079198",
+      "teams": [
+        "Metizport",
+        "BakS"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "tier": "b",
+      "starts_at": "2026-10-25T12:00:00Z",
+      "locks_at": "2026-10-25T11:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": true,
+      "coverage": "published pick",
+      "pick": {
+        "method": "model",
+        "pick": null,
+        "probabilities": [
+          0.79860558,
+          0.20139442
+        ],
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      }
+    },
+    {
+      "id": "1079199",
+      "teams": [
+        "Infinite",
+        "BRUTE"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "tier": "b",
+      "starts_at": "2026-10-25T15:00:00Z",
+      "locks_at": "2026-10-25T14:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": true,
+      "coverage": "published pick",
+      "pick": {
+        "method": "market",
+        "pick": null,
+        "probabilities": [
+          0.48,
+          0.52
+        ],
+        "source_url": "https://polymarket.com/event/cs2-inf6-brute-2026-10-25"
+      }
+    },
+    {
+      "id": "1081158",
+      "teams": [
+        "FORZE Reload",
+        "ex-RUSTEC"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "tier": "b",
+      "starts_at": "2026-10-25T18:00:00Z",
+      "locks_at": "2026-10-25T17:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": false,
+      "coverage": "not in published snapshot",
+      "pick": null
+    },
+    {
+      "id": "1079200",
+      "teams": [
+        "Color",
+        "ex-Zero Tenacity"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "tier": "b",
+      "starts_at": "2026-10-25T18:00:00Z",
+      "locks_at": "2026-10-25T17:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": true,
+      "coverage": "published pick",
+      "pick": {
+        "method": "model",
+        "pick": null,
+        "probabilities": [
+          0.7359068,
+          0.2640932
+        ],
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      }
+    },
+    {
+      "id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "tier": "b",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "locks_at": "2026-10-26T02:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": true,
+      "coverage": "published, no pick",
+      "pick": {
+        "method": null,
+        "pick": null,
+        "probabilities": null,
+        "source_url": null
+      }
+    },
+    {
+      "id": "1082859",
+      "teams": [
+        "NEXVOID",
+        "Alter Ego"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "tier": "b",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "locks_at": "2026-10-26T02:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": true,
+      "coverage": "published pick",
+      "pick": {
+        "method": "bookmaker",
+        "pick": null,
+        "probabilities": [
+          0.57559682,
+          0.42440318
+        ],
+        "source_url": "https://thunderpick.io/api/matches"
+      }
+    },
+    {
+      "id": "1082860",
+      "teams": [
+        "FlyQuest",
+        "Staqued"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "tier": "b",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "locks_at": "2026-10-27T02:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": true,
+      "coverage": "published pick",
+      "pick": {
+        "method": "bookmaker",
+        "pick": null,
+        "probabilities": [
+          0.92300592,
+          0.07699408
+        ],
+        "source_url": "https://thunderpick.io/api/matches"
+      }
+    },
+    {
+      "id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "tier": "b",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "locks_at": "2026-10-27T02:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": true,
+      "coverage": "published pick",
+      "pick": {
+        "method": "model",
+        "pick": null,
+        "probabilities": [
+          0.47761494,
+          0.52238506
+        ],
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      }
+    },
+    {
+      "id": "1082897",
+      "teams": [
+        "B8",
+        "K27"
+      ],
+      "competition": "Tesla Cup 2026",
+      "tier": "b",
+      "starts_at": "2026-10-27T08:00:00Z",
+      "locks_at": "2026-10-27T07:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": true,
+      "coverage": "published pick",
+      "pick": {
+        "method": "market",
+        "pick": null,
+        "probabilities": [
+          0.62,
+          0.38
+        ],
+        "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27"
+      }
+    },
+    {
+      "id": "1082898",
+      "teams": [
+        "Alliance",
+        "FaZe"
+      ],
+      "competition": "Tesla Cup 2026",
+      "tier": "b",
+      "starts_at": "2026-10-27T11:00:00Z",
+      "locks_at": "2026-10-27T10:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": true,
+      "coverage": "published pick",
+      "pick": {
+        "method": "market",
+        "pick": null,
+        "probabilities": [
+          0.35,
+          0.65
+        ],
+        "source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27"
+      }
+    },
+    {
+      "id": "1082900",
+      "teams": [
+        "Luminosity",
+        "HOTU"
+      ],
+      "competition": "Tesla Cup 2026",
+      "tier": "b",
+      "starts_at": "2026-10-27T17:00:00Z",
+      "locks_at": "2026-10-27T16:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": true,
+      "coverage": "published pick",
+      "pick": {
+        "method": "market",
+        "pick": null,
+        "probabilities": [
+          0.525,
+          0.475
+        ],
+        "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27"
+      }
+    },
+    {
+      "id": "1082901",
+      "teams": [
+        "Envy",
+        "GamerLegion"
+      ],
+      "competition": "Tesla Cup 2026",
+      "tier": "b",
+      "starts_at": "2026-10-27T20:00:00Z",
+      "locks_at": "2026-10-27T19:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": true,
+      "coverage": "published pick",
+      "pick": {
+        "method": "market",
+        "pick": null,
+        "probabilities": [
+          0.465,
+          0.535
+        ],
+        "source_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27"
+      }
+    },
+    {
+      "id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "tier": "b",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "locks_at": "2026-10-31T08:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": true,
+      "coverage": "published, no pick",
+      "pick": {
+        "method": null,
+        "pick": null,
+        "probabilities": null,
+        "source_url": null
+      }
+    },
+    {
+      "id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "tier": "b",
+      "starts_at": "2026-10-31T13:00:00Z",
+      "locks_at": "2026-10-31T12:54:00Z",
+      "future": true,
+      "lobby_rendered": true,
+      "in_snapshot": true,
+      "coverage": "published pick",
+      "pick": {
+        "method": "model",
+        "pick": null,
+        "probabilities": [
+          0.17816902,
+          0.82183098
+        ],
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      }
+    }
+  ],
+  "uncovered_ids": [
+    "1081152",
+    "1079659",
+    "1083120",
+    "1081153",
+    "1079660",
+    "1083121",
+    "1081154",
+    "1079661",
+    "1082695",
+    "1083122",
+    "1083140",
+    "1083123",
+    "1081156",
+    "1081158",
+    "1082858",
+    "1082792"
+  ],
+  "source_reads": [
+    {
+      "name": "hotspawn-fixtures",
+      "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "method": "GET",
+      "observed_at": "2026-10-24T09:21:40Z",
+      "http": 200,
+      "status": "ok",
+      "sha256": "1e5e4d3e215934a88bc06debe9080ac2",
+      "bytes": 70254,
+      "challenge": false,
+      "excerpt": "[{\"id\":\"1052746\",\"competition_id\":\"35005\",\"competition_name\":\"European Pro League Series 8 Play-In\",\"sport_alias\":\"cs2\",\"sport_name\":\"Counter-Strike 2\",\"status\":\"scheduled\",\"scheduled_start_time\":\"1782469800000\",\"lock_time\":\"1782469440000\",\"lock_offset_sec\":360,\"offered_points\":2,\"base_points\":2,\"best_of\":null,\"series_format\":null,\"tier\":\"c\",\"stage\":null,\"points_breakdown\":{\"game_multiplier\":1.25,\"tier_multiplier\":1,\"series_multiplier\":",
+      "error": null
+    },
+    {
+      "name": "hotspawn-lobby",
+      "url": "https://play.hotspawn.com/lobby",
+      "method": "GET",
+      "observed_at": "2026-10-24T09:21:40Z",
+      "http": 200,
+      "status": "ok",
+      "sha256": "8e9c4ce0718dea339bbd610623c64023",
+      "bytes": 432718,
+      "challenge": false,
+      "excerpt": "<!DOCTYPE html><html lang=\"en\" data-beasties-container><head> <meta charset=\"utf-8\"> <title>Pick'ems Lobby | Hotspawn Play</title> <base href=\"/\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> <link rel=\"icon\" type=\"image/x-icon\" href=\"favicon.ico\"> <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"> <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin> <style>@font-face{font-family:'Inter';",
+      "error": null
+    },
+    {
+      "name": "published-snapshot",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+      "method": "GET",
+      "observed_at": "2026-10-24T09:21:41Z",
+      "http": 200,
+      "status": "ok",
+      "sha256": "6746dc63734734b4f55a09f1a0483f26",
+      "bytes": 214381,
+      "challenge": false,
+      "excerpt": "{ \"schema_version\": 1, \"generated_at\": \"2026-10-23T20:10:00Z\", \"last_attempted_at\": \"2026-10-23T20:09:44Z\", \"analysis_as_of\": \"2026-10-23T20:09:44Z\", \"inventory_observed_at\": \"2026-10-23T20:09:44Z\", \"coverage_complete\": true, \"inventory_crosscheck\": \"complete\", \"run_status\": \"partial-picks\", \"refresh_interval_hours\": 4, \"stale_after_hours\": 8, \"counts\": { \"inventory\": 82, \"upcoming\": 19, \"archived\": 63, \"unknown_schedule\": 0, \"market\": ",
+      "error": null
+    },
+    {
+      "name": "published-origination",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+      "method": "GET",
+      "observed_at": "2026-10-24T09:21:41Z",
+      "http": 200,
+      "status": "ok",
+      "sha256": "b37b206b0718e141a92f265014ad549f",
+      "bytes": 223338,
+      "challenge": false,
+      "excerpt": "{ \"schema_version\": 1, \"generated_at\": \"2026-10-23T20:10:09Z\", \"source_snapshot_at\": \"2026-10-23T20:09:44Z\", \"source_generated_at\": \"2026-10-23T20:10:00Z\", \"registry_updated_at\": \"2026-10-23T06:26:00Z\", \"live_collection\": true, \"collection\": { \"bo3_results\": { \"fixtures_bound\": 10, \"teams_saved\": 6, \"samples\": 104 }, \"bo3_results_error\": null, \"bo3_relay\": { \"fixtures_bound\": 11, \"rows_fetched\": 282, \"with_quote\": 11, \"rejections\": 6 },",
+      "error": null
+    },
+    {
+      "name": "hltv",
+      "url": "https://www.hltv.org/matches",
+      "method": "GET",
+      "observed_at": "2026-10-24T09:21:41Z",
+      "http": 403,
+      "status": "http-403",
+      "sha256": "6511156fd6d25389b3f29b919596194b",
+      "bytes": 5626,
+      "challenge": true,
+      "excerpt": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-6gjO6rL9OLSE1TEhTH0Wvw&#39; &#39;",
+      "error": null
+    },
+    {
+      "name": "egw",
+      "url": "https://egamersworld.com/counterstrike/matches",
+      "method": "GET",
+      "observed_at": "2026-10-24T09:21:41Z",
+      "http": 403,
+      "status": "http-403",
+      "sha256": "76fc9213cb3109cc034b895d5bd99dfa",
+      "bytes": 6136,
+      "challenge": true,
+      "excerpt": "<!DOCTYPE html> <!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]--> <!--[if IE 7]> <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]--> <!--[if IE 8]> <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]--> <!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!--<![endif]--> <head> <title>Attention Required! | Cloudflare</title> <meta charset=\"UTF-8\" /> <meta http-equiv=\"Content-Type\" content=\"text/html;",
+      "error": null
+    },
+    {
+      "name": "poly",
+      "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100",
+      "method": "GET",
+      "observed_at": "2026-10-24T09:21:41Z",
+      "http": 200,
+      "status": "ok",
+      "sha256": "cb0a891322cb2beca87f23270c2e9ced",
+      "bytes": 4526282,
+      "challenge": false,
+      "excerpt": "[{\"id\":\"244564\",\"ticker\":\"will-faze-win-a-tier-1-event-in-2026\",\"slug\":\"will-faze-win-a-tier-1-event-in-2026\",\"title\":\"Will FaZe win a Tier 1 event in 2026? \",\"description\":\"This market will resolve to \\\"Yes\\\" if FaZe Clan's CS2 roster wins (takes 1st place in) any Tier 1 CS2 tournament that concludes by December 31, 2026, 11:59 PM ET. Otherwise, this market will resolve to \\\"No\\\".\\n\\nFor the purpose of this market, a \\\"Tier 1 Event\\\" r",
+      "error": null
+    },
+    {
+      "name": "thunderpick",
+      "url": "https://thunderpick.io/api/matches",
+      "method": "POST",
+      "observed_at": "2026-10-24T09:21:42Z",
+      "http": 200,
+      "status": "ok",
+      "sha256": "3f5402c4bd4633c627d742c421e064f1",
+      "bytes": 186678,
+      "challenge": false,
+      "excerpt": "{\"statusCode\":200,\"ok\":true,\"data\":{\"upcoming\":[{\"preferredMarkets\":[{\"nickName\":\"Winner\",\"eventId\":2872333,\"id\":240164875,\"name\":\"Match Winner\",\"status\":1,\"type\":0,\"category\":1,\"selections\":[{\"id\":599217219,\"name\":\"FlyQuest\",\"status\":1,\"odds\":1.001,\"handicap\":null,\"total\":null,\"type\":\"home\"},{\"id\":599217218,\"name\":\"Staqued\",\"status\":1,\"odds\":12,\"handicap\":null,\"total\":null,\"type\":\"away\"}],\"order\":99999,\"hasCombo\":true,\"hasInPlay\":false",
+      "error": null
+    },
+    {
+      "name": "bovada",
+      "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2",
+      "method": "GET",
+      "observed_at": "2026-10-24T09:21:42Z",
+      "http": 200,
+      "status": "ok",
+      "sha256": "3cec64077ccac37fdc47f47b36eedf03",
+      "bytes": 464010,
+      "challenge": false,
+      "excerpt": "[{\"path\":[{\"id\":\"31791607\",\"link\":\"/esports/counter-strike-2/pgl-masters-bucharest-26\",\"description\":\"PGL Masters Bucharest '26\",\"type\":\"LEAGUE\",\"sportCode\":\"ESPT\",\"order\":9223372036854775807,\"leaf\":true,\"current\":false},{\"id\":\"11820584\",\"link\":\"/esports/counter-strike-2\",\"description\":\"Counter-Strike 2\",\"type\":\"COMPETITION\",\"sportCode\":\"ESPT\",\"order\":1,\"leaf\":false,\"current\":true},{\"id\":\"6000\",\"link\":\"/esports\",\"description\":\"Esports\",",
+      "error": null
+    },
+    {
+      "name": "pinnacle",
+      "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
+      "method": "GET",
+      "observed_at": "2026-10-24T09:21:44Z",
+      "http": 200,
+      "status": "ok",
+      "sha256": "ffee69083f198a877a042fbdf1c685b1",
+      "bytes": 67696903,
+      "challenge": false,
+      "excerpt": "[ { \"ageLimit\": 0, \"altTeaser\": false, \"featureOrder\": -1, \"hasAltSpread\": false, \"hasAltTotal\": false, \"hasBetshare\": false, \"hasLive\": true, \"hasMarkets\": true, \"id\": 1638876096, \"isBetshareEnabled\": false, \"isFeatured\": false, \"isHighlighted\": false, \"isLive\": false, \"isPromoted\": false, \"league\": { \"ageLimit\": 0, \"featureOrder\": -1, \"group\": \"Turkey\", \"id\": 2578, \"isFeatured\": false, \"isHidden\": false, \"isPromoted\": false, \"isSticky",
+      "error": null
+    },
+    {
+      "name": "kalshi",
+      "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&limit=100",
+      "method": "GET",
+      "observed_at": "2026-10-24T09:21:46Z",
+      "http": 200,
+      "status": "ok",
+      "sha256": "d9381df21268faf2c79986eee5479538",
+      "bytes": 58306,
+      "challenge": false,
+      "excerpt": "{\"cursor\":\"CgYIsN3u1gYSHEtYQ1MyR0FNRS0yNk9DVDIzMDkwMFdCVEFMUEg\",\"events\":[{\"category\":\"Sports\",\"collateral_return_type\":\"MECNET\",\"event_ticker\":\"KXCS2GAME-26OCT261700MEIQUIN\",\"exchange_index\":0,\"last_updated_ts\":\"2026-10-24T00:03:04.662846Z\",\"mutually_exclusive\":true,\"product_metadata\":{\"competition\":\"CS2\",\"competition_scope\":\"Game\"},\"series_ticker\":\"KXCS2GAME\",\"settlement_sources\":[{\"name\":\"B03\",\"url\":\"https://bo3.gg/matches/finished\"}",
+      "error": null
+    },
+    {
+      "name": "bo3",
+      "url": "https://api.bo3.gg/api/v1/matches?page[limit]=50",
+      "method": "GET",
+      "observed_at": "2026-10-24T09:21:46Z",
+      "http": 200,
+      "status": "ok",
+      "sha256": "6ec0795de6a3407e07e5bb1c21da7eeb",
+      "bytes": 43381,
+      "challenge": false,
+      "excerpt": "{\"total\":{\"count\":82472,\"pages\":1650,\"offset\":0,\"limit\":50},\"results\":[{\"id\":1,\"slug\":\"vitality-cs-go-vs-mousesports-cs-go-08-12-2020\",\"round_id\":1,\"team1_id\":667,\"team2_id\":765,\"winner_team_id\":667,\"loser_team_id\":765,\"tournament_id\":9,\"team1_score\":2,\"team2_score\":0,\"status\":\"finished\",\"bo_type\":3,\"start_date\":\"2020-12-08T17:55:00.000+00:00\",\"end_date\":\"2020-12-08T20:15:44.000+00:00\",\"stage_id\":1,\"maps_score\":[true,true,false],\"parsed",
+      "error": null
+    }
+  ]
+}
