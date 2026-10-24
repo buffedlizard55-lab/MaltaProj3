@@ -1,0 +1,72 @@
+[
+  {
+    "id": "d202e156-phone-status-strip-missing-on-two-views",
+    "severity": "needs review",
+    "match_ids": [],
+    "title": "The phone one-tap route to the picks is missing on /origination/ and /strategy/",
+    "detail": "scripts/build.py::shell() renders the phone status strip (nav.mobile-status, 'N picks ready of M' + 'N unresolved \u00b7 why') on every page it builds, and assets/scout.css shows it only at <=700px. Two views are then overwritten by their own builders \u2014 scripts/build_origination.py writes /origination/index.html and scripts/build_strategy.py writes /strategy/index.html \u2014 and neither shell carries the strip, so a reader on a phone who opens the complete picks list or the leaderboard plan loses the one-tap jump back to the picks and to the unresolved register. Verified by reading the built HTML: site/index.html, picks/, unresolved/, coverage/, methodology/, review/, edge/, twc-picks/ and final-day/ each contain exactly one nav.mobile-status; site/origination/index.html and site/strategy/index.html contain none. Fix requested in COORDINATION.md rather than applied here, because scripts/build_origination.py is touched by open PRs #245 and #238. Guard: tests/test_d202e156_brief_contract.py::PhoneReady fails if any third page loses the strip.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build_origination.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build_strategy.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/assets/scout.css"
+    ]
+  },
+  {
+    "id": "d202e156-four-hour-publisher-starved-by-parallel-push-runs",
+    "severity": "needs review",
+    "match_ids": [],
+    "title": "No scheduled or push refresh of the live site has completed since 2026-10-23T19:57Z",
+    "detail": "Both code blockers of the publisher are now closed on main: the `NameError: name 'egw_live' is not defined' in scripts/originate.py::live_collect (PR #240) was fixed by PR #261, commit 292ea222, and the undeclared `import pytest` in tests/test_b97af12f_reconciliation.py (PR #267, d29a5602) that made `unittest discover` error and the regression step fail was fixed by commits 0427b814 and 6c051a73. What remains is coordination load: pages.yml uses concurrency group pages-${github.event_name} with cancel-in-progress:false, which cancels a *pending* run as soon as a newer push enters the group. Between 07:08Z and 07:31Z on 2026-10-24, seven push-triggered pages.yml runs (40072981546, 40073031665, 40073226352, 40073256691, 40073466836, 40073476964, 40073897762) were each cancelled while queued behind the next session's push, and no scheduled run had completed. The live site therefore still served the 2026-10-23T20:10:00Z snapshot (19 active fixtures, 19 with a pick) and showed its own \"Snapshot needs attention\" stale warning. This is a coordination load problem, not a data defect: the code on main builds and replays cleanly.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/pages.yml",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/commit/292ea222",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json"
+    ]
+  },
+  {
+    "id": "d202e156-no-general-egress-in-this-sandbox",
+    "severity": "platform limitation",
+    "match_ids": [],
+    "title": "This sandbox cannot reach Hotspawn, HLTV, Polymarket, EGamersWorld or the published Pages host",
+    "detail": "Outbound egress is limited to github.com, codeload.github.com, api.github.com, registry.npmjs.org, pypi.org and files.pythonhosted.org. Every TLS handshake to play.hotspawn.com, phpstack-1372681-6459848.cloudwaysapps.com, www.hltv.org, polymarket.com, gamma-api.polymarket.com, egamersworld.com, thunderpick.io, www.pinnacle.com and buffedlizard55-lab.github.io fails with 'TLS/SSL connection has been closed', and `npx playwright install chromium` cannot download Chrome for Testing. Consequence for this session: no live collection, no live lobby read and no local browser run. Everything verified here was verified against (a) the repository's own checked-in CI replay fixture data/latest.json and the build it produces, and (b) pages read through the platform page fetcher, whose content is quoted in data/research/d202e156/verification.md. No probability, pick or alias was changed by this session.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/latest.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/collect.py"
+    ]
+  },
+  {
+    "id": "d202e156-live-lobby-cards-not-in-the-published-snapshot",
+    "severity": "notice",
+    "match_ids": [
+      "1081606",
+      "1082980",
+      "1083014",
+      "1082924",
+      "1081150",
+      "1079657",
+      "1082693",
+      "1082925"
+    ],
+    "title": "Eight live Hotspawn cards were outside the published snapshot at the dated 2026-10-23T14:17Z coverage check",
+    "detail": "The executive summary's dated lobby-coverage block reports 8 cards present on the live Hotspawn lobby but absent from that observation's snapshot: 1081606 JiJieHao vs Eternal Fire, 1082980 LPH vs WBT Academy, 1083014 K27 vs Virtus.pro, 1082924 BORRACHEIROS vs QUINTESSENCIA, 1081150 ex-RUSTEC vs Saint Sinners, 1079657 BakS vs BRUTE, 1082693 BESTIA vs Galorys, 1082925 BESTIA Academy vs RED Canids Academy. The rendered page now labels each of them 'In the published snapshot', so the gap was closed by a later collect; the count is a dated observation, not a live claim. Read from the built executive summary and the dated record data/research/2016c841/live-coverage.json. Flagged so the next successful refresh re-proves coverage rather than assuming it.",
+    "source_urls": [
+      "https://play.hotspawn.com/cs2-pickems",
+      "https://play.hotspawn.com/lobby",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/2016c841/live-coverage.json"
+    ]
+  },
+  {
+    "id": "d202e156-pytest-only-test-module-never-runs-in-ci",
+    "severity": "fixed",
+    "match_ids": [],
+    "title": "FIXED on main: tests/test_b97af12f_reconciliation.py was pytest-style, so the unittest runner CI uses collected zero of its six checks",
+    "detail": "Reproduced on a clean worktree of origin/main at 06f56c2b: PR #267 (commit d29a5602) had added tests/test_b97af12f_reconciliation.py with six module-level `def test_*` functions, one taking the pytest `tmp_path` fixture, and a module-level `import pytest` that requirements.txt never declared. `python -m unittest discover -s tests` therefore reported \"ERROR: test_b97af12f_reconciliation (ImportError: No module named 'pytest')\" and exited non-zero, so pages.yml's regression step went red and the four-hour refresh died a second time, one commit after the egw_live NameError was fixed. Fixed on main in two commits: 0427b814 declared the pytest dependency in requirements.txt, and the owning session arena-b97af12f converted the module to unittest.TestCase in 6c051a73, so its six checks now actually run under the CI runner. tests/test_d202e156_declared_imports.py pins both halves: every third-party import must be declared, and every tests/test_*.py module must be collectable by the unittest runner (a second pytest-only module fails the suite).",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/commit/d29a5602",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/commit/0427b814",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/commit/6c051a73",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_b97af12f_reconciliation.py"
+    ]
+  }
+]

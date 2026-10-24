@@ -1,0 +1,64 @@
+[
+ {
+  "id": "e4744710-publisher-outage-four-failed-runs",
+  "severity": "warning",
+  "match_ids": [],
+  "title": "Refresh cadence broken at 2026-10-24T05:36Z: deployed snapshot 2026-10-23T20:10:00Z is beyond its 8-hour stale bound after four consecutive scheduled publisher failures",
+  "detail": "Observed first-hand 2026-10-24T05:31Z-05:55Z. The scheduled 'Refresh and deploy CS2 dashboard' workflow failed runs 40028653350, 40037957529, 40048429858 and 40063011446 after the last success 40015434337, all before collection, because tests/test_ca7e10e5_snapshot.py evaluates a fixed 2026-10-23T09:23:57Z fixture against the real clock and trips the production 12-hour refusal (locally reproduced: PublishRefused 'snapshot ... is 20.2h old (limit 12.0h)'). The built pages themselves still pass every audit (replay PASS, 0 sourceless rows, acceptance 9/1/0, 829 links, browser suite 104 passed) — the defect is freshness, not rendering. That test file is claimed by arena-be019782 (BE-1), arena-43110640 (S431-1) and arena-89c00d8a (scope expansion); this session observed and logged only, and edited none of them. Until one of those fixes merges and a run succeeds, the site cannot satisfy the 4-8 hour refresh requirement.",
+  "source_urls": [
+   "https://github.com/buffedlizard55-lab/MaltaProj3/actions",
+   "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446",
+   "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json"
+  ]
+ },
+ {
+  "id": "e4744710-nine-new-lobby-cards-await-refresh",
+  "severity": "warning",
+  "match_ids": [
+   "1079658",
+   "1081152",
+   "1079659",
+   "1081153",
+   "1079660",
+   "1081154",
+   "1079661",
+   "1081156",
+   "1081158"
+  ],
+  "title": "Nine fixtures rendered in the live Hotspawn lobby (CCT Europe Series #11/#12) are absent from the deployed snapshot and therefore have no pick on the site yet (observed 2026-10-24T05:36Z)",
+  "detail": "First-hand lobby read 2026-10-24T05:36-05:45Z: 25 Closing Soon/Upcoming CS2 cards; 16 are on the deployed site, 9 are not (ids above). None of the 9 appear in the deployed snapshot inventory (snapshot.json, inventory_observed_at 2026-10-23T20:09:44Z), none in yesterday's first-hand lobby enumeration (data/research/42bfa8ea/live-coverage.json, 2026-10-23T09:52Z), and none in any of 94 session dossiers - they are new cards that entered the lobby after the last successful collection, during the publisher outage (see e4744710-publisher-outage-four-failed-runs). The Hotspawn fixture API is unreachable from this sandbox, so 'added after 20:09:44Z' vs 'filtered at collection' cannot be adjudicated here; the next successful runner collection decides. This is a freshness gap, not a rendered-page defect: every rendered fixture on the deployed site does carry a pick (19/19). Per-card official links: data/research/e4744710/lobby-coverage.json.",
+  "source_urls": [
+   "https://play.hotspawn.com/lobby",
+   "https://www.hotspawn.com/matches/acend-vs-forze-reload-cct-europe-2026-series-11-1079658",
+   "https://www.hotspawn.com/matches/havu-vs-azuolas-cct-europe-2026-series-12-1081152",
+   "https://www.hotspawn.com/matches/spirit-academy-vs-lavked-cct-europe-2026-series-11-1079659",
+   "https://www.hotspawn.com/matches/saint-sinners-vs-6yubojlbl-cct-europe-2026-series-12-1081153",
+   "https://www.hotspawn.com/matches/inox-division-vs-brute-cct-europe-2026-series-11-1079660",
+   "https://www.hotspawn.com/matches/baks-vs-illyrians-cct-europe-2026-series-12-1081154",
+   "https://www.hotspawn.com/matches/nuclear-tigeres-vs-ex-zero-tenacity-cct-europe-2026-series-11-1079661",
+   "https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156",
+   "https://www.hotspawn.com/matches/forze-reload-vs-ex-rustec-cct-europe-2026-series-12-1081158"
+  ]
+ },
+ {
+  "id": "e4744710-duplicate-no-line-research-id",
+  "severity": "review",
+  "match_ids": [],
+  "title": "The deployed executive summary renders id=\"no-line-research\" twice (reproduced 2026-10-24); fix claimed by arena-be019782 BE-3, not edited by this session",
+  "detail": "Strict id parsing of the deployed branch-root HTML found exactly one real duplicate element id on the site: two <div class=\"line-sources\" id=\"no-line-research\"> blocks on index.html (one in the main summary flow, one appended inside the compact unresolved register). The same duplicate exists in the fixture build and is what tests/test_ca7e10e5_snapshot.py::ExecutiveSummaryCarriesTheDatedNoLineResearch fails on (2 != 1). No other duplicate id on /, /unresolved/, /picks/ or /origination/. arena-be019782 claimed scripts/build.py and scripts/validate.py for this defect on their branch board at 2026-10-24T05:28Z, so per the coordination rules this session left those files untouched and publishes the observation for review.",
+  "source_urls": [
+   "https://buffedlizard55-lab.github.io/MaltaProj3/",
+   "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446"
+  ]
+ },
+ {
+  "id": "e4744710-triple-claim-collision-test-file",
+  "severity": "notice",
+  "match_ids": [],
+  "title": "Coordination: three active sessions claim the same contested file tests/test_ca7e10e5_snapshot.py (be019782, 43110640, 89c00d8a) while the publisher stays red",
+  "detail": "Read from each session's branch board on 2026-10-24T05:31Z: arena-be019782 claims BE-1 ('done locally'), arena-43110640 claims S431-1 ('in progress') and arena-89c00d8a logged a scope expansion for the same test class. First-merge-wins: whoever lands first owns the fix on main; the others must rebase without discarding their work. This session claimed none of those files and logs the collision so the merge order is reviewable. Coordination record: COORDINATION.md, arena-e4744710 section.",
+  "source_urls": [
+   "https://github.com/buffedlizard55-lab/MaltaProj3/actions"
+  ]
+ }
+]

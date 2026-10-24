@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "session": "arena-73bc57bd",
-  "review_clock_utc": "2026-10-24T05:29-05:51Z",
-  "scope": "Every future Hotspawn CS2 Pick'ems card read at 2026-10-24T05:31Z (25) reconciled with the pick rows the published site serves (19), plus the line evidence available for the 9 uncovered cards.",
+  "review_clock_utc": "2026-10-24T05:29-08:05Z",
+  "scope": "Every future Hotspawn CS2 Pick'ems card read at 2026-10-24T05:31Z (25) reconciled with the pick rows the published site serves (19), plus the line evidence available for the 9 uncovered cards. Second pass (2026-10-24T08:00-08:05Z): every published pick row replayed against the evidence it cites, plus two first-hand re-reads of the cited markets.",
   "method": "Each row was read first-hand through the agent's page fetcher (the sandbox shell has no route to these hosts) and copied verbatim with a read timestamp into data/research/73bc57bd/observations-2026-10-24.json; scripts/73bc57bd_reconcile.py joins that record with the deployed branch-root pick rows and tests/test_73bc57bd_reconciliation.py re-derives the arithmetic. No probability, pick or alias was written by hand.",
   "items": [
     {
@@ -10,7 +10,7 @@
       "area": "Coverage / refresh pipeline",
       "status": "needs review",
       "finding": "9 of the 25 future cards on the live Hotspawn lobby have no row, and therefore no pick, on the published site (all CCT Europe 2026 Series #11/#12). The scheduled publisher has failed four consecutive runs at the 'Regression tests' step, so nothing has been collected and published since 2026-10-23T19:57:15Z and the site still serves the 2026-10-23T20:10:00Z snapshot.",
-      "handling": "Recorded here and in the dated dossier with the run ids. The regression that blocked every refresh is fixed in this PR (see 73bc57bd-duplicate-no-line-research-id) after the wall-clock errors were cleared by PR #240; the next scheduled run therefore collects and publishes, and the nine cards enter the normal ladder — five already show a real two-sided external price, four show only placeholder books that the existing policy correctly refuses.",
+      "handling": "Recorded here and in the dated dossier with the run ids. The regression that blocked every refresh is fixed in this PR (see 73bc57bd-duplicate-no-line-research-id) after the wall-clock errors were cleared by PR #240; the next scheduled run therefore collects and publishes, and the nine cards enter the normal ladder \u2014 five already show a real two-sided external price, four show only placeholder books that the existing policy correctly refuses.",
       "evidence": [
         {
           "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/pages.yml",
@@ -39,7 +39,7 @@
       "area": "CI / regression suite",
       "status": "needs review",
       "finding": "Reproduced first-hand: .venv/bin/python -m unittest tests.test_ca7e10e5_snapshot fails with 3 ERRORs (PublishRefused: 'snapshot 2026-10-23T09:23:57+00:00 is 20.2h old (limit 12.0h)') and 1 FAILURE (two id=\"no-line-research\" blocks on the built executive summary). This is the step that stops every scheduled refresh.",
-      "handling": "Reproduced and quoted verbatim in the dossier; the file is claimed by three other live sessions (arena-43110640, arena-be019782, arena-f1277d3b) at the time of writing, so it was not edited here. The production freshness guard itself is behaving correctly — the test fixture, not the guard, is time-bombed.",
+      "handling": "Reproduced and quoted verbatim in the dossier; the file is claimed by three other live sessions (arena-43110640, arena-be019782, arena-f1277d3b) at the time of writing, so it was not edited here. The production freshness guard itself is behaving correctly \u2014 the test fixture, not the guard, is time-bombed.",
       "evidence": [
         {
           "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_ca7e10e5_snapshot.py",
@@ -76,7 +76,7 @@
       "id": "73bc57bd-lfo10-name-conflict",
       "area": "Fixture identity / alias safety",
       "status": "needs review",
-      "finding": "Hotspawn card 1081156 lists 'Spirit Academy vs LFO 10' for 25 Oct 08:00 (US Eastern) while Polymarket lists 'Spirit Academy vs Sökerorg (BO3) - CCT Europe Series #12 Group Stage' for the same slot, and EGamersWorld renders the opponent name blank. The three sources do not agree on the opponent's name.",
+      "finding": "Hotspawn card 1081156 lists 'Spirit Academy vs LFO 10' for 25 Oct 08:00 (US Eastern) while Polymarket lists 'Spirit Academy vs S\u00f6kerorg (BO3) - CCT Europe Series #12 Group Stage' for the same slot, and EGamersWorld renders the opponent name blank. The three sources do not agree on the opponent's name.",
       "handling": "No alias was created. The row is left unpriced with the conflict stated, so an exact-name join cannot silently pair the wrong team.",
       "evidence": [
         {
@@ -85,7 +85,7 @@
         },
         {
           "url": "https://polymarket.com/esports/cs2/cct-europe/cs2-tsa-skr2-2026-10-25",
-          "detail": "Polymarket event 'Spirit Academy vs Sökerorg', Tomorrow 8:00 AM, 93¢/94¢ on $0.00 volume (read 05:46Z)."
+          "detail": "Polymarket event 'Spirit Academy vs S\u00f6kerorg', Tomorrow 8:00 AM, 93\u00a2/94\u00a2 on $0.00 volume (read 05:46Z)."
         },
         {
           "url": "https://egamersworld.com/counterstrike/event/cct-europe-2026-series-12-HiXMAaC8L",
@@ -97,7 +97,7 @@
       "id": "73bc57bd-placeholder-books-rejected",
       "area": "Pricing policy",
       "status": "verified",
-      "finding": "Four of the nine uncovered cards have only placeholder books today: EGamersWorld shows the identical 1.8/1.8 pair for HAVU-Azuolas, Saint Sinners-6yuBoJlbl, BakS-ILLYRIANS, Spirit Academy-LFO 10 and FORZE Reload-ex-RUSTEC, and Polymarket shows both sides at 93-95¢ on $0.00 volume. A fifth (INOX-Brute) has Polymarket mids summing to 117¢.",
+      "finding": "Four of the nine uncovered cards have only placeholder books today: EGamersWorld shows the identical 1.8/1.8 pair for HAVU-Azuolas, Saint Sinners-6yuBoJlbl, BakS-ILLYRIANS, Spirit Academy-LFO 10 and FORZE Reload-ex-RUSTEC, and Polymarket shows both sides at 93-95\u00a2 on $0.00 volume. A fifth (INOX-Brute) has Polymarket mids summing to 117\u00a2.",
       "handling": "Correctly refused rather than converted into a probability. The dossier records the verbatim quotes and marks each as placeholder/thin so the pricing ladder does not consume them as fair odds.",
       "evidence": [
         {
@@ -106,11 +106,11 @@
         },
         {
           "url": "https://polymarket.com/esports/cs2/cct-europe/cs2-baks-ill4-2026-10-24",
-          "detail": "BakS 94¢ / ILLYRIANS 93¢ on $0.00 volume — a book that cannot sum to 100."
+          "detail": "BakS 94\u00a2 / ILLYRIANS 93\u00a2 on $0.00 volume \u2014 a book that cannot sum to 100."
         },
         {
           "url": "https://polymarket.com/esports/cs2/cct-europe/cs2-inox-brute-2026-10-24",
-          "detail": "INOX Division 61¢ / Brute 56¢ on $0.00 volume (mids sum 117)."
+          "detail": "INOX Division 61\u00a2 / Brute 56\u00a2 on $0.00 volume (mids sum 117)."
         }
       ]
     },
@@ -118,12 +118,12 @@
       "id": "73bc57bd-published-pick-cross-check",
       "area": "Probability provenance",
       "status": "verified",
-      "finding": "The published FOKUS vs ex-6666 line (76.5% / 23.5%, fair decimal 1.307 / 4.255, price read 2026-10-23T20:09:50Z) sits between two independent sources read 7.5 hours later: Polymarket 79¢ / 22¢ and the Thunderpick block via EGamersWorld at 1.23 / 3.83 (75.7% / 24.3% no-vig).",
+      "finding": "The published FOKUS vs ex-6666 line (76.5% / 23.5%, fair decimal 1.307 / 4.255, price read 2026-10-23T20:09:50Z) sits between two independent sources read 7.5 hours later: Polymarket 79\u00a2 / 22\u00a2 and the Thunderpick block via EGamersWorld at 1.23 / 3.83 (75.7% / 24.3% no-vig).",
       "handling": "Treated as drift and reported as such, not as an error; the pick is unchanged and no stored value was modified. No cross-check of the remaining 18 rows was attempted in this session, and that limit is stated.",
       "evidence": [
         {
           "url": "https://polymarket.com/esports/cs2/nodwin-clutch-series/cs2-fokus-66661-2026-10-24",
-          "detail": "Read 05:46Z: fokus 79¢ / 6666 22¢, card 79% / 22%, $141.39 series volume."
+          "detail": "Read 05:46Z: fokus 79\u00a2 / 6666 22\u00a2, card 79% / 22%, $141.39 series volume."
         },
         {
           "url": "https://egamersworld.com/counterstrike/matches",
@@ -139,7 +139,7 @@
       "id": "73bc57bd-stale-labels-are-honest",
       "area": "Freshness communication",
       "status": "verified",
-      "finding": "The published site does not present the 20:10Z snapshot as current: it carries a stale banner ('Do not treat these as current picks. The inventory check failed or the successful snapshot is older than eight hours.'), labels every row 'Stale / unverified freshness · not a current pick', and stamps 'Snapshot observed 23 Oct 2026, 22:09'.",
+      "finding": "The published site does not present the 20:10Z snapshot as current: it carries a stale banner ('Do not treat these as current picks. The inventory check failed or the successful snapshot is older than eight hours.'), labels every row 'Stale / unverified freshness \u00b7 not a current pick', and stamps 'Snapshot observed 23 Oct 2026, 22:09'.",
       "handling": "No change needed; the degraded mode is working as designed. What is missing is the fresh collection, which is the run failure reported above.",
       "evidence": [
         {
@@ -156,12 +156,12 @@
       "id": "73bc57bd-past-start-rows-retained",
       "area": "Archival behaviour",
       "status": "verified",
-      "finding": "Three of the 19 published rows (1083025 paiN-Imperial, 1082923 Alka-LOS NINOS, 1083045 Chinggis Warriors-Rare Atom) are past their start and are absent from the live future lobby; they are kept with their original values and the label 'Past start · status unverified'.",
+      "finding": "Three of the 19 published rows (1083025 paiN-Imperial, 1082923 Alka-LOS NINOS, 1083045 Chinggis Warriors-Rare Atom) are past their start and are absent from the live future lobby; they are kept with their original values and the label 'Past start \u00b7 status unverified'.",
       "handling": "Correct per the brief (no retrospective probability is manufactured, nothing is back-filled). Recorded so the count 16 covered + 3 past-start = 19 is auditable.",
       "evidence": [
         {
           "url": "https://buffedlizard55-lab.github.io/MaltaProj3/picks/",
-          "detail": "Rows carry 'Past start · status unverified' and the original scheduled start."
+          "detail": "Rows carry 'Past start \u00b7 status unverified' and the original scheduled start."
         },
         {
           "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
@@ -200,6 +200,116 @@
         {
           "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/review_register.py",
           "detail": "REGISTERS is rendered in declaration order, so the newest session's block is last."
+        }
+      ]
+    },
+    {
+      "id": "73bc57bd-every-published-probability-replays",
+      "area": "Probability provenance",
+      "status": "verified",
+      "finding": "All 17 pick rows on the published build reproduce their probability from the evidence the row itself carries, with zero drift: 12 quote-based rows replay from their bid/ask midpoints or proportional no-vig decimal prices, and 5 model rows replay from their two Valve rating totals as 1/(1+10^(-diff*g/400)) with the g the row publishes. No row needed an unexplained adjustment, and no Hotspawn \"% picked\" figure or HLTV fan vote enters any row.",
+      "handling": "scripts/73bc57bd_provenance.py replays every row offline from the branch-root build and tests/test_73bc57bd_provenance.py pins the arithmetic; the dated report is linked. The audit is read-only: it reports a row it cannot reproduce instead of repairing it.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/73bc57bd/provenance-2026-10-24.md",
+          "detail": "per-row replay of the 2026-10-23T20:10Z build (17/17 reproduced, drift 0.0)"
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks",
+          "detail": "the published rows the audit read"
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/73bc57bd_provenance.py",
+          "detail": "the replay itself, so the arithmetic can be re-run"
+        }
+      ]
+    },
+    {
+      "id": "73bc57bd-degenerate-1001-bookmaker-price",
+      "area": "Pricing policy",
+      "status": "needs review",
+      "finding": "FlyQuest vs Staqued (1082860) publishes FlyQuest 92.3% from a Thunderpick price of 1.001 / 12.00. A 1.001 decimal price returns a tenth of a percent and prints as \"1.00\" on the row, which a reader cannot tell apart from a missing value. The same project already refuses Polymarket 93-95\u00a2 zero-volume placeholders, so the floor is applied unevenly: there is no lower bound on a bookmaker quote.",
+      "handling": "Flagged, not re-priced: dropping the row would remove a pick the brief requires, and rewriting the number would be an inference. The request for the owner of the pricing gate (scripts/originate.py) is logged in COORDINATION.md: reject or clearly annotate a quote at or below 1.01 the way zero-volume placeholders are rejected, and never render a price below 1.01 as \"1.00\".",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/73bc57bd/provenance-2026-10-24.md",
+          "detail": "audit finding degenerate_price on row 1082860"
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082860",
+          "detail": "published row: \"Bookmaker, Observed: line 1.00 / 12.00\""
+        }
+      ]
+    },
+    {
+      "id": "73bc57bd-generic-bookmaker-evidence-link",
+      "area": "Row-level sources",
+      "status": "needs review",
+      "finding": "All three bookmaker rows (1082860, 1082859, 1082923) cite https://thunderpick.io/api/matches, which is the provider API root, not the market the price came from. The fixture is only identifiable through an event id buried in the JSON, so the \"source link\" the brief requires on every row cannot actually be used to check the price. The model and market rows do carry fixture-specific links.",
+      "handling": "The audit reports a generic-link finding per row. Where the provider publishes no stable public market URL, the honest fix is to print the event id on the row next to the provider name; that is a build change owned elsewhere, so it is logged rather than edited here.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/73bc57bd/provenance-2026-10-24.md",
+          "detail": "audit finding generic_evidence_link on three rows"
+        },
+        {
+          "url": "https://thunderpick.io/api/matches",
+          "detail": "the URL all three rows cite"
+        }
+      ]
+    },
+    {
+      "id": "73bc57bd-blank-format-with-verified-bo3",
+      "area": "Data completeness",
+      "status": "needs review",
+      "finding": "Ten rows show no series format at all, while their own research trail records \"HLTV lists BO3\". Leaving the Hotspawn field blank is correct - the Hotspawn format is separately unverified - but the reader is shown an empty cell and nothing distinguishes \"unverified\" from \"not looked at\", even though a cited source already answered the question.",
+      "handling": "Reported, not filled: writing BO3 into a field that means \"Hotspawn format\" would mix two providers. The recommended change is to render the verified HLTV format with its source beside the blank field; logged for the owner of the summary renderer.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/73bc57bd/provenance-2026-10-24.md",
+          "detail": "audit finding blank_format_with_confirmed_format on ten rows"
+        },
+        {
+          "url": "https://www.hltv.org/matches?date=20261024",
+          "detail": "HLTV lists these CCT Europe fixtures as BO3"
+        }
+      ]
+    },
+    {
+      "id": "73bc57bd-snapshot-and-page-disagree-on-unresolved",
+      "area": "Consistency between published artifacts",
+      "status": "needs review",
+      "finding": "One build tells three stories about the same two fixtures. snapshot.json reports counts.unresolved = 2 and carries no analysis for Ground Zero vs Off Chops (1082858) and HOTU vs The Huns (1082792); /origination/ and the executive summary show both with a directional pick (55.1% and 94.1%); /review/ still lists both under \"Unresolved\". The summary line settles it in favour of the page and prints \"0 explicitly unresolved\". A reader of the JSON, a reader of the summary and a reader of the register each get a different answer.",
+      "handling": "The two layers are intentional - the snapshot is the priced layer, the page also carries the origination model - but the disagreement is never stated in one place. Flagged for the owner of the snapshot writer and the summary line so the JSON either carries the resolved picks or labels its counts as the priced layer only, and the summary line names the two fixtures the register still holds open.",
+      "evidence": [
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+          "detail": "counts.unresolved = 2, analysis null for 1082858 and 1082792"
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082858",
+          "detail": "same build shows Off Chops at 55.1%"
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/review/",
+          "detail": "the register lists \"Unresolved: Ground Zero vs Off Chops\" and \"Unresolved: HOTU vs The Huns\""
+        }
+      ]
+    },
+    {
+      "id": "73bc57bd-publisher-cancelled-not-failing",
+      "area": "Coverage / refresh pipeline",
+      "status": "needs review",
+      "finding": "After the regression was fixed, the publisher still did not run: runs 40075609270, 40075642331, 40075406944, 40075103939, 40074802194 and 40072018315 were all cancelled while still pending, seconds after the next push to main created a run. The site therefore kept serving the 2026-10-23T20:10Z snapshot, more than ten hours stale, with no failed run to point at - every cancel looks like \"never started\" in the UI.",
+      "handling": "The concurrency comment in .github/workflows/pages.yml already documents this exact cancellation mode for 2026-10-22; the fix that survived is a scheduled run in its own concurrency group, plus the merged freshness watchdog. This session could not dispatch a run itself (gh workflow run answers 403: the token has no actions:write), so the observation is recorded here with run ids for the session that holds that permission.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/pages.yml",
+          "detail": "run list read 08:00Z: 13 consecutive cancellations, last success 2026-10-23T19:57:15Z"
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+          "detail": "live banner still reads \"Inventory checked 23 Oct 2026\""
         }
       ]
     }

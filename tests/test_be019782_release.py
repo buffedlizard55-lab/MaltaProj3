@@ -30,11 +30,22 @@ class API:
         self.finish_race = False
         self.bad_list = False
         self.all_pages = False
+        self.forced = False
+        self.force_stops = False
+        self.force_denied = False
+        self.cancel_conflict = False
+        self.changed_identity = False
+        self.changed_ancestry = False
+        self.compare_counts = {}
 
     def __call__(self, path, method='GET'):
         self.calls.append((path, method))
         if path.startswith('compare/'):
-            return {'status': self.relations.get(path.split('...')[1], 'ahead')}
+            sha = path.split('...')[1]
+            self.compare_counts[sha] = self.compare_counts.get(sha, 0) + 1
+            if sha == OLD and self.changed_ancestry and self.compare_counts[sha] > 1:
+                return {'status': 'ahead'}
+            return {'status': self.relations.get(sha, 'ahead')}
         if path.startswith('actions/workflows/'):
             if self.bad_list:
                 return {'message': 'not a verified list'}
@@ -43,10 +54,21 @@ class API:
                 rows = []
             return {'workflow_runs': rows}
         if method == 'POST':
+            if path.endswith('/force-cancel'):
+                if self.force_denied:
+                    raise release.APIError('permission denied', 403)
+                self.forced = True
+                return {}
             if self.denied:
                 raise RuntimeError('permission denied')
+            if self.cancel_conflict:
+                raise release.APIError('normal cancel state conflict', 409)
             return {}
-        return {'status': 'in_progress' if self.never_stops and not self.finish_race else 'completed'}
+        run_id = int(path.split('/')[-1])
+        row = next((r for r in self.rows if r.get('id') == run_id), run(id=run_id))
+        active = self.never_stops and not self.finish_race and not (self.forced and self.force_stops)
+        return dict(row, status='in_progress' if active else 'completed',
+                    head_sha=CURRENT if self.changed_identity else row['head_sha'])
 
     @property
     def cancellations(self):
@@ -55,7 +77,8 @@ class API:
 
 class CancellationScope(unittest.TestCase):
     def retire(self, api, **kwargs):
-        return release.retire_obsolete(api, CURRENT, 999, sleep=lambda _: None, **kwargs)
+        return release.retire_obsolete(api, CURRENT, 999, sleep=lambda _: None,
+                                       report=lambda _: None, **kwargs)
 
     def test_only_confirmed_pre_core_main_run_is_cancelled(self):
         api = API([run(), run(id=43, head_sha=CURRENT), run(id=44, head_sha=release.CORE_COMMIT)])
@@ -127,7 +150,44 @@ class CancellationScope(unittest.TestCase):
     def test_cancel_request_is_not_enough_until_completion(self):
         api = API([run()]); api.never_stops = True
         with self.assertRaisesRegex(RuntimeError, 'has not stopped'):
-            self.retire(api, timeout=0)
+            self.retire(api, timeout=0, force_timeout=0)
+
+    def test_only_an_unresponsive_proved_old_run_can_be_forced_after_grace(self):
+        api = API([run(), run(id=43, head_sha=CURRENT)])
+        api.never_stops = api.force_stops = True
+        self.assertEqual(self.retire(api, timeout=0, force_timeout=0), [42])
+        self.assertEqual(api.cancellations, ['actions/runs/42/cancel',
+                                           'actions/runs/42/force-cancel'])
+        self.assertEqual(api.compare_counts[OLD], 2)
+
+    def test_force_is_never_a_fallback_for_permission_denial(self):
+        api = API([run()]); api.denied = api.never_stops = api.force_stops = True
+        with self.assertRaisesRegex(RuntimeError, 'permission denied'):
+            self.retire(api, timeout=0, force_timeout=0)
+        self.assertFalse(api.forced)
+
+    def test_normal_state_conflict_is_not_mistaken_for_a_permission_failure(self):
+        api = API([run()]); api.cancel_conflict = api.never_stops = api.force_stops = True
+        self.assertEqual(self.retire(api, timeout=0, force_timeout=0), [42])
+        self.assertTrue(api.forced)
+
+    def test_changed_identity_is_never_forced(self):
+        api = API([run()]); api.changed_identity = api.never_stops = api.force_stops = True
+        with self.assertRaisesRegex(RuntimeError, 'identity/ancestry changed'):
+            self.retire(api, timeout=0, force_timeout=0)
+        self.assertFalse(api.forced)
+
+    def test_ancestry_is_reproved_before_force(self):
+        api = API([run()]); api.changed_ancestry = api.never_stops = api.force_stops = True
+        with self.assertRaisesRegex(RuntimeError, 'identity/ancestry changed'):
+            self.retire(api, timeout=0, force_timeout=0)
+        self.assertFalse(api.forced)
+
+    def test_force_denial_fails_closed(self):
+        api = API([run()]); api.force_denied = api.never_stops = True
+        with self.assertRaisesRegex(RuntimeError, 'permission denied'):
+            self.retire(api, timeout=0, force_timeout=0)
+        self.assertFalse(api.forced)
 
     def test_full_page_is_followed_and_pagination_cannot_be_silently_truncated(self):
         api = API([run()] * 100)
@@ -190,9 +250,20 @@ class FullPublisherStillGuardsEverySource(unittest.TestCase):
         self.assertEqual(self.text.count("&& 'macos-14' || 'ubuntu-24.04'"), 2)
 
     def test_recovery_is_a_separate_serial_group_not_a_new_publisher(self):
-        self.assertIn("&& 'recovery' || github.event_name", self.text)
+        self.assertIn("group: pages-${{ github.event_name }}${{", self.text)
+        self.assertIn("&& '-recovery' || ''", self.text)
         self.assertIn('cancel-in-progress: false', self.text)
         self.assertIn('needs: [republish-last-verified]', self.fresh)
+
+    def test_even_recovery_pushes_cannot_replace_either_scheduled_lane(self):
+        # The expression is pinned above; exercise the resulting namespace
+        # contract, including the case a simple shared 'recovery' group missed.
+        def group(event, recovery=False):
+            return 'pages-' + event + ('-recovery' if recovery else '')
+        pushes = {group('push'), group('push', True)}
+        scheduled = {group('schedule'), group('schedule', True)}
+        self.assertFalse(pushes & scheduled)
+        self.assertEqual(len(pushes | scheduled), 4)
 
     def test_action_write_is_scoped_to_the_small_job(self):
         default = self.text.split('jobs:', 1)[0]
@@ -207,6 +278,9 @@ class FullPublisherStillGuardsEverySource(unittest.TestCase):
         self.assertIn('queue_safe: ${{ steps.retire.outputs.safe }}', self.fast)
         self.assertIn('if: always()', self.fresh)
         self.assertIn("github.ref == 'refs/heads/main'", self.fresh)
+
+    def test_fresh_job_runs_after_cache_failure_but_obeys_workflow_cancellation(self):
+        self.assertIn('if: always() && !cancelled()', self.fresh)
 
     def test_regression_still_precedes_cache_and_returns_its_own_failure(self):
         self.assertLess(self.fresh.index('python -m unittest discover -s tests -v'),

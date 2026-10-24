@@ -12,7 +12,7 @@ from pathlib import Path
 
 from bs4 import BeautifulSoup
 
-from scripts import audit_rows, build_origination
+from scripts import audit_be27c3f6_published, audit_rows, build_origination
 
 ROOT = Path(__file__).resolve().parent.parent
 NOW = datetime(2026, 10, 15, 9, 0, tzinfo=timezone.utc)
@@ -103,6 +103,23 @@ class CompletePicksPhoneStructureTests(unittest.TestCase):
             self.assertTrue(pick.select_one('[data-overview-current]').has_attr('hidden'))
             self.assertFalse(pick.select_one('[data-overview-historical]').has_attr('hidden'))
             self.assertIn('is-historical', pick.find_parent('tr').get('class', []))
+
+    def test_published_audit_accepts_only_an_exact_documented_money_upgrade(self):
+        row = BeautifulSoup('<tr><td>Money-backed line · Originated market line</td></tr>', 'html.parser').tr
+        note = ('Upgraded from the featured Valve-model estimate (73.6% / 26.4%): '
+                'the alias-aware research found a verified money-backed line, which replaces the uncalibrated model.')
+        card = BeautifulSoup(f'<article><p class="alias-note">{note}</p></article>', 'html.parser').article
+        analysis = {'method': 'model', 'probabilities': [0.7359068, 0.2640932]}
+        compare = audit_be27c3f6_published.compare_featured
+        self.assertEqual(compare(row, card, [54.5, 45.5], analysis), 'documented-money-line-upgrade')
+        self.assertEqual(compare(row, card, [73.6, 26.4], analysis), 'matched-snapshot-analysis')
+
+        wrong_old_pair = BeautifulSoup('<article><p class="alias-note">Upgraded from the featured Valve-model estimate (60.0% / 40.0%): found a verified money-backed line, which replaces the uncalibrated model.</p></article>', 'html.parser').article
+        self.assertEqual(compare(row, wrong_old_pair, [54.5, 45.5], analysis), 'mismatch')
+        unexplained = BeautifulSoup('<article><p class="alias-note">A different estimate is shown.</p></article>', 'html.parser').article
+        self.assertEqual(compare(row, unexplained, [54.5, 45.5], analysis), 'mismatch')
+        unlabelled_row = BeautifulSoup('<tr><td>Research model</td></tr>', 'html.parser').tr
+        self.assertEqual(compare(unlabelled_row, card, [54.5, 45.5], analysis), 'mismatch')
 
     def test_rendering_does_not_mutate_pick_data(self):
         data = copy.deepcopy(self.data)

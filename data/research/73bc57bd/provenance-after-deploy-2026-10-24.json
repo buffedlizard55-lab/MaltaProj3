@@ -1,0 +1,292 @@
+{
+  "schema_version": 1,
+  "session": "arena-73bc57bd",
+  "audited_build": {
+    "source": "branch root of main, written by the publisher run 40080977205 at 09:33Z",
+    "snapshot_generated_at": "2026-10-24T09:28:46Z",
+    "snapshot_counts": {
+      "inventory": 90,
+      "upcoming": 29,
+      "archived": 61,
+      "unknown_schedule": 0,
+      "market": 12,
+      "bookmaker": 2,
+      "model": 10,
+      "unresolved": 5,
+      "picks": 24,
+      "no_edge": 0
+    },
+    "pages_read": [
+      "index.html",
+      "origination/index.html",
+      "unresolved/index.html",
+      "review/index.html"
+    ],
+    "audit_read_at_utc": "2026-10-24T09:38Z"
+  },
+  "replay": {
+    "rows_examined": 90,
+    "rows_with_analysis": 24,
+    "rows_probability_reproduced": 24,
+    "largest_drift": 0.0
+  },
+  "findings_by_code": {
+    "degenerate_price": 1,
+    "generic_evidence_link": 2,
+    "layer_divergence": 6,
+    "stale_reference": 10
+  },
+  "rows_with_findings": {
+    "1079198": 1,
+    "1079200": 1,
+    "1081152": 1,
+    "1081153": 1,
+    "1081154": 1,
+    "1081158": 1,
+    "1082793": 1,
+    "1082859": 1,
+    "1082860": 2,
+    "1082861": 1,
+    "1082996": 1,
+    "1083123": 1
+  },
+  "findings": [
+    {
+      "code": "stale_reference",
+      "severity": "verified",
+      "subject": "1081152",
+      "detail": "The research model rests on the Valve standings snapshot of 2026-10-05, 19 days old when this snapshot was published. The row states the snapshot date and links the standings file, so the age is disclosed rather than hidden.",
+      "evidence": [
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "standings snapshot 2026-10-05"
+        }
+      ]
+    },
+    {
+      "code": "stale_reference",
+      "severity": "verified",
+      "subject": "1081153",
+      "detail": "The research model rests on the Valve standings snapshot of 2026-10-05, 19 days old when this snapshot was published. The row states the snapshot date and links the standings file, so the age is disclosed rather than hidden.",
+      "evidence": [
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "standings snapshot 2026-10-05"
+        }
+      ]
+    },
+    {
+      "code": "layer_divergence",
+      "severity": "needs review",
+      "subject": "1083121",
+      "detail": "/snapshot.json carries no analysis for this fixture and its counts report it as unresolved, while origination/index.html shows a directional pick at 61.2/38.8%, and /review/ still lists it under \"Unresolved\". The machine-readable snapshot and the rendered pages tell different stories about whether this fixture has a pick; the executive summary resolves it in favour of the page and prints \"0 explicitly unresolved\".",
+      "evidence": [
+        {
+          "url": "https://www.hotspawn.com/matches/meia-noite-vs-projeto-do-kingui-cct-south-america-2026-series-7-1083121",
+          "detail": "fixture page"
+        }
+      ]
+    },
+    {
+      "code": "stale_reference",
+      "severity": "verified",
+      "subject": "1081154",
+      "detail": "The research model rests on the Valve standings snapshot of 2026-10-05, 19 days old when this snapshot was published. The row states the snapshot date and links the standings file, so the age is disclosed rather than hidden.",
+      "evidence": [
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "standings snapshot 2026-10-05"
+        }
+      ]
+    },
+    {
+      "code": "layer_divergence",
+      "severity": "needs review",
+      "subject": "1083122",
+      "detail": "/snapshot.json carries no analysis for this fixture and its counts report it as unresolved, while origination/index.html shows a directional pick at 27.1/72.9%, and /review/ still lists it under \"Unresolved\". The machine-readable snapshot and the rendered pages tell different stories about whether this fixture has a pick; the executive summary resolves it in favour of the page and prints \"0 explicitly unresolved\".",
+      "evidence": [
+        {
+          "url": "https://www.hotspawn.com/matches/los-ninos-vs-borracheiros-cct-south-america-2026-series-7-1083122",
+          "detail": "fixture page"
+        }
+      ]
+    },
+    {
+      "code": "stale_reference",
+      "severity": "verified",
+      "subject": "1083123",
+      "detail": "The research model rests on the Valve standings snapshot of 2026-10-05, 19 days old when this snapshot was published. The row states the snapshot date and links the standings file, so the age is disclosed rather than hidden.",
+      "evidence": [
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "standings snapshot 2026-10-05"
+        }
+      ]
+    },
+    {
+      "code": "stale_reference",
+      "severity": "verified",
+      "subject": "1082996",
+      "detail": "The research model rests on the Valve standings snapshot of 2026-10-05, 19 days old when this snapshot was published. The row states the snapshot date and links the standings file, so the age is disclosed rather than hidden.",
+      "evidence": [
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "standings snapshot 2026-10-05"
+        }
+      ]
+    },
+    {
+      "code": "stale_reference",
+      "severity": "verified",
+      "subject": "1079198",
+      "detail": "The research model rests on the Valve standings snapshot of 2026-10-05, 19 days old when this snapshot was published. The row states the snapshot date and links the standings file, so the age is disclosed rather than hidden.",
+      "evidence": [
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "standings snapshot 2026-10-05"
+        }
+      ]
+    },
+    {
+      "code": "layer_divergence",
+      "severity": "needs review",
+      "subject": "1081156",
+      "detail": "/snapshot.json carries no analysis for this fixture and its counts report it as unresolved, while origination/index.html shows a directional pick at 65.9/34.1%, and /review/ still lists it under \"Unresolved\". The machine-readable snapshot and the rendered pages tell different stories about whether this fixture has a pick; the executive summary resolves it in favour of the page and prints \"0 explicitly unresolved\".",
+      "evidence": [
+        {
+          "url": "https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156",
+          "detail": "fixture page"
+        }
+      ]
+    },
+    {
+      "code": "stale_reference",
+      "severity": "verified",
+      "subject": "1079200",
+      "detail": "The research model rests on the Valve standings snapshot of 2026-10-05, 19 days old when this snapshot was published. The row states the snapshot date and links the standings file, so the age is disclosed rather than hidden.",
+      "evidence": [
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "standings snapshot 2026-10-05"
+        }
+      ]
+    },
+    {
+      "code": "stale_reference",
+      "severity": "verified",
+      "subject": "1081158",
+      "detail": "The research model rests on the Valve standings snapshot of 2026-10-05, 19 days old when this snapshot was published. The row states the snapshot date and links the standings file, so the age is disclosed rather than hidden.",
+      "evidence": [
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "standings snapshot 2026-10-05"
+        }
+      ]
+    },
+    {
+      "code": "layer_divergence",
+      "severity": "needs review",
+      "subject": "1082858",
+      "detail": "/snapshot.json carries no analysis for this fixture and its counts report it as unresolved, while origination/index.html shows a directional pick at 26.5/73.5%, and /review/ still lists it under \"Unresolved\". The machine-readable snapshot and the rendered pages tell different stories about whether this fixture has a pick; the executive summary resolves it in favour of the page and prints \"0 explicitly unresolved\".",
+      "evidence": [
+        {
+          "url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
+          "detail": "fixture page"
+        }
+      ]
+    },
+    {
+      "code": "generic_evidence_link",
+      "severity": "needs review",
+      "subject": "1082859",
+      "detail": "The row cites https://thunderpick.io/api/matches, a provider index, not this fixture. A reviewer cannot reach the quoted price from the page the row links, so the price is reproducible only by re-querying the provider API.",
+      "evidence": [
+        {
+          "url": "https://thunderpick.io/api/matches",
+          "detail": "cited source for this row"
+        }
+      ]
+    },
+    {
+      "code": "degenerate_price",
+      "severity": "needs review",
+      "subject": "1082860",
+      "detail": "Quoted decimal price 1.001 from Thunderpick was normalised into the pick (92.3%). A price at or below 1.01 is not an offer a bookmaker stands behind; it publishes as \"1.00\", which a reader cannot distinguish from a missing value.",
+      "evidence": [
+        {
+          "url": "https://thunderpick.io/api/matches",
+          "detail": "quoted odds [1.001, 12.0]"
+        }
+      ]
+    },
+    {
+      "code": "generic_evidence_link",
+      "severity": "needs review",
+      "subject": "1082860",
+      "detail": "The row cites https://thunderpick.io/api/matches, a provider index, not this fixture. A reviewer cannot reach the quoted price from the page the row links, so the price is reproducible only by re-querying the provider API.",
+      "evidence": [
+        {
+          "url": "https://thunderpick.io/api/matches",
+          "detail": "cited source for this row"
+        }
+      ]
+    },
+    {
+      "code": "stale_reference",
+      "severity": "verified",
+      "subject": "1082861",
+      "detail": "The research model rests on the Valve standings snapshot of 2026-10-05, 19 days old when this snapshot was published. The row states the snapshot date and links the standings file, so the age is disclosed rather than hidden.",
+      "evidence": [
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "standings snapshot 2026-10-05"
+        }
+      ]
+    },
+    {
+      "code": "layer_divergence",
+      "severity": "needs review",
+      "subject": "1082792",
+      "detail": "/snapshot.json carries no analysis for this fixture and its counts report it as unresolved, while origination/index.html shows a directional pick at 98.1/1.9%, and /review/ still lists it under \"Unresolved\". The machine-readable snapshot and the rendered pages tell different stories about whether this fixture has a pick; the executive summary resolves it in favour of the page and prints \"0 explicitly unresolved\".",
+      "evidence": [
+        {
+          "url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+          "detail": "fixture page"
+        }
+      ]
+    },
+    {
+      "code": "stale_reference",
+      "severity": "verified",
+      "subject": "1082793",
+      "detail": "The research model rests on the Valve standings snapshot of 2026-10-05, 19 days old when this snapshot was published. The row states the snapshot date and links the standings file, so the age is disclosed rather than hidden.",
+      "evidence": [
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "standings snapshot 2026-10-05"
+        }
+      ]
+    },
+    {
+      "code": "layer_divergence",
+      "severity": "needs review",
+      "subject": "summary",
+      "detail": "The executive summary states 0 explicitly unresolved fixtures while snapshot.json counts.unresolved reports 5. Both are served from the same build.",
+      "evidence": [
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+          "detail": "counts.unresolved = 5"
+        }
+      ]
+    }
+  ],
+  "change_since_2026_10_23T2010Z_build": {
+    "rows_with_analysis": "17 -> 24",
+    "probability_replay": "17/17 -> 24/24, drift 0.0 in both builds",
+    "blank_format_with_confirmed_format": "10 -> 0 (the fresh collection now carries the format)",
+    "generic_evidence_link": "3 -> 2",
+    "degenerate_price": "1 -> 1 (1082860, unchanged)",
+    "layer_divergence": "3 -> 6 (five unresolved fixtures are still rendered with a pick, plus the summary line)",
+    "stale_reference": "5 -> 10 (more model rows, same 2026-10-05 Valve snapshot)"
+  }
+}

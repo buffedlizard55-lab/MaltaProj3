@@ -52,5 +52,19 @@
       "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
       "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/"
     ]
+  },
+  {
+    "id": "34247d4e-recovery-gate-blocks-publication",
+    "severity": "review",
+    "match_ids": [],
+    "title": "A commit added on main at 08:16Z gates publication on an empty queue that the queue itself prevents, so the refresh now fails closed",
+    "detail": "Commit 96285815 ('recovery: publish fully verified current picks on the available runner pool') added a step 'Retire only publishers predating independently replayable sources' (scripts/be019782_release.py --clear-obsolete) and a gate on the deploy job: 'if: always() && github.ref == refs/heads/main && (!(startsWith(head_commit.message, \"recovery:\") || github.event.schedule == \"47 2-22/4 * * *\") || needs[\"republish-last-verified\"].outputs.queue_safe == \"true\")'. For recovery commits and for every ':47' catch-up cron slot, publication therefore requires that the older queued publisher runs have actually stopped. Run 40077233256 (08:17:47Z, head 96285815) failed with the job annotation 'Recovery queue safety not established: Obsolete publisher has not stopped; recovery cannot publish' and its verify-and-deploy job was skipped, so that run published nothing. The same measurement shows why: pushes to main arrived roughly once a minute while a publisher needs about ten minutes, and the pages-push concurrency group cancels the pending run on each new push, so the queue never empties. Observed pending, then cancelled, in order: 40076751917 (08:09), 40076921602 (08:13), 40077220754 (08:16), 40077418957 (08:16), 40077702186 (08:21). The scheduled run 40074822023 (created 07:36:41Z, 49 min after its 06:47Z slot) was still queued at 08:11Z. This session cannot cancel or dispatch runs ('gh run cancel' and 'gh workflow run' both answer HTTP 403 Resource not accessible by integration), so the deadlock can only clear when pushes stop for a full job duration or a runner frees. Reported, not changed: the mechanism belongs to another session's claim and .github/workflows/** is shared scope.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40077233256",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/commit/96285815",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/be019782_release.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40074822023"
+    ]
   }
 ]

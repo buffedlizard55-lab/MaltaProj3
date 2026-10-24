@@ -26,6 +26,26 @@ def pick_name(row):
     return re.sub(r'^(?:(?:✓\s*)|(?:Snapshot:\s*))+', '', text).strip()
 
 
+def compare_featured(row, card, overview, analysis):
+    """Allow only the renderer's explicit, exact money-line upgrade note.
+
+    The complete-picks layer may replace an uncalibrated featured model with a
+    verified market. Its card preserves the old pair and the reason. A bare
+    probability mismatch, an approximate note, or an unlabelled row still fails.
+    """
+    expected = [round(value * 100, 1) for value in analysis['probabilities']]
+    if overview == expected:
+        return 'matched-snapshot-analysis'
+    if analysis.get('method') == 'model' and 'Money-backed line' in row.get_text(' ', strip=True):
+        old_pair = f'({expected[0]:.1f}% / {expected[1]:.1f}%)'
+        notes = [node.get_text(' ', strip=True) for node in card.select('.alias-note')]
+        if any('Upgraded from the featured Valve-model estimate ' + old_pair in note
+               and 'found a verified money-backed line, which replaces the uncalibrated model' in note
+               for note in notes):
+            return 'documented-money-line-upgrade'
+    return 'mismatch'
+
+
 def audit(root: Path) -> dict:
     snapshot = json.loads((root / 'snapshot.json').read_text(encoding='utf-8'))
     page_path = root / 'origination/index.html'
@@ -94,12 +114,11 @@ def audit(root: Path) -> dict:
         analysis = match.get('analysis') or {}
         featured_comparison = 'not-applicable-complete-layer-supplement'
         if match.get('pick_index') is not None and analysis.get('probabilities'):
-            expected = [round(value * 100, 1) for value in analysis['probabilities']]
-            featured_comparison = 'matched-snapshot-analysis'
-            if overview != expected:
+            featured_comparison = compare_featured(row, card, overview, analysis)
+            if featured_comparison == 'mismatch':
+                expected = [round(value * 100, 1) for value in analysis['probabilities']]
                 violations.append({'type': 'snapshot-analysis-agreement', 'match_id': match_id,
                                    'expected': expected, 'actual': overview})
-                featured_comparison = 'mismatch'
             if analysis.get('source_url') not in source_links:
                 violations.append({'type': 'snapshot-analysis-link', 'match_id': match_id,
                                    'expected': analysis.get('source_url'), 'actual': source_links})

@@ -73,5 +73,31 @@
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/f4217201-maltaproj3/scripts/f4217201_probe.py",
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/f4217201-maltaproj3/.github/workflows/f4217201-probe.yml"
     ]
+  },
+  {
+    "id": "f4217201-fresh-publish-closed-the-coverage-gap",
+    "severity": "notice",
+    "title": "A fresh publish landed at 09:36Z and the site now shows 29 of 29 active fixtures with a pick, including the nine CCT cards this session found uncovered",
+    "detail": "The pages.yml publisher run 40080977205 (push, head d67f0b6f) completed successfully at 2026-10-24T09:36:22Z. The deployed site then reported inventory checked 2026-10-24T09:28Z Europe/Malta (09:28Z), source inventory 90/90, and 'the researched list has 29 of 29 with a pick and 0 unresolved' (14 market-backed, 10 model/researched). The nine CCT Europe cards this dossier listed as uncovered now carry a sourced estimate with an official link: Spirit Academy-Lavked 1079659 (market line, Polymarket), HAVU-Azuolas 1081152 (Kalshi), INOX Division-BRUTE 1079660 (Polymarket), Saint Sinners-6yuBoJlbl 1081153 (Valve model), Nuclear TigeRES-ex-Zero Tenacity 1079661 (Polymarket), BakS-ILLYRIANS 1081154 (Valve model). This supersedes the stale-snapshot and nine-uncovered-cards findings above: they were accurate for the 2026-10-24T07:45Z-08:06Z read, and the gap closed when the publisher ran. No probability was written by hand at any point.",
+    "match_ids": [
+      "1079658",
+      "1079659",
+      "1079660",
+      "1079661",
+      "1081152",
+      "1081153",
+      "1081154",
+      "1081156",
+      "1081158"
+    ],
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/coverage/",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40080977205"
+    ],
+    "supersedes": [
+      "f4217201-published-snapshot-older-than-eight-hours",
+      "f4217201-nine-live-cards-absent-from-the-published-snapshot"
+    ]
   }
 ]
