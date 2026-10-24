@@ -2,8 +2,8 @@
   "source": "bo3.gg public match API (relayed bookmaker quote)",
   "api_url": "https://api.bo3.gg/api/v1/matches",
   "documentation": "https://api.bo3.gg/api/v1",
-  "observed_at": "2026-10-24T05:58:29Z",
-  "rows_fetched": 279,
+  "observed_at": "2026-10-24T07:25:04Z",
+  "rows_fetched": 282,
   "policy": "Verbatim copy of the bookmaker quote bo3.gg relays. No probability, pick or alias is decided here; the ladder validates the pair before it can become an estimate.",
   "fixtures": [
     {
@@ -14,20 +14,101 @@
       "bo_type": 3,
       "start": "2026-10-24T08:00:00.000+00:00",
       "start_delta_sec": 0,
-      "observed_at": "2026-10-24T05:58:29Z",
+      "observed_at": "2026-10-24T07:25:04Z",
       "provider": "thunderpick",
       "book_url": "https://thunderpick.io/match/2872398",
       "sides": [
         {
           "team_id": 22184,
           "name": "FOKUS",
-          "coeff": 1.22,
+          "coeff": 1.17,
           "active": true
         },
         {
           "team_id": 25508,
           "name": "ex-6666",
-          "coeff": 3.8,
+          "coeff": 4.4,
+          "active": true
+        }
+      ],
+      "aliases_used": []
+    },
+    {
+      "hotspawn_id": "1079658",
+      "bo3_id": 131472,
+      "bo3_url": "https://bo3.gg/matches/acend-cs2-vs-forze-reload-24-10-2026",
+      "tournament": "CCT Europe 2026 Series 11",
+      "bo_type": 3,
+      "start": "2026-10-24T08:00:00.000+00:00",
+      "start_delta_sec": 0,
+      "observed_at": "2026-10-24T07:25:04Z",
+      "provider": "thunderpick",
+      "book_url": "https://thunderpick.io/match/2880084",
+      "sides": [
+        {
+          "team_id": 21980,
+          "name": "Acend",
+          "coeff": 2.87,
+          "active": true
+        },
+        {
+          "team_id": 10703,
+          "name": "FORZE Reload",
+          "coeff": 1.35,
+          "active": true
+        }
+      ],
+      "aliases_used": []
+    },
+    {
+      "hotspawn_id": "1079659",
+      "bo3_id": 131471,
+      "bo3_url": "https://bo3.gg/matches/spirit-academy-vs-lavked-24-10-2026",
+      "tournament": "CCT Europe 2026 Series 11",
+      "bo_type": 3,
+      "start": "2026-10-24T11:00:00.000+00:00",
+      "start_delta_sec": 0,
+      "observed_at": "2026-10-24T07:25:04Z",
+      "provider": "thunderpick",
+      "book_url": "https://thunderpick.io/match/2880083",
+      "sides": [
+        {
+          "team_id": 1309,
+          "name": "Spirit Academy",
+          "coeff": 1.49,
+          "active": true
+        },
+        {
+          "team_id": 23078,
+          "name": "Lavked",
+          "coeff": 2.45,
+          "active": true
+        }
+      ],
+      "aliases_used": []
+    },
+    {
+      "hotspawn_id": "1083120",
+      "bo3_id": 132706,
+      "bo3_url": "https://bo3.gg/matches/red-canids-academy-vs-isurus-gaming-cs-go-24-10-2026",
+      "tournament": " CCT South America 2026 Series 7",
+      "bo_type": 3,
+      "start": "2026-10-24T13:00:00.000+00:00",
+      "start_delta_sec": 0,
+      "observed_at": "2026-10-24T07:25:04Z",
+      "provider": "thunderpick",
+      "book_url": "https://thunderpick.io/match/2880088",
+      "sides": [
+        {
+          "team_id": 591,
+          "name": "Isurus",
+          "coeff": 2.59,
+          "active": true
+        },
+        {
+          "team_id": 16743,
+          "name": "RED Canids Academy",
+          "coeff": 1.42,
           "active": true
         }
       ],
@@ -41,7 +122,7 @@
       "bo_type": 3,
       "start": "2026-10-24T14:00:00.000+00:00",
       "start_delta_sec": 0,
-      "observed_at": "2026-10-24T05:58:29Z",
+      "observed_at": "2026-10-24T07:25:04Z",
       "provider": "thunderpick",
       "book_url": "https://thunderpick.io/match/2872440",
       "sides": [
@@ -61,6 +142,173 @@
       "aliases_used": []
     },
     {
+      "hotspawn_id": "1079660",
+      "bo3_id": 131473,
+      "bo3_url": "https://bo3.gg/matches/inox-division-vs-brute-24-10-2026",
+      "tournament": "CCT Europe 2026 Series 11",
+      "bo_type": 3,
+      "start": "2026-10-24T14:00:00.000+00:00",
+      "start_delta_sec": 0,
+      "observed_at": "2026-10-24T07:25:04Z",
+      "provider": "thunderpick",
+      "book_url": "https://thunderpick.io/match/2880082",
+      "sides": [
+        {
+          "team_id": 23334,
+          "name": "INOX Division",
+          "coeff": 1.75,
+          "active": true
+        },
+        {
+          "team_id": 370,
+          "name": "BRUTE",
+          "coeff": 1.97,
+          "active": true
+        }
+      ],
+      "aliases_used": []
+    },
+    {
+      "hotspawn_id": "1083121",
+      "bo3_id": 132703,
+      "bo3_url": "https://bo3.gg/matches/tropa-do-kingui-vs-meia-noite-24-10-2026",
+      "tournament": " CCT South America 2026 Series 7",
+      "bo_type": 3,
+      "start": "2026-10-24T16:00:00.000+00:00",
+      "start_delta_sec": 0,
+      "observed_at": "2026-10-24T07:25:04Z",
+      "provider": "thunderpick",
+      "book_url": "https://thunderpick.io/match/2880097",
+      "sides": [
+        {
+          "team_id": 25011,
+          "name": "MEIA NOITE",
+          "coeff": 2.46,
+          "active": true
+        },
+        {
+          "team_id": 19919,
+          "name": "Tropa do KinGui",
+          "coeff": 1.45,
+          "active": true
+        }
+      ],
+      "aliases_used": [
+        {
+          "alias": "Tropa do KinGui",
+          "canonical": "Projeto do KinGui"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1079661",
+      "bo3_id": 131470,
+      "bo3_url": "https://bo3.gg/matches/nuclear-tigeres-vs-ex-zero-tenacity-24-10-2026",
+      "tournament": "CCT Europe 2026 Series 11",
+      "bo_type": 3,
+      "start": "2026-10-24T17:00:00.000+00:00",
+      "start_delta_sec": 0,
+      "observed_at": "2026-10-24T07:25:04Z",
+      "provider": "thunderpick",
+      "book_url": "https://thunderpick.io/match/2880085",
+      "sides": [
+        {
+          "team_id": 22185,
+          "name": "ex-Zero Tenacity",
+          "coeff": 2.51,
+          "active": true
+        },
+        {
+          "team_id": 18539,
+          "name": "Nuclear TigeRES",
+          "coeff": 1.45,
+          "active": true
+        }
+      ],
+      "aliases_used": []
+    },
+    {
+      "hotspawn_id": "1082695",
+      "bo3_id": 132417,
+      "bo3_url": "https://bo3.gg/matches/galorys-cs-vs-pain-gaming-24-10-2026",
+      "tournament": "Circuit X Curitiba 4",
+      "bo_type": 3,
+      "start": "2026-10-24T18:00:00.000+00:00",
+      "start_delta_sec": 0,
+      "observed_at": "2026-10-24T07:25:04Z",
+      "provider": "thunderpick",
+      "book_url": "https://thunderpick.io/match/2879106",
+      "sides": [
+        {
+          "team_id": 10049,
+          "name": "Galorys",
+          "coeff": 2.6,
+          "active": true
+        },
+        {
+          "team_id": 637,
+          "name": "paiN",
+          "coeff": 1.45,
+          "active": true
+        }
+      ],
+      "aliases_used": []
+    },
+    {
+      "hotspawn_id": "1083140",
+      "bo3_id": 132418,
+      "bo3_url": "https://bo3.gg/matches/bestia-vs-imperial-24-10-2026",
+      "tournament": "Circuit X Curitiba 4",
+      "bo_type": 3,
+      "start": "2026-10-24T21:00:00.000+00:00",
+      "start_delta_sec": 0,
+      "observed_at": "2026-10-24T07:25:04Z",
+      "provider": "thunderpick",
+      "book_url": "https://thunderpick.io/match/2879114",
+      "sides": [
+        {
+          "team_id": 5701,
+          "name": "BESTIA",
+          "coeff": 2.1,
+          "active": true
+        },
+        {
+          "team_id": 1430,
+          "name": "Imperial",
+          "coeff": 1.65,
+          "active": true
+        }
+      ],
+      "aliases_used": []
+    },
+    {
+      "hotspawn_id": "1083123",
+      "bo3_id": 132704,
+      "bo3_url": "https://bo3.gg/matches/gremio-vs-yawara-esports-24-10-2026",
+      "tournament": " CCT South America 2026 Series 7",
+      "bo_type": 3,
+      "start": "2026-10-24T22:00:00.000+00:00",
+      "start_delta_sec": 0,
+      "observed_at": "2026-10-24T07:25:04Z",
+      "provider": "thunderpick",
+      "book_url": "https://thunderpick.io/match/2880089",
+      "sides": [
+        {
+          "team_id": 24856,
+          "name": "Grêmio",
+          "coeff": 2.97,
+          "active": true
+        },
+        {
+          "team_id": 3625,
+          "name": "Yawara",
+          "coeff": 1.32,
+          "active": true
+        }
+      ],
+      "aliases_used": []
+    },
+    {
       "hotspawn_id": "1079199",
       "bo3_id": 131198,
       "bo3_url": "https://bo3.gg/matches/infinite-gaming-vs-brute-25-10-2026",
@@ -68,20 +316,20 @@
       "bo_type": 3,
       "start": "2026-10-25T15:00:00.000+00:00",
       "start_delta_sec": 0,
-      "observed_at": "2026-10-24T05:58:29Z",
+      "observed_at": "2026-10-24T07:25:04Z",
       "provider": "thunderpick",
       "book_url": "https://thunderpick.io/match/2874943",
       "sides": [
         {
           "team_id": 1024,
           "name": "INFINITE",
-          "coeff": 1.78,
+          "coeff": 1.85,
           "active": true
         },
         {
           "team_id": 370,
           "name": "BRUTE",
-          "coeff": 1.92,
+          "coeff": 1.85,
           "active": true
         }
       ],
@@ -95,20 +343,20 @@
       "bo_type": 3,
       "start": "2026-10-26T03:00:00.000+00:00",
       "start_delta_sec": 0,
-      "observed_at": "2026-10-24T05:58:29Z",
+      "observed_at": "2026-10-24T07:25:04Z",
       "provider": "thunderpick",
       "book_url": "https://thunderpick.io/match/2870940",
       "sides": [
         {
           "team_id": 22560,
           "name": "NEXVOID",
-          "coeff": 1.6,
+          "coeff": 1.61,
           "active": true
         },
         {
           "team_id": 4170,
           "name": "Alter Ego",
-          "coeff": 2.17,
+          "coeff": 2.18,
           "active": true
         }
       ],
@@ -122,7 +370,7 @@
       "bo_type": 3,
       "start": "2026-10-27T03:00:00.000+00:00",
       "start_delta_sec": 0,
-      "observed_at": "2026-10-24T05:58:29Z",
+      "observed_at": "2026-10-24T07:25:04Z",
       "provider": "thunderpick",
       "book_url": "https://thunderpick.io/match/2872333",
       "sides": [
@@ -149,7 +397,7 @@
       "bo_type": 3,
       "start": "2026-10-27T08:00:00.000+00:00",
       "start_delta_sec": 0,
-      "observed_at": "2026-10-24T05:58:29Z",
+      "observed_at": "2026-10-24T07:25:04Z",
       "provider": "thunderpick",
       "book_url": "https://thunderpick.io/match/2865386",
       "sides": [
@@ -176,7 +424,7 @@
       "bo_type": 3,
       "start": "2026-10-27T11:00:00.000+00:00",
       "start_delta_sec": 0,
-      "observed_at": "2026-10-24T05:58:29Z",
+      "observed_at": "2026-10-24T07:25:04Z",
       "provider": "thunderpick",
       "book_url": "https://thunderpick.io/match/2865383",
       "sides": [
@@ -203,7 +451,7 @@
       "bo_type": 3,
       "start": "2026-10-27T17:00:00.000+00:00",
       "start_delta_sec": 0,
-      "observed_at": "2026-10-24T05:58:29Z",
+      "observed_at": "2026-10-24T07:25:04Z",
       "provider": "thunderpick",
       "book_url": "https://thunderpick.io/match/2865384",
       "sides": [
@@ -230,7 +478,7 @@
       "bo_type": 3,
       "start": "2026-10-27T20:00:00.000+00:00",
       "start_delta_sec": 0,
-      "observed_at": "2026-10-24T05:58:29Z",
+      "observed_at": "2026-10-24T07:25:04Z",
       "provider": "thunderpick",
       "book_url": "https://thunderpick.io/match/2865385",
       "sides": [
@@ -252,34 +500,6 @@
   ],
   "rejections": [
     {
-      "hotspawn_id": "1079658",
-      "teams": [
-        "Acend",
-        "FORZE Reload"
-      ],
-      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
-      "candidates": [
-        {
-          "slug": "acend-cs2-vs-forze-reload-24-10-2026",
-          "status": "matched"
-        }
-      ]
-    },
-    {
-      "hotspawn_id": "1079659",
-      "teams": [
-        "Spirit Academy",
-        "Lavked"
-      ],
-      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
-      "candidates": [
-        {
-          "slug": "spirit-academy-vs-lavked-24-10-2026",
-          "status": "matched"
-        }
-      ]
-    },
-    {
       "hotspawn_id": "1081152",
       "teams": [
         "HAVU",
@@ -289,20 +509,6 @@
       "candidates": [
         {
           "slug": "havu-vs-azuolas-24-10-2026",
-          "status": "matched"
-        }
-      ]
-    },
-    {
-      "hotspawn_id": "1079660",
-      "teams": [
-        "INOX Division",
-        "BRUTE"
-      ],
-      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
-      "candidates": [
-        {
-          "slug": "inox-division-vs-brute-24-10-2026",
           "status": "matched"
         }
       ]
@@ -322,20 +528,6 @@
       ]
     },
     {
-      "hotspawn_id": "1079661",
-      "teams": [
-        "Nuclear TigeRES",
-        "ex-Zero Tenacity"
-      ],
-      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
-      "candidates": [
-        {
-          "slug": "nuclear-tigeres-vs-ex-zero-tenacity-24-10-2026",
-          "status": "matched"
-        }
-      ]
-    },
-    {
       "hotspawn_id": "1081154",
       "teams": [
         "BakS",
@@ -345,6 +537,20 @@
       "candidates": [
         {
           "slug": "baks-esports-vs-illyrians-24-10-2026",
+          "status": "matched"
+        }
+      ]
+    },
+    {
+      "hotspawn_id": "1083122",
+      "teams": [
+        "LOS NINOS",
+        "BORRACHEIROS"
+      ],
+      "reason": "bo3.gg lists the fixture without a bookmaker quote block",
+      "candidates": [
+        {
+          "slug": "los-ninos-vs-borracheiros-24-10-2026",
           "status": "matched"
         }
       ]

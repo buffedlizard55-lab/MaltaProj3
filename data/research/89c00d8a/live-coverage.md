@@ -1,6 +1,6 @@
-# Live Hotspawn lobby vs published snapshot — 2026-10-24T05:59:04Z
+# Live Hotspawn lobby vs published snapshot — 2026-10-24T07:25:34Z
 
-Published `latest.json` generated `2026-10-23T20:10:00Z`; 25 future fixtures compared, 9 missing from the published snapshot.
+Published `latest.json` generated `2026-10-23T20:10:00Z`; 31 future fixtures compared, 15 missing from the published snapshot.
 
 | Fixture | Start (UTC) | In published snapshot | Published pick |
 | --- | --- | --- | --- |
@@ -8,11 +8,17 @@ Published `latest.json` generated `2026-10-23T20:10:00Z`; 25 future fixtures com
 | [FOKUS vs ex-6666](https://www.hotspawn.com/matches/fokus-vs-ex-6666-nodwin-clutch-series-13-1079193) | 2026-10-24T08:00:00Z | yes | FOKUS 76.5% (published Market-implied estimate) |
 | [HAVU vs Azuolas](https://www.hotspawn.com/matches/havu-vs-azuolas-cct-europe-2026-series-12-1081152) | 2026-10-24T11:00:00Z | NO | — |
 | [Spirit Academy vs Lavked](https://www.hotspawn.com/matches/spirit-academy-vs-lavked-cct-europe-2026-series-11-1079659) | 2026-10-24T11:00:00Z | NO | — |
+| [Isurus vs RED Canids Academy](https://www.hotspawn.com/matches/isurus-vs-red-canids-academy-cct-south-america-2026-series-7-1083120) | 2026-10-24T13:00:00Z | NO | — |
 | [Saint Sinners vs 6yuBoJlbl](https://www.hotspawn.com/matches/saint-sinners-vs-6yubojlbl-cct-europe-2026-series-12-1081153) | 2026-10-24T14:00:00Z | NO | — |
 | [INOX Division vs BRUTE](https://www.hotspawn.com/matches/inox-division-vs-brute-cct-europe-2026-series-11-1079660) | 2026-10-24T14:00:00Z | NO | — |
 | [Nuclear TigeRES vs FORZE Reload](https://www.hotspawn.com/matches/nuclear-tigeres-vs-forze-reload-nodwin-clutch-series-13-1079195) | 2026-10-24T14:00:00Z | yes | Nuclear TigeRES 62.5% (published Market-implied estimate) |
+| [Projeto do KinGui vs MEIA NOITE](https://www.hotspawn.com/matches/projeto-do-kingui-vs-meia-noite-cct-south-america-2026-series-7-1083121) | 2026-10-24T16:00:00Z | NO | — |
 | [BakS vs ILLYRIANS](https://www.hotspawn.com/matches/baks-vs-illyrians-cct-europe-2026-series-12-1081154) | 2026-10-24T17:00:00Z | NO | — |
 | [Nuclear TigeRES vs ex-Zero Tenacity](https://www.hotspawn.com/matches/nuclear-tigeres-vs-ex-zero-tenacity-cct-europe-2026-series-11-1079661) | 2026-10-24T17:00:00Z | NO | — |
+| [Galorys vs paiN](https://www.hotspawn.com/matches/galorys-vs-pain-circuit-x-curitiba-4-1082695) | 2026-10-24T18:00:00Z | NO | — |
+| [LOS NINOS vs BORRACHEIROS](https://www.hotspawn.com/matches/los-ninos-vs-borracheiros-cct-south-america-2026-series-7-1083122) | 2026-10-24T19:00:00Z | NO | — |
+| [BESTIA vs Imperial](https://www.hotspawn.com/matches/bestia-vs-imperial-circuit-x-curitiba-4-1083140) | 2026-10-24T21:00:00Z | NO | — |
+| [Grêmio vs Yawara](https://www.hotspawn.com/matches/gr-mio-vs-yawara-cct-south-america-2026-series-7-1083123) | 2026-10-24T22:00:00Z | NO | — |
 | [Acend vs UNiTY](https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996) | 2026-10-25T09:00:00Z | yes | Acend 54.2% (published Valve-rating research estimate) |
 | [Spirit Academy vs LFO 10](https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156) | 2026-10-25T12:00:00Z | NO | — |
 | [Metizport vs BakS](https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198) | 2026-10-25T12:00:00Z | yes | Metizport 79.9% (published Valve-rating research estimate) |

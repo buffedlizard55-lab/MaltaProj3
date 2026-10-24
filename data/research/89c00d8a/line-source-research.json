@@ -3,48 +3,48 @@
  "schema_version": 1,
  "environment": "github-actions-runner",
  "purpose": "Dated, source-linked research for Hotspawn CS2 fixtures the published ladder leaves as a research model (no external betting line). HLTV is tried first for identity, then the Smarkets exchange, bo3.gg (which relays Thunderpick prices) and the esportsbook/aggregator surfaces.",
- "observed_at": "2026-10-24T05:59:04Z",
+ "observed_at": "2026-10-24T07:25:34Z",
  "policy": "Evidence only. A joined bo3.gg row is a lead, not a pick: this script writes no probability, no pick and no alias. Only a two-sided, active, prematch bookmaker quote is recorded as a lead, copied verbatim. Smarkets raw 1/10000 quotes are copied verbatim and never divided out here. An HTTP 200 on a book landing page is never treated as a price.",
  "hotspawn_source": {
   "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
   "method": "GET",
-  "observed_at": "2026-10-24T05:59:04Z",
+  "observed_at": "2026-10-24T07:25:34Z",
   "http_status": 200,
   "content_type": "application/json; charset=utf-8",
-  "bytes": 68710,
-  "fixtures": 88
+  "bytes": 71784,
+  "fixtures": 92
  },
  "published_methods_source": {
   "source": "local",
   "url": "data/origination.json",
   "http_status": 200,
-  "fixtures": 25,
-  "generated_at": "2026-10-24T05:58:10Z"
+  "fixtures": 31,
+  "generated_at": "2026-10-24T07:24:42Z"
  },
  "bo3_pages": [
   {
    "url": "https://api.bo3.gg/api/v1/matches?page[offset]=0&page[limit]=100&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&with=teams,tournament",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:04Z",
+   "observed_at": "2026-10-24T07:25:34Z",
    "http_status": 200,
    "content_type": "application/json; charset=utf-8",
-   "bytes": 230217
+   "bytes": 230728
   },
   {
    "url": "https://api.bo3.gg/api/v1/matches?page[offset]=100&page[limit]=100&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&with=teams,tournament",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:05Z",
+   "observed_at": "2026-10-24T07:25:34Z",
    "http_status": 200,
    "content_type": "application/json; charset=utf-8",
-   "bytes": 203199
+   "bytes": 204427
   },
   {
    "url": "https://api.bo3.gg/api/v1/matches?page[offset]=200&page[limit]=100&sort=start_date&filter[matches.status][in]=upcoming&filter[matches.discipline_id][eq]=1&with=teams,tournament",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:05Z",
+   "observed_at": "2026-10-24T07:25:35Z",
    "http_status": 200,
    "content_type": "application/json; charset=utf-8",
-   "bytes": 183927
+   "bytes": 189052
   }
  ],
  "smarkets_board": {
@@ -52,47 +52,28 @@
   "events_attempt": {
    "url": "https://api.smarkets.com/v3/events/?type=csgo_match&states=upcoming&limit=200&sort=start_datetime,id",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:20Z",
-   "http_status": 200,
-   "content_type": "application/json",
-   "bytes": 31260
+   "observed_at": "2026-10-24T07:25:57Z",
+   "http_status": 403,
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 236671
   },
-  "markets_attempt": {
-   "url": "https://api.smarkets.com/v3/events/45396333/markets/",
-   "method": "GET",
-   "observed_at": "2026-10-24T05:59:20Z",
-   "http_status": 200,
-   "content_type": "application/json",
-   "bytes": 526
-  },
-  "contracts_attempt": {
-   "url": "https://api.smarkets.com/v3/markets/172960355/contracts/",
-   "method": "GET",
-   "observed_at": "2026-10-24T05:59:21Z",
-   "http_status": 200,
-   "content_type": "application/json",
-   "bytes": 677
-  },
-  "quotes_attempt": {
-   "url": "https://api.smarkets.com/v3/markets/172960355/quotes/",
-   "method": "GET",
-   "observed_at": "2026-10-24T05:59:21Z",
-   "http_status": 200,
-   "content_type": "application/json",
-   "bytes": 300
-  },
-  "events_seen": 45,
-  "bound": 1,
-  "errors": []
+  "markets_attempt": null,
+  "contracts_attempt": null,
+  "quotes_attempt": null,
+  "events_seen": 0,
+  "bound": 0,
+  "errors": [
+   "http 403"
+  ]
  },
  "counts": {
-  "hotspawn_fixtures": 88,
-  "no_external_line": 10,
+  "hotspawn_fixtures": 92,
+  "no_external_line": 11,
   "two_sided_lead": 0,
-  "smarkets_two_sided": 1,
-  "still_unresolved": 10,
-  "skipped_past_start": 63,
-  "bo3_rows_fetched": 279
+  "smarkets_two_sided": 0,
+  "still_unresolved": 11,
+  "skipped_past_start": 61,
+  "bo3_rows_fetched": 282
  },
  "sources_tried": [
   {
@@ -116,8 +97,8 @@
   {
    "label": "GG.BET CS2",
    "url": "https://gg.bet/en/counter-strike",
-   "http_status": 403,
-   "note": "blocked"
+   "http_status": 200,
+   "note": "page reachable; no fixture price read"
   },
   {
    "label": "Stake CS2",
@@ -135,7 +116,7 @@
    "label": "Bet365 esports",
    "url": "https://www.bet365.com/",
    "http_status": 403,
-   "note": "challenge page"
+   "note": "blocked"
   },
   {
    "label": "Rivalry CS2",
@@ -146,8 +127,8 @@
   {
    "label": "Betano esports",
    "url": "https://betano.com/",
-   "http_status": 200,
-   "note": "page reachable; no fixture price read"
+   "http_status": null,
+   "note": "ConnectionError: HTTPSConnectionPool(host='www.betano.mx', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='www.betano.mx', port=443): Failed to resolv"
   },
   {
    "label": "Betsson esports",
@@ -164,8 +145,8 @@
   {
    "label": "22bet esports",
    "url": "https://22bet.com/line/esports",
-   "http_status": 203,
-   "note": "blocked"
+   "http_status": 200,
+   "note": "page reachable; no fixture price read"
   },
   {
    "label": "BetBoom CS2",
@@ -176,14 +157,14 @@
   {
    "label": "1xBet CS2",
    "url": "https://1xbet.com/en/line/counter-strike-2",
-   "http_status": 203,
-   "note": "challenge page"
+   "http_status": 404,
+   "note": "blocked"
   },
   {
    "label": "Marathonbet CS2",
    "url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
    "http_status": 403,
-   "note": "challenge page"
+   "note": "blocked"
   },
   {
    "label": "Betway CS2",
@@ -200,8 +181,8 @@
   {
    "label": "OddsPortal CS2",
    "url": "https://www.oddsportal.com/esports/counter-strike/",
-   "http_status": 429,
-   "note": "blocked"
+   "http_status": 200,
+   "note": "page reachable; no fixture price read"
   },
   {
    "label": "Oddspedia CS2",
@@ -236,8 +217,8 @@
   {
    "label": "Smarkets CS2 exchange",
    "url": "https://api.smarkets.com/v3/events/?type=csgo_match&states=upcoming&limit=1&sort=start_datetime,id",
-   "http_status": 200,
-   "note": "page reachable; no fixture price read"
+   "http_status": 403,
+   "note": "blocked"
   },
   {
    "label": "bo3.gg matches API",
@@ -250,7 +231,7 @@
   {
    "url": "https://www.hltv.org/matches",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:05Z",
+   "observed_at": "2026-10-24T07:25:35Z",
    "http_status": 403,
    "content_type": "text/html; charset=UTF-8",
    "bytes": 5605,
@@ -260,7 +241,7 @@
   {
    "url": "https://www.hltv.org/ranking/teams",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:05Z",
+   "observed_at": "2026-10-24T07:25:35Z",
    "http_status": 403,
    "content_type": "text/html; charset=UTF-8",
    "bytes": 5644,
@@ -270,7 +251,7 @@
   {
    "url": "https://thunderpick.io/esports/counter-strike",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:06Z",
+   "observed_at": "2026-10-24T07:25:35Z",
    "http_status": 200,
    "content_type": "text/html",
    "bytes": 14610,
@@ -280,17 +261,17 @@
   {
    "url": "https://gg.bet/en/counter-strike",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:06Z",
-   "http_status": 403,
-   "content_type": "text/plain",
-   "bytes": 126,
+   "observed_at": "2026-10-24T07:25:36Z",
+   "http_status": 200,
+   "content_type": "text/html; charset=utf-8",
+   "bytes": 121050,
    "challenge_page": false,
    "label": "GG.BET CS2"
   },
   {
    "url": "https://stake.com/sports/esports/cs2",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:06Z",
+   "observed_at": "2026-10-24T07:25:38Z",
    "http_status": 403,
    "content_type": "text/html; charset=UTF-8",
    "bytes": 5656,
@@ -300,7 +281,7 @@
   {
    "url": "https://bc.game/sports/esports",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:07Z",
+   "observed_at": "2026-10-24T07:25:39Z",
    "http_status": 200,
    "content_type": "text/html; charset=utf-8",
    "bytes": 10680,
@@ -310,17 +291,17 @@
   {
    "url": "https://www.bet365.com/",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:07Z",
+   "observed_at": "2026-10-24T07:25:39Z",
    "http_status": 403,
-   "content_type": "text/html; charset=UTF-8",
-   "bytes": 5586,
-   "challenge_page": true,
+   "content_type": "text/html",
+   "bytes": 1807,
+   "challenge_page": false,
    "label": "Bet365 esports"
   },
   {
    "url": "https://www.rivalry.com/esports/csgo-betting",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:08Z",
+   "observed_at": "2026-10-24T07:25:40Z",
    "http_status": 200,
    "content_type": "text/html;charset=utf-8",
    "bytes": 60850,
@@ -330,17 +311,15 @@
   {
    "url": "https://betano.com/",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:08Z",
-   "http_status": 200,
-   "content_type": "text/html; charset=utf-8",
-   "bytes": 29481,
-   "challenge_page": false,
+   "observed_at": "2026-10-24T07:25:40Z",
+   "http_status": null,
+   "error": "ConnectionError: HTTPSConnectionPool(host='www.betano.mx', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='www.betano.mx', port=443): Failed to resolv",
    "label": "Betano esports"
   },
   {
    "url": "https://www.betsson.com/en",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:09Z",
+   "observed_at": "2026-10-24T07:25:41Z",
    "http_status": 202,
    "content_type": "text/html; charset=UTF-8",
    "bytes": 0,
@@ -350,7 +329,7 @@
   {
    "url": "https://www.unibet.com/betting#filter/esports",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:09Z",
+   "observed_at": "2026-10-24T07:25:41Z",
    "http_status": 503,
    "content_type": "text/html",
    "bytes": 592,
@@ -360,17 +339,17 @@
   {
    "url": "https://22bet.com/line/esports",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:10Z",
-   "http_status": 203,
+   "observed_at": "2026-10-24T07:25:42Z",
+   "http_status": 200,
    "content_type": "text/html; charset=UTF-8",
-   "bytes": 26542,
+   "bytes": 308276,
    "challenge_page": false,
    "label": "22bet esports"
   },
   {
    "url": "https://betboom.ru/sport/cs2",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:11Z",
+   "observed_at": "2026-10-24T07:25:44Z",
    "http_status": 401,
    "content_type": "text/html",
    "bytes": 1800,
@@ -380,27 +359,27 @@
   {
    "url": "https://1xbet.com/en/line/counter-strike-2",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:12Z",
-   "http_status": 203,
+   "observed_at": "2026-10-24T07:25:45Z",
+   "http_status": 404,
    "content_type": "text/html;charset=utf-8",
-   "bytes": 2620,
-   "challenge_page": true,
+   "bytes": 30854,
+   "challenge_page": false,
    "label": "1xBet CS2"
   },
   {
    "url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:13Z",
+   "observed_at": "2026-10-24T07:25:47Z",
    "http_status": 403,
    "content_type": "text/html; charset=UTF-8",
-   "bytes": 5488,
-   "challenge_page": true,
+   "bytes": 35778,
+   "challenge_page": false,
    "label": "Marathonbet CS2"
   },
   {
    "url": "https://www.betway.com/en/sports/esports/counter-strike-2",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:13Z",
+   "observed_at": "2026-10-24T07:25:47Z",
    "http_status": 404,
    "content_type": "text/html; charset=utf-8",
    "bytes": 6690,
@@ -410,37 +389,37 @@
   {
    "url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:13Z",
+   "observed_at": "2026-10-24T07:25:48Z",
    "http_status": 200,
    "content_type": "text/html; charset=utf-8",
-   "bytes": 1665249,
+   "bytes": 1666226,
    "challenge_page": false,
    "label": "DraftKings CS2"
   },
   {
    "url": "https://www.oddsportal.com/esports/counter-strike/",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:15Z",
-   "http_status": 429,
-   "content_type": null,
-   "bytes": 0,
+   "observed_at": "2026-10-24T07:25:50Z",
+   "http_status": 200,
+   "content_type": "text/html; charset=utf-8",
+   "bytes": 430000,
    "challenge_page": false,
    "label": "OddsPortal CS2"
   },
   {
    "url": "https://oddspedia.com/esports/cs-go",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:16Z",
+   "observed_at": "2026-10-24T07:25:53Z",
    "http_status": 410,
    "content_type": "text/html; charset=utf-8",
-   "bytes": 339991,
+   "bytes": 339997,
    "challenge_page": false,
    "label": "Oddspedia CS2"
   },
   {
    "url": "https://egamersworld.com/counterstrike/matches",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:17Z",
+   "observed_at": "2026-10-24T07:25:54Z",
    "http_status": 403,
    "content_type": "text/html; charset=UTF-8",
    "bytes": 5775,
@@ -450,7 +429,7 @@
   {
    "url": "https://www.pinnacle.com/en/esports/counter-strike-2",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:18Z",
+   "observed_at": "2026-10-24T07:25:55Z",
    "http_status": 404,
    "content_type": "text/html",
    "bytes": 307,
@@ -460,7 +439,7 @@
   {
    "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXCS2GAME",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:18Z",
+   "observed_at": "2026-10-24T07:25:56Z",
    "http_status": 200,
    "content_type": "application/json",
    "bytes": 2061,
@@ -470,27 +449,27 @@
   {
    "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=1",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:19Z",
+   "observed_at": "2026-10-24T07:25:56Z",
    "http_status": 200,
    "content_type": "application/json",
-   "bytes": 5955,
+   "bytes": 5952,
    "challenge_page": false,
    "label": "Polymarket CS2 tag"
   },
   {
    "url": "https://api.smarkets.com/v3/events/?type=csgo_match&states=upcoming&limit=1&sort=start_datetime,id",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:19Z",
-   "http_status": 200,
-   "content_type": "application/json",
-   "bytes": 945,
+   "observed_at": "2026-10-24T07:25:57Z",
+   "http_status": 403,
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 236665,
    "challenge_page": false,
    "label": "Smarkets CS2 exchange"
   },
   {
    "url": "https://api.bo3.gg/api/v1/matches?page[limit]=1&filter[matches.discipline_id][eq]=1",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:20Z",
+   "observed_at": "2026-10-24T07:25:57Z",
    "http_status": 200,
    "content_type": "application/json; charset=utf-8",
    "bytes": 1275,
@@ -566,6 +545,36 @@
      ],
      "start": "2026-10-25T12:00:00.000+00:00",
      "start_delta_sec": 68400,
+     "status": "one shared side only"
+    }
+   ],
+   "smarkets": null,
+   "lead": false
+  },
+  {
+   "hotspawn_id": "1083122",
+   "teams": [
+    "LOS NINOS",
+    "BORRACHEIROS"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-24T19:00:00Z",
+   "tier": "c",
+   "published_method": "model",
+   "published_label": "Research model estimate (HLTV world ranking · unranked floor)",
+   "published_probability": 0.49424379,
+   "published_source_url": "https://www.hltv.org/ranking/teams",
+   "hotspawn_url": "https://www.hotspawn.com/matches/los-ninos-vs-borracheiros-cct-south-america-2026-series-7-1083122",
+   "bo3": null,
+   "bo3_near_misses": [
+    {
+     "slug": "los-ninos-vs-borracheiros-24-10-2026",
+     "teams": [
+      "BORRACHEIROS",
+      "Los Niños"
+     ],
+     "start": "2026-10-24T19:00:00.000+00:00",
+     "start_delta_sec": 0,
      "status": "one shared side only"
     }
    ],
@@ -744,7 +753,7 @@
    "tier": "b",
    "published_method": "model",
    "published_label": "Own network estimate (bo3.gg results graph)",
-   "published_probability": 0.44937330103761874,
+   "published_probability": 0.449088445370519,
    "published_source_url": "https://bo3.gg/matches",
    "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
    "bo3": {
@@ -756,119 +765,7 @@
     "quote": null
    },
    "bo3_near_misses": [],
-   "smarkets": {
-    "event_id": "45396333",
-    "event_name": "Ground Zero vs Off Chops",
-    "event_url": "https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-a/2026/10/26/03-00/ground-zero-vs-off-chops",
-    "start_datetime": "2026-10-26T03:00:00Z",
-    "markets_verbatim": [
-     {
-      "bet_delay": 0,
-      "cashout_enabled": true,
-      "categories": [
-       "winner"
-      ],
-      "category": "winner",
-      "complete": true,
-      "contract_selections": null,
-      "created": "2026-10-23T07:36:05.817Z",
-      "description": "",
-      "display_order": 0,
-      "display_type": "default",
-      "event_id": "45396333",
-      "hidden": false,
-      "id": "172960355",
-      "info": {
-       "reason": ""
-      },
-      "inplay_enabled": false,
-      "market_type": {
-       "name": "WINNER_2_WAY"
-      },
-      "modified": "2026-10-23T07:36:05.817Z",
-      "name": "Winner",
-      "slug": "winner-two-way",
-      "state": "open",
-      "winner_count": 1
-     }
-    ],
-    "quotes": {
-     "477141069": {
-      "bids": [
-       {
-        "price": 1562,
-        "quantity": 4321399
-       }
-      ],
-      "offers": [
-       {
-        "price": 3175,
-        "quantity": 989012
-       },
-       {
-        "price": 3279,
-        "quantity": 1004314
-       }
-      ]
-     },
-     "477141070": {
-      "bids": [
-       {
-        "price": 6803,
-        "quantity": 992212
-       },
-       {
-        "price": 6711,
-        "quantity": 1005814
-       }
-      ],
-      "offers": [
-       {
-        "price": 8475,
-        "quantity": 4426257
-       }
-      ]
-     }
-    },
-    "two_sided": true,
-    "market_id": "172960355",
-    "contracts_verbatim": [
-     {
-      "competitor_id": 24996774,
-      "contract_type": {
-       "name": "HOME"
-      },
-      "created": "2026-10-23T07:36:05.819Z",
-      "display_order": 0,
-      "hidden": false,
-      "id": "477141069",
-      "info": {},
-      "market_id": "172960355",
-      "modified": "2026-10-23T07:36:05.819Z",
-      "name": "Ground Zero",
-      "outcome_timestamp": null,
-      "slug": "home",
-      "state_or_outcome": "open"
-     },
-     {
-      "competitor_id": 36306926,
-      "contract_type": {
-       "name": "AWAY"
-      },
-      "created": "2026-10-23T07:36:05.819Z",
-      "display_order": 100,
-      "hidden": false,
-      "id": "477141070",
-      "info": {},
-      "market_id": "172960355",
-      "modified": "2026-10-23T07:36:05.819Z",
-      "name": "Off Chops",
-      "outcome_timestamp": null,
-      "slug": "away",
-      "state_or_outcome": "open"
-     }
-    ]
-   },
+   "smarkets": null,
    "lead": false
   },
   {
@@ -1005,6 +902,37 @@
      ],
      "start": "2026-10-25T12:00:00.000+00:00",
      "start_delta_sec": 68400,
+     "status": "one shared side only"
+    }
+   ],
+   "verdict": "No two-sided prematch price found on any probed surface; the research-model pick and its limitation stand."
+  },
+  {
+   "id": "1083122",
+   "teams": [
+    "LOS NINOS",
+    "BORRACHEIROS"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-24T19:00:00Z",
+   "current_method": "model",
+   "current_label": "Research model estimate (HLTV world ranking · unranked floor)",
+   "hotspawn_url": "https://www.hotspawn.com/matches/los-ninos-vs-borracheiros-cct-south-america-2026-series-7-1083122",
+   "bo3_bound_url": null,
+   "bo3_start_delta_sec": null,
+   "bo3_bet_two_sided": false,
+   "bo3_bet": null,
+   "smarkets_evidence": null,
+   "money_line_lead": false,
+   "near_misses": [
+    {
+     "slug": "los-ninos-vs-borracheiros-24-10-2026",
+     "teams": [
+      "BORRACHEIROS",
+      "Los Niños"
+     ],
+     "start": "2026-10-24T19:00:00.000+00:00",
+     "start_delta_sec": 0,
      "status": "one shared side only"
     }
    ],
@@ -1169,52 +1097,10 @@
    "bo3_start_delta_sec": 0,
    "bo3_bet_two_sided": false,
    "bo3_bet": null,
-   "smarkets_evidence": {
-    "event_url": "https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-a/2026/10/26/03-00/ground-zero-vs-off-chops",
-    "event_name": "Ground Zero vs Off Chops",
-    "quotes_verbatim": {
-     "477141069": {
-      "bids": [
-       {
-        "price": 1562,
-        "quantity": 4321399
-       }
-      ],
-      "offers": [
-       {
-        "price": 3175,
-        "quantity": 989012
-       },
-       {
-        "price": 3279,
-        "quantity": 1004314
-       }
-      ]
-     },
-     "477141070": {
-      "bids": [
-       {
-        "price": 6803,
-        "quantity": 992212
-       },
-       {
-        "price": 6711,
-        "quantity": 1005814
-       }
-      ],
-      "offers": [
-       {
-        "price": 8475,
-        "quantity": 4426257
-       }
-      ]
-     }
-    },
-    "two_sided": true
-   },
+   "smarkets_evidence": null,
    "money_line_lead": false,
    "near_misses": [],
-   "verdict": "The Smarkets exchange lists this fixture with a two-sided quote (raw evidence attached); the reviewed ladder replays that first-party source itself on the next refresh, so this sweep creates no pick here."
+   "verdict": "No two-sided prematch price found on any probed surface; the research-model pick and its limitation stand."
   },
   {
    "id": "1082861",

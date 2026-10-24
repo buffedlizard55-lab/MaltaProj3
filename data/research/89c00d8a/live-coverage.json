@@ -1,7 +1,7 @@
 {
  "schema_version": 1,
  "session": "arena-2016c841",
- "observed_at": "2026-10-24T05:59:04Z",
+ "observed_at": "2026-10-24T07:25:34Z",
  "observer": "github-actions-runner",
  "role": "Dated inventory and identity research only. No value here is a probability or a pick.",
  "published_site": {
@@ -18,7 +18,7 @@
   "attempt": {
    "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
    "method": "GET",
-   "observed_at": "2026-10-24T05:59:21Z",
+   "observed_at": "2026-10-24T07:25:58Z",
    "http_status": 200,
    "content_type": "application/json; charset=utf-8",
    "bytes": 214381
@@ -28,14 +28,14 @@
   "lobby_url": "https://play.hotspawn.com/lobby",
   "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
   "api_http_status": 200,
-  "fixtures_returned": 88,
-  "future_fixtures_compared": 25,
+  "fixtures_returned": 92,
+  "future_fixtures_compared": 31,
   "note": "The API still returns long-past rows marked scheduled; past-start rows are counted as retired history and left out of the comparison. Lobby crowd percentages are never a win probability."
  },
  "counts": {
-  "live_future_fixtures": 25,
+  "live_future_fixtures": 31,
   "in_published_snapshot": 16,
-  "missing_from_published": 9
+  "missing_from_published": 15
  },
  "limitations": [
   "HLTV match pages are identity/form evidence; they are not a two-sided prematch odds feed.",
@@ -100,6 +100,20 @@
    "note": "Not in the published snapshot at this observation; the next scheduled collect+publish is the authority. No probability is invented."
   },
   {
+   "id": "1083120",
+   "teams": [
+    "Isurus",
+    "RED Canids Academy"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-24T13:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/isurus-vs-red-canids-academy-cct-south-america-2026-series-7-1083120",
+   "in_published_snapshot": false,
+   "published_method": null,
+   "published_pick": null,
+   "note": "Not in the published snapshot at this observation; the next scheduled collect+publish is the authority. No probability is invented."
+  },
+  {
    "id": "1081153",
    "teams": [
     "Saint Sinners",
@@ -142,6 +156,20 @@
    "note": "In the published snapshot."
   },
   {
+   "id": "1083121",
+   "teams": [
+    "Projeto do KinGui",
+    "MEIA NOITE"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-24T16:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/projeto-do-kingui-vs-meia-noite-cct-south-america-2026-series-7-1083121",
+   "in_published_snapshot": false,
+   "published_method": null,
+   "published_pick": null,
+   "note": "Not in the published snapshot at this observation; the next scheduled collect+publish is the authority. No probability is invented."
+  },
+  {
    "id": "1081154",
    "teams": [
     "BakS",
@@ -164,6 +192,62 @@
    "competition": "CCT Europe 2026 Series #11",
    "starts_at": "2026-10-24T17:00:00Z",
    "hotspawn_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-ex-zero-tenacity-cct-europe-2026-series-11-1079661",
+   "in_published_snapshot": false,
+   "published_method": null,
+   "published_pick": null,
+   "note": "Not in the published snapshot at this observation; the next scheduled collect+publish is the authority. No probability is invented."
+  },
+  {
+   "id": "1082695",
+   "teams": [
+    "Galorys",
+    "paiN"
+   ],
+   "competition": "Circuit X Curitiba #4",
+   "starts_at": "2026-10-24T18:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/galorys-vs-pain-circuit-x-curitiba-4-1082695",
+   "in_published_snapshot": false,
+   "published_method": null,
+   "published_pick": null,
+   "note": "Not in the published snapshot at this observation; the next scheduled collect+publish is the authority. No probability is invented."
+  },
+  {
+   "id": "1083122",
+   "teams": [
+    "LOS NINOS",
+    "BORRACHEIROS"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-24T19:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/los-ninos-vs-borracheiros-cct-south-america-2026-series-7-1083122",
+   "in_published_snapshot": false,
+   "published_method": null,
+   "published_pick": null,
+   "note": "Not in the published snapshot at this observation; the next scheduled collect+publish is the authority. No probability is invented."
+  },
+  {
+   "id": "1083140",
+   "teams": [
+    "BESTIA",
+    "Imperial"
+   ],
+   "competition": "Circuit X Curitiba #4",
+   "starts_at": "2026-10-24T21:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/bestia-vs-imperial-circuit-x-curitiba-4-1083140",
+   "in_published_snapshot": false,
+   "published_method": null,
+   "published_pick": null,
+   "note": "Not in the published snapshot at this observation; the next scheduled collect+publish is the authority. No probability is invented."
+  },
+  {
+   "id": "1083123",
+   "teams": [
+    "Grêmio",
+    "Yawara"
+   ],
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-24T22:00:00Z",
+   "hotspawn_url": "https://www.hotspawn.com/matches/gr-mio-vs-yawara-cct-south-america-2026-series-7-1083123",
    "in_published_snapshot": false,
    "published_method": null,
    "published_pick": null,
