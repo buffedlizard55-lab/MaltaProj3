@@ -43,6 +43,10 @@ REGISTERS = (
     # (closing the 6 South American fixtures), EGW consensus capture across the
     # 13 model-only fixtures, and scoped CCT South America #7 aliases.
     'research/c6b8d58b/repo-review.json',
+    # Session c2a74e33: 22/22 live future Hotspawn lobby parity (16:42Z), 23/23
+    # complete-pick replay, <8h EGW match-page refresh for 1082858 in
+    # CAPTURE_PATHS, Polymarket CLOB tightening on 1082996, and HLTV stand-in flags.
+    'research/c2a74e33/repo-review.json',
 )
 STATUS = {
     'fixed': ('Fixed', 'green'),

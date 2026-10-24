@@ -55,33 +55,63 @@ class GuidedPicksTest(unittest.TestCase):
             self.assertTrue(any(u.startswith('https://') for u in urls), fid)
             self.assertTrue(row.get('limitations'), fid)
 
-    def _named_snapshot(self):
-        # A later root-synced snapshot is expected to re-price these fixtures:
-        # one of the group-B ids became an exactly even market line on the
-        # 18:00Z snapshot of 2026-10-24. The dossier's claims are asserted
-        # against the snapshot it names; provenance checks stay always-on.
-        # (Integration fix by arena-5f9d0082.)
-        return self.snapshot.get('generated_at') == self.dossier['published_snapshot']['generated_at']
-
     def test_group_a_are_snapshot_unresolved(self):
-        if not self._named_snapshot():
-            self.skipTest('checked-in snapshot is newer than the one the dossier names')
         for fid in ('1082858', '1082792'):
             match = self.by_id[fid]
             self.assertIsNone(match.get('pick_index'), fid)
             self.assertEqual(self.fixtures[fid]['group'], 'A-unresolved')
 
+    GROUP_B = ('1082996', '1079198', '1079200', '1082861', '1082793')
+
     def test_group_b_are_snapshot_model_picks(self):
-        if not self._named_snapshot():
-            self.skipTest('checked-in snapshot is newer than the one the dossier names')
-        for fid in ('1082996', '1079198', '1079200', '1082861', '1082793'):
-            match = self.by_id[fid]
-            self.assertIsNotNone(match.get('pick_index'), fid)
-            self.assertIn('research', (match['analysis']['label'] or '').lower(), fid)
-            published = self.fixtures[fid]['published_pick']
-            probs = match['analysis']['probabilities']
-            self.assertAlmostEqual(published['probabilities'][0], probs[0], places=4, msg=fid)
-            self.assertAlmostEqual(published['probabilities'][1], probs[1], places=4, msg=fid)
+        # The dossier names the snapshot it read. Testing pinned fixture ids
+        # against `snapshot.json` is a wall-clock trap: the publisher rewrites
+        # that file every four hours, and on 2026-10-24 a fresher snapshot had
+        # already upgraded 1079198 from the Valve model to a Bovada esportsbook
+        # line, so this assertion failed the publisher's regression step
+        # (runs 40116915898 and 40120126457) and froze the site — the same
+        # failure class as run 40085158851. Pinned expectations therefore only
+        # run against the snapshot the dossier names; for any newer snapshot the
+        # always-on invariants below are asserted instead.
+        named = (self.dossier.get('published_snapshot') or {}).get('generated_at')
+        if self.snapshot.get('generated_at') == named:
+            for fid in self.GROUP_B:
+                match = self.by_id[fid]
+                self.assertIsNotNone(match.get('pick_index'), fid)
+                self.assertIn('research', (match['analysis']['label'] or '').lower(), fid)
+                published = self.fixtures[fid]['published_pick']
+                probs = match['analysis']['probabilities']
+                self.assertAlmostEqual(published['probabilities'][0], probs[0], places=4, msg=fid)
+                self.assertAlmostEqual(published['probabilities'][1], probs[1], places=4, msg=fid)
+        # Always on, whatever snapshot is checked in: a Group B fixture that
+        # still carries a featured analysis must publish two numbers that add
+        # up, stamped in UTC. Whether that analysis is still the Valve model, a
+        # money line that replaced it, or absent because the complete-picks
+        # layer resolved the row instead, is the ladder's business -- not a
+        # regression. Pinning any of those states to a mutable root snapshot is
+        # what froze the publisher.
+        checked = 0
+        featured = 0
+        for fid in self.GROUP_B:
+            match = self.by_id.get(fid)
+            if match is None:
+                continue
+            checked += 1
+            analysis = match.get('analysis')
+            if not analysis:
+                continue
+            featured += 1
+            probs = analysis.get('probabilities') or []
+            self.assertEqual(len(probs), 2, fid)
+            self.assertAlmostEqual(sum(probs), 1.0, places=4, msg=fid)
+            # An exactly even row legitimately publishes both sides with no
+            # pick (1079200 became 50.0/50.0 from a two-sided Polymarket book on
+            # 2026-10-24); anything else must name a side.
+            if abs(probs[0] - probs[1]) > 1e-9:
+                self.assertIsNotNone(match.get('pick_index'), fid)
+            self.assertEqual(str(analysis.get('observed_at') or '')[-1:], 'Z', fid)
+        self.assertGreater(checked, 0, 'no Group B fixture remains in the snapshot')
+        self.assertGreater(featured, 0, 'no Group B fixture retains a featured analysis to check')
 
     def test_group_c_absent_from_snapshot(self):
         # Absence is asserted against the snapshot the dossier names
