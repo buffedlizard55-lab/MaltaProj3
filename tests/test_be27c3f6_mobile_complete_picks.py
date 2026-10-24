@@ -87,6 +87,23 @@ class CompletePicksPhoneStructureTests(unittest.TestCase):
         self.assertIn('Full evidence', heading.get_text())
         self.assertIn('repeat the same fixtures', heading.get_text())
 
+    def test_overview_pick_labels_start_in_the_same_safety_state_as_cards(self):
+        current = self.render()
+        current_picks = current.select('[data-overview-pick]')
+        self.assertTrue(current_picks)
+        for pick in current_picks:
+            row = pick.find_parent('tr')
+            card = current.select_one('#match-' + row['id'].removeprefix('row-'))
+            self.assertEqual(row.get('class', []) == ['is-historical'], card['data-safety-status'] != 'current')
+            self.assertEqual(pick.select_one('[data-overview-current]').has_attr('hidden'), card['data-safety-status'] != 'current')
+            self.assertEqual(pick.select_one('[data-overview-historical]').has_attr('hidden'), card['data-safety-status'] == 'current')
+
+        historical = BeautifulSoup(build_origination.page(self.data, now=datetime(2027, 1, 1, tzinfo=timezone.utc)), 'html.parser')
+        for pick in historical.select('[data-overview-pick]'):
+            self.assertTrue(pick.select_one('[data-overview-current]').has_attr('hidden'))
+            self.assertFalse(pick.select_one('[data-overview-historical]').has_attr('hidden'))
+            self.assertIn('is-historical', pick.find_parent('tr').get('class', []))
+
     def test_rendering_does_not_mutate_pick_data(self):
         data = copy.deepcopy(self.data)
         before = json.dumps(data, sort_keys=True, ensure_ascii=False)

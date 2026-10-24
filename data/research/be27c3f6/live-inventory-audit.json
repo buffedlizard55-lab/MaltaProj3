@@ -1,0 +1,480 @@
+{
+  "observed_at": "2026-10-24T05:44:04.090536Z",
+  "scope": "Point-in-time official inventory audit only; no probabilities or picks derived and no Hotspawn popularity retained.",
+  "official_lobby": "https://play.hotspawn.com/cs2-pickems",
+  "official_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+  "deployed_snapshot": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+  "deployed_complete_picks": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
+  "snapshot_inventory_observed_at": "2026-10-23T20:09:44Z",
+  "snapshot_generated_at": "2026-10-23T20:10:00Z",
+  "method": "Read every official lobby View Match link, then cross-checked IDs and scheduled_start_time in the official scheduled-fixture API. API records were status=scheduled with start_time=null for these active rows. Display-local lobby times were not reinterpreted.",
+  "official_lobby_fixture_count": 25,
+  "official_api_active_fixture_count": 25,
+  "lobby_api_id_sets_match": true,
+  "published_active_fixture_count": 19,
+  "overlap_count": 16,
+  "live_missing_from_published_count": 9,
+  "published_active_but_not_in_live_lobby_count": 3,
+  "live_missing_from_published": [
+    {
+      "match_id": "1079658",
+      "teams": [
+        "Acend",
+        "FORZE Reload"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-24T08:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/acend-vs-forze-reload-cct-europe-2026-series-11-1079658",
+      "in_published_active_snapshot": false,
+      "snapshot_start_matches_api": null
+    },
+    {
+      "match_id": "1081152",
+      "teams": [
+        "HAVU",
+        "Azuolas"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T11:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/havu-vs-azuolas-cct-europe-2026-series-12-1081152",
+      "in_published_active_snapshot": false,
+      "snapshot_start_matches_api": null
+    },
+    {
+      "match_id": "1079659",
+      "teams": [
+        "Spirit Academy",
+        "Lavked"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-24T11:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/spirit-academy-vs-lavked-cct-europe-2026-series-11-1079659",
+      "in_published_active_snapshot": false,
+      "snapshot_start_matches_api": null
+    },
+    {
+      "match_id": "1081153",
+      "teams": [
+        "Saint Sinners",
+        "6yuBoJlbl"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T14:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/saint-sinners-vs-6yubojlbl-cct-europe-2026-series-12-1081153",
+      "in_published_active_snapshot": false,
+      "snapshot_start_matches_api": null
+    },
+    {
+      "match_id": "1079660",
+      "teams": [
+        "INOX Division",
+        "BRUTE"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-24T14:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/inox-division-vs-brute-cct-europe-2026-series-11-1079660",
+      "in_published_active_snapshot": false,
+      "snapshot_start_matches_api": null
+    },
+    {
+      "match_id": "1081154",
+      "teams": [
+        "BakS",
+        "ILLYRIANS"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T17:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/baks-vs-illyrians-cct-europe-2026-series-12-1081154",
+      "in_published_active_snapshot": false,
+      "snapshot_start_matches_api": null
+    },
+    {
+      "match_id": "1079661",
+      "teams": [
+        "Nuclear TigeRES",
+        "ex-Zero Tenacity"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-24T17:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-ex-zero-tenacity-cct-europe-2026-series-11-1079661",
+      "in_published_active_snapshot": false,
+      "snapshot_start_matches_api": null
+    },
+    {
+      "match_id": "1081156",
+      "teams": [
+        "Spirit Academy",
+        "LFO 10"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-25T12:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156",
+      "in_published_active_snapshot": false,
+      "snapshot_start_matches_api": null
+    },
+    {
+      "match_id": "1081158",
+      "teams": [
+        "FORZE Reload",
+        "ex-RUSTEC"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-25T18:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/forze-reload-vs-ex-rustec-cct-europe-2026-series-12-1081158",
+      "in_published_active_snapshot": false,
+      "snapshot_start_matches_api": null
+    }
+  ],
+  "published_active_but_not_in_live_lobby": [
+    {
+      "match_id": "1082923",
+      "teams": [
+        "Alka",
+        "LOS NINOS"
+      ],
+      "starts_at": "2026-10-23T22:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/alka-vs-los-ninos-cct-south-america-2026-series-7-1082923"
+    },
+    {
+      "match_id": "1083025",
+      "teams": [
+        "paiN",
+        "Imperial"
+      ],
+      "starts_at": "2026-10-23T21:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/imperial-vs-pain-circuit-x-curitiba-4-1083025"
+    },
+    {
+      "match_id": "1083045",
+      "teams": [
+        "Chinggis Warriors",
+        "Rare Atom"
+      ],
+      "starts_at": "2026-10-24T03:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/chinggis-warriors-vs-rare-atom-void-autumn-cup-2026-1083045"
+    }
+  ],
+  "overlap_ids": [
+    "1079193",
+    "1079195",
+    "1079198",
+    "1079199",
+    "1079200",
+    "1082792",
+    "1082793",
+    "1082858",
+    "1082859",
+    "1082860",
+    "1082861",
+    "1082897",
+    "1082898",
+    "1082900",
+    "1082901",
+    "1082996"
+  ],
+  "api_snapshot_start_mismatches": [],
+  "current_official_fixtures": [
+    {
+      "match_id": "1079658",
+      "teams": [
+        "Acend",
+        "FORZE Reload"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-24T08:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/acend-vs-forze-reload-cct-europe-2026-series-11-1079658",
+      "in_published_active_snapshot": false,
+      "snapshot_start_matches_api": null
+    },
+    {
+      "match_id": "1079193",
+      "teams": [
+        "FOKUS",
+        "ex-6666"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-24T08:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/fokus-vs-ex-6666-nodwin-clutch-series-13-1079193",
+      "in_published_active_snapshot": true,
+      "snapshot_start_matches_api": true
+    },
+    {
+      "match_id": "1081152",
+      "teams": [
+        "HAVU",
+        "Azuolas"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T11:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/havu-vs-azuolas-cct-europe-2026-series-12-1081152",
+      "in_published_active_snapshot": false,
+      "snapshot_start_matches_api": null
+    },
+    {
+      "match_id": "1079659",
+      "teams": [
+        "Spirit Academy",
+        "Lavked"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-24T11:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/spirit-academy-vs-lavked-cct-europe-2026-series-11-1079659",
+      "in_published_active_snapshot": false,
+      "snapshot_start_matches_api": null
+    },
+    {
+      "match_id": "1081153",
+      "teams": [
+        "Saint Sinners",
+        "6yuBoJlbl"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T14:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/saint-sinners-vs-6yubojlbl-cct-europe-2026-series-12-1081153",
+      "in_published_active_snapshot": false,
+      "snapshot_start_matches_api": null
+    },
+    {
+      "match_id": "1079660",
+      "teams": [
+        "INOX Division",
+        "BRUTE"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-24T14:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/inox-division-vs-brute-cct-europe-2026-series-11-1079660",
+      "in_published_active_snapshot": false,
+      "snapshot_start_matches_api": null
+    },
+    {
+      "match_id": "1079195",
+      "teams": [
+        "Nuclear TigeRES",
+        "FORZE Reload"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-24T14:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-forze-reload-nodwin-clutch-series-13-1079195",
+      "in_published_active_snapshot": true,
+      "snapshot_start_matches_api": true
+    },
+    {
+      "match_id": "1081154",
+      "teams": [
+        "BakS",
+        "ILLYRIANS"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-24T17:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/baks-vs-illyrians-cct-europe-2026-series-12-1081154",
+      "in_published_active_snapshot": false,
+      "snapshot_start_matches_api": null
+    },
+    {
+      "match_id": "1079661",
+      "teams": [
+        "Nuclear TigeRES",
+        "ex-Zero Tenacity"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-24T17:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-ex-zero-tenacity-cct-europe-2026-series-11-1079661",
+      "in_published_active_snapshot": false,
+      "snapshot_start_matches_api": null
+    },
+    {
+      "match_id": "1082996",
+      "teams": [
+        "Acend",
+        "UNiTY"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T09:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
+      "in_published_active_snapshot": true,
+      "snapshot_start_matches_api": true
+    },
+    {
+      "match_id": "1081156",
+      "teams": [
+        "Spirit Academy",
+        "LFO 10"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-25T12:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156",
+      "in_published_active_snapshot": false,
+      "snapshot_start_matches_api": null
+    },
+    {
+      "match_id": "1079198",
+      "teams": [
+        "Metizport",
+        "BakS"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T12:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/metizport-vs-baks-nodwin-clutch-series-13-1079198",
+      "in_published_active_snapshot": true,
+      "snapshot_start_matches_api": true
+    },
+    {
+      "match_id": "1079199",
+      "teams": [
+        "Infinite",
+        "BRUTE"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T15:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/infinite-vs-brute-nodwin-clutch-series-13-1079199",
+      "in_published_active_snapshot": true,
+      "snapshot_start_matches_api": true
+    },
+    {
+      "match_id": "1081158",
+      "teams": [
+        "FORZE Reload",
+        "ex-RUSTEC"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-25T18:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/forze-reload-vs-ex-rustec-cct-europe-2026-series-12-1081158",
+      "in_published_active_snapshot": false,
+      "snapshot_start_matches_api": null
+    },
+    {
+      "match_id": "1079200",
+      "teams": [
+        "Color",
+        "ex-Zero Tenacity"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-25T18:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/color-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079200",
+      "in_published_active_snapshot": true,
+      "snapshot_start_matches_api": true
+    },
+    {
+      "match_id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
+      "in_published_active_snapshot": true,
+      "snapshot_start_matches_api": true
+    },
+    {
+      "match_id": "1082859",
+      "teams": [
+        "NEXVOID",
+        "Alter Ego"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/nexvoid-vs-alter-ego-dfrag-invitational-2026-1082859",
+      "in_published_active_snapshot": true,
+      "snapshot_start_matches_api": true
+    },
+    {
+      "match_id": "1082860",
+      "teams": [
+        "FlyQuest",
+        "Staqued"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
+      "in_published_active_snapshot": true,
+      "snapshot_start_matches_api": true
+    },
+    {
+      "match_id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
+      "in_published_active_snapshot": true,
+      "snapshot_start_matches_api": true
+    },
+    {
+      "match_id": "1082897",
+      "teams": [
+        "B8",
+        "K27"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T08:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/b8-vs-k27-tesla-cup-2026-1082897",
+      "in_published_active_snapshot": true,
+      "snapshot_start_matches_api": true
+    },
+    {
+      "match_id": "1082898",
+      "teams": [
+        "Alliance",
+        "FaZe"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T11:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/alliance-vs-faze-tesla-cup-2026-1082898",
+      "in_published_active_snapshot": true,
+      "snapshot_start_matches_api": true
+    },
+    {
+      "match_id": "1082900",
+      "teams": [
+        "Luminosity",
+        "HOTU"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T17:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/luminosity-vs-hotu-tesla-cup-2026-1082900",
+      "in_published_active_snapshot": true,
+      "snapshot_start_matches_api": true
+    },
+    {
+      "match_id": "1082901",
+      "teams": [
+        "Envy",
+        "GamerLegion"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T20:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/envy-vs-gamerlegion-tesla-cup-2026-1082901",
+      "in_published_active_snapshot": true,
+      "snapshot_start_matches_api": true
+    },
+    {
+      "match_id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+      "in_published_active_snapshot": true,
+      "snapshot_start_matches_api": true
+    },
+    {
+      "match_id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T13:00:00Z",
+      "source_url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
+      "in_published_active_snapshot": true,
+      "snapshot_start_matches_api": true
+    }
+  ],
+  "limitation": "This proves a publication coverage gap at the read time, not that any external betting line is available. The collector/originator owners must research the nine fixtures; this audit leaves their probabilities blank rather than inferring them.",
+  "status": "coverage-gap"
+}
