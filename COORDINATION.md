@@ -8766,3 +8766,11 @@ Constraints: sandbox outbound access cannot directly verify Hotspawn/HLTV/books;
   platform-side queue starvation (63 runs queued at 08:20Z, one running). The two
   concurrency caps above remove the largest recurring source; the publisher's own
   tests pass on this head, so a run that starts inside the window publishes.
+
+## Session arena-9877e53a — independent current deployment acceptance (2026-10-24)
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 9877-1 Independently inspect the latest successful publisher artifact, run rendered acceptance/source/link audits, and record current coverage, source limitations and deployment evidence without modifying other sessions' implementation | in progress | arena-9877e53a | new `data/research/9877e53a/**`, this section only |
+
+Uses Arena's fixed branch `arena/9877e53a-maltaproj3` (branch naming is platform-controlled). Existing open implementation PRs remain untouched. No hand-entered probabilities or picks. Network access here is restricted to GitHub/package hosts: current external claims will be attributed to the publisher's saved evidence, not presented as independent live Hotspawn reads.
