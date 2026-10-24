@@ -8766,3 +8766,23 @@ Constraints: sandbox outbound access cannot directly verify Hotspawn/HLTV/books;
   platform-side queue starvation (63 runs queued at 08:20Z, one running). The two
   concurrency caps above remove the largest recurring source; the publisher's own
   tests pass on this head, so a run that starts inside the window publishes.
+
+## Session arena-6174aa87 — re-verify every published pick against its own cited source, close/no-line research, executive-summary + phone check, publish (claim 2026-10-24T16:25Z)
+
+**Claim.** Arena's fixed branch `arena/6174aa87-maltaproj3`, branched from `main` at `487a0e0` (= `origin/main` head at claim time, verified with `git rev-list --left-right --count origin/main...HEAD` -> `0 0`). Arena fixes this session's branch name, so the repo's `session-<id>/<task>` naming convention is overridden here; work happens on this one branch only. Board read first: the only other section is `arena-f1277d3b`, whose tasks are **done** and merged (PR #247 / #314), so no file below is claimed by anyone else.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 6174-1 Re-verify **every published pick** against its own cited official source on a GitHub runner (fresh `scripts.collect` + `scripts.originate --live`, then re-fetch each cited URL and record HTTP status, both team names present, and the observed price block); publish a dated dossier with a link per row for manual review. No probability, pick or alias is written by hand | in progress | arena-6174aa87 | new `data/research/6174aa87/**`, new `scripts/6174aa87_probe.py`, new `.github/workflows/6174aa87-probe.yml` |
+| 6174-2 Research the fixtures that cannot be resolved by a featured line (HLTV first, then esportsbooks/exchanges) and publish the per-fixture verdict + limitations; any genuine line found must be re-read by the reviewed ladder on the next refresh, never hand-written | unclaimed -> this session | arena-6174aa87 | `data/research/6174aa87/**` |
+| 6174-3 Verify the executive summary's in-site picks links, the separate unresolved/no-line register and phone readability at 390px by local build + existing suites; fix only a defect proven by a failing check, logging any cross-owned request here first | unclaimed -> this session | arena-6174aa87 | new `tests/test_6174aa87_*.py`, this section; shared files only if a defect is proven and logged here first |
+| 6174-4 PR to `main`, merge without waiting for approval once green, confirm the publisher serves a fresh snapshot, record PR/run/source links, verification and irregularities here | unclaimed -> this session | arena-6174aa87 | this section, PR |
+
+**Non-overlap pledge.** No edit to `scripts/collect.py`, `scripts/originate.py`, `scripts/build.py`, `scripts/root_publish.py`, `scripts/egw_live.py`, `data/latest.json`, `data/origination.json`, `data/origination/**`, `archive/`, `docs/`, `.github/workflows/pages.yml`, or any other session's `data/research/<id>/`. Hotspawn "% picked" and HLTV fan votes are never treated as probabilities.
+
+**State observed at claim time (2026-10-24T16:20Z-16:23Z).**
+- The published `snapshot.json` (root and live `https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json`) is `generated_at 2026-10-24T14:24:32Z`, `coverage_complete true`, `run_status partial-picks`, counts `inventory 84, upcoming 23, archived 61, market 8, bookmaker 2, model 8, unresolved 5, picks 18`.
+- The built complete-picks layer resolves **23 of 23 active fixtures with 0 unresolved** (5 consensus, 13 single-source, 1 aggregated, 4 model) — sourced from `origination/index.html` of that same build.
+- Featured method still leaves **five** active fixtures without a featured analysis (`1083121`, `1083122`, `1081156`, `1082858`, `1082792`); four active fixtures carry a **research-model** pick only (`1082996`, `1082861`, `1082792`, `1082793`).
+- Publisher health: `pages.yml` runs `40101099651` (schedule, 14:07:30Z) and `40096315071` (push, 13:00:46Z) **success**; dispatch `40092729118` (12:08:52Z) **failure** — to be inspected, not assumed.
+- The branch-root `data/origination.json` is the deterministic 2026-10-15 replay fixture (`live_collection false`, 17 matches), **not** what the site serves; the published list comes from the publish-time collection. Not a defect; recorded so no session "fixes" the fixture.
