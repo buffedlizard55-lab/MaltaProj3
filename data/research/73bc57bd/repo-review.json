@@ -185,6 +185,23 @@
           "detail": "Read 05:44Z; the CI runner records HTTP 403 on HLTV fixture pages, so this read is the only HLTV evidence in the session."
         }
       ]
+    },
+    {
+      "id": "73bc57bd-review-page-is-very-long-on-phone",
+      "area": "Mobile readability",
+      "status": "needs review",
+      "finding": "At 320 px the Flagged for Review page is 247,024 px tall (208,766 px at 390 px) because it renders every session register ever published in publication order; each new session's register is appended last, so the newest findings are the hardest to reach on a phone.",
+      "handling": "Measured first-hand (Playwright, bundled chromium) and published with the numbers. Not changed here: the page renderer (scripts/build.py) is claimed by another live session and reordering registers is a product decision, so this session only records the measurement and the suggestion (newest register first, or one collapsed <details> per session).",
+      "evidence": [
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/review/",
+          "detail": "Deployed page carrying every session register; read 05:36Z."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/review_register.py",
+          "detail": "REGISTERS is rendered in declaration order, so the newest session's block is last."
+        }
+      ]
     }
   ]
 }

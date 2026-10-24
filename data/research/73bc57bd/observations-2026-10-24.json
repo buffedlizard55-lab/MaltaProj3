@@ -742,5 +742,106 @@
         "No HLTV match page was enumerated for this fixture in this session."
       ]
     }
+  },
+  "phone_measurements": {
+    "measured_at": "2026-10-24T05:56:00Z",
+    "build": "local `python -m scripts.build` output (site/), which renders the checked-in deterministic fixture (80 inventory / 17 active), not the live 19-row snapshot",
+    "method": "Playwright + the repository's bundled chromium against `python -m http.server --directory site`, viewport 320x800 and 390x800; overflow = documentElement.scrollWidth - clientWidth; firstPick = offsetTop of the first pick row; navTarget = the smaller dimension of each nav/button/summary element",
+    "results": [
+      {
+        "page": "/",
+        "width": 320,
+        "horizontal_overflow_px": 0,
+        "document_height_px": 33317,
+        "first_pick_row_px": 1146,
+        "nav_targets": 34,
+        "smallest_nav_target_px": 17
+      },
+      {
+        "page": "/",
+        "width": 390,
+        "horizontal_overflow_px": 0,
+        "document_height_px": 29671,
+        "first_pick_row_px": 1006,
+        "nav_targets": 34,
+        "smallest_nav_target_px": 17
+      },
+      {
+        "page": "/picks/",
+        "width": 320,
+        "horizontal_overflow_px": 0,
+        "document_height_px": 12505,
+        "first_pick_row_px": 2837,
+        "nav_targets": 30,
+        "smallest_nav_target_px": 25
+      },
+      {
+        "page": "/picks/",
+        "width": 390,
+        "horizontal_overflow_px": 0,
+        "document_height_px": 11948,
+        "first_pick_row_px": 2643,
+        "nav_targets": 30,
+        "smallest_nav_target_px": 25
+      },
+      {
+        "page": "/unresolved/",
+        "width": 320,
+        "horizontal_overflow_px": 0,
+        "document_height_px": 59182,
+        "first_pick_row_px": 57762,
+        "nav_targets": 8,
+        "smallest_nav_target_px": 48
+      },
+      {
+        "page": "/unresolved/",
+        "width": 390,
+        "horizontal_overflow_px": 0,
+        "document_height_px": 56567,
+        "first_pick_row_px": 55348,
+        "nav_targets": 8,
+        "smallest_nav_target_px": 48
+      },
+      {
+        "page": "/review/",
+        "width": 320,
+        "horizontal_overflow_px": 0,
+        "document_height_px": 247024,
+        "first_pick_row_px": 244606,
+        "nav_targets": 123,
+        "smallest_nav_target_px": 25
+      },
+      {
+        "page": "/review/",
+        "width": 390,
+        "horizontal_overflow_px": 0,
+        "document_height_px": 208766,
+        "first_pick_row_px": 206622,
+        "nav_targets": 123,
+        "smallest_nav_target_px": 25
+      }
+    ],
+    "summary_links": {
+      "in_site_pick_links_on_the_summary": 50,
+      "examples_verbatim": [
+        "Match picks -> ./origination/#picks",
+        "17 picks ready of 17 -> ./origination/#picks",
+        "Full audited list -> ./origination/#picks",
+        "picks without a betting line -> ./#no-line-register",
+        "Unresolved picks -> ./unresolved/"
+      ]
+    },
+    "findings": [
+      "No horizontal overflow anywhere: 0 px at 320 and 390 on all four checked pages.",
+      "A pick is reachable in one tap from the summary: the first glance row starts 1,146 px (320) / 1,006 px (390) down, after 50 in-site pick links.",
+      "The summary is 33,317 px (320) / 29,671 px (390) tall with the 17-row fixture — roughly 40 phone screens — so the page is navigable but very long.",
+      "The picks list page puts its first row 2,837 px (320) / 2,643 px (390) down: the coverage paragraph, stale banner and the two call-to-action blocks sit above the table.",
+      "The Flagged for Review page is 247,024 px (320) / 208,766 px (390) tall because it renders every session register ever published; the current session's register is appended last, so a phone reader must scroll past all earlier registers to reach it.",
+      "One nav target measures 17 px on its smaller side at both widths (the icon-only nav link); axe WCAG A/AA checks still pass in this build, but it is below the 24 px WCAG 2.2 target-size guidance."
+    ],
+    "limitations": [
+      "Measurements are of the local fixture build, not the live site; the live 19-row snapshot is taller by two rows and adds its own dated blocks.",
+      "The smallest-target figure counts only nav/button/summary elements, not inline text links inside sentences."
+    ]
   }
 }

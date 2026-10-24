@@ -107,6 +107,7 @@ def build_dossier(observations: dict, published: list[dict]) -> dict:
         'uncovered': uncovered,
         'published_without_card': published_without_card,
         'cross_checks': observations['cross_checks'],
+        'phone_measurements': observations.get('phone_measurements'),
         'limitations': [
             'Lobby cards are recorded in the timezone Hotspawn renders (US Eastern) and are not converted here.',
             'A market that did not appear in a read segment is "not observed", never "non-existent".',
@@ -193,6 +194,22 @@ def render_markdown(dossier: dict) -> str:
         lines.append(f'- Second source: {check["second_source"]["verbatim"]} '
                      f'({_md_link(check["second_source"]["url"], "EGamersWorld")}, read {check["second_source"]["read_at"][11:16]}Z)')
         lines.append(f'- {check["finding"]}')
+    phone = dossier.get('phone_measurements')
+    if phone:
+        lines += ['', '## Phone check, measured not asserted', '',
+                  f'Build: {phone["build"]}. Method: {phone["method"]}.', '',
+                  '| Page | Width | Horizontal overflow | First pick row | Page height | Nav targets | Smallest |',
+                  '| --- | --- | --- | --- | --- | --- | --- |']
+        for row in phone['results']:
+            lines.append(f'| `{row["page"]}` | {row["width"]} px | {row["horizontal_overflow_px"]} px | '
+                         f'{row["first_pick_row_px"]} px down | {row["document_height_px"]} px | '
+                         f'{row["nav_targets"]} | {row["smallest_nav_target_px"]} px |')
+        lines.append('')
+        for finding in phone['findings']:
+            lines.append(f'- {finding}')
+        lines.append('')
+        for limitation in phone['limitations']:
+            lines.append(f'- Limitation: {limitation}')
     lines += ['', '## Why the site is behind, with the primary sources', '',
               '| Run | Started (UTC) | Result |', '| --- | --- | --- |']
     for run in dossier['publisher_runs']:

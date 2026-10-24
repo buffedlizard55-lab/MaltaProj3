@@ -180,6 +180,32 @@ class MarkdownDossier(unittest.TestCase):
             self.assertIn(item['lobby_time_verbatim'], self.markdown)
 
 
+class PhoneMeasurements(unittest.TestCase):
+    def setUp(self):
+        self.phone = json.loads(DOSSIER.read_text())['phone_measurements']
+
+    def test_both_phone_widths_are_measured_on_every_page(self):
+        pairs = {(row['page'], row['width']) for row in self.phone['results']}
+        for page in ('/', '/picks/', '/unresolved/', '/review/'):
+            for width in (320, 390):
+                self.assertIn((page, width), pairs)
+
+    def test_no_page_overflows_horizontally(self):
+        for row in self.phone['results']:
+            self.assertEqual(row['horizontal_overflow_px'], 0, row)
+            self.assertGreater(row['document_height_px'], 0)
+
+    def test_the_measurement_names_its_build_and_limits(self):
+        self.assertIn('fixture', self.phone['build'])
+        self.assertTrue(self.phone['limitations'])
+        self.assertTrue(self.phone['findings'])
+
+    def test_the_summary_exposes_many_in_site_pick_links(self):
+        self.assertGreaterEqual(self.phone['summary_links']['in_site_pick_links_on_the_summary'], 30)
+        for example in self.phone['summary_links']['examples_verbatim']:
+            self.assertIn('->', example)
+
+
 class ReviewRegisterIsPublished(unittest.TestCase):
     def setUp(self):
         self.register = json.loads(REGISTER.read_text())

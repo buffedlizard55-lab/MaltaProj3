@@ -78,6 +78,31 @@ Session `arena-73bc57bd`. Lobby read **2026-10-24T05:31Z** (25 future cards); pu
 - Second source: Fokus 1.23 / ex-6666 3.83 (no-vig 75.7% / 24.3% by proportional normalisation) ([EGamersWorld](https://egamersworld.com/counterstrike/matches), read 05:34Z)
 - The published 76.5/23.5 sits inside a 3.5-point band between two independent sources read 7.5 hours later (exchange 79/22, bookmaker 75.7/24.3). The pick is unchanged; this is drift, not a discrepancy.
 
+## Phone check, measured not asserted
+
+Build: local `python -m scripts.build` output (site/), which renders the checked-in deterministic fixture (80 inventory / 17 active), not the live 19-row snapshot. Method: Playwright + the repository's bundled chromium against `python -m http.server --directory site`, viewport 320x800 and 390x800; overflow = documentElement.scrollWidth - clientWidth; firstPick = offsetTop of the first pick row; navTarget = the smaller dimension of each nav/button/summary element.
+
+| Page | Width | Horizontal overflow | First pick row | Page height | Nav targets | Smallest |
+| --- | --- | --- | --- | --- | --- | --- |
+| `/` | 320 px | 0 px | 1146 px down | 33317 px | 34 | 17 px |
+| `/` | 390 px | 0 px | 1006 px down | 29671 px | 34 | 17 px |
+| `/picks/` | 320 px | 0 px | 2837 px down | 12505 px | 30 | 25 px |
+| `/picks/` | 390 px | 0 px | 2643 px down | 11948 px | 30 | 25 px |
+| `/unresolved/` | 320 px | 0 px | 57762 px down | 59182 px | 8 | 48 px |
+| `/unresolved/` | 390 px | 0 px | 55348 px down | 56567 px | 8 | 48 px |
+| `/review/` | 320 px | 0 px | 244606 px down | 247024 px | 123 | 25 px |
+| `/review/` | 390 px | 0 px | 206622 px down | 208766 px | 123 | 25 px |
+
+- No horizontal overflow anywhere: 0 px at 320 and 390 on all four checked pages.
+- A pick is reachable in one tap from the summary: the first glance row starts 1,146 px (320) / 1,006 px (390) down, after 50 in-site pick links.
+- The summary is 33,317 px (320) / 29,671 px (390) tall with the 17-row fixture — roughly 40 phone screens — so the page is navigable but very long.
+- The picks list page puts its first row 2,837 px (320) / 2,643 px (390) down: the coverage paragraph, stale banner and the two call-to-action blocks sit above the table.
+- The Flagged for Review page is 247,024 px (320) / 208,766 px (390) tall because it renders every session register ever published; the current session's register is appended last, so a phone reader must scroll past all earlier registers to reach it.
+- One nav target measures 17 px on its smaller side at both widths (the icon-only nav link); axe WCAG A/AA checks still pass in this build, but it is below the 24 px WCAG 2.2 target-size guidance.
+
+- Limitation: Measurements are of the local fixture build, not the live site; the live 19-row snapshot is taller by two rows and adds its own dated blocks.
+- Limitation: The smallest-target figure counts only nav/button/summary elements, not inline text links inside sentences.
+
 ## Why the site is behind, with the primary sources
 
 | Run | Started (UTC) | Result |
