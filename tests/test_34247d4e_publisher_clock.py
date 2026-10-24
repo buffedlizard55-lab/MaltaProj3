@@ -84,7 +84,15 @@ class NoTestMayCallBuildPlanWithoutPinningTheClock(unittest.TestCase):
     def test_the_snapshot_module_keeps_its_pinned_reference_time(self):
         # A regression that reverts the pin has to fail here, loudly.
         source = (TESTS_DIR / "test_ca7e10e5_snapshot.py").read_text(encoding="utf-8")
-        self.assertIn("now=datetime(2026, 10, 23, 10, 0", source)
+        calls = list(_calls_to_build_plan(source))
+        self.assertTrue(calls, "the outage module must still call build_plan")
+        self.assertTrue(
+            all(pinned for _, pinned in calls),
+            "every build_plan call in the outage module must pin its clock",
+        )
+        # The pinned reference time may be written inline (PR #240) or hoisted
+        # into setUp (a later refactor); both must name the fixture's own date.
+        self.assertIn("datetime(2026, 10, 23, 10", source)
 
     def test_the_splat_helper_still_pins_the_clock(self):
         # The only unpinned-looking call left in the suite is a **splat; it is
