@@ -1,0 +1,39 @@
+[
+  {
+    "id": "b72154e1-live-lobby-nine-unpublished",
+    "severity": "warning",
+    "match_ids": ["1079658", "1081152", "1079659", "1081153", "1079660", "1081154", "1079661", "1081156", "1081158"],
+    "title": "9 live Hotspawn CS2 cards have no published pick yet because the post-merge publisher run is still queued (2026-10-24)",
+    "detail": "Live lobby read first-hand 2026-10-24 shows 25 open CS2 cards; the published snapshot (2026-10-23T20:10Z) predates 9 of them. pages.yml run 40069088115 (push after PR #240 merge) has been queued with its republish-last-verified job not started since 2026-10-24T06:09:39Z, so no fresh collect has inventoried them. Guided pick from EGW's index read first-hand today: 1079658 Acend vs FORZE Reload 2.8/1.35 -> FORZE Reload 67.5% (no-vig). No odds are asserted for the other eight without a first-hand read. Full record: data/research/b72154e1/coverage-and-guided-picks.json",
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://egamersworld.com/counterstrike/matches",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40069088115"
+    ]
+  },
+  {
+    "id": "b72154e1-guided-picks-reverified",
+    "severity": "notice",
+    "match_ids": ["1082858", "1082792"],
+    "title": "Guided picks for the 2 unresolved fixtures re-verified 2026-10-24 (HLTV first, then esportsbooks): Off Chops 73.5% (EGW 3.44/1.24 still live); HOTU direction-only (still no line anywhere)",
+    "detail": "1082858: HLTV 2399888 confirms BO3 with no bookmaker odds; EGW match page re-read first-hand 2026-10-24 still publishes Ground Zero 3.44 / Off Chops 1.24 -> no-vig 26.5/73.5, guided pick Off Chops (single aggregated reference; Hotspawn crowd 93% Ground Zero is not a probability). 1082792: HLTV 2399437 confirms BO3 semi, no odds; EGW still 1.8/1.8 placeholder, Polymarket $0 volume; guided pick remains HOTU from the Valve-points model (94.1% uncalibrated, trust direction). Five model-only fixtures were also re-checked (1082996, 1079198, 1079200, 1082861, 1082793): none has a readable two-sided line today, so each keeps its labelled research estimate. Full record: data/research/b72154e1/coverage-and-guided-picks.json",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+      "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+      "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "https://egamersworld.com/counterstrike/match/EkalRNMvVx/hotu-vs-the-huns-esports-SfdtzDhiK",
+      "https://play.hotspawn.com/cs2-pickems#fixture-1082858"
+    ]
+  },
+  {
+    "id": "b72154e1-ten-duplicate-prs",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "Ten open PRs (#238, #239, #241-#248) duplicate each other and the already-merged PR #240 time-bomb fix; merging them all would conflict on COORDINATION.md, scripts/build.py and tests/test_ca7e10e5_snapshot.py",
+    "detail": "Reviewed 2026-10-24: PRs #239, #242, #243, #247 each re-fix the wall-clock regression test that PR #240 already fixed on main; several others re-derive the same live-coverage gap (9 of 25 cards). They are mutually conflicting and mostly superseded. Recommendation recorded for the owner: close or rebase-and-shrink them rather than merging serially; this session merged none of them and touched none of their claimed files. Their research dossiers (data/research/<id>/) remain readable on their branches.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pulls",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/240"
+    ]
+  }
+]
