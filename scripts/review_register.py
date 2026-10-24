@@ -36,6 +36,9 @@ REGISTERS = (
     # (19), the four failed publisher runs that caused the nine uncovered cards,
     # and the HLTV-first/esportsbook evidence for each of them.
     'research/73bc57bd/repo-review.json',
+    # Session dd433e7f: 2026-10-24 publisher clock-pin fix, #no-line-research
+    # deduplication, 25/25 HLTV-first sweep, and competition-scoped aliases.
+    'research/dd433e7f/repo-review.json',
 )
 STATUS = {
     'fixed': ('Fixed', 'green'),
