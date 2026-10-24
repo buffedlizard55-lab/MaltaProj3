@@ -404,5 +404,63 @@ class ReportTests(unittest.TestCase):
         self.assertNotIn('"hand_written', text)
 
 
+class PublisherClockHygieneTests(unittest.TestCase):
+    """The wall-clock defect this session found in a shipped test module.
+
+    `scripts/originate.run` applies an 8-hour price-freshness gate against the
+    wall clock. On 2026-10-24 two tests in tests/test_a5b59ee6_publisher_wiring.py
+    wrote a capture observed at 2026-10-24T06:30Z and called `originate.run`
+    without a reference clock, so they passed until 14:30Z and then failed
+    forever. That is the same class of failure that stopped the four-hour
+    publisher for 10.5 hours (runs 40028653350, 40037957529, 40048429858,
+    40063011446), and it would have blocked the next scheduled refresh.
+    """
+
+    def test_run_accepts_and_honours_an_injected_clock(self):
+        from scripts import originate
+        from datetime import datetime, timezone
+        moment = datetime(2026, 10, 24, 6, 30, tzinfo=timezone.utc)
+        self.assertIn('now', originate.run.__code__.co_varnames)
+        self.assertEqual(originate.iso(moment), '2026-10-24T06:30:00Z')
+
+    def test_the_shipped_module_that_owns_the_dated_capture_pins_its_clock(self):
+        import ast
+        from pathlib import Path
+        source = (Path(__file__).resolve().parent
+                  / 'test_a5b59ee6_publisher_wiring.py').read_text(encoding='utf-8')
+        calls = [node for node in ast.walk(ast.parse(source))
+                 if isinstance(node, ast.Call)
+                 and (getattr(node.func, 'attr', '') or '') == 'run'
+                 and (getattr(node.func, 'value', None) is not None)
+                 and getattr(node.func.value, 'id', '') == 'originate']
+        self.assertGreaterEqual(len(calls), 3, 'the module must still exercise the ladder end to end')
+        for call in calls:
+            self.assertTrue(any(kw.arg == 'now' for kw in call.keywords),
+                            'originate.run() against a dated capture must pin its clock (line %d)'
+                            % call.lineno)
+
+    def test_an_expired_capture_prices_nothing_rather_than_being_repriced(self):
+        """Reproduce the production rule the pin exists for, deterministically."""
+        from datetime import datetime, timedelta, timezone
+        from scripts import reference_odds
+        import hashlib
+        sentence = ('Ground Zero carry published bookmaker-average odds of 3.44 to win '
+                    'against Off Chops at 1.24.')
+        entry = {'fixture_id': '1082858', 'teams': ['Ground Zero', 'Off Chops'],
+                 'starts_at': '2026-10-26T03:00:00Z', 'observed_at': '2026-10-24T06:20:00Z',
+                 'odds': [3.44, 1.24], 'source_url': 'https://egamersworld.com/counterstrike/match/x',
+                 'provider_teams': ['Ground Zero', 'Off Chops'],
+                 'excerpt': sentence,
+                 'excerpt_sha256': hashlib.sha256(sentence.encode('utf-8')).hexdigest()}
+        match = {'id': '1082858', 'starts_at': '2026-10-26T03:00:00Z',
+                 'teams': [{'name': 'Ground Zero'}, {'name': 'Off Chops'}],
+                 'availability': 'future'}
+        fresh = datetime(2026, 10, 24, 6, 30, tzinfo=timezone.utc)
+        expired = fresh + timedelta(hours=9)
+        reference_odds.quote(entry, match, fresh)
+        self.assertEqual(reference_odds.quote(entry, match, expired),
+                         (None, 'Aggregated line is older than eight hours or undated'))
+
+
 if __name__ == '__main__':
     unittest.main()

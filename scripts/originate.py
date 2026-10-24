@@ -2432,12 +2432,21 @@ def resolve_match(match: dict, poly_rows: list, book_rows: list, ratings, valve_
     return keep_featured()
 
 
-def run(output: Path, *, live: bool = False) -> dict:
+def run(output: Path, *, live: bool = False, now: datetime | None = None) -> dict:
+    # `now` is injectable for the same reason `root_publish.build_plan` accepts a
+    # reference clock: the freshness gates (8 h on a price, 300 s into the
+    # future) are wall-clock rules, so a test that pins a dated capture must pin
+    # the clock too. Two tests in tests/test_a5b59ee6_publisher_wiring.py wrote a
+    # capture observed at 2026-10-24T06:30Z and left `now` implicit, so they
+    # began failing at 14:30Z on 2026-10-24 — the same date-dependent failure
+    # class that stopped the four-hour publisher for 10.5 hours (runs
+    # 40028653350..40063011446). Production passes nothing and keeps the real
+    # clock.
     output = Path(output)
     orig_dir = output / 'origination'
     evidence_dir = orig_dir / 'evidence'
     registry = load_registry(orig_dir / 'aliases.json')
-    now = datetime.now(UTC)
+    now = now or datetime.now(UTC)
     snapshot = load_json(output / 'latest.json')
     live_payload = live_collect(evidence_dir, snapshot['matches'], registry) if live else None
     reference_capture = reference_odds.load(output)
