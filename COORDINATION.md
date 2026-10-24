@@ -1,3 +1,19 @@
+# Current session: arena-b72154e1 — picks for every match re-verified live (HLTV first, then esportsbooks), exec-summary/unresolved + phone verification, queued-publisher diagnosis — IN PROGRESS
+
+Claimed **2026-10-24** on Arena's fixed branch `arena/b72154e1-maltaproj3`, based on `main` at `bdb4fc9` (PR #240, session arena-43110640, merged). Board read first. Live facts at claim time: published snapshot `snapshot.json` is `2026-10-23T20:10:00Z` (19 active, 17 picks, **2 unresolved: 1082858 Ground Zero–Off Chops, 1082792 HOTU–The Huns**); S431 already shipped the automated EGW rung (`scripts/egw_live.py`) + guided picks for those two. The post-merge `pages.yml` run [40069088115](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40069088115) is still **queued** (~18 min, `republish-last-verified` not started) — diagnosis in scope. **Ten parallel PRs (#238, #239, #241–#248) are open** and mostly re-fix the same time-bomb test already fixed on `main` by #240; they mutually conflict on `COORDINATION.md`, `scripts/build.py`, `tests/test_ca7e10e5_snapshot.py` and `assets/*`. This session edits **none** of those claimed files and merges none of those PRs; it records the duplication as an irregularity for the owner instead of compounding it.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| SB72-1 Fresh live coverage check: live Hotspawn CS2 lobby vs published snapshot line by line; identify every currently-active fixture with no pick or only a research-model pick | in progress | arena-b72154e1 | new `data/research/b72154e1/**` |
+| SB72-2 For each no-pick / model-only fixture with a future start: HLTV first (identity, format, ranks, displayed bookmaker odds), then esportsbooks/aggregators (EGW, Polymarket, Smarkets, Pinnacle/Thunderpick surfaces readable first-hand); dated guided pick + limitations per fixture; Hotspawn \"% picked\" and HLTV fan votes never used as probabilities; no snapshot row hand-edited | unclaimed→in progress with SB72-1 | arena-b72154e1 | new `data/research/b72154e1/**`, new `tests/test_b72154e1_*.py` |
+| SB72-3 Verify executive summary in-site links to the updated picks, the separate Unresolved section + limitations, and phone readability by local build + targeted suites; fix only defects proven in unclaimed files | unclaimed | arena-b72154e1 | this section; fixes only in files no open PR touches |
+| SB72-4 Diagnose queued run 40069088115; confirm a fresh `pages.yml` publish lands; PR to `main`, merge, confirm Pages deploy; record PR link + result here | unclaimed | arena-b72154e1 | this section, PR |
+
+**Non-overlap pledge:** no edit to `scripts/build.py`, `scripts/collect.py`, `scripts/originate.py`, `assets/*`, `.github/workflows/pages.yml`, `tests/test_ca7e10e5_snapshot.py`, `data/latest.json`, `snapshot.json`, `data/origination.json`, or any other session's `data/research/<id>/`. Cross-owned needs are logged here, not edited.
+
+---
+
+---
 # Current session: arena-2ed65c56 — fresh full-lobby coverage proof, independent line-by-line verification of the published picks, why the two remaining fixtures stay guided, exec-summary/mobile link audit — IN PROGRESS
 
 Claimed **2026-10-24T06:40Z** on Arena's fixed branch `arena/2ed65c56-maltaproj3`, branched from `main` at `bdb4fc9` (merge of PR #240). Read the board and the open runs first.
