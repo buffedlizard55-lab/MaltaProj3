@@ -8323,3 +8323,63 @@ Constraints: sandbox outbound access cannot directly verify Hotspawn/HLTV/books;
 **Concurrent integration (24 Oct):** while hosted checks were running, PRs #240/#241 merged independently overlapping clock and duplicate-section fixes. Stopped at the test-file merge conflict; preserved their new EGW provider/research files unchanged. Reconciled the shared tests to use this session's injected clock plus explicit stale-rejection regression. For the summary kept #241's ownership decision (single block directly in `summary`, not compact register) and adjusted the source assertion accordingly; avoided a semantic clean merge that would have removed both copies. Both sessions' substantive fixes retained. Full combined-tree verification follows before merge.
 
 **Second integration checkpoint:** combined-tree regression found 9 `NameError: egw_live` errors in the concurrently merged provider (PR #240), not in this session's clock fix. Its owner and another session repaired that provider on main (#257); fetched and merged that fix plus subsequent research dossiers without editing their scopes. Pulling with plain `--rebase` tried to flatten the earlier integration merge and replay main's commits; aborted without discarding changes and used `git pull --rebase=merges` to preserve the already-resolved merge. Continuing verification on this integrated head rather than merging a known-broken tree.
+
+## Session arena-f4217201 — every-match picks on today's live lobby, fresh 4–8 h publisher, phone-first exec summary (2026-10-24T07:5xZ)
+
+**Claim.** Arena's fixed branch `arena/f4217201-maltaproj3`, based on `main` `06f56c2` (PR #239 merged 07:22Z). Board and open PRs #259/#260/#266/#269/#270 read before claiming; no session holds an active claim on the files below.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| F42-1 Dated, line-by-line reconciliation of the **live** Hotspawn CS2 lobby and fixture API against the deployed `data/latest.json`, with the exact uncovered set and an official source URL per row | **done** — see F42 result | arena-f4217201 | new `data/research/f4217201/**`, new `scripts/f4217201_probe.py` |
+| F42-2 HLTV-first, then esportsbook/betting-line research for every uncovered card; verbatim evidence, dates, limitations; no hand-written probability | **done** — see F42 result | arena-f4217201 | `data/research/f4217201/first-hand-*.{json,md}`, `flags.json` |
+| F42-3 Verify the executive summary's in-site picks links, the separate unresolved section and phone legibility; fix only defects proven by a failing test | **done — no defect found, nothing edited** | arena-f4217201 | new `tests/test_f4217201_probe.py` only |
+| F42-4 Fresh publish inside the 8 h bound, PR to `main`, merge without waiting, confirm the Pages deploy serves the fresh snapshot, record run ids/sources/irregularities | in progress | arena-f4217201 | this section, PR |
+
+**Non-overlap pledge:** no edit to `scripts/collect.py`, `scripts/originate.py`, `scripts/root_publish.py`, `scripts/egw_live.py`, `scripts/reference_odds.py`, `data/latest.json`, `data/origination.json`, `archive/`, `docs/`, or any other session's `data/research/<id>/`. Hotspawn “% picked” and HLTV fan votes are never probabilities.
+
+### F42 result (2026-10-24T07:25Z–08:25Z)
+
+- **Live reconciliation.** `https://play.hotspawn.com/lobby` rendered **25 future CS2
+  cards** at 07:47Z; the deployed `data/latest.json` was generated
+  **2026-10-23T20:10:00Z** (≈11.6 h old, 19 upcoming / 17 picks / 2 unresolved), so
+  **16** rendered cards were covered and **nine** were not: `1079658, 1079659,
+  1079660, 1079661` (CCT Europe Series #11 playoffs) and `1081152, 1081153, 1081154,
+  1081156, 1081158` (Series #12 group stage). Dossier:
+  `data/research/f4217201/first-hand-reconciliation.md`.
+- **HLTV → esportsbook research (first-hand, 07:52Z–08:06Z).** HLTV event
+  [9442](https://www.hltv.org/events/9442/cct-2026-europe-series-11) confirms the
+  Series #11 bracket (Acend–FORZE Reload, INOX Division–BRUTE). Polymarket's
+  [CCT Europe board](https://polymarket.com/esports/cs2/cct-europe) carries real
+  two-sided volume on four of the nine — Acend–FORZE 31¢/70¢ ($139.22),
+  Spirit Academy–Lavked 66¢/35¢ ($72.12), INOX Division–BRUTE 57¢/44¢ ($1.55K),
+  NTR–ex-Zero Tenacity 65¢/36¢ ($50.16). Three Series #12 books are **crossed or
+  flat at $0.00 volume** (68/85, 72/67, 93/93) and are refused as lines; `1081156`
+  is a provider name conflict (*LFO 10* vs *Sökerorg*). **No probability, pick or
+  alias is written by hand**; the publisher's ladder remains the only path to a
+  published number.
+- **Automation.** New `scripts/f4217201_probe.py` re-reads the same URLs on a GitHub
+  runner and writes `live-reconciliation.json`, `line-research.json` and `flags.json`
+  with HTTP status, content hash and an excerpt per source; it refuses
+  identical-decimal placeholders and zero-volume/crossed books. New
+  `.github/workflows/f4217201-probe.yml` runs it on this branch only, commits under
+  `data/research/f4217201/`, and dispatches `pages.yml` only when the deployed
+  snapshot is >6 h old and no `pages.yml` run is pending. 18 offline tests in
+  `tests/test_f4217201_probe.py` pass; the flags use the publisher's `source_urls`
+  schema and render on **Flagged for Review** (verified in a local build).
+- **Phone / exec-summary verification.** No defect found, so nothing was edited:
+  `scripts.build` PASS on this head (831 audited rows, 812 with an official link,
+  **0 without a source**, 829 internal links/anchors, mobile landmarks);
+  `tests/test_mobile_picks_nav.py` (6), `test_summary_navigation.py` (12),
+  `test_summary.py` (8), `test_unresolved_summary.py` (6) and
+  `test_3016b0c6_mobile_glance.py` (8) all pass. The executive summary already leads
+  with *Start here · where the picks are*, *Picks at a glance*, a one-tap
+  `origination/#picks` link and a separate *Unresolved picks & limitations* register.
+- **Publisher regression.** The previously failing modules
+  `tests/test_ca7e10e5_snapshot.py` and `tests/test_workflow_cache.py` pass on this
+  head (24 tests, 2 skipped), so the 04:36Z scheduled failure has no remaining local
+  reproduction. Scheduled and dispatched publishers are still being queued and
+  cancelled behind concurrent session pushes; this session's freshness claim will be
+  recorded with the run id that finally deploys, not assumed.
+- **Irregularities** (published on the review page): stale snapshot,
+  nine uncovered cards with four usable lines, crossed/flat Series #12 books, the
+  LFO 10 ↔ Sökerorg name conflict, and the sandbox's lack of general egress.

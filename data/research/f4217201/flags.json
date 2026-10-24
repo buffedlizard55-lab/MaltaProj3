@@ -1,0 +1,77 @@
+[
+  {
+    "id": "f4217201-published-snapshot-older-than-eight-hours",
+    "severity": "notice",
+    "title": "The deployed picks snapshot was about 11.6 hours old when this session read it, outside the eight-hour freshness bound",
+    "detail": "At 2026-10-24T07:45Z the public data/latest.json returned generated_at 2026-10-23T20:10:00Z (19 upcoming rows, 17 with a pick, 2 unresolved). The four scheduled publishers between 21:41Z and 04:36Z failed at the regression step and the push-triggered runs were cancelled while pending behind concurrent session merges, so the live site was serving the previous evening's inventory. The stale banner on the page was correct. The freshness watchdog (every 30 minutes) and the dispatcher added by earlier sessions had a workflow_dispatch run pending at 07:39Z; this session does not claim that publish as its own. No probability was repaired, invented or back-dated while the snapshot was stale.",
+    "match_ids": [],
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/coverage/",
+      "https://play.hotspawn.com/lobby"
+    ]
+  },
+  {
+    "id": "f4217201-nine-live-cards-absent-from-the-published-snapshot",
+    "severity": "notice",
+    "title": "Nine of the 25 future cards rendered on the lobby were absent from the published snapshot; four of them already have a usable external line",
+    "detail": "Read first-hand at 2026-10-24T07:47Z-08:06Z: the lobby rendered 25 future CS2 cards, 16 of which appear in the deployed snapshot. The nine absent cards are CCT Europe Series #11 playoff and Series #12 group-stage fixtures (1079658, 1079659, 1079660, 1079661, 1081152, 1081153, 1081154, 1081156, 1081158). Research order was Hotspawn identity, then HLTV, then esportsbook/exchange lines. Four Series #11 cards carry a real two-sided Polymarket book with non-zero volume (Acend-FORZE Reload 31c/70c at $139.22; Spirit Academy-Lavked 66c/35c at $72.12; INOX Division-BRUTE 57c/44c at $1.55K; Nuclear TigeRES-ex-Zero Tenacity 65c/36c at $50.16). Series #12 cards show crossed or flat books at $0.00 volume and are refused as lines. The full dossier, with a source link per row, is data/research/f4217201/first-hand-reconciliation.md; the runner probe replays the same reads.",
+    "match_ids": [
+      "1079658",
+      "1079659",
+      "1079660",
+      "1079661",
+      "1081152",
+      "1081153",
+      "1081154",
+      "1081156",
+      "1081158"
+    ],
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://www.hltv.org/events/9442/cct-2026-europe-series-11",
+      "https://polymarket.com/esports/cs2/cct-europe",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/f4217201-maltaproj3/data/research/f4217201/first-hand-reconciliation.md"
+    ]
+  },
+  {
+    "id": "f4217201-crossed-and-zero-volume-cct-books-refused",
+    "severity": "notice",
+    "title": "Three CCT Europe Series #12 markets are crossed or flat at $0.00 volume and are refused as lines",
+    "detail": "Polymarket's cs2-6yuboj-ssins-2026-10-24 shows 68c/85c (sum 153c) at $0.00 volume, cs2-baks-ill4-2026-10-24 shows 72c/67c (sum 139c) at $0.00 volume, and cs2-tsa-skr2-2026-10-25 shows 93c/93c at $0.00 volume. A crossed or flat book with no traded volume is not a price anyone can take. The published ladder therefore treats these fixtures as having no usable line and leaves them unresolved with their research trail, instead of averaging an untakeable quote into a probability. Recorded so a reader comparing our blank row with a venue page understands why the row is blank.",
+    "match_ids": [
+      "1081153",
+      "1081154",
+      "1081156"
+    ],
+    "source_urls": [
+      "https://polymarket.com/event/cs2-6yuboj-ssins-2026-10-24",
+      "https://polymarket.com/event/cs2-baks-ill4-2026-10-24",
+      "https://polymarket.com/event/cs2-tsa-skr2-2026-10-25"
+    ]
+  },
+  {
+    "id": "f4217201-provider-name-conflict-lfo-10-sokerorg",
+    "severity": "notice",
+    "title": "Polymarket names 'Sokerorg' where Hotspawn names 'LFO 10' for fixture 1081156; the join fails closed",
+    "detail": "The lobby card for fixture 1081156 reads 'Spirit Academy vs LFO 10' (CCT Europe 2026 Series #12, 2026-10-25T12:00Z). Polymarket lists the same hour and competition as 'Spirit Academy vs Sokerorg' (cs2-tsa-skr2-2026-10-25). No first-party document read in this session evidences that the two names are the same team, so no alias is registered and no price is joined. The fixture stays unresolved rather than being silently matched on a guessed identity.",
+    "match_ids": [
+      "1081156"
+    ],
+    "source_urls": [
+      "https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156",
+      "https://polymarket.com/event/cs2-tsa-skr2-2026-10-25"
+    ]
+  },
+  {
+    "id": "f4217201-sandbox-cannot-reach-non-github-hosts",
+    "severity": "notice",
+    "title": "The coding sandbox has no general egress; every non-GitHub page in this dossier was read through the agent's page fetcher and is replayed on a GitHub runner",
+    "detail": "Shell requests to Hotspawn, HLTV, Polymarket and the books fail in this workspace (only github.com, codeload.github.com, api.github.com, registry.npmjs.org, pypi.org and files.pythonhosted.org are reachable), so no collector, origination or deploy can run here. The dated first-hand reads in this dossier were made with the agent's page fetcher and quote the venue text and volume as displayed. scripts/f4217201_probe.py re-fetches the same public URLs on a GitHub runner, stores HTTP status, content hash and an excerpt for each, and commits only data/research/f4217201/. Nothing was inferred from a page that could not be opened; a page that failed is recorded as failed.",
+    "match_ids": [],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/f4217201-maltaproj3/scripts/f4217201_probe.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/f4217201-maltaproj3/.github/workflows/f4217201-probe.yml"
+    ]
+  }
+]
