@@ -1,0 +1,44 @@
+{
+  "session_id": "arena-e57df95b",
+  "observed_at": "2026-10-24T06:29:25Z",
+  "entries": [
+    {
+      "fixture_id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "provider_teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "starts_at": "2026-10-26T03:00:00Z",
+      "odds": [
+        3.44,
+        1.24
+      ],
+      "source_url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+      "observed_at": "2026-10-24T06:29:25Z",
+      "excerpt": "According to leading bookmakers predictions, the team Off Chops are the favorite with average odds 1.24 at the moment. Respectively, bookmakers consider Ground Zero to be the outsider of the match with odds on a victory in the sum of about 3.44.",
+      "excerpt_sha256": "080a558f7ff9cb974f6715f33faca5f7b9b7796263e47ab959f234cdcfebc902",
+      "provider": "EGamersWorld (published bookmaker average)",
+      "capture": "manually reviewed match-page aggregate; independent E57 read",
+      "identity_crosscheck": {
+        "hotspawn_fixture_id": "1082858",
+        "hotspawn_start_utc": "2026-10-26T03:00:00Z",
+        "hltv_url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+        "hltv_format": "Best of 3 (LAN)",
+        "smarkets_event_url": "https://api.smarkets.com/v3/events/45396333/",
+        "smarkets_start_utc": "2026-10-26T03:00:00Z",
+        "egw_page_title": "Ground Zero VS Off Chops: 26.10.2026 at 03:00. Counter-Strike (CS2)",
+        "display_clock_timezone": null
+      },
+      "limitations": [
+        "Third-party aggregated bookmaker average, not a first-party bookmaker quote.",
+        "The EGW event index still displays a rejected 1.8/1.8 placeholder; only the linked match page carries this aggregate.",
+        "EGW text extraction does not expose a timezone-qualified machine start; exact teams/event/start were manually cross-checked against Hotspawn and Smarkets. No automated promotion is inferred."
+      ]
+    }
+  ],
+  "rejected": []
+}
