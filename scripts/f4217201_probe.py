@@ -440,8 +440,7 @@ def flags_for(rec: dict, line_research: dict) -> list[dict]:
                        f"behind session pushes. The live lobby still rendered "
                        f"{rec['counts']['lobby_rendered']} cards, so the stale page under-reports "
                        f"coverage until the next successful publish."),
-            'sources': [{'label': 'Deployed snapshot', 'url': PUBLISHED_JSON},
-                        {'label': 'Hotspawn lobby', 'url': LOBBY_URL}],
+            'source_urls': [PUBLISHED_JSON, LOBBY_URL],
         })
     if uncovered:
         flags.append({
@@ -455,8 +454,7 @@ def flags_for(rec: dict, line_research: dict) -> list[dict]:
                        'probability was invented. Verdicts: '
                        + '; '.join(f"{f['teams'][0]} vs {f['teams'][1]} ({f['id']}): {f['verdict']}"
                                    for f in uncovered) + '.'),
-            'sources': [{'label': 'Live reconciliation', 'url': LOBBY_URL},
-                        {'label': 'Hotspawn fixture API', 'url': FIXTURES_API}],
+            'source_urls': [LOBBY_URL, FIXTURES_API],
         })
     blocked = sorted({p['source'] for f in uncovered for p in f['probes']
                       if str(p.get('status', '')).startswith(('http-', 'challenge', 'error'))
@@ -470,8 +468,7 @@ def flags_for(rec: dict, line_research: dict) -> list[dict]:
             'detail': ('Blocked or failed: ' + ', '.join(blocked) + '. A block is an access '
                        'limitation, not evidence that no market exists; the affected fixtures stay '
                        'labelled unresolved rather than being given a made-up price.'),
-            'sources': [{'label': 'Research dossier',
-                         'url': 'https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/f4217201/line-research.json'}],
+            'source_urls': ['https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/f4217201/line-research.json'],
         })
     return flags
 

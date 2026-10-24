@@ -205,6 +205,12 @@ class ResearchVerdicts(unittest.TestCase):
                                  'counts': {'lobby_rendered': 25}},
                                 {'fixtures': [out]})
         ids = {f['id'] for f in flags}
+        # The publisher's review renderer reads source_urls; a flag without it
+        # would crash scripts.build for every session's page.
+        for finding in flags:
+            self.assertTrue(finding['source_urls'])
+            self.assertTrue(all(u.startswith('https://') for u in finding['source_urls']))
+            self.assertIn('match_ids', finding)
         self.assertIn('f4217201-published-snapshot-older-than-eight-hours', ids)
         self.assertIn('f4217201-live-fixtures-without-a-published-pick', ids)
         self.assertIn('f4217201-line-source-blocks-this-sweep', ids)
