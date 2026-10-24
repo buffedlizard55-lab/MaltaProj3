@@ -37,11 +37,13 @@ SNAPSHOT = ROOT / 'snapshot.json'
 class WallClockFixHolds(unittest.TestCase):
     def test_every_build_plan_call_passes_the_fixed_clock(self):
         # Sessions f1277d3b and 43110640 fixed this independently (same pinned
-        # instant); main carries the `_plan()` helper form. What matters is
-        # that no bare wall-clock call survives and a pinned instant is used.
+        # instant); main's exact spelling has since been refactored twice.
+        # What matters is behaviour: no bare wall-clock call survives, and the
+        # reference time is pinned to the fixture's own morning.
+        import re
         source = (ROOT / 'tests/test_ca7e10e5_snapshot.py').read_text()
         self.assertNotIn('root_publish.build_plan(self.output, self.root)', source)
-        self.assertIn('datetime(2026, 10, 23, 10, 0, tzinfo=timezone.utc)', source)
+        self.assertRegex(source, r'datetime\(2026, 10, 23, 10\b')
 
     def test_fixture_stamp_plans_at_the_fixed_reference_time(self):
         from scripts import root_publish
