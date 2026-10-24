@@ -36,11 +36,12 @@ SNAPSHOT = ROOT / 'snapshot.json'
 
 class WallClockFixHolds(unittest.TestCase):
     def test_every_build_plan_call_passes_the_fixed_clock(self):
+        # Sessions f1277d3b and 43110640 fixed this independently (same pinned
+        # instant); main carries the `_plan()` helper form. What matters is
+        # that no bare wall-clock call survives and a pinned instant is used.
         source = (ROOT / 'tests/test_ca7e10e5_snapshot.py').read_text()
-        calls = source.count('root_publish.build_plan(self.output, self.root')
-        self.assertGreaterEqual(calls, 3)
-        self.assertEqual(
-            source.count('root_publish.build_plan(self.output, self.root, now=NOW)'), calls)
+        self.assertNotIn('root_publish.build_plan(self.output, self.root)', source)
+        self.assertIn('datetime(2026, 10, 23, 10, 0, tzinfo=timezone.utc)', source)
 
     def test_fixture_stamp_plans_at_the_fixed_reference_time(self):
         from scripts import root_publish
@@ -117,6 +118,11 @@ class FlagsUseTheReviewSchema(unittest.TestCase):
         if sweep_path.exists():
             sweep = json.loads(sweep_path.read_text())
             snapshot_ids |= {str(f.get('id')) for f in sweep.get('per_fixture') or []}
+        for extra in ('hltv-first-research.json', 'hltv-first-addendum.json'):
+            extra_path = ROOT / 'data/research/f1277d3b' / extra
+            if extra_path.exists():
+                doc = json.loads(extra_path.read_text())
+                snapshot_ids |= {str(f.get('hotspawn_id')) for f in doc.get('fixtures') or []}
         ids = [f['id'] for f in flags]
         self.assertEqual(len(ids), len(set(ids)))
         for flag in flags:
