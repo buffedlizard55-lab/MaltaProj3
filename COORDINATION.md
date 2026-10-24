@@ -7198,3 +7198,16 @@ Constraints: sandbox outbound access cannot directly verify Hotspawn/HLTV/books;
 **Concurrent integration (24 Oct):** while hosted checks were running, PRs #240/#241 merged independently overlapping clock and duplicate-section fixes. Stopped at the test-file merge conflict; preserved their new EGW provider/research files unchanged. Reconciled the shared tests to use this session's injected clock plus explicit stale-rejection regression. For the summary kept #241's ownership decision (single block directly in `summary`, not compact register) and adjusted the source assertion accordingly; avoided a semantic clean merge that would have removed both copies. Both sessions' substantive fixes retained. Full combined-tree verification follows before merge.
 
 **Second integration checkpoint:** combined-tree regression found 9 `NameError: egw_live` errors in the concurrently merged provider (PR #240), not in this session's clock fix. Its owner and another session repaired that provider on main (#257); fetched and merged that fix plus subsequent research dossiers without editing their scopes. Pulling with plain `--rebase` tried to flatten the earlier integration merge and replay main's commits; aborted without discarding changes and used `git pull --rebase=merges` to preserve the already-resolved merge. Continuing verification on this integrated head rather than merging a known-broken tree.
+
+## Session arena-f4217201 — every-match picks on today's live lobby, fresh 4–8 h publisher, phone-first exec summary (2026-10-24T07:5xZ)
+
+**Claim.** Arena's fixed branch `arena/f4217201-maltaproj3`, based on `main` `06f56c2` (PR #239 merged 07:22Z). Board and open PRs #259/#260/#266/#269/#270 read before claiming; no session holds an active claim on the files below.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| F42-1 Dated, line-by-line reconciliation of the **live** Hotspawn CS2 lobby and fixture API against the deployed `data/latest.json`, with the exact uncovered set and an official source URL per row | in progress | arena-f4217201 | new `data/research/f4217201/**`, new `scripts/f4217201_reconcile.py` |
+| F42-2 HLTV-first, then esportsbook/betting-line research for every uncovered card; verbatim evidence, dates, limitations; no hand-written probability | in progress | arena-f4217201 | new `data/research/f4217201/line-research.{json,md}`, `flags.json` |
+| F42-3 Verify the executive summary's in-site picks links, the separate unresolved section and phone legibility; fix only defects proven by a failing test | in progress | arena-f4217201 | `scripts/build.py` (summary/glance regions only), `assets/scout.css` (appended rules only), new `tests/test_f4217201_*.py` |
+| F42-4 Fresh publish inside the 8 h bound, PR to `main`, merge without waiting, confirm the Pages deploy serves the fresh snapshot, record run ids/sources/irregularities | in progress | arena-f4217201 | this section, PR |
+
+**Non-overlap pledge:** no edit to `scripts/collect.py`, `scripts/originate.py`, `scripts/root_publish.py`, `scripts/egw_live.py`, `scripts/reference_odds.py`, `data/latest.json`, `data/origination.json`, `archive/`, `docs/`, or any other session's `data/research/<id>/`. Hotspawn “% picked” and HLTV fan votes are never probabilities.
