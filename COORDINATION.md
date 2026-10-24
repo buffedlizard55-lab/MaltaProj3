@@ -35,6 +35,31 @@ other session's `data/research/<id>/` is touched. Hotspawn "% picked" and HLTV f
 probabilities.
 
 
+### S719 merge + deploy record
+
+* **PR [#253](https://github.com/buffedlizard55-lab/MaltaProj3/pull/253)** → **merged** (merge commit
+  `5ee2ab9`, 2026-10-24T07:05:24Z), branch `arena/719a314a-maltaproj3` → `main`. Merged without waiting
+  for approval as the brief instructs; the two required checks were still `queued` (not failing) at
+  merge time because the Actions queue was backed up, so the same command the checks run was executed
+  locally on the merged head first: `python -m unittest discover -s tests` → **1284 tests, OK, exit 0**.
+* **Build:** `python -m scripts.build` PASS — 803 audited rows, 784 with an official link, **0 without a
+  source**, acceptance 9 pass / 1 info / 0 fail, **827 internal links/assets/anchors**, 9 Pages views.
+  All five `719a314a-*` flags verified present in the built `/review/` HTML, dossier copied to
+  `/data/research/719a314a/`.
+* **Blockers reconciled, not duplicated.** Two other sessions fixed the same two refresh blockers while
+  this branch was open — `e360f4c` (PR #241) for the duplicated `#no-line-research` anchor and `bdcd099`
+  (PR #252) for the missing `egw_live` import. This branch carries **main's implementations unchanged**
+  and contributes the regression tests that pin both (`tests/test_719a314a_duplicate_anchors.py`,
+  `tests/test_719a314a_live_collect.py`). Nothing of theirs was reverted.
+* **Deploy status.** Push-triggered publisher runs keep being *cancelled*: every merge to `main` opens a
+  run in the `pages-push` concurrency group and GitHub cancels a pending run as soon as a newer one
+  joins it (40071100402, 40071346040, 40071396534, 40072018315 all `cancelled` on 2026-10-24). The
+  workflow_dispatch path is not available to this token (HTTP 403, the same restriction the coverage
+  page records). The scheduled runs use their own `pages-schedule` group and are the reliable path: the
+  `08:17Z` primary slot is the first one that can publish with both fixes on `main`. Until it lands the
+  deployed page still shows `Inventory checked 23 Oct 2026, 22:09` and its own stale banner, which is
+  the designed degraded mode rather than a silently wrong page.
+
 ### S719 addendum — the collection path itself was dead
 
 Running the workflow's own command (`python -m unittest discover -s tests`, 1284 tests, 956 s) on this
