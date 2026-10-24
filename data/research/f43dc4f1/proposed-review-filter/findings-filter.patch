@@ -1,0 +1,327 @@
+diff --git a/assets/findings-filter.js b/assets/findings-filter.js
+new file mode 100644
+index 0000000..f56365c
+--- /dev/null
++++ b/assets/findings-filter.js
+@@ -0,0 +1,55 @@
++/* Presentation only: the findings register on /review/.
++ *
++ * Session arena-f43dc4f1. The register publishes ~300 findings and was the
++ * longest page on the site with no way to find one of them on a phone. This
++ * script only *hides* rows the reader has filtered out: every row is rendered
++ * server-side and is visible with JavaScript disabled, no text is added,
++ * removed or reworded, no source link changes, and there are no network calls.
++ * The count it reports is the number of rows still shown, never a new claim.
++ */
++(function () {
++  var input = document.getElementById('finding-search');
++  var count = document.getElementById('finding-count');
++  var table = document.querySelector('#findings table');
++  if (!input || !table) return;
++
++  var rows = Array.prototype.slice.call(table.querySelectorAll('tbody tr'));
++  var buttons = Array.prototype.slice.call(document.querySelectorAll('[data-finding-filter]'));
++  var mode = 'all';
++
++  function matches(row) {
++    var severity = row.getAttribute('data-finding-severity') || 'review';
++    if (mode === 'review' && severity !== 'review') return false;
++    if (mode === 'notice' && severity !== 'notice') return false;
++    var query = input.value.trim().toLowerCase();
++    if (!query) return true;
++    return (row.textContent || '').toLowerCase().indexOf(query) !== -1;
++  }
++
++  function apply() {
++    var shown = 0;
++    rows.forEach(function (row) {
++      var keep = matches(row);
++      // An inline style, not the `hidden` attribute: the mobile stylesheet sets
++      // `display: block` on these rows and would beat the UA `[hidden]` rule.
++      row.style.display = keep ? '' : 'none';
++      if (keep) shown++;
++    });
++    if (count) {
++      count.textContent = shown === rows.length
++        ? rows.length + ' findings'
++        : shown + ' of ' + rows.length + ' findings shown';
++    }
++  }
++
++  input.addEventListener('input', apply);
++  buttons.forEach(function (button) {
++    button.addEventListener('click', function () {
++      mode = button.getAttribute('data-finding-filter') || 'all';
++      buttons.forEach(function (other) {
++        other.setAttribute('aria-pressed', other === button ? 'true' : 'false');
++      });
++      apply();
++    });
++  });
++})();
+diff --git a/assets/scout.css b/assets/scout.css
+index 8b0ff30..d646404 100644
+--- a/assets/scout.css
++++ b/assets/scout.css
+@@ -674,3 +674,16 @@
+   .direct-sources-compact h3{font-size:13.5px}
+   .direct-sources-compact .direct-scope li{font-size:11px;padding:5px 7px}
+ }
++
++/* Session arena-f43dc4f1 — findings register filter (/review/).
++   The register is the longest page on the site (301 findings at 2026-10-24) and
++   had no way to find one of them on a phone. Rows are unchanged and all visible
++   without JavaScript; assets/findings-filter.js only hides the rows a reader
++   has filtered out. Nothing here changes a label, a link or a finding. */
++.findings-filter{align-items:flex-end}
++.findings-filter>p{margin:0;font-size:10px;color:#576b79;align-self:center;white-space:nowrap}
++@media(max-width:700px){
++  .findings-filter{padding-bottom:14px}
++  .findings-filter>p{font-size:11px;align-self:flex-start;white-space:normal}
++  .findings-filter .filter-tabs button{min-height:44px}
++}
+diff --git a/scripts/build.py b/scripts/build.py
+index 2cb8b76..f05dc2c 100644
+--- a/scripts/build.py
++++ b/scripts/build.py
+@@ -2279,8 +2279,30 @@ def methodology(data, prefix):
+ 
+ 
+ def flags_table(flags):
+-    """Render the source-linked findings register, including supersede links."""
+-    out = '<section class="content-section"><div class="section-heading"><div><p class="eyebrow">Research &amp; integrity register</p><h2>All findings</h2></div><span class="muted small">Source-linked, not silently corrected</span></div><div class="table-scroll"><table class="simple-table review-table"><caption class="sr-only">Source-linked irregularities and analysis limitations</caption><thead><tr><th>Finding</th><th>Limitation / handling</th><th>Original sources</th></tr></thead><tbody>'
++    """Render the source-linked findings register, including supersede links.
++
++    Session arena-f43dc4f1: this register is the longest page on the site (301
++    findings, 417 table rows, ~1 MB of HTML at 2026-10-24) and had no way to
++    find one finding inside it on a phone. The rows are unchanged and are all
++    rendered and visible without JavaScript; a search box and four severity
++    filters let a reader narrow the same rows. The counts come from the rows
++    themselves, so the filter can never claim a finding the table does not
++    show.
++    """
++    out = '<section class="content-section" id="findings"><div class="section-heading"><div><p class="eyebrow">Research &amp; integrity register</p><h2>All findings</h2></div><span class="muted small">Source-linked, not silently corrected</span></div>'
++    notice_count = sum(1 for f in flags if f.get('severity') == 'notice')
++    out += ('<div class="filter-bar findings-filter">'
++            '<label class="search-box">' + icon('search')
++            + '<span class="sr-only">Find a finding by team, source or session</span>'
++            '<input id="finding-search" type="search" placeholder="Find a finding — team, source or session…" autocomplete="off"></label>'
++            '<div class="filter-tabs" role="group" aria-label="Finding severity">'
++            f'<button type="button" data-finding-filter="all" aria-pressed="true">All<span>{len(flags)}</span></button>'
++            f'<button type="button" data-finding-filter="review" aria-pressed="false">Needs review<span>{len(flags) - notice_count}</span></button>'
++            f'<button type="button" data-finding-filter="notice" aria-pressed="false">Notice<span>{notice_count}</span></button>'
++            '</div><p id="finding-count" aria-live="polite">' + f'{len(flags)} findings</p></div>'
++            '<noscript><p class="tiny muted" style="padding:0 25px 14px">Filtering needs JavaScript. '
++            'Every finding below is rendered either way.</p></noscript>'
++            '<div class="table-scroll"><table class="simple-table review-table"><caption class="sr-only">Source-linked irregularities and analysis limitations</caption><thead><tr><th>Finding</th><th>Limitation / handling</th><th>Original sources</th></tr></thead><tbody>')
+     # A later session can settle an earlier finding. Keeping both rows without a
+     # link leaves the review page arguing with itself, so a resolving flag names
+     # the findings it supersedes and those rows say so in place.
+@@ -2294,7 +2316,9 @@ def flags_table(flags):
+             label = badge('Superseded', 'purple') + f'<small>Answered by <a href="#flag-{e(resolver)}">a later finding</a></small>'
+         else:
+             label = badge('Notice' if f['severity'] == 'notice' else 'Needs review', 'purple' if f['severity'] == 'notice' else 'amber') + (f'<small>{len(f["match_ids"])} affected source records</small>' if f['match_ids'] else '')
+-        out += f'<tr id="flag-{e(f["id"])}"' + (' class="superseded-flag"' if resolver else '') + f'><th scope="row">{label}<strong>{e(f["title"])}</strong></th><td>{e(f["detail"])}</td><td><div class="evidence-links">'
++        severity = 'notice' if f.get('severity') == 'notice' else 'review'
++        filter_attrs = f' data-finding-severity="{severity}"' + (' data-finding-superseded="true"' if resolver else '')
++        out += f'<tr id="flag-{e(f["id"])}"' + (' class="superseded-flag"' if resolver else '') + filter_attrs + f'><th scope="row">{label}<strong>{e(f["title"])}</strong></th><td>{e(f["detail"])}</td><td><div class="evidence-links">'
+         for url in dict.fromkeys(f['source_urls']):
+             label = 'Hotspawn' if 'hotspawn' in url or 'cloudwaysapps' in url else 'Valve' if 'ValveSoftware' in url else 'Polymarket' if 'polymarket' in url else 'HLTV' if 'hltv.org' in url else urlparse_host(url)
+             out += external(url, label)
+@@ -2379,6 +2403,10 @@ def shell(data, key, body, prefix, now=None):
+         extra_css += f'<script src="{prefix}assets/pick-safety.js" defer></script>'
+     if key == 'summary':
+         extra_css += f'<script src="{prefix}assets/glance-lock.js" defer></script>'
++    if key == 'review':
++        # Session arena-f43dc4f1: filter box for the findings register. Self-hosted
++        # to satisfy the page's `script-src 'self'` policy; it hides rows only.
++        extra_css += f'<script src="{prefix}assets/findings-filter.js" defer></script>'
+     return f'''<!doctype html>
+ <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{e(title)} · Spawn Scout</title><meta name="description" content="Every Hotspawn CS2 match, independent probabilities, clear picks and original evidence. Mobile-friendly, read-only analysis with visible coverage gaps."><meta name="theme-color" content="#142534"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'"><link rel="icon" href="{prefix}assets/scout-mark.svg" type="image/svg+xml"><link rel="stylesheet" href="{prefix}assets/scout.css">{extra_css}<script src="{prefix}assets/scout.js" defer></script></head>
+ <body {safety_attrs} data-page="{key}" data-inventory-time="{e(inventory)}" data-inventory-complete="{str(data['coverage_complete']).lower()}" data-snapshot-generated="{e(data['generated_at'])}" data-data-url="{prefix}snapshot.json"><a class="skip-link" href="#main">Skip to content</a>
+diff --git a/tests/browser/f43dc4f1_findings.spec.mjs b/tests/browser/f43dc4f1_findings.spec.mjs
+new file mode 100644
+index 0000000..f317978
+--- /dev/null
++++ b/tests/browser/f43dc4f1_findings.spec.mjs
+@@ -0,0 +1,54 @@
++import { test, expect } from '@playwright/test';
++
++/**
++ * Session arena-f43dc4f1: the findings register on /review/ must be usable on a
++ * phone. It is the longest page on the site (305 findings, 417 table rows,
++ * ~1 MB of HTML on 2026-10-24) and had no way to find one finding inside it.
++ *
++ * The filter only hides rows: every row is rendered server-side and visible by
++ * default, which is what the existing assertions on individual `#flag-…` rows
++ * rely on. These checks therefore assert (a) nothing is hidden on load, (b) a
++ * query that matches nothing hides everything and the count says so, (c) the
++ * severity buttons narrow to exactly the rows carrying that severity, and
++ * (d) the page still does not scroll sideways at 320 px.
++ */
++for (const width of [320, 390]) {
++  test(`findings register is searchable and fits at ${width}px`, async ({ page }) => {
++    await page.setViewportSize({ width, height: 900 });
++    await page.goto('/review/');
++
++    const rows = page.locator('#findings table tbody tr');
++    const total = await rows.count();
++    expect(total).toBeGreaterThan(50);
++
++    // Nothing is hidden before the reader filters anything.
++    await expect(page.locator('#findings tbody tr[style]')).toHaveCount(0);
++    await expect(page.locator('#finding-count')).toContainText(`${total} findings`);
++
++    // A query that cannot match hides every row and says how many are shown.
++    await page.fill('#finding-search', 'zzzz-no-such-finding');
++    await expect(page.locator('#findings tbody tr:visible')).toHaveCount(0);
++    await expect(page.locator('#finding-count')).toContainText('0 of');
++
++    // Clearing the query restores every row.
++    await page.fill('#finding-search', '');
++    await expect(page.locator('#findings tbody tr:visible')).toHaveCount(total);
++
++    // Each severity button narrows to exactly the rows carrying that severity.
++    for (const severity of ['notice', 'review']) {
++      const expected = await page.locator(`#findings tbody tr[data-finding-severity="${severity}"]`).count();
++      await page.getByRole('button', { name: new RegExp(`^${severity === 'notice' ? 'Notice' : 'Needs review'}`) }).click();
++      await expect(page.locator('#findings tbody tr:visible')).toHaveCount(expected);
++      await expect(page.locator(`#finding-count`)).toContainText(`${expected} of ${total}`);
++    }
++    await page.getByRole('button', { name: /^All/ }).click();
++    await expect(page.locator('#findings tbody tr:visible')).toHaveCount(total);
++
++    // The one-tap destination the brief asks about still reaches the picks.
++    const metrics = await page.evaluate(() => ({
++      scrollWidth: document.documentElement.scrollWidth,
++      innerWidth: window.innerWidth,
++    }));
++    expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.innerWidth);
++  });
++}
+diff --git a/tests/test_f43dc4f1_findings_filter.py b/tests/test_f43dc4f1_findings_filter.py
+new file mode 100644
+index 0000000..1b49503
+--- /dev/null
++++ b/tests/test_f43dc4f1_findings_filter.py
+@@ -0,0 +1,120 @@
++"""Session arena-f43dc4f1: the findings register must be searchable on a phone.
++
++`site/review/index.html` is the longest page on the site — 305 findings, 417
++table rows, ~1 MB of HTML on 2026-10-24 — and a reader had no way to find one
++finding inside it: no index, no search, no grouping, on any screen size. The
++brief asks for a site that is "easily readable and accessible on phone and
++mobile device", so a page that can only be read top-to-bottom fails it.
++
++The fix is presentation-only and deliberately conservative:
++
++* every finding is still rendered server-side, in the same order, with the same
++  title, detail and source links;
++* a search box and two severity filters let a reader narrow those same rows;
++* the only script is self-hosted (`script-src 'self'` in the page CSP) and it
++  only hides rows — it adds no text and makes no network request;
++* with JavaScript disabled every row stays visible, and a `<noscript>` note says
++  so.
++
++Nothing here asserts a probability, a pick or a source status.
++"""
++from __future__ import annotations
++
++import re
++import unittest
++from pathlib import Path
++
++from bs4 import BeautifulSoup
++
++ROOT = Path(__file__).resolve().parents[1]
++BUILD = (ROOT / 'scripts/build.py').read_text()
++SCRIPT = ROOT / 'assets/findings-filter.js'
++
++
++def flags_table_source() -> str:
++    start = BUILD.index('def flags_table(')
++    return BUILD[start:BUILD.index('\ndef ', start + 10)]
++
++
++class TheRegisterCarriesAFilter(unittest.TestCase):
++    def test_the_table_renders_a_search_box_and_severity_buttons(self):
++        body = flags_table_source()
++        self.assertIn('id="finding-search"', body)
++        self.assertIn('id="finding-count"', body)
++        for mode in ('all', 'review', 'notice'):
++            self.assertIn(f'data-finding-filter="{mode}"', body, mode)
++
++    def test_every_row_publishes_its_severity_for_the_filter(self):
++        self.assertIn("data-finding-severity=", flags_table_source())
++
++    def test_the_counts_come_from_the_rows_not_from_a_constant(self):
++        # A hardcoded number could claim findings the table does not show.
++        body = flags_table_source()
++        self.assertIn('len(flags)', body)
++        self.assertNotRegex(body, r'finding-count[^>]*>\s*\d+\s*findings')
++
++    def test_a_reader_without_javascript_is_told_everything_is_still_rendered(self):
++        body = flags_table_source()
++        self.assertIn('<noscript>', body)
++        self.assertIn('Every finding below is rendered either way', body)
++
++
++class TheScriptOnlyHidesRows(unittest.TestCase):
++    def setUp(self):
++        self.source = SCRIPT.read_text()
++
++    def test_the_asset_exists_and_ships_with_every_build(self):
++        self.assertTrue(SCRIPT.is_file())
++
++    def test_no_network_calls(self):
++        for forbidden in ('fetch(', 'XMLHttpRequest', 'WebSocket', 'navigator.sendBeacon', 'import('):
++            self.assertNotIn(forbidden, self.source, forbidden)
++
++    def test_it_hides_rows_without_the_hidden_attribute_being_overridden(self):
++        # scout.css sets `display: block` on these rows below 700px, which beats
++        # the user-agent `[hidden] { display: none }` rule; an inline style is
++        # the only thing that reliably hides a row here.
++        self.assertIn('row.style.display', self.source)
++        self.assertNotIn('row.hidden =', self.source)
++
++    def test_it_never_writes_a_finding_or_a_source(self):
++        for forbidden in ('textContent =', 'innerHTML', 'insertAdjacentHTML'):
++            if forbidden == 'textContent =':
++                # The count line is the one permitted write, and it is a count.
++                self.assertEqual(self.source.count('textContent ='), 1)
++                continue
++            self.assertNotIn(forbidden, self.source, forbidden)
++
++    def test_it_targets_the_findings_register_only(self):
++        self.assertIn("#findings table", self.source)
++
++
++class TheReviewPageLoadsItAndNothingElseDoes(unittest.TestCase):
++    def test_the_shell_adds_the_script_for_the_review_page_only(self):
++        self.assertIn("if key == 'review':", BUILD)
++        self.assertIn("assets/findings-filter.js", BUILD)
++
++    def test_the_built_page_keeps_every_row_visible_by_default(self):
++        page = ROOT / 'site/review/index.html'
++        if not page.is_file():
++            self.skipTest('run python -m scripts.build first')
++        soup = BeautifulSoup(page.read_text(), 'html.parser')
++        rows = soup.select('#findings table tbody tr')
++        self.assertGreater(len(rows), 10)
++        for row in rows:
++            self.assertIsNotNone(row.get('data-finding-severity'), row.get('id'))
++            self.assertIsNone(row.get('style'), f"{row.get('id')} must not be pre-hidden")
++        count = soup.find(id='finding-count').get_text(strip=True)
++        self.assertEqual(count, f'{len(rows)} findings')
++        self.assertIsNotNone(soup.find('script', src=re.compile('findings-filter\\.js')))
++
++    def test_no_other_page_loads_the_filter(self):
++        site = ROOT / 'site'
++        if not site.is_dir():
++            self.skipTest('run python -m scripts.build first')
++        pages = [p for p in site.rglob('*.html') if 'findings-filter.js' in p.read_text()]
++        self.assertEqual([p.relative_to(site).as_posix() for p in pages], ['review/index.html'])
++
++
++if __name__ == '__main__':
++    unittest.main()

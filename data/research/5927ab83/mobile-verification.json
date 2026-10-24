@@ -1,0 +1,45 @@
+{
+  "session": "arena-5927ab83",
+  "observed_at": "2026-10-24T05:53:00Z",
+  "scope": "Executive summary, complete-picks navigation, every generated glance row, no-line limitations and the dated research anchor on the deterministic repository build",
+  "baseline": {
+    "build": "80 replayed source rows; 768 row-source rows; 749 official links; 9 flagged unverified; 10 site-map rows; 0 without a source; 829 internal links/assets/anchors passed",
+    "browser_command": "npm test -- --grep 'phone|summary|mobile|navigation|5927ab83'",
+    "result": "37 passed at phone, tablet and desktop widths, including 320/390 px summary navigation and WCAG scans"
+  },
+  "defect_found": {
+    "id": "5927ab83-duplicate-executive-summary-research-anchor",
+    "evidence": "The checked-in published root index.html and the newly built site/index.html each contained two id=no-line-research elements. The first belonged to #unresolved-register and the second was a direct summary() append.",
+    "new_browser_test_initial_result": "2 failed at 320 and 390 px: expected one #no-line-research, received two. Every per-row pick/probability/source/limitation assertion before that final anchor assertion passed."
+  },
+  "fix": {
+    "file": "scripts/build.py",
+    "detail": "The local reproduction initially removed only the compact register's duplicate append. Final integration instead preserves the earlier BE-3 implementation byte-for-byte: the compact register owns the single executive-summary block, summary() adds no second copy, and unresolved_register(compact=False) still appends one on /unresolved/. No styling, row value, pick, probability or source changed."
+  },
+  "post_fix_verification": {
+    "build": "80 replayed source rows; 768 row-source rows; 749 official links; 9 flagged unverified; 10 site-map rows; 0 without a source; 826 internal links/assets/anchors passed; acceptance 9 pass / 1 info / 0 fail",
+    "targeted_unit_command": ".venv/bin/python -m unittest tests.test_5927ab83_summary tests.test_42bfa8ea tests.test_ca7e10e5_snapshot tests.test_eea4c104_audit tests.test_a7128fdd_direct_observations -v",
+    "targeted_unit_result": "106 tests OK",
+    "every_row_browser_command": "npm test -- --grep 5927ab83",
+    "every_row_browser_result": "2 passed: every complete-picks feed row at 320 and 390 px has the correct selected team, both percentages within display rounding, official source and detail links, no-line limitation where applicable, and no horizontal overflow",
+    "unique_ids": "site/index.html now has one id=no-line-research; the executive summary and full unresolved page unit tests reject any duplicate ID"
+  },
+  "final_integration": {
+    "integrated_prs": [237, 238],
+    "semantic_conflicts_resolved": [
+      "Git auto-merged the two duplicate-anchor repairs into zero summary blocks; the exact BE-3 single-owner renderer was restored and the 59-test contract run passed before the merge commit.",
+      "The combined phone overview exposed the existing offline parser's current-plus-Snapshot marker ambiguity; its marker-only parser repair and new regressions leave every pick and probability unchanged."
+    ],
+    "build": "80 replayed source rows; 778 row-source rows; 759 official links; 9 flagged unverified; 10 site-map rows; 0 without a source; 830 internal links/assets/anchors passed; acceptance 9 pass / 1 info / 0 fail",
+    "targeted_unit_result": "68 tests OK on the combined tree",
+    "combined_browser_command": "npx playwright test tests/browser/phone_5927ab83.spec.mjs tests/browser/be019782_landmarks.spec.mjs tests/browser/be27c3f6_complete_picks.spec.mjs",
+    "combined_browser_result": "12 passed at 320, 390, 768 and 1440 px, including every-row checks, no-JavaScript behavior, stale-pick retirement and one-tap navigation",
+    "deployment_status": "Not a deployment attestation; full CI, PR merge and Pages verification remain separate final gates."
+  },
+  "manual_review_links": [
+    "https://buffedlizard55-lab.github.io/MaltaProj3/",
+    "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#picks",
+    "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/",
+    "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py"
+  ]
+}

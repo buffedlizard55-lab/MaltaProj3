@@ -16,6 +16,7 @@ from scripts.domain import name_key, timestamp, is_fresh
 from scripts.validate import check_data, check_links
 from scripts.contrarian import derive_context, load_review, validate_context
 from scripts.briefing import render as contrarian_briefing, review_note, audit_register
+from scripts.pick_safety import presentation as pick_presentation
 
 REPO = 'https://github.com/buffedlizard55-lab/MaltaProj3'
 LOBBY = 'https://play.hotspawn.com/lobby'
@@ -705,15 +706,28 @@ def glance(data, prefix, now=None):
             # picked team keeps the emphasised number and the "Pick" label; the
             # opponent's complementary estimate follows in muted text.
             other = 1 - pick
-            choice = (f'<span class="glance-pick-label{" is-closed" if closed else ""}" data-glance-pick>{"Locked" if closed else "Pick"}</span>'
+            # Use the same inventory/line/deadline policy as the audited cards.
+            # Keep old percentages and their sources readable, but never label
+            # an expired or incomplete observation as a current "Pick". The
+            # optional context preserves standalone component rendering; every
+            # real built summary supplies inventory_observed_at.
+            state = (pick_presentation(dict(m, analysis=a, origination=a),
+                                       data['inventory_observed_at'], data.get('coverage_complete') is True, now)
+                     if 'inventory_observed_at' in data else None)
+            inactive = state is not None and not state['current']
+            label = 'Locked' if closed else 'Snapshot' if inactive else 'Pick'
+            hint = f' title="{e(state["detail"])}"' if inactive else ''
+            choice = (f'<span class="glance-pick-label{" is-closed" if closed or inactive else ""}" data-glance-pick{hint}>{label}</span>'
                       f'<strong>{e(names[pick])}</strong><span class="glance-prob">{a["probabilities"][pick] * 100:.1f}%</span>'
                       f'<span class="glance-other">{e(names[other])} {a["probabilities"][other] * 100:.1f}%</span>'
                       + basis_badge(a, researched))
 
         elif a:
-            choice = ('<span class="glance-pick-label">No edge</span><strong>Even</strong>'
-                      '<span class="glance-prob">no side</span>'
-                      f'<a class="internal-link" href="{prefix}#unresolved-register">Why</a>')
+            choice = ('<span class="glance-pick-label">No edge</span><strong>Even · no side</strong>'
+                      f'<span class="glance-prob">{e(names[0])} {a["probabilities"][0] * 100:.1f}%</span>'
+                      f'<span class="glance-other">{e(names[1])} {a["probabilities"][1] * 100:.1f}%</span>'
+                      + basis_badge(a, researched)
+                      + f'<a class="internal-link" href="{prefix}#unresolved-register">Why</a>')
         else:
             choice = ('<span class="glance-pick-label unresolved-text">Unresolved</span>'
                       f'<a class="internal-link" href="{prefix}origination/#unresolved">Why</a>')
@@ -721,6 +735,8 @@ def glance(data, prefix, now=None):
         if a and pick is not None:
             closed_attr = (f' data-glance-starts="{e(m.get("starts_at") or "")}"'
                            f' data-glance-locks="{e(m.get("locks_at") or "")}"'
+                           f' data-glance-observed="{e(a.get("observed_at") or "")}"'
+                           f' data-glance-inactive="{"true" if inactive else "false"}"'
                            f' data-glance-closed="{"true" if closed else "false"}"')
         search_text = ' '.join([names[0], names[1], m['competition'] or '']).lower()
         method_attr = f' data-method="{e(a.get("method"))}"' if a and a.get("method") else ''
@@ -1555,7 +1571,7 @@ def session_probe_block(data, prefix):
         ('Aggregators & odds comparisons', {'aggregator'},
          'An aggregator is a cross-check unless it publishes its own two-sided price.'),
         ('Identity, ratings & results', {'ratings'},
-         'These sources can identify a fixture or feed a research model; none of them publishes a price.'),
+         'These sources support fixture identity or a research model; crowd votes and ranking positions are not executable prices.'),
     ]
     answered = [s for s in surfaces if s.get('status') == 200]
     refused = [s for s in surfaces if s.get('status') != 200]
@@ -1600,9 +1616,9 @@ def session_probe_block(data, prefix):
     if hltv:
         observations.append(
             f'HLTV was tried first, as the brief asks: <strong>{len(hltv_blocked)} of {len(hltv)}</strong> '
-            'HLTV paths refused the automated request. HLTV publishes no prematch price even when a person '
-            'can read it, so it is used for fixture identity and its published ranking only — never as a '
-            'probability or a betting line in itself.')
+            'HLTV paths refused the automated request. No paired bookmaker price was verified from those '
+            'responses; refusal does not establish whether a human-readable page displays odds. '
+            'HLTV fan votes and ranking positions alone are never treated as win probabilities.')
     if html_shells:
         observations.append(
             f'<strong>{len(html_shells)}</strong> of the bookmaker pages that answered HTTP 200 returned a '
@@ -1768,8 +1784,8 @@ def unresolved_register(data, prefix, title='Unresolved picks &amp; limitations'
                 nature = ('These are external money lines — one provider each unless a row says it is a median of '
                           'independent sources — never a multi-book consensus.')
             elif kinds == {False}:
-                nature = ('These are labelled research estimates, not bookmaker lines: no reachable book priced these '
-                          'fixtures at the observation time.')
+                nature = ('These are labelled research estimates, not bookmaker lines: no eligible two-sided price '
+                          'was verified from the attempted sources at the observation time.')
             else:
                 nature = ('These are a mix of external money lines and labelled research estimates; each row states '
                           'which one it is.')
@@ -1848,11 +1864,11 @@ def unresolved_register(data, prefix, title='Unresolved picks &amp; limitations'
         # The dated per-fixture research record stays on the summary: it is the
         # evidence behind each no-line blocker and the cross-session audit
         # (scripts/eea4c104_audit.py) requires the block here. It is rendered
-        # exactly once, by summary() itself: this compact register used to emit
-        # it a second time, which duplicated the element id on the executive
-        # summary (tests/test_ca7e10e5_snapshot.py asserts a single occurrence)
-        # and failed the publisher's regression step on every scheduled run from
-        # 2026-10-23T21:41Z. The full register on /unresolved/ keeps its own copy.
+        # exactly once by this child; summary() delegates instead of appending
+        # another copy. Integrating 73bc57bd's child-call removal with our
+        # parent-call removal would otherwise leave zero blocks. Both fixes'
+        # intent is preserved by one owner and actual rendered regressions.
+        out.append(no_line_research_block(data, prefix))
         # The companion record: what a surface that DID answer actually
         # published, for the same no-line fixtures. Same category as the dated
         # research record above, so it stays on the summary in compact form and
@@ -1918,8 +1934,9 @@ def summary(data, prefix, now=None):
     out += live_coverage_gaps(data, prefix)
     out += exec_banner(data, prefix)
     out += unresolved_register(data, prefix, compact=True)
-    # The compact register omits this block; keep exactly one dated summary.
-    out += no_line_research_block(data, prefix)
+    # The compact unresolved register above already owns the dated no-line
+    # research block. Render it there once: a second call here duplicated the
+    # content and HTML ID, breaking phone anchors and post-build regression.
     if complete:
         if not data['coverage_complete']:
             coverage_label = 'Picks in the retained snapshot'
@@ -2265,8 +2282,30 @@ def methodology(data, prefix):
 
 
 def flags_table(flags):
-    """Render the source-linked findings register, including supersede links."""
-    out = '<section class="content-section"><div class="section-heading"><div><p class="eyebrow">Research &amp; integrity register</p><h2>All findings</h2></div><span class="muted small">Source-linked, not silently corrected</span></div><div class="table-scroll"><table class="simple-table review-table"><caption class="sr-only">Source-linked irregularities and analysis limitations</caption><thead><tr><th>Finding</th><th>Limitation / handling</th><th>Original sources</th></tr></thead><tbody>'
+    """Render the source-linked findings register, including supersede links.
+
+    Session arena-f43dc4f1: this register is the longest page on the site (305
+    findings, 417 table rows, ~1 MB of HTML at 2026-10-24) and had no way to find
+    one finding inside it on a phone. Every row is still rendered server-side, in
+    the same order, with the same title, detail and source links; a search box
+    and two severity filters let a reader narrow those same rows. The counts come
+    from the rows themselves, so the filter can never claim a finding the table
+    does not show, and with JavaScript off nothing is hidden.
+    """
+    notice_count = sum(1 for f in flags if f.get('severity') == 'notice')
+    out = '<section class="content-section" id="findings"><div class="section-heading"><div><p class="eyebrow">Research &amp; integrity register</p><h2>All findings</h2></div><span class="muted small">Source-linked, not silently corrected</span></div>'
+    out += ('<div class="filter-bar findings-filter">'
+            '<label class="search-box">' + icon('search')
+            + '<span class="sr-only">Find a finding by team, source or session</span>'
+            '<input id="finding-search" type="search" placeholder="Find a finding — team, source or session…" autocomplete="off"></label>'
+            '<div class="filter-tabs" role="group" aria-label="Finding severity">'
+            f'<button type="button" data-finding-filter="all" aria-pressed="true">All<span>{len(flags)}</span></button>'
+            f'<button type="button" data-finding-filter="review" aria-pressed="false">Needs review<span>{len(flags) - notice_count}</span></button>'
+            f'<button type="button" data-finding-filter="notice" aria-pressed="false">Notice<span>{notice_count}</span></button>'
+            '</div><p id="finding-count" aria-live="polite">' + f'{len(flags)} findings</p></div>'
+            '<noscript><p class="tiny muted" style="padding:0 25px 14px">Filtering needs JavaScript. '
+            'Every finding below is rendered either way.</p></noscript>'
+            '<div class="table-scroll"><table class="simple-table review-table"><caption class="sr-only">Source-linked irregularities and analysis limitations</caption><thead><tr><th>Finding</th><th>Limitation / handling</th><th>Original sources</th></tr></thead><tbody>')
     # A later session can settle an earlier finding. Keeping both rows without a
     # link leaves the review page arguing with itself, so a resolving flag names
     # the findings it supersedes and those rows say so in place.
@@ -2280,7 +2319,9 @@ def flags_table(flags):
             label = badge('Superseded', 'purple') + f'<small>Answered by <a href="#flag-{e(resolver)}">a later finding</a></small>'
         else:
             label = badge('Notice' if f['severity'] == 'notice' else 'Needs review', 'purple' if f['severity'] == 'notice' else 'amber') + (f'<small>{len(f["match_ids"])} affected source records</small>' if f['match_ids'] else '')
-        out += f'<tr id="flag-{e(f["id"])}"' + (' class="superseded-flag"' if resolver else '') + f'><th scope="row">{label}<strong>{e(f["title"])}</strong></th><td>{e(f["detail"])}</td><td><div class="evidence-links">'
+        severity = 'notice' if f.get('severity') == 'notice' else 'review'
+        filter_attrs = f' data-finding-severity="{severity}"' + (' data-finding-superseded="true"' if resolver else '')
+        out += f'<tr id="flag-{e(f["id"])}"' + (' class="superseded-flag"' if resolver else '') + filter_attrs + f'><th scope="row">{label}<strong>{e(f["title"])}</strong></th><td>{e(f["detail"])}</td><td><div class="evidence-links">'
         for url in dict.fromkeys(f['source_urls']):
             label = 'Hotspawn' if 'hotspawn' in url or 'cloudwaysapps' in url else 'Valve' if 'ValveSoftware' in url else 'Polymarket' if 'polymarket' in url else 'HLTV' if 'hltv.org' in url else urlparse_host(url)
             out += external(url, label)
@@ -2365,6 +2406,10 @@ def shell(data, key, body, prefix, now=None):
         extra_css += f'<script src="{prefix}assets/pick-safety.js" defer></script>'
     if key == 'summary':
         extra_css += f'<script src="{prefix}assets/glance-lock.js" defer></script>'
+    if key == 'review':
+        # Session arena-f43dc4f1: the findings filter. Self-hosted to satisfy the
+        # page's `script-src 'self'` policy; it hides rows and writes nothing else.
+        extra_css += f'<script src="{prefix}assets/findings-filter.js" defer></script>'
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{e(title)} · Spawn Scout</title><meta name="description" content="Every Hotspawn CS2 match, independent probabilities, clear picks and original evidence. Mobile-friendly, read-only analysis with visible coverage gaps."><meta name="theme-color" content="#142534"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'"><link rel="icon" href="{prefix}assets/scout-mark.svg" type="image/svg+xml"><link rel="stylesheet" href="{prefix}assets/scout.css">{extra_css}<script src="{prefix}assets/scout.js" defer></script></head>
 <body {safety_attrs} data-page="{key}" data-inventory-time="{e(inventory)}" data-inventory-complete="{str(data['coverage_complete']).lower()}" data-snapshot-generated="{e(data['generated_at'])}" data-data-url="{prefix}snapshot.json"><a class="skip-link" href="#main">Skip to content</a>

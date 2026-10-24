@@ -49,10 +49,12 @@ Session `arena-b97af12f` adds a dated, source-linked reconciliation of the live 
 
 ### Merge / deploy record
 
-- PR: [#267](https://github.com/buffedlizard55-lab/MaltaProj3/pull/267) (open)
-- Merge: pending
-- Pages run: pending
-- Live `generated_at`: pending
+- PR: [#267](https://github.com/buffedlizard55-lab/MaltaProj3/pull/267) — **MERGED** 2026-10-24T07:16:08Z
+- Merge commit: `d29a56028f4549ee2434b87c46bd04ccf2c69df8`
+- Pages push run created by the merge: `40073466836` (cancelled by the next main push in the same concurrency group)
+- Newer push run after PR #261: `40073476964` (pending at 07:16Z)
+- B97 publisher-dispatch runs queued in a saturated pool: `40073070593`, `40073373861`, `40073431288`, `40073785021`
+- Live `/data/latest.json` `generated_at` at 07:17Z cache-busted read: **2026-10-23T20:10:00Z** — still stale; recovery not yet confirmed. The separate `workflow_dispatch` group (B97 dispatcher + merged `freshness-watchdog.yml`) remains the unstick path.
 
 ### Coordination
 

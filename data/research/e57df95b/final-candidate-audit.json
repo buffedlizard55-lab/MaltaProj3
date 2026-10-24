@@ -1,0 +1,843 @@
+{
+  "schema_version": 1,
+  "session": "arena-e57df95b",
+  "generated_at": "2026-10-24T07:37:38Z",
+  "candidate_ref": "b66e402 final integrated tree + fresh evidence + E57 reference",
+  "candidate_root": "/tmp/e57-final4",
+  "official_lobby": {
+    "url": "https://play.hotspawn.com/cs2-pickems",
+    "observed_at": "2026-10-24T06:24:00Z"
+  },
+  "official_hotspawn_response": {
+    "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "observed_at": "2026-10-24T05:57:37Z",
+    "sha256": "58cd064d36ea6af29ec606cdddbd5e0fc343558d8fbbc9e0c8ec0cd1cc134ec2",
+    "inventory_rows": 88
+  },
+  "official_valve": {
+    "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "sha256": "df96e7fc3cd91a2687ec08cac0128e50cc4e4e55346581679572e881d79ae61b",
+    "rows": 380
+  },
+  "summary": {
+    "live_lobby_fixtures": 25,
+    "candidate_active_fixtures": 25,
+    "exact_live_id_set_match": true,
+    "audited": 25,
+    "passed": 25,
+    "failed": 0,
+    "methods": {
+      "bookmaker": 2,
+      "market": 13,
+      "model": 9,
+      "reference": 1
+    },
+    "featured_unresolved_ids": [
+      "1081156",
+      "1082858",
+      "1082792"
+    ],
+    "hltv_direct_reviews": 10
+  },
+  "rows": [
+    {
+      "id": "1079193",
+      "teams": [
+        "FOKUS",
+        "ex-6666"
+      ],
+      "starts_at": "2026-10-24T08:00:00Z",
+      "pick": "FOKUS",
+      "pick_index": 0,
+      "probabilities": [
+        0.785,
+        0.215
+      ],
+      "method": "market",
+      "family": null,
+      "label": "Market-implied estimate",
+      "source_url": "https://polymarket.com/event/cs2-fokus-66661-2026-10-24",
+      "status": "pass",
+      "arithmetic": {
+        "basis": "two order-book midpoints, normalized",
+        "recomputed": [
+          0.785,
+          0.215
+        ],
+        "max_abs_delta": 0.0
+      }
+    },
+    {
+      "id": "1079658",
+      "teams": [
+        "Acend",
+        "FORZE Reload"
+      ],
+      "starts_at": "2026-10-24T08:00:00Z",
+      "pick": "FORZE Reload",
+      "pick_index": 1,
+      "probabilities": [
+        0.315,
+        0.685
+      ],
+      "method": "market",
+      "family": null,
+      "label": "Market-implied estimate",
+      "source_url": "https://polymarket.com/event/cs2-ace1-forzer-2026-10-24",
+      "status": "pass",
+      "arithmetic": {
+        "basis": "two order-book midpoints, normalized",
+        "recomputed": [
+          0.315,
+          0.685
+        ],
+        "max_abs_delta": 0.0
+      }
+    },
+    {
+      "id": "1079659",
+      "teams": [
+        "Spirit Academy",
+        "Lavked"
+      ],
+      "starts_at": "2026-10-24T11:00:00Z",
+      "pick": "Spirit Academy",
+      "pick_index": 0,
+      "probabilities": [
+        0.655,
+        0.345
+      ],
+      "method": "market",
+      "family": null,
+      "label": "Market-implied estimate",
+      "source_url": "https://polymarket.com/event/cs2-tsa-lavked-2026-10-24",
+      "status": "pass",
+      "arithmetic": {
+        "basis": "two order-book midpoints, normalized",
+        "recomputed": [
+          0.655,
+          0.345
+        ],
+        "max_abs_delta": 0.0
+      }
+    },
+    {
+      "id": "1081152",
+      "teams": [
+        "HAVU",
+        "Azuolas"
+      ],
+      "starts_at": "2026-10-24T11:00:00Z",
+      "pick": "HAVU",
+      "pick_index": 0,
+      "probabilities": [
+        0.79187817,
+        0.20812183
+      ],
+      "method": "market",
+      "family": null,
+      "label": "Originated market line (Kalshi)",
+      "source_url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct240700azuhavu",
+      "status": "pass",
+      "arithmetic": {
+        "basis": "two order-book midpoints, normalized",
+        "recomputed": [
+          0.7918781725888324,
+          0.2081218274111675
+        ],
+        "max_abs_delta": 2.5888325094758358e-09
+      }
+    },
+    {
+      "id": "1079195",
+      "teams": [
+        "Nuclear TigeRES",
+        "FORZE Reload"
+      ],
+      "starts_at": "2026-10-24T14:00:00Z",
+      "pick": "Nuclear TigeRES",
+      "pick_index": 0,
+      "probabilities": [
+        0.635,
+        0.365
+      ],
+      "method": "market",
+      "family": null,
+      "label": "Market-implied estimate",
+      "source_url": "https://polymarket.com/event/cs2-ntr-forzer-2026-10-24",
+      "status": "pass",
+      "arithmetic": {
+        "basis": "two order-book midpoints, normalized",
+        "recomputed": [
+          0.635,
+          0.365
+        ],
+        "max_abs_delta": 0.0
+      }
+    },
+    {
+      "id": "1079660",
+      "teams": [
+        "INOX Division",
+        "BRUTE"
+      ],
+      "starts_at": "2026-10-24T14:00:00Z",
+      "pick": "INOX Division",
+      "pick_index": 0,
+      "probabilities": [
+        0.57,
+        0.43
+      ],
+      "method": "market",
+      "family": null,
+      "label": "Market-implied estimate",
+      "source_url": "https://polymarket.com/event/cs2-inox-brute-2026-10-24",
+      "status": "pass",
+      "arithmetic": {
+        "basis": "two order-book midpoints, normalized",
+        "recomputed": [
+          0.5700000000000001,
+          0.43
+        ],
+        "max_abs_delta": 1.1102230246251565e-16
+      }
+    },
+    {
+      "id": "1081153",
+      "teams": [
+        "Saint Sinners",
+        "6yuBoJlbl"
+      ],
+      "starts_at": "2026-10-24T14:00:00Z",
+      "pick": "6yuBoJlbl",
+      "pick_index": 1,
+      "probabilities": [
+        0.24085429,
+        0.75914571
+      ],
+      "method": "model",
+      "family": null,
+      "label": "Valve-rating research estimate",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "status": "pass",
+      "arithmetic": {
+        "basis": "official Valve inputs; Glicko expectation RD 75",
+        "recomputed": [
+          0.24085428916795926,
+          0.7591457108320407
+        ],
+        "max_abs_delta": 8.320407696160714e-10
+      },
+      "official_inputs": [
+        {
+          "standing": 158,
+          "points": 810,
+          "name": "Saint Sinners"
+        },
+        {
+          "standing": 110,
+          "points": 1015,
+          "name": "6yuBoJlbl"
+        }
+      ]
+    },
+    {
+      "id": "1079661",
+      "teams": [
+        "Nuclear TigeRES",
+        "ex-Zero Tenacity"
+      ],
+      "starts_at": "2026-10-24T17:00:00Z",
+      "pick": "Nuclear TigeRES",
+      "pick_index": 0,
+      "probabilities": [
+        0.655,
+        0.345
+      ],
+      "method": "market",
+      "family": null,
+      "label": "Market-implied estimate",
+      "source_url": "https://polymarket.com/event/cs2-ntr-zerote-2026-10-24",
+      "status": "pass",
+      "arithmetic": {
+        "basis": "two order-book midpoints, normalized",
+        "recomputed": [
+          0.655,
+          0.345
+        ],
+        "max_abs_delta": 0.0
+      }
+    },
+    {
+      "id": "1081154",
+      "teams": [
+        "BakS",
+        "ILLYRIANS"
+      ],
+      "starts_at": "2026-10-24T17:00:00Z",
+      "pick": "BakS",
+      "pick_index": 0,
+      "probabilities": [
+        0.73481702,
+        0.26518298
+      ],
+      "method": "model",
+      "family": null,
+      "label": "Valve-rating research estimate",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "status": "pass",
+      "arithmetic": {
+        "basis": "official Valve inputs; Glicko expectation RD 75",
+        "recomputed": [
+          0.7348170158025229,
+          0.2651829841974771
+        ],
+        "max_abs_delta": 4.197477143641493e-09
+      },
+      "official_inputs": [
+        {
+          "standing": 100,
+          "points": 1044,
+          "name": "BAKS"
+        },
+        {
+          "standing": 141,
+          "points": 862,
+          "name": "Illyrians"
+        }
+      ]
+    },
+    {
+      "id": "1082996",
+      "teams": [
+        "Acend",
+        "UNiTY"
+      ],
+      "starts_at": "2026-10-25T09:00:00Z",
+      "pick": "Acend",
+      "pick_index": 0,
+      "probabilities": [
+        0.54190155,
+        0.45809845
+      ],
+      "method": "model",
+      "family": null,
+      "label": "Valve-rating research estimate",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "status": "pass",
+      "arithmetic": {
+        "basis": "official Valve inputs; Glicko expectation RD 75",
+        "recomputed": [
+          0.5419015519567814,
+          0.45809844804321864
+        ],
+        "max_abs_delta": 1.956781403578134e-09
+      },
+      "official_inputs": [
+        {
+          "standing": 63,
+          "points": 1197,
+          "name": "Acend"
+        },
+        {
+          "standing": 69,
+          "points": 1167,
+          "name": "UNiTY"
+        }
+      ]
+    },
+    {
+      "id": "1079198",
+      "teams": [
+        "Metizport",
+        "BakS"
+      ],
+      "starts_at": "2026-10-25T12:00:00Z",
+      "pick": "Metizport",
+      "pick_index": 0,
+      "probabilities": [
+        0.79860558,
+        0.20139442
+      ],
+      "method": "model",
+      "family": null,
+      "label": "Valve-rating research estimate",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "status": "pass",
+      "arithmetic": {
+        "basis": "official Valve inputs; Glicko expectation RD 75",
+        "recomputed": [
+          0.798605580961315,
+          0.20139441903868505
+        ],
+        "max_abs_delta": 9.613149443143953e-10
+      },
+      "official_inputs": [
+        {
+          "standing": 53,
+          "points": 1290,
+          "name": "Metizport"
+        },
+        {
+          "standing": 100,
+          "points": 1044,
+          "name": "BAKS"
+        }
+      ]
+    },
+    {
+      "id": "1081156",
+      "teams": [
+        "Spirit Academy",
+        "LFO 10"
+      ],
+      "starts_at": "2026-10-25T12:00:00Z",
+      "pick": "Spirit Academy",
+      "pick_index": 0,
+      "probabilities": [
+        0.6588968683663312,
+        0.3411031316336688
+      ],
+      "method": "model",
+      "family": "form",
+      "label": "Own results-based estimate (bo3.gg series results)",
+      "source_url": "https://bo3.gg/matches/spirit-academy-vs-sokerorg-25-10-2026",
+      "status": "pass",
+      "arithmetic": {
+        "basis": "independent 9-series MAP refit; Valve logistic RD 250",
+        "recomputed": [
+          0.6588968683663312,
+          0.3411031316336688
+        ],
+        "max_abs_delta": 0.0
+      },
+      "form_refit": {
+        "points": 835,
+        "prior_center": 926,
+        "n": 9,
+        "posterior_sd": 119.1
+      }
+    },
+    {
+      "id": "1079199",
+      "teams": [
+        "Infinite",
+        "BRUTE"
+      ],
+      "starts_at": "2026-10-25T15:00:00Z",
+      "pick": "BRUTE",
+      "pick_index": 1,
+      "probabilities": [
+        0.475,
+        0.525
+      ],
+      "method": "market",
+      "family": null,
+      "label": "Market-implied estimate",
+      "source_url": "https://polymarket.com/event/cs2-inf6-brute-2026-10-25",
+      "status": "pass",
+      "arithmetic": {
+        "basis": "two order-book midpoints, normalized",
+        "recomputed": [
+          0.475,
+          0.525
+        ],
+        "max_abs_delta": 0.0
+      }
+    },
+    {
+      "id": "1079200",
+      "teams": [
+        "Color",
+        "ex-Zero Tenacity"
+      ],
+      "starts_at": "2026-10-25T18:00:00Z",
+      "pick": "Color",
+      "pick_index": 0,
+      "probabilities": [
+        0.545,
+        0.455
+      ],
+      "method": "market",
+      "family": null,
+      "label": "Originated market line (Polymarket)",
+      "source_url": "https://polymarket.com/event/cs2-color-zerote-2026-10-25",
+      "status": "pass",
+      "arithmetic": {
+        "basis": "two order-book midpoints, normalized",
+        "recomputed": [
+          0.5449999999999999,
+          0.455
+        ],
+        "max_abs_delta": 1.1102230246251565e-16
+      }
+    },
+    {
+      "id": "1081158",
+      "teams": [
+        "FORZE Reload",
+        "ex-RUSTEC"
+      ],
+      "starts_at": "2026-10-25T18:00:00Z",
+      "pick": "FORZE Reload",
+      "pick_index": 0,
+      "probabilities": [
+        0.54745678,
+        0.45254322
+      ],
+      "method": "model",
+      "family": null,
+      "label": "Valve-rating research estimate",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "status": "pass",
+      "arithmetic": {
+        "basis": "official Valve inputs; Glicko expectation RD 75",
+        "recomputed": [
+          0.5474567847041139,
+          0.45254321529588615
+        ],
+        "max_abs_delta": 4.704113876208282e-09
+      },
+      "official_inputs": [
+        {
+          "standing": 84,
+          "points": 1100,
+          "name": "FORZE Reload"
+        },
+        {
+          "standing": 92,
+          "points": 1066,
+          "name": "ex-RUSTEC"
+        }
+      ]
+    },
+    {
+      "id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "starts_at": "2026-10-26T03:00:00Z",
+      "pick": "Off Chops",
+      "pick_index": 1,
+      "probabilities": [
+        0.26495726,
+        0.73504274
+      ],
+      "method": "reference",
+      "family": "reference",
+      "label": "Aggregated bookmaker average (EGamersWorld, no-vig)",
+      "source_url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+      "status": "pass",
+      "arithmetic": {
+        "basis": "reviewed aggregated decimal odds with proportional margin removal; hash/freshness checked separately",
+        "recomputed": [
+          0.26495726495726496,
+          0.7350427350427351
+        ],
+        "max_abs_delta": 4.957264931881866e-09
+      }
+    },
+    {
+      "id": "1082859",
+      "teams": [
+        "NEXVOID",
+        "Alter Ego"
+      ],
+      "starts_at": "2026-10-26T03:00:00Z",
+      "pick": "NEXVOID",
+      "pick_index": 0,
+      "probabilities": [
+        0.57519789,
+        0.42480211
+      ],
+      "method": "bookmaker",
+      "family": null,
+      "label": "No-vig bookmaker estimate",
+      "source_url": "https://thunderpick.io/api/matches",
+      "status": "pass",
+      "arithmetic": {
+        "basis": "decimal odds with proportional margin removal",
+        "recomputed": [
+          0.575197889182058,
+          0.42480211081794195
+        ],
+        "max_abs_delta": 8.179419364040541e-10
+      }
+    },
+    {
+      "id": "1082860",
+      "teams": [
+        "FlyQuest",
+        "Staqued"
+      ],
+      "starts_at": "2026-10-27T03:00:00Z",
+      "pick": "FlyQuest",
+      "pick_index": 0,
+      "probabilities": [
+        0.92300592,
+        0.07699408
+      ],
+      "method": "bookmaker",
+      "family": null,
+      "label": "No-vig bookmaker estimate",
+      "source_url": "https://thunderpick.io/api/matches",
+      "status": "pass",
+      "arithmetic": {
+        "basis": "decimal odds with proportional margin removal",
+        "recomputed": [
+          0.9230059226213368,
+          0.07699407737866316
+        ],
+        "max_abs_delta": 2.621336842034694e-09
+      }
+    },
+    {
+      "id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "starts_at": "2026-10-27T03:00:00Z",
+      "pick": "Abyssal",
+      "pick_index": 1,
+      "probabilities": [
+        0.47761494,
+        0.52238506
+      ],
+      "method": "model",
+      "family": null,
+      "label": "Valve-rating research estimate",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "status": "pass",
+      "arithmetic": {
+        "basis": "official Valve inputs; Glicko expectation RD 75",
+        "recomputed": [
+          0.4776149428184876,
+          0.5223850571815124
+        ],
+        "max_abs_delta": 2.8184876099679457e-09
+      },
+      "official_inputs": [
+        {
+          "standing": 205,
+          "points": 718,
+          "name": "Rooster"
+        },
+        {
+          "standing": 195,
+          "points": 734,
+          "name": "Abyssal"
+        }
+      ]
+    },
+    {
+      "id": "1082897",
+      "teams": [
+        "B8",
+        "K27"
+      ],
+      "starts_at": "2026-10-27T08:00:00Z",
+      "pick": "B8",
+      "pick_index": 0,
+      "probabilities": [
+        0.615,
+        0.385
+      ],
+      "method": "market",
+      "family": null,
+      "label": "Market-implied estimate",
+      "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
+      "status": "pass",
+      "arithmetic": {
+        "basis": "two order-book midpoints, normalized",
+        "recomputed": [
+          0.615,
+          0.385
+        ],
+        "max_abs_delta": 0.0
+      }
+    },
+    {
+      "id": "1082898",
+      "teams": [
+        "Alliance",
+        "FaZe"
+      ],
+      "starts_at": "2026-10-27T11:00:00Z",
+      "pick": "FaZe",
+      "pick_index": 1,
+      "probabilities": [
+        0.35,
+        0.65
+      ],
+      "method": "market",
+      "family": null,
+      "label": "Market-implied estimate",
+      "source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
+      "status": "pass",
+      "arithmetic": {
+        "basis": "two order-book midpoints, normalized",
+        "recomputed": [
+          0.35,
+          0.65
+        ],
+        "max_abs_delta": 0.0
+      }
+    },
+    {
+      "id": "1082900",
+      "teams": [
+        "Luminosity",
+        "HOTU"
+      ],
+      "starts_at": "2026-10-27T17:00:00Z",
+      "pick": "Luminosity",
+      "pick_index": 0,
+      "probabilities": [
+        0.525,
+        0.475
+      ],
+      "method": "market",
+      "family": null,
+      "label": "Market-implied estimate",
+      "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
+      "status": "pass",
+      "arithmetic": {
+        "basis": "two order-book midpoints, normalized",
+        "recomputed": [
+          0.525,
+          0.475
+        ],
+        "max_abs_delta": 0.0
+      }
+    },
+    {
+      "id": "1082901",
+      "teams": [
+        "Envy",
+        "GamerLegion"
+      ],
+      "starts_at": "2026-10-27T20:00:00Z",
+      "pick": "GamerLegion",
+      "pick_index": 1,
+      "probabilities": [
+        0.455,
+        0.545
+      ],
+      "method": "market",
+      "family": null,
+      "label": "Market-implied estimate",
+      "source_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
+      "status": "pass",
+      "arithmetic": {
+        "basis": "two order-book midpoints, normalized",
+        "recomputed": [
+          0.455,
+          0.545
+        ],
+        "max_abs_delta": 0.0
+      }
+    },
+    {
+      "id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "starts_at": "2026-10-31T09:00:00Z",
+      "pick": "HOTU",
+      "pick_index": 0,
+      "probabilities": [
+        0.94052062,
+        0.05947938
+      ],
+      "method": "model",
+      "family": "model",
+      "label": "Research model estimate (Valve official ratings)",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "status": "pass",
+      "arithmetic": {
+        "basis": "official Valve inputs; Glicko expectation RD 75",
+        "recomputed": [
+          0.940520617794216,
+          0.05947938220578397
+        ],
+        "max_abs_delta": 2.2057839998979034e-09
+      },
+      "official_inputs": [
+        {
+          "standing": 31,
+          "points": 1437,
+          "name": "HOTU"
+        },
+        {
+          "standing": 122,
+          "points": 944,
+          "name": "The Huns"
+        }
+      ],
+      "roster_join": {
+        "team": "The Huns",
+        "standing": 122,
+        "roster": [
+          "Bart4k",
+          "controlez",
+          "bexyz",
+          "Cozen",
+          "DarkMeister"
+        ],
+        "overlap": 4,
+        "roster_change": true,
+        "source_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+        "observed_at": "2026-10-24T05:58:11Z",
+        "evidence_file": "data/origination/evidence/live-hltv-match-1082792.json"
+      }
+    },
+    {
+      "id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "starts_at": "2026-10-31T13:00:00Z",
+      "pick": "1WIN",
+      "pick_index": 1,
+      "probabilities": [
+        0.17816902,
+        0.82183098
+      ],
+      "method": "model",
+      "family": null,
+      "label": "Valve-rating research estimate",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "status": "pass",
+      "arithmetic": {
+        "basis": "official Valve inputs; Glicko expectation RD 75",
+        "recomputed": [
+          0.17816901694318932,
+          0.8218309830568107
+        ],
+        "max_abs_delta": 3.0568106934580896e-09
+      },
+      "official_inputs": [
+        {
+          "standing": 80,
+          "points": 1110,
+          "name": "5star"
+        },
+        {
+          "standing": 38,
+          "points": 1383,
+          "name": "1win"
+        }
+      ]
+    }
+  ],
+  "failures": [],
+  "limitations": [
+    "The candidate replay proves arithmetic and retained-evidence consistency, not that a model probability is calibrated or a money line is still executable.",
+    "HLTV text extraction does not expose a timezone for its display clock; UTC starts in this audit come from the official Hotspawn response, not a guessed HLTV timezone.",
+    "Ground Zero–Off Chops uses the separately reviewed, hash-checked EGW aggregate; it is third-party evidence and must expire after eight hours rather than being refreshed by assertion."
+  ]
+}

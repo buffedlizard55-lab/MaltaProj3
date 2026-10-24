@@ -1,0 +1,41 @@
+{
+  "session": "arena-a5b59ee6",
+  "observed_at": "2026-10-24T06:45:00Z",
+  "subject": "Scheduled four-hour publisher on main",
+  "claim_under_test": "pages.yml refreshes the public site every four hours",
+  "workflow": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+  "scheduled_runs": [
+    {"run": 40028653350, "created": "2026-10-23T21:41:56Z", "conclusion": "failure", "failing_step": "Regression tests (repository fixtures, before any cache restore)", "later_steps": "skipped", "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40028653350"},
+    {"run": 40037957529, "created": "2026-10-23T23:08:44Z", "conclusion": "failure", "failing_step": "Regression tests (repository fixtures, before any cache restore)", "later_steps": "skipped", "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40037957529"},
+    {"run": 40048429858, "created": "2026-10-24T01:08:36Z", "conclusion": "failure", "failing_step": "Regression tests (repository fixtures, before any cache restore)", "later_steps": "skipped", "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40048429858"},
+    {"run": 40063011446, "created": "2026-10-24T04:36:29Z", "conclusion": "failure", "failing_step": "Regression tests (repository fixtures, before any cache restore)", "later_steps": "skipped", "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40063011446"}
+  ],
+  "last_successful_scheduled_run_seen": {"run": 40015434337, "created": "2026-10-23T19:57:15Z", "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40015434337"},
+  "job_step_evidence": {
+    "run": 40048429858,
+    "job": 120735483525,
+    "steps": [
+      "Set up job | success",
+      "Run actions/checkout@v7 | success",
+      "Run actions/setup-python@v7 | success",
+      "Run pip install -r requirements.txt | success",
+      "Regression tests (repository fixtures, before any cache restore) | failure",
+      "Refresh all Hotspawn CS2 records and supported external lines | skipped",
+      "Reconcile every row, replay every probability and build linked pages | skipped",
+      "Run actions/deploy-pages@v5 | skipped",
+      "Verify the public site, its complete data and category pages | skipped"
+    ]
+  },
+  "root_cause": {
+    "module": "scripts/originate.py",
+    "line": 1044,
+    "exception": "NameError: name 'egw_live' is not defined",
+    "introduced_by": "https://github.com/buffedlizard55-lab/MaltaProj3/pull/240 (merge commit bdb4fc92a30989e93263d7ef3842cda045fe6571)",
+    "code_at_merge": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/bdb4fc92a30989e93263d7ef3842cda045fe6571/scripts/originate.py",
+    "reproduction": "python -m unittest discover -s tests on bdb4fc92a30989e93263d7ef3842cda045fe6571 fails in tests/test_f9d0a5a2, tests/test_origination_upgrade and tests/test_source_integrity with the same NameError",
+    "reproduced_locally_at": "2026-10-24T06:33Z",
+    "fix": "from scripts import egw_live (scripts/originate.py)"
+  },
+  "consequence_for_readers": "No snapshot has been collected or deployed since the 19:57Z successful run. The public site keeps serving the last verified artifact; nothing is fabricated, but the four-hour promise in the brief is not being met while this step is red.",
+  "what_is_not_claimed": "The public site content was not read in this session (sandbox egress reaches GitHub only); this record is about workflow results, not about the rendered pages."
+}

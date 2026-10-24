@@ -259,13 +259,15 @@ class GlanceIndexTests(unittest.TestCase):
         self.assertIn('class="superseded-flag"', html)
         self.assertIn('Superseded', html)
         self.assertIn('href="#flag-newer-proof"', html)
-        self.assertNotIn('Needs review', html)
+        # The phone findings filter has a legitimate "Needs review" button;
+        # this contract is specifically about the superseded row's badge.
+        self.assertNotIn('class="badge amber">Needs review</span>', html)
 
     def test_a_flag_without_a_resolver_keeps_its_review_badge(self):
         from scripts.build import flags_table
         html = flags_table([{'id': 'open', 'severity': 'warning', 'title': 'Open',
                              'detail': 'Still open.', 'match_ids': [], 'source_urls': []}])
-        self.assertIn('Needs review', html)
+        self.assertIn('class="badge amber">Needs review</span>', html)
         self.assertNotIn('Superseded', html)
 
     def test_every_active_fixture_is_listed_and_never_given_a_50_50(self):

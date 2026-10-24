@@ -275,8 +275,12 @@ def parse_origination_rows(origination_html: Path) -> list[dict[str, Any]]:
         pct_matches = re.findall(r'([^:]+?):\s*(\d+(?:\.\d+)?)%', tds[0])
         probs = [float(p) for _, p in pct_matches]
         teams = [t.strip() for t, _ in pct_matches]
+        # Current and historical markers coexist in the enhanced overview;
+        # CSS hides the inapplicable one, but get_text() deliberately audits
+        # the complete DOM. Consume every status marker before capturing the
+        # unchanged team name instead of returning "Snapshot: TEAM" as a pick.
         pick_m = re.search(
-            r'(?:✓|Snapshot(?:\s+lean)?:)\s*(.+?)\s+(\d+(?:\.\d+)?)%\s*·\s*fair\s*(\d+(?:\.\d+)?)',
+            r'(?:(?:✓|Snapshot(?:\s+lean)?:)\s*)+(.+?)\s+(\d+(?:\.\d+)?)%\s*·\s*fair\s*(\d+(?:\.\d+)?)',
             tds[1],
         )
         links = [a['href'] for a in tr.find_all('a', href=True) if a['href'].startswith('http')]
