@@ -111,6 +111,12 @@ class FlagsUseTheReviewSchema(unittest.TestCase):
     def test_flags(self):
         flags = json.loads(FLAGS.read_text())
         snapshot_ids = {str(m.get('id')) for m in json.loads(SNAPSHOT.read_text())['matches']}
+        # The fresh-sweep flag also names fixtures Hotspawn added after the
+        # frozen snapshot; those ids must come from the runner sweep record.
+        sweep_path = ROOT / 'data/research/f1277d3b/line-source-research.json'
+        if sweep_path.exists():
+            sweep = json.loads(sweep_path.read_text())
+            snapshot_ids |= {str(f.get('id')) for f in sweep.get('per_fixture') or []}
         ids = [f['id'] for f in flags]
         self.assertEqual(len(ids), len(set(ids)))
         for flag in flags:

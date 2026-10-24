@@ -41,3 +41,22 @@ and Hotspawn "% picked" were seen and excluded by policy.
   `flags.json`: `f1277d3b-publisher-stalled-wall-clock-test`); fixtures
   Hotspawn added after 2026-10-23T20:10:00Z get picks on the first successful
   refresh after the fix merges.
+
+## Addendum — fresh lobby fixtures (2026-10-24T06:09Z sweep)
+
+The companion runner sweep's fresh collection (25 active) added five
+model-only fixtures Hotspawn listed after the frozen snapshot; all five HLTV
+pages were then read first-hand (~06:10–06:18Z). Every one is **Bo3 (Online),
+CCT 2026 Europe Series 12**, and every Betting block is again promo-only with
+**no two-sided odds**: [1081152 HAVU vs Azuolas](https://www.hltv.org/matches/2399502/havu-vs-azuolas-cct-2026-europe-series-12) ·
+[1081153 Saint Sinners vs 6yuBoJlbl](https://www.hltv.org/matches/2399503/6yubojlbl-vs-saint-sinners-cct-2026-europe-series-12) ·
+[1081154 BakS vs ILLYRIANS](https://www.hltv.org/matches/2399504/baks-vs-illyrians-cct-2026-europe-series-12) ·
+[1081156 Spirit Academy vs LFO 10](https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12) ·
+[1081158 FORZE Reload vs ex-RUSTEC](https://www.hltv.org/matches/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12).
+Details and the sweep summary (Polymarket 439 events, 8 bound all
+placeholder-wide; Smarkets 3 targets bound, none inside ceilings; Pinnacle
+guest 22,927 matchups, 0 hits; **0 money-line leads**) are in
+`hltv-first-addendum.json` and `line-source-research.{json,md}`.
+In the same fresh collection, 1079200 (Color vs ex-Zero Tenacity) was resolved
+by the ladder above the research-model rungs — the automatic upgrade path, no
+session input involved.

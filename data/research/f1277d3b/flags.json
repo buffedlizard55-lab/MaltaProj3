@@ -14,7 +14,15 @@
   {
     "id": "f1277d3b-hltv-first-no-odds-seven-fixtures",
     "severity": "notice",
-    "match_ids": ["1082996", "1079198", "1079200", "1082858", "1082861", "1082792", "1082793"],
+    "match_ids": [
+      "1082996",
+      "1079198",
+      "1079200",
+      "1082858",
+      "1082861",
+      "1082792",
+      "1082793"
+    ],
     "title": "HLTV checked first for all 7 fixtures without a betting line (2026-10-24): identities, Bo3 formats and lineups confirmed; no two-sided odds on any HLTV match page",
     "detail": "Read first-hand 2026-10-24 through egress that reaches hltv.org. For each of the 7 active fixtures in the 2026-10-23T20:10:00Z snapshot whose pick rests only on a labelled research model (or that the featured method left unresolved), the HLTV match page confirms both teams, the event, the best-of-3 format and five-player lineups, and its Betting block contains only a Stake US sweepstake promotion row ('No promocode available') with no decimal odds for either team. HLTV fan polls were seen on every page and excluded by policy (crowd polls, never probabilities). HLTV world-rank (2026-10-19 week) and VRS badges were copied per fixture in data/research/f1277d3b/hltv-first-research.{json,md}; esportsbook/exchange surfaces (Polymarket Gamma, Smarkets board, bo3.gg relay, Pinnacle guest, Rivalry/Betano/Betsson/Unibet/Oddspedia/22bet/Bet365/EGamersWorld) are in the companion runner sweep data/research/f1277d3b/line-source-research.{json,md}. These rows keep labelled model estimates rather than betting-line probabilities; the four-hour ladder retries every rung and upgrades a row only from replayed first-party evidence.",
     "source_urls": [
@@ -30,7 +38,9 @@
   {
     "id": "f1277d3b-acend-unity-ranking-order-vs-model-pick",
     "severity": "notice",
-    "match_ids": ["1082996"],
+    "match_ids": [
+      "1082996"
+    ],
     "title": "Acend vs UNiTY (1082996): both HLTV-displayed ranking orders place UNiTY above Acend, while the published Valve-points model pick is Acend — review, not an override",
     "detail": "On the HLTV match page read 2026-10-24 (ranking week 2026-10-19), UNiTY is HLTV #86 / VRS #60 and Acend is HLTV #131 / VRS #75. The site's published research-model estimate for this fixture is Acend 54.2% / UNiTY 45.8% (snapshot 2026-10-23T20:10:00Z, Valve official ratings). The disagreement is recorded verbatim for manual review: ranking order is not a probability, the Valve rung re-derives from the official ratings file (points, not ordinal rank badges) every refresh, and no session may flip a pick from a badge comparison. If the next refresh replays different official inputs or a compliant external line appears, the ladder changes the row itself; until then the estimate and its 'uncalibrated research model' limitation stand.",
     "source_urls": [
@@ -38,6 +48,34 @@
       "https://www.hltv.org/ranking/teams/2026/october/19/12267",
       "https://www.hltv.org/ranking/teams/2026/october/19/13518",
       "https://github.com/ValveSoftware/counter-strike_regional_standings"
+    ]
+  },
+  {
+    "id": "f1277d3b-fresh-sweep-11-model-only-no-leads",
+    "severity": "notice",
+    "match_ids": [
+      "1081152",
+      "1081153",
+      "1081154",
+      "1081156",
+      "1081158",
+      "1082996",
+      "1079198",
+      "1082858",
+      "1082861",
+      "1082792",
+      "1082793"
+    ],
+    "title": "Fresh sweep 2026-10-24T06:09Z against the current lobby (25 active): 11 fixtures carry only a research-model pick, 0 gained a two-sided external price on any surface probed",
+    "detail": "The f1277d3b runner sweep (run 40067611062) collected a fresh snapshot (2026-10-24T06:08:01Z, 25 active fixtures — including the CCT Europe Series #12 fixtures Hotspawn added while the publisher was stalled) and probed every model-only row HLTV-first, then Polymarket (439 open CS2 events to a terminal Gamma page; 8 bound, all placeholder-wide with widest spreads 0.88-0.94 copied verbatim), the Smarkets exchange board (3 targets bound; none satisfied the ladder's published ceilings), bo3.gg bindings/relay blocks (no two-sided relay price), the Pinnacle guest board (22,927 matchups, 0 hits) and 23 book/aggregator pages (403/401/503/410/404 or 200-with-no-target-team). Money-line leads: 0 — so all 11 keep labelled research-model picks with their limitations, listed on the executive summary's 'Picks without a betting line' register and /unresolved/. Their HLTV pages were also read first-hand (identities and Bo3 formats confirmed; Betting blocks promo-only) in data/research/f1277d3b/hltv-first-research.{json,md} + hltv-first-addendum.json. In the same collection the ladder resolved 1079200 above the model rungs with no session input. Note: 1081152/1081153/1081154 start later on 2026-10-24, so this dated record ages quickly; the four-hour publisher's next successful run supersedes it.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40067611062",
+      "https://www.hltv.org/matches/2399502/havu-vs-azuolas-cct-2026-europe-series-12",
+      "https://www.hltv.org/matches/2399503/6yubojlbl-vs-saint-sinners-cct-2026-europe-series-12",
+      "https://www.hltv.org/matches/2399504/baks-vs-illyrians-cct-2026-europe-series-12",
+      "https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12",
+      "https://www.hltv.org/matches/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12",
+      "https://play.hotspawn.com/lobby"
     ]
   }
 ]
