@@ -84,7 +84,17 @@ merged code, and keeps only what is not a duplicate:
   run), so nothing is stale-broken and nothing is fabricated; the refresh simply has not run yet.
   The run link above is the authoritative record — check it before treating the published
   snapshot as current.
-- **Deploy re-checked at 2026-10-24T10:00Z:** run 40074822023 is *still* `queued` (created
+- **DEPLOY CONFIRMED — 2026-10-24T10:34:16Z.** Publisher run
+  [40074822023](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40074822023) (commit
+  `746118c`, the merge of PR #260) completed **success** end to end after 2 h 35 m queued:
+  `republish-last-verified` success, then `verify-and-deploy` success through every step —
+  **`Regression tests (repository fixtures, before any cache restore)` success** (the step that
+  failed on 40028653350 / 40037957529 / 40048429858 / 40063011446), collect, research, reconcile,
+  `deploy-pages`, **`Verify the public site, its complete data and category pages` success**, root
+  publish and the post-root re-deploy and re-verify. That is the first successful scheduled
+  publisher since 2026-10-23T19:57Z, and it is the production proof that the regression that
+  stalled four refreshes is gone.
+- **Deploy re-checked at 2026-10-24T10:00Z (superseded by the line above):** run 40074822023 is *still* `queued` (created
   07:36:41Z, ~2h20m). Between 09:38Z and 09:51Z alone, six push runs on `main` were
   cancelled while pending. The queue is starved of runners by the number of concurrent
   sessions, not by anything in this branch: the merged tree builds and passes its full
