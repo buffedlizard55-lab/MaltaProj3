@@ -15,7 +15,7 @@
 - **Hotspawn:** https://www.hotspawn.com/matches/acend-vs-forze-reload-cct-europe-2026-series-11-1079658
 - **On our site:** [summary](https://buffedlizard55-lab.github.io/MaltaProj3/) · [pick row](https://buffedlizard55-lab.github.io/MaltaProj3/picks/#match-1079658) · [unresolved](https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/) · [audit trail](https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1079658)
 - **hltv:** https://www.hltv.org/matches/2399335/acend-vs-forze-reload-cct-2026-europe-series-11 — CCT 2026 Europe Series 11, Quarterfinal, bo3 (per citing sessions). HLTV match pages carry no usable price.
-- **polymarket:** https://polymarket.com/esports/cs2/cct-europe/cs2-ace1-forzer-2026-10-24 —
+- **polymarket:** https://polymarket.com/esports/cs2/cct-europe/cs2-ace1-forzer-2026-10-24 — 
 - **egamersworld:** https://egamersworld.com/counterstrike/match/_rW8GEyWK/acend-vs-forze-reload-FZO8bqMyg — The rendered header does not name the underlying bookmaker in this read; prices recorded unattributed.
 
 ### Spirit Academy vs Lavked (`1079659`, missing_from_published_snapshot)
@@ -24,8 +24,8 @@
 - **Hotspawn:** https://www.hotspawn.com/matches/spirit-academy-vs-lavked-cct-europe-2026-series-11-1079659
 - **On our site:** [summary](https://buffedlizard55-lab.github.io/MaltaProj3/) · [pick row](https://buffedlizard55-lab.github.io/MaltaProj3/picks/#match-1079659) · [unresolved](https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/) · [audit trail](https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1079659)
 - **hltv:** https://www.hltv.org/matches/2399336/spirit-academy-vs-lavked-cct-2026-europe-series-11 — CCT 2026 Europe Series 11, bo3 (per citing session).
-- **polymarket:** https://polymarket.com/esports/cs2/cct-europe/cs2-tsa-lavked-2026-10-24 —
-- **egamersworld:** https://egamersworld.com/counterstrike/match/_rW8GEyWK/spirit-academy-vs-lavked-mNEJAmoc0 —
+- **polymarket:** https://polymarket.com/esports/cs2/cct-europe/cs2-tsa-lavked-2026-10-24 — 
+- **egamersworld:** https://egamersworld.com/counterstrike/match/_rW8GEyWK/spirit-academy-vs-lavked-mNEJAmoc0 — 
 
 ### INOX Division vs BRUTE (`1079660`, missing_from_published_snapshot)
 
@@ -34,7 +34,7 @@
 - **On our site:** [summary](https://buffedlizard55-lab.github.io/MaltaProj3/) · [pick row](https://buffedlizard55-lab.github.io/MaltaProj3/picks/#match-1079660) · [unresolved](https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/) · [audit trail](https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1079660)
 - **hltv:** — — No HLTV match page was read for this fixture in this session; HLTV remains the first check for the collector's next run.
 - **polymarket:** https://polymarket.com/esports/cs2/cct-europe/cs2-inox-brute-2026-10-24 — Polymarket renders the opponent as 'Brute'; Hotspawn renders 'BRUTE'.
-- **egamersworld:** https://egamersworld.com/counterstrike/match/_rW8GEyWK/inox-division-vs-brute-nZfqxPvnH —
+- **egamersworld:** https://egamersworld.com/counterstrike/match/_rW8GEyWK/inox-division-vs-brute-nZfqxPvnH — 
 
 ### Nuclear TigeRES vs ex-Zero Tenacity (`1079661`, missing_from_published_snapshot)
 
@@ -42,8 +42,8 @@
 - **Hotspawn:** https://www.hotspawn.com/matches/nuclear-tigeres-vs-ex-zero-tenacity-cct-europe-2026-series-11-1079661
 - **On our site:** [summary](https://buffedlizard55-lab.github.io/MaltaProj3/) · [pick row](https://buffedlizard55-lab.github.io/MaltaProj3/picks/#match-1079661) · [unresolved](https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/) · [audit trail](https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1079661)
 - **hltv:** — — No HLTV match page was read for this fixture in this session.
-- **polymarket:** https://polymarket.com/esports/cs2/cct-europe/cs2-ntr-zerote-2026-10-24 —
-- **egamersworld:** https://egamersworld.com/counterstrike/match/_rW8GEyWK/nuclear-tigeres-vs-ex-zero-tenacity-rgEVBIE-Y —
+- **polymarket:** https://polymarket.com/esports/cs2/cct-europe/cs2-ntr-zerote-2026-10-24 — 
+- **egamersworld:** https://egamersworld.com/counterstrike/match/_rW8GEyWK/nuclear-tigeres-vs-ex-zero-tenacity-rgEVBIE-Y — 
 
 ### HAVU vs Azuolas (`1081152`, missing_from_published_snapshot)
 
@@ -61,7 +61,7 @@
 - **On our site:** [summary](https://buffedlizard55-lab.github.io/MaltaProj3/) · [pick row](https://buffedlizard55-lab.github.io/MaltaProj3/picks/#match-1081153) · [unresolved](https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/) · [audit trail](https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1081153)
 - **hltv:** — — No HLTV match page was read for this fixture in this session.
 - **polymarket:** https://polymarket.com/esports/cs2/cct-europe/cs2-6yuboj-ssins-2026-10-24 — Polymarket lists 6yuBoJlbl first; cents re-keyed by team name here. $0.00 volume with a 155-cent two-sided sum is a placeholder display, not a tradeable book.
-- **egamersworld:** https://egamersworld.com/counterstrike/match/HiXMAaC8L/6yubojlbl-vs-saint-sinners-cCSiulSZ3S —
+- **egamersworld:** https://egamersworld.com/counterstrike/match/HiXMAaC8L/6yubojlbl-vs-saint-sinners-cCSiulSZ3S — 
 
 ### BakS vs ILLYRIANS (`1081154`, missing_from_published_snapshot)
 
@@ -70,7 +70,7 @@
 - **On our site:** [summary](https://buffedlizard55-lab.github.io/MaltaProj3/) · [pick row](https://buffedlizard55-lab.github.io/MaltaProj3/picks/#match-1081154) · [unresolved](https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/) · [audit trail](https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1081154)
 - **hltv:** — — No HLTV match page was read for this fixture in this session.
 - **polymarket:** https://polymarket.com/esports/cs2/cct-europe/cs2-baks-ill4-2026-10-24 — Polymarket renders 'BakS eSports'; Hotspawn renders 'BakS'. $0.00 volume, 136-cent sum: placeholder display.
-- **egamersworld:** https://egamersworld.com/counterstrike/match/HiXMAaC8L/baks-esports-vs-illyrians-IG9Tsqw9TJ —
+- **egamersworld:** https://egamersworld.com/counterstrike/match/HiXMAaC8L/baks-esports-vs-illyrians-IG9Tsqw9TJ — 
 
 ### Spirit Academy vs LFO 10 (`1081156`, missing_from_published_snapshot)
 
@@ -88,7 +88,7 @@
 - **On our site:** [summary](https://buffedlizard55-lab.github.io/MaltaProj3/) · [pick row](https://buffedlizard55-lab.github.io/MaltaProj3/picks/#match-1081158) · [unresolved](https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/) · [audit trail](https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1081158)
 - **hltv:** https://www.hltv.org/team/12857/forze-reload — HLTV's FORZE Reload team page lists '25 Oct vs. ex-RUSTEC' under upcoming matches (CCT 2026 Europe Series 12), confirming the fixture exists on HLTV; the match page itself was not fetched in this window.
 - **polymarket:** https://polymarket.com/esports/cs2/cct-europe/cs2-forzer-rustec-2026-10-25 — $0.00 volume, 160-cent sum: placeholder display.
-- **egamersworld:** https://egamersworld.com/counterstrike/match/HiXMAaC8L/forze-reload-vs-ex-rustec-_GZF4CT4kR —
+- **egamersworld:** https://egamersworld.com/counterstrike/match/HiXMAaC8L/forze-reload-vs-ex-rustec-_GZF4CT4kR — 
 
 ### HOTU vs The Huns (`1082792`, published_unresolved)
 
@@ -107,3 +107,4 @@
 - **hltv:** https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026 — DFRAG Invitational 2026 (HLTV event 9414), Group A opening match, Best of 3 (LAN). Teams: Ground Zero (HLTV team 8536, page shows HLTV #143 / VRS #131) vs Off Chops (HLTV team 14095). The page's Betting section shows a Stake promotional row with no numeric prices. HLTV fan-vote figures rendered on the page are not transcribed (never a probability in this project).
 - **polymarket:** https://polymarket.com/esports/cs2/dfrag-invitational/cs2-gz1-offcho-2026-10-25 — Board header shows '$0 vol'. The published collector rejected this event at 2026-10-23T20:09Z as 'Crossed or wider-than-12-cent order book' (snapshot.json research trail). A $0-volume display pair is not a validated bid/ask book.
 - **egamersworld:** — — Not read in this window. The published snapshot's research trail (2026-10-23T20:09:58Z) already records GG.BET 403, Pinnacle/Stake/Rivalry generic-landing failures and 'Off Chops: no exact-name Valve rating found' for the model rung.
+

@@ -340,6 +340,31 @@ fixed both independently, so on rebase I dropped my copies rather than duplicate
 work; the local reproduction and the fixes' reasoning stay in this log, and nothing of theirs was
 reverted.
 
+### 7. The two red checks on this PR were not mine — and turned out to be a systemic expiry
+
+The `Rows, build, links, mobile and accessibility` job failed on `main` twice for reasons unrelated to this
+branch, both reproduced on `origin/main` at `6c737a1` in a clean worktree:
+
+* `test_2ed65c56_research` and `test_99d48cd8_reconciliation` asserted a *dated* dossier's snapshot
+  membership against the **live** branch-root `snapshot.json`. That file is republished every four hours,
+  so the assertions expire at the next publish — and `test_99d48cd8_reconciliation`'s
+  `test_generator_reproduces_committed_outputs` went further: it called the generator's `main()`, which
+  **rewrote four tracked files under `data/research/99d48cd8/`** from whatever snapshot happened to be
+  checked in, then compared its own output with itself. That is how a green suite became order-dependent:
+  the rewrite drifted the dossier's totals (16 → 23 covered) and the very next test failed.
+* `test_b72154e1_guided_picks` and `test_99d48cd8_mobile` hard-coded the 2026-10-23 inventory
+  (19 upcoming, exactly two unresolved, Group C ids absent). Accurate when written; false after the
+  10:16:02Z publish.
+
+Fix, in the same spirit as the pinned-clock guard: date-bound claims are checked against a frozen
+snapshot, live claims against live data. `tests/fixtures/published-snapshot-2026-10-23T20-10-00Z.json`
+is a verbatim copy of the root snapshot those dossiers name (commit `2f966a9`, 82 matches), each test
+asserts the frozen stamp equals the stamp its dossier records, the generator now runs into a temporary
+directory and the test fails if it touches the repository, and the two mobile/summary checks derive
+their expectations from the snapshot in the checkout instead of a literal. The two md files under
+`data/research/99d48cd8/` were re-emitted by their own generator so the dossier is byte-identical to
+the code that produced it (numbers unchanged; trailing whitespace only).
+
 ### Irregularities (published on Flagged for Review, not blocking)
 
 1. `8aa401c8-publisher-went-red-on-a-stale-test-clock` — the four missed refreshes, their run links, and the exact mechanism.

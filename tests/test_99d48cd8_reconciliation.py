@@ -9,8 +9,10 @@ from __future__ import annotations
 
 import importlib
 import json
+import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 from urllib.parse import urlparse
 
 SESSION_DIR = Path("data/research/99d48cd8")
@@ -18,6 +20,12 @@ OBS = SESSION_DIR / "observations-2026-10-24.json"
 REC = SESSION_DIR / "reconciliation-2026-10-24.json"
 UNRES = SESSION_DIR / "unresolved-limitations-2026-10-24.json"
 FLAGS = SESSION_DIR / "flags.json"
+# The dossier is dated evidence: it reconciled the lobby against the snapshot
+# that was published at 2026-10-23T20:10:00Z. The live root snapshot is
+# republished every four hours, so regeneration must read this frozen copy --
+# reading today's snapshot rewrote the committed dossier (and every later test
+# in the same run then saw different totals).
+FROZEN_SNAPSHOT = Path("tests/fixtures/published-snapshot-2026-10-23T20-10-00Z.json")
 
 rec = importlib.import_module("scripts.99d48cd8_reconcile")
 
@@ -55,12 +63,28 @@ class Reconciliation(unittest.TestCase):
         self.rec = json.loads(REC.read_text())
         self.unres = json.loads(UNRES.read_text())
         self.snap = json.loads(Path("snapshot.json").read_text())
+        # Every membership/source-url comparison below is against the snapshot
+        # this dossier reconciled, never against today's republished one.
+        self.frozen = json.loads(FROZEN_SNAPSHOT.read_text())
 
     def test_generator_reproduces_committed_outputs(self):
-        before = {p: p.read_text() for p in (REC, UNRES)}
-        rec.main()
-        for p, text in before.items():
-            self.assertEqual(p.read_text(), text, f"{p} drifted from generator output")
+        frozen = json.loads(FROZEN_SNAPSHOT.read_text())
+        self.assertEqual(frozen["generated_at"], self.rec["published_snapshot"]["generated_at"],
+                         "the frozen snapshot must be the one this dossier reconciled")
+        outputs = (REC, UNRES,
+                   SESSION_DIR / "reconciliation-2026-10-24.md",
+                   SESSION_DIR / "unresolved-limitations-2026-10-24.md")
+        before = {p: p.read_text() for p in outputs}
+        with tempfile.TemporaryDirectory() as tmp, \
+                mock.patch.object(rec, "SNAPSHOT_PATH", FROZEN_SNAPSHOT), \
+                mock.patch.object(rec, "OUT_DIR", Path(tmp)):
+            rec.main()
+            for p in outputs:
+                self.assertEqual((Path(tmp) / p.name).read_text(), before[p],
+                                 f"{p.name} drifted from generator output")
+        for p in outputs:
+            self.assertEqual(p.read_text(), before[p],
+                             f"{p.name} was rewritten in the repository by a test")
 
     def test_lobby_join_arithmetic(self):
         t = self.rec["totals"]
@@ -77,7 +101,7 @@ class Reconciliation(unittest.TestCase):
         self.assertEqual(self.rec["published_snapshot"]["generated_at"], "2026-10-23T20:10:00Z")
 
     def test_every_row_has_official_hotspawn_link_and_url_agrees_with_snapshot(self):
-        snap_urls = {m["id"]: m["source_url"] for m in self.snap["matches"]}
+        snap_urls = {m["id"]: m["source_url"] for m in self.frozen["matches"]}
         for row in self.rec["rows"]:
             self.assertTrue(row["source_url"].startswith("https://www.hotspawn.com/matches/"))
             self.assertIn(row["id"], row["source_url"])

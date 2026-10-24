@@ -33,3 +33,4 @@ Read window (UTC): 2026-10-24T07:28:00Z – 2026-10-24T07:34:00Z. Lobby: https:/
 | 1082793 | 5star vs 1WIN | Moscow Cyber Games 2026 | Oct 31, 09:00 | yes | model | [Hotspawn](https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793) |
 
 Lobby times are transcribed verbatim; the render timezone was not verified, so no UTC start is inferred from them. Hotspawn '% picked' figures are never used as probabilities and are not transcribed.
+

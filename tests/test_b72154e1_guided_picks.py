@@ -18,6 +18,11 @@ ROOT = Path(__file__).resolve().parents[1]
 DOSSIER = ROOT / 'data' / 'research' / 'b72154e1' / 'coverage-and-guided-picks.json'
 FLAGS = ROOT / 'data' / 'research' / 'b72154e1' / 'flags.json'
 SNAPSHOT = ROOT / 'snapshot.json'
+# The dossier makes claims about one published snapshot (2026-10-23T20:10:00Z).
+# The branch root is republished every four hours, so those claims are checked
+# against a frozen copy of that exact snapshot -- today's legitimately contains
+# the Group C fixtures that post-dated it, and would fail an accurate dossier.
+FROZEN_SNAPSHOT = ROOT / 'tests' / 'fixtures' / 'published-snapshot-2026-10-23T20-10-00Z.json'
 
 
 def novig_pct(a, b):
@@ -31,7 +36,7 @@ class GuidedPicksTest(unittest.TestCase):
     def setUpClass(cls):
         cls.dossier = json.loads(DOSSIER.read_text(encoding='utf-8'))
         cls.flags = json.loads(FLAGS.read_text(encoding='utf-8'))
-        cls.snapshot = json.loads(SNAPSHOT.read_text(encoding='utf-8'))
+        cls.snapshot = json.loads(FROZEN_SNAPSHOT.read_text(encoding='utf-8'))
         cls.by_id = {str(m['id']): m for m in cls.snapshot['matches']}
         cls.fixtures = {f['id']: f for f in cls.dossier['fixtures']}
 
