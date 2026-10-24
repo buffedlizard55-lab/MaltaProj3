@@ -73,8 +73,8 @@ def normalize_pair(a, b) -> list[float]:
 
 
 def no_vig(odds: list) -> list[float]:
-    if len(odds) != 2 or any(finite(o) is None or float(o) <= 1 for o in odds):
-        raise ValueError('Two decimal odds greater than one are required')
+    if len(odds) != 2 or any(finite(o) is None or float(o) <= 1.01 for o in odds):
+        raise ValueError('Two decimal odds greater than 1.01 are required')
     implied = [1 / float(o) for o in odds]
     if not 0.85 <= sum(implied) <= 1.35:
         raise ValueError('Paired market margin is outside the acceptance policy')
