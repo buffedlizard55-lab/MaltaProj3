@@ -61,6 +61,9 @@ Claimed **2026-10-24T05:22:48Z** on Arena's fixed session branch `arena/be019782
 
 **Merge-ready integrated verification (2026-10-24T07:13Z).** Full current-code local suite at `8ed62fa`: **1,393 PASS / 908.131 s**. All incoming `06618b3` regressions plus exactly-once/source/alias/watchdog/budget guards: **87 PASS / 0.273 s**; e619 frozen-source tests: **21 PASS** separately. Combined DD phone/no-JS/desktop/accessibility suite **112 PASS / 5.9 min** and independent safety **106 PASS**. Old code CI `40070776213` explicitly SUCCESS at 07:05:39Z and live origination audit `40070776199` explicitly SUCCESS at 07:06:19Z; these are the running `013eed2` code checks preserved across the metadata integrations, not checks on every metadata commit. All inherited identity/configuration inputs are separately validated; no forecast or original source record was hand-edited and research consensus files remain research-only. Preserve the new 31-fixture reconciliation/aliases/watchdog and all concurrent coordination blocks. Changed the incoming 719 ownership assertion only to pin the same final exactly-once result with the child owner; all its absent/degraded/duplicate-ID/fragment tests remain. Publisher budget is now 60 min and its hard-failing pre-cache regression and every source gate remain intact. Final combined-data build/link/phone smoke follows before merge. Final live-publication outcome and closure will be recorded in PR #237 comments and this branch's coordination record so a later documentation-only push cannot silently flip legacy Pages back to an older artifact.
 
+
+**Final board/CI-only merge (2026-10-24T07:16Z).** Preserve main `df00337` (#268/#249) board updates and board-only CI path ignores; no application, alias, data, test or source algorithm changed. The sole conflict is the board append; both sides retained. Final combined-data build is **822 rows / 803 official + 9 flagged + 10 sitemap / zero sourceless**, **829 links**, nine current views, acceptance 9 PASS/1 INFO/0 FAIL. Core CI and live source audit already explicitly green; the release confirmation continues on the identical application code.
+
 ---
 
 
@@ -69,6 +72,43 @@ Claimed **2026-10-24T05:22:48Z** on Arena's fixed session branch `arena/be019782
 
 
 
+
+
+# Current session: arena-65eec73f — CI runner-starvation fix (board-only commits no longer start validation runs) — IN PROGRESS (PR #249)
+
+Claimed **2026-10-24T06:30Z** on Arena's fixed branch `arena/65eec73f-maltaproj3`, from `origin/main` at `bdb4fc9`, rebased onto `origin/main` at `06618b3` (PR #265) before the PR. Board read first: about 20 sessions held live claims (last commits 05:20–06:27Z) on the same goal (restore the 4-hour publisher, full Hotspawn coverage, HLTV-first research, mobile summary, integration). No active claim covered CI capacity, so this session duplicates none of them.
+
+**Measured at claim time (`gh run list`, 06:27Z):** of the last 100 workflow runs, **98 came from `arena/**` branches**. About 60 jobs were queued or running (37 push and 10 PR runs queued, 7 push and 5 PR in progress). `checks.yml` ("Validate dashboard", 45-minute cap) and `origination.yml` both triggered on **every push to `arena/**`**, including commits that only edit this board, so each coordination commit started two heavy jobs. The main-branch refresh `40069088115` had been queued for more than 18 minutes behind them.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 65E-1 Add `paths-ignore: ['COORDINATION.md']` to the `push` trigger of `checks.yml` and `origination.yml`, and to the `pull_request` trigger of `checks.yml` (so board-only commits start no validation run; code pushes unchanged); verify on the live branch | **in progress — PR #249 open, merge recorded below** | arena-65eec73f | `.github/workflows/checks.yml`, `.github/workflows/origination.yml` (trigger blocks only), this section of `COORDINATION.md` |
+
+### 65E-1 result (arena-65eec73f, 2026-10-24T06:30Z–07:30Z)
+
+- **Change:** `checks.yml` (push and pull_request) and `origination.yml` (push) carry `paths-ignore: ['COORDINATION.md']`. Job steps are byte-identical to `main`; the diff touches only the `on:` blocks. YAML parsed with PyYAML. GitHub's documented rule: a run is skipped only when every changed file matches an ignored pattern (https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#onpushpull_requestpull_request_targetpathspaths-ignore).
+- **Empirical push test:** board-only commit `fcaf8f4` on `arena/65eec73f-maltaproj3` started **0 runs** (checked 45 s after push with `gh run list --branch`). The earlier claim commit `aa0e27f` (before the change) started two runs, which `gh run cancel` could not stop (HTTP 403 for this token).
+- **Not tested:** the `pull_request` filter on a PR whose diff is board-only (PR #249's diff includes the workflow edits, so it runs as expected).
+- **Branch protection:** not readable with this token (HTTP 403). `repos/.../rulesets` returned an empty list. Not verified further.
+- **PR #249** (`arena/65eec73f-maltaproj3` → `main`), opened 06:4x Z.
+
+**Checks on PR #249 are red, and they are not caused by this change.** The same two failures are on PR #240, which was already merged to `main` (run `40068300976`, 12m17s; origination run `40068300898`, 1m33s):
+
+- `Rows, build, links, mobile and accessibility` (`checks.yml`, run `40070583679`, 20m31s on PR #249): 10 annotations from the `Test strict identity, pricing, fallback and failure handling` step — `test_origination_upgrade.LiveModelResearch` (3 errors), `test_f9d0a5a2…test_live_collect_deduplicates_duplicate_polymarket_game_ids`, plus `HTTP 403`, `Lobby and API disagree`, `no route to host` in the live-snapshot checks. The identical ten annotations appear on PR #240's run.
+- `originate` (`origination.yml`, run `40070583737`, 1m37s, step `Refetch first-party origination sources and resolve`, exit 1). Cause not confirmed: the job log host (`productionresultssa*.blob.core.windows.net`) is unreachable from the sandbox and the `gh run rerun` call was refused (`workflow file may be broken`). Hypothesis, **unverified**: GitHub API quota for the shared token is exhausted by the queue this change is meant to reduce.
+
+**Not fixed here (out of this session's file scope):** the ten test errors in `tests/test_origination_upgrade.py`, `tests/test_f9d0a5a2*` and the live-snapshot checks, and the `originate --live` exit. These need an owner who holds `tests/**` and `scripts/originate.py`.
+
+**Live-site state observed while working (fetch tool, 2026-10-24T06:30–07:10Z):** the published executive summary said "Snapshot needs attention", inventory checked 23 Oct 2026 22:09 Europe/Malta, and listed 19 active fixtures. The live Hotspawn lobby (`https://play.hotspawn.com/lobby`) lists "Tier All tiers (88)" for the current pick'em. The scheduled `pages.yml` runs `40028653350`, `40037957529`, `40048429858`, `40063011446` all failed before PR #240 merged (time-bomb test). Main's push run `40069088115` was still queued at 06:30Z.
+
+**Irregularities for review:**
+1. 98 of the last 100 runs at 06:27Z came from `arena/**` branches; Origination runs number about 1,300 on the workflow page.
+2. Concurrent sessions ran duplicate claims on one goal; the board needs one integrator, and four sessions named themselves "final integration".
+3. Red checks listed above are pre-existing on `main`, not introduced by PR #249.
+4. `gh run cancel` and `gh run rerun` were refused for this token (HTTP 403, "workflow file may be broken").
+5. GitHub REST rate limit for the user token was exhausted from about 06:58Z to 07:10Z.
+
+**Non-overlap pledge:** no edit to `scripts/**`, `data/**`, `index.html`, `picks/**`, `unresolved/**`, `review/**`, `assets/**`, `tests/**`, or any other session's `data/research/<id>/`. Pages and publish workflows are not touched.
 
 # Current session: arena-c6b8d58b — 31/31 Hotspawn CS2 + 31/31 HLTV match-page reconciliation (closing the 6 South American Tier-C fixtures), HLTV-first + multi-book/EGW consensus research for all 13 model-only fixtures, scoped South American aliases & mobile/WCAG verification — DONE (PR #265)
 
@@ -291,6 +331,8 @@ The executive summary emitted `id="no-line-research"` twice, so `tests/test_ca7e
 Per the brief's *"If the build, a check, or the deploy fails, fix the problem and retry until the site is live"*, and because a red `main` means the four-hour refresh cannot publish at all, this session applied the **minimal, non-destructive** fix inside its own PR: the compact register stopped emitting the dated block a second time (`scripts/build.py`, one call plus its comment), so `summary()` renders it exactly once and `/unresolved/` keeps its own copy. No other line of `scripts/build.py` was touched, nothing in `arena-be019782`'s branch was reverted, and their fuller change set can still merge after a rebase. This is logged as a handoff, not as a silent grab of their scope; my own register item `73bc57bd-duplicate-no-line-research-id` was moved from *needs review* to *fixed* with the same text.
 
 Verified after the change: `site/index.html` and `site/unresolved/index.html` each contain exactly one `id="no-line-research"` (and one `id="no-line-register"`); `scripts.build` PASS (780 audited rows, 0 without a source, acceptance 9 pass / 1 info / 0 fail, 827 internal links); `tests.test_ca7e10e5_snapshot`, `test_eea4c104_audit`, `test_42bfa8ea`, `test_3016b0c6_mobile_glance`, `test_73bc57bd_reconciliation`, `test_review_register`, `test_current_research_summary` → **76 tests OK**.
+
+**Publication record (S73-4).** PR **[#241](https://github.com/buffedlizard55-lab/MaltaProj3/pull/241)** merged into `main` as **`4a6c112a`** at **2026-10-24T06:32:41Z** (merge, no approval waited on). The merge carried the whole session — dossier, generator, 27 tests, register wiring and the one-line duplicate-id fix. **Pages deploy: not yet observed at 07:10Z.** Every push-triggered `pages.yml` run after the merge (40070626757 at 06:32Z, 40071009969, 40071100402, 40071346040, 40071396534, 40072922361, 40072981546, 40073031665 at 07:09Z) was **cancelled while pending** by the next push to `main` in the shared `pages-push` concurrency group, because 22-23 session PRs are merging within minutes of each other and the runner pool is saturated by their 45-minute check jobs. No run has failed on content: none of them ever started. The live site therefore still serves `2026-10-23T20:10:00Z` at 07:10Z (re-read from `data/latest.json`). The designed protection holds — `republish-last-verified` keeps the last successful build live, and the workflow's own comment documents this exact starvation mode. The next attempts are the push run behind the newest merge and the guaranteed `47 2-22/4` cron at **08:47Z** (a `schedule` event uses the separate `pages-schedule` group and cannot be cancelled by pushes). This session cannot dispatch a run itself: `gh workflow run pages.yml` returns **HTTP 403 "Resource not accessible by integration"** (the token has no `actions:write`), recorded here as a platform limitation.
 
 **Cross-session note.** Four sessions were live on the same blockers while this one ran (arena-43110640, arena-be019782, arena-89c00d8a, arena-f1277d3b). This session deliberately edited none of their files; the two defects above are reported with their run ids instead. No probability, pick or alias was written by hand anywhere in this PR.
 
