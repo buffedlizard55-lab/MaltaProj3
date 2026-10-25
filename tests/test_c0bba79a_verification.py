@@ -120,19 +120,37 @@ class SnapshotBindingTests(unittest.TestCase):
         self.assertFalse(any('upcoming set differs' in e for e in errors))
 
     def test_named_snapshot_missing_recorded_blank_fails(self) -> None:
-        snap = self._snapshot()
-        named = [m for m in snap['matches']
-                 if m.get('availability') != 'past'
-                 and m['id'] in set(dossier()['reconciliation']['still_open_without_featured_analysis'])]
-        if not named:
-            self.skipTest('named snapshot no longer holds the recorded blank row')
-        for m in named:
-            m['analysis'] = None
-        # remove the recorded allowance: now the blank is unexplained
+        """Self-contained synthetic snapshot with the dossier's recorded state:
+        every still-open fixture has featured analysis except the one recorded
+        complete-layer id.  Emptying the recorded allowance must fail; keeping
+        it must pass.  Built synthetically so the assertions do not depend on
+        which publisher snapshot happens to be checked in."""
         d = dossier()
+        rec = d['reconciliation']
+        allowed = set(rec['still_open_without_featured_analysis'])
+        matches = []
+        for fid in rec['snapshot_upcoming_18']:
+            blank = fid in allowed and fid in set(rec['snapshot_still_open_13'])
+            matches.append({
+                'id': fid,
+                'availability': 'future',
+                'analysis': None if blank else {
+                    'probabilities': [0.6, 0.4],
+                    'method': 'market',
+                    'observed_at': v.DOSSIER_SNAPSHOT_GENERATED,
+                    'source_url': 'https://example.org/official',
+                },
+                'pick_index': None if blank else 0,
+            })
+        snap = {
+            'generated_at': v.DOSSIER_SNAPSHOT_GENERATED,
+            'counts': {'inventory': 18, 'upcoming': 18, 'archived': 0},
+            'matches': matches,
+        }
+        self.assertEqual(v.check_snapshot_binding(d, snap), [])
         d['reconciliation']['still_open_without_featured_analysis'] = []
         errors = v.check_snapshot_binding(d, snap)
-        self.assertTrue(any('without a recorded complete-layer pick' in e for e in errors))
+        self.assertTrue(any('without a recorded complete-layer pick' in e for e in errors), errors)
 
 
 class RenderedSummaryTests(unittest.TestCase):
