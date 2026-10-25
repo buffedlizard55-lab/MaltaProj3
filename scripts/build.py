@@ -2046,6 +2046,72 @@ def session_probe_block(data, prefix):
             + '</ul>' + ''.join(body) + '</section>')
 
 
+#: A dossier older than this is historical evidence about an older inventory and
+#: must not be rendered as the current research trail. The four-hour publisher
+#: plus its catch-up slot produce a fresh one well inside this bound.
+UNRESOLVED_RESEARCH_MAX_AGE_HOURS = 36
+
+
+def load_unresolved_research(source, now=None):
+    """Newest schema-valid, still-current unresolved-pick research dossier.
+
+    ``scripts/unresolved_research.py`` has carried a complete, schema-validated,
+    phone-friendly renderer for this dossier since session arena-35440d12, and
+    its own docstring says the site build links it "until that integration hook
+    lands".  It never landed: nothing imported ``render_section``, so the
+    per-fixture HLTV-first / esportsbook trails and their limitations were
+    published only as a JSON file.  This loader is the missing half.
+
+    Newest-wins is decided by the dossier's own ``prepared_at``, not by the
+    directory name; a record that fails the schema validator is skipped rather
+    than rendered half-parsed; and a dossier older than
+    ``UNRESOLVED_RESEARCH_MAX_AGE_HOURS`` is skipped outright, because it
+    describes an inventory that has since rotated and would read as a current
+    claim. The chosen record keeps its own path so the machine-readable link
+    always points at the dossier actually rendered.
+    """
+    from scripts.unresolved_research import load_research
+    reference = now or datetime.now(timezone.utc)
+    candidates = []
+    for path in sorted((source / 'research').glob('*/unresolved-research.json')):
+        try:
+            record = load_research(path)
+        except (ValueError, TypeError, AttributeError, OSError, KeyError):
+            continue
+        prepared = timestamp(record.get('prepared_at'))
+        if not prepared or not record.get('fixtures'):
+            continue
+        if (reference - prepared).total_seconds() > UNRESOLVED_RESEARCH_MAX_AGE_HOURS * 3600:
+            continue
+        try:
+            record['_record_path'] = path.relative_to(source).as_posix()
+        except ValueError:                                  # pragma: no cover - outside source
+            continue
+        candidates.append((prepared, record['_record_path'], record))
+    return max(candidates, key=lambda item: item[:2])[2] if candidates else None
+
+
+def unresolved_research_link(data, prefix):
+    """One line on the executive summary pointing at the full research dossier.
+
+    The brief asks that the separate unresolved section be reachable *from the
+    executive summary*.  A single line is added rather than another tile: a sixth
+    ``start-here`` tile was already rejected because it pushed the first pick
+    below the fold on a phone (session arena-3877d48d).
+    """
+    record = data.get('_unresolved_research')
+    if not record:
+        return ''
+    fixtures = record.get('fixtures') or []
+    blank = sum(1 for f in fixtures if f.get('resolution') == 'stays-unresolved')
+    pending = len(fixtures) - blank
+    return (f'<p class="tiny muted unresolved-research-line">Dated research behind these blanks: '
+            f'{len(fixtures)} fixture(s) — {blank} stay blank, {pending} expected at the next refresh — each with '
+            f'its HLTV identity check, the esportsbooks actually read and its own limitations. '
+            f'<a class="internal-link" href="{prefix}unresolved/#unresolved-research">Open the research trail →</a> '
+            f'<a class="internal-link" href="{prefix}data/{record["_record_path"]}">Machine-readable dossier →</a></p>')
+
+
 def unresolved_page(data, prefix, now=None):
     """A dedicated, phone-first page for every fixture without a pick.
 
@@ -2102,6 +2168,15 @@ def unresolved_page(data, prefix, now=None):
     # outside research behind their limits.
     out += fallback_register(data, prefix)
     out += research_verification_block(data, prefix)
+    # Session arena-93c7475a: the brief's separate section for the matches that
+    # cannot be resolved the way the featured picks are — the dated HLTV-first
+    # then esportsbook trail per fixture, with the limitations of generating a
+    # pick for each one. Rendered by scripts.unresolved_research, imported here
+    # rather than at module scope because that module imports from this one.
+    dossier = data.get('_unresolved_research')
+    if dossier:
+        from scripts.unresolved_research import render_section
+        out += render_section(dossier, prefix)
     out += session_probe_block(data, prefix)
     out += ('<section class="content-section prose" id="ladder"><p class="eyebrow">Our method, in order</p>'
             '<h2>What has to fail before a match is published as unresolved</h2>'
@@ -2296,6 +2371,9 @@ def unresolved_register(data, prefix, title='Unresolved picks &amp; limitations'
                    f'<a class="internal-link" href="{prefix}unresolved/#unresolved-register">Full register: every source '
                    'status, the dated sweep and each per-fixture trial →</a> '
                    f'<a class="internal-link" href="{prefix}methodology/">How a pick is chosen →</a></p>')
+        # Session arena-93c7475a: the executive summary must reach the separate
+        # unresolved research section in one tap, per the brief.
+        out.append(unresolved_research_link(data, prefix))
         out.append('</section>')
         return ''.join(out)
     out.append(no_line_register(data, prefix))
@@ -2877,6 +2955,10 @@ def build(source: Path, output: Path, now=None):
     # session's dated record that compared a non-empty lobby can render, and the
     # dated-record links follow the record actually rendered.
     data['_live_coverage'] = load_live_coverage(source)
+    # Session arena-93c7475a: the dated HLTV-first / esportsbook dossier behind
+    # every fixture the featured ladder cannot price. Evidence only — nothing in
+    # it ever becomes a probability or a pick.
+    data['_unresolved_research'] = load_unresolved_research(source, now)
     session_probe_path = source / 'research/4c972a51/source-probe.json'
     if session_probe_path.exists():
         try:
