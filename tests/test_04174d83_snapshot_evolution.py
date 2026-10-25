@@ -16,14 +16,16 @@ class SnapshotEvolutionTest(unittest.TestCase):
         case = self.case()
         case.snapshot['generated_at'] = '2026-10-25T12:00:00Z'
         for fid in ('1082858', '1082792'):
-            case.by_id[fid] = {'pick_index': 1}
+            case.by_id[fid] = {'pick_index': 1, 'teams': [
+                {'name': name} for name in case.fixtures[fid]['teams']]}
         case.test_group_a_are_snapshot_unresolved()
 
     def test_historical_gap_still_asserted_on_named_snapshot(self):
         case = self.case()
         case.snapshot['generated_at'] = case.dossier['published_snapshot']['generated_at']
         for fid in ('1082858', '1082792'):
-            case.by_id[fid] = {'pick_index': None}
+            case.by_id[fid] = {'pick_index': None, 'teams': [
+                {'name': name} for name in case.fixtures[fid]['teams']]}
         case.test_group_a_are_snapshot_unresolved()
         case.by_id['1082858']['pick_index'] = 1
         with self.assertRaises(AssertionError):
