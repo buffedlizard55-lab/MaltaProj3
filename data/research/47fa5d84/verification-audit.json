@@ -1,0 +1,1310 @@
+{
+  "session_id": "arena-47fa5d84",
+  "verified_at": "2026-10-25T13:58:00Z",
+  "policy": {
+    "hotspawn_crowd_pct_used_as_probability": false,
+    "hltv_fan_poll_used_as_probability": false,
+    "non_featured_fallback_order": [
+      "1. HLTV match & world-ranking / lineup identity verification first",
+      "2. Prediction markets & betting exchanges (Polymarket, Kalshi, Smarkets)",
+      "3. First-party esportsbooks (Thunderpick, Bovada, Pinnacle, bo3.gg-relayed lines)",
+      "4. SHA-256-verified <8h EGamersWorld match-page bookmaker average (rejecting 1.8/1.8 and 1.82/1.82 placeholders)",
+      "5. Explicitly labelled Valve VRS / bo3.gg network / HLTV ranking research models with documented limitations"
+    ],
+    "unverified_values_policy": "Leave blank when unconfirmed from an official trusted source and flag on /review/; never infer or fabricate odds, probabilities, series formats, or picks."
+  },
+  "root_snapshot_verification": {
+    "generated_at": "2026-10-25T05:12:25Z",
+    "total_inventory": 79,
+    "active_count": 18,
+    "archived_count": 61,
+    "featured_resolved_count": 16,
+    "featured_unresolved_count": 2,
+    "featured_unresolved_ids": [
+      "1081156",
+      "1082792"
+    ],
+    "active_matches": [
+      {
+        "id": "1082996",
+        "teams": [
+          "Acend",
+          "UNiTY"
+        ],
+        "starts_at": "2026-10-25T09:00:00Z",
+        "competition": "NODWIN Clutch Series #13",
+        "hotspawn_crowd_percent_excluded": [
+          null,
+          null
+        ],
+        "featured_status": "resolved",
+        "featured_method": "model",
+        "featured_provider": "Valve official standings",
+        "featured_probabilities": [
+          0.54190155,
+          0.45809845
+        ],
+        "featured_pick_index": 0,
+        "featured_pick_team": "Acend",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      },
+      {
+        "id": "1085541",
+        "teams": [
+          "Acend",
+          "INOX Division"
+        ],
+        "starts_at": "2026-10-25T11:00:00Z",
+        "competition": "CCT Europe 2026 Series #11",
+        "hotspawn_crowd_percent_excluded": [
+          null,
+          null
+        ],
+        "featured_status": "resolved",
+        "featured_method": "market",
+        "featured_provider": "Polymarket",
+        "featured_probabilities": [
+          0.46,
+          0.54
+        ],
+        "featured_pick_index": 1,
+        "featured_pick_team": "INOX Division",
+        "source_url": "https://polymarket.com/event/cs2-ace1-inox-2026-10-25"
+      },
+      {
+        "id": "1079198",
+        "teams": [
+          "Metizport",
+          "BakS"
+        ],
+        "starts_at": "2026-10-25T12:00:00Z",
+        "competition": "NODWIN Clutch Series #13",
+        "hotspawn_crowd_percent_excluded": [
+          null,
+          null
+        ],
+        "featured_status": "resolved",
+        "featured_method": "model",
+        "featured_provider": "Valve official standings",
+        "featured_probabilities": [
+          0.79860558,
+          0.20139442
+        ],
+        "featured_pick_index": 0,
+        "featured_pick_team": "Metizport",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      },
+      {
+        "id": "1081156",
+        "teams": [
+          "Spirit Academy",
+          "LFO 10"
+        ],
+        "starts_at": "2026-10-25T12:00:00Z",
+        "competition": "CCT Europe 2026 Series #12",
+        "hotspawn_crowd_percent_excluded": [
+          null,
+          null
+        ],
+        "featured_status": "unresolved",
+        "featured_method": null,
+        "featured_provider": null,
+        "featured_probabilities": null,
+        "featured_pick_index": null,
+        "featured_pick_team": null,
+        "source_url": "https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156"
+      },
+      {
+        "id": "1085542",
+        "teams": [
+          "ex-Zero Tenacity",
+          "Spirit Academy"
+        ],
+        "starts_at": "2026-10-25T14:00:00Z",
+        "competition": "CCT Europe 2026 Series #11",
+        "hotspawn_crowd_percent_excluded": [
+          null,
+          null
+        ],
+        "featured_status": "resolved",
+        "featured_method": "model",
+        "featured_provider": "Valve official standings",
+        "featured_probabilities": [
+          0.61680305,
+          0.38319695
+        ],
+        "featured_pick_index": 0,
+        "featured_pick_team": "ex-Zero Tenacity",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      },
+      {
+        "id": "1079199",
+        "teams": [
+          "Infinite",
+          "BRUTE"
+        ],
+        "starts_at": "2026-10-25T15:00:00Z",
+        "competition": "NODWIN Clutch Series #13",
+        "hotspawn_crowd_percent_excluded": [
+          null,
+          null
+        ],
+        "featured_status": "resolved",
+        "featured_method": "market",
+        "featured_provider": "Polymarket",
+        "featured_probabilities": [
+          0.44,
+          0.56
+        ],
+        "featured_pick_index": 1,
+        "featured_pick_team": "BRUTE",
+        "source_url": "https://polymarket.com/event/cs2-inf6-brute-2026-10-25"
+      },
+      {
+        "id": "1079200",
+        "teams": [
+          "Color",
+          "ex-Zero Tenacity"
+        ],
+        "starts_at": "2026-10-25T18:00:00Z",
+        "competition": "NODWIN Clutch Series #13",
+        "hotspawn_crowd_percent_excluded": [
+          null,
+          null
+        ],
+        "featured_status": "resolved",
+        "featured_method": "market",
+        "featured_provider": "Polymarket",
+        "featured_probabilities": [
+          0.485,
+          0.515
+        ],
+        "featured_pick_index": 1,
+        "featured_pick_team": "ex-Zero Tenacity",
+        "source_url": "https://polymarket.com/event/cs2-color-zerote-2026-10-25"
+      },
+      {
+        "id": "1081158",
+        "teams": [
+          "FORZE Reload",
+          "ex-RUSTEC"
+        ],
+        "starts_at": "2026-10-25T18:00:00Z",
+        "competition": "CCT Europe 2026 Series #12",
+        "hotspawn_crowd_percent_excluded": [
+          null,
+          null
+        ],
+        "featured_status": "resolved",
+        "featured_method": "market",
+        "featured_provider": "Polymarket",
+        "featured_probabilities": [
+          0.565,
+          0.435
+        ],
+        "featured_pick_index": 0,
+        "featured_pick_team": "FORZE Reload",
+        "source_url": "https://polymarket.com/event/cs2-forzer-rustec-2026-10-25"
+      },
+      {
+        "id": "1082858",
+        "teams": [
+          "Ground Zero",
+          "Off Chops"
+        ],
+        "starts_at": "2026-10-26T03:00:00Z",
+        "competition": "DFRAG Invitational 2026",
+        "hotspawn_crowd_percent_excluded": [
+          null,
+          null
+        ],
+        "featured_status": "resolved",
+        "featured_method": "market",
+        "featured_provider": "Polymarket",
+        "featured_probabilities": [
+          0.25,
+          0.75
+        ],
+        "featured_pick_index": 1,
+        "featured_pick_team": "Off Chops",
+        "source_url": "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25"
+      },
+      {
+        "id": "1082859",
+        "teams": [
+          "NEXVOID",
+          "Alter Ego"
+        ],
+        "starts_at": "2026-10-26T03:00:00Z",
+        "competition": "DFRAG Invitational 2026",
+        "hotspawn_crowd_percent_excluded": [
+          null,
+          null
+        ],
+        "featured_status": "resolved",
+        "featured_method": "bookmaker",
+        "featured_provider": "Thunderpick",
+        "featured_probabilities": [
+          0.57894737,
+          0.42105263
+        ],
+        "featured_pick_index": 0,
+        "featured_pick_team": "NEXVOID",
+        "source_url": "https://thunderpick.io/api/matches"
+      },
+      {
+        "id": "1082860",
+        "teams": [
+          "FlyQuest",
+          "Staqued"
+        ],
+        "starts_at": "2026-10-27T03:00:00Z",
+        "competition": "DFRAG Invitational 2026",
+        "hotspawn_crowd_percent_excluded": [
+          null,
+          null
+        ],
+        "featured_status": "resolved",
+        "featured_method": "bookmaker",
+        "featured_provider": "Thunderpick",
+        "featured_probabilities": [
+          0.92300592,
+          0.07699408
+        ],
+        "featured_pick_index": 0,
+        "featured_pick_team": "FlyQuest",
+        "source_url": "https://thunderpick.io/api/matches"
+      },
+      {
+        "id": "1082861",
+        "teams": [
+          "Rooster",
+          "Abyssal"
+        ],
+        "starts_at": "2026-10-27T03:00:00Z",
+        "competition": "DFRAG Invitational 2026",
+        "hotspawn_crowd_percent_excluded": [
+          null,
+          null
+        ],
+        "featured_status": "resolved",
+        "featured_method": "model",
+        "featured_provider": "Valve official standings",
+        "featured_probabilities": [
+          0.47761494,
+          0.52238506
+        ],
+        "featured_pick_index": 1,
+        "featured_pick_team": "Abyssal",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      },
+      {
+        "id": "1082897",
+        "teams": [
+          "B8",
+          "K27"
+        ],
+        "starts_at": "2026-10-27T08:00:00Z",
+        "competition": "Tesla Cup 2026",
+        "hotspawn_crowd_percent_excluded": [
+          null,
+          null
+        ],
+        "featured_status": "resolved",
+        "featured_method": "market",
+        "featured_provider": "Polymarket",
+        "featured_probabilities": [
+          0.595,
+          0.405
+        ],
+        "featured_pick_index": 0,
+        "featured_pick_team": "B8",
+        "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27"
+      },
+      {
+        "id": "1082898",
+        "teams": [
+          "Alliance",
+          "FaZe"
+        ],
+        "starts_at": "2026-10-27T11:00:00Z",
+        "competition": "Tesla Cup 2026",
+        "hotspawn_crowd_percent_excluded": [
+          null,
+          null
+        ],
+        "featured_status": "resolved",
+        "featured_method": "market",
+        "featured_provider": "Polymarket",
+        "featured_probabilities": [
+          0.375,
+          0.625
+        ],
+        "featured_pick_index": 1,
+        "featured_pick_team": "FaZe",
+        "source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27"
+      },
+      {
+        "id": "1082900",
+        "teams": [
+          "Luminosity",
+          "HOTU"
+        ],
+        "starts_at": "2026-10-27T17:00:00Z",
+        "competition": "Tesla Cup 2026",
+        "hotspawn_crowd_percent_excluded": [
+          null,
+          null
+        ],
+        "featured_status": "resolved",
+        "featured_method": "market",
+        "featured_provider": "Polymarket",
+        "featured_probabilities": [
+          0.525,
+          0.475
+        ],
+        "featured_pick_index": 0,
+        "featured_pick_team": "Luminosity",
+        "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27"
+      },
+      {
+        "id": "1082901",
+        "teams": [
+          "Envy",
+          "GamerLegion"
+        ],
+        "starts_at": "2026-10-27T20:00:00Z",
+        "competition": "Tesla Cup 2026",
+        "hotspawn_crowd_percent_excluded": [
+          null,
+          null
+        ],
+        "featured_status": "resolved",
+        "featured_method": "market",
+        "featured_provider": "Polymarket",
+        "featured_probabilities": [
+          0.455,
+          0.545
+        ],
+        "featured_pick_index": 1,
+        "featured_pick_team": "GamerLegion",
+        "source_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27"
+      },
+      {
+        "id": "1082792",
+        "teams": [
+          "HOTU",
+          "The Huns"
+        ],
+        "starts_at": "2026-10-31T09:00:00Z",
+        "competition": "Moscow Cyber Games 2026",
+        "hotspawn_crowd_percent_excluded": [
+          null,
+          null
+        ],
+        "featured_status": "unresolved",
+        "featured_method": null,
+        "featured_provider": null,
+        "featured_probabilities": null,
+        "featured_pick_index": null,
+        "featured_pick_team": null,
+        "source_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792"
+      },
+      {
+        "id": "1082793",
+        "teams": [
+          "5star",
+          "1WIN"
+        ],
+        "starts_at": "2026-10-31T13:00:00Z",
+        "competition": "Moscow Cyber Games 2026",
+        "hotspawn_crowd_percent_excluded": [
+          null,
+          null
+        ],
+        "featured_status": "resolved",
+        "featured_method": "model",
+        "featured_provider": "Valve official standings",
+        "featured_probabilities": [
+          0.17816902,
+          0.82183098
+        ],
+        "featured_pick_index": 1,
+        "featured_pick_team": "1WIN",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      }
+    ]
+  },
+  "live_origination_verification": {
+    "inventory_generated_at": "2026-10-25T13:24:33Z",
+    "complete_generated_at": "2026-10-25T13:24:42Z",
+    "official_api_total_records": 78,
+    "open_fixture_count": 17,
+    "archived_fixture_count": 61,
+    "resolved_with_directional_pick": 17,
+    "unresolved_count": 0,
+    "method_breakdown": {
+      "market": 11,
+      "consensus": 1,
+      "model": 4,
+      "bookmaker": 1
+    },
+    "no_line_model_only_ids": [
+      "1082858",
+      "1082861",
+      "1082792",
+      "1082793"
+    ],
+    "matches": [
+      {
+        "id": "1085542",
+        "teams": [
+          "ex-Zero Tenacity",
+          "Spirit Academy"
+        ],
+        "starts_at": "2026-10-25T14:00:00Z",
+        "locks_at": "2026-10-25T13:54:00Z",
+        "competition": "CCT Europe 2026 Series #11",
+        "tier": "b",
+        "offered_points": null,
+        "hotspawn_crowd_percent_excluded": [
+          69,
+          31
+        ],
+        "featured_method": "market",
+        "featured_probabilities": [
+          0.595,
+          0.405
+        ],
+        "complete_method": "market",
+        "complete_label": "Market-implied estimate",
+        "complete_probabilities": [
+          0.595,
+          0.405
+        ],
+        "pick_index": 0,
+        "pick_team": "ex-Zero Tenacity",
+        "pick_probability": 0.595,
+        "hltv_url": "https://www.hltv.org/matches/2399340/ex-zero-tenacity-vs-spirit-academy-cct-2026-europe-series-11",
+        "primary_source_url": "https://polymarket.com/event/cs2-zerote-tsa-2026-10-25",
+        "providers": [
+          "Polymarket",
+          "Polymarket"
+        ],
+        "limitations": [
+          "Hotspawn best-of format is unverified; left blank."
+        ]
+      },
+      {
+        "id": "1079199",
+        "teams": [
+          "Infinite",
+          "BRUTE"
+        ],
+        "starts_at": "2026-10-25T15:00:00Z",
+        "locks_at": "2026-10-25T14:54:00Z",
+        "competition": "NODWIN Clutch Series #13",
+        "tier": "b",
+        "offered_points": null,
+        "hotspawn_crowd_percent_excluded": [
+          19,
+          81
+        ],
+        "featured_method": "market",
+        "featured_probabilities": [
+          0.435,
+          0.565
+        ],
+        "complete_method": "market",
+        "complete_label": "Market-implied estimate",
+        "complete_probabilities": [
+          0.435,
+          0.565
+        ],
+        "pick_index": 1,
+        "pick_team": "BRUTE",
+        "pick_probability": 0.565,
+        "hltv_url": "https://www.hltv.org/matches/2399114/infinite-vs-brute-nodwin-clutch-series-13",
+        "primary_source_url": "https://polymarket.com/event/cs2-inf6-brute-2026-10-25",
+        "providers": [
+          "Polymarket",
+          "Polymarket"
+        ],
+        "limitations": [
+          "Hotspawn best-of format is unverified; left blank."
+        ]
+      },
+      {
+        "id": "1086696",
+        "teams": [
+          "BORRACHEIROS",
+          "RED Canids Academy"
+        ],
+        "starts_at": "2026-10-25T16:00:00Z",
+        "locks_at": "2026-10-25T15:54:00Z",
+        "competition": "CCT South America 2026 Series #7",
+        "tier": "c",
+        "offered_points": null,
+        "hotspawn_crowd_percent_excluded": [
+          11,
+          89
+        ],
+        "featured_method": "market",
+        "featured_probabilities": [
+          0.425,
+          0.575
+        ],
+        "complete_method": "market",
+        "complete_label": "Market-implied estimate",
+        "complete_probabilities": [
+          0.425,
+          0.575
+        ],
+        "pick_index": 1,
+        "pick_team": "RED Canids Academy",
+        "pick_probability": 0.575,
+        "hltv_url": "https://www.hltv.org/matches/2399917/borracheiros-vs-red-canids-academy-cct-2026-south-america-series-7",
+        "primary_source_url": "https://polymarket.com/event/cs2-chama-reda-2026-10-25",
+        "providers": [
+          "Polymarket",
+          "Polymarket"
+        ],
+        "limitations": [
+          "Hotspawn best-of format is unverified; left blank."
+        ]
+      },
+      {
+        "id": "1079200",
+        "teams": [
+          "Color",
+          "ex-Zero Tenacity"
+        ],
+        "starts_at": "2026-10-25T18:00:00Z",
+        "locks_at": "2026-10-25T17:54:00Z",
+        "competition": "NODWIN Clutch Series #13",
+        "tier": "b",
+        "offered_points": null,
+        "hotspawn_crowd_percent_excluded": [
+          73,
+          27
+        ],
+        "featured_method": "market",
+        "featured_probabilities": [
+          0.505,
+          0.495
+        ],
+        "complete_method": "market",
+        "complete_label": "Market-implied estimate",
+        "complete_probabilities": [
+          0.505,
+          0.495
+        ],
+        "pick_index": 0,
+        "pick_team": "Color",
+        "pick_probability": 0.505,
+        "hltv_url": "https://www.hltv.org/matches/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+        "primary_source_url": "https://polymarket.com/event/cs2-color-zerote-2026-10-25",
+        "providers": [
+          "Polymarket",
+          "Polymarket"
+        ],
+        "limitations": [
+          "Hotspawn best-of format is unverified; left blank."
+        ]
+      },
+      {
+        "id": "1081158",
+        "teams": [
+          "FORZE Reload",
+          "ex-RUSTEC"
+        ],
+        "starts_at": "2026-10-25T18:00:00Z",
+        "locks_at": "2026-10-25T17:54:00Z",
+        "competition": "CCT Europe 2026 Series #12",
+        "tier": "b",
+        "offered_points": null,
+        "hotspawn_crowd_percent_excluded": [
+          97,
+          3
+        ],
+        "featured_method": "market",
+        "featured_probabilities": [
+          0.565,
+          0.435
+        ],
+        "complete_method": "market",
+        "complete_label": "Market-implied estimate",
+        "complete_probabilities": [
+          0.565,
+          0.435
+        ],
+        "pick_index": 0,
+        "pick_team": "FORZE Reload",
+        "pick_probability": 0.565,
+        "hltv_url": "https://www.hltv.org/matches/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12",
+        "primary_source_url": "https://polymarket.com/event/cs2-forzer-rustec-2026-10-25",
+        "providers": [
+          "Polymarket",
+          "Polymarket"
+        ],
+        "limitations": [
+          "Hotspawn best-of format is unverified; left blank."
+        ]
+      },
+      {
+        "id": "1082697",
+        "teams": [
+          "BESTIA",
+          "paiN"
+        ],
+        "starts_at": "2026-10-25T18:00:00Z",
+        "locks_at": "2026-10-25T17:54:00Z",
+        "competition": "Circuit X Curitiba #4",
+        "tier": "c",
+        "offered_points": null,
+        "hotspawn_crowd_percent_excluded": [
+          11,
+          89
+        ],
+        "featured_method": "market",
+        "featured_probabilities": [
+          0.425,
+          0.575
+        ],
+        "complete_method": "market",
+        "complete_label": "Market-implied estimate",
+        "complete_probabilities": [
+          0.425,
+          0.575
+        ],
+        "pick_index": 1,
+        "pick_team": "paiN",
+        "pick_probability": 0.575,
+        "hltv_url": "https://www.hltv.org/matches/2399819/pain-vs-bestia-circuit-x-curitiba-season-4",
+        "primary_source_url": "https://polymarket.com/event/cs2-pain-bst-2026-10-25",
+        "providers": [
+          "Polymarket",
+          "Polymarket"
+        ],
+        "limitations": [
+          "Hotspawn best-of format is unverified; left blank."
+        ]
+      },
+      {
+        "id": "1086697",
+        "teams": [
+          "Projeto do KinGui",
+          "Yawara"
+        ],
+        "starts_at": "2026-10-25T19:00:00Z",
+        "locks_at": "2026-10-25T18:54:00Z",
+        "competition": "CCT South America 2026 Series #7",
+        "tier": "c",
+        "offered_points": null,
+        "hotspawn_crowd_percent_excluded": [
+          52,
+          48
+        ],
+        "featured_method": null,
+        "featured_probabilities": null,
+        "complete_method": "consensus",
+        "complete_label": "Originated consensus line (median of independent money sources)",
+        "complete_probabilities": [
+          0.63370259,
+          0.36629741
+        ],
+        "pick_index": 0,
+        "pick_team": "Projeto do KinGui",
+        "pick_probability": 0.63370259,
+        "hltv_url": "https://www.hltv.org/matches/2399918/tropa-do-kingui-vs-yawara-cct-2026-south-america-series-7",
+        "primary_source_url": "https://polymarket.com/event/cs2-tdkg-yaw-2026-10-25",
+        "providers": [
+          "Polymarket",
+          "Smarkets"
+        ],
+        "limitations": [
+          "At least one contributing market is thin/wide; treat the estimate as indicative, not executable.",
+          "Margin removed where applicable. Estimate is not a guaranteed outcome."
+        ]
+      },
+      {
+        "id": "1082858",
+        "teams": [
+          "Ground Zero",
+          "Off Chops"
+        ],
+        "starts_at": "2026-10-26T03:00:00Z",
+        "locks_at": "2026-10-26T02:54:00Z",
+        "competition": "DFRAG Invitational 2026",
+        "tier": "b",
+        "offered_points": null,
+        "hotspawn_crowd_percent_excluded": [
+          86,
+          14
+        ],
+        "featured_method": null,
+        "featured_probabilities": null,
+        "complete_method": "model",
+        "complete_label": "Own network estimate (bo3.gg results graph)",
+        "complete_probabilities": [
+          0.45008558509086893,
+          0.5499144149091311
+        ],
+        "pick_index": 1,
+        "pick_team": "Off Chops",
+        "pick_probability": 0.5499144149091311,
+        "hltv_url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+        "primary_source_url": "https://bo3.gg/matches",
+        "providers": [
+          "Own network model (bo3.gg results graph)"
+        ],
+        "limitations": [
+          "Own uncalibrated network model, not observed betting odds: no money line, no aggregated reference and no complete official rating row existed for this fixture. Both ratings come from a Bradley\u2013Terry fit over 4732 finished bo3.gg series, anchored on Valve's official points for 265 teams; the rating-difference one-sigma interval is 158.4 points (probability interval 0.117-0.835). Current lineups, stand-ins and map vetoes are unverified. Low confidence: the interval crosses 50% or a side has fewer than ten finished series. Treat the direction as indicative only."
+        ]
+      },
+      {
+        "id": "1082859",
+        "teams": [
+          "NEXVOID",
+          "Alter Ego"
+        ],
+        "starts_at": "2026-10-26T03:00:00Z",
+        "locks_at": "2026-10-26T02:54:00Z",
+        "competition": "DFRAG Invitational 2026",
+        "tier": "b",
+        "offered_points": null,
+        "hotspawn_crowd_percent_excluded": [
+          92,
+          8
+        ],
+        "featured_method": "bookmaker",
+        "featured_probabilities": [
+          0.57894737,
+          0.42105263
+        ],
+        "complete_method": "bookmaker",
+        "complete_label": "No-vig bookmaker estimate",
+        "complete_probabilities": [
+          0.57894737,
+          0.42105263
+        ],
+        "pick_index": 0,
+        "pick_team": "NEXVOID",
+        "pick_probability": 0.57894737,
+        "hltv_url": "https://www.hltv.org/matches/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026",
+        "primary_source_url": "https://thunderpick.io/api/matches",
+        "providers": [
+          "Thunderpick"
+        ],
+        "limitations": [
+          "Hotspawn best-of format is unverified; left blank."
+        ]
+      },
+      {
+        "id": "1082860",
+        "teams": [
+          "FlyQuest",
+          "Staqued"
+        ],
+        "starts_at": "2026-10-27T03:00:00Z",
+        "locks_at": "2026-10-27T02:54:00Z",
+        "competition": "DFRAG Invitational 2026",
+        "tier": "b",
+        "offered_points": null,
+        "hotspawn_crowd_percent_excluded": [
+          97,
+          3
+        ],
+        "featured_method": "market",
+        "featured_probabilities": [
+          0.925,
+          0.075
+        ],
+        "complete_method": "market",
+        "complete_label": "Market-implied estimate",
+        "complete_probabilities": [
+          0.925,
+          0.075
+        ],
+        "pick_index": 0,
+        "pick_team": "FlyQuest",
+        "pick_probability": 0.925,
+        "hltv_url": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+        "primary_source_url": "https://polymarket.com/event/cs2-fly-staque-2026-10-26",
+        "providers": [
+          "Polymarket",
+          "Polymarket"
+        ],
+        "limitations": [
+          "Hotspawn best-of format is unverified; left blank."
+        ]
+      },
+      {
+        "id": "1082861",
+        "teams": [
+          "Rooster",
+          "Abyssal"
+        ],
+        "starts_at": "2026-10-27T03:00:00Z",
+        "locks_at": "2026-10-27T02:54:00Z",
+        "competition": "DFRAG Invitational 2026",
+        "tier": "b",
+        "offered_points": null,
+        "hotspawn_crowd_percent_excluded": [
+          14,
+          86
+        ],
+        "featured_method": "model",
+        "featured_probabilities": [
+          0.47761494,
+          0.52238506
+        ],
+        "complete_method": "model",
+        "complete_label": "Valve-rating research estimate",
+        "complete_probabilities": [
+          0.47761494,
+          0.52238506
+        ],
+        "pick_index": 1,
+        "pick_team": "Abyssal",
+        "pick_probability": 0.52238506,
+        "hltv_url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+        "primary_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "providers": [
+          "Valve official standings"
+        ],
+        "limitations": [
+          "Hotspawn best-of format is unverified; left blank."
+        ]
+      },
+      {
+        "id": "1082897",
+        "teams": [
+          "B8",
+          "K27"
+        ],
+        "starts_at": "2026-10-27T08:00:00Z",
+        "locks_at": "2026-10-27T07:54:00Z",
+        "competition": "Tesla Cup 2026",
+        "tier": "b",
+        "offered_points": null,
+        "hotspawn_crowd_percent_excluded": [
+          97,
+          3
+        ],
+        "featured_method": "market",
+        "featured_probabilities": [
+          0.595,
+          0.405
+        ],
+        "complete_method": "market",
+        "complete_label": "Market-implied estimate",
+        "complete_probabilities": [
+          0.595,
+          0.405
+        ],
+        "pick_index": 0,
+        "pick_team": "B8",
+        "pick_probability": 0.595,
+        "hltv_url": "https://www.hltv.org/matches/2399866/b8-vs-k27-rlg-tesla-cup-2026",
+        "primary_source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
+        "providers": [
+          "Polymarket",
+          "Polymarket"
+        ],
+        "limitations": [
+          "Hotspawn best-of format is unverified; left blank."
+        ]
+      },
+      {
+        "id": "1082898",
+        "teams": [
+          "Alliance",
+          "FaZe"
+        ],
+        "starts_at": "2026-10-27T11:00:00Z",
+        "locks_at": "2026-10-27T10:54:00Z",
+        "competition": "Tesla Cup 2026",
+        "tier": "b",
+        "offered_points": null,
+        "hotspawn_crowd_percent_excluded": [
+          11,
+          89
+        ],
+        "featured_method": "market",
+        "featured_probabilities": [
+          0.375,
+          0.625
+        ],
+        "complete_method": "market",
+        "complete_label": "Market-implied estimate",
+        "complete_probabilities": [
+          0.375,
+          0.625
+        ],
+        "pick_index": 1,
+        "pick_team": "FaZe",
+        "pick_probability": 0.625,
+        "hltv_url": "https://www.hltv.org/matches/2399867/alliance-vs-faze-rlg-tesla-cup-2026",
+        "primary_source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
+        "providers": [
+          "Polymarket",
+          "Polymarket"
+        ],
+        "limitations": [
+          "Hotspawn best-of format is unverified; left blank."
+        ]
+      },
+      {
+        "id": "1082900",
+        "teams": [
+          "Luminosity",
+          "HOTU"
+        ],
+        "starts_at": "2026-10-27T17:00:00Z",
+        "locks_at": "2026-10-27T16:54:00Z",
+        "competition": "Tesla Cup 2026",
+        "tier": "b",
+        "offered_points": null,
+        "hotspawn_crowd_percent_excluded": [
+          78,
+          22
+        ],
+        "featured_method": "market",
+        "featured_probabilities": [
+          0.525,
+          0.475
+        ],
+        "complete_method": "market",
+        "complete_label": "Market-implied estimate",
+        "complete_probabilities": [
+          0.525,
+          0.475
+        ],
+        "pick_index": 0,
+        "pick_team": "Luminosity",
+        "pick_probability": 0.525,
+        "hltv_url": "https://www.hltv.org/matches/2399869/luminosity-vs-hotu-rlg-tesla-cup-2026",
+        "primary_source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
+        "providers": [
+          "Polymarket",
+          "Polymarket"
+        ],
+        "limitations": [
+          "Hotspawn best-of format is unverified; left blank."
+        ]
+      },
+      {
+        "id": "1082901",
+        "teams": [
+          "Envy",
+          "GamerLegion"
+        ],
+        "starts_at": "2026-10-27T20:00:00Z",
+        "locks_at": "2026-10-27T19:54:00Z",
+        "competition": "Tesla Cup 2026",
+        "tier": "b",
+        "offered_points": null,
+        "hotspawn_crowd_percent_excluded": [
+          35,
+          65
+        ],
+        "featured_method": "market",
+        "featured_probabilities": [
+          0.455,
+          0.545
+        ],
+        "complete_method": "market",
+        "complete_label": "Market-implied estimate",
+        "complete_probabilities": [
+          0.455,
+          0.545
+        ],
+        "pick_index": 1,
+        "pick_team": "GamerLegion",
+        "pick_probability": 0.545,
+        "hltv_url": "https://www.hltv.org/matches/2399870/envy-vs-gamerlegion-rlg-tesla-cup-2026",
+        "primary_source_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
+        "providers": [
+          "Polymarket",
+          "Polymarket"
+        ],
+        "limitations": [
+          "Hotspawn best-of format is unverified; left blank."
+        ]
+      },
+      {
+        "id": "1082792",
+        "teams": [
+          "HOTU",
+          "The Huns"
+        ],
+        "starts_at": "2026-10-31T09:00:00Z",
+        "locks_at": "2026-10-31T08:54:00Z",
+        "competition": "Moscow Cyber Games 2026",
+        "tier": "b",
+        "offered_points": null,
+        "hotspawn_crowd_percent_excluded": [
+          95,
+          5
+        ],
+        "featured_method": null,
+        "featured_probabilities": null,
+        "complete_method": "model",
+        "complete_label": "Research model estimate (Valve official ratings)",
+        "complete_probabilities": [
+          0.94052062,
+          0.05947938
+        ],
+        "pick_index": 0,
+        "pick_team": "HOTU",
+        "pick_probability": 0.94052062,
+        "hltv_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+        "primary_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "providers": [
+          "Valve official standings"
+        ],
+        "limitations": [
+          "Research model, not observed betting odds. Uncalibrated; current lineups and map vetoes unverified.",
+          "The Huns: the current HLTV lineup shares four of five players with the selected historical Valve row; the one-player change is not quantified."
+        ]
+      },
+      {
+        "id": "1082793",
+        "teams": [
+          "5star",
+          "1WIN"
+        ],
+        "starts_at": "2026-10-31T13:00:00Z",
+        "locks_at": "2026-10-31T12:54:00Z",
+        "competition": "Moscow Cyber Games 2026",
+        "tier": "b",
+        "offered_points": null,
+        "hotspawn_crowd_percent_excluded": [
+          0,
+          100
+        ],
+        "featured_method": "model",
+        "featured_probabilities": [
+          0.17816902,
+          0.82183098
+        ],
+        "complete_method": "model",
+        "complete_label": "Valve-rating research estimate",
+        "complete_probabilities": [
+          0.17816902,
+          0.82183098
+        ],
+        "pick_index": 1,
+        "pick_team": "1WIN",
+        "pick_probability": 0.82183098,
+        "hltv_url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+        "primary_source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "providers": [
+          "Valve official standings"
+        ],
+        "limitations": [
+          "Hotspawn best-of format is unverified; left blank."
+        ]
+      }
+    ]
+  },
+  "egamersworld_first_hand_verification": [
+    {
+      "fixture_id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "starts_at": "2026-10-26T03:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+      "hltv_url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+      "observed_at": "2026-10-25T13:55:00Z",
+      "status": "verified_bookmaker_average",
+      "banner_odds": [
+        3.44,
+        1.24
+      ],
+      "odds": [
+        3.44,
+        1.24
+      ],
+      "no_vig_probabilities": [
+        0.26495726,
+        0.73504274
+      ],
+      "excerpt": "According to leading bookmakers predictions, the team Off Chops are the favorite with average odds 1.24 at the moment. Respectively, bookmakers consider Ground Zero to be the outsider of the match with odds on a victory in the sum of about 3.44.",
+      "excerpt_sha256": "080a558f7ff9cb974f6715f33faca5f7b9b7796263e47ab959f234cdcfebc902",
+      "limitation": "GitHub Actions runners receive HTTP 403 from egamersworld.com, and when Polymarket event 1237427 widens past the 0.15 spread ceiling (0.21 at 13:24Z; Kalshi 0.30; Smarkets 0.19) after an 8h reference capture expires, automated origination falls back to the uncalibrated bo3.gg Bradley-Terry network model (45.01% / 54.99%, still picking Off Chops)."
+    },
+    {
+      "fixture_id": "1082859",
+      "teams": [
+        "NEXVOID",
+        "Alter Ego"
+      ],
+      "starts_at": "2026-10-26T03:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/nexvoid-vs-alter-ego-HfdcJeXmT",
+      "hltv_url": "https://www.hltv.org/matches/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026",
+      "observed_at": "2026-10-25T13:55:00Z",
+      "status": "verified_bookmaker_average",
+      "banner_odds": [
+        1.6,
+        2.12
+      ],
+      "odds": [
+        1.609,
+        2.197
+      ],
+      "no_vig_probabilities": [
+        0.57724645,
+        0.42275355
+      ],
+      "excerpt": "At the moment, the majority of bookmakers unanimously see the team NEXVOID as the favorite of the game with average odds on a victory in the sum of 1.609. Alter Ego chances to prevail are evaluated with average odds 2.197 by bookmakers.",
+      "excerpt_sha256": "6ca64073e75c191024373f324dfa532f0b17ce7b6e3bc9dce26e873e34780192",
+      "limitation": "First-party Thunderpick bookmaker line (1.60 / 2.20 -> 57.89% / 42.11%, event 2870940) resolves this match directly on the primary esportsbook rung."
+    },
+    {
+      "fixture_id": "1082860",
+      "teams": [
+        "FlyQuest",
+        "Staqued"
+      ],
+      "starts_at": "2026-10-27T03:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/flyquest-vs-staqued-zawJ-Q52S3",
+      "hltv_url": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+      "observed_at": "2026-10-25T13:55:00Z",
+      "status": "verified_bookmaker_average",
+      "banner_odds": [
+        1.001,
+        12.0
+      ],
+      "odds": [
+        1.012,
+        12.042
+      ],
+      "no_vig_probabilities": [
+        0.92247587,
+        0.07752413
+      ],
+      "excerpt": "All bookmakers have agreed that FlyQuest is the favorite. This can be noticed because odds on them are 1.012. This number in the favor of Staqued amounts 12.042. Respectively, the last ones are the underdogs of the upcoming match.",
+      "excerpt_sha256": "894e7d91ac47170d801bae7d25e33123b00eef737e6ea91e72aad1beab0d4a62",
+      "limitation": "Resolved directly by first-party Polymarket series-winner market (92.50% / 7.50%, event 1237429) and Thunderpick (1.01 / 11.00 -> 91.60% / 8.40%, event 2870941)."
+    },
+    {
+      "fixture_id": "1086696",
+      "teams": [
+        "BORRACHEIROS",
+        "RED Canids Academy"
+      ],
+      "starts_at": "2026-10-25T16:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/0U32SId-H/borracheiros-vs-red-canids-academy-5tMfbA07u",
+      "hltv_url": "https://www.hltv.org/matches/2399917/borracheiros-vs-red-canids-academy-cct-2026-south-america-series-7",
+      "observed_at": "2026-10-25T13:55:00Z",
+      "status": "verified_bookmaker_average",
+      "banner_odds": [
+        2.1,
+        1.62
+      ],
+      "odds": [
+        2.1,
+        1.62
+      ],
+      "no_vig_probabilities": [
+        0.43548387,
+        0.56451613
+      ],
+      "excerpt": "Now, the majority of bookmaker companies believe in RED Canids Academy victory. Odds on them are equal to 1.62. According to bookmakers data, BORRACHEIROS are the outsider and odds on their victory amounts 2.1.",
+      "excerpt_sha256": "f7265e8668d440a18a35d2c6afc287affabd3bbe8d143e7fc81f22713c224633",
+      "limitation": "Resolved directly by first-party Polymarket series-winner market (42.50% / 57.50%, event 1248800)."
+    },
+    {
+      "fixture_id": "1086697",
+      "teams": [
+        "Projeto do KinGui",
+        "Yawara"
+      ],
+      "starts_at": "2026-10-25T19:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/0U32SId-H/projeto-do-kingui-vs-yawara-3gUs-7A9Zu",
+      "hltv_url": "https://www.hltv.org/matches/2399918/tropa-do-kingui-vs-yawara-cct-2026-south-america-series-7",
+      "observed_at": "2026-10-25T13:55:00Z",
+      "status": "rejected_placeholder",
+      "banner_odds": [
+        1.8,
+        1.8
+      ],
+      "reason": "EGamersWorld match page displays default 1.8/1.8 placeholder with no EGWxxxBOT sentence; resolved in the complete-picks layer via competition-scoped alias Tropa do KinGui -> Projeto do KinGui (HLTV 2399904 / 2399918) joining Polymarket (62.0% / 38.0%, event 1249731) and Smarkets (64.74% / 35.26%, event 45400401) for a 63.37% / 36.63% consensus pick on Projeto do KinGui."
+    },
+    {
+      "fixture_id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "starts_at": "2026-10-27T03:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/rooster-vs-team-abyssal-P1tTp3RAg8",
+      "hltv_url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+      "observed_at": "2026-10-25T13:55:00Z",
+      "status": "rejected_placeholder",
+      "banner_odds": [
+        1.8,
+        1.8
+      ],
+      "reason": "EGamersWorld match page displays default 1.8/1.8 placeholder with no EGWxxxBOT bookmaker-average sentence; Polymarket event cs2-rstr-abyssa-2026-10-26 is wider than 12c; retained on official Valve VRS model (Rooster #205 718 pts vs Abyssal #195 734 pts -> 47.76% / 52.24%, pick Abyssal)."
+    },
+    {
+      "fixture_id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "starts_at": "2026-10-31T09:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/EkalRNMvVx/hotu-vs-the-huns-esports-SfdtzDhiK",
+      "hltv_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "observed_at": "2026-10-25T13:55:00Z",
+      "status": "rejected_placeholder",
+      "banner_odds": [
+        1.8,
+        1.8
+      ],
+      "reason": "EGamersWorld match page displays default 1.8/1.8 placeholder with ODDS STATS link and no EGWxxxBOT sentence; Polymarket event 1241313 has a 0.50 spread (0.49/0.99 vs 0.01/0.51) exceeding the 0.15 ceiling; retained on official Valve VRS model (HOTU #31 1437 pts vs The Huns #122 944 pts disambiguated by 4/5 HLTV 2399437 roster match -> 94.05% / 5.95%, pick HOTU)."
+    },
+    {
+      "fixture_id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "starts_at": "2026-10-31T13:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/EkalRNMvVx/1win-vs-5star-esports-4hTvdd1uN",
+      "hltv_url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+      "observed_at": "2026-10-25T13:55:00Z",
+      "status": "rejected_placeholder",
+      "banner_odds": [
+        1.8,
+        1.8
+      ],
+      "reason": "EGamersWorld match page displays default 1.8/1.8 placeholder with ODDS STATS link and no EGWxxxBOT sentence; Polymarket event cs2-1win-5s-2026-10-31 is wider than 12c; retained on official Valve VRS model (5star #80 1110 pts vs 1win #38 1383 pts -> 17.82% / 82.18%, pick 1WIN)."
+    }
+  ],
+  "rendered_surface_verification": {
+    "audited_table_rows": 995,
+    "official_linked_rows": 970,
+    "flagged_unverified_rows": 13,
+    "navigation_rows": 10,
+    "active_dashboard_violations": 0,
+    "acceptance_pass": 9,
+    "acceptance_info": 1,
+    "acceptance_fail": 0,
+    "viewport_meta": "width=device-width, initial-scale=1",
+    "executive_summary_links_verified": [
+      "./origination/#picks",
+      "./picks/",
+      "./review/",
+      "./unresolved/"
+    ],
+    "unresolved_register_present": true,
+    "no_line_register_present": true,
+    "unique_no_line_research_id": true
+  }
+}
