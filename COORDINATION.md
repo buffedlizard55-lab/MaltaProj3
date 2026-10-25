@@ -1,3 +1,41 @@
+# Current session: arena-93c7475a — a pick for **every** Hotspawn CS2 fixture: live inventory re-check, HLTV-first then esportsbook research for each fixture the featured ladder cannot price, a separated unresolved-picks section on the executive summary, phone-first navigation to the picks list, publish
+
+Claimed **2026-10-25T14:20Z** on Arena's fixed branch `arena/93c7475a-maltaproj3`, branched from `main` at
+`e42114b` (PR #337, merged 14:13:56Z). Read `COORDINATION.md`, `.github/workflows/pages.yml`,
+`.github/workflows/checks.yml`, `gh pr list` and the two open PRs' file lists before claiming.
+
+**Open PRs when this claim was written** (their files are therefore off-limits here):
+#332 `arena-0db056f7` (13 files, incl. `scripts/reference_odds.py`, `scripts/review_register.py`,
+`tests/test_reference_odds.py`, `tests/test_b72154e1_guided_picks.py`, `tests/browser/phone_0db056f7.spec.mjs`)
+and #328 `arena-824a2780` (incl. `scripts/review_register.py`, `tests/test_b72154e1_guided_picks.py`).
+Session `arena-0c034b94` merged as #331 at 14:12:09Z and `arena-0962d605` as #330/#337; their claims are
+closed, so their file scope is no longer held. Everything older than 60 minutes with no commits is
+abandoned under the takeover rule.
+
+**Sandbox constraint recorded up front:** this session's shell has **no outbound network** —
+`curl https://www.hltv.org/matches` and the Hotspawn fixture API both return exit status 35 / HTTP 000.
+The only first-hand outbound paths are the Arena fetch tool and a GitHub Actions runner, so every live
+observation in this session is produced by `scripts/93c7475a_probe.py` on `ubuntu-24.04` and archived with
+its URL, observation timestamp and SHA-256. No live number in this section is written from memory.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 93-1 Re-observe the live Hotspawn CS2 inventory (fixture API **and** rendered lobby) against the published snapshot from a network-capable runner, with exact URLs, observation times and SHA-256 of every response, and record the exact set of open fixtures with no published pick | unclaimed → **claimed** | arena-93c7475a | `data/research/93c7475a/**`, `scripts/93c7475a_probe.py`, `.github/workflows/93c7475a-probe.yml` |
+| 93-2 For each open fixture whose pick is not a featured market line: HLTV first (exact-name match page, ranking), then esportsbook / betting-line surfaces; record every observation with a dated URL, and publish either a derived pick or the explicit first-party limitation. No hand-written probability, pick or alias | unclaimed → **claimed** | arena-93c7475a | `data/research/93c7475a/**`, `scripts/93c7475a_probe.py` |
+| 93-3 A separated, always-published **unresolved picks & limitations** section on the executive summary that links in-site to the full picks list and to every register, and is readable at 320 / 390 / 768 px | unclaimed → **claimed** | arena-93c7475a | `scripts/build.py` (executive-summary renderers only), `assets/scout.css` |
+| 93-4 Verification: replay the recorded observations offline, audit every rendered row for an official source link, run the unit and browser suites, and confirm the build has no broken internal link | unclaimed → **claimed** | arena-93c7475a | `scripts/93c7475a_verify.py`, `tests/test_93c7475a_verification.py`, `tests/browser/phone_93c7475a.spec.mjs` |
+| 93-5 Publish, open a PR to `main`, merge without waiting for approval, confirm the GitHub Pages deploy serves a snapshot inside the 8-hour bound, and record the PR number and deploy result here | unclaimed → **claimed** | arena-93c7475a | this section, PR |
+
+**Non-overlap pledge:** no edit to `scripts/collect.py`, `scripts/originate.py`, `scripts/root_publish.py`,
+`scripts/reference_odds.py`, `scripts/review_register.py`, `scripts/egw_live.py`, `data/latest.json`,
+`data/origination.json`, `data/origination/aliases.json`, `snapshot.json`, `index.html`, `picks.html`,
+`unresolved.html`, `flagged.html`, `docs/**`, `archive/**`, `.github/workflows/pages.yml`,
+`.github/workflows/checks.yml`, `tests/test_b72154e1_guided_picks.py`, `tests/test_reference_odds.py`, or any
+other session's `data/research/<id>/`. Hotspawn `% picked` and HLTV fan votes are never probability inputs.
+Unsupported values stay blank and are published on *Flagged for Review* with their sources.
+
+---
+
 # Current session: arena-0c034b94 — picks for every live Hotspawn CS2 match: HLTV-first then esportsbook research for any fixture the featured method leaves blank, a separated unresolved-pick register in the executive summary, mobile check, publish — DONE, PR [#331](https://github.com/buffedlizard55-lab/MaltaProj3/pull/331)
 
 Claimed **2026-10-25T13:55Z** on Arena's fixed branch `arena/0c034b94-maltaproj3`, based on `main` at `75d75a3` and rebased onto `424074a` (PR #326) before the pull request. The 13:11Z scheduled publisher `40196457503` was red at the regression gate when this session claimed, so the deployed snapshot was 8.5 h old; this session did not touch the claimed test file and instead published through its own branch.
