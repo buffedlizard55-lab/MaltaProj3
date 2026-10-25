@@ -47,10 +47,13 @@ REGISTERS = (
     # complete-pick replay, <8h EGW match-page refresh for 1082858 in
     # CAPTURE_PATHS, Polymarket CLOB tightening on 1082996, and HLTV stand-in flags.
     'research/c2a74e33/repo-review.json',
-    # Session 0962d605: unresolved-register reconciliation (board vs published
-    # snapshot counts), the two gap fixtures' official HLTV/Polymarket records,
-    # the stopped four-hour publisher, and the 20-day-old Valve rating input.
-    'research/0962d605/repo-review.json',
+    # Session 0c034b94: every published number replayed from its own evidence
+    # (16/16 featured rows, 0 violations), live Hotspawn inventory vs the
+    # published picks at 2026-10-25T13:45Z (17 open, 3 with no row because the
+    # four-hour publisher is red), HLTV-first identity/ranking for every
+    # no-money-line fixture, the 14:00Z/14:30Z schedule disagreement on 1085542,
+    # the Projeto/Tropa do KinGui name variant, and the esportsbook access limits.
+    'research/0c034b94/repo-review.json',
 )
 STATUS = {
     'fixed': ('Fixed', 'green'),
