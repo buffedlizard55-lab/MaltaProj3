@@ -43,9 +43,16 @@ class TheRegisterCarriesAFilter(unittest.TestCase):
         self.assertIn('id="finding-count"', body)
         for mode in ('all', 'review', 'notice'):
             self.assertIn(f'data-finding-filter="{mode}"', body, mode)
+        # A filter with nothing behind it is not offered, and its badge text is
+        # reserved for rows it opens (tests/test_build.py relies on that).
+        self.assertIn('if review_count:', body)
+        self.assertIn('if notice_count:', body)
 
     def test_every_row_publishes_its_severity_for_the_filter(self):
-        self.assertIn("data-finding-severity=", flags_table_source())
+        body = flags_table_source()
+        self.assertIn("data-finding-severity=", body)
+        # Superseded findings are retained evidence, not open findings.
+        self.assertIn("'superseded' if resolver", body)
 
     def test_the_counts_come_from_the_rows_not_from_a_constant(self):
         # A hardcoded number could claim findings the table does not show.
