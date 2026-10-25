@@ -1,0 +1,86 @@
+{
+  "session": "arena-db6ecc61",
+  "observed_at": "2026-10-25T13:35:00Z",
+  "scope": "Independent verification of the live Hotspawn CS2 inventory, the scheduled refresh regression, linked picks pages, and mobile-summary tests. No probabilities or picks were manually created.",
+  "official_sources": [
+    {
+      "name": "Hotspawn Pick'ems lobby",
+      "url": "https://play.hotspawn.com/lobby",
+      "observed_at": "2026-10-25T13:24:00Z",
+      "verified": "Rendered lobby reported 80 matches this week, with CS2 B (33) and C (47).",
+      "limitations": "The rendered lobby count includes the weekly inventory; it is not a count of open matches."
+    },
+    {
+      "name": "Hotspawn scheduled CS2 fixtures API",
+      "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "observed_at": "2026-10-25T13:25:00Z",
+      "verified": "The official API endpoint returned JSON fixture records through the page fetch; the response was not fully enumerated in this session.",
+      "limitations": "No total count or complete fixture-by-fixture API reconciliation is claimed from the partial response."
+    },
+    {
+      "name": "Hotspawn Ground Zero vs Off Chops fixture",
+      "url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
+      "observed_at": "2026-10-25T13:35:00Z",
+      "verified": "Official fixture permalink identifies the match discussed by the regression test.",
+      "limitations": "The current probability evidence comes from the checked-in dated snapshot, not a fresh live sportsbook observation."
+    },
+    {
+      "name": "Scheduled dashboard refresh run 40196457503",
+      "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40196457503",
+      "observed_at": "2026-10-25T13:30:54Z",
+      "verified": "The scheduled run failed at Regression tests (repository fixtures, before any cache restore). The check annotation identifies test_group_a_are_snapshot_unresolved; all later refresh/deploy steps were skipped.",
+      "limitations": "This observation records the completed failure. It does not establish that later scheduled runs have succeeded."
+    },
+    {
+      "name": "Published Spawn Scout executive summary",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "observed_at": "2026-10-25T13:25:00Z",
+      "verified": "Summary page linked to the complete picks table and separate fallback/no-line sections, and enumerated each of the snapshot's 18 active fixtures.",
+      "limitations": "The page displayed the stale-snapshot warning: inventory snapshot time 2026-10-25T05:12:10Z was more than eight hours old at observation. Its picks must not be treated as current until a fresh verified publish."
+    },
+    {
+      "name": "Published unresolved picks and limitations page",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/",
+      "observed_at": "2026-10-25T13:25:00Z",
+      "verified": "Dedicated page linked full research trails and separately listed no-betting-line estimates and limitations.",
+      "limitations": "The page warned that the snapshot was stale; visible estimates describe the dated snapshot only."
+    }
+  ],
+  "snapshot_reconciliation": {
+    "local_snapshot_url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+    "snapshot_generated_at": "2026-10-25T05:12:25Z",
+    "inventory_observed_at": "2026-10-25T05:12:10Z",
+    "snapshot_counts": {
+      "inventory": 79,
+      "upcoming": 18,
+      "archived": 61,
+      "market": 9,
+      "bookmaker": 2,
+      "model": 5,
+      "unresolved": 2,
+      "picks": 16
+    },
+    "live_lobby_matches_this_week": 80,
+    "live_lobby_tier_counts": {
+      "B": 33,
+      "C": 47
+    },
+    "difference": "The live lobby total (80) exceeded the published API-derived snapshot inventory (79) by one at observation. The snapshot was already beyond the eight-hour freshness bound. The differing fixture was not identified; do not infer the missing row or its pick."
+  },
+  "regression": {
+    "file": "tests/test_b72154e1_guided_picks.py",
+    "test": "GuidedPicksTest.test_group_a_are_snapshot_unresolved",
+    "reproduction": "Failed on the current root-synced snapshot: expected no pick for 1082858, found pick_index 1.",
+    "cause": "The dated research dossier names snapshot 2026-10-23T20:10:00Z and records Ground Zero vs Off Chops (1082858) as unresolved. A later snapshot (2026-10-25T05:12:25Z) resolved the fixture from current market evidence. The test applied the dossier's old state to the mutable current snapshot.",
+    "fix": "Only assert the historical unresolved state when the checked-in snapshot timestamp equals the dossier's published_snapshot.generated_at. On later snapshots, assert probability normalization, UTC observation timestamp, and a directional pick only when the probabilities are not exactly even.",
+    "verified": "tests.test_b72154e1_guided_picks: 7 passed; related summary/fallback/mobile tests: 34 passed; build: 9 Pages views, 859 links/assets/anchors and 0 internal link violations; strict row-source audit: 945 rows, 0 violations.",
+    "hotspawn_crowd_percent_used_as_probability": false,
+    "hltv_fan_vote_used_as_probability": false
+  },
+  "limitations": [
+    "The scheduled refresh did not produce a new snapshot in run 40196457503 because regression failed before cache restore or collection.",
+    "The currently deployed snapshot is stale; neither its lines nor its picks are presented here as current recommendations.",
+    "The one-match difference between the 80-card lobby and 79-row snapshot is unresolved; no value was inferred.",
+    "No current sportsbook quote was independently re-fetched or promoted by this session."
+  ]
+}

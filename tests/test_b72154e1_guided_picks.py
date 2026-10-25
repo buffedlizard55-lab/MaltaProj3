@@ -56,12 +56,38 @@ class GuidedPicksTest(unittest.TestCase):
             self.assertTrue(row.get('limitations'), fid)
 
     def test_group_a_are_snapshot_unresolved(self):
+        # The dossier records the two rows as unresolved in its 2026-10-23
+        # snapshot. Later scheduled refreshes may resolve them from a newly
+        # usable outside line or a research model; asserting the old pick state
+        # against today's mutable root snapshot would stop every future
+        # publisher run as soon as the ladder did its job (observed 2026-10-25
+        # on 1082858, which now has a market pick). Keep the historical claim
+        # pinned to the snapshot it describes, and validate current rows by
+        # their current evidence instead.
+        named = (self.dossier.get('published_snapshot') or {}).get('generated_at')
         for fid in ('1082858', '1082792'):
             self.assertEqual(self.fixtures[fid]['group'], 'A-unresolved')
             # This historical dossier is not a constraint on future picks.
             # 1082858 acquired a pick on 25 October, legitimately closing a gap.
-            if self.snapshot.get('generated_at') == self.dossier['published_snapshot']['generated_at']:
+            if self.snapshot.get('generated_at') == named:
                 self.assertIsNone(self.by_id[fid].get('pick_index'), fid)
+                continue
+            # Newer snapshots must still carry a valid, timestamped analysis;
+            # a directional estimate must name a side, while a true tie must
+            # not have an invented winner.
+            match = self.by_id[fid]
+            analysis = match.get('analysis')
+            if not analysis:
+                self.assertIsNone(match.get('pick_index'), fid)
+                continue
+            probabilities = analysis.get('probabilities') or []
+            self.assertEqual(len(probabilities), 2, fid)
+            self.assertAlmostEqual(sum(probabilities), 1.0, places=4, msg=fid)
+            if abs(probabilities[0] - probabilities[1]) > 1e-9:
+                self.assertIsNotNone(match.get('pick_index'), fid)
+            else:
+                self.assertIsNone(match.get('pick_index'), fid)
+            self.assertEqual(str(analysis.get('observed_at') or '')[-1:], 'Z', fid)
 
     GROUP_B = ('1082996', '1079198', '1079200', '1082861', '1082793')
 
