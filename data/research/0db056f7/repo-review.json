@@ -1,0 +1,101 @@
+{
+ "session": "arena-0db056f7",
+ "scope": "Line-by-line review of the frozen 2026-10-25T05:12:25Z deployed snapshot, the two failed publisher runs behind the freeze, the three Hotspawn fixtures added after that snapshot, and HLTV-first + esportsbook/exchange research for every fixture the featured method cannot resolve.",
+ "review_clock_utc": "2026-10-25T13:57:00Z",
+ "method": "Full local regression suite (1753 tests) against main at 75d75a3; live Hotspawn fixtures API vs deployed snapshot diff; first-hand HLTV, Polymarket Gamma and EGamersWorld reads for the six gap fixtures; independent replay in scripts/0db056f7_verify.py.",
+ "items": [
+  {
+   "id": "0DB0-R01",
+   "area": "Publisher frozen since 05:12Z — stale regression test pins live fixture state",
+   "status": "fixed",
+   "finding": "pages.yml runs 40174233578 (07:49Z) and 40196457503 (13:11Z) failed at 'Regression tests'; republish-last-verified succeeded so the live site kept serving the 2026-10-25T05:12:25Z build past the 8-hour staleness bound. Root cause reproduced locally (1 failure in 1753 tests): tests/test_b72154e1_guided_picks.py::test_group_a_are_snapshot_unresolved asserted fixture 1082858 pick_index is None against mutable snapshot.json, but the 05:12Z publisher snapshot resolved 1082858 via Polymarket (0.25/0.75, pick_index 1). The sibling Group B/C tests were already guarded against this exact trap after runs 40085158851/40116915898; Group A was missed.",
+   "handling": "Guarded the pinned assertion to the dossier-named snapshot (2026-10-23T20:10:00Z) and added always-on invariants (team identity vs dossier; any graduated pick must be a two-number pair summing to 1 with a non-tie argmax). Verified: the module passes against the 05:12Z snapshot. No product code changed; no probability was touched.",
+   "evidence": [
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40196457503",
+     "detail": "pages.yml run 40196457503 (2026-10-25T13:11Z): verify-and-deploy failed at 'Regression tests (repository fixtures, before any cache restore)'."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40174233578",
+     "detail": "pages.yml run 40174233578 (2026-10-25T07:49Z): first post-05:12Z run, same failing step; republish-last-verified succeeded."
+    },
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+     "detail": "Live snapshot at review time: generated_at 2026-10-25T05:12:25Z, fixture 1082858 market 0.25/0.75 pick_index 1 — the graduated state the stale test rejected."
+    }
+   ]
+  },
+  {
+   "id": "0DB0-R02",
+   "area": "Three Hotspawn fixtures added after the deployed snapshot have no pick anywhere on the site",
+   "status": "fixed",
+   "finding": "Live fixtures API at 13:38Z carries 1086696 (BORRACHEIROS vs RED Canids Academy, today 16:00Z), 1082697 (BESTIA vs paiN, today 18:00Z) and 1086697 (Projeto do KinGui vs Yawara, today 19:00Z), none of which exist in the deployed 79-fixture snapshot — a direct consequence of 0DB0-R01.",
+   "handling": "Unfreezing the publisher (0DB0-R01) makes the next run collect all three. Research: 1082697 has an exact-name liquid Polymarket market (event 1249433) so the featured method resolves it; 1086696 has no verified first-party market, so a hash-checked EGamersWorld bookmaker-average capture (2.1/1.62) was registered in reference_odds CAPTURE_PATHS; 1086697 shows only a 1.8/1.8 placeholder and is documented in data/research/0db056f7/gap-research.md with its limitations.",
+   "evidence": [
+    {
+     "url": "https://play.hotspawn.com/lobby",
+     "detail": "Hotspawn lobby listing the CS2 pick'em fixtures including the three same-day South American cards."
+    },
+    {
+     "url": "https://gamma-api.polymarket.com/events?slug=cs2-pain-bst-2026-10-25",
+     "detail": "Polymarket event 1249433: exact names paiN / BESTIA, eventStartTime 2026-10-25T18:00:00Z, deep liquidity."
+    },
+    {
+     "url": "https://egamersworld.com/counterstrike/match/0U32SId-H/borracheiros-vs-red-canids-academy-5tMfbA07u",
+     "detail": "EGW match page with EGWxxxBOT average-odds sentence 2.1 / 1.62 captured for fixture 1086696."
+    }
+   ]
+  },
+  {
+   "id": "0DB0-R03",
+   "area": "1082792 network-model estimate 98.2% is extreme for a LAN BO3",
+   "status": "needs review",
+   "finding": "HOTU vs The Huns (2026-10-31T09:00Z) publishes a bo3.gg network estimate of 98.2% HOTU. HLTV 2399437 confirms the fixture and the official event site lists HOTU #27 vs The Huns Esports #152, but no bookmaker/exchange prices it compliantly today (EGW 1.8 placeholder; Polymarket book non-compliant at the last publisher read), so the magnitude is an uncalibrated model output, not a market price.",
+   "handling": "Left the published number untouched (probabilities are never hand-edited) and flagged here + in gap-research.md: treat direction as model-supported, magnitude as unreliable. The The Huns Esports -> The Huns alias is already wired, so a compliant Polymarket/book line will replace the model automatically on a later 4-hourly run.",
+   "evidence": [
+    {
+     "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+     "detail": "HLTV match page confirming HOTU vs The Huns, GLuck Moscow Cyber Games 2026, 31 Oct."
+    },
+    {
+     "url": "https://egamersworld.com/counterstrike/match/EkalRNMvVx/hotu-vs-the-huns-esports-SfdtzDhiK",
+     "detail": "EGW page showing the 1.8 placeholder header (rejected capture) six days before the start."
+    }
+   ]
+  },
+  {
+   "id": "0DB0-R04",
+   "area": "Model-only rows 1082861 / 1082793 still have no compliant betting line",
+   "status": "needs review",
+   "finding": "Rooster vs Abyssal (Oct 27) and 5star vs 1WIN (Oct 31) remain on Valve-rating research estimates. Fresh first-hand reads at 13:44-13:45Z: EGW placeholder headers on both; Polymarket lists both events at $0.00 volume (50/50 and 1.04x stubs). No compliant two-sided price exists today.",
+   "handling": "Recorded as rejected EGW captures with reasons in data/research/0db056f7/reference-odds.json so the Unresolved & limitations trail shows a dated re-check; the labelled model estimates stand and every publisher run re-tries the money ladder first. Published on Flagged for Review per the brief (does not block the merge).",
+   "evidence": [
+    {
+     "url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/rooster-vs-team-abyssal-P1tTp3RAg8",
+     "detail": "EGW Rooster vs Team Abyssal page: 1.8 placeholder header, DFRAG Invitational 2026."
+    },
+    {
+     "url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+     "detail": "HLTV match page confirming 1win vs 5star on 31 Oct (fan percentages on that page are never used as inputs)."
+    },
+    {
+     "url": "https://polymarket.com/esports/cs2/dfrag-invitational",
+     "detail": "Polymarket DFRAG board: Rooster vs Abyssal at $0.00 volume with a 50/50 stub."
+    }
+   ]
+  },
+  {
+   "id": "0DB0-R05",
+   "area": "Sandbox/runner egress limits shape how EGW evidence can enter",
+   "status": "platform limitation",
+   "finding": "The sandbox cannot reach Hotspawn/HLTV/Polymarket/EGW directly (curl returns 000) and GitHub Actions receives HTTP 403 from egamersworld.com, so EGW can never be a live runner source; it only enters as dated, SHA-256-checked manual captures with an 8-hour freshness gate (scripts/reference_odds.py).",
+   "handling": "All live reads this session were first-hand fetches of the original pages/APIs through the browser-fetch tool; the one usable EGW quote was captured with its verbatim sentence + hash and replays through the shipped ladder. Placeholder pages (1.8/1.8, $0 stubs) were recorded as no-line, never as prices.",
+   "evidence": [
+    {
+     "url": "https://egamersworld.com/counterstrike/match/0U32SId-H/projeto-do-kingui-vs-yawara-3gUs-7A9Zu",
+     "detail": "Example placeholder page: 1.8/1.8 header with no bookmaker-average sentence (fixture 1086697, rejected)."
+    }
+   ]
+  }
+ ]
+}
