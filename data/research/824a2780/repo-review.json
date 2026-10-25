@@ -1,0 +1,148 @@
+{
+  "session": "arena-824a2780",
+  "scope": "Independent line-by-line verification of the published CS2 picks on the 2026-10-25T14:23:33Z build: 16 active Hotspawn fixtures (13 priced, 3 published blank), the regression that stopped the four-hour publisher from 08:17Z, the odds-floor bookmaker row, the blocked esportsbooks, and the phone path from the executive summary to the picks.",
+  "review_clock_utc": "2026-10-25T14:50:00Z",
+  "method": "Replayed every active row from the inputs it publishes (scripts/824a2780_verify.py), re-counted the inventory and its counts, fetched the official Valve standings file the model rows cite over api.github.com and matched all four rating inputs, checked each blank row's stated reason against that same file, and ran the build, the row audit, the link checker and the full Playwright phone/WCAG suite against a build of this snapshot.",
+  "items": [
+    {
+      "id": "824A-R01",
+      "area": "Four-hour publisher (every match, every 4-8 hours)",
+      "status": "fixed",
+      "finding": "The scheduled publisher was red at the Regression-tests gate from 08:17Z (runs 40174233578 and 40196457503), so no fresh Hotspawn inventory was collected and the site sat on the 2026-10-25T05:12:25Z build. The failing assertion pinned fixtures 1082858 and 1082792 to 'no pick' against the mutable root snapshot.json, while that snapshot had priced 1082858 at 25.0% / 75.0% from two-sided Polymarket quotes (bid/ask 0.22-0.28 and 0.72-0.78). A coverage gap closing was reported as a regression.",
+      "handling": "Reproduced independently in this session (1 failure in 0.003 s) and confirmed the shipped fix: PR #326 guards the pinned state exactly as the Group B and Group C assertions in that file already were, and this branch adopts main's version verbatim rather than a second copy. The class is now also covered by this session's replay tests, which derive every published pair from the row's own inputs and so cannot break when a fixture graduates to a sourced pick. Verified after the fix: the 14:23:33Z snapshot published with 0 rows without a pick left unaccounted for.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40174233578",
+          "detail": "Publisher run whose failed job carries the annotation 'FAIL: test_group_a_are_snapshot_unresolved (test_b72154e1_guided_picks.GuidedPicksTest.test_group_a_are_snapshot_unresolved)'."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/pull/326",
+          "detail": "Merge that carries the guard adopted here; tests/test_b72154e1_guided_picks.py now pins pick state only to the snapshot the dossier names."
+        }
+      ]
+    },
+    {
+      "id": "824A-R02",
+      "area": "Bookmaker price at the odds floor (1082860, dated 05:12:25Z observation)",
+      "status": "needs review",
+      "finding": "On the 05:12:25Z build this fixture was priced from a Thunderpick pair of 1.001 / 12.00: 92.30% is arithmetically correct for that quote, but 1.001 is the bookmaker's minimum price, so the favourite's implied probability was clipped by the odds floor and the row's limitation did not say so. The 14:23:33Z build prices the same fixture from an independent Polymarket book (0.91/0.94 and 0.06/0.09, midpoint 92.5%), which corroborates the number, but the floor case can return whenever the exchange book is unavailable.",
+      "handling": "Changed nothing: the figure published on 05:12:25Z was what the book posted and its arithmetic replayed exactly. Flagged for the owner of scripts/collect.py to decide whether a quote at the minimum price should carry an explicit 'at the bookmaker minimum' limitation or be treated as one-sided. Both observations are published with their own timestamps.",
+      "evidence": [
+        {
+          "url": "https://thunderpick.io/api/matches",
+          "detail": "Bookmaker endpoint the 05:12:25Z row cites; the stored quote records odds [1.001, 12.0] for event 2872333."
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-fly-staque-2026-10-26",
+          "detail": "The exchange book that prices the same fixture on the 14:23:33Z build at a 92.5% midpoint."
+        }
+      ]
+    },
+    {
+      "id": "824A-R03",
+      "area": "Every priced row replays from first-party evidence",
+      "status": "verified",
+      "finding": "13 of the 16 active fixtures publish a side, and all 13 pairs recompute exactly: 10 exchange rows from bid/ask midpoints (midpoint = (bid+ask)/2 and spread = ask-bid checked on every quote), 1 bookmaker row from no-vig decimal odds, and 2 Valve model rows from the Glicko expectation 1/(1+10^(g*delta/400)) with g = 0.9728209910486895 at RD 75. Every named side is the strict favourite of its own two numbers, and no analysis row is attributed to Hotspawn or carries a crowd field. All four Valve rating inputs (standing, points, five-player roster) match the official standings file the rows cite, blob 2aa2805.",
+      "handling": "Published the checker and the row-by-row table in data/research/824a2780/ and pinned it with tests/test_824a2780_verification.py, which also proves the checker rejects a tampered probability, a tampered midpoint, a Hotspawn-attributed price and a flipped pick.",
+      "evidence": [
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "Official file read 2026-10-25T13:2xZ and still the newest published table: Rooster #205 718, Abyssal #195 734, 5star #80 1110, 1WIN #38 1383."
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
+          "detail": "One of the ten exchange rows; the published 59.5% / 40.5% is the normalised midpoint pair of its own two order books."
+        }
+      ]
+    },
+    {
+      "id": "824A-R04",
+      "area": "The pick-less fixtures on this observation are policy-correct, not unpriced work",
+      "status": "verified",
+      "finding": "1086697 (Projeto do KinGui vs Yawara), 1082858 (Ground Zero vs Off Chops) and 1082792 (HOTU vs The Huns) each publish eight named sources and a specific limitation. Checked against the official Valve table: Yawara is present once (#147, 845) and no KinGui row exists under any spelling; Ground Zero is present (#136, 878) and no Off Chops row exists; 'The Huns' is published twice with complete five-player rosters (#122 944 points, #213 701 points), so nothing in the published data says which one plays on 31 October. HLTV names the first fixture's opponent 'Tropa do KinGui', which this dashboard does not equate with 'Projeto do KinGui' without official proof. The inventory is re-collected every four hours and rows leave it when they start; the durable check is `python -m scripts.824a2780_verify --check`, which re-derives whichever rows are live from their own inputs.",
+      "handling": "Kept all three blank with their limitations and their unresolved-register entry. Filling them would need a live bookmaker line or an authoritative identity, neither of which any source offered in this refresh; no estimate was substituted.",
+      "evidence": [
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "Yawara #147 845 and Ground Zero #136 878 present; no KinGui and no Off Chops row; rows 122 and 213 are both 'The Huns' with distinct five-player rosters."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+          "detail": "The fixture's own Hotspawn match page, linked first on the blank row."
+        }
+      ]
+    },
+    {
+      "id": "824A-R05",
+      "area": "Half of the researched price sources are hard-blocked on the runner",
+      "status": "platform limitation",
+      "finding": "In the snapshot's own audit, GG.BET returns 403, Stake returns 403, and Pinnacle and Rivalry both redirect to generic landing pages, while HLTV's /matches page is recorded unavailable even though the same workflow's source-audit manifest recorded HTTP 200 for it at 07:55Z. The pick-less rows name these failures per fixture instead of one global warning.",
+      "handling": "Published as a platform limitation: a blocked book is not evidence that no market exists, so the affected fixtures stay blank and say which sources failed. The rest of the ladder (Polymarket, Thunderpick, the Valve model) still priced 13 of 16 fixtures in the same run.",
+      "evidence": [
+        {
+          "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
+          "detail": "Recorded in snapshot.json sources[] as unavailable (403 Client Error)."
+        },
+        {
+          "url": "https://www.pinnacle.com/en/esports-hub/cs2",
+          "detail": "Recorded as 'Redirected to a generic landing page; no match-level betting lines verified'."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40174233578",
+          "detail": "Its source-audit annotation shows hltv-matches HTTP 200 at 2026-10-25T07:55:18Z."
+        }
+      ]
+    },
+    {
+      "id": "824A-R06",
+      "area": "Reaching the picks from a phone",
+      "status": "verified",
+      "finding": "The executive summary links the picks list (./picks/), the complete-pick cards (./origination/#picks), the unresolved register (./unresolved/), coverage and this review page. Every active id renders on the built picks page and all three pick-less ids render on the unresolved register. The full Playwright suite - 134 tests including 320, 375, 390, 768 and 1440 px, no-JS, staleness and axe WCAG 2A/2AA - passes against a build of this snapshot: no horizontal overflow and no accessibility violations.",
+      "handling": "Verified, not changed: the navigation and phone layout already satisfy the brief, so this session made no styling or template edit and cannot regress them. The same suite runs on the pull request before merge.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/browser/phone_c2a74e33.spec.mjs",
+          "detail": "The 320/375/390/768 px plus axe WCAG A/AA spec, one of the 134 that pass locally against this build."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+          "detail": "The executive-summary renderer that emits the in-site ./picks/, ./origination/#picks and ./unresolved/ links the spec asserts."
+        }
+      ]
+    },
+    {
+      "id": "824A-R07",
+      "area": "A dossier check that failed when a fixture aged out of the inventory (fixed on main before this merge)",
+      "status": "verified",
+      "finding": "The pull-request gate (run 40204128021) failed the unit suite on test_0962d605_verification.DossierIsReproducible.test_published_estimates_match_the_board with '1081156: not present in the checked-in snapshot'. Fixture 1081156 (Spirit Academy vs LFO 10) left Hotspawn's scheduled feed after its 12:00Z start, so the checker's docstring rule - an absent fixture is a note, never a match - was implemented as a hard error. Nothing was wrong with the dossier or with any published pick, but the gate was red, and the same suite runs before the four-hour publisher.",
+      "handling": "Fixed independently while this branch was open: `arena-9e0e601d` made the absence rule retirement-aware in `scripts/0962d605_verify.py` (an absent fixture that publishes an estimate still has to name its published evidence URL and observation time; a pure gap row carries nothing to compare). This branch adopted `main`'s version in full at the rebase rather than keeping a second copy. Verified after the rebase: `python -m unittest tests.test_0962d605_verification tests.test_9e0e601d_audit` = 64 tests OK.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40204128021",
+          "detail": "The failed job annotation naming test_published_estimates_match_the_board as the only unittest failure."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156",
+          "detail": "The fixture's own match page; its 2026-10-25T12:00Z start is why it is no longer in the scheduled feed."
+        }
+      ]
+    },
+    {
+      "id": "824A-R08",
+      "area": "Cross-session fix-forward: the executive summary's honest \"Unresolved\" row broke two gate checks",
+      "status": "fixed",
+      "finding": "The pull-request gate (run 40213366009) failed four checks - test_81c1058a_verification (x2), 27ac20d6_research and 47fa5d84_verification - all rooted in the acceptance audit's check 1, which demanded two percentages on every glance row and a non-Hotspawn external source for every row. Fixture 1086697 (Projeto do KinGui vs Yawara) has no priced estimate at all, so the executive summary renders it honestly as 'Unresolved' plus a 'Why' link into the register. That is exactly the project rule (a blank never shows a probability and never gets a default 50/50), yet the audits read it as a defect. The failure is on main independently of this branch: this branch does not touch the published root.",
+      "handling": "Two minimal fix-forwards, both preserving every rule for rows that do publish a number: scripts/acceptance_audit.py now recognises a labelled 'Unresolved' / 'No price' row, counts it separately in the detail sentence, and still fails if such a row sneaks in a number; scripts/27ac20d6_verify.py requires an external source only when the row actually carries two percentages. After the change: acceptance audit 10 pass / 0 fail on the branch root, and 63 tests OK across test_81c1058a_verification, test_27ac20d6_research, test_47fa5d84_verification, test_3149e7ae_acceptance, test_99d48cd8_mobile and this session's module.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40213366009",
+          "detail": "The four failing checks, all reporting the acceptance audit's 1 failure on the branch root."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/index.html",
+          "detail": "The rendered glance row for 1086697: data-glance-pick label 'Unresolved' plus a Why link, no invented percentage."
+        }
+      ]
+    }
+  ]
+}
