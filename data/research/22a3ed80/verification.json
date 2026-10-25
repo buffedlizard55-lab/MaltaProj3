@@ -1,43 +1,49 @@
 {
   "checks": [
     {
-      "detail": "page=2026-10-25T14:32:11Z snapshot=2026-10-25T14:32:11Z",
+      "detail": "page=2026-10-25T16:20:19Z snapshot=2026-10-25T16:20:19Z",
       "hard": true,
       "name": "page_stamp_matches_snapshot",
       "ok": true
     },
     {
-      "detail": "16 upcoming, 16 rows; missing=[] extra=[]",
+      "detail": "14 upcoming, 14 rows; missing=[] extra=[]",
       "hard": true,
       "name": "one_glance_row_per_upcoming_fixture",
       "ok": true
     },
     {
-      "detail": "16 of 16 rows link a source",
+      "detail": "14 of 14 rows link a source",
       "hard": true,
       "name": "every_row_is_sourced",
       "ok": true
     },
     {
-      "detail": "13 featured rows re-derived from their own analysis block",
+      "detail": "12 featured rows re-derived from their own analysis block",
       "hard": true,
       "name": "featured_rows_replay_exactly",
       "ok": true
     },
     {
-      "detail": "3 fallback rows carry a label and a probability",
+      "detail": "1 fallback rows carry a label and a probability",
       "hard": true,
       "name": "fallback_rows_are_labelled_and_priced",
       "ok": true
     },
     {
-      "detail": "rendered active=16 picked=16 external=12 model=4 blank=0; snapshot upcoming=16 rows=16; rows declaring an external method=12, research model=4 (13 replayed from a featured analysis block, 3 labelled fallbacks)",
+      "detail": "1 rows published as unresolved, each naming its reason",
+      "hard": true,
+      "name": "unresolved_rows_state_their_reason",
+      "ok": true
+    },
+    {
+      "detail": "rendered active=14 picked=13 external=11 model=2 blank=1; snapshot upcoming=14 rows=14 priced=13 (snapshot unresolved ids=2); rows declaring an external method=11, research model=2 (12 replayed from a featured analysis block, 1 labelled fallbacks, 1 explicitly unresolved)",
       "hard": true,
       "name": "headline_numbers_match_snapshot",
       "ok": true
     },
     {
-      "detail": "status reads \"16 picks ready of 16 0 unresolved \u00b7 why\" for 16 upcoming fixtures",
+      "detail": "status reads \"13 picks ready of 14 1 unresolved \u00b7 why\" for 14 upcoming fixtures (13 priced, 1 blank)",
       "hard": true,
       "name": "phone_status_matches_snapshot",
       "ok": true
@@ -86,53 +92,19 @@
     }
   ],
   "counts": {
-    "archived": 62,
+    "archived": 61,
     "bookmaker": 1,
-    "inventory": 78,
-    "market": 10,
+    "inventory": 75,
+    "market": 9,
     "model": 2,
     "no_edge": 0,
-    "picks": 13,
+    "picks": 12,
     "unknown_schedule": 0,
-    "unresolved": 3,
-    "upcoming": 16
+    "unresolved": 2,
+    "upcoming": 14
   },
-  "generated_at": "2026-10-25T14:32:11Z",
+  "generated_at": "2026-10-25T16:20:19Z",
   "rows": [
-    {
-      "id": "1079199",
-      "method": "market",
-      "note": null,
-      "rendered_pick": "BRUTE",
-      "rendered_probabilities": [
-        55.5,
-        44.5
-      ],
-      "source_links": 2,
-      "starts_at": "2026-10-25T15:00:00Z",
-      "teams": [
-        "Infinite",
-        "BRUTE"
-      ],
-      "verification": "re-derived from the fixture analysis block"
-    },
-    {
-      "id": "1086696",
-      "method": "market",
-      "note": null,
-      "rendered_pick": "RED Canids Academy",
-      "rendered_probabilities": [
-        55.0,
-        45.0
-      ],
-      "source_links": 2,
-      "starts_at": "2026-10-25T16:00:00Z",
-      "teams": [
-        "BORRACHEIROS",
-        "RED Canids Academy"
-      ],
-      "verification": "re-derived from the fixture analysis block"
-    },
     {
       "id": "1079200",
       "method": "market",
@@ -156,8 +128,8 @@
       "note": null,
       "rendered_pick": "FORZE Reload",
       "rendered_probabilities": [
-        56.5,
-        43.5
+        55.5,
+        44.5
       ],
       "source_links": 2,
       "starts_at": "2026-10-25T18:00:00Z",
@@ -187,28 +159,28 @@
     {
       "id": "1086697",
       "method": null,
-      "note": "Researched / Consensus",
-      "rendered_pick": "Projeto do KinGui",
+      "note": "Unresolved",
+      "rendered_pick": "Unresolved",
       "rendered_probabilities": [
-        65.1,
-        34.9
+        null,
+        null
       ],
-      "source_links": 2,
+      "source_links": 1,
       "starts_at": "2026-10-25T19:00:00Z",
       "teams": [
         "Projeto do KinGui",
         "Yawara"
       ],
-      "verification": "labelled researched fallback (its own dossier replays the number)"
+      "verification": "published unresolved (explicit reason linked, no number invented)"
     },
     {
       "id": "1082858",
-      "method": null,
-      "note": "Researched",
+      "method": "market",
+      "note": null,
       "rendered_pick": "Off Chops",
       "rendered_probabilities": [
-        55.0,
-        45.0
+        77.5,
+        22.5
       ],
       "source_links": 2,
       "starts_at": "2026-10-26T03:00:00Z",
@@ -216,7 +188,7 @@
         "Ground Zero",
         "Off Chops"
       ],
-      "verification": "labelled researched fallback (its own dossier replays the number)"
+      "verification": "re-derived from the fixture analysis block"
     },
     {
       "id": "1082859",
@@ -340,11 +312,11 @@
     {
       "id": "1082792",
       "method": null,
-      "note": "Researched",
+      "note": "Researched / Market line",
       "rendered_pick": "HOTU",
       "rendered_probabilities": [
-        98.2,
-        1.8
+        84.0,
+        16.0
       ],
       "source_links": 2,
       "starts_at": "2026-10-31T09:00:00Z",
@@ -374,9 +346,9 @@
   ],
   "site": ".",
   "summary": {
-    "hard_checks": 14,
+    "hard_checks": 15,
     "hard_failures": 0,
     "informational": 0,
-    "rows_checked": 16
+    "rows_checked": 14
   }
 }

@@ -80,5 +80,69 @@ class LobbyGapRegisterTests(unittest.TestCase):
             self.assertNotIn(f'<span class="tried-chip unresolved">Hotspawn {identifier}</span>', html)
 
 
+class RotatedFixtureTrapTests(unittest.TestCase):
+    """A gap-research row must survive the publisher's rolling snapshot window.
+
+    ``scripts/0962d605_verify.check_published_estimates`` failed the four-hour
+    publisher's regression gate (run 40202907756) as soon as fixture 1081156
+    Spirit Academy vs LFO 10 started and left the checked-in snapshot. The rule
+    that replaced it (merged upstream by session arena-9e0e601d and kept here
+    verbatim) is: absence alone is never an error, because the checked-in
+    snapshot is a rolling window; a figure the dossier attributes to the board
+    must still be sourced and dated.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls.verify_mod = importlib.import_module('scripts.0962d605_verify')
+
+    def _dossier(self, fixture):
+        return {'fixtures': [fixture]}
+
+    def test_a_gap_row_with_no_published_estimate_is_never_an_error(self):
+        dossier = self._dossier({
+            'id': '999001',
+            'hotspawn': {'source_url': 'https://www.hotspawn.com/matches/x-999001',
+                         'starts_at': '2026-10-25T12:00:00Z'},
+            'published_estimate': None,
+        })
+        snapshot = {'generated_at': '2026-10-25T14:32:11Z', 'matches': []}
+        self.assertEqual(self.verify_mod.check_published_estimates(dossier, snapshot, {'matches': []}), [])
+
+    def test_an_absent_estimate_without_published_evidence_is_an_error(self):
+        dossier = self._dossier({
+            'id': '999002',
+            'hotspawn': {'source_url': 'https://www.hotspawn.com/matches/y-999002',
+                         'starts_at': '2026-10-25T12:00:00Z'},
+            'published_estimate': {'probabilities': [0.6, 0.4],
+                                   'source_url': 'https://polymarket.com/event/y'},
+        })
+        snapshot = {'generated_at': '2026-10-25T14:32:11Z', 'matches': []}
+        errors = self.verify_mod.check_published_estimates(dossier, snapshot, {'matches': []})
+        self.assertTrue(any('names no published evidence' in e for e in errors), errors)
+
+    def test_an_absent_estimate_with_evidence_and_a_clock_is_accepted(self):
+        dossier = self._dossier({
+            'id': '999003',
+            'hotspawn': {'source_url': 'https://www.hotspawn.com/matches/z-999003',
+                         'starts_at': '2026-10-25T12:00:00Z'},
+            'published_estimate': {'probabilities': [0.6, 0.4],
+                                   'source_url': 'https://polymarket.com/event/z',
+                                   'evidence_url': 'https://polymarket.com/event/z',
+                                   'observed_at': '2026-10-25T11:00:00Z'},
+        })
+        snapshot = {'generated_at': '2026-10-25T14:32:11Z', 'matches': []}
+        self.assertEqual(self.verify_mod.check_published_estimates(dossier, snapshot, {'matches': []}), [])
+
+    def test_a_present_row_still_has_to_match_the_board(self):
+        dossier = self._dossier({'id': '999004',
+                                 'published_estimate': {'probabilities': [0.6, 0.4],
+                                                        'source_url': 'https://polymarket.com/event/x'}})
+        snapshot = {'matches': [{'id': '999004'}]}
+        origination = {'matches': [{'id': '999004', 'origination': {'probabilities': [0.55, 0.45]}}]}
+        errors = self.verify_mod.check_published_estimates(dossier, snapshot, origination)
+        self.assertTrue(any('!= published board' in e for e in errors), errors)
+
+
 if __name__ == '__main__':
     unittest.main()

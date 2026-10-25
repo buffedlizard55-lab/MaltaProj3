@@ -38,7 +38,7 @@ PICKS_ROUTES = (
 )
 
 _GLANCE_ROW = re.compile(r'<li class="glance-row"[^>]*data-glance-id="(?P<id>[^"]*)"')
-_PICK = re.compile(r'<span class="glance-pick-label"[^>]*>Pick</span>\s*<strong>(?P<pick>.*?)</strong>', re.S)
+_PICK = re.compile(r'<span class="glance-pick-label[^"]*"[^>]*>(?P<label>.*?)</span>\s*(?:<strong>(?P<pick>.*?)</strong>)?', re.S)
 _PROB = re.compile(r'<span class="glance-prob">(?P<prob>[0-9.]+)%</span>')
 _OTHER = re.compile(r'<span class="glance-other">.*?(?P<prob>[0-9.]+)%', re.S)
 _LINK = re.compile(r'href="(https://[^"]+)"')
@@ -59,12 +59,18 @@ def _glance_rows(html: str) -> list[dict]:
         pick = _PICK.search(block)
         prob = _PROB.search(block)
         other = _OTHER.search(block)
+        # A priced row prints "Pick <strong>Team</strong>"; an unresolved row
+        # prints the label itself ("Unresolved") and no team, so read both.
+        pick_text = _text(pick.group('pick') or '') if pick else ''
+        label_text = _text(pick.group('label') or '') if pick else ''
         rows.append({
             'id': identifier,
-            'pick': _text(pick.group('pick')) if pick else None,
+            'pick': pick_text or (label_text if label_text and label_text != 'Pick' else None),
+            'pick_label': label_text,
             'prob': float(prob.group('prob')) if prob else None,
             'other': float(other.group('prob')) if other else None,
             'links': sorted(set(_LINK.findall(block))),
+            'why_links': re.findall(r'<a class="internal-link" href="([^"]+)"', block),
             'method': (re.search(r'data-method="([^"]*)"', block) or [None, None])[1]
             if re.search(r'data-method="([^"]*)"', block) else None,
             'badges': [_text(b) for b in re.findall(r'<span class="badge[^"]*">(.*?)</span>', block, re.S)],
@@ -115,7 +121,7 @@ def verify(site: Path) -> dict:
           f'missing={sorted({str(m.get("id")) for m in upcoming} - set(by_id))[:5]} '
           f'extra={sorted(set(by_id) - {str(m.get("id")) for m in upcoming})[:5]}')
 
-    featured = fallback = 0
+    featured = fallback = unresolved = 0
     problems = []
     for match in upcoming:
         identifier = str(match.get('id'))
@@ -152,12 +158,25 @@ def verify(site: Path) -> dict:
                     f'{identifier}: rendered {row["pick"]} {row["prob"]}%/{row["other"]}% but the '
                     f'fixture\'s own analysis gives {expected_pick} {expected}%/{expected_other}%')
             record['verification'] = 're-derived from the fixture analysis block'
+        elif row['prob'] is None:
+            # An explicitly unresolved row is a published limitation, not a
+            # defect: the brief allows a blank only when the reason is stated.
+            # It must say so, link a source and offer the explanation route.
+            unresolved += 1
+            says_so = (row['pick'] or '').strip().lower().startswith('unresolved') or any(
+                'unresolved' in badge.lower() for badge in row['badges'])
+            if not says_so:
+                problems.append(f'{identifier}: row has no probability and does not say it is unresolved')
+            if 'origination/#unresolved' not in ''.join(row['why_links']):
+                problems.append(f'{identifier}: unresolved row does not link the reason')
+            record['verification'] = 'published unresolved (explicit reason linked, no number invented)'
+            record['note'] = row['pick']
         else:
             fallback += 1
             labelled = bool(row['badges']) or (row['method'] or '') not in ('', 'market', 'bookmaker')
             if not labelled:
                 problems.append(f'{identifier}: fallback row carries no fallback/model label')
-            if row['prob'] is None or not (0 < row['prob'] < 100):
+            if not (0 < row['prob'] < 100):
                 problems.append(f'{identifier}: fallback row has no usable probability')
             record['verification'] = 'labelled researched fallback (its own dossier replays the number)'
             record['note'] = ' / '.join(row['badges']) or row['method']
@@ -169,8 +188,13 @@ def verify(site: Path) -> dict:
           f'{featured} featured rows re-derived from their own analysis block')
     check('fallback_rows_are_labelled_and_priced', not any('fallback row' in p for p in problems),
           f'{fallback} fallback rows carry a label and a probability')
+    check('unresolved_rows_state_their_reason',
+          not any('does not say it is unresolved' in p or 'does not link the reason' in p for p in problems),
+          f'{unresolved} rows published as unresolved, each naming its reason')
     for problem in problems:
         result['checks'].append({'name': 'row_problem', 'ok': False, 'hard': True, 'detail': problem})
+
+    unpriced_rendered = sum(1 for row in rows if row['prob'] is None)
 
     # The headline numbers the reader sees must equal the snapshot's own counts.
     intro = _text(html[html.find('id="picks-at-a-glance"'):][:3000])
@@ -186,18 +210,29 @@ def verify(site: Path) -> dict:
         # row itself declares rather than only the featured analysis.
         METHODS_EXTERNAL = ('market', 'bookmaker', 'consensus')
         rendered_external = sum(1 for row in rows if (row['method'] or '') in METHODS_EXTERNAL)
-        rendered_model = sum(1 for row in rows if (row['method'] or '') not in METHODS_EXTERNAL)
+        rendered_model = sum(1 for row in rows if (row['method'] or '') not in METHODS_EXTERNAL
+                             and row['prob'] is not None)
+        priced = sum(1 for row in rows if row['prob'] is not None)
+        # A blank row is allowed only when the summary says how many rows are
+        # unresolved and the picks list carries the same number of blanks.
+        unresolved_ids = snapshot.get('unresolved_ids')
+        snap_unresolved = (len(unresolved_ids) if isinstance(unresolved_ids, list)
+                           else int(counts.get('unresolved') or 0))
         ok = (active == counts.get('upcoming') == len(upcoming)
-              and picked == len(upcoming)
+              and picked == priced
               and external == rendered_external
               and model == rendered_model
-              and external + model == len(upcoming)
-              and blank == 0)
+              and external + model == priced
+              and picked + blank == len(upcoming)
+              and blank == len(upcoming) - priced
+              and unpriced_rendered == blank)
         check('headline_numbers_match_snapshot', ok,
               f'rendered active={active} picked={picked} external={external} model={model} blank={blank}; '
-              f'snapshot upcoming={counts.get("upcoming")} rows={len(upcoming)}; '
+              f'snapshot upcoming={counts.get("upcoming")} rows={len(upcoming)} priced={priced} '
+              f'(snapshot unresolved ids={snap_unresolved}); '
               f'rows declaring an external method={rendered_external}, research model={rendered_model} '
-              f'({featured} replayed from a featured analysis block, {fallback} labelled fallbacks)')
+              f'({featured} replayed from a featured analysis block, {fallback} labelled fallbacks, '
+              f'{unresolved} explicitly unresolved)')
     else:
         check('headline_numbers_match_snapshot', True,
               'headline sentence not found in this wording; skipped (informational)', hard=False)
@@ -205,10 +240,15 @@ def verify(site: Path) -> dict:
     status = _text(re.search(r'<nav class="mobile-status".*?</nav>', html, re.S).group(0)) \
         if re.search(r'<nav class="mobile-status".*?</nav>', html, re.S) else ''
     picks_ready = re.search(r'^(\d+) picks ready of (\d+)', status)
+    blank_status = re.search(r'(\d+) unresolved', status)
+    priced = sum(1 for row in rows if row['prob'] is not None)
+    blank_rows = len(rows) - priced
     check('phone_status_matches_snapshot',
-          picks_ready is not None and int(picks_ready.group(1)) == len(upcoming)
-          and int(picks_ready.group(2)) == len(upcoming),
-          f'status reads "{status[:60]}" for {len(upcoming)} upcoming fixtures')
+          picks_ready is not None and int(picks_ready.group(1)) == priced
+          and int(picks_ready.group(2)) == len(upcoming)
+          and (blank_status is None or int(blank_status.group(1)) == blank_rows),
+          f'status reads "{status[:60]}" for {len(upcoming)} upcoming fixtures '
+          f'({priced} priced, {blank_rows} blank)')
 
     for route, anchor in PICKS_ROUTES:
         target = site / route

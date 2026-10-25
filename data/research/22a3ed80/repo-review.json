@@ -1,7 +1,7 @@
 {
   "session": "arena-22a3ed80",
   "scope": "Line-by-line verification of the published 2026-10-25T14:23:33Z executive summary (16 active Hotspawn CS2 fixtures, 13 featured rows, 3 researched fallbacks), the separate unresolved-pick register, the dated lobby-gap register and the phone routes; plus the repair of a false coverage-gap count those pages displayed.",
-  "review_clock_utc": "2026-10-25T14:32:11Z",
+  "review_clock_utc": "2026-10-25T16:20:19Z",
   "method": "Read only what is published in this repository: snapshot.json (the byte-identical copy of the verified data/latest.json that the publisher writes into the branch root) and index.html (the executive summary built from the same snapshot). Every featured pick and both of its percentages were re-derived arithmetically from that fixture's own analysis.probabilities and pick_index (scripts/22a3ed80_verify.py, 14 hard checks, 0 failures); every rendered row was checked for an https source link; the headline and phone-status numbers were reconciled with snapshot.counts; the dated lobby-gap register was compared with the record that produced it (data/research/c2a74e33/live-coverage.json). No value was inferred, no probability was hand-written, and no live network source was queried from this sandbox (its egress does not reach Hotspawn, HLTV, bookmakers or Pages), so freshness itself is verified from the publisher run that produced the snapshot.",
   "items": [
     {
@@ -27,22 +27,22 @@
     },
     {
       "id": "22A-R02",
-      "area": "Full coverage of the published summary re-verified: 16 of 16 active fixtures carry a pick",
+      "area": "Coverage of the published summary re-verified: 13 of 14 active fixtures priced, 1 published as explicitly unresolved",
       "status": "verified",
-      "finding": "At snapshot 2026-10-25T14:32:11Z the site lists 16 active Hotspawn CS2 fixtures. All 16 have a picks-at-a-glance row; 13 were re-derived exactly from their own featured analysis block (published pick equals teams[pick_index], published percentage equals round(probability\u00d7100, 1) for both sides, and the pair sums to 100.0); the remaining 3 are labelled researched fallbacks (1 consensus line from a median of 2 money sources, 2 bo3.gg results-network model rows) and each row links at least one https source. The headline sentence (16 active / 16 picked / 12 external / 4 research model / 0 explicitly unresolved) reconciles with the rows' own declared methods and with snapshot.counts, and the phone status reads '16 picks ready of 16 \u00b7 0 unresolved'.",
-      "handling": "No change needed. Published as verification evidence with the exact command so it can be re-run on any later snapshot: python -m scripts.22a3ed80_verify --site . --check.",
+      "finding": "At snapshot 2026-10-25T16:20:19Z the site lists 14 active Hotspawn CS2 fixtures: 13 carry a priced pick (12 re-derived exactly from their own featured analysis block \u2014 published pick equals teams[pick_index] and both percentages equal round(p\u00d7100, 1) summing to 100.0 \u2014 plus 1 labelled researched fallback for 1082792 HOTU 84.0%), and 1 (1086697 Projeto do KinGui vs Yawara) is published as explicitly unresolved with its reason linked. Every one of the 14 rows links at least one https source. The headline sentence (14 active / 13 picked / 11 external / 2 research model / 1 explicitly unresolved) reconciles with the rows' own declared methods and the phone status reads '13 picks ready of 14 \u00b7 1 unresolved'. The earlier 14:32:11Z publish was fully covered (16 of 16 priced) and the same checks passed there.",
+      "handling": "No invented number: the blank row stays blank and the page states the blocker per source. Published with the command so it can be re-run on any later snapshot: python -m scripts.22a3ed80_verify --site . --check (15 hard checks, 0 failures).",
       "evidence": [
         {
           "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/22a3ed80/verification.json",
-          "detail": "Machine-readable result: 14 hard checks, 0 failures, 16 rows with per-row verification mode and source-link counts."
+          "detail": "Machine-readable result for the 2026-10-25T16:20:19Z publish: 15 hard checks, 0 failures, 14 rows with per-row verification mode and source-link counts."
         },
         {
-          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40200734631",
-          "detail": "The publisher run that collected, replayed and deployed this snapshot; its own verify_live step checks the public Pages site, which this sandbox cannot reach."
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/snapshot.json",
+          "detail": "The published snapshot the page was built from (counts reconciled against the rendered headline and phone status)."
         },
         {
           "url": "https://polymarket.com/event/cs2-inf6-brute-2026-10-25",
-          "detail": "Featherweight example of the replay: fixture 1079199 Infinite vs BRUTE scores 0.445 / 0.555 in snapshot.json with pick_index 1, and the page publishes BRUTE 55.5% / Infinite 44.5%."
+          "detail": "Worked example of a replayed row: fixture 1079199 Infinite vs BRUTE scores 0.445 / 0.555 with pick_index 1, and the page publishes BRUTE 55.5% / Infinite 44.5%."
         }
       ]
     },
@@ -102,6 +102,27 @@
         {
           "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
           "detail": "The official Hotspawn fixture feed the publisher collects from; unreachable from this sandbox, reachable in Actions."
+        }
+      ]
+    },
+    {
+      "id": "22A-R07",
+      "area": "One live fixture has no derivable pick: 1086697 Projeto do KinGui vs Yawara",
+      "status": "needs review",
+      "finding": "At 2026-10-25T16:20:19Z fixture 1086697 (CCT South America 2026 Series #7, 19:00Z) is the only active Hotspawn CS2 card without a pick. The published research trail records, per source: HLTV research unavailable (hltv-matches 403 Forbidden to the runner); no alias-verified Polymarket series-winner line; no alias-verified Kalshi or Smarkets match-winner line; no alias-verified Thunderpick price. An earlier consensus capture for this pair aged past the 8-hour price window, which is why the row moved from a 65.1% consensus pick to an explicit blank. Separately, Hotspawn names the team 'Projeto do KinGui' while HLTV's card for the same slot names 'Tropa do KinGui', and no official page proving the two names are one organisation has been read, so the alias cannot be registered.",
+      "handling": "Left blank and published, per the brief's rule that a value which cannot be confirmed from an official source is not filled in. Closing it needs either an official record proving the Projeto/Tropa do KinGui equivalence (then the ranking rung can price it) or a fresh two-sided prematch book quote inside the 8-hour window. No probability, pick or alias was invented, and the executive summary counts it as 1 unresolved with the reason linked.",
+      "evidence": [
+        {
+          "url": "https://www.hotspawn.com/matches/projeto-do-kingui-vs-yawara-cct-south-america-2026-series-7-1086697",
+          "detail": "Official Hotspawn fixture 1086697, CCT South America 2026 Series #7, 19:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399918/tropa-do-kingui-vs-yawara-cct-2026-south-america-series-7",
+          "detail": "HLTV card for the same slot, naming 'Tropa do KinGui' \u2014 the unresolved identity variant."
+        },
+        {
+          "url": "https://www.hltv.org/matches",
+          "detail": "HLTV's matches index, which answered HTTP 403 to the publisher runner during this refresh (recorded in the research trail)."
         }
       ]
     }

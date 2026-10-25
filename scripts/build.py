@@ -1919,10 +1919,25 @@ def live_coverage_gaps(data, prefix):
     if rotated:
         # Dated, linked and explicitly *not* a gap count: a reader on a phone
         # must not read nine played cards as nine missing picks.
-        carried = ' · '.join(
-            (external(f['hotspawn_url'], ' vs '.join(f.get('teams') or []) or 'Unverified pairing')
-             if f.get('hotspawn_url') else e(' vs '.join(f.get('teams') or []) or 'Unverified pairing'))
-            for f in rotated)
+        def _rotated_row(fixture):
+            names = ' vs '.join(fixture.get('teams') or []) or 'Unverified pairing'
+            label = (external(fixture['hotspawn_url'], names) if fixture.get('hotspawn_url')
+                     else e(names))
+            links = ''
+            if fixture.get('hltv_url'):
+                links += external(fixture['hltv_url'], 'HLTV')
+            if fixture.get('hltv_analytics_url'):
+                links += external(fixture['hltv_analytics_url'], 'HLTV analytics')
+            # The card keeps its own note: it documents identity or a missing
+            # permalink, and dropping it would lose the only explanation the
+            # dated record gives for that row.
+            note = fixture.get('note')
+            return (f'<li>{label}{links}'
+                    + (f' <span class="line-source-note">{e(note)}</span>' if note else '')
+                    + '</li>')
+
+        carried = '<ul class="line-source-list" id="live-coverage-rotated-list">' + ''.join(
+            _rotated_row(f) for f in rotated) + '</ul>'
         count = len(rotated)
         gap_note = (
             f'<p class="tiny muted" id="live-coverage-rotated">Not counted above: '

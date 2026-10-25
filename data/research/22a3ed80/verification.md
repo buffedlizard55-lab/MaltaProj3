@@ -1,22 +1,22 @@
 # Session arena-22a3ed80 — published-state verification (2026-10-25)
 
-**Snapshot verified:** `2026-10-25T14:32:11Z` (the publish that followed the `14:23:33Z` build this session started from; both carry the same 78 / 16 / 62 inventory and 13 + 3 pick split) — 78 Hotspawn CS2 records, 16 active, 62 archived.
+**Snapshot verified:** `2026-10-25T16:20:19Z` — 14 active Hotspawn CS2 fixtures, 13 with a priced pick and **1 published as explicitly unresolved** (1086697 Projeto do KinGui vs Yawara). The earlier `14:32:11Z` publish was also verified (16 active, 16 priced) and the defect below was found there.
 **Page verified:** `index.html` (executive summary) + `snapshot.json`, both from the same publish.
 **Command:** `python -m scripts.22a3ed80_verify --site . --check`
-**Result:** 14 hard checks, 0 failures, 16 rows checked, 16 of 16 rows link an official source.
+**Result:** 15 hard checks, 0 failures, 14 rows checked, 14 of 14 rows link an official source.
 Machine-readable copy: `data/research/22a3ed80/verification.json`.
 
 ## What was checked, line by line
 
 | # | Check | Result | Evidence |
 | --- | --- | --- | --- |
-| 1 | The page's `data-snapshot-generated` stamp equals `snapshot.json.generated_at` | pass — both `2026-10-25T14:32:11Z` | `index.html`, `snapshot.json` |
-| 2 | One picks-at-a-glance row per active fixture, no extra and none missing | pass — 16 upcoming, 16 rows | `#glance-list` |
-| 3 | Every rendered row carries at least one `https://` source link | pass — 16 of 16 | per-row link list in `verification.json` |
-| 4 | Every featured pick and both percentages re-derived from the fixture's own `analysis` block | pass — 13 featured rows, 0 mismatches | `snapshot.json` → `analysis.probabilities` + `pick_index` |
-| 5 | Every non-featured row is a labelled researched fallback with a usable probability | pass — 3 rows (1 consensus median of 2 books, 2 `bo3.gg` results-network model) | row badges `Researched` / `Consensus` |
-| 6 | Headline sentence reconciles with the snapshot's own counts and the rows' declared methods | pass — active 16, picked 16, external 12, research model 4, unresolved 0 | `snapshot.counts.upcoming = 16`, `counts.picks = 13` + 3 fallbacks |
-| 7 | Phone status matches the snapshot | pass — "16 picks ready of 16 · 0 unresolved" | `.mobile-status` |
+| 1 | The page's `data-snapshot-generated` stamp equals `snapshot.json.generated_at` | pass — both `2026-10-25T16:20:19Z` | `index.html`, `snapshot.json` |
+| 2 | One picks-at-a-glance row per active fixture, no extra and none missing | pass — 14 upcoming, 14 rows | `#glance-list` |
+| 3 | Every rendered row carries at least one `https://` source link | pass — 14 of 14 | per-row link list in `verification.json` |
+| 4 | Every featured pick and both percentages re-derived from the fixture's own `analysis` block | pass — 12 featured rows, 0 mismatches | `snapshot.json` → `analysis.probabilities` + `pick_index` |
+| 5 | Every non-featured row is either a labelled researched fallback with a usable probability or an explicitly unresolved row with its reason linked | pass — 1 labelled fallback (`1082792` HOTU 84.0%) and 1 unresolved row (`1086697`, "No validated two-team estimate", reason link present) | row badges / `#unresolved` |
+| 6 | Headline sentence reconciles with the snapshot's own counts and the rows' declared methods | pass — active 14, picked 13, external 11, research model 2, unresolved 1 | `snapshot.counts` / rendered rows |
+| 7 | Phone status matches the snapshot | pass — "13 picks ready of 14 · 1 unresolved" | `.mobile-status` |
 | 8 | In-site picks routes resolve and contain their anchors | pass — `origination/#picks`, `origination/#unresolved`, `unresolved/` | rendered files |
 | 9 | The summary links the dedicated registers | pass — `#picks-at-a-glance`, `#unresolved-register`, `#no-line-register`, `#fallback-register` | `index.html` |
 
@@ -26,13 +26,12 @@ Featured rows re-derived, with the arithmetic shown:
 - 1 bookmaker row: same identity and rounding rule from a two-way no-vig pair.
 - 2 model rows inside the featured set: identity and rounding rule still replay exactly; the model coefficients themselves are replayed by the model's own dossier, not here.
 
-Researched fallbacks (not re-derived here; each keeps its own dossier and blocker):
+Non-featured rows (not re-derived here; each keeps its own dossier and blocker):
 
-| Fixture | Pick | Probabilities | Method | Why no external line |
+| Fixture | Published | Probabilities | Method | Why |
 | --- | --- | --- | --- | --- |
-| Projeto do KinGui vs Yawara (`1086697`) | Projeto do KinGui | 65.1% / 34.9% | consensus, median of 2 money sources | external consensus, not a model |
-| Ground Zero vs Off Chops (`1082858`) | Off Chops | 55.0% / 45.0% | `bo3.gg` results-network model | Polymarket spread 0.21 > 0.15 ceiling |
-| HOTU vs The Huns (`1082792`) | HOTU | 98.2% / 1.8% | `bo3.gg` results-network model | Polymarket spread 0.57 > 0.15 ceiling |
+| HOTU vs The Huns (`1082792`) | HOTU | 84.0% / 16.0% | labelled researched fallback (`bo3.gg` results-network model) | no two-sided external price above the spread ceiling |
+| Projeto do KinGui vs Yawara (`1086697`) | **Unresolved** | blank | none — explicitly unresolved | HLTV 403 to the runner, and no alias-verified Polymarket / Kalshi / Smarkets / Thunderpick line for these teams and start time; the earlier consensus capture aged past the 8-hour window |
 
 ## Defect found and repaired
 
@@ -50,11 +49,15 @@ Neither module pins a fixture id, team name, probability or timestamp belonging 
 
 ## Build and repository checks run on this branch
 
-- `python -m unittest discover -s tests` — **OK** (exit 0) on the base commit before these edits.
-- `python -m scripts.build --data data --output /tmp/site22` — 9 pages, **80 source rows reconciled**, every published probability and pick replayed.
-- `python -m scripts.audit_rows --site /tmp/site22 --strict` — **966 rows, 0 without a source**, 0 violations on every page.
-- `python -m scripts.acceptance_audit --site /tmp/site22` — **9 pass / 1 info / 0 fail**.
-- Link/asset/anchor audit — **864 internal links and anchors pass**, project-subpath routing and mobile landmarks included.
+- `python -m unittest discover -s tests` — **OK** (1,815 tests, 16 skipped) after these edits.
+- `python -m scripts.build --data data --output <build>` — 9 pages, **80 source rows reconciled**, every published probability and pick replayed.
+- `python -m scripts.audit_rows --site <build> --strict` — 971 rows, **0 without a source**, 0 violations on every page.
+- `python -m scripts.acceptance_audit` — **9 pass / 1 info / 0 fail**.
+- Link/asset/anchor audit — **865 internal links and anchors pass**, project-subpath routing and mobile landmarks included.
+
+## Live coverage at the verified publication
+
+13 of 14 active fixtures carry a priced pick. **`1086697` Projeto do KinGui vs Yawara carries none**, and the page states why per source: HLTV answered `403` to the runner, and no alias-verified Polymarket, Kalshi, Smarkets or Thunderpick match-winner line exists for that pair and start time. Two things would close it, and neither may be invented: an official page proving `Projeto do KinGui` (Hotspawn) and `Tropa do KinGui` (HLTV) are the same organisation, which would let the ranking rung price it, or a fresh two-sided prematch book quote. Both are logged for review.
 
 ## Limitations of this session (published, not hidden)
 
