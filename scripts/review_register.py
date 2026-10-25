@@ -51,6 +51,13 @@ REGISTERS = (
     # snapshot test), three post-snapshot lobby fixtures, EGW capture for
     # 1086696, and the flagged 98.2% network estimate on 1082792.
     'research/0db056f7/repo-review.json',
+    # Session 0c034b94: every published number replayed from its own evidence
+    # (16/16 featured rows, 0 violations), live Hotspawn inventory vs the
+    # published picks at 2026-10-25T13:45Z (17 open, 3 with no row because the
+    # four-hour publisher is red), HLTV-first identity/ranking for every
+    # no-money-line fixture, the 14:00Z/14:30Z schedule disagreement on 1085542,
+    # the Projeto/Tropa do KinGui name variant, and the esportsbook access limits.
+    'research/0c034b94/repo-review.json',
 )
 STATUS = {
     'fixed': ('Fixed', 'green'),

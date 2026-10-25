@@ -1,0 +1,251 @@
+{
+  "schema_version": 1,
+  "session": "arena-0962d605",
+  "generated_at": "2026-10-25T13:44:00Z",
+  "purpose": "Resolve, or state the exact limitation for, every active Hotspawn CS2 fixture that the featured exact-name line could not price. HLTV first (identity and ranking), then esportsbook and exchange lines. No probability, pick or alias is written by this file; it records what the official sources published and what that means for the ladder.",
+  "method_order": [
+    "1. Hotspawn fixture identity and scheduled start (fixtures API + match page).",
+    "2. HLTV match page and team pages for identity, start time and published ranking.",
+    "3. Polymarket event and market records (Gamma API) for a two-sided prematch series price.",
+    "4. Only a two-sided book inside the published spread ceiling can produce a pick; an in-play price never can."
+  ],
+  "fixtures": [
+    {
+      "id": "1081156",
+      "teams": [
+        "Spirit Academy",
+        "LFO 10"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "hotspawn": {
+        "starts_at": "2026-10-25T12:00:00Z",
+        "source_url": "https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156",
+        "detail": "Hotspawn fixture 1081156 schedules Spirit Academy vs LFO 10 at 2026-10-25T12:00:00Z."
+      },
+      "hltv": {
+        "match_url": "https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12",
+        "team_url": "https://www.hltv.org/team/14084/lfo-10",
+        "observed_at": "2026-10-25T14:12:00Z",
+        "rankings": {
+          "Spirit Academy": 111,
+          "LFO 10": 167
+        },
+        "publication": "2026-10-19",
+        "valve_ranking": {
+          "LFO 10": {
+            "vrs": 152,
+            "region": "EU #109",
+            "detail": "HLTV team page prints Valve VRS #152 (EU #109) for LFO 10."
+          }
+        },
+        "detail": "HLTV match 2399506 exists for this fixture and HLTV's own analytics page ranks Spirit Academy #111 and LFO 10 #167. HLTV publishes the world-ranking order but not a points value for teams ranked 31+, so the project's HLTV ranking rung (which needs published points) cannot price this pair even though both sides are ranked."
+      },
+      "lines": [
+        {
+          "provider": "Polymarket",
+          "event_id": "1243019",
+          "market_id": "6098410",
+          "market": "Map 1 Winner",
+          "title": "Counter-Strike: Spirit Academy vs Sökerorg (BO3) - CCT Europe Series #12 Group Stage",
+          "source_url": "https://gamma-api.polymarket.com/events?slug=cs2-tsa-skr2-2026-10-25",
+          "observed_at": "2026-10-25T13:44:00Z",
+          "start": "2026-10-25T12:25:00Z",
+          "bid": 0.999,
+          "ask": 1.0,
+          "last_trade": 0.999,
+          "volume": 43696.587128,
+          "liquidity": 45738.21448,
+          "state": "in-play",
+          "detail": "Polymarket's official event record gives eventStartTime 2026-10-25T12:25:00Z and its Map 1 market was quoted 0.999 / 1.000 with a last trade of 0.999 when read, i.e. the map was already decided. The market is therefore in play and cannot produce a prematch pick."
+        }
+      ],
+      "conclusion": "No prematch pick is derivable for 1081156 at observation. Hotspawn schedules the fixture for 12:00Z while Polymarket's official record starts it at 12:25Z, a 25-minute disagreement that is outside the ladder's 60-second identity window (scripts/originate.py START_TOLERANCE_SEC = 60), and by 13:44Z the only market was in play. Neither an in-play quote nor a post-hoc rating is published as a prematch probability.",
+      "limitations": [
+        "In-play prices are excluded by policy; they are not prematch picks.",
+        "The 25-minute Hotspawn/Polymarket start disagreement exceeds the 60-second join tolerance by design.",
+        "HLTV ranks both teams (#111 / #167) but publishes no points for either, so the HLTV rung cannot price them."
+      ],
+      "recommendation": "When Hotspawn and a provider disagree on start time, record the rejection in the fixture's research trail (the published trail for 1081156 showed only 'no unique exact-name fixture'), so a reader can see that a market existed and why it did not join. Any widening of the join window is a policy change and needs review."
+    },
+    {
+      "id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "hotspawn": {
+        "starts_at": "2026-10-31T09:00:00Z",
+        "source_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+        "detail": "Hotspawn fixture 1082792 schedules HOTU vs The Huns at 2026-10-31T09:00:00Z."
+      },
+      "hltv": {
+        "match_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+        "analytics_url": "https://www.hltv.org/betting/analytics/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+        "observed_at": "2026-10-25T14:16:00Z",
+        "rankings": {
+          "HOTU": 38,
+          "The Huns": 134
+        },
+        "detail": "HLTV match 2399437 schedules the BO3 semi-final at 05:00 ET = 09:00Z on 31 October 2026 and HLTV's analytics page ranks HOTU #38 and The Huns #134. Same order, same teams, same competition as Hotspawn 1082792 and Polymarket cs2-hotu-the9-2026-10-31.",
+        "observed_at_forecast": "2026-10-25T14:00:00Z",
+        "forecast": {
+          "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+          "displayed": "HOTU 76.0% / The Huns 24.0%",
+          "observed_at": "2026-10-25T14:00:00Z",
+          "what_it_is": "HLTV's own published win forecast for the fixture, read from the match page header. It is a third-party forecast, not an observed two-way price and not this project's model."
+        },
+        "vrs_header": "HLTV match header prints HOTU VRS #34 alongside world #38; The Huns VRS is not printed on the match header."
+      },
+      "lines": [
+        {
+          "provider": "Polymarket",
+          "event_id": "1241313",
+          "market_id": "6085308",
+          "market": "Match Winner",
+          "title": "Counter-Strike: HOTU vs The Huns Esports (BO3) - Moscow Cyber Games Playoffs",
+          "source_url": "https://gamma-api.polymarket.com/events?slug=cs2-hotu-the9-2026-10-31",
+          "observed_at": "2026-10-25T13:52:00Z",
+          "start": "2026-10-31T09:00:00Z",
+          "bid": 0.38,
+          "ask": 0.92,
+          "spread": 0.54,
+          "volume": 690.1500000000001,
+          "liquidity": 5856.3597,
+          "state": "prematch",
+          "detail": "The official Match Winner market exists at the same 09:00Z start and displayed 65¢ HOTU / 35¢ The Huns Esports (last trade 58¢), but its two-sided book is 0.38 / 0.92 — a 0.54 spread, far outside the 0.15 acceptance ceiling — with $690 volume. It is a real market with an unquotable book, not a missing market.",
+          "displayed_price": 0.65,
+          "last_trade_price": 0.58,
+          "book_midpoint": 0.65
+        }
+      ],
+      "published_estimate": {
+        "method": "model",
+        "label": "bo3.gg results network",
+        "probabilities": [
+          0.9818,
+          0.0182
+        ],
+        "source_url": "https://bo3.gg/matches",
+        "detail": "The board currently prices this fixture 98.2% HOTU from the uncalibrated results-network model, which diverges from the only money observation (0.65 implied for HOTU) by about 33 points. Read from the published origination card; the checked-in data/origination.json in this checkout predates the snapshot, so the replay against the live board is recorded here and re-checked by the publisher each refresh.",
+        "evidence_url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082792",
+        "observed_at": "2026-10-25T13:41:00Z"
+      },
+      "conclusion": "A market does exist and the identity join is correct (the registered alias 'The Huns Esports' -> 'The Huns' is scoped to Moscow Cyber Games 2026 and matches the same 09:00Z start). The book is 0.54 wide, so it cannot produce a compliant pick; the published 98.2% is a labelled research model, not a line. A third-party forecast does exist: HLTV displays HOTU 76.0% / The Huns 24.0% for this fixture (read 14:00Z). It is recorded here as evidence, not published as this project's probability, because the published-line policy admits observed two-way prices and Valve ratings only; adopting a third-party forecast rung is requested as review item 0962-R08.",
+      "limitations": [
+        "The only two-sided book is 0.54 wide, above every published ceiling; policy rejects it as a line.",
+        "The published model estimate diverges from the market's implied price by about 33 points.",
+        "HLTV ranks both teams but publishes no points below rank 30, so the HLTV rung cannot price them."
+      ],
+      "recommendation": "Publish the market midpoint next to the model estimate as guidance-only context so a reader can see the disagreement, and keep the model label on the pick. Any change to rung precedence is a policy decision and needs review.",
+      "valve_rows": {
+        "snapshot_date": "2026-10-05",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "HOTU": {
+          "standing": 31,
+          "points": 1437,
+          "roster": [
+            "dwushka",
+            "frontales",
+            "kade0",
+            "mizu",
+            "n0rb3r7"
+          ]
+        },
+        "The Huns": [
+          {
+            "standing": 122,
+            "points": 944,
+            "roster": [
+              "Annihilation",
+              "Bart4k",
+              "bexyz",
+              "controlez",
+              "Cozen"
+            ]
+          },
+          {
+            "standing": 213,
+            "points": 701,
+            "roster": [
+              "Bart4k",
+              "controlez",
+              "nin9",
+              "sk0R",
+              "xerolte"
+            ]
+          }
+        ],
+        "why_it_does_not_price": "Two complete five-player Valve rows carry the name 'The Huns' (944 and 701 points), and HLTV's current lineup (Bart4k, controlez, Cozen, DarkMeister, bexyz) is an exact five-player match for neither, so the fail-closed uniqueness rule in scripts/domain.py:valve_analysis refuses to choose a roster."
+      },
+      "also_tried": [
+        {
+          "source": "EGamersWorld match page",
+          "url": "https://egamersworld.com/counterstrike/match/EkalRNMvVx/hotu-vs-the-huns-esports-SfdtzDhiK",
+          "observed_at": "2026-10-25T14:01:00Z",
+          "value": "a single 1.80 quote for HOTU with no paired opponent price",
+          "usable": false,
+          "why": "One unpaired price cannot be de-vigged and is not a two-way book; a one-sided quote is not published as a probability."
+        },
+        {
+          "source": "Polymarket Moscow Cyber Games market 6085308",
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-hotu-the9-2026-10-31",
+          "observed_at": "2026-10-25T13:52:00Z",
+          "value": "bid 0.38 / ask 0.92",
+          "usable": false,
+          "why": "A 0.54 spread is far outside the 0.15 acceptance ceiling in scripts/originate.py MAX_ACCEPTED_SPREAD."
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://gamma-api.polymarket.com/events?slug=cs2-tsa-skr2-2026-10-25",
+      "detail": "Official Polymarket event 1243019 (Spirit Academy vs Sökerorg), read 2026-10-25T13:44:00Z."
+    },
+    {
+      "url": "https://gamma-api.polymarket.com/events?slug=cs2-hotu-the9-2026-10-31",
+      "detail": "Official Polymarket event 1241313 (HOTU vs The Huns Esports), read 2026-10-25T13:52:00Z."
+    },
+    {
+      "url": "https://www.hltv.org/ranking/teams/2026/october/19",
+      "detail": "HLTV world ranking published 19 October 2026, read 2026-10-25T13:47:00Z (six days old, inside the 14-day rule)."
+    },
+    {
+      "url": "https://www.hltv.org/team/14084/lfo-10",
+      "detail": "HLTV team page: LFO 10 world rank #167, Valve VRS #152 (EU #109), read 2026-10-25T14:12:00Z."
+    },
+    {
+      "url": "https://www.hltv.org/betting/analytics/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12",
+      "detail": "HLTV analytics: Spirit Academy #111, LFO 10 #167, read 2026-10-25T14:12:00Z."
+    },
+    {
+      "url": "https://www.hltv.org/betting/analytics/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "detail": "HLTV analytics: HOTU #38, The Huns #134, 31 Oct 2026 09:00Z, read 2026-10-25T14:16:00Z."
+    },
+    {
+      "url": "https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12",
+      "detail": "HLTV match page for 1081156 (fixture identity and live state)."
+    },
+    {
+      "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/tree/main/live/2026",
+      "detail": "Valve's official standings mirror; newest publication is 2026-10-05 (read 2026-10-25T13:59:00Z)."
+    },
+    {
+      "url": "https://www.hltv.org/valve-ranking/teams/2026/october/25",
+      "detail": "HLTV's Valve-ranking mirror dated 25 October 2026, the publication that lists LFO 10 at VRS #152."
+    },
+    {
+      "name": "HLTV match page 2399437 (forecast header)",
+      "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "observed_at": "2026-10-25T14:00:00Z",
+      "detail": "HLTV match page for HOTU vs The Huns at GLuck Moscow Cyber Games 2026: header displays HOTU 76.0% / 24.0%, HOTU VRS #34, kickoff 2026-10-31T09:00:00Z, Best of 3 (LAN), semi-final; read 2026-10-25T14:00:00Z."
+    },
+    {
+      "name": "EGamersWorld HOTU vs The Huns Esports",
+      "url": "https://egamersworld.com/counterstrike/match/EkalRNMvVx/hotu-vs-the-huns-esports-SfdtzDhiK",
+      "observed_at": "2026-10-25T14:01:00Z",
+      "detail": "EGamersWorld match page for HOTU vs The Huns Esports: EGW ratings 46 vs 59 and a single 1.80 HOTU quote with no paired opponent price; read 2026-10-25T14:01:00Z."
+    }
+  ]
+}

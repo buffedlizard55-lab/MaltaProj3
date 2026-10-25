@@ -1,0 +1,75 @@
+name: 0c034b94 live-picks probe
+
+# Session arena-0c034b94. The authoring sandbox cannot reach play.hotspawn.com,
+# hltv.org or any esportsbook, so this runner records what those surfaces publish
+# for the live CS2 fixtures whose pick is not a featured market line. It writes
+# evidence only: no probability, pick or alias is produced here, and the
+# publisher's ladder remains the only path to a published number.
+#
+# The push trigger is limited to this workflow and its probe script so the
+# evidence commit below cannot re-enter it. The evidence commit carries
+# `[skip ci]`, which keeps the branch's `Validate dashboard` queue free.
+on:
+  push:
+    branches: ['arena/0c034b94-maltaproj3']
+    paths:
+      - '.github/workflows/0c034b94-probe.yml'
+      - 'scripts/0c034b94_probe.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: 0c034b94-probe-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  probe:
+    if: startsWith(github.ref_name, 'arena/0c034b94')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install the probe's declared dependencies
+        run: python -m pip install --quiet requests==2.32.5 beautifulsoup4==4.14.3
+      - name: Read the live inventory, HLTV and the esportsbook surfaces
+        run: python -m scripts.0c034b94_probe
+      - name: Re-parse the archived bodies to prove the parsers replay offline
+        run: python -m scripts.0c034b94_probe --parse-raw --output data/research/0c034b94/replay
+      - name: Commit the evidence
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/0c034b94
+          if git diff --cached --quiet; then
+            echo 'No change in the recorded facts.' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git commit -m 'research: 0c034b94 live-picks probe evidence [skip ci]'
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+      - name: Summarise the recorded facts
+        run: |
+          python - <<'PY'
+          import json
+          d = json.load(open('data/research/0c034b94/probe.json'))
+          s = d['summary']
+          print('## Live-picks probe', '')
+          print('Observed', d['observed_at'], '| mode', d['mode'], '')
+          print('| Fact | Value |')
+          print('| --- | --- |')
+          print('| published complete rows | ' + str(s['published']['complete_rows']) + ' |')
+          print('| published rows without a pick | ' + str(len(s['published']['complete_unresolved_ids'])) + ' |')
+          print('| Hotspawn API open fixtures | ' + str(s['hotspawn']['api_open_fixtures']) + ' |')
+          print('| lobby fixture ids | ' + str(len(s['hotspawn']['lobby_fixture_ids'])) + ' |')
+          print('| open fixtures with no published row | ' + str(len(s['coverage']['open_without_published_row'])) + ' |')
+          print('| HLTV upcoming rows parsed | ' + str(s['hltv']['upcoming_rows_parsed']) + ' |')
+          print('| HLTV ranking rows parsed | ' + str(s['hltv']['ranking_rows_parsed']) + ' |')
+          print('| research targets | ' + str(len(s['targets'])) + ' |')
+          for t in s['targets']:
+              f = t['fixture']
+              print('- ' + f['id'] + ' ' + ' vs '.join(f['teams']) + ' (' + t['reason'] + '): HLTV exact ' +
+                    (', '.join(r['url'] for r in t['hltv_exact']) or 'not found'))
+          PY

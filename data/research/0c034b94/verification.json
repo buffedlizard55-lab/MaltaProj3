@@ -1,0 +1,319 @@
+{
+  "session": "arena-0c034b94",
+  "verified_at": "2026-10-25T13:56:31Z",
+  "snapshot_generated_at": "2026-10-25T05:12:25Z",
+  "snapshot_observed_at": "2026-10-25T05:12:10Z",
+  "snapshot_counts": {
+    "inventory": 79,
+    "upcoming": 18,
+    "archived": 61,
+    "unknown_schedule": 0,
+    "market": 9,
+    "bookmaker": 2,
+    "model": 5,
+    "unresolved": 2,
+    "picks": 16,
+    "no_edge": 0
+  },
+  "open_rows": 18,
+  "replayed": 16,
+  "not_replayed": [],
+  "without_featured_analysis": [
+    "1081156",
+    "1082792"
+  ],
+  "with_pick": 16,
+  "inventory_evidence_ids": 0,
+  "inventory_evidence_missing_from_snapshot": [],
+  "violations": [],
+  "rows": [
+    {
+      "id": "1082996",
+      "method": "model",
+      "probabilities": [
+        0.54190155,
+        0.45809845
+      ],
+      "pick_index": 0,
+      "status": "replayed",
+      "detail": "Valve fit.js expectation from official points 1197 vs 1167 (RD 75)",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "observed_at": "2026-10-25T05:12:24Z",
+      "limitations": [
+        "Research model, not observed betting odds or a verified true win probability.",
+        "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
+        "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
+      ]
+    },
+    {
+      "id": "1085541",
+      "method": "market",
+      "probabilities": [
+        0.46,
+        0.54
+      ],
+      "pick_index": 1,
+      "status": "replayed",
+      "detail": "two-sided midpoints [0.45999999999999996, 0.54] normalised",
+      "source_url": "https://polymarket.com/event/cs2-ace1-inox-2026-10-25",
+      "observed_at": "2026-10-25T05:12:15Z",
+      "limitations": [
+        "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+      ]
+    },
+    {
+      "id": "1079198",
+      "method": "model",
+      "probabilities": [
+        0.79860558,
+        0.20139442
+      ],
+      "pick_index": 0,
+      "status": "replayed",
+      "detail": "Valve fit.js expectation from official points 1290 vs 1044 (RD 75)",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "observed_at": "2026-10-25T05:12:24Z",
+      "limitations": [
+        "Research model, not observed betting odds or a verified true win probability.",
+        "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
+        "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
+      ]
+    },
+    {
+      "id": "1081156",
+      "method": null,
+      "status": "no featured analysis",
+      "detail": "carried by the researched complete-picks layer or listed as unresolved",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "LFO 10: no exact-name Valve rating found"
+      ],
+      "research_stages": 8
+    },
+    {
+      "id": "1085542",
+      "method": "model",
+      "probabilities": [
+        0.61680305,
+        0.38319695
+      ],
+      "pick_index": 0,
+      "status": "replayed",
+      "detail": "Valve fit.js expectation from official points 1066 vs 981 (RD 75)",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "observed_at": "2026-10-25T05:12:24Z",
+      "limitations": [
+        "Research model, not observed betting odds or a verified true win probability.",
+        "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
+        "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
+      ]
+    },
+    {
+      "id": "1079199",
+      "method": "market",
+      "probabilities": [
+        0.44,
+        0.56
+      ],
+      "pick_index": 1,
+      "status": "replayed",
+      "detail": "two-sided midpoints [0.44, 0.56] normalised",
+      "source_url": "https://polymarket.com/event/cs2-inf6-brute-2026-10-25",
+      "observed_at": "2026-10-25T05:12:16Z",
+      "limitations": [
+        "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+      ]
+    },
+    {
+      "id": "1079200",
+      "method": "market",
+      "probabilities": [
+        0.485,
+        0.515
+      ],
+      "pick_index": 1,
+      "status": "replayed",
+      "detail": "two-sided midpoints [0.485, 0.515] normalised",
+      "source_url": "https://polymarket.com/event/cs2-color-zerote-2026-10-25",
+      "observed_at": "2026-10-25T05:12:17Z",
+      "limitations": [
+        "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+      ]
+    },
+    {
+      "id": "1081158",
+      "method": "market",
+      "probabilities": [
+        0.565,
+        0.435
+      ],
+      "pick_index": 0,
+      "status": "replayed",
+      "detail": "two-sided midpoints [0.565, 0.435] normalised",
+      "source_url": "https://polymarket.com/event/cs2-forzer-rustec-2026-10-25",
+      "observed_at": "2026-10-25T05:12:17Z",
+      "limitations": [
+        "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+      ]
+    },
+    {
+      "id": "1082858",
+      "method": "market",
+      "probabilities": [
+        0.25,
+        0.75
+      ],
+      "pick_index": 1,
+      "status": "replayed",
+      "detail": "two-sided midpoints [0.25, 0.75] normalised",
+      "source_url": "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25",
+      "observed_at": "2026-10-25T05:12:18Z",
+      "limitations": [
+        "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+      ]
+    },
+    {
+      "id": "1082859",
+      "method": "bookmaker",
+      "probabilities": [
+        0.57894737,
+        0.42105263
+      ],
+      "pick_index": 0,
+      "status": "replayed",
+      "detail": "no-vig conversion of 1.6 / 2.2",
+      "source_url": "https://thunderpick.io/api/matches",
+      "observed_at": "2026-10-25T05:12:23Z",
+      "limitations": [
+        "Bookmaker margin removed by proportional normalization. A single source is not a consensus."
+      ]
+    },
+    {
+      "id": "1082860",
+      "method": "bookmaker",
+      "probabilities": [
+        0.92300592,
+        0.07699408
+      ],
+      "pick_index": 0,
+      "status": "replayed",
+      "detail": "no-vig conversion of 1.001 / 12",
+      "source_url": "https://thunderpick.io/api/matches",
+      "observed_at": "2026-10-25T05:12:23Z",
+      "limitations": [
+        "Bookmaker margin removed by proportional normalization. A single source is not a consensus."
+      ]
+    },
+    {
+      "id": "1082861",
+      "method": "model",
+      "probabilities": [
+        0.47761494,
+        0.52238506
+      ],
+      "pick_index": 1,
+      "status": "replayed",
+      "detail": "Valve fit.js expectation from official points 718 vs 734 (RD 75)",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "observed_at": "2026-10-25T05:12:24Z",
+      "limitations": [
+        "Research model, not observed betting odds or a verified true win probability.",
+        "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
+        "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
+      ]
+    },
+    {
+      "id": "1082897",
+      "method": "market",
+      "probabilities": [
+        0.595,
+        0.405
+      ],
+      "pick_index": 0,
+      "status": "replayed",
+      "detail": "two-sided midpoints [0.595, 0.405] normalised",
+      "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
+      "observed_at": "2026-10-25T05:12:20Z",
+      "limitations": [
+        "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+      ]
+    },
+    {
+      "id": "1082898",
+      "method": "market",
+      "probabilities": [
+        0.375,
+        0.625
+      ],
+      "pick_index": 1,
+      "status": "replayed",
+      "detail": "two-sided midpoints [0.375, 0.625] normalised",
+      "source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
+      "observed_at": "2026-10-25T05:12:20Z",
+      "limitations": [
+        "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+      ]
+    },
+    {
+      "id": "1082900",
+      "method": "market",
+      "probabilities": [
+        0.525,
+        0.475
+      ],
+      "pick_index": 0,
+      "status": "replayed",
+      "detail": "two-sided midpoints [0.525, 0.475] normalised",
+      "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
+      "observed_at": "2026-10-25T05:12:21Z",
+      "limitations": [
+        "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+      ]
+    },
+    {
+      "id": "1082901",
+      "method": "market",
+      "probabilities": [
+        0.455,
+        0.545
+      ],
+      "pick_index": 1,
+      "status": "replayed",
+      "detail": "two-sided midpoints [0.455, 0.545] normalised",
+      "source_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
+      "observed_at": "2026-10-25T05:12:22Z",
+      "limitations": [
+        "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+      ]
+    },
+    {
+      "id": "1082792",
+      "method": null,
+      "status": "no featured analysis",
+      "detail": "carried by the researched complete-picks layer or listed as unresolved",
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "The Huns: multiple Valve rosters share this name; identity is unresolved"
+      ],
+      "research_stages": 8
+    },
+    {
+      "id": "1082793",
+      "method": "model",
+      "probabilities": [
+        0.17816902,
+        0.82183098
+      ],
+      "pick_index": 1,
+      "status": "replayed",
+      "detail": "Valve fit.js expectation from official points 1110 vs 1383 (RD 75)",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "observed_at": "2026-10-25T05:12:24Z",
+      "limitations": [
+        "Research model, not observed betting odds or a verified true win probability.",
+        "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
+        "Fixed rating deviation of 75 follows Valve’s published fit example. This deployment has not been backtested or calibrated."
+      ]
+    }
+  ]
+}

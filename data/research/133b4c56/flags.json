@@ -1,0 +1,28 @@
+[
+  {
+    "id": "133b4c56-postmerge-refresh-recovery",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "25 October publisher outage was fixed upstream; verify fresh Pages publish",
+    "detail": "The scheduled run 40196457503 failed before collection because a historical unresolved assertion was pinned to mutable snapshot state. PR #326 merged a date-bound test fix at 13:51:27Z. This flag records the incident, not a current source outage. The follow-up publisher run 40199536037 was queued at audit time; keep this item for review until a fresh successful run and deployed snapshot are confirmed. No picks or prices were changed by the test fix.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40196457503",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/pull/326",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40199536037"
+    ]
+  },
+  {
+    "id": "133b4c56-local-build-fixture-age",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "Local build fixtures lag the top-level snapshot; fresh artifact pairing is workflow-dependent",
+    "detail": "At 13:48Z the top-level snapshot.json was generated 2026-10-25T05:12:25Z, while data/latest.json and data/origination.json were generated 2026-10-15T08:36:13Z and 09:31:24Z. scripts.build reads the latter pair. A local build from checked-in fixtures therefore does not reproduce the newer top-level HTML. The hosted publisher collects fresh paired artifacts; this mismatch is not evidence that its last deployed artifact used the stale local files. Verify the next production artifact before treating the fresh-data path as current.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/snapshot.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/latest.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml"
+    ]
+  }
+]
