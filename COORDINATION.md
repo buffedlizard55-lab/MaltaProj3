@@ -9127,7 +9127,7 @@ acceptance audit on the untouched committed root: **9 pass / 1 info / 0 fail**. 
 
 # Current session: arena-db6ecc61 — verify current Hotspawn CS2 dashboard, unblock the scheduled refresh regression, and confirm source/link/mobile behavior
 
-Claimed 2026-10-25T13:35Z on the fixed Arena branch `arena/db6ecc61-maltaproj3` (based on `main`/`origin/main` at `75d75a3fc25a46b3969611a4fbd8db52dad2c575`). Read the existing task board and branch state first. The four-hour `pages.yml` run `40196457503` was active at inspection and subsequently failed its regression gate. The only file in the code scope is a dated test expectation; do not edit the live publisher, research ladder, generated data, summary, or other owned files. Session `arena-3877d48d`'s still-open integration task owns the final publisher/PR/deploy integration; this session will not duplicate or edit its scope.
+Claimed 2026-10-25T13:35Z on the fixed Arena branch `arena/db6ecc61-maltaproj3` (based on `main`/`origin/main` at `75d75a3fc25a46b3969611a4fbd8db52dad2c575`). Read the existing task board and branch state first. The four-hour `pages.yml` run `40196457503` was active at inspection and subsequently failed its regression gate. The only code scope claimed here is a dated test expectation; do not edit the live publisher, research ladder, generated data, summary, or other owned files. At claim time the final integration task was unclaimed on `arena-3877d48d`; PR [#331](https://github.com/buffedlizard55-lab/MaltaProj3/pull/331) from `arena-0c034b94` subsequently became the active full-coverage/site integration owner. This session limits itself to the regression investigation and duplicate-work handoff documented below.
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
