@@ -1,3 +1,59 @@
+# Current session: arena-824a2780 — independent replay of every published CS2 pick, and the phone path from the executive summary to the picks
+
+Claimed **2026-10-25T13:40Z** on Arena's fixed branch `arena/824a2780-maltaproj3`, branched from
+`main` at `75d75a3` and rebased twice onto `main` (`3ef73f4`, then `d3c83f9`) as other sessions
+merged. Read this board, `gh run list` and the open PRs first.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 824A-1 Four-hour publisher: reproduce the Regression-tests failure that stopped the refresh from 08:17Z and confirm the class is covered | **done — reproduced here, fix adopted from `main`** | arena-824a2780 | `tests/test_b72154e1_guided_picks.py` (adopted `main`'s PR #326 guard verbatim; this session's own equivalent edit was dropped at the rebase) |
+| 824A-2 Line-by-line verification of the published build: every active row's two probabilities recomputed from the inputs the row publishes, every pick re-derived, every pick-less row's stated reason checked against the primary source | **done — 13/13 priced rows replay, 4/4 Valve inputs match, 3/3 pick-less rows verified** (14:23:33Z); re-run on the 16:20:19Z build: 12/12 priced, 2 blanks, 0 errors | arena-824a2780 | new `scripts/824a2780_verify.py`, new `tests/test_824a2780_verification.py`, new `data/research/824a2780/**` |
+| 824A-3 Publish the findings on Flagged for Review | **done — 7 items, `824A-R01`..`R07`** | arena-824a2780 | `scripts/review_register.py` (`REGISTERS` entry only), `data/research/824a2780/repo-review.json` |
+| 824A-4 Local gates, PR to `main`, merge without waiting, confirm the Pages deploy and the live site | in progress | arena-824a2780 | this section, PR [#328](https://github.com/buffedlizard55-lab/MaltaProj3/pull/328) |
+| 824A-5 Cross-session fix-forward: the pull-request gate was red on `test_0962d605_verification` because fixture `1081156` aged out of Hotspawn's scheduled feed after its 12:00Z start, and that checker treated an absent fixture as an error instead of the note its own docstring promises | **done** — `scripts/0962d605_verify.py` now reports the absence in a `notes` list and skips it; module 12 tests OK, `--check` 0 errors across 5 checks. Owner `arena-0962d605` merged and finished before the change, so it is a logged fix-forward | arena-824a2780 | `scripts/0962d605_verify.py` (absent-fixture branch + `notes` only) |
+
+**Non-overlap pledge.** This session edits only its own new files, one `REGISTERS` entry and the
+fix-forward branch above; it never edits `scripts/build.py`, `scripts/collect.py`,
+`scripts/originate.py`, `scripts/reference_odds.py`, `assets/**`, `snapshot.json`,
+`data/latest.json`, `data/origination.json`, `.github/workflows/**` or any other session's
+`data/research/<id>/`.
+
+### What was verified (2026-10-25T14:50Z, snapshot `2026-10-25T14:23:33Z`; re-run on `16:20:19Z`)
+
+- **Replay.** Every active fixture re-derived from its own published inputs: **13/13 priced rows
+  exact** on the 14:23:33Z build (10 exchange midpoint pairs, 1 no-vig bookmaker pair, 2 Valve
+  Glicko rows) and **12/12** on the 16:20:19Z build, with the blank rows carrying eight named
+  sources and a specific limitation each. Every named side is the strict favourite of its own two
+  numbers; no analysis row is attributed to Hotspawn and none carries a crowd field.
+- **Primary source.** Valve's official
+  [`standings_global_2026_10_05.md`](https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md)
+  (blob `2aa2805`, still the newest table) was read live over `api.github.com`: all four model
+  inputs matched standing, points and roster, and each pick-less reason held — `Yawara` #147 845
+  exists with no `KinGui` row, `Ground Zero` #136 878 exists with no `Off Chops` row, and
+  `The Huns` is published **twice** (#122 944, #213 701), so that identity refusal is correct.
+- **Site.** Build: 9 views, 0 rows without a source, 0 broken internal links. Playwright:
+  **134 tests passed** (320/375/390/768/1440 px, no-JS, staleness, axe WCAG 2A/2AA). Full unit
+  suite on the merged tree: **1819 tests OK (4 skipped)**.
+- **Irregularities flagged, none blocking:** `824A-R02` the 05:12:25Z row for `1082860` priced
+  from Thunderpick `1.001 / 12.00` (92.3% clipped by the bookmaker's minimum price; the later
+  Polymarket book puts the same fixture at 92.5%) — for the owner of `scripts/collect.py`;
+  `824A-R05` GG.BET 403, Stake 403, Pinnacle and Rivalry landing-page redirects, HLTV `/matches`
+  intermittently 403; `824A-R07` the aged-out-fixture gate fixed forward above.
+
+**Merge-conflict log.** Conflict at both rebases in `COORDINATION.md` only (sessions prepend
+sections; resolved newest-first with no other session's text removed). At the first rebase
+`tests/test_b72154e1_guided_picks.py` also conflicted: `main` had already fixed the same
+assertion in PR #326 with the same guard, so `main`'s version was taken in full and this
+session's own edit dropped rather than kept as a second copy. `scripts/review_register.py` was
+merged by appending this session's entry at the end of the tuple.
+
+**Limits of this session's evidence.** The sandbox had no outbound route to Hotspawn, HLTV,
+Polymarket or any esportsbook (`curl` returned `000`), so every price-level check replays the
+first-party captures CI stored; the only live fetch was the official Valve repository over
+`api.github.com`. No price, lineup, alias or probability was invented.
+
+---
+
 # Current session: arena-9e0e601d — an independent, source-linked audit of the *deployed* snapshot: a pick for every live Hotspawn CS2 fixture, HLTV-first then esportsbook research where the featured line is blank, full replay of every published number (including the fallback methods the earlier replay skipped), phone route verification, publish
 
 Claimed **2026-10-25T14:36Z** on Arena's fixed branch `arena/9e0e601d-maltaproj3`, based on `main` at [`3ef73f4`](https://github.com/buffedlizard55-lab/MaltaProj3/commit/3ef73f4) and fast-forwarded to it before claiming. This sandbox cannot open a TCP connection to `play.hotspawn.com`, `hltv.org`, `buffedlizard55-lab.github.io` or any esportsbook (`curl` fails with `SSL_ERROR_SYSCALL` before a status line), so every live fact below is produced by a GitHub Actions runner on this branch, never asserted from the sandbox.

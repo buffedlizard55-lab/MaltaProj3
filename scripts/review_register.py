@@ -79,6 +79,12 @@ REGISTERS = (
     # were already carried, the scheduled-publisher failure class, and the
     # legacy branch-root / sandbox egress limitations.
     'research/22a3ed80/repo-review.json',
+    # Session 824a2780: independent replay of the 2026-10-25T14:23:33Z build
+    # (13/13 priced rows, 4/4 Valve inputs re-checked against the official file),
+    # the pick-less fixtures' reasons checked against that same file, the
+    # odds-floor bookmaker row, the blocked esportsbooks, and the phone path to
+    # the picks.
+    'research/824a2780/repo-review.json',
 )
 STATUS = {
     'fixed': ('Fixed', 'green'),
