@@ -1,6 +1,6 @@
 {
   "mode": "parse-raw",
-  "observed_at": "2026-10-25T14:44:50Z",
+  "observed_at": "2026-10-25T15:16:55Z",
   "session": "arena-93c7475a",
   "sources": [],
   "summary": {
@@ -15,6 +15,7 @@
         "source_url": "https://polymarket.com/esports/counter-strike",
         "status": "error",
         "titles_parsed": 0,
+        "total_events_before_filter": null,
         "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100"
       },
       {
@@ -27,6 +28,7 @@
         "source_url": "https://thunderpick.io/esports/counter-strike",
         "status": "error",
         "titles_parsed": 0,
+        "total_events_before_filter": null,
         "url": "https://thunderpick.io/api/matches"
       },
       {
@@ -39,6 +41,7 @@
         "source_url": "https://kalshi.com/markets/esports",
         "status": "error",
         "titles_parsed": 0,
+        "total_events_before_filter": null,
         "url": "https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=200"
       },
       {
@@ -51,6 +54,7 @@
         "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
         "status": "error",
         "titles_parsed": 0,
+        "total_events_before_filter": null,
         "url": "https://guest.api.arcadia.pinnacle.com/0.1/esports/matchups?sportId=22&live=0"
       },
       {
@@ -63,6 +67,7 @@
         "source_url": "https://smarkets.com/sport/esports/cs-go",
         "status": "error",
         "titles_parsed": 0,
+        "total_events_before_filter": null,
         "url": "https://api.smarkets.com/v3/events?type=csgo_match&state=upcoming"
       },
       {
@@ -75,6 +80,7 @@
         "source_url": "https://bo3.gg/matches",
         "status": "error",
         "titles_parsed": 0,
+        "total_events_before_filter": null,
         "url": "https://bo3.gg/matches"
       },
       {
@@ -87,6 +93,7 @@
         "source_url": "https://egamersworld.com/counterstrike/matches",
         "status": "error",
         "titles_parsed": 0,
+        "total_events_before_filter": null,
         "url": "https://egamersworld.com/counterstrike/matches"
       },
       {
@@ -99,6 +106,7 @@
         "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
         "status": "error",
         "titles_parsed": 0,
+        "total_events_before_filter": null,
         "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
       },
       {
@@ -111,6 +119,7 @@
         "source_url": "https://stake.com/sports/esports/counter-strike",
         "status": "error",
         "titles_parsed": 0,
+        "total_events_before_filter": null,
         "url": "https://stake.com/sports/esports/counter-strike"
       },
       {
@@ -123,6 +132,7 @@
         "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
         "status": "error",
         "titles_parsed": 0,
+        "total_events_before_filter": null,
         "url": "https://www.rivalry.com/esports/counter-strike-betting"
       }
     ],
@@ -147,7 +157,7 @@
       "upcoming_rows_parsed": 0
     },
     "mode": "parse-raw",
-    "observed_at": "2026-10-25T14:44:50Z",
+    "observed_at": "2026-10-25T15:16:55Z",
     "purpose": "Record what Hotspawn, HLTV and the esportsbook surfaces publish for the live CS2 fixtures whose pick is not a featured market line, and for every open fixture missing from the published snapshot. Facts only: no probability, pick or alias is written here.",
     "session": "arena-93c7475a",
     "targets": []

@@ -1,12 +1,10 @@
 [
   {
     "id": "93c7475a-open-fixtures-missing-from-snapshot",
-    "title": "16 open Hotspawn CS2 fixture(s) have no published pick row",
+    "title": "14 open Hotspawn CS2 fixture(s) have no published pick row",
     "severity": "warning",
-    "detail": "These fixtures are open on Hotspawn now but absent from the published snapshot, so a reader sees no pick for them: 1079199 Infinite vs BRUTE; 1086696 BORRACHEIROS vs RED Canids Academy; 1081158 FORZE Reload vs ex-RUSTEC; 1082697 BESTIA vs paiN; 1079200 Color vs ex-Zero Tenacity; 1086697 Projeto do KinGui vs Yawara; 1082858 Ground Zero vs Off Chops; 1082859 NEXVOID vs Alter Ego; 1082860 FlyQuest vs Staqued; 1082861 Rooster vs Abyssal; 1082897 B8 vs K27; 1082898 Alliance vs FaZe; 1082900 Luminosity vs HOTU; 1082901 Envy vs GamerLegion; 1082792 HOTU vs The Huns; 1082793 5star vs 1WIN. Cause: the fixture appeared after the last successful collection. The next scheduled refresh collects and prices them.",
+    "detail": "These fixtures are open on Hotspawn now but absent from the published snapshot, so a reader sees no pick for them: 1081158 FORZE Reload vs ex-RUSTEC; 1082697 BESTIA vs paiN; 1079200 Color vs ex-Zero Tenacity; 1086697 Projeto do KinGui vs Yawara; 1082858 Ground Zero vs Off Chops; 1082859 NEXVOID vs Alter Ego; 1082860 FlyQuest vs Staqued; 1082861 Rooster vs Abyssal; 1082897 B8 vs K27; 1082898 Alliance vs FaZe; 1082900 Luminosity vs HOTU; 1082901 Envy vs GamerLegion; 1082792 HOTU vs The Huns; 1082793 5star vs 1WIN. Cause: the fixture appeared after the last successful collection. The next scheduled refresh collects and prices them.",
     "match_ids": [
-      "1079199",
-      "1086696",
       "1081158",
       "1082697",
       "1079200",
@@ -27,7 +25,7 @@
       "https://play.hotspawn.com/lobby",
       "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json"
     ],
-    "observed_at": "2026-10-25T14:44:30Z"
+    "observed_at": "2026-10-25T15:16:34Z"
   },
   {
     "id": "93c7475a-esportsbook-surface-refusals",
@@ -41,21 +39,7 @@
       "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
       "https://stake.com/sports/esports/counter-strike"
     ],
-    "observed_at": "2026-10-25T14:44:30Z"
-  },
-  {
-    "id": "93c7475a-clock-delta-1086696",
-    "title": "HLTV and Hotspawn disagree on the start time for 1086696",
-    "severity": "notice",
-    "detail": "Hotspawn 2026-10-25T16:00:00Z vs HLTV 2026-10-25T15:00:00Z (-3600 s). Outside the project's 60-second join window, so the identity join is reported rather than applied.",
-    "match_ids": [
-      "1086696"
-    ],
-    "source_urls": [
-      "https://www.hltv.org/matches/2399917/borracheiros-vs-red-canids-academy-cct-2026-south-america-series-7",
-      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
-    ],
-    "observed_at": "2026-10-25T14:44:30Z"
+    "observed_at": "2026-10-25T15:16:34Z"
   },
   {
     "id": "93c7475a-name-mismatch-1086697",
@@ -69,6 +53,6 @@
       "https://www.hltv.org/matches/2399918/tropa-do-kingui-vs-yawara-cct-2026-south-america-series-7",
       "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
     ],
-    "observed_at": "2026-10-25T14:44:30Z"
+    "observed_at": "2026-10-25T15:16:34Z"
   }
 ]
