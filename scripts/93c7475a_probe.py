@@ -518,7 +518,8 @@ def build_flags(observed_at: str, summary: dict, books: list, targets: list) -> 
                        'sees no pick for them: ' + '; '.join(f"{m['id']} {' vs '.join(n for n in m['teams'] if n)}"
                                                              for m in missing) + '. Cause: the fixture appeared after '
                        'the last successful collection. The next scheduled refresh collects and prices them.'),
-            'sources': [FIXTURES_API, LOBBY, DEPLOYED + 'data/latest.json'],
+            'match_ids': [m['id'] for m in missing],
+            'source_urls': [FIXTURES_API, LOBBY, DEPLOYED + 'data/latest.json'],
             'observed_at': observed_at,
         })
     non_featured = [t for t in targets if t['reason'] != 'no-published-row']
@@ -531,7 +532,8 @@ def build_flags(observed_at: str, summary: dict, books: list, targets: list) -> 
                        'was read at the observation time and returned no compliant two-way price for these exact '
                        'names: ' + '; '.join(f"{t['fixture']['id']} {' vs '.join(n for n in t['fixture']['teams'] if n)}"
                                              for t in non_featured) + '.'),
-            'sources': [DEPLOYED + 'origination/', HLTV_MATCHES],
+            'match_ids': [t['fixture']['id'] for t in non_featured],
+            'source_urls': [DEPLOYED + 'origination/', HLTV_MATCHES],
             'observed_at': observed_at,
         })
     refused = [b for b in books if b.get('status') != 'ok']
@@ -542,7 +544,8 @@ def build_flags(observed_at: str, summary: dict, books: list, targets: list) -> 
             'severity': 'notice',
             'detail': ('Their silence is a limitation of this runner, not proof that no market exists: '
                        + '; '.join(f"{b['label']} → {b.get('error') or b.get('http_status')}" for b in refused) + '.'),
-            'sources': [b['url'] for b in refused],
+            'match_ids': [],
+            'source_urls': [b['url'] for b in refused],
             'observed_at': observed_at,
         })
     for target in targets:
@@ -556,7 +559,8 @@ def build_flags(observed_at: str, summary: dict, books: list, targets: list) -> 
                     'detail': (f"Hotspawn {target['fixture'].get('starts_at')} vs HLTV {row.get('starts_at')} "
                                f'({delta:+d} s). Outside the project\'s 60-second join window, so the identity join is '
                                'reported rather than applied.'),
-                    'sources': [row['url'], FIXTURES_API],
+                    'match_ids': [str(target['fixture']['id'])],
+                    'source_urls': [row['url'], FIXTURES_API],
                     'observed_at': observed_at,
                 })
         if target['hltv']['shares_one_name'] and not target['hltv']['exact']:
@@ -567,7 +571,8 @@ def build_flags(observed_at: str, summary: dict, books: list, targets: list) -> 
                 'severity': 'notice',
                 'detail': (f"Hotspawn lists {' vs '.join(n for n in target['fixture']['teams'] if n)}; the nearest HLTV "
                            f"row is {' vs '.join(row['teams'])}. No alias is asserted without official proof."),
-                'sources': [row['url'], FIXTURES_API],
+                'match_ids': [str(target['fixture']['id'])],
+                'source_urls': [row['url'], FIXTURES_API],
                 'observed_at': observed_at,
             })
     return flags
@@ -753,9 +758,12 @@ def main(argv: list[str] | None = None) -> int:
          'summary': summary}, indent=2, sort_keys=True) + '\n')
     (out_dir / 'probe.md').write_text(render_markdown(summary, sources, targets))
     (out_dir / 'unresolved-research.json').write_text(json.dumps(dossier, indent=2) + '\n')
+    # ``scripts/build.py`` globs ``data/research/*/flags.json`` and iterates the
+    # parsed value directly, so this file must be a bare list in the site's own
+    # finding schema (``id``, ``severity``, ``title``, ``detail``, ``match_ids``,
+    # ``source_urls``) — a wrapper object breaks the whole build.
     (out_dir / 'flags.json').write_text(json.dumps(
-        {'schema_version': 1, 'session': SESSION, 'generated_at': observed_at,
-         'flags': build_flags(observed_at, summary, books, targets)}, indent=2) + '\n')
+        build_flags(observed_at, summary, books, targets), indent=2) + '\n')
     print(f"{summary['mode']}: {coverage['api_open_fixtures']} open fixtures, "
           f"{len(coverage['open_without_published_row'])} with no published row, "
           f"{len(coverage['open_with_non_featured_pick'])} with a non-featured pick, "
