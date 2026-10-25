@@ -1,0 +1,148 @@
+{
+  "session": "arena-bf1f9ce5",
+  "scope": "Line-by-line repository, module-import safety, workflow, Hotspawn cached/fresh lobby vs API reconciliation, HLTV-first + multi-book/exchange gap research, Valve/market/bookmaker arithmetic replay, Executive Summary picks routing, separate Unresolved Picks & Limitations section, and real Chromium phone/desktop/WCAG verification at 2026-10-25T13:57:50Z.",
+  "review_clock_utc": "2026-10-25T13:57:50Z",
+  "method": "Executed an isolated GitHub Actions runner probe (run 40198891878, scripts/bf1f9ce5_probe.py) reading un-busted and cache-busted Hotspawn /lobby and /cs2-pickems HTML, the official Cloudways scheduled fixtures API, fresh scripts.collect + scripts.originate --live in a scratch tree, HLTV match pages via scripts.sources.Client, Polymarket Gamma, Smarkets CS2 quotes, Pinnacle Arcadia Guest API (14,364 matchups), bo3.gg, and external sportsbook surfaces; audited scripts/*.py ASTs and unit/Playwright suites locally.",
+  "items": [
+    {
+      "id": "BF1F-R01",
+      "area": "Unguarded import-time external HTTP scraping, sleeps, and disk writes in diagnostic scripts",
+      "status": "fixed",
+      "finding": "scripts/audit_sources.py (lines 8-78) and scripts/discover_sources.py (lines 15-94) executed top-level network loops across 21+ external URLs (with 40s socket timeouts, 1.0s/0.4s time.sleep delays, .cache/source-audit and .cache/discovery writes, and GitHub ::notice:: workflow commands) whenever imported as Python modules. Because tests/test_d202e156_module_wiring.py::EveryModuleImports imports every identifier-named scripts/*.py module during unittest discovery, every CI and local test run triggered live third-party scraping and multi-minute stalls.",
+      "handling": "Wrapped the executable bodies of scripts/audit_sources.py and scripts/discover_sources.py in def main() -> int: guarded by if __name__ == '__main__': raise SystemExit(main()), keeping python -m scripts.audit_sources in .github/workflows/source-diagnostics.yml unchanged while cutting tests/test_d202e156_module_wiring.py runtime to ~4.0s with zero network side effects. Pinned by tests/test_bf1f9ce5_verification.py.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/source-diagnostics.yml",
+          "detail": "Workflow invokes `python -m scripts.audit_sources` (where `__name__ == '__main__'`), which remains 100% preserved after moving top-level network I/O into `main()`."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_d202e156_module_wiring.py",
+          "detail": "EveryModuleImports calls `importlib.import_module('scripts.' + stem)` on every valid Python identifier in `scripts/`, previously executing both scripts' live HTTP loops inside `python -m unittest discover`."
+        }
+      ]
+    },
+    {
+      "id": "BF1F-R02",
+      "area": "Exact reconciliation of Hotspawn cached /lobby (80) vs cache-busted /lobby?cb= (78) vs scheduled API (78)",
+      "status": "verified",
+      "finding": "At 2026-10-25T13:57:50Z, un-busted https://play.hotspawn.com/lobby returned edge cache HIT (age=6443s, sha256 aef16f9d...) with 80 CS2 fixtures (C: 47, B: 33), whereas cache-busted https://play.hotspawn.com/lobby?cb=1792936670 (MISS, sha256 8b13951d...) and https://play.hotspawn.com/cs2-pickems?cb=1792936670 (MISS, sha256 7adea939...) returned 78 CS2 fixtures (C: 47, B: 31) and 17 visible open cards — matching the official scheduled fixtures API (sha256 3b2ea070...) 78-for-78 (`in_lobby_fresh_not_in_api: []`, `in_api_not_in_lobby_cached: []`). The 2-fixture cached-lobby delta consisted solely of already-started 12:00:00Z Tier-B matches 1079198 (Metizport vs BakS) and 1081156 (Spirit Academy vs LFO 10). Three active fixtures were newly listed after the 05:12:25Z snapshot: 1086696 (BORRACHEIROS vs RED Canids Academy, 16:00Z), 1082697 (BESTIA vs paiN, 18:00Z), and 1086697 (Projeto do KinGui vs Yawara, 19:00Z).",
+      "handling": "Confirmed that scripts/sources.py already appends `?cb=<epoch>` during collector reconciliation so stale edge-cached lobby HTML cannot false-trip inventory parity; archived full ID sets and SHA-256 digests in data/research/bf1f9ce5/fresh-reconciliation.json and data/research/bf1f9ce5/live-coverage.json.",
+      "evidence": [
+        {
+          "url": "https://play.hotspawn.com/lobby?cb=1792936670",
+          "detail": "Cache-busted lobby HTML read at 2026-10-25T13:57:51Z: HTTP 200, cache MISS, 78 total CS2 fixtures (C: 47, B: 31), 17 open cards."
+        },
+        {
+          "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+          "detail": "Official Hotspawn scheduled CS2 API read at 2026-10-25T13:57:52Z: HTTP 200, 78 total fixtures, 17 future open fixtures, 0 IDs missing from cache-busted lobby."
+        }
+      ]
+    },
+    {
+      "id": "BF1F-R03",
+      "area": "Independent replay of all 17 live originated picks and all published snapshot rows (0% Hotspawn / fan-vote usage)",
+      "status": "verified",
+      "finding": "Fresh collection + `scripts.originate --live` at 2026-10-25T13:58:08Z produced picks and originated probabilities for 17/17 active Hotspawn CS2 matches (`0` unresolved): 10 Polymarket narrow-spread order-book midpoints, 1 multi-source consensus median (1086697 Projeto do KinGui vs Yawara: 65.4% / 34.6%), 1 Thunderpick proportional no-vig bookmaker line (1082859 NEXVOID vs Alter Ego: 57.9% / 42.1%), 1 bo3.gg results-network estimate (1082858 Ground Zero vs Off Chops: 45.0% / 55.0%), and 4 official Valve VRS model estimates (1085542, 1082861, 1082792, 1082793). Every row satisfies `|p0 + p1 - 1| <= 1e-6`, `pick_index == argmax(p)`, external `https://` provenance, and 0 Hotspawn `% picked` or HLTV community vote inputs.",
+      "handling": "Verified both the 17/17 live runner replay and the committed snapshot/origination replay via scripts/bf1f9ce5_verify.py and tests/test_bf1f9ce5_verification.py.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40198891878",
+          "detail": "GitHub Actions runner probe 40198891878 (2026-10-25T13:57:39Z–13:59:20Z) recording all 17 active fixtures' arithmetic and provenance in data/research/bf1f9ce5/fresh-reconciliation.json."
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "Official Valve global CS2 standings (2026-10-05) backing VRS model estimates with `g(RD=75)` logistic expectation."
+        }
+      ]
+    },
+    {
+      "id": "BF1F-R04",
+      "area": "HLTV-first, then esportsbook/exchange research for the 5 active fixtures without an actionable betting line",
+      "status": "verified",
+      "finding": "Following the HLTV-first hierarchy strictly for non-featured/no-line matches (`1085542`, `1082858`, `1082861`, `1082792`, `1082793`), first-hand HLTV match pages (`2399888`, `2399891`, `2399437`, `2399438`) returned HTTP 200 with SHA-256 hashes, confirming BO3 LAN formats, HLTV & VRS rankings, 5-player lineups, substitute markers on Ground Zero (`1082858`) and Rooster (`1082861`), `bookmaker_decimal_rows_count: 0`, and excluded fan polls. Subsequent checks of Polymarket Gamma (`25` active CS2 events, `0` bindings on these 5), Smarkets (`12` CS2 events; `45396333` on `1082858` and `45398349` on `1082861` quoted with spread `> 0.15`), Pinnacle Arcadia Guest API (`14,364` matchups, `13` CS2 two-way, `0` hits on these 5), and bo3.gg (`bet: null` on all 5) confirmed zero admissible narrow-spread money lines.",
+      "handling": "Published in data/research/bf1f9ce5/line-source-research.json and .md (auto-selected by scripts/build.py::load_no_line_research as the newest runner dossier) with copied raw provider observations only — zero hand-written probabilities or picks.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+          "detail": "HLTV match 2399888 (HTTP 200, sha256 97e5621b...): BO3 LAN Group A opening match, Ground Zero HLTV #143 / VRS #131 (substitute marker=true) vs Off Chops HLTV #142 / VRS #133, 0 bookmaker decimal rows."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+          "detail": "HLTV match 2399891 (HTTP 200, sha256 7d809ae2...): BO3 LAN Group B opening match, Rooster HLTV Unranked / VRS #154 (substitute marker=true) vs Abyssal HLTV #128 / VRS #130, 0 bookmaker decimal rows."
+        },
+        {
+          "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
+          "detail": "Pinnacle Arcadia Guest API scanned 14,364 esports matchups (13 active two-way CS2 series) with 0 bindings for the 5 model-only fixtures."
+        }
+      ]
+    },
+    {
+      "id": "BF1F-R05",
+      "area": "Competition-scoped alias audit for newly listed CCT South America #7 fixture 1086697",
+      "status": "verified",
+      "finding": "Hotspawn lists 1086697 (2026-10-25T19:00:00Z, CCT South America 2026 Series #7) as `Projeto do KinGui vs Yawara`, whereas Smarkets event 45400401, Polymarket, Thunderpick, HLTV, and bo3.gg list `Tropa do KinGui` and `Yawara Esports`. Provider-catalog audit (`data/research/bf1f9ce5/provider-catalog.json`) confirmed that `data/origination/aliases.json` already carries competition-scoped entries (`applies_to: ['CCT South America 2026 Series #7']`) backed by 5 HLTV/Hotspawn/Polymarket/bo3.gg URLs for `Tropa do KinGui -> Projeto do KinGui` and 2 Polymarket/HLTV URLs for `Yawara Esports -> Yawara`, enabling `scripts.originate --live` to join 1086697 to multi-source money-line consensus (65.4% / 34.6%) automatically.",
+      "handling": "No new alias entry needed; verified existing competition scoping and evidence links in data/origination/aliases.json.",
+      "evidence": [
+        {
+          "url": "https://smarkets.com/sport/esports/cs-go/cct-south-america/playoffs/2026/10/25/19-00/tropa-do-kingui-vs-yawara-esports",
+          "detail": "Smarkets event 45400401 bound to Hotspawn 1086697 at 2026-10-25T19:00:00Z through the competition-scoped CCT South America 2026 Series #7 alias pair."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399913/tropa-do-kingui-vs-meia-noite-cct-2026-south-america-series-7",
+          "detail": "HLTV match 2399913 establishing roster identity (cutzmeretz, leleo, t9rnay, delboNi, lash) for Hotspawn's Projeto do KinGui in the same tournament."
+        }
+      ]
+    },
+    {
+      "id": "BF1F-R06",
+      "area": "Start-time drift and pre-lock Polymarket book rolloff on 1085542 (ex-Zero Tenacity vs Spirit Academy)",
+      "status": "needs review",
+      "finding": "Hotspawn scheduled 1085542 at 2026-10-25T14:00:00Z (pick lock 13:54:00Z), whereas bo3.gg (`ex-zero-tenacity-vs-spirit-academy-25-10-2026`) and HLTV (`2399340`) listed `2026-10-25T14:30:00Z`. When probed at `13:57:50Z` (after Hotspawn's `13:54:00Z` pick lock), Polymarket no longer bound an open pre-match event within the 60s schedule tolerance, so fresh origination stepped down from market midpoint to official Valve VRS (`61.7% / 38.3%`).",
+      "handling": "Flagged on `/review/` (`bf1f9ce5-prelock-polymarket-rolloff-1085542`) without widening the 60-second cross-provider schedule guard, which rightly prevents joining delayed or in-play markets to pre-match picks.",
+      "evidence": [
+        {
+          "url": "https://www.hotspawn.com/matches/ex-zero-tenacity-vs-spirit-academy-cct-europe-2026-series-11-1085542",
+          "detail": "Hotspawn match record scheduling 1085542 at 2026-10-25T14:00:00Z with 13:54:00Z pick lock."
+        },
+        {
+          "url": "https://bo3.gg/matches/ex-zero-tenacity-vs-spirit-academy-25-10-2026",
+          "detail": "bo3.gg match record reporting `start_date: 2026-10-25T14:30:00.000+00:00` and `bet: null` at 13:58Z."
+        }
+      ]
+    },
+    {
+      "id": "BF1F-R07",
+      "area": "External sportsbook anti-bot/geo restrictions from GitHub Actions ubuntu-24.04 runners",
+      "status": "platform limitation",
+      "finding": "Direct runner probes at 2026-10-25T13:58Z recorded HTTP 403/challenge/401 blocks on EGamersWorld (`403`), GG.BET (`403`), Stake (`403`), Marathonbet (`403`), BetBoom (`401`), 1xBet (`203 -> /en/block`), BC.Game (Cloudflare challenge), and OddsPortal (captcha marker), while generic-UA GETs to `hltv.org/ranking/teams` hit Cloudflare (`403`) even though `scripts.sources.Client` (`HotspawnCS2Coverage/1.0`) succeeded with HTTP 200 on `/matches` and individual `/matches/<id>/...` pages.",
+      "handling": "Recorded per-surface HTTP status and challenge markers in `data/research/bf1f9ce5/line-source-research.json`; blocked surfaces are never bypassed or inferred, and unquoted fixtures stay transparently labelled with their exact research-model limitation.",
+      "evidence": [
+        {
+          "url": "https://egamersworld.com/counterstrike/matches",
+          "detail": "Returned HTTP 403 (`challenge-platform`) from the GitHub Actions runner at 2026-10-25T13:58Z; `<8h` freshness gating in `scripts/reference_odds.py` prevents stale archived captures from masquerading as live lines."
+        },
+        {
+          "url": "https://gg.bet/en/counter-strike",
+          "detail": "Returned HTTP 403 (126 bytes) to unauthenticated public GET from `ubuntu-24.04`."
+        }
+      ]
+    },
+    {
+      "id": "BF1F-R08",
+      "area": "Executive Summary picks navigation, separate Unresolved Picks & Limitations section, row-source audit, and Chromium mobile/WCAG check",
+      "status": "verified",
+      "finding": "Built `site/` locally after integrating `origin/main` (`e42114b`) and verified: (1) `audit_rows --site site --strict` passes with 0 sourceless rows and 0 duplicate HTML IDs across all views; (2) Executive Summary (`index.html`) exposes direct in-site links to `./origination/#picks`, `./picks/`, `./unresolved/`, `./review/`, `#picks-at-a-glance`, `#unresolved-register`, `#no-line-register`, and `#fallback-register`; (3) `#unresolved-register` (`Unresolved picks & limitations`) renders as a dedicated section listing per-fixture blockers and `https://` research trails; and (4) real Chromium execution (`node tests/pick-safety-browser.mjs` + Playwright `tests/browser/phone_bf1f9ce5.spec.mjs`) passes across `320x640`, `390x844`, `768x1024`, and `1440x900` with zero horizontal overflow, visible team win probabilities and recommended picks, no-JS readability, and zero WCAG 2A/2AA axe violations.",
+      "handling": "Pinned by `scripts/bf1f9ce5_verify.py`, `tests/test_bf1f9ce5_verification.py`, and `tests/browser/phone_bf1f9ce5.spec.mjs`.",
+      "evidence": [
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+          "detail": "Landing-page Executive Summary route verified locally in headless Chromium at 320px, 390px, 768px, and 1440px."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/",
+          "detail": "Dedicated Unresolved Picks & Limitations view cross-linked from the Executive Summary and verified for zero broken links or sourceless table rows."
+        }
+      ]
+    }
+  ]
+}

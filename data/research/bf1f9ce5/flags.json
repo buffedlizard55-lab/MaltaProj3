@@ -1,0 +1,48 @@
+[
+  {
+    "id": "bf1f9ce5-lobby-edge-cache-stale-cards",
+    "severity": "info",
+    "match_ids": [
+      "1079198",
+      "1081156"
+    ],
+    "title": "Un-busted Hotspawn /lobby edge cache (age 6443s) retained two started 12:00 UTC Tier-B cards; cache-busted /lobby?cb= matches the API 78-for-78",
+    "detail": "At 2026-10-25T13:57:50Z, an un-busted GET to https://play.hotspawn.com/lobby returned x-nextjs/edge cache HIT (age=6443s) with 80 CS2 fixtures (C: 47, B: 33), retaining 1079198 (Metizport vs BakS, 12:00:00Z) and 1081156 (Spirit Academy vs LFO 10, 12:00:00Z) after both had already started. Cache-busted https://play.hotspawn.com/lobby?cb=1792936670 and https://play.hotspawn.com/cs2-pickems?cb=1792936670 returned cache MISS with 78 CS2 fixtures (C: 47, B: 31) and 17 visible open cards, matching the official scheduled fixtures API 78-for-78 with zero ID delta.",
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://play.hotspawn.com/cs2-pickems",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
+    ]
+  },
+  {
+    "id": "bf1f9ce5-dfrag-substitute-markers-no-narrow-line",
+    "severity": "warning",
+    "match_ids": [
+      "1082858",
+      "1082861"
+    ],
+    "title": "DFRAG Invitational LAN openers 1082858 & 1082861: HLTV lineup substitute markers and wide Smarkets books (>0.15 spread) leave only research-model estimates",
+    "detail": "First-hand HLTV match-page reads at 2026-10-25T13:58:58Z–13:58:59Z confirm BO3 LAN format for 1082858 (Ground Zero HLTV #143 / VRS #131 vs Off Chops HLTV #142 / VRS #133, HLTV 2399888) and 1082861 (Rooster HLTV Unranked / VRS #154 vs Abyssal HLTV #128 / VRS #130, HLTV 2399891), with substitute markers present on Ground Zero and Rooster, 0 bookmaker decimal rows on HLTV, no open Polymarket CS2 event, 0 Pinnacle Guest API hits, bo3.gg bet=null, and Smarkets events 45396333 / 45398349 quoting spreads wider than the 0.15 admissibility cap. Both fixtures remain explicitly labelled as research-model estimates rather than market lines.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+      "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+      "https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-a/2026/10/26/03-00/ground-zero-vs-off-chops",
+      "https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-b/2026/10/27/03-00/rooster-vs-abyssal"
+    ]
+  },
+  {
+    "id": "bf1f9ce5-prelock-polymarket-rolloff-1085542",
+    "severity": "info",
+    "match_ids": [
+      "1085542"
+    ],
+    "title": "1085542 ex-Zero Tenacity vs Spirit Academy: Hotspawn 14:00Z lock vs bo3.gg/HLTV 14:30Z start; Polymarket pre-match book rolled off to Valve VRS at 13:57Z",
+    "detail": "Hotspawn scheduled fixture 1085542 at 2026-10-25T14:00:00Z (lock 13:54:00Z), whereas bo3.gg (ex-zero-tenacity-vs-spirit-academy-25-10-2026) and HLTV (match 2399340) listed 2026-10-25T14:30:00Z. At 13:57:50Z (after Hotspawn's 13:54Z pick lock), Polymarket no longer bound an open pre-match event within the 60s window and bo3.gg carried bet=null, so fresh origination cleanly fell back to Valve official global standings (2026-10-05: ex-Zero Tenacity 61.7% / Spirit Academy 38.3%) without fabricating a market line.",
+    "source_urls": [
+      "https://www.hotspawn.com/matches/ex-zero-tenacity-vs-spirit-academy-cct-europe-2026-series-11-1085542",
+      "https://bo3.gg/matches/ex-zero-tenacity-vs-spirit-academy-25-10-2026",
+      "https://www.hltv.org/matches/2399340/ex-zero-tenacity-vs-spirit-academy-cct-2026-europe-series-11",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    ]
+  }
+]
