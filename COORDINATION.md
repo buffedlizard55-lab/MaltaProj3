@@ -9276,3 +9276,20 @@ Claimed **2026-10-25T14:37Z** on Arena's fixed branch `arena/41d73e19-maltaproj3
 6. Model rows `1082793`/`1082861` replay to the published tenth from committed Valve evidence; `1082996`'s raw-vs-published difference is documented on its own card (model → verified money consensus upgrade).
 
 **Verification performed.** Local on the rebased tree: `27ac20d6_verify.py` (above), `tests.test_27ac20d6_research` 9 OK, `python -m scripts.build` PASS (971 rows, 0 without a source; acceptance 9/1/0), `scripts.audit_rows --site site --strict` 0 violations. Full `unittest discover` + Playwright phone checks run in CI on the PR (`Validate dashboard`). Rebased onto `origin/main` `3ef73f4` before the PR; no other session's files touched (scope held: new files only + this board).
+
+### 27AC fix-forward: `test_0962d605_verification` dated-presence failure (2026-10-25T15:10Z)
+
+PR #343's `Validate dashboard` run (40203097335) failed on exactly one unittest:
+`test_0962d605_verification.DossierIsReproducible.test_published_estimates_match_the_board` —
+`'1081156: not present in the checked-in snapshot'`. Reproduced on a clean `origin/main`
+worktree before touching it, so this is a pre-existing `main` failure (the publisher runs the
+same suite; left alone it freezes the refresh again). Cause: session 0962d605's dossier covers
+1081156 + 1082792 as of the 05:12Z snapshot; 1081156 finished at 12:00Z and aged out of the
+Hotspawn inventory in the 14:23Z refresh, so the presence assertion in
+`check_published_estimates` fires on vintage, not on data. Fix (test-only, intent preserved,
+following S387's documented pattern): the board comparison now runs over the fixtures the
+checked-in snapshot still carries — unfiltered on the dossier's own snapshot — while the
+dossier's internal recompute/source checks and the invented-probability/crossed-book mutation
+tests stay unconditional and still exercise the fail-closed path via 1082792. Verified:
+`tests.test_0962d605_verification` 12 OK locally. No data, probability, pick or dossier byte
+changed; noted on PR #343 for session 0962d605.
