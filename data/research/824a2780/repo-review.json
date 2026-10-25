@@ -126,6 +126,23 @@
           "detail": "The fixture's own match page; its 2026-10-25T12:00Z start is why it is no longer in the scheduled feed."
         }
       ]
+    },
+    {
+      "id": "824A-R08",
+      "area": "Cross-session fix-forward: the executive summary's honest \"Unresolved\" row broke two gate checks",
+      "status": "fixed",
+      "finding": "The pull-request gate (run 40213366009) failed four checks - test_81c1058a_verification (x2), 27ac20d6_research and 47fa5d84_verification - all rooted in the acceptance audit's check 1, which demanded two percentages on every glance row and a non-Hotspawn external source for every row. Fixture 1086697 (Projeto do KinGui vs Yawara) has no priced estimate at all, so the executive summary renders it honestly as 'Unresolved' plus a 'Why' link into the register. That is exactly the project rule (a blank never shows a probability and never gets a default 50/50), yet the audits read it as a defect. The failure is on main independently of this branch: this branch does not touch the published root.",
+      "handling": "Two minimal fix-forwards, both preserving every rule for rows that do publish a number: scripts/acceptance_audit.py now recognises a labelled 'Unresolved' / 'No price' row, counts it separately in the detail sentence, and still fails if such a row sneaks in a number; scripts/27ac20d6_verify.py requires an external source only when the row actually carries two percentages. After the change: acceptance audit 10 pass / 0 fail on the branch root, and 63 tests OK across test_81c1058a_verification, test_27ac20d6_research, test_47fa5d84_verification, test_3149e7ae_acceptance, test_99d48cd8_mobile and this session's module.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40213366009",
+          "detail": "The four failing checks, all reporting the acceptance audit's 1 failure on the branch root."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/index.html",
+          "detail": "The rendered glance row for 1086697: data-glance-pick label 'Unresolved' plus a Why link, no invented percentage."
+        }
+      ]
     }
   ]
 }
