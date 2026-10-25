@@ -303,3 +303,67 @@ class LiveEvidenceTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class BookParserTests(unittest.TestCase):
+    """Regression guard for a false negative this session actually shipped.
+
+    The first version of ``book_titles`` guessed three response shapes and
+    silently reported zero rows for surfaces that were in fact serving CS2
+    lines. Replayed here against the archived live bodies the runner captured at
+    2026-10-25T14:44:30Z, so the shapes are pinned to real evidence rather than
+    to a second guess.
+    """
+
+    RAW = ROOT / 'data' / 'research' / '93c7475a' / 'raw'
+
+    def setUp(self):
+        self.module = __import__('scripts.93c7475a_probe', fromlist=['book_titles'])
+        if not (self.RAW / 'thunderpick-matches.json').exists():
+            self.skipTest('the runner has not archived the live bodies yet')
+
+    def load(self, name):
+        return json.loads((self.RAW / name).read_text())
+
+    def test_thunderpick_upcoming_carries_a_match_winner_price(self):
+        rows = self.module.book_titles('thunderpick-matches', self.load('thunderpick-matches.json'), None)
+        self.assertGreater(len(rows), 20, 'the archived body lists 42 upcoming CS2 matches')
+        by_title = {r['title']: r for r in rows}
+        self.assertIn('FlyQuest vs Staqued', by_title)
+        odds = dict(by_title['FlyQuest vs Staqued']['odds'])
+        self.assertEqual(odds, {'FlyQuest': 1.001, 'Staqued': 12},
+                         'the Match Winner decimal prices must be read verbatim')
+        # The handicap and total-maps markets must not be mistaken for the
+        # full-series winner line.
+        self.assertEqual(len(by_title['FlyQuest vs Staqued']['odds']), 2)
+
+    def test_smarkets_events_are_read_from_the_events_key(self):
+        rows = self.module.book_titles('smarkets-cs2', self.load('smarkets-cs2.json'), None)
+        self.assertEqual(len(rows), 20, 'the archived body lists 20 upcoming CS2 events')
+        flyquest = [r for r in rows if r['title'] == 'FlyQuest vs Staqued']
+        self.assertEqual(len(flyquest), 1)
+        self.assertTrue(flyquest[0]['url'].startswith('https://smarkets.com/sport/esports/cs-go/'),
+                        flyquest[0]['url'])
+
+    def test_kalshi_generic_events_are_not_counted_as_cs2_coverage(self):
+        rows = self.module.book_titles('kalshi-cs2-events', self.load('kalshi-cs2-events.json'), None)
+        self.assertEqual(rows, [], 'the generic open-events endpoint returned no CS2 event')
+
+    def test_exact_name_matching_is_case_equivalent_only(self):
+        # Hotspawn lists "BRUTE"; Thunderpick lists "Brute". The project's
+        # identity rule is case/Unicode/whitespace equivalence, so this is a
+        # legitimate exact join and must be found.
+        rows = self.module.book_titles('thunderpick-matches', self.load('thunderpick-matches.json'), None)
+        hits = self.module.exact_book_hits({'teams': ['Infinite', 'BRUTE']}, rows)
+        self.assertEqual([h['title'] for h in hits], ['Infinite vs Brute'])
+        # A different second team is not a hit.
+        self.assertEqual(self.module.exact_book_hits({'teams': ['Infinite', 'FaZe']}, rows), [])
+
+    def test_observed_prices_never_become_probabilities(self):
+        rows = self.module.book_titles('thunderpick-matches', self.load('thunderpick-matches.json'), None)
+        for row in rows:
+            for _name, odd in row.get('odds') or []:
+                # Prices arrive as int or float — Staqued is quoted as 12, not 12.0.
+                self.assertIsInstance(odd, (int, float))
+                self.assertNotIsInstance(odd, bool)
+                self.assertNotIn('probabilit', str(row).lower())
