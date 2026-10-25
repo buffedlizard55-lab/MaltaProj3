@@ -903,6 +903,8 @@ def fallback_card(match: dict, prefix: str, names: list, label: str, link: str) 
     source link. Every value is read from the published row; nothing is computed,
     rounded or invented here.
     """
+    if len(names) < 2:
+        names = (list(names) + ['Unverified team', 'Unverified team'])[:2]
     o = match.get('origination') or {}
     probs = [float(p) for p in (o.get('probabilities') or []) if isinstance(p, (int, float))]
     pick = match.get('pick_index')
@@ -941,7 +943,9 @@ def fallback_card(match: dict, prefix: str, names: list, label: str, link: str) 
             f'{e(match.get("competition") or "Unverified tournament")}</span>'
             f'<span class="badge {badge_class}">{e(badge_label)}</span></div>'
             f'<h3>{e(names[0])} <span class="versus">vs</span> {e(names[1])}</h3>'
-            f'<p class="unresolved-when">{local_time(match.get("starts_at"))} · {pick_line}</p>'
+            f'<p class="unresolved-when">'
+            f'{local_time(match.get("starts_at")) if match.get("starts_at") else "Start time unverified"}'
+            f' · {pick_line}</p>'
             f'<p class="tiny fallback-why"><strong>Why not the featured line:</strong> '
             f'{e(_featured_line_gap(match))}</p>'
             f'<div class="unresolved-tried">{tried_html}</div>'
