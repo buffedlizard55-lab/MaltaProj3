@@ -1,0 +1,692 @@
+{
+  "schema_version": 1,
+  "session": "arena-bf1f9ce5",
+  "observed_at": "2026-10-25T13:57:50Z",
+  "environment": "github-actions-runner",
+  "policy": "Read-only research. HLTV first (official match schedule, format, lineups, and world ranking — HLTV fan poll excluded), then esportsbooks, exchanges, and betting-line aggregators. No probability, pick, or alias is hand-written.",
+  "target_source": {
+    "source_url": "scratch/data/origination.json",
+    "source": "freshly collected in this runner sweep",
+    "targets": 5,
+    "active": 17,
+    "snapshot_generated_at": "2026-10-25T13:58:08Z"
+  },
+  "hltv_index": {
+    "url": "https://www.hltv.org/matches",
+    "http_status": 200,
+    "observed_at": "2026-10-25T13:58:58Z",
+    "sha256": "19e75a2c56951b3f8d5c3292e9ac3af353f54dc4a0d0b33c5ecc4f4821602a58"
+  },
+  "targets": [
+    {
+      "id": "1085542",
+      "teams": [
+        "ex-Zero Tenacity",
+        "Spirit Academy"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-25T14:00:00Z",
+      "current_method": "model",
+      "current_label": "Valve-rating research estimate",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ex-zero-tenacity-vs-spirit-academy-cct-europe-2026-series-11-1085542",
+      "hltv_url": null
+    },
+    {
+      "id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "current_method": "model",
+      "current_label": "Own network estimate (bo3.gg results graph)",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
+      "hltv_url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026"
+    },
+    {
+      "id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "current_method": "model",
+      "current_label": "Valve-rating research estimate",
+      "hotspawn_url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
+      "hltv_url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026"
+    },
+    {
+      "id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "current_method": "model",
+      "current_label": "Research model estimate (Valve official ratings)",
+      "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+      "hltv_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026"
+    },
+    {
+      "id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T13:00:00Z",
+      "current_method": "model",
+      "current_label": "Valve-rating research estimate",
+      "hotspawn_url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
+      "hltv_url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026"
+    }
+  ],
+  "extra_pages": [
+    {
+      "name": "HLTV match listing",
+      "url": "https://www.hltv.org/matches",
+      "status": 403,
+      "final_url": "https://www.hltv.org/matches",
+      "bytes": 5626,
+      "challenge_markers": [
+        "just a moment",
+        "challenge-platform",
+        "enable javascript and cookies"
+      ],
+      "teams_found": []
+    },
+    {
+      "name": "HLTV world ranking",
+      "url": "https://www.hltv.org/ranking/teams",
+      "status": 403,
+      "final_url": "https://www.hltv.org/ranking/teams",
+      "bytes": 5644,
+      "challenge_markers": [
+        "just a moment",
+        "challenge-platform",
+        "enable javascript and cookies"
+      ],
+      "teams_found": []
+    },
+    {
+      "name": "GG.BET CS2",
+      "url": "https://gg.bet/en/counter-strike",
+      "status": 403,
+      "final_url": "https://gg.bet/en/counter-strike",
+      "bytes": 126,
+      "challenge_markers": [],
+      "teams_found": []
+    },
+    {
+      "name": "BetBoom CS2",
+      "url": "https://betboom.ru/sport/cs2",
+      "status": 401,
+      "final_url": "https://betboom.ru/sport/cs2",
+      "bytes": 1799,
+      "challenge_markers": [
+        "captcha"
+      ],
+      "teams_found": []
+    },
+    {
+      "name": "Stake CS2",
+      "url": "https://stake.com/sports/esports/cs2",
+      "status": 403,
+      "final_url": "https://stake.com/sports/esports/cs2",
+      "bytes": 5677,
+      "challenge_markers": [
+        "just a moment",
+        "challenge-platform",
+        "enable javascript and cookies"
+      ],
+      "teams_found": []
+    },
+    {
+      "name": "BC.Game CS2",
+      "url": "https://bc.game/sports/esports",
+      "status": 200,
+      "final_url": "https://bc.game/sports/esports",
+      "bytes": 10680,
+      "challenge_markers": [
+        "challenge-platform"
+      ],
+      "teams_found": []
+    },
+    {
+      "name": "1xBet CS2",
+      "url": "https://1xbet.com/en/line/counter-strike-2",
+      "status": 203,
+      "final_url": "https://1xbet.com/en/block",
+      "bytes": 2619,
+      "challenge_markers": [
+        "challenge-platform"
+      ],
+      "teams_found": []
+    },
+    {
+      "name": "Marathonbet CS2",
+      "url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
+      "status": 403,
+      "final_url": "https://www.marathonbet.com/en/betting/Esports/Counter-Strike+2/",
+      "bytes": 5487,
+      "challenge_markers": [
+        "challenge-platform",
+        "attention required",
+        "captcha"
+      ],
+      "teams_found": []
+    },
+    {
+      "name": "Betway esports",
+      "url": "https://www.betway.com/en/sports/esports/counter-strike-2",
+      "status": 404,
+      "final_url": "https://betway.com/g/en/sports/esports/counter-strike-2",
+      "bytes": 6690,
+      "challenge_markers": [],
+      "teams_found": []
+    },
+    {
+      "name": "DraftKings CS2",
+      "url": "https://sportsbook.draftkings.com/leagues/esports/counter-strike-2",
+      "status": 200,
+      "final_url": "https://sportsbook.draftkings.com/sports/esports",
+      "bytes": 1655102,
+      "challenge_markers": [],
+      "teams_found": []
+    },
+    {
+      "name": "OddsPortal CS2",
+      "url": "https://www.oddsportal.com/esports/counter-strike/",
+      "status": 200,
+      "final_url": "https://www.oddsportal.com/esports/counter-strike/",
+      "bytes": 338776,
+      "challenge_markers": [
+        "captcha"
+      ],
+      "teams_found": []
+    },
+    {
+      "name": "EGamersWorld CS2 matches",
+      "url": "https://egamersworld.com/counterstrike/matches",
+      "status": 403,
+      "final_url": "https://egamersworld.com/counterstrike/matches",
+      "bytes": 5774,
+      "challenge_markers": [
+        "challenge-platform",
+        "attention required",
+        "captcha"
+      ],
+      "teams_found": []
+    },
+    {
+      "name": "Pinnacle CS2 page",
+      "url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+      "status": 404,
+      "final_url": "https://www.pinnacle.com/en/esports/counter-strike-2/",
+      "bytes": 307,
+      "challenge_markers": [],
+      "teams_found": []
+    }
+  ],
+  "pinnacle_guest_api": {
+    "api": "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
+    "matchups_seen": 14364,
+    "fixture_hits": []
+  },
+  "polymarket": {
+    "api": "https://gamma-api.polymarket.com/events?tag_slug=cs2&active=true&closed=false&limit=100&offset=0",
+    "pages_read": 1,
+    "events_seen": 25,
+    "bindings": {}
+  },
+  "smarkets": {
+    "evidence": "data/origination/evidence/live-smarkets-cs.json",
+    "observed_at": "2026-10-25T13:58:14Z",
+    "events_listed": 12,
+    "fixtures_bound": 12,
+    "quoted_two_sided": 10,
+    "target_bindings": [
+      "1082858",
+      "1082861"
+    ]
+  },
+  "bo3": [
+    {
+      "id": "1085542",
+      "teams": [
+        "ex-Zero Tenacity",
+        "Spirit Academy"
+      ],
+      "bound": {
+        "slug": "ex-zero-tenacity-vs-spirit-academy-25-10-2026",
+        "start_date": "2026-10-25T14:30:00.000+00:00",
+        "url": "https://bo3.gg/matches/ex-zero-tenacity-vs-spirit-academy-25-10-2026"
+      },
+      "bet": null,
+      "lookup": [
+        {
+          "name": "ex-Zero Tenacity",
+          "matches": 1,
+          "exact": 1,
+          "id": 22185,
+          "slug": "ex-zero-tenacity",
+          "rank": 93
+        },
+        {
+          "name": "Spirit Academy",
+          "matches": 1,
+          "exact": 1,
+          "id": 1309,
+          "slug": "spirit-academy",
+          "rank": 115
+        }
+      ]
+    },
+    {
+      "id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "bound": {
+        "slug": "ground-zero-vs-off-chops-26-10-2026",
+        "start_date": "2026-10-26T03:00:00.000+00:00",
+        "url": "https://bo3.gg/matches/ground-zero-vs-off-chops-26-10-2026"
+      },
+      "bet": null,
+      "lookup": [
+        {
+          "name": "Ground Zero",
+          "matches": 1,
+          "exact": 1,
+          "id": 584,
+          "slug": "ground-zero",
+          "rank": 136
+        },
+        {
+          "name": "Off Chops",
+          "matches": 1,
+          "exact": 1,
+          "id": 25492,
+          "slug": "off-chops",
+          "rank": null
+        }
+      ]
+    },
+    {
+      "id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "bound": {
+        "slug": "rooster-vs-abyssal-27-10-2026",
+        "start_date": "2026-10-27T03:00:00.000+00:00",
+        "url": "https://bo3.gg/matches/rooster-vs-abyssal-27-10-2026"
+      },
+      "bet": null,
+      "lookup": [
+        {
+          "name": "Rooster",
+          "matches": 1,
+          "exact": 1,
+          "id": 151,
+          "slug": "rooster",
+          "rank": 205
+        },
+        {
+          "name": "Abyssal",
+          "matches": 1,
+          "exact": 1,
+          "id": 22732,
+          "slug": "abyssal",
+          "rank": 195
+        }
+      ]
+    },
+    {
+      "id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "bound": null,
+      "bet": null,
+      "lookup": [
+        {
+          "name": "HOTU",
+          "matches": 1,
+          "exact": 1,
+          "id": 2720,
+          "slug": "hotu",
+          "rank": 31
+        },
+        {
+          "name": "The Huns",
+          "matches": 1,
+          "exact": 1,
+          "id": 9127,
+          "slug": "the-huns-esports",
+          "rank": 122
+        }
+      ]
+    },
+    {
+      "id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "bound": null,
+      "bet": null,
+      "lookup": [
+        {
+          "name": "5star",
+          "matches": 1,
+          "exact": 1,
+          "id": 23051,
+          "slug": "5star-esports",
+          "rank": 80
+        },
+        {
+          "name": "1WIN",
+          "matches": 0,
+          "exact": 0
+        }
+      ]
+    }
+  ],
+  "per_fixture": [
+    {
+      "id": "1085542",
+      "teams": [
+        "ex-Zero Tenacity",
+        "Spirit Academy"
+      ],
+      "competition": "CCT Europe 2026 Series #11",
+      "starts_at": "2026-10-25T14:00:00Z",
+      "current_method": "model",
+      "current_label": "Valve-rating research estimate",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ex-zero-tenacity-vs-spirit-academy-cct-europe-2026-series-11-1085542",
+      "hltv_url": null,
+      "hltv_page": null,
+      "polymarket_book": null,
+      "polymarket_state": "no open Polymarket CS2 event bound both exact team names",
+      "smarkets_evidence": null,
+      "bo3_bound_url": "https://bo3.gg/matches/ex-zero-tenacity-vs-spirit-academy-25-10-2026",
+      "bo3_bet_two_sided": false,
+      "bo3_bet": null,
+      "pinnacle_matchup": null,
+      "money_line_lead": false,
+      "verdict": "No actionable narrow-spread two-sided money line on any reachable surface; labelled research-model estimate and limitation stand. Polymarket: no open Polymarket CS2 event bound both exact team names."
+    },
+    {
+      "id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "current_method": "model",
+      "current_label": "Own network estimate (bo3.gg results graph)",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
+      "hltv_url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+      "hltv_page": {
+        "url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+        "ok": true,
+        "http_status": 200,
+        "observed_at": "2026-10-25T13:58:58Z",
+        "sha256": "97e5621b3800fd247839b87974084ab64b846f6c7315d8f6ee85da527db680a6",
+        "title": "Ground Zero vs. Off Chops at DFRAG Invitational 2026 | HLTV.org",
+        "series_format_box": "Best of 3 (LAN)\n\n* Group A opening match",
+        "team_rankings": [
+          "HLTV: #143 VRS: #131",
+          "HLTV: #142 VRS: #133"
+        ],
+        "lineups": [
+          {
+            "headline": "Ground Zero HLTV: #143 VRS: #131",
+            "players": [
+              "Ground Zero",
+              "apocdud",
+              "Omichella",
+              "vision",
+              "tucks",
+              "sliimey"
+            ],
+            "substitute_marker": true
+          },
+          {
+            "headline": "Off Chops HLTV: #142 VRS: #133",
+            "players": [
+              "Off Chops",
+              "viridian",
+              "dexter",
+              "Liazz",
+              "Gratisfaction",
+              "damyo"
+            ],
+            "substitute_marker": false
+          }
+        ],
+        "bookmaker_decimal_rows_count": 0,
+        "bookmaker_decimal_samples": [],
+        "fan_poll_present_and_excluded": true
+      },
+      "polymarket_book": null,
+      "polymarket_state": "no open Polymarket CS2 event bound both exact team names",
+      "smarkets_evidence": {
+        "event_id": "45396333",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-a/2026/10/26/03-00/ground-zero-vs-off-chops",
+        "two_sided": true
+      },
+      "bo3_bound_url": "https://bo3.gg/matches/ground-zero-vs-off-chops-26-10-2026",
+      "bo3_bet_two_sided": false,
+      "bo3_bet": null,
+      "pinnacle_matchup": null,
+      "money_line_lead": false,
+      "verdict": "No actionable narrow-spread two-sided money line on any reachable surface; labelled research-model estimate and limitation stand. Polymarket: no open Polymarket CS2 event bound both exact team names."
+    },
+    {
+      "id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "current_method": "model",
+      "current_label": "Valve-rating research estimate",
+      "hotspawn_url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
+      "hltv_url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+      "hltv_page": {
+        "url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+        "ok": true,
+        "http_status": 200,
+        "observed_at": "2026-10-25T13:58:59Z",
+        "sha256": "7d809ae28e7b2bff587728c6a17a89924faa857e65208903809f9e58a6bff03f",
+        "title": "Rooster vs. Abyssal at DFRAG Invitational 2026 | HLTV.org",
+        "series_format_box": "Best of 3 (LAN)\n\n* Group B opening match",
+        "team_rankings": [
+          "HLTV: Unranked VRS: #154",
+          "HLTV: #128 VRS: #130"
+        ],
+        "lineups": [
+          {
+            "headline": "Rooster HLTV: Unranked VRS: #154",
+            "players": [
+              "Rooster",
+              "SkulL",
+              "rekonz",
+              "TjP",
+              "foggers",
+              "chelleos"
+            ],
+            "substitute_marker": true
+          },
+          {
+            "headline": "Abyssal HLTV: #128 VRS: #130",
+            "players": [
+              "Abyssal",
+              "Forleks",
+              "zune",
+              "dangeR",
+              "vinhy",
+              "blood"
+            ],
+            "substitute_marker": false
+          }
+        ],
+        "bookmaker_decimal_rows_count": 0,
+        "bookmaker_decimal_samples": [],
+        "fan_poll_present_and_excluded": true
+      },
+      "polymarket_book": null,
+      "polymarket_state": "no open Polymarket CS2 event bound both exact team names",
+      "smarkets_evidence": {
+        "event_id": "45398349",
+        "event_url": "https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-b/2026/10/27/03-00/rooster-vs-abyssal",
+        "two_sided": true
+      },
+      "bo3_bound_url": "https://bo3.gg/matches/rooster-vs-abyssal-27-10-2026",
+      "bo3_bet_two_sided": false,
+      "bo3_bet": null,
+      "pinnacle_matchup": null,
+      "money_line_lead": false,
+      "verdict": "No actionable narrow-spread two-sided money line on any reachable surface; labelled research-model estimate and limitation stand. Polymarket: no open Polymarket CS2 event bound both exact team names."
+    },
+    {
+      "id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "current_method": "model",
+      "current_label": "Research model estimate (Valve official ratings)",
+      "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+      "hltv_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "hltv_page": {
+        "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+        "ok": true,
+        "http_status": 200,
+        "observed_at": "2026-10-25T13:59:00Z",
+        "sha256": "f76b43029e5462a9999f36f724bb02aeade35370bd751b6e0d5188387035fadf",
+        "title": "HOTU vs. The Huns at GLuck Moscow Cyber Games 2026 | HLTV.org",
+        "series_format_box": "Best of 3 (LAN)\n\n* Semi-final",
+        "team_rankings": [
+          "HLTV: #38 VRS: #38",
+          "HLTV: #134 VRS: #122"
+        ],
+        "lineups": [
+          {
+            "headline": "HOTU HLTV: #38 VRS: #38",
+            "players": [
+              "HOTU",
+              "dwushka",
+              "frontales",
+              "mizu",
+              "n0rb3r7",
+              "kade0"
+            ],
+            "substitute_marker": false
+          },
+          {
+            "headline": "The Huns HLTV: #134 VRS: #122",
+            "players": [
+              "The Huns",
+              "Bart4k",
+              "controlez",
+              "bexyz",
+              "Cozen",
+              "DarkMeister"
+            ],
+            "substitute_marker": false
+          }
+        ],
+        "bookmaker_decimal_rows_count": 0,
+        "bookmaker_decimal_samples": [],
+        "fan_poll_present_and_excluded": true
+      },
+      "polymarket_book": null,
+      "polymarket_state": "no open Polymarket CS2 event bound both exact team names",
+      "smarkets_evidence": null,
+      "bo3_bound_url": null,
+      "bo3_bet_two_sided": false,
+      "bo3_bet": null,
+      "pinnacle_matchup": null,
+      "money_line_lead": false,
+      "verdict": "No actionable narrow-spread two-sided money line on any reachable surface; labelled research-model estimate and limitation stand. Polymarket: no open Polymarket CS2 event bound both exact team names."
+    },
+    {
+      "id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T13:00:00Z",
+      "current_method": "model",
+      "current_label": "Valve-rating research estimate",
+      "hotspawn_url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
+      "hltv_url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+      "hltv_page": {
+        "url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+        "ok": true,
+        "http_status": 200,
+        "observed_at": "2026-10-25T13:59:01Z",
+        "sha256": "3514557cf977cce148ab58dca86f560e981e969312484c59d1f49c372a8a9fed",
+        "title": "1win vs. 5star at GLuck Moscow Cyber Games 2026 | HLTV.org",
+        "series_format_box": "Best of 3 (LAN)\n\n* Semi-final",
+        "team_rankings": [
+          "HLTV: #14 VRS: #20",
+          "HLTV: #36 VRS: #64"
+        ],
+        "lineups": [
+          {
+            "headline": "1win HLTV: #14 VRS: #20",
+            "players": [
+              "1win",
+              "Ax1Le",
+              "ArtFr0st",
+              "fame",
+              "nafany",
+              "BELCHONOKK"
+            ],
+            "substitute_marker": false
+          },
+          {
+            "headline": "5star HLTV: #36 VRS: #64",
+            "players": [
+              "5star",
+              "hoolig4n",
+              "rate",
+              "ariucle",
+              "clouden",
+              "NEUZ"
+            ],
+            "substitute_marker": false
+          }
+        ],
+        "bookmaker_decimal_rows_count": 0,
+        "bookmaker_decimal_samples": [],
+        "fan_poll_present_and_excluded": true
+      },
+      "polymarket_book": null,
+      "polymarket_state": "no open Polymarket CS2 event bound both exact team names",
+      "smarkets_evidence": null,
+      "bo3_bound_url": null,
+      "bo3_bet_two_sided": false,
+      "bo3_bet": null,
+      "pinnacle_matchup": null,
+      "money_line_lead": false,
+      "verdict": "No actionable narrow-spread two-sided money line on any reachable surface; labelled research-model estimate and limitation stand. Polymarket: no open Polymarket CS2 event bound both exact team names."
+    }
+  ],
+  "leads": []
+}
