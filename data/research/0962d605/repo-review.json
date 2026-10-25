@@ -1,0 +1,152 @@
+{
+  "session": "arena-0962d605",
+  "scope": "Line-by-line review of the published executive summary, the unresolved register, the two active fixtures whose featured line did not resolve (1081156 Spirit Academy vs LFO 10, 1082792 HOTU vs The Huns), and the official HLTV/Polymarket/Valve records behind them, read on 2026-10-25 between 13:39Z and 14:16Z.",
+  "review_clock_utc": "2026-10-25T14:20:00Z",
+  "method": "HLTV first (match page, team page, published world ranking and Valve-ranking mirror), then the official Polymarket event/market records through the Gamma API, then Valve's own standings mirror. Every number below is quoted from the linked record with the time it was read; nothing is inferred, and no probability, pick or alias was written by this review.",
+  "items": [
+    {
+      "id": "0962-R01",
+      "area": "Executive summary said 18/18 picks while the published snapshot.json reported 16 picks and 2 unresolved",
+      "status": "fixed",
+      "finding": "The rendered board counted the complete researched list (18 of 18) while /snapshot.json and /data/latest.json counted the featured-line path (16 picks, 2 unresolved). A reader comparing the page with its own data download saw two different answers and no explanation.",
+      "handling": "The unresolved register now publishes both counts side by side with the exact reason for the difference, and every fixture the featured line could not price is shown as a card carrying its pick, both win probabilities, the method badge, the recorded blocker, the stages tried and its source link. Nothing is averaged or re-priced; the reconciliation reads the published counts.",
+      "evidence": [
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+          "detail": "Published snapshot at 2026-10-25T05:12:25Z: counts.picks 16, counts.unresolved 2, inventory 79, upcoming 18."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+          "detail": "Executive summary at the same build reported 18 of 18 active fixtures with a directional pick and 0 explicitly unresolved."
+        }
+      ]
+    },
+    {
+      "id": "0962-R02",
+      "area": "Four-hour publisher stopped on a dated regression assertion (run 40174233578)",
+      "status": "needs review",
+      "finding": "Run 40174233578 failed at 'Regression tests' before any collection. The failing assertion is tests/test_b72154e1_guided_picks.py::test_group_a_are_snapshot_unresolved, which requires fixture 1082858 to have no pick against the mutable root snapshot.json, while the 05:12:25Z snapshot had already priced it 25.0% / 75.0% from a two-sided Polymarket book. The same failure class froze the site on 2026-10-24.",
+      "handling": "Reproduced locally: 'AssertionError: 1 is not None : 1082858'. This session does not own that test file: parallel sessions opened PR #326, #327 and #328 to pin those assertions to the snapshot the dossier names. Handoff recorded in COORDINATION.md; the exec-summary work in this register is independent of the fix and does not touch that file.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40174233578",
+          "detail": "Failed run; the check-run annotation names FAIL: test_group_a_are_snapshot_unresolved."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_b72154e1_guided_picks.py",
+          "detail": "Assertion at line 61 pins 1082858 and 1082792 to pick_index None against snapshot.json."
+        }
+      ]
+    },
+    {
+      "id": "0962-R03",
+      "area": "1081156 (Spirit Academy vs LFO 10) had a live market that could not become a prematch pick",
+      "status": "needs review",
+      "finding": "Polymarket prices this fixture under 'Sökerorg' at an official start of 2026-10-25T12:25:00Z, while Hotspawn schedules it at 12:00:00Z — a 25-minute disagreement, outside the ladder's 60-second join window. By 13:44Z the only quoted market was in play (Map 1 at 0.999 / 1.000). HLTV ranks both sides (#111 Spirit Academy, #167 LFO 10) but publishes no points, so the HLTV ranking rung cannot price it either. No prematch probability is manufactured after the fact.",
+      "handling": "Published as an explicit limitation with both documented start times and the in-play quote, and listed on the unresolved register. Widening the join window or accepting in-play prices is a policy change, so it is flagged for review instead of being applied.",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-tsa-skr2-2026-10-25",
+          "detail": "Event 1243019: eventStartTime 2026-10-25T12:25:00Z, Map 1 market bestBid 0.999 / bestAsk 1.000, volume $43,696.59, read 13:44Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12",
+          "detail": "HLTV match page for the fixture; HLTV analytics ranks Spirit Academy #111 and LFO 10 #167."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156",
+          "detail": "Hotspawn fixture 1081156 scheduled start 2026-10-25T12:00:00Z."
+        }
+      ]
+    },
+    {
+      "id": "0962-R04",
+      "area": "1082792 (HOTU vs The Huns): a real market with an unquotable book, and a 33-point model divergence",
+      "status": "needs review",
+      "finding": "The Polymarket Match Winner market (6085308) exists at the same 09:00Z start and displays 65¢ HOTU / 35¢ The Huns Esports, but its two-sided book is 0.38 / 0.92 — a 0.54 spread, above every published ceiling — so it is not a compliant line. The board instead publishes 98.2% HOTU from the uncalibrated results-network model, about 33 points away from the only money observation.",
+      "handling": "The market is recorded as a verified, unquotable book with its bid/ask and volume, and the model label stays on the pick. Precedence between a wide book and an uncalibrated model is a policy decision, so it is flagged rather than changed here.",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-hotu-the9-2026-10-31",
+          "detail": "Event 1241313, market 6085308 'Match Winner': bestBid 0.38, bestAsk 0.92, spread 0.54, volume $690.15, eventStartTime 2026-10-31T09:00:00Z, read 13:52Z."
+        },
+        {
+          "url": "https://www.hltv.org/betting/analytics/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+          "detail": "HLTV analytics ranks HOTU #38 and The Huns #134 for the 31 October 2026 09:00Z semi-final."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+          "detail": "Hotspawn fixture 1082792 scheduled start 2026-10-31T09:00:00Z in Moscow Cyber Games 2026."
+        }
+      ]
+    },
+    {
+      "id": "0962-R05",
+      "area": "Valve rating input is 20 days older than the official weekly publication",
+      "status": "needs review",
+      "finding": "The rating rung reads Valve's official GitHub mirror, whose newest file is the 2026-10-05 publication. HLTV's Valve-ranking mirror dated 2026-10-25 already lists LFO 10 at VRS #152 (EU #109) and The Huns at #134, so the ladder's 'no exact-name Valve rating found' limitation for LFO 10 is a staleness artifact of the 5 October file, not proof that the team is unrated.",
+      "handling": "Recorded with both publications and their dates. Changing the rating source would change published probabilities, so it is flagged for review rather than applied in this session.",
+      "evidence": [
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/tree/main/live/2026",
+          "detail": "Newest official publication in the mirror is standings_global_2026_10_05.md (commit 'Updating Regional Standings for 10/5/2026')."
+        },
+        {
+          "url": "https://www.hltv.org/team/14084/lfo-10",
+          "detail": "LFO 10 team page prints Valve VRS #152 (EU #109) linking to the 25 October 2026 Valve ranking, read 14:12Z."
+        }
+      ]
+    },
+    {
+      "id": "0962-R06",
+      "area": "Identity aliases used by the two gap fixtures",
+      "status": "verified",
+      "finding": "data/origination/aliases.json already registers 'Sökerorg' -> 'LFO 10' and 'The Huns Esports' -> 'The Huns', both scoped to the exact competition and both carrying https evidence. Today's official reads confirm the scopes: Polymarket's Sökerorg title names the same CCT Europe Series #12 group stage, and its The Huns Esports title names the same Moscow Cyber Games Playoffs semi-final at the same 09:00Z start as Hotspawn 1082792.",
+      "handling": "No alias was added or widened. Confirmed only, against today's reads, so the joins remain exact.",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-tsa-skr2-2026-10-25",
+          "detail": "'Counter-Strike: Spirit Academy vs Sökerorg (BO3) - CCT Europe Series #12 Group Stage'."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-hotu-the9-2026-10-31",
+          "detail": "'Counter-Strike: HOTU vs The Huns Esports (BO3) - Moscow Cyber Games Playoffs', October 31, 2026 at 5:00 AM ET."
+        }
+      ]
+    },
+    {
+      "id": "0962-R07",
+      "area": "GitHub Actions run logs are not readable from this sandbox",
+      "status": "platform limitation",
+      "finding": "Fetching the failed run's log archive returned EOF from the results-receiver host, so the failing test could not be read from the log. The same information was obtained from the check-run annotations, which the workflow publishes on failure.",
+      "handling": "Used the published annotations and reproduced the assertion locally with the repository's own fixtures; the reproduction is recorded above.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40174233578",
+          "detail": "Annotations carry the FAIL line; the log archive itself was unreachable."
+        }
+      ]
+    },
+    {
+      "id": "0962-R08",
+      "area": "probability policy",
+      "status": "needs review",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+          "detail": "Match header displays HOTU 76.0% / The Huns 24.0% and HOTU VRS #34; read 2026-10-25T14:00:00Z."
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "Two complete five-player rows named The Huns: standing 122 with 944 points and standing 213 with 701 points."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-hotu-the9-2026-10-31",
+          "detail": "Market 6085308 quoted bid 0.38 / ask 0.92, a 0.54 spread, read 2026-10-25T13:52:00Z."
+        }
+      ],
+      "finding": "Fixture 1082792 (HOTU vs The Huns, 2026-10-31T09:00:00Z) has three unusable money sources and one usable forecast: Polymarket market 6085308 quotes 0.38/0.92 (0.54 spread against a 0.15 ceiling); EGamersWorld prints a single unpaired 1.80 HOTU price; Valve's 2026-10-05 standings carry two complete five-player 'The Huns' rows (944 and 701 points) that neither match HLTV's current lineup exactly, so scripts/domain.py:valve_analysis fails closed. HLTV itself displays HOTU 76.0% / 24.0% and VRS #34.",
+      "handling": "Recorded in data/research/0962d605/gap-research.json as evidence and published on Flagged for Review. Not adopted as this board's probability: the published-line policy admits observed two-way prices and Valve ratings only, and adopting a third-party forecast is a policy change. Two options are on the table - an explicitly labelled 'HLTV-published forecast' rung used only when no admissible line exists, or a roster-resolution rule that selects one duplicate Valve row from a first-party lineup source. Neither is applied here."
+    }
+  ]
+}

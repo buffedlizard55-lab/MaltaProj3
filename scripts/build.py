@@ -616,7 +616,7 @@ def exec_banner(data, prefix):
         f'<a class="secondary" href="{prefix}picks/" aria-label="Open the searchable featured-picks audit"><span class="label">Featured picks feed<span class="sub">Searchable audit · method filters</span></span><span aria-hidden="true">→</span></a>'
         f'<a class="tertiary" href="{prefix}unresolved/" aria-label="Open the unresolved picks page with every source tried and why each is still missing a pick"><span class="label">Unresolved &amp; limitations<span class="sub">{unresolved} without a pick · {model} from research models · why + sources</span></span><span aria-hidden="true">→</span></a>'
         f'</div>'
-        f'<p class="exec-banner-meta">Inventory {local_time(data.get("inventory_observed_at"))} · snapshot {generated} · refresh every 4 h (catch-up 2.5 h later keeps it inside 8 h) · <a href="{prefix}coverage/">coverage &amp; refresh status →</a> · <a href="{prefix}methodology/">how the list is built →</a> · <a href="{prefix}#picks-at-a-glance">picks at a glance ↓</a>{gaps} · <a href="{prefix}origination/#unresolved">every research trail →</a></p>'
+        f'<p class="exec-banner-meta">Inventory {local_time(data.get("inventory_observed_at"))} · snapshot {generated} · refresh every 4 h (catch-up 2.5 h later keeps it inside 8 h) · <a href="{prefix}coverage/">coverage &amp; refresh status →</a> · <a href="{prefix}methodology/">how the list is built →</a> · <a href="{prefix}#picks-at-a-glance">picks at a glance ↓</a> · <a href="{prefix}#unresolved-register">unresolved picks &amp; limits ↓</a>{gaps} · <a href="{prefix}origination/#unresolved">every research trail →</a></p>'
         f'</section>'
     )
 
@@ -866,6 +866,119 @@ def _brief_blank_reason(match: dict) -> str:
     if 'no alias-verified' in lowered:
         return 'no external line'
     return 'no verified line'
+
+
+def _featured_line_gap(match: dict) -> str:
+    """One plain-language reason the featured line was unavailable for a row.
+
+    Read only from the published research trail. Money stages are preferred, so a
+    reader sees the betting-line blocker rather than an incidental HLTV error, and
+    the text is the provider's own recorded detail rather than a paraphrase that
+    could imply a market does not exist.
+    """
+    stages = [r for r in (match.get('research') or []) if r.get('status') != 'resolved']
+    if not stages:
+        return 'no featured exact-name line for this fixture in the collected snapshot'
+    money = ('polymarket', 'kalshi', 'thunderpick', 'bovada', 'pinnacle', 'smarkets',
+             'bookmaker', 'esportsbook', 'exchange', 'market')
+    ordered = sorted(stages, key=lambda r: 0 if any(k in str(r.get('stage') or '').lower() for k in money) else 1)
+    first = ordered[0]
+    stage = str(first.get('stage') or 'Featured line').strip()
+    detail = ' '.join(str(first.get('detail') or '').split())
+    if not detail:
+        return f'{stage}: {first.get("status") or "unresolved"}'
+    if len(detail) > 190:
+        detail = detail[:187].rstrip() + '...'
+    return f'{stage}: {detail}'
+
+
+def fallback_card(match: dict, prefix: str, names: list, label: str, link: str) -> str:
+    """One phone-first card for a fixture the featured line could not price.
+
+    The brief asks for the unresolved picks and the limitations of generating them
+    to be a section of their own. A bullet list of names does not answer that on a
+    phone, so each researched row is published as a card carrying the tournament,
+    the pick, both win probabilities, the method that produced the number, the
+    recorded blocker for the featured line, the stages that were tried and the
+    source link. Every value is read from the published row; nothing is computed,
+    rounded or invented here.
+    """
+    if len(names) < 2:
+        names = (list(names) + ['Unverified team', 'Unverified team'])[:2]
+    o = match.get('origination') or {}
+    probs = [float(p) for p in (o.get('probabilities') or []) if isinstance(p, (int, float))]
+    pick = match.get('pick_index')
+    method = str(o.get('method') or '')
+    money = method in {'market', 'bookmaker', 'consensus', 'reference'}
+    badge_class = 'green' if money else ('amber' if method == 'guidance' else 'purple')
+    badge_label = {'market': 'Prediction-market line', 'bookmaker': 'Esportsbook line',
+                   'consensus': 'Median of books', 'reference': 'Aggregated line',
+                   'guidance': 'Guidance only', 'model': 'Research model'}.get(method, label)
+    if len(probs) == 2:
+        a, b = probs
+        if pick in (0, 1):
+            picked = names[pick]
+            other = names[1 - pick]
+            pick_line = (f'Pick <strong>{e(picked)} {a * 100 if pick == 0 else b * 100:.1f}%</strong>'
+                         f' · {e(other)} {b * 100 if pick == 0 else a * 100:.1f}%')
+        else:
+            pick_line = (f'Even estimate · no side · {e(names[0])} {a * 100:.1f}%'
+                         f' / {e(names[1])} {b * 100:.1f}%')
+    else:
+        pick_line = 'No probability published for this row'
+    tried = []
+    seen = set()
+    for r in (match.get('research') or []):
+        stage = str(r.get('stage') or '').strip()
+        status = str(r.get('status') or 'unknown')
+        if not stage or (stage, status) in seen:
+            continue
+        seen.add((stage, status))
+        tried.append(f'<span class="tried-chip {e(status)}">{e(stage)} · {e(status)}</span>')
+        if len(tried) >= 5:
+            break
+    tried_html = ''.join(tried) or '<span class="tried-chip unresolved">No source returned a usable pair</span>'
+    return (f'<li class="unresolved-summary-card" id="researched-{e(match.get("id"))}">'
+            f'<div class="unresolved-summary-head"><span class="comp">'
+            f'{e(match.get("competition") or "Unverified tournament")}</span>'
+            f'<span class="badge {badge_class}">{e(badge_label)}</span></div>'
+            f'<h3>{e(names[0])} <span class="versus">vs</span> {e(names[1])}</h3>'
+            f'<p class="unresolved-when">'
+            f'{local_time(match.get("starts_at")) if match.get("starts_at") else "Start time unverified"}'
+            f' · {pick_line}</p>'
+            f'<p class="tiny fallback-why"><strong>Why not the featured line:</strong> '
+            f'{e(_featured_line_gap(match))}</p>'
+            f'<div class="unresolved-tried">{tried_html}</div>'
+            f'<p class="unresolved-links">{link}'
+            f'<a class="internal-link" href="{prefix}origination/#match-{e(match.get("id"))}">'
+            f'Full trail {icon("arrow")}</a></p></li>')
+
+
+def snapshot_reconciliation(data: dict, complete: dict, researched: int, prefix: str = '') -> str:
+    """Explain the two published records side by side, without merging them.
+
+    The collected snapshot counts the featured-line path; the board counts the
+    complete researched list. A reader comparing /snapshot.json with this page
+    sees different pick totals, so the difference is stated with both numbers
+    instead of being left to look like an inconsistency.
+    """
+    snap = data.get('counts') or {}
+    board = complete.get('counts') or {}
+    snap_picks = snap.get('picks')
+    snap_unresolved = snap.get('unresolved')
+    if snap_picks is None or not snap_unresolved:
+        return ''
+    board_active = board.get('active')
+    board_with = board.get('with_pick')
+    return ('<p class="tiny muted" id="snapshot-reconciliation">'
+            f'<strong>Two records, two counts.</strong> The collected snapshot '
+            f'(<a class="internal-link" href="{prefix}snapshot.json">snapshot.json</a>) records '
+            f'{e(snap_picks)} fixture(s) priced by the featured line and {e(snap_unresolved)} without one. This board '
+            f'resolves {e(board_with if board_with is not None else researched)} of '
+            f'{e(board_active if board_active is not None else researched)} active fixtures, and '
+            f'{e(researched)} of the snapshot\'s {e(snap_unresolved)} featured-line gap(s) carry a researched estimate '
+            'below, with its own source and limitation. Both files stay downloadable and neither number is rounded '
+            'into the other.</p>')
 
 
 def source_probe_block(data, prefix):
@@ -2068,8 +2181,7 @@ def unresolved_register(data, prefix, title='Unresolved picks &amp; limitations'
                 counts[label] = counts.get(label, 0) + 1
                 link = (f'<a class="source-link" href="{e(url)}" target="_blank" rel="noopener noreferrer">'
                         f'{e(source)}{icon("external")}</a>' if url else '')
-                items.append(f'<li><a class="internal-link" href="{prefix}origination/#match-{e(m.get("id"))}">'
-                             f'{e(n[0])} vs {e(n[1])}</a> <span class="method-note">· {e(label)}</span> {link}</li>')
+                items.append(fallback_card(m, prefix, n, label, link))
             summary = ', '.join(f'{count} from {label}' for label, count in sorted(counts.items(), key=lambda x: (-x[1], x[0])))
             money_methods = {'market', 'bookmaker', 'consensus', 'reference'}
             kinds = {(m.get('origination') or {}).get('method') in money_methods for m in closed}
@@ -2086,7 +2198,8 @@ def unresolved_register(data, prefix, title='Unresolved picks &amp; limitations'
                      f'<strong>{len(closed)}</strong> fixture(s) without a pick. Each now carries a researched estimate '
                      f'from a named source, read from the published rows: <strong>{e(summary)}</strong>. {nature} '
                      'Every figure keeps its own source and limitation on the origination card. No line is invented.</p>'
-                     '<ul class="researched-methods">' + ''.join(items) + '</ul>')
+                     + snapshot_reconciliation(data, complete, len(closed), prefix)
+                     + '<ul class="unresolved-summary-list researched-cards">' + ''.join(items) + '</ul>')
         out.append('<div class="ok-note"><strong>No unresolved fixtures in this snapshot.</strong> '
                    f'All {active} active Hotspawn CS2 fixtures carry a sourced estimate as of '
                    f'{local_time(complete.get("generated_at") or data.get("generated_at"))}. '

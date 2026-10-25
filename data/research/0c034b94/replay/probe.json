@@ -1,0 +1,551 @@
+{
+  "session": "arena-0c034b94",
+  "purpose": "Record what Hotspawn, HLTV and esportsbook surfaces publish for the live CS2 fixtures whose pick is not a featured market line. Facts only: no probability, pick or alias is written here.",
+  "observed_at": "2026-10-25T14:04:51Z",
+  "mode": "parse-raw",
+  "sources": [
+    {
+      "label": "published latest.json",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+      "status": "archived",
+      "raw": "data/research/0c034b94/raw/published-latest-json.json",
+      "observed_at": "2026-10-25T14:04:50Z"
+    },
+    {
+      "label": "published origination.json",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+      "status": "archived",
+      "raw": "data/research/0c034b94/raw/published-origination-json.json",
+      "observed_at": "2026-10-25T14:04:50Z"
+    },
+    {
+      "label": "hotspawn fixtures api",
+      "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "status": "archived",
+      "raw": "data/research/0c034b94/raw/hotspawn-fixtures-api.json",
+      "observed_at": "2026-10-25T14:04:50Z"
+    },
+    {
+      "label": "hotspawn lobby",
+      "url": "https://play.hotspawn.com/lobby?cb=1792937090",
+      "status": "archived",
+      "raw": "data/research/0c034b94/raw/hotspawn-lobby.html.gz",
+      "observed_at": "2026-10-25T14:04:50Z"
+    },
+    {
+      "label": "hltv matches",
+      "url": "https://www.hltv.org/matches",
+      "status": "archived",
+      "raw": "data/research/0c034b94/raw/hltv-matches.html.gz",
+      "observed_at": "2026-10-25T14:04:50Z"
+    },
+    {
+      "label": "hltv ranking 0",
+      "url": "https://www.hltv.org/ranking/teams",
+      "status": "archived",
+      "raw": "data/research/0c034b94/raw/hltv-ranking-0.html.gz",
+      "observed_at": "2026-10-25T14:04:50Z"
+    },
+    {
+      "label": "egamersworld matches",
+      "url": "https://egamersworld.com/counterstrike/matches",
+      "status": "error",
+      "error": "not archived",
+      "observed_at": "2026-10-25T14:04:51Z"
+    },
+    {
+      "label": "polymarket cs2 tag",
+      "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100",
+      "status": "archived",
+      "raw": "data/research/0c034b94/raw/polymarket-cs2-tag.json",
+      "observed_at": "2026-10-25T14:04:51Z"
+    }
+  ],
+  "summary": {
+    "published": {
+      "latest_generated_at": "2026-10-25T05:12:25Z",
+      "complete_generated_at": "2026-10-25T05:12:40Z",
+      "complete_rows": 18,
+      "complete_unresolved_ids": [],
+      "complete_methods": [
+        "bookmaker",
+        "consensus",
+        "market",
+        "model"
+      ]
+    },
+    "hotspawn": {
+      "api_records": 78,
+      "api_records_not_open_or_incomplete": 62,
+      "api_open_fixtures": 16,
+      "api_open_ids": [
+        "1079199",
+        "1086696",
+        "1081158",
+        "1082697",
+        "1079200",
+        "1086697",
+        "1082858",
+        "1082859",
+        "1082860",
+        "1082861",
+        "1082897",
+        "1082898",
+        "1082900",
+        "1082901",
+        "1082792",
+        "1082793"
+      ],
+      "lobby_fixture_ids": [
+        "1079199",
+        "1079200",
+        "1081158",
+        "1082697",
+        "1082792",
+        "1082793",
+        "1082858",
+        "1082859",
+        "1082860",
+        "1082861",
+        "1082897",
+        "1082898",
+        "1082900",
+        "1082901",
+        "1086696",
+        "1086697"
+      ],
+      "open_not_in_lobby": [],
+      "lobby_not_open_in_api": []
+    },
+    "coverage": {
+      "open_without_published_row": [
+        {
+          "id": "1086696",
+          "teams": [
+            "BORRACHEIROS",
+            "RED Canids Academy"
+          ],
+          "competition": "CCT South America 2026 Series #7",
+          "tier": "c",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-25T16:00:00Z"
+        },
+        {
+          "id": "1082697",
+          "teams": [
+            "BESTIA",
+            "paiN"
+          ],
+          "competition": "Circuit X Curitiba #4",
+          "tier": "c",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-25T18:00:00Z"
+        },
+        {
+          "id": "1086697",
+          "teams": [
+            "Projeto do KinGui",
+            "Yawara"
+          ],
+          "competition": "CCT South America 2026 Series #7",
+          "tier": "c",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-25T19:00:00Z"
+        }
+      ],
+      "published_open_rows": 13,
+      "published_open_rows_not_in_live_open": [],
+      "live_open_not_in_published_open": [
+        "1082697",
+        "1086696",
+        "1086697"
+      ],
+      "open_without_pick": []
+    },
+    "hltv": {
+      "upcoming_rows_parsed": 35,
+      "ranking_rows_parsed": 253,
+      "ranking_pages": [
+        "https://www.hltv.org/ranking/teams"
+      ]
+    },
+    "esportsbooks": {
+      "egamersworld_ok": false,
+      "polymarket_events_parsed": 25,
+      "polymarket_event_ids": [
+        "244564",
+        "574158",
+        "711265",
+        "714869",
+        "849043",
+        "867405",
+        "927653",
+        "927654",
+        "927655",
+        "928328",
+        "928354",
+        "928355",
+        "928356",
+        "928365",
+        "928366",
+        "928372",
+        "928385",
+        "950129",
+        "1065115",
+        "1070210",
+        "1110479",
+        "1184518",
+        "1184549",
+        "1218363",
+        "1218373"
+      ]
+    },
+    "targets": [
+      {
+        "fixture": {
+          "id": "1086696",
+          "teams": [
+            "BORRACHEIROS",
+            "RED Canids Academy"
+          ],
+          "competition": "CCT South America 2026 Series #7",
+          "tier": "c",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-25T16:00:00Z"
+        },
+        "published": null,
+        "reason": "no published row at all",
+        "hltv_exact": [
+          {
+            "match_id": "2399917",
+            "url": "https://www.hltv.org/matches/2399917/borracheiros-vs-red-canids-academy-cct-2026-south-america-series-7",
+            "teams": [
+              "BORRACHEIROS",
+              "RED Canids Academy"
+            ],
+            "starts_at": "2026-10-25T15:00:00Z",
+            "event": "CCT 2026 South America Series 7",
+            "best_of": "bo3",
+            "live": false,
+            "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399917/borracheiros-vs-red-canids-academy-cct-2026-south-america-series-7",
+            "start_delta_seconds": -3600
+          }
+        ],
+        "hltv_shares_one_name": [],
+        "hltv_betting_analytics": null,
+        "hltv_ranking": {
+          "BORRACHEIROS": {
+            "team": "BORRACHEIROS",
+            "points": 4.0,
+            "team_url": "https://www.hltv.org/team/13902/borracheiros",
+            "rank": 176,
+            "page_url": "https://www.hltv.org/ranking/teams"
+          },
+          "RED Canids Academy": {
+            "team": "RED Canids Academy",
+            "points": 4.0,
+            "team_url": "https://www.hltv.org/team/13029/red-canids-academy",
+            "rank": 170,
+            "page_url": "https://www.hltv.org/ranking/teams"
+          }
+        }
+      },
+      {
+        "fixture": {
+          "id": "1082697",
+          "teams": [
+            "BESTIA",
+            "paiN"
+          ],
+          "competition": "Circuit X Curitiba #4",
+          "tier": "c",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-25T18:00:00Z"
+        },
+        "published": null,
+        "reason": "no published row at all",
+        "hltv_exact": [
+          {
+            "match_id": "2399819",
+            "url": "https://www.hltv.org/matches/2399819/pain-vs-bestia-circuit-x-curitiba-season-4",
+            "teams": [
+              "paiN",
+              "BESTIA"
+            ],
+            "starts_at": "2026-10-25T18:00:00Z",
+            "event": "Circuit X Curitiba Season 4",
+            "best_of": "bo3",
+            "live": false,
+            "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399819/pain-vs-bestia-circuit-x-curitiba-season-4",
+            "start_delta_seconds": 0
+          }
+        ],
+        "hltv_shares_one_name": [],
+        "hltv_betting_analytics": null,
+        "hltv_ranking": {
+          "BESTIA": {
+            "team": "BESTIA",
+            "points": 12.0,
+            "team_url": "https://www.hltv.org/team/12144/bestia",
+            "rank": 76,
+            "page_url": "https://www.hltv.org/ranking/teams"
+          },
+          "paiN": {
+            "team": "paiN",
+            "points": 55.0,
+            "team_url": "https://www.hltv.org/team/4773/pain",
+            "rank": 32,
+            "page_url": "https://www.hltv.org/ranking/teams"
+          }
+        }
+      },
+      {
+        "fixture": {
+          "id": "1086697",
+          "teams": [
+            "Projeto do KinGui",
+            "Yawara"
+          ],
+          "competition": "CCT South America 2026 Series #7",
+          "tier": "c",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-25T19:00:00Z"
+        },
+        "published": null,
+        "reason": "no published row at all",
+        "hltv_exact": [],
+        "hltv_shares_one_name": [
+          {
+            "match_id": "2399918",
+            "url": "https://www.hltv.org/matches/2399918/tropa-do-kingui-vs-yawara-cct-2026-south-america-series-7",
+            "teams": [
+              "Tropa do KinGui",
+              "Yawara"
+            ],
+            "starts_at": "2026-10-25T18:00:00Z",
+            "event": "CCT 2026 South America Series 7",
+            "best_of": "bo3",
+            "live": false,
+            "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399918/tropa-do-kingui-vs-yawara-cct-2026-south-america-series-7",
+            "start_delta_seconds": -3600
+          }
+        ],
+        "hltv_betting_analytics": null,
+        "hltv_ranking": {
+          "Projeto do KinGui": null,
+          "Yawara": {
+            "team": "Yawara",
+            "points": 4.0,
+            "team_url": "https://www.hltv.org/team/11933/yawara",
+            "rank": 157,
+            "page_url": "https://www.hltv.org/ranking/teams"
+          }
+        }
+      },
+      {
+        "fixture": {
+          "id": "1082861",
+          "teams": [
+            "Rooster",
+            "Abyssal"
+          ],
+          "competition": "DFRAG Invitational 2026",
+          "tier": "b",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-27T03:00:00Z"
+        },
+        "published": {
+          "teams": [
+            "Rooster",
+            "Abyssal"
+          ],
+          "method": "model",
+          "pick_index": 1,
+          "probabilities": [
+            0.47761494,
+            0.52238506
+          ],
+          "starts_at": "2026-10-27T03:00:00Z",
+          "competition": "DFRAG Invitational 2026",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+        },
+        "reason": "published by model",
+        "hltv_exact": [
+          {
+            "match_id": "2399891",
+            "url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+            "teams": [
+              "Rooster",
+              "Abyssal"
+            ],
+            "starts_at": "2026-10-27T03:00:00Z",
+            "event": "DFRAG Invitational 2026",
+            "best_of": "bo3",
+            "live": false,
+            "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+            "start_delta_seconds": 0
+          }
+        ],
+        "hltv_shares_one_name": [],
+        "hltv_betting_analytics": null,
+        "hltv_ranking": {
+          "Rooster": {
+            "team": "Rooster",
+            "points": 3.0,
+            "team_url": "https://www.hltv.org/team/9881/rooster",
+            "rank": 181,
+            "page_url": "https://www.hltv.org/ranking/teams"
+          },
+          "Abyssal": {
+            "team": "Abyssal",
+            "points": 6.0,
+            "team_url": "https://www.hltv.org/team/13686/abyssal",
+            "rank": 128,
+            "page_url": "https://www.hltv.org/ranking/teams"
+          }
+        }
+      },
+      {
+        "fixture": {
+          "id": "1082792",
+          "teams": [
+            "HOTU",
+            "The Huns"
+          ],
+          "competition": "Moscow Cyber Games 2026",
+          "tier": "b",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-31T09:00:00Z"
+        },
+        "published": {
+          "teams": [
+            "HOTU",
+            "The Huns"
+          ],
+          "method": "model",
+          "pick_index": 0,
+          "probabilities": [
+            0.9815743340193211,
+            0.01842566598067885
+          ],
+          "starts_at": "2026-10-31T09:00:00Z",
+          "competition": "Moscow Cyber Games 2026",
+          "source_url": "https://bo3.gg/matches"
+        },
+        "reason": "published by model",
+        "hltv_exact": [
+          {
+            "match_id": "2399437",
+            "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+            "teams": [
+              "HOTU",
+              "The Huns"
+            ],
+            "starts_at": "2026-10-31T09:00:00Z",
+            "event": "GLuck Moscow Cyber Games 2026",
+            "best_of": "bo3",
+            "live": false,
+            "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+            "start_delta_seconds": 0
+          }
+        ],
+        "hltv_shares_one_name": [
+          {
+            "match_id": "2399869",
+            "url": "https://www.hltv.org/matches/2399869/luminosity-vs-hotu-rlg-tesla-cup-2026",
+            "teams": [
+              "Luminosity",
+              "HOTU"
+            ],
+            "starts_at": "2026-10-27T17:00:00Z",
+            "event": "RLG Tesla Cup 2026",
+            "best_of": "bo3",
+            "live": false,
+            "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399869/luminosity-vs-hotu-rlg-tesla-cup-2026",
+            "start_delta_seconds": -316800
+          }
+        ],
+        "hltv_betting_analytics": null,
+        "hltv_ranking": {
+          "HOTU": {
+            "team": "HOTU",
+            "points": 43.0,
+            "team_url": "https://www.hltv.org/team/11581/hotu",
+            "rank": 38,
+            "page_url": "https://www.hltv.org/ranking/teams"
+          },
+          "The Huns": {
+            "team": "The Huns",
+            "points": 5.0,
+            "team_url": "https://www.hltv.org/team/12510/the-huns",
+            "rank": 134,
+            "page_url": "https://www.hltv.org/ranking/teams"
+          }
+        }
+      },
+      {
+        "fixture": {
+          "id": "1082793",
+          "teams": [
+            "5star",
+            "1WIN"
+          ],
+          "competition": "Moscow Cyber Games 2026",
+          "tier": "b",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-31T13:00:00Z"
+        },
+        "published": {
+          "teams": [
+            "5star",
+            "1WIN"
+          ],
+          "method": "model",
+          "pick_index": 1,
+          "probabilities": [
+            0.17816902,
+            0.82183098
+          ],
+          "starts_at": "2026-10-31T13:00:00Z",
+          "competition": "Moscow Cyber Games 2026",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+        },
+        "reason": "published by model",
+        "hltv_exact": [
+          {
+            "match_id": "2399438",
+            "url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+            "teams": [
+              "1win",
+              "5star"
+            ],
+            "starts_at": "2026-10-31T13:00:00Z",
+            "event": "GLuck Moscow Cyber Games 2026",
+            "best_of": "bo3",
+            "live": false,
+            "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+            "start_delta_seconds": 0
+          }
+        ],
+        "hltv_shares_one_name": [],
+        "hltv_betting_analytics": null,
+        "hltv_ranking": {
+          "5star": {
+            "team": "5star",
+            "points": 50.0,
+            "team_url": "https://www.hltv.org/team/13724/5star",
+            "rank": 36,
+            "page_url": "https://www.hltv.org/ranking/teams"
+          },
+          "1WIN": {
+            "team": "1win",
+            "points": 158.0,
+            "team_url": "https://www.hltv.org/team/10621/1win",
+            "rank": 14,
+            "page_url": "https://www.hltv.org/ranking/teams"
+          }
+        }
+      }
+    ]
+  }
+}

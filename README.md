@@ -23,6 +23,46 @@ The observation times and counts on the live site are authoritative for that pub
 
 Every page links and fetches **`/snapshot.json`**, a byte-identical build output of the same observation that is rendered on the page. The tracked `data/latest.json` in this repository is the CI replay fixture; it is deliberately never copied into the published branch root, because rewriting it would break the deterministic replay and the regression tests that assert against it. On 2026-10-23 a legacy root build served that fixture (2026-10-15) under a current page (2026-10-23) — 192.8 hours apart — so the downloadable file was split out and is now carried into the root by `scripts/root_publish.py`. The evidence for that read is in [`data/research/ca7e10e5/`](data/research/ca7e10e5/published-and-coverage.md).
 
+## 25 October session arena-0962d605: the unresolved section now shows the pick, both probabilities and the blocker
+
+The executive summary's separate **Unresolved picks & limitations** section used to answer "why is this row
+not a featured pick?" with a bullet list of names. It now publishes one card per fixture the featured
+exact-name line could not price, carrying the tournament, the method badge (`Prediction-market line`,
+`Esportsbook line`, `Median of books`, `Research model`, `Guidance only`), the teams, **the pick with both
+win probabilities**, the recorded blocker in the provider's own words, every stage that was tried with its
+status, an https source link and a full-trail link. The card reuses the existing responsive register styles,
+so on a phone it stacks to one column and long provider text wraps instead of overflowing. Every card is
+linked from the executive summary banner (`unresolved picks & limits ↓`) and from the register anchor
+`#unresolved-register`.
+
+Two published records are also reconciled there now. The rendered board counts the complete researched list;
+`/snapshot.json` counts the featured-line path. On the 25 October 05:12Z snapshot those were 18/18 with a pick
+versus 16 picks and 2 fixtures without a featured line. The register prints both numbers, the reason for the
+difference, and the cards for the rows that close the gap — so a reader comparing the page with its own data
+download is no longer left with two unexplained counts. Nothing is averaged, re-priced or rounded into the
+other number.
+
+The HLTV-first research behind the two fixtures that did not resolve is published in
+[`data/research/0962d605/gap-research.json`](data/research/0962d605/gap-research.json), with the official
+record and the read time for every figure:
+
+- **1081156 Spirit Academy vs LFO 10** — Polymarket's official event 1243019 starts the fixture at
+  `2026-10-25T12:25:00Z` and quoted Map 1 at `0.999 / 1.000` when read at 13:44Z, i.e. **in play**. Hotspawn
+  schedules it at 12:00Z; the 25-minute disagreement is outside the ladder's 60-second identity window by
+  design (`scripts/originate.py`, `START_TOLERANCE_SEC`). HLTV ranks both sides (#111 / #167) but publishes no
+  points below rank 30, so the ranking rung cannot price it either. No prematch probability is manufactured
+  after the fact.
+- **1082792 HOTU vs The Huns** — the market exists and the identity join is correct (the registered alias
+  `The Huns Esports` → `The Huns` is scoped to Moscow Cyber Games 2026 at the same `09:00Z` start), but the
+  Match Winner book is `0.38 / 0.92` — a **0.54 spread**, far outside the 0.15 ceiling. The published 98.2% is
+  the labelled research model, and it sits about 33 points from the only money observation.
+
+Both rows, the stopped four-hour publisher, the 20-day-old Valve rating input and one platform limitation are
+published on [Flagged for Review](https://buffedlizard55-lab.github.io/MaltaProj3/review/) with their source
+links (`data/research/0962d605/repo-review.json`). `python -m scripts.0962d605_verify --check` replays every
+figure in the dossier and the rendered register contract, and fails closed on a hand-edited spread, a crossed
+book or an invented board probability.
+
 ## Source and probability rules
 
 1. **Complete inventory first, and keep a valid official inventory usable.** The public scheduled-fixture API used by Hotspawn’s own client is the authoritative scheduled inventory. The rendered [Hotspawn lobby](https://play.hotspawn.com/lobby) and [CS2 lobby](https://play.hotspawn.com/cs2-pickems) hydration states are an independent cross-check; when either page is readable it must agree with the API exactly, and a readable page that disagrees still fails the refresh closed. When *no* rendered page can be read (observed HTTP 403 on both pages at 07:16Z on 17 October 2026, while the same API had answered 200 four hours earlier), the validated, duplicate-free API array is published with `inventory_crosscheck: "unavailable"`, a visible notice and a review flag instead of a reconciliation claim, so source-backed picks are not discarded over a secondary page. No pagination was present in the inspected client. A changed schema, duplicate IDs or an empty array still invalidates the refresh; it is never accepted as an empty or partial successful feed. New matches are rediscovered on every successful refresh.
