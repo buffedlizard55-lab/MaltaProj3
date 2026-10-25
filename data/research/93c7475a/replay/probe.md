@@ -1,12 +1,30 @@
 # Live probe — a pick for every Hotspawn CS2 match
 
-Observed 2026-10-25T15:28:14Z (parse-raw).
+Observed 2026-10-25T16:10:38Z (parse-raw).
 Facts only: this file records what each source served. No probability, pick or alias is written here.
 
 ## Sources read
 
 | Source | Status | HTTP | Bytes | SHA-256 |
 | --- | --- | --- | --- | --- |
+| published-latest-json | error | — | — | `—…` |
+| published-snapshot-json | error | — | — | `—…` |
+| published-origination-json | error | — | — | `—…` |
+| hotspawn-fixtures-api | error | — | — | `—…` |
+| hotspawn-lobby | error | — | — | `—…` |
+| hotspawn-cs2-pickems | error | — | — | `—…` |
+| hltv-matches | error | — | — | `—…` |
+| hltv-ranking | error | — | — | `—…` |
+| polymarket-cs2-tag | error | — | — | `—…` |
+| thunderpick-matches | error | — | — | `—…` |
+| kalshi-cs2-events | error | — | — | `—…` |
+| pinnacle-esports | error | — | — | `—…` |
+| smarkets-cs2 | error | — | — | `—…` |
+| bo3gg-matches | error | — | — | `—…` |
+| egamersworld-matches | error | — | — | `—…` |
+| ggbet-cs2 | error | — | — | `—…` |
+| stake-cs2 | error | — | — | `—…` |
+| rivalry-cs2 | error | — | — | `—…` |
 
 ## Coverage
 

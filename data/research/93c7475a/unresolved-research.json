@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "title": "Unresolved and non-featured-line picks \u2014 HLTV first, then the esportsbooks",
-  "prepared_at": "2026-10-25T15:27:55Z",
+  "prepared_at": "2026-10-25T16:10:27Z",
   "research_window": {
-    "from": "2026-10-25T15:27:55Z",
-    "to": "2026-10-25T15:27:55Z"
+    "from": "2026-10-25T16:10:27Z",
+    "to": "2026-10-25T16:10:27Z"
   },
   "prepared_by": "arena-93c7475a",
   "policy": "Dated first-hand research on every open Hotspawn CS2 fixture whose pick is not a featured market line, plus every open fixture missing from the published snapshot. Method order follows the brief: HLTV identity and the official world ranking first, then Polymarket, Thunderpick, Kalshi, Pinnacle, Smarkets, bo3.gg, EGamersWorld, GG.BET, Stake and Rivalry. Every observation carries its own https source and timestamp. Nothing here is a probability invented by this session.",
@@ -17,600 +17,6 @@
     "Valve official regional standings model (exact unique five-player rows only)"
   ],
   "fixtures": [
-    {
-      "hotspawn_id": "1081158",
-      "teams": [
-        "FORZE Reload",
-        "ex-RUSTEC"
-      ],
-      "competition": "CCT Europe 2026 Series #12",
-      "starts_at": "2026-10-25T18:00:00Z",
-      "hltv_url": "https://www.hltv.org/matches/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12",
-      "checks": [
-        {
-          "stage": "HLTV identity",
-          "verdict": "confirmed",
-          "detail": "Exact team names on HLTV's upcoming listing; start time agrees exactly; HLTV lists bo3",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/matches/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12",
-              "source": "HLTV.org match listing",
-              "detail": "Upcoming-match card for these exact two names.",
-              "observed_at": "2026-10-25T15:27:57Z"
-            }
-          ]
-        },
-        {
-          "stage": "HLTV odds comparison",
-          "verdict": "read-but-not-usable",
-          "detail": "HTTP 200; only 1 distinct decimal price(s) on the page (1.23) \u2014 a single repeated placeholder is refused as a two-way line",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/betting/analytics/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12",
-              "source": "HLTV.org odds overview",
-              "detail": "Bookmaker odds-comparison page for the fixture.",
-              "observed_at": "2026-10-25T15:28:02Z"
-            }
-          ]
-        },
-        {
-          "stage": "HLTV world ranking",
-          "verdict": "both-ranked",
-          "detail": "FORZE Reload: rank 80 with 11 points; ex-RUSTEC: rank 70 with 13 points",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/ranking/teams/2026/october/19",
-              "source": "HLTV.org official world ranking",
-              "detail": "253 ranked teams on the dated publication (https://www.hltv.org/ranking/teams/2026/october/19).",
-              "observed_at": "2026-10-25T15:27:58Z"
-            }
-          ]
-        },
-        {
-          "stage": "polymarket-cs2-tag",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100",
-              "source": "Polymarket CS2 tag",
-              "detail": "Polymarket CS2 tag surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:27:59Z"
-            }
-          ]
-        },
-        {
-          "stage": "thunderpick-matches",
-          "verdict": "exact-name-price-observed",
-          "detail": "HTTP 200; 1 row(s) with these exact two names: FORZE Reload 1.65 / ex-RUSTEC 2.1 (start 2026-10-25T18:00:00+00:00). Observed price only \u2014 no probability is derived here and the published pick is unchanged.",
-          "sources": [
-            {
-              "url": "https://thunderpick.io/api/matches",
-              "source": "Thunderpick esportsbook",
-              "detail": "Thunderpick esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            },
-            {
-              "url": "https://thunderpick.io/esports/counter-strike",
-              "source": "Thunderpick esportsbook \u00b7 matched row",
-              "detail": "Row \"FORZE Reload vs ex-RUSTEC\" for these exact two names.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "kalshi-cs2-events",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=200",
-              "source": "Kalshi exchange",
-              "detail": "Kalshi exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "pinnacle-esports",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 204 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://guest.api.arcadia.pinnacle.com/0.1/esports/matchups?sportId=22&live=0",
-              "source": "Pinnacle esportsbook",
-              "detail": "Pinnacle esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "smarkets-cs2",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://api.smarkets.com/v3/events?type=csgo_match&state=upcoming",
-              "source": "Smarkets exchange",
-              "detail": "Smarkets exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "bo3gg-matches",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://bo3.gg/matches",
-              "source": "bo3.gg results feed",
-              "detail": "bo3.gg results feed surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "egamersworld-matches",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://egamersworld.com/counterstrike/matches",
-              "source": "EGamersWorld odds aggregator",
-              "detail": "EGamersWorld odds aggregator surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "ggbet-cs2",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
-              "source": "GG.BET esportsbook",
-              "detail": "GG.BET esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "stake-cs2",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://stake.com/sports/esports/counter-strike",
-              "source": "Stake esportsbook",
-              "detail": "Stake esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "rivalry-cs2",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://www.rivalry.com/esports/counter-strike-betting",
-              "source": "Rivalry esportsbook",
-              "detail": "Rivalry esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "Publisher ladder",
-          "verdict": "no-published-row",
-          "detail": "The four-hour publisher retries every money surface, the Valve official-ratings model and the bo3.gg network/form rungs for this fixture at each refresh. This dossier records what was read, not a number.",
-          "sources": [
-            {
-              "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
-              "source": "Published picks",
-              "detail": "The live pick list this fixture is missing from, or is priced on by a research model.",
-              "observed_at": "2026-10-25T15:27:55Z"
-            }
-          ]
-        }
-      ],
-      "resolution": "expected-at-next-refresh",
-      "resolution_detail": "This fixture is not in the published snapshot at all: it appeared on Hotspawn after the last successful collection. The next scheduled refresh collects it and prices it through the same ladder; no probability is written here in the meantime."
-    },
-    {
-      "hotspawn_id": "1082697",
-      "teams": [
-        "BESTIA",
-        "paiN"
-      ],
-      "competition": "Circuit X Curitiba #4",
-      "starts_at": "2026-10-25T18:00:00Z",
-      "hltv_url": "https://www.hltv.org/matches/2399819/pain-vs-bestia-circuit-x-curitiba-season-4",
-      "checks": [
-        {
-          "stage": "HLTV identity",
-          "verdict": "confirmed",
-          "detail": "Exact team names on HLTV's upcoming listing; start time agrees exactly; HLTV lists bo3",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/matches/2399819/pain-vs-bestia-circuit-x-curitiba-season-4",
-              "source": "HLTV.org match listing",
-              "detail": "Upcoming-match card for these exact two names.",
-              "observed_at": "2026-10-25T15:27:57Z"
-            }
-          ]
-        },
-        {
-          "stage": "HLTV odds comparison",
-          "verdict": "read-but-not-usable",
-          "detail": "HTTP 200; only 1 distinct decimal price(s) on the page (1.23) \u2014 a single repeated placeholder is refused as a two-way line",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/betting/analytics/2399819/pain-vs-bestia-circuit-x-curitiba-season-4",
-              "source": "HLTV.org odds overview",
-              "detail": "Bookmaker odds-comparison page for the fixture.",
-              "observed_at": "2026-10-25T15:28:03Z"
-            }
-          ]
-        },
-        {
-          "stage": "HLTV world ranking",
-          "verdict": "both-ranked",
-          "detail": "BESTIA: rank 76 with 12 points; paiN: rank 32 with 55 points",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/ranking/teams/2026/october/19",
-              "source": "HLTV.org official world ranking",
-              "detail": "253 ranked teams on the dated publication (https://www.hltv.org/ranking/teams/2026/october/19).",
-              "observed_at": "2026-10-25T15:27:58Z"
-            }
-          ]
-        },
-        {
-          "stage": "polymarket-cs2-tag",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100",
-              "source": "Polymarket CS2 tag",
-              "detail": "Polymarket CS2 tag surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:27:59Z"
-            }
-          ]
-        },
-        {
-          "stage": "thunderpick-matches",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://thunderpick.io/api/matches",
-              "source": "Thunderpick esportsbook",
-              "detail": "Thunderpick esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "kalshi-cs2-events",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=200",
-              "source": "Kalshi exchange",
-              "detail": "Kalshi exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "pinnacle-esports",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 204 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://guest.api.arcadia.pinnacle.com/0.1/esports/matchups?sportId=22&live=0",
-              "source": "Pinnacle esportsbook",
-              "detail": "Pinnacle esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "smarkets-cs2",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://api.smarkets.com/v3/events?type=csgo_match&state=upcoming",
-              "source": "Smarkets exchange",
-              "detail": "Smarkets exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "bo3gg-matches",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://bo3.gg/matches",
-              "source": "bo3.gg results feed",
-              "detail": "bo3.gg results feed surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "egamersworld-matches",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://egamersworld.com/counterstrike/matches",
-              "source": "EGamersWorld odds aggregator",
-              "detail": "EGamersWorld odds aggregator surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "ggbet-cs2",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
-              "source": "GG.BET esportsbook",
-              "detail": "GG.BET esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "stake-cs2",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://stake.com/sports/esports/counter-strike",
-              "source": "Stake esportsbook",
-              "detail": "Stake esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "rivalry-cs2",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://www.rivalry.com/esports/counter-strike-betting",
-              "source": "Rivalry esportsbook",
-              "detail": "Rivalry esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "Publisher ladder",
-          "verdict": "no-published-row",
-          "detail": "The four-hour publisher retries every money surface, the Valve official-ratings model and the bo3.gg network/form rungs for this fixture at each refresh. This dossier records what was read, not a number.",
-          "sources": [
-            {
-              "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
-              "source": "Published picks",
-              "detail": "The live pick list this fixture is missing from, or is priced on by a research model.",
-              "observed_at": "2026-10-25T15:27:55Z"
-            }
-          ]
-        }
-      ],
-      "resolution": "expected-at-next-refresh",
-      "resolution_detail": "This fixture is not in the published snapshot at all: it appeared on Hotspawn after the last successful collection. The next scheduled refresh collects it and prices it through the same ladder; no probability is written here in the meantime."
-    },
-    {
-      "hotspawn_id": "1079200",
-      "teams": [
-        "Color",
-        "ex-Zero Tenacity"
-      ],
-      "competition": "NODWIN Clutch Series #13",
-      "starts_at": "2026-10-25T18:00:00Z",
-      "hltv_url": "https://www.hltv.org/matches/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13",
-      "checks": [
-        {
-          "stage": "HLTV identity",
-          "verdict": "confirmed",
-          "detail": "Exact team names on HLTV's upcoming listing; start time agrees exactly; HLTV lists bo3",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/matches/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13",
-              "source": "HLTV.org match listing",
-              "detail": "Upcoming-match card for these exact two names.",
-              "observed_at": "2026-10-25T15:27:57Z"
-            }
-          ]
-        },
-        {
-          "stage": "HLTV odds comparison",
-          "verdict": "read-but-not-usable",
-          "detail": "HTTP 200; only 1 distinct decimal price(s) on the page (1.23) \u2014 a single repeated placeholder is refused as a two-way line",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/betting/analytics/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13",
-              "source": "HLTV.org odds overview",
-              "detail": "Bookmaker odds-comparison page for the fixture.",
-              "observed_at": "2026-10-25T15:28:03Z"
-            }
-          ]
-        },
-        {
-          "stage": "HLTV world ranking",
-          "verdict": "partial-or-unranked",
-          "detail": "Color: no row on this dated publication; ex-Zero Tenacity: rank 67 with 13 points",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/ranking/teams/2026/october/19",
-              "source": "HLTV.org official world ranking",
-              "detail": "253 ranked teams on the dated publication (https://www.hltv.org/ranking/teams/2026/october/19).",
-              "observed_at": "2026-10-25T15:27:58Z"
-            }
-          ]
-        },
-        {
-          "stage": "polymarket-cs2-tag",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100",
-              "source": "Polymarket CS2 tag",
-              "detail": "Polymarket CS2 tag surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:27:59Z"
-            }
-          ]
-        },
-        {
-          "stage": "thunderpick-matches",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://thunderpick.io/api/matches",
-              "source": "Thunderpick esportsbook",
-              "detail": "Thunderpick esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "kalshi-cs2-events",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=200",
-              "source": "Kalshi exchange",
-              "detail": "Kalshi exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "pinnacle-esports",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 204 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://guest.api.arcadia.pinnacle.com/0.1/esports/matchups?sportId=22&live=0",
-              "source": "Pinnacle esportsbook",
-              "detail": "Pinnacle esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "smarkets-cs2",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://api.smarkets.com/v3/events?type=csgo_match&state=upcoming",
-              "source": "Smarkets exchange",
-              "detail": "Smarkets exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "bo3gg-matches",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://bo3.gg/matches",
-              "source": "bo3.gg results feed",
-              "detail": "bo3.gg results feed surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "egamersworld-matches",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://egamersworld.com/counterstrike/matches",
-              "source": "EGamersWorld odds aggregator",
-              "detail": "EGamersWorld odds aggregator surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "ggbet-cs2",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
-              "source": "GG.BET esportsbook",
-              "detail": "GG.BET esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "stake-cs2",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://stake.com/sports/esports/counter-strike",
-              "source": "Stake esportsbook",
-              "detail": "Stake esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "rivalry-cs2",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://www.rivalry.com/esports/counter-strike-betting",
-              "source": "Rivalry esportsbook",
-              "detail": "Rivalry esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "Publisher ladder",
-          "verdict": "no-published-row",
-          "detail": "The four-hour publisher retries every money surface, the Valve official-ratings model and the bo3.gg network/form rungs for this fixture at each refresh. This dossier records what was read, not a number.",
-          "sources": [
-            {
-              "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
-              "source": "Published picks",
-              "detail": "The live pick list this fixture is missing from, or is priced on by a research model.",
-              "observed_at": "2026-10-25T15:27:55Z"
-            }
-          ]
-        }
-      ],
-      "resolution": "expected-at-next-refresh",
-      "resolution_detail": "This fixture is not in the published snapshot at all: it appeared on Hotspawn after the last successful collection. The next scheduled refresh collects it and prices it through the same ladder; no probability is written here in the meantime."
-    },
     {
       "hotspawn_id": "1086697",
       "teams": [
@@ -630,7 +36,7 @@
               "url": "https://www.hltv.org/matches/2399918/tropa-do-kingui-vs-yawara-cct-2026-south-america-series-7",
               "source": "HLTV.org match listing",
               "detail": "Nearest HLTV row sharing one team name (review only).",
-              "observed_at": "2026-10-25T15:27:57Z"
+              "observed_at": "2026-10-25T16:10:29Z"
             }
           ]
         },
@@ -643,7 +49,7 @@
               "url": "https://www.hltv.org/betting/analytics/2399918/tropa-do-kingui-vs-yawara-cct-2026-south-america-series-7",
               "source": "HLTV.org odds overview",
               "detail": "Bookmaker odds-comparison page for the fixture.",
-              "observed_at": "2026-10-25T15:28:04Z"
+              "observed_at": "2026-10-25T16:10:34Z"
             }
           ]
         },
@@ -656,7 +62,7 @@
               "url": "https://www.hltv.org/ranking/teams/2026/october/19",
               "source": "HLTV.org official world ranking",
               "detail": "253 ranked teams on the dated publication (https://www.hltv.org/ranking/teams/2026/october/19).",
-              "observed_at": "2026-10-25T15:27:58Z"
+              "observed_at": "2026-10-25T16:10:30Z"
             }
           ]
         },
@@ -669,7 +75,7 @@
               "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100",
               "source": "Polymarket CS2 tag",
               "detail": "Polymarket CS2 tag surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:27:59Z"
+              "observed_at": "2026-10-25T16:10:31Z"
             }
           ]
         },
@@ -682,7 +88,7 @@
               "url": "https://thunderpick.io/api/matches",
               "source": "Thunderpick esportsbook",
               "detail": "Thunderpick esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
+              "observed_at": "2026-10-25T16:10:31Z"
             }
           ]
         },
@@ -695,7 +101,7 @@
               "url": "https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=200",
               "source": "Kalshi exchange",
               "detail": "Kalshi exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
+              "observed_at": "2026-10-25T16:10:31Z"
             }
           ]
         },
@@ -708,7 +114,7 @@
               "url": "https://guest.api.arcadia.pinnacle.com/0.1/esports/matchups?sportId=22&live=0",
               "source": "Pinnacle esportsbook",
               "detail": "Pinnacle esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
+              "observed_at": "2026-10-25T16:10:32Z"
             }
           ]
         },
@@ -721,7 +127,7 @@
               "url": "https://api.smarkets.com/v3/events?type=csgo_match&state=upcoming",
               "source": "Smarkets exchange",
               "detail": "Smarkets exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
+              "observed_at": "2026-10-25T16:10:32Z"
             }
           ]
         },
@@ -734,7 +140,7 @@
               "url": "https://bo3.gg/matches",
               "source": "bo3.gg results feed",
               "detail": "bo3.gg results feed surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
+              "observed_at": "2026-10-25T16:10:32Z"
             }
           ]
         },
@@ -747,7 +153,7 @@
               "url": "https://egamersworld.com/counterstrike/matches",
               "source": "EGamersWorld odds aggregator",
               "detail": "EGamersWorld odds aggregator surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
+              "observed_at": "2026-10-25T16:10:32Z"
             }
           ]
         },
@@ -760,7 +166,7 @@
               "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
               "source": "GG.BET esportsbook",
               "detail": "GG.BET esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
+              "observed_at": "2026-10-25T16:10:33Z"
             }
           ]
         },
@@ -773,7 +179,7 @@
               "url": "https://stake.com/sports/esports/counter-strike",
               "source": "Stake esportsbook",
               "detail": "Stake esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
+              "observed_at": "2026-10-25T16:10:33Z"
             }
           ]
         },
@@ -786,7 +192,7 @@
               "url": "https://www.rivalry.com/esports/counter-strike-betting",
               "source": "Rivalry esportsbook",
               "detail": "Rivalry esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
+              "observed_at": "2026-10-25T16:10:33Z"
             }
           ]
         },
@@ -799,13 +205,13 @@
               "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
               "source": "Published picks",
               "detail": "The live pick list this fixture is missing from, or is priced on by a research model.",
-              "observed_at": "2026-10-25T15:27:55Z"
+              "observed_at": "2026-10-25T16:10:27Z"
             }
           ]
         }
       ],
       "resolution": "expected-at-next-refresh",
-      "resolution_detail": "This fixture is not in the published snapshot at all: it appeared on Hotspawn after the last successful collection. The next scheduled refresh collects it and prices it through the same ladder; no probability is written here in the meantime."
+      "resolution_detail": "The dashboard feed (snapshot.json) carries a row for this fixture but no pick on it, so the ladder returned nothing usable at the last collection. The next scheduled refresh re-attempts it through the same ladder; no probability is written here in the meantime."
     },
     {
       "hotspawn_id": "1082858",
@@ -826,7 +232,7 @@
               "url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
               "source": "HLTV.org match listing",
               "detail": "Upcoming-match card for these exact two names.",
-              "observed_at": "2026-10-25T15:27:57Z"
+              "observed_at": "2026-10-25T16:10:29Z"
             }
           ]
         },
@@ -839,7 +245,7 @@
               "url": "https://www.hltv.org/betting/analytics/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
               "source": "HLTV.org odds overview",
               "detail": "Bookmaker odds-comparison page for the fixture.",
-              "observed_at": "2026-10-25T15:28:05Z"
+              "observed_at": "2026-10-25T16:10:35Z"
             }
           ]
         },
@@ -852,7 +258,7 @@
               "url": "https://www.hltv.org/ranking/teams/2026/october/19",
               "source": "HLTV.org official world ranking",
               "detail": "253 ranked teams on the dated publication (https://www.hltv.org/ranking/teams/2026/october/19).",
-              "observed_at": "2026-10-25T15:27:58Z"
+              "observed_at": "2026-10-25T16:10:30Z"
             }
           ]
         },
@@ -865,7 +271,7 @@
               "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100",
               "source": "Polymarket CS2 tag",
               "detail": "Polymarket CS2 tag surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:27:59Z"
+              "observed_at": "2026-10-25T16:10:31Z"
             }
           ]
         },
@@ -878,7 +284,7 @@
               "url": "https://thunderpick.io/api/matches",
               "source": "Thunderpick esportsbook",
               "detail": "Thunderpick esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
+              "observed_at": "2026-10-25T16:10:31Z"
             }
           ]
         },
@@ -891,7 +297,7 @@
               "url": "https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=200",
               "source": "Kalshi exchange",
               "detail": "Kalshi exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
+              "observed_at": "2026-10-25T16:10:31Z"
             }
           ]
         },
@@ -904,7 +310,7 @@
               "url": "https://guest.api.arcadia.pinnacle.com/0.1/esports/matchups?sportId=22&live=0",
               "source": "Pinnacle esportsbook",
               "detail": "Pinnacle esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
+              "observed_at": "2026-10-25T16:10:32Z"
             }
           ]
         },
@@ -917,13 +323,13 @@
               "url": "https://api.smarkets.com/v3/events?type=csgo_match&state=upcoming",
               "source": "Smarkets exchange",
               "detail": "Smarkets exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
+              "observed_at": "2026-10-25T16:10:32Z"
             },
             {
               "url": "https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-a/2026/10/26/03-00/ground-zero-vs-off-chops",
               "source": "Smarkets exchange \u00b7 matched row",
               "detail": "Row \"Ground Zero vs Off Chops\" for these exact two names.",
-              "observed_at": "2026-10-25T15:28:00Z"
+              "observed_at": "2026-10-25T16:10:32Z"
             }
           ]
         },
@@ -936,7 +342,7 @@
               "url": "https://bo3.gg/matches",
               "source": "bo3.gg results feed",
               "detail": "bo3.gg results feed surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
+              "observed_at": "2026-10-25T16:10:32Z"
             }
           ]
         },
@@ -949,7 +355,7 @@
               "url": "https://egamersworld.com/counterstrike/matches",
               "source": "EGamersWorld odds aggregator",
               "detail": "EGamersWorld odds aggregator surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
+              "observed_at": "2026-10-25T16:10:32Z"
             }
           ]
         },
@@ -962,7 +368,7 @@
               "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
               "source": "GG.BET esportsbook",
               "detail": "GG.BET esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
+              "observed_at": "2026-10-25T16:10:33Z"
             }
           ]
         },
@@ -975,7 +381,7 @@
               "url": "https://stake.com/sports/esports/counter-strike",
               "source": "Stake esportsbook",
               "detail": "Stake esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
+              "observed_at": "2026-10-25T16:10:33Z"
             }
           ]
         },
@@ -988,7 +394,7 @@
               "url": "https://www.rivalry.com/esports/counter-strike-betting",
               "source": "Rivalry esportsbook",
               "detail": "Rivalry esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
+              "observed_at": "2026-10-25T16:10:33Z"
             }
           ]
         },
@@ -1001,423 +407,13 @@
               "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
               "source": "Published picks",
               "detail": "The live pick list this fixture is missing from, or is priced on by a research model.",
-              "observed_at": "2026-10-25T15:27:55Z"
+              "observed_at": "2026-10-25T16:10:27Z"
             }
           ]
         }
       ],
       "resolution": "expected-at-next-refresh",
-      "resolution_detail": "This fixture is not in the published snapshot at all: it appeared on Hotspawn after the last successful collection. The next scheduled refresh collects it and prices it through the same ladder; no probability is written here in the meantime."
-    },
-    {
-      "hotspawn_id": "1082859",
-      "teams": [
-        "NEXVOID",
-        "Alter Ego"
-      ],
-      "competition": "DFRAG Invitational 2026",
-      "starts_at": "2026-10-26T03:00:00Z",
-      "hltv_url": "https://www.hltv.org/matches/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026",
-      "checks": [
-        {
-          "stage": "HLTV identity",
-          "verdict": "confirmed",
-          "detail": "Exact team names on HLTV's upcoming listing; start time agrees exactly; HLTV lists bo3",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/matches/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026",
-              "source": "HLTV.org match listing",
-              "detail": "Upcoming-match card for these exact two names.",
-              "observed_at": "2026-10-25T15:27:57Z"
-            }
-          ]
-        },
-        {
-          "stage": "HLTV odds comparison",
-          "verdict": "read-but-not-usable",
-          "detail": "HTTP 200; only 1 distinct decimal price(s) on the page (1.23) \u2014 a single repeated placeholder is refused as a two-way line",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/betting/analytics/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026",
-              "source": "HLTV.org odds overview",
-              "detail": "Bookmaker odds-comparison page for the fixture.",
-              "observed_at": "2026-10-25T15:28:06Z"
-            }
-          ]
-        },
-        {
-          "stage": "HLTV world ranking",
-          "verdict": "both-ranked",
-          "detail": "NEXVOID: rank 77 with 11 points; Alter Ego: rank 132 with 6 points",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/ranking/teams/2026/october/19",
-              "source": "HLTV.org official world ranking",
-              "detail": "253 ranked teams on the dated publication (https://www.hltv.org/ranking/teams/2026/october/19).",
-              "observed_at": "2026-10-25T15:27:58Z"
-            }
-          ]
-        },
-        {
-          "stage": "polymarket-cs2-tag",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100",
-              "source": "Polymarket CS2 tag",
-              "detail": "Polymarket CS2 tag surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:27:59Z"
-            }
-          ]
-        },
-        {
-          "stage": "thunderpick-matches",
-          "verdict": "exact-name-price-observed",
-          "detail": "HTTP 200; 1 row(s) with these exact two names: NEXVOID 1.6 / Alter Ego 2.2 (start 2026-10-26T03:00:00+00:00). Observed price only \u2014 no probability is derived here and the published pick is unchanged.",
-          "sources": [
-            {
-              "url": "https://thunderpick.io/api/matches",
-              "source": "Thunderpick esportsbook",
-              "detail": "Thunderpick esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            },
-            {
-              "url": "https://thunderpick.io/esports/counter-strike",
-              "source": "Thunderpick esportsbook \u00b7 matched row",
-              "detail": "Row \"NEXVOID vs Alter Ego\" for these exact two names.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "kalshi-cs2-events",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=200",
-              "source": "Kalshi exchange",
-              "detail": "Kalshi exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "pinnacle-esports",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 204 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://guest.api.arcadia.pinnacle.com/0.1/esports/matchups?sportId=22&live=0",
-              "source": "Pinnacle esportsbook",
-              "detail": "Pinnacle esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "smarkets-cs2",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://api.smarkets.com/v3/events?type=csgo_match&state=upcoming",
-              "source": "Smarkets exchange",
-              "detail": "Smarkets exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "bo3gg-matches",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://bo3.gg/matches",
-              "source": "bo3.gg results feed",
-              "detail": "bo3.gg results feed surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "egamersworld-matches",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://egamersworld.com/counterstrike/matches",
-              "source": "EGamersWorld odds aggregator",
-              "detail": "EGamersWorld odds aggregator surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "ggbet-cs2",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
-              "source": "GG.BET esportsbook",
-              "detail": "GG.BET esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "stake-cs2",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://stake.com/sports/esports/counter-strike",
-              "source": "Stake esportsbook",
-              "detail": "Stake esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "rivalry-cs2",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://www.rivalry.com/esports/counter-strike-betting",
-              "source": "Rivalry esportsbook",
-              "detail": "Rivalry esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "Publisher ladder",
-          "verdict": "no-published-row",
-          "detail": "The four-hour publisher retries every money surface, the Valve official-ratings model and the bo3.gg network/form rungs for this fixture at each refresh. This dossier records what was read, not a number.",
-          "sources": [
-            {
-              "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
-              "source": "Published picks",
-              "detail": "The live pick list this fixture is missing from, or is priced on by a research model.",
-              "observed_at": "2026-10-25T15:27:55Z"
-            }
-          ]
-        }
-      ],
-      "resolution": "expected-at-next-refresh",
-      "resolution_detail": "This fixture is not in the published snapshot at all: it appeared on Hotspawn after the last successful collection. The next scheduled refresh collects it and prices it through the same ladder; no probability is written here in the meantime."
-    },
-    {
-      "hotspawn_id": "1082860",
-      "teams": [
-        "FlyQuest",
-        "Staqued"
-      ],
-      "competition": "DFRAG Invitational 2026",
-      "starts_at": "2026-10-27T03:00:00Z",
-      "hltv_url": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
-      "checks": [
-        {
-          "stage": "HLTV identity",
-          "verdict": "confirmed",
-          "detail": "Exact team names on HLTV's upcoming listing; start time agrees exactly; HLTV lists bo3",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
-              "source": "HLTV.org match listing",
-              "detail": "Upcoming-match card for these exact two names.",
-              "observed_at": "2026-10-25T15:27:57Z"
-            }
-          ]
-        },
-        {
-          "stage": "HLTV odds comparison",
-          "verdict": "read-but-not-usable",
-          "detail": "HTTP 200; only 1 distinct decimal price(s) on the page (1.23) \u2014 a single repeated placeholder is refused as a two-way line",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/betting/analytics/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
-              "source": "HLTV.org odds overview",
-              "detail": "Bookmaker odds-comparison page for the fixture.",
-              "observed_at": "2026-10-25T15:28:07Z"
-            }
-          ]
-        },
-        {
-          "stage": "HLTV world ranking",
-          "verdict": "partial-or-unranked",
-          "detail": "FlyQuest: rank 61 with 16 points; Staqued: no row on this dated publication",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/ranking/teams/2026/october/19",
-              "source": "HLTV.org official world ranking",
-              "detail": "253 ranked teams on the dated publication (https://www.hltv.org/ranking/teams/2026/october/19).",
-              "observed_at": "2026-10-25T15:27:58Z"
-            }
-          ]
-        },
-        {
-          "stage": "polymarket-cs2-tag",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100",
-              "source": "Polymarket CS2 tag",
-              "detail": "Polymarket CS2 tag surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:27:59Z"
-            }
-          ]
-        },
-        {
-          "stage": "thunderpick-matches",
-          "verdict": "exact-name-price-observed",
-          "detail": "HTTP 200; 1 row(s) with these exact two names: FlyQuest 1.001 / Staqued 12 (start 2026-10-27T03:00:00+00:00). Observed price only \u2014 no probability is derived here and the published pick is unchanged.",
-          "sources": [
-            {
-              "url": "https://thunderpick.io/api/matches",
-              "source": "Thunderpick esportsbook",
-              "detail": "Thunderpick esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            },
-            {
-              "url": "https://thunderpick.io/esports/counter-strike",
-              "source": "Thunderpick esportsbook \u00b7 matched row",
-              "detail": "Row \"FlyQuest vs Staqued\" for these exact two names.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "kalshi-cs2-events",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=200",
-              "source": "Kalshi exchange",
-              "detail": "Kalshi exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "pinnacle-esports",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 204 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://guest.api.arcadia.pinnacle.com/0.1/esports/matchups?sportId=22&live=0",
-              "source": "Pinnacle esportsbook",
-              "detail": "Pinnacle esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "smarkets-cs2",
-          "verdict": "exact-name-row-found",
-          "detail": "HTTP 200; 1 row(s) with these exact two names: listed, no price on this endpoint. The row confirms the fixture is listed; this endpoint carries no price for it.",
-          "sources": [
-            {
-              "url": "https://api.smarkets.com/v3/events?type=csgo_match&state=upcoming",
-              "source": "Smarkets exchange",
-              "detail": "Smarkets exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            },
-            {
-              "url": "https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-b/2026/10/27/03-00/flyquest-vs-staqued",
-              "source": "Smarkets exchange \u00b7 matched row",
-              "detail": "Row \"FlyQuest vs Staqued\" for these exact two names.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "bo3gg-matches",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://bo3.gg/matches",
-              "source": "bo3.gg results feed",
-              "detail": "bo3.gg results feed surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "egamersworld-matches",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://egamersworld.com/counterstrike/matches",
-              "source": "EGamersWorld odds aggregator",
-              "detail": "EGamersWorld odds aggregator surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "ggbet-cs2",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
-              "source": "GG.BET esportsbook",
-              "detail": "GG.BET esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "stake-cs2",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://stake.com/sports/esports/counter-strike",
-              "source": "Stake esportsbook",
-              "detail": "Stake esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "rivalry-cs2",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://www.rivalry.com/esports/counter-strike-betting",
-              "source": "Rivalry esportsbook",
-              "detail": "Rivalry esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "Publisher ladder",
-          "verdict": "no-published-row",
-          "detail": "The four-hour publisher retries every money surface, the Valve official-ratings model and the bo3.gg network/form rungs for this fixture at each refresh. This dossier records what was read, not a number.",
-          "sources": [
-            {
-              "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
-              "source": "Published picks",
-              "detail": "The live pick list this fixture is missing from, or is priced on by a research model.",
-              "observed_at": "2026-10-25T15:27:55Z"
-            }
-          ]
-        }
-      ],
-      "resolution": "expected-at-next-refresh",
-      "resolution_detail": "This fixture is not in the published snapshot at all: it appeared on Hotspawn after the last successful collection. The next scheduled refresh collects it and prices it through the same ladder; no probability is written here in the meantime."
+      "resolution_detail": "The dashboard feed (snapshot.json) carries a row for this fixture but no pick on it, so the ladder returned nothing usable at the last collection. The next scheduled refresh re-attempts it through the same ladder; no probability is written here in the meantime."
     },
     {
       "hotspawn_id": "1082861",
@@ -1438,7 +434,7 @@
               "url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
               "source": "HLTV.org match listing",
               "detail": "Upcoming-match card for these exact two names.",
-              "observed_at": "2026-10-25T15:27:57Z"
+              "observed_at": "2026-10-25T16:10:29Z"
             }
           ]
         },
@@ -1451,7 +447,7 @@
               "url": "https://www.hltv.org/betting/analytics/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
               "source": "HLTV.org odds overview",
               "detail": "Bookmaker odds-comparison page for the fixture.",
-              "observed_at": "2026-10-25T15:28:08Z"
+              "observed_at": "2026-10-25T16:10:36Z"
             }
           ]
         },
@@ -1464,7 +460,7 @@
               "url": "https://www.hltv.org/ranking/teams/2026/october/19",
               "source": "HLTV.org official world ranking",
               "detail": "253 ranked teams on the dated publication (https://www.hltv.org/ranking/teams/2026/october/19).",
-              "observed_at": "2026-10-25T15:27:58Z"
+              "observed_at": "2026-10-25T16:10:30Z"
             }
           ]
         },
@@ -1477,7 +473,7 @@
               "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100",
               "source": "Polymarket CS2 tag",
               "detail": "Polymarket CS2 tag surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:27:59Z"
+              "observed_at": "2026-10-25T16:10:31Z"
             }
           ]
         },
@@ -1490,7 +486,7 @@
               "url": "https://thunderpick.io/api/matches",
               "source": "Thunderpick esportsbook",
               "detail": "Thunderpick esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
+              "observed_at": "2026-10-25T16:10:31Z"
             }
           ]
         },
@@ -1503,7 +499,7 @@
               "url": "https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=200",
               "source": "Kalshi exchange",
               "detail": "Kalshi exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
+              "observed_at": "2026-10-25T16:10:31Z"
             }
           ]
         },
@@ -1516,7 +512,7 @@
               "url": "https://guest.api.arcadia.pinnacle.com/0.1/esports/matchups?sportId=22&live=0",
               "source": "Pinnacle esportsbook",
               "detail": "Pinnacle esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
+              "observed_at": "2026-10-25T16:10:32Z"
             }
           ]
         },
@@ -1529,13 +525,13 @@
               "url": "https://api.smarkets.com/v3/events?type=csgo_match&state=upcoming",
               "source": "Smarkets exchange",
               "detail": "Smarkets exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
+              "observed_at": "2026-10-25T16:10:32Z"
             },
             {
               "url": "https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-b/2026/10/27/03-00/rooster-vs-abyssal",
               "source": "Smarkets exchange \u00b7 matched row",
               "detail": "Row \"Rooster vs Abyssal\" for these exact two names.",
-              "observed_at": "2026-10-25T15:28:00Z"
+              "observed_at": "2026-10-25T16:10:32Z"
             }
           ]
         },
@@ -1548,7 +544,7 @@
               "url": "https://bo3.gg/matches",
               "source": "bo3.gg results feed",
               "detail": "bo3.gg results feed surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
+              "observed_at": "2026-10-25T16:10:32Z"
             }
           ]
         },
@@ -1561,7 +557,7 @@
               "url": "https://egamersworld.com/counterstrike/matches",
               "source": "EGamersWorld odds aggregator",
               "detail": "EGamersWorld odds aggregator surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
+              "observed_at": "2026-10-25T16:10:32Z"
             }
           ]
         },
@@ -1574,7 +570,7 @@
               "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
               "source": "GG.BET esportsbook",
               "detail": "GG.BET esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
+              "observed_at": "2026-10-25T16:10:33Z"
             }
           ]
         },
@@ -1587,7 +583,7 @@
               "url": "https://stake.com/sports/esports/counter-strike",
               "source": "Stake esportsbook",
               "detail": "Stake esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
+              "observed_at": "2026-10-25T16:10:33Z"
             }
           ]
         },
@@ -1600,834 +596,26 @@
               "url": "https://www.rivalry.com/esports/counter-strike-betting",
               "source": "Rivalry esportsbook",
               "detail": "Rivalry esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
+              "observed_at": "2026-10-25T16:10:33Z"
             }
           ]
         },
         {
           "stage": "Publisher ladder",
-          "verdict": "no-published-row",
+          "verdict": "pick-not-a-featured-line",
           "detail": "The four-hour publisher retries every money surface, the Valve official-ratings model and the bo3.gg network/form rungs for this fixture at each refresh. This dossier records what was read, not a number.",
           "sources": [
             {
               "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
               "source": "Published picks",
               "detail": "The live pick list this fixture is missing from, or is priced on by a research model.",
-              "observed_at": "2026-10-25T15:27:55Z"
+              "observed_at": "2026-10-25T16:10:27Z"
             }
           ]
         }
       ],
-      "resolution": "expected-at-next-refresh",
-      "resolution_detail": "This fixture is not in the published snapshot at all: it appeared on Hotspawn after the last successful collection. The next scheduled refresh collects it and prices it through the same ladder; no probability is written here in the meantime."
-    },
-    {
-      "hotspawn_id": "1082897",
-      "teams": [
-        "B8",
-        "K27"
-      ],
-      "competition": "Tesla Cup 2026",
-      "starts_at": "2026-10-27T08:00:00Z",
-      "hltv_url": "https://www.hltv.org/matches/2399866/b8-vs-k27-rlg-tesla-cup-2026",
-      "checks": [
-        {
-          "stage": "HLTV identity",
-          "verdict": "confirmed",
-          "detail": "Exact team names on HLTV's upcoming listing; start time agrees exactly; HLTV lists bo3",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/matches/2399866/b8-vs-k27-rlg-tesla-cup-2026",
-              "source": "HLTV.org match listing",
-              "detail": "Upcoming-match card for these exact two names.",
-              "observed_at": "2026-10-25T15:27:57Z"
-            }
-          ]
-        },
-        {
-          "stage": "HLTV odds comparison",
-          "verdict": "read-but-not-usable",
-          "detail": "HTTP 200; only 1 distinct decimal price(s) on the page (1.23) \u2014 a single repeated placeholder is refused as a two-way line",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/betting/analytics/2399866/b8-vs-k27-rlg-tesla-cup-2026",
-              "source": "HLTV.org odds overview",
-              "detail": "Bookmaker odds-comparison page for the fixture.",
-              "observed_at": "2026-10-25T15:28:09Z"
-            }
-          ]
-        },
-        {
-          "stage": "HLTV world ranking",
-          "verdict": "both-ranked",
-          "detail": "B8: rank 21 with 98 points; K27: rank 46 with 32 points",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/ranking/teams/2026/october/19",
-              "source": "HLTV.org official world ranking",
-              "detail": "253 ranked teams on the dated publication (https://www.hltv.org/ranking/teams/2026/october/19).",
-              "observed_at": "2026-10-25T15:27:58Z"
-            }
-          ]
-        },
-        {
-          "stage": "polymarket-cs2-tag",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100",
-              "source": "Polymarket CS2 tag",
-              "detail": "Polymarket CS2 tag surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:27:59Z"
-            }
-          ]
-        },
-        {
-          "stage": "thunderpick-matches",
-          "verdict": "exact-name-price-observed",
-          "detail": "HTTP 200; 1 row(s) with these exact two names: B8 1.62 / K27 2.15 (start 2026-10-27T08:00:00+00:00). Observed price only \u2014 no probability is derived here and the published pick is unchanged.",
-          "sources": [
-            {
-              "url": "https://thunderpick.io/api/matches",
-              "source": "Thunderpick esportsbook",
-              "detail": "Thunderpick esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            },
-            {
-              "url": "https://thunderpick.io/esports/counter-strike",
-              "source": "Thunderpick esportsbook \u00b7 matched row",
-              "detail": "Row \"B8 vs K27\" for these exact two names.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "kalshi-cs2-events",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=200",
-              "source": "Kalshi exchange",
-              "detail": "Kalshi exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "pinnacle-esports",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 204 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://guest.api.arcadia.pinnacle.com/0.1/esports/matchups?sportId=22&live=0",
-              "source": "Pinnacle esportsbook",
-              "detail": "Pinnacle esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "smarkets-cs2",
-          "verdict": "exact-name-row-found",
-          "detail": "HTTP 200; 1 row(s) with these exact two names: listed, no price on this endpoint. The row confirms the fixture is listed; this endpoint carries no price for it.",
-          "sources": [
-            {
-              "url": "https://api.smarkets.com/v3/events?type=csgo_match&state=upcoming",
-              "source": "Smarkets exchange",
-              "detail": "Smarkets exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            },
-            {
-              "url": "https://smarkets.com/sport/esports/cs-go/tesla-cup/group-a/2026/10/27/08-00/b8-vs-k27",
-              "source": "Smarkets exchange \u00b7 matched row",
-              "detail": "Row \"B8 vs K27\" for these exact two names.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "bo3gg-matches",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://bo3.gg/matches",
-              "source": "bo3.gg results feed",
-              "detail": "bo3.gg results feed surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "egamersworld-matches",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://egamersworld.com/counterstrike/matches",
-              "source": "EGamersWorld odds aggregator",
-              "detail": "EGamersWorld odds aggregator surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "ggbet-cs2",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
-              "source": "GG.BET esportsbook",
-              "detail": "GG.BET esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "stake-cs2",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://stake.com/sports/esports/counter-strike",
-              "source": "Stake esportsbook",
-              "detail": "Stake esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "rivalry-cs2",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://www.rivalry.com/esports/counter-strike-betting",
-              "source": "Rivalry esportsbook",
-              "detail": "Rivalry esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "Publisher ladder",
-          "verdict": "no-published-row",
-          "detail": "The four-hour publisher retries every money surface, the Valve official-ratings model and the bo3.gg network/form rungs for this fixture at each refresh. This dossier records what was read, not a number.",
-          "sources": [
-            {
-              "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
-              "source": "Published picks",
-              "detail": "The live pick list this fixture is missing from, or is priced on by a research model.",
-              "observed_at": "2026-10-25T15:27:55Z"
-            }
-          ]
-        }
-      ],
-      "resolution": "expected-at-next-refresh",
-      "resolution_detail": "This fixture is not in the published snapshot at all: it appeared on Hotspawn after the last successful collection. The next scheduled refresh collects it and prices it through the same ladder; no probability is written here in the meantime."
-    },
-    {
-      "hotspawn_id": "1082898",
-      "teams": [
-        "Alliance",
-        "FaZe"
-      ],
-      "competition": "Tesla Cup 2026",
-      "starts_at": "2026-10-27T11:00:00Z",
-      "hltv_url": "https://www.hltv.org/matches/2399867/alliance-vs-faze-rlg-tesla-cup-2026",
-      "checks": [
-        {
-          "stage": "HLTV identity",
-          "verdict": "confirmed",
-          "detail": "Exact team names on HLTV's upcoming listing; start time agrees exactly; HLTV lists bo3",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/matches/2399867/alliance-vs-faze-rlg-tesla-cup-2026",
-              "source": "HLTV.org match listing",
-              "detail": "Upcoming-match card for these exact two names.",
-              "observed_at": "2026-10-25T15:27:57Z"
-            }
-          ]
-        },
-        {
-          "stage": "HLTV odds comparison",
-          "verdict": "read-but-not-usable",
-          "detail": "HTTP 200; only 1 distinct decimal price(s) on the page (1.23) \u2014 a single repeated placeholder is refused as a two-way line",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/betting/analytics/2399867/alliance-vs-faze-rlg-tesla-cup-2026",
-              "source": "HLTV.org odds overview",
-              "detail": "Bookmaker odds-comparison page for the fixture.",
-              "observed_at": "2026-10-25T15:28:10Z"
-            }
-          ]
-        },
-        {
-          "stage": "HLTV world ranking",
-          "verdict": "both-ranked",
-          "detail": "Alliance: rank 29 with 68 points; FaZe: rank 17 with 127 points",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/ranking/teams/2026/october/19",
-              "source": "HLTV.org official world ranking",
-              "detail": "253 ranked teams on the dated publication (https://www.hltv.org/ranking/teams/2026/october/19).",
-              "observed_at": "2026-10-25T15:27:58Z"
-            }
-          ]
-        },
-        {
-          "stage": "polymarket-cs2-tag",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100",
-              "source": "Polymarket CS2 tag",
-              "detail": "Polymarket CS2 tag surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:27:59Z"
-            }
-          ]
-        },
-        {
-          "stage": "thunderpick-matches",
-          "verdict": "exact-name-price-observed",
-          "detail": "HTTP 200; 1 row(s) with these exact two names: Alliance 2.5 / FaZe 1.48 (start 2026-10-27T11:00:00+00:00). Observed price only \u2014 no probability is derived here and the published pick is unchanged.",
-          "sources": [
-            {
-              "url": "https://thunderpick.io/api/matches",
-              "source": "Thunderpick esportsbook",
-              "detail": "Thunderpick esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            },
-            {
-              "url": "https://thunderpick.io/esports/counter-strike",
-              "source": "Thunderpick esportsbook \u00b7 matched row",
-              "detail": "Row \"Alliance vs FaZe\" for these exact two names.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "kalshi-cs2-events",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=200",
-              "source": "Kalshi exchange",
-              "detail": "Kalshi exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "pinnacle-esports",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 204 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://guest.api.arcadia.pinnacle.com/0.1/esports/matchups?sportId=22&live=0",
-              "source": "Pinnacle esportsbook",
-              "detail": "Pinnacle esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "smarkets-cs2",
-          "verdict": "exact-name-row-found",
-          "detail": "HTTP 200; 1 row(s) with these exact two names: listed, no price on this endpoint. The row confirms the fixture is listed; this endpoint carries no price for it.",
-          "sources": [
-            {
-              "url": "https://api.smarkets.com/v3/events?type=csgo_match&state=upcoming",
-              "source": "Smarkets exchange",
-              "detail": "Smarkets exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            },
-            {
-              "url": "https://smarkets.com/sport/esports/cs-go/tesla-cup/group-a/2026/10/27/11-00/alliance-vs-faze",
-              "source": "Smarkets exchange \u00b7 matched row",
-              "detail": "Row \"Alliance vs FaZe\" for these exact two names.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "bo3gg-matches",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://bo3.gg/matches",
-              "source": "bo3.gg results feed",
-              "detail": "bo3.gg results feed surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "egamersworld-matches",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://egamersworld.com/counterstrike/matches",
-              "source": "EGamersWorld odds aggregator",
-              "detail": "EGamersWorld odds aggregator surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "ggbet-cs2",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
-              "source": "GG.BET esportsbook",
-              "detail": "GG.BET esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "stake-cs2",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://stake.com/sports/esports/counter-strike",
-              "source": "Stake esportsbook",
-              "detail": "Stake esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "rivalry-cs2",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://www.rivalry.com/esports/counter-strike-betting",
-              "source": "Rivalry esportsbook",
-              "detail": "Rivalry esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "Publisher ladder",
-          "verdict": "no-published-row",
-          "detail": "The four-hour publisher retries every money surface, the Valve official-ratings model and the bo3.gg network/form rungs for this fixture at each refresh. This dossier records what was read, not a number.",
-          "sources": [
-            {
-              "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
-              "source": "Published picks",
-              "detail": "The live pick list this fixture is missing from, or is priced on by a research model.",
-              "observed_at": "2026-10-25T15:27:55Z"
-            }
-          ]
-        }
-      ],
-      "resolution": "expected-at-next-refresh",
-      "resolution_detail": "This fixture is not in the published snapshot at all: it appeared on Hotspawn after the last successful collection. The next scheduled refresh collects it and prices it through the same ladder; no probability is written here in the meantime."
-    },
-    {
-      "hotspawn_id": "1082900",
-      "teams": [
-        "Luminosity",
-        "HOTU"
-      ],
-      "competition": "Tesla Cup 2026",
-      "starts_at": "2026-10-27T17:00:00Z",
-      "hltv_url": "https://www.hltv.org/matches/2399869/luminosity-vs-hotu-rlg-tesla-cup-2026",
-      "checks": [
-        {
-          "stage": "HLTV identity",
-          "verdict": "confirmed",
-          "detail": "Exact team names on HLTV's upcoming listing; start time agrees exactly; HLTV lists bo3",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/matches/2399869/luminosity-vs-hotu-rlg-tesla-cup-2026",
-              "source": "HLTV.org match listing",
-              "detail": "Upcoming-match card for these exact two names.",
-              "observed_at": "2026-10-25T15:27:57Z"
-            }
-          ]
-        },
-        {
-          "stage": "HLTV odds comparison",
-          "verdict": "read-but-not-usable",
-          "detail": "HTTP 200; only 1 distinct decimal price(s) on the page (1.23) \u2014 a single repeated placeholder is refused as a two-way line",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/betting/analytics/2399869/luminosity-vs-hotu-rlg-tesla-cup-2026",
-              "source": "HLTV.org odds overview",
-              "detail": "Bookmaker odds-comparison page for the fixture.",
-              "observed_at": "2026-10-25T15:28:11Z"
-            }
-          ]
-        },
-        {
-          "stage": "HLTV world ranking",
-          "verdict": "both-ranked",
-          "detail": "Luminosity: rank 28 with 76 points; HOTU: rank 38 with 43 points",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/ranking/teams/2026/october/19",
-              "source": "HLTV.org official world ranking",
-              "detail": "253 ranked teams on the dated publication (https://www.hltv.org/ranking/teams/2026/october/19).",
-              "observed_at": "2026-10-25T15:27:58Z"
-            }
-          ]
-        },
-        {
-          "stage": "polymarket-cs2-tag",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100",
-              "source": "Polymarket CS2 tag",
-              "detail": "Polymarket CS2 tag surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:27:59Z"
-            }
-          ]
-        },
-        {
-          "stage": "thunderpick-matches",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://thunderpick.io/api/matches",
-              "source": "Thunderpick esportsbook",
-              "detail": "Thunderpick esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "kalshi-cs2-events",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=200",
-              "source": "Kalshi exchange",
-              "detail": "Kalshi exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "pinnacle-esports",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 204 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://guest.api.arcadia.pinnacle.com/0.1/esports/matchups?sportId=22&live=0",
-              "source": "Pinnacle esportsbook",
-              "detail": "Pinnacle esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "smarkets-cs2",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://api.smarkets.com/v3/events?type=csgo_match&state=upcoming",
-              "source": "Smarkets exchange",
-              "detail": "Smarkets exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "bo3gg-matches",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://bo3.gg/matches",
-              "source": "bo3.gg results feed",
-              "detail": "bo3.gg results feed surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "egamersworld-matches",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://egamersworld.com/counterstrike/matches",
-              "source": "EGamersWorld odds aggregator",
-              "detail": "EGamersWorld odds aggregator surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "ggbet-cs2",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
-              "source": "GG.BET esportsbook",
-              "detail": "GG.BET esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "stake-cs2",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://stake.com/sports/esports/counter-strike",
-              "source": "Stake esportsbook",
-              "detail": "Stake esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "rivalry-cs2",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://www.rivalry.com/esports/counter-strike-betting",
-              "source": "Rivalry esportsbook",
-              "detail": "Rivalry esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "Publisher ladder",
-          "verdict": "no-published-row",
-          "detail": "The four-hour publisher retries every money surface, the Valve official-ratings model and the bo3.gg network/form rungs for this fixture at each refresh. This dossier records what was read, not a number.",
-          "sources": [
-            {
-              "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
-              "source": "Published picks",
-              "detail": "The live pick list this fixture is missing from, or is priced on by a research model.",
-              "observed_at": "2026-10-25T15:27:55Z"
-            }
-          ]
-        }
-      ],
-      "resolution": "expected-at-next-refresh",
-      "resolution_detail": "This fixture is not in the published snapshot at all: it appeared on Hotspawn after the last successful collection. The next scheduled refresh collects it and prices it through the same ladder; no probability is written here in the meantime."
-    },
-    {
-      "hotspawn_id": "1082901",
-      "teams": [
-        "Envy",
-        "GamerLegion"
-      ],
-      "competition": "Tesla Cup 2026",
-      "starts_at": "2026-10-27T20:00:00Z",
-      "hltv_url": "https://www.hltv.org/matches/2399870/envy-vs-gamerlegion-rlg-tesla-cup-2026",
-      "checks": [
-        {
-          "stage": "HLTV identity",
-          "verdict": "confirmed",
-          "detail": "Exact team names on HLTV's upcoming listing; start time agrees exactly; HLTV lists bo3",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/matches/2399870/envy-vs-gamerlegion-rlg-tesla-cup-2026",
-              "source": "HLTV.org match listing",
-              "detail": "Upcoming-match card for these exact two names.",
-              "observed_at": "2026-10-25T15:27:57Z"
-            }
-          ]
-        },
-        {
-          "stage": "HLTV odds comparison",
-          "verdict": "read-but-not-usable",
-          "detail": "HTTP 200; only 1 distinct decimal price(s) on the page (1.23) \u2014 a single repeated placeholder is refused as a two-way line",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/betting/analytics/2399870/envy-vs-gamerlegion-rlg-tesla-cup-2026",
-              "source": "HLTV.org odds overview",
-              "detail": "Bookmaker odds-comparison page for the fixture.",
-              "observed_at": "2026-10-25T15:28:11Z"
-            }
-          ]
-        },
-        {
-          "stage": "HLTV world ranking",
-          "verdict": "both-ranked",
-          "detail": "Envy: rank 22 with 94 points; GamerLegion: rank 23 with 87 points",
-          "sources": [
-            {
-              "url": "https://www.hltv.org/ranking/teams/2026/october/19",
-              "source": "HLTV.org official world ranking",
-              "detail": "253 ranked teams on the dated publication (https://www.hltv.org/ranking/teams/2026/october/19).",
-              "observed_at": "2026-10-25T15:27:58Z"
-            }
-          ]
-        },
-        {
-          "stage": "polymarket-cs2-tag",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100",
-              "source": "Polymarket CS2 tag",
-              "detail": "Polymarket CS2 tag surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:27:59Z"
-            }
-          ]
-        },
-        {
-          "stage": "thunderpick-matches",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://thunderpick.io/api/matches",
-              "source": "Thunderpick esportsbook",
-              "detail": "Thunderpick esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "kalshi-cs2-events",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=200",
-              "source": "Kalshi exchange",
-              "detail": "Kalshi exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "pinnacle-esports",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 204 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://guest.api.arcadia.pinnacle.com/0.1/esports/matchups?sportId=22&live=0",
-              "source": "Pinnacle esportsbook",
-              "detail": "Pinnacle esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "smarkets-cs2",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://api.smarkets.com/v3/events?type=csgo_match&state=upcoming",
-              "source": "Smarkets exchange",
-              "detail": "Smarkets exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
-            }
-          ]
-        },
-        {
-          "stage": "bo3gg-matches",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://bo3.gg/matches",
-              "source": "bo3.gg results feed",
-              "detail": "bo3.gg results feed surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "egamersworld-matches",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://egamersworld.com/counterstrike/matches",
-              "source": "EGamersWorld odds aggregator",
-              "detail": "EGamersWorld odds aggregator surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "ggbet-cs2",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
-              "source": "GG.BET esportsbook",
-              "detail": "GG.BET esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "stake-cs2",
-          "verdict": "refused-or-failed",
-          "detail": "HTTP 403 \u2014 this surface did not answer the runner, so nothing can be said about its coverage of this fixture. That is a limitation of the runner, not proof that no market exists.",
-          "sources": [
-            {
-              "url": "https://stake.com/sports/esports/counter-strike",
-              "source": "Stake esportsbook",
-              "detail": "Stake esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "rivalry-cs2",
-          "verdict": "reachable-no-exact-row",
-          "detail": "HTTP 200 \u2014 surface readable, but no row with these exact two names at the observation time.",
-          "sources": [
-            {
-              "url": "https://www.rivalry.com/esports/counter-strike-betting",
-              "source": "Rivalry esportsbook",
-              "detail": "Rivalry esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
-            }
-          ]
-        },
-        {
-          "stage": "Publisher ladder",
-          "verdict": "no-published-row",
-          "detail": "The four-hour publisher retries every money surface, the Valve official-ratings model and the bo3.gg network/form rungs for this fixture at each refresh. This dossier records what was read, not a number.",
-          "sources": [
-            {
-              "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
-              "source": "Published picks",
-              "detail": "The live pick list this fixture is missing from, or is priced on by a research model.",
-              "observed_at": "2026-10-25T15:27:55Z"
-            }
-          ]
-        }
-      ],
-      "resolution": "expected-at-next-refresh",
-      "resolution_detail": "This fixture is not in the published snapshot at all: it appeared on Hotspawn after the last successful collection. The next scheduled refresh collects it and prices it through the same ladder; no probability is written here in the meantime."
+      "resolution": "stays-unresolved",
+      "resolution_detail": "A published pick exists but it is not a featured market line \u2014 it comes from an explicitly uncalibrated research rung. Every money surface named above was read at the observation time and returned no compliant two-way price for these exact names. The pick stays as published; this dossier does not replace it."
     },
     {
       "hotspawn_id": "1082792",
@@ -2448,7 +636,7 @@
               "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
               "source": "HLTV.org match listing",
               "detail": "Upcoming-match card for these exact two names.",
-              "observed_at": "2026-10-25T15:27:57Z"
+              "observed_at": "2026-10-25T16:10:29Z"
             }
           ]
         },
@@ -2461,7 +649,7 @@
               "url": "https://www.hltv.org/betting/analytics/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
               "source": "HLTV.org odds overview",
               "detail": "Bookmaker odds-comparison page for the fixture.",
-              "observed_at": "2026-10-25T15:28:12Z"
+              "observed_at": "2026-10-25T16:10:36Z"
             }
           ]
         },
@@ -2474,7 +662,7 @@
               "url": "https://www.hltv.org/ranking/teams/2026/october/19",
               "source": "HLTV.org official world ranking",
               "detail": "253 ranked teams on the dated publication (https://www.hltv.org/ranking/teams/2026/october/19).",
-              "observed_at": "2026-10-25T15:27:58Z"
+              "observed_at": "2026-10-25T16:10:30Z"
             }
           ]
         },
@@ -2487,7 +675,7 @@
               "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100",
               "source": "Polymarket CS2 tag",
               "detail": "Polymarket CS2 tag surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:27:59Z"
+              "observed_at": "2026-10-25T16:10:31Z"
             }
           ]
         },
@@ -2500,7 +688,7 @@
               "url": "https://thunderpick.io/api/matches",
               "source": "Thunderpick esportsbook",
               "detail": "Thunderpick esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
+              "observed_at": "2026-10-25T16:10:31Z"
             }
           ]
         },
@@ -2513,7 +701,7 @@
               "url": "https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=200",
               "source": "Kalshi exchange",
               "detail": "Kalshi exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
+              "observed_at": "2026-10-25T16:10:31Z"
             }
           ]
         },
@@ -2526,7 +714,7 @@
               "url": "https://guest.api.arcadia.pinnacle.com/0.1/esports/matchups?sportId=22&live=0",
               "source": "Pinnacle esportsbook",
               "detail": "Pinnacle esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
+              "observed_at": "2026-10-25T16:10:32Z"
             }
           ]
         },
@@ -2539,7 +727,7 @@
               "url": "https://api.smarkets.com/v3/events?type=csgo_match&state=upcoming",
               "source": "Smarkets exchange",
               "detail": "Smarkets exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
+              "observed_at": "2026-10-25T16:10:32Z"
             }
           ]
         },
@@ -2552,7 +740,7 @@
               "url": "https://bo3.gg/matches",
               "source": "bo3.gg results feed",
               "detail": "bo3.gg results feed surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
+              "observed_at": "2026-10-25T16:10:32Z"
             }
           ]
         },
@@ -2565,7 +753,7 @@
               "url": "https://egamersworld.com/counterstrike/matches",
               "source": "EGamersWorld odds aggregator",
               "detail": "EGamersWorld odds aggregator surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
+              "observed_at": "2026-10-25T16:10:32Z"
             }
           ]
         },
@@ -2578,7 +766,7 @@
               "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
               "source": "GG.BET esportsbook",
               "detail": "GG.BET esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
+              "observed_at": "2026-10-25T16:10:33Z"
             }
           ]
         },
@@ -2591,7 +779,7 @@
               "url": "https://stake.com/sports/esports/counter-strike",
               "source": "Stake esportsbook",
               "detail": "Stake esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
+              "observed_at": "2026-10-25T16:10:33Z"
             }
           ]
         },
@@ -2604,7 +792,7 @@
               "url": "https://www.rivalry.com/esports/counter-strike-betting",
               "source": "Rivalry esportsbook",
               "detail": "Rivalry esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
+              "observed_at": "2026-10-25T16:10:33Z"
             }
           ]
         },
@@ -2617,13 +805,13 @@
               "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
               "source": "Published picks",
               "detail": "The live pick list this fixture is missing from, or is priced on by a research model.",
-              "observed_at": "2026-10-25T15:27:55Z"
+              "observed_at": "2026-10-25T16:10:27Z"
             }
           ]
         }
       ],
       "resolution": "expected-at-next-refresh",
-      "resolution_detail": "This fixture is not in the published snapshot at all: it appeared on Hotspawn after the last successful collection. The next scheduled refresh collects it and prices it through the same ladder; no probability is written here in the meantime."
+      "resolution_detail": "The dashboard feed (snapshot.json) carries a row for this fixture but no pick on it, so the ladder returned nothing usable at the last collection. The next scheduled refresh re-attempts it through the same ladder; no probability is written here in the meantime."
     },
     {
       "hotspawn_id": "1082793",
@@ -2644,7 +832,7 @@
               "url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
               "source": "HLTV.org match listing",
               "detail": "Upcoming-match card for these exact two names.",
-              "observed_at": "2026-10-25T15:27:57Z"
+              "observed_at": "2026-10-25T16:10:29Z"
             }
           ]
         },
@@ -2657,7 +845,7 @@
               "url": "https://www.hltv.org/betting/analytics/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
               "source": "HLTV.org odds overview",
               "detail": "Bookmaker odds-comparison page for the fixture.",
-              "observed_at": "2026-10-25T15:28:13Z"
+              "observed_at": "2026-10-25T16:10:37Z"
             }
           ]
         },
@@ -2670,7 +858,7 @@
               "url": "https://www.hltv.org/ranking/teams/2026/october/19",
               "source": "HLTV.org official world ranking",
               "detail": "253 ranked teams on the dated publication (https://www.hltv.org/ranking/teams/2026/october/19).",
-              "observed_at": "2026-10-25T15:27:58Z"
+              "observed_at": "2026-10-25T16:10:30Z"
             }
           ]
         },
@@ -2683,7 +871,7 @@
               "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100",
               "source": "Polymarket CS2 tag",
               "detail": "Polymarket CS2 tag surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:27:59Z"
+              "observed_at": "2026-10-25T16:10:31Z"
             }
           ]
         },
@@ -2696,7 +884,7 @@
               "url": "https://thunderpick.io/api/matches",
               "source": "Thunderpick esportsbook",
               "detail": "Thunderpick esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
+              "observed_at": "2026-10-25T16:10:31Z"
             }
           ]
         },
@@ -2709,7 +897,7 @@
               "url": "https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=200",
               "source": "Kalshi exchange",
               "detail": "Kalshi exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
+              "observed_at": "2026-10-25T16:10:31Z"
             }
           ]
         },
@@ -2722,7 +910,7 @@
               "url": "https://guest.api.arcadia.pinnacle.com/0.1/esports/matchups?sportId=22&live=0",
               "source": "Pinnacle esportsbook",
               "detail": "Pinnacle esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
+              "observed_at": "2026-10-25T16:10:32Z"
             }
           ]
         },
@@ -2735,7 +923,7 @@
               "url": "https://api.smarkets.com/v3/events?type=csgo_match&state=upcoming",
               "source": "Smarkets exchange",
               "detail": "Smarkets exchange surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:00Z"
+              "observed_at": "2026-10-25T16:10:32Z"
             }
           ]
         },
@@ -2748,7 +936,7 @@
               "url": "https://bo3.gg/matches",
               "source": "bo3.gg results feed",
               "detail": "bo3.gg results feed surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
+              "observed_at": "2026-10-25T16:10:32Z"
             }
           ]
         },
@@ -2761,7 +949,7 @@
               "url": "https://egamersworld.com/counterstrike/matches",
               "source": "EGamersWorld odds aggregator",
               "detail": "EGamersWorld odds aggregator surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
+              "observed_at": "2026-10-25T16:10:32Z"
             }
           ]
         },
@@ -2774,7 +962,7 @@
               "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
               "source": "GG.BET esportsbook",
               "detail": "GG.BET esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
+              "observed_at": "2026-10-25T16:10:33Z"
             }
           ]
         },
@@ -2787,7 +975,7 @@
               "url": "https://stake.com/sports/esports/counter-strike",
               "source": "Stake esportsbook",
               "detail": "Stake esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
+              "observed_at": "2026-10-25T16:10:33Z"
             }
           ]
         },
@@ -2800,26 +988,26 @@
               "url": "https://www.rivalry.com/esports/counter-strike-betting",
               "source": "Rivalry esportsbook",
               "detail": "Rivalry esportsbook surface read for the gap fixtures.",
-              "observed_at": "2026-10-25T15:28:01Z"
+              "observed_at": "2026-10-25T16:10:33Z"
             }
           ]
         },
         {
           "stage": "Publisher ladder",
-          "verdict": "no-published-row",
+          "verdict": "pick-not-a-featured-line",
           "detail": "The four-hour publisher retries every money surface, the Valve official-ratings model and the bo3.gg network/form rungs for this fixture at each refresh. This dossier records what was read, not a number.",
           "sources": [
             {
               "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
               "source": "Published picks",
               "detail": "The live pick list this fixture is missing from, or is priced on by a research model.",
-              "observed_at": "2026-10-25T15:27:55Z"
+              "observed_at": "2026-10-25T16:10:27Z"
             }
           ]
         }
       ],
-      "resolution": "expected-at-next-refresh",
-      "resolution_detail": "This fixture is not in the published snapshot at all: it appeared on Hotspawn after the last successful collection. The next scheduled refresh collects it and prices it through the same ladder; no probability is written here in the meantime."
+      "resolution": "stays-unresolved",
+      "resolution_detail": "A published pick exists but it is not a featured market line \u2014 it comes from an explicitly uncalibrated research rung. Every money surface named above was read at the observation time and returned no compliant two-way price for these exact names. The pick stays as published; this dossier does not replace it."
     }
   ],
   "limitations": [

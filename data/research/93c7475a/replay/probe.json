@@ -1,8 +1,171 @@
 {
   "mode": "parse-raw",
-  "observed_at": "2026-10-25T15:28:14Z",
+  "observed_at": "2026-10-25T16:10:38Z",
   "session": "arena-93c7475a",
-  "sources": [],
+  "sources": [
+    {
+      "archived": true,
+      "http_status": null,
+      "label": "published-latest-json",
+      "observed_at": "archived",
+      "sha256": null,
+      "status": "error",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json"
+    },
+    {
+      "archived": true,
+      "http_status": null,
+      "label": "published-snapshot-json",
+      "observed_at": "archived",
+      "sha256": null,
+      "status": "error",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json"
+    },
+    {
+      "archived": true,
+      "http_status": null,
+      "label": "published-origination-json",
+      "observed_at": "archived",
+      "sha256": null,
+      "status": "error",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json"
+    },
+    {
+      "archived": true,
+      "http_status": null,
+      "label": "hotspawn-fixtures-api",
+      "observed_at": "archived",
+      "sha256": null,
+      "status": "error",
+      "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
+    },
+    {
+      "archived": true,
+      "http_status": null,
+      "label": "hotspawn-lobby",
+      "observed_at": "archived",
+      "sha256": null,
+      "status": "error",
+      "url": "https://play.hotspawn.com/lobby?cb=1792944638"
+    },
+    {
+      "archived": true,
+      "http_status": null,
+      "label": "hotspawn-cs2-pickems",
+      "observed_at": "archived",
+      "sha256": null,
+      "status": "error",
+      "url": "https://play.hotspawn.com/cs2-pickems"
+    },
+    {
+      "archived": true,
+      "http_status": null,
+      "label": "hltv-matches",
+      "observed_at": "archived",
+      "sha256": null,
+      "status": "error",
+      "url": "https://www.hltv.org/matches"
+    },
+    {
+      "archived": true,
+      "http_status": null,
+      "label": "hltv-ranking",
+      "observed_at": "archived",
+      "sha256": null,
+      "status": "error",
+      "url": "https://www.hltv.org/ranking/teams"
+    },
+    {
+      "archived": true,
+      "http_status": null,
+      "label": "polymarket-cs2-tag",
+      "observed_at": "archived",
+      "sha256": null,
+      "status": "error",
+      "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100"
+    },
+    {
+      "archived": true,
+      "http_status": null,
+      "label": "thunderpick-matches",
+      "observed_at": "archived",
+      "sha256": null,
+      "status": "error",
+      "url": "https://thunderpick.io/api/matches"
+    },
+    {
+      "archived": true,
+      "http_status": null,
+      "label": "kalshi-cs2-events",
+      "observed_at": "archived",
+      "sha256": null,
+      "status": "error",
+      "url": "https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=200"
+    },
+    {
+      "archived": true,
+      "http_status": null,
+      "label": "pinnacle-esports",
+      "observed_at": "archived",
+      "sha256": null,
+      "status": "error",
+      "url": "https://guest.api.arcadia.pinnacle.com/0.1/esports/matchups?sportId=22&live=0"
+    },
+    {
+      "archived": true,
+      "http_status": null,
+      "label": "smarkets-cs2",
+      "observed_at": "archived",
+      "sha256": null,
+      "status": "error",
+      "url": "https://api.smarkets.com/v3/events?type=csgo_match&state=upcoming"
+    },
+    {
+      "archived": true,
+      "http_status": null,
+      "label": "bo3gg-matches",
+      "observed_at": "archived",
+      "sha256": null,
+      "status": "error",
+      "url": "https://bo3.gg/matches"
+    },
+    {
+      "archived": true,
+      "http_status": null,
+      "label": "egamersworld-matches",
+      "observed_at": "archived",
+      "sha256": null,
+      "status": "error",
+      "url": "https://egamersworld.com/counterstrike/matches"
+    },
+    {
+      "archived": true,
+      "http_status": null,
+      "label": "ggbet-cs2",
+      "observed_at": "archived",
+      "sha256": null,
+      "status": "error",
+      "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
+    },
+    {
+      "archived": true,
+      "http_status": null,
+      "label": "stake-cs2",
+      "observed_at": "archived",
+      "sha256": null,
+      "status": "error",
+      "url": "https://stake.com/sports/esports/counter-strike"
+    },
+    {
+      "archived": true,
+      "http_status": null,
+      "label": "rivalry-cs2",
+      "observed_at": "archived",
+      "sha256": null,
+      "status": "error",
+      "url": "https://www.rivalry.com/esports/counter-strike-betting"
+    }
+  ],
   "summary": {
     "books": [
       {
@@ -139,17 +302,34 @@
     "coverage": {
       "api_open_fixtures": 0,
       "api_records": 0,
+      "branch_root_feed_sha256": "26914d8df5c5a89bae9b20c109cd307fad227f43a6d60cd69271431b1210c4db",
       "branch_root_generated_at": "2026-10-15T08:36:13Z",
       "branch_root_sha256": "16c4437804abd527dd41c0ec67787911b25868cd7640b76bc1d88147fc224f5d",
+      "cited_age_hours": null,
+      "cited_artifact_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+      "cited_generated_at": null,
+      "cited_inventory_rows": 0,
+      "cited_matches_branch_root": false,
+      "cited_open_rows": 0,
+      "cited_rows_in_open_inventory": 0,
+      "cited_sha256": null,
+      "cited_vs_feed_inventory_delta": null,
+      "cited_vs_feed_open_delta": null,
       "lobby_fixture_ids": 0,
       "lobby_not_open_in_api": [],
       "open_not_in_lobby": [],
       "open_with_non_featured_pick": [],
       "open_without_published_row": [],
+      "published_artifact_url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+      "published_coverage_complete": null,
+      "published_inventory_rows": 0,
       "published_matches_branch_root": false,
+      "published_open_picks": 0,
+      "published_open_rows": 0,
       "published_origination_generated_at": null,
       "published_pick_rows": 0,
       "published_rows_in_open_inventory": 0,
+      "published_run_status": null,
       "published_sha256": null,
       "published_snapshot_age_hours": null,
       "published_snapshot_generated_at": null,
@@ -163,7 +343,7 @@
       "upcoming_rows_parsed": 0
     },
     "mode": "parse-raw",
-    "observed_at": "2026-10-25T15:28:14Z",
+    "observed_at": "2026-10-25T16:10:38Z",
     "purpose": "Record what Hotspawn, HLTV and the esportsbook surfaces publish for the live CS2 fixtures whose pick is not a featured market line, and for every open fixture missing from the published snapshot. Facts only: no probability, pick or alias is written here.",
     "session": "arena-93c7475a",
     "targets": []

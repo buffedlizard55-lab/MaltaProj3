@@ -1,59 +1,54 @@
 [
   {
-    "id": "93c7475a-published-snapshot-outside-freshness-bound",
-    "title": "Published snapshot is 246.9 h old and covers none of the open fixtures",
+    "id": "93c7475a-cited-source-artifact-stale",
+    "title": "Source-citation file data/latest.json is 247.6 h old and disagrees with the dashboard it is cited from",
     "severity": "warning",
-    "detail": "The published dashboard was generated 2026-10-15T08:36:13Z, 246.9 hours before this observation \u2014 outside the 8-hour bound the site itself publishes. 0 of the 14 currently open Hotspawn CS2 fixtures appear in it, so a reader opening the site now sees an old inventory. The served bytes are byte-identical (same SHA-256) to the checked-in branch-root data/latest.json generated 2026-10-15T08:36:13Z, which is the signature of the legacy Pages build republishing the branch root over the verified artifact \u2014 the race documented at length in .github/workflows/pages.yml.",
+    "detail": "data/latest.json is linked from the Flagged for Review page as the source for individual findings, but it was generated 2026-10-15T08:36:13Z \u2014 247.6 hours before this observation, outside the site's own 8-hour bound. At the same moment the dashboard feed (snapshot.json) was 1.6 hours old, so the two artefacts served from the same site disagree. The inventory differs too: 80 rows in the cited artefact against 78 in the feed (17 open rows against 16). A reader following a citation link is handed a different inventory than the dashboard shows. The served bytes are byte-identical (same SHA-256) to the checked-in branch-root data/latest.json generated 2026-10-15T08:36:13Z: the publisher writes the rendered artefacts back to the branch root but never refreshes this source file, so the stale copy is republished unchanged. This does not by itself change any displayed pick \u2014 the pages render from snapshot.json \u2014 but every citation that points here is out of date.",
     "match_ids": [
-      "1081158",
-      "1082697",
-      "1079200",
       "1086697",
       "1082858",
-      "1082859",
-      "1082860",
       "1082861",
-      "1082897",
-      "1082898",
-      "1082900",
-      "1082901",
       "1082792",
       "1082793"
     ],
     "source_urls": [
       "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
-      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-      "https://play.hotspawn.com/lobby"
+      "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
     ],
-    "observed_at": "2026-10-25T15:27:55Z"
+    "observed_at": "2026-10-25T16:10:27Z"
   },
   {
     "id": "93c7475a-open-fixtures-missing-from-snapshot",
-    "title": "14 open Hotspawn CS2 fixture(s) have no published pick row",
+    "title": "3 open Hotspawn CS2 fixture(s) have no published pick row",
     "severity": "warning",
-    "detail": "These fixtures are open on Hotspawn now but absent from the published snapshot, so a reader sees no pick for them: 1081158 FORZE Reload vs ex-RUSTEC; 1082697 BESTIA vs paiN; 1079200 Color vs ex-Zero Tenacity; 1086697 Projeto do KinGui vs Yawara; 1082858 Ground Zero vs Off Chops; 1082859 NEXVOID vs Alter Ego; 1082860 FlyQuest vs Staqued; 1082861 Rooster vs Abyssal; 1082897 B8 vs K27; 1082898 Alliance vs FaZe; 1082900 Luminosity vs HOTU; 1082901 Envy vs GamerLegion; 1082792 HOTU vs The Huns; 1082793 5star vs 1WIN. Cause: the fixture appeared after the last successful collection. The next scheduled refresh collects and prices them.",
+    "detail": "These fixtures are open on Hotspawn now but carry no pick row: 1086697 Projeto do KinGui vs Yawara; 1082858 Ground Zero vs Off Chops; 1082792 HOTU vs The Huns. The dashboard feed shows 13 picks across 16 open rows. Cause: the fixture appeared after the last successful collection, or no rung of the publisher ladder returned a compliant two-way price for it. The next scheduled refresh re-attempts it.",
     "match_ids": [
-      "1081158",
-      "1082697",
-      "1079200",
       "1086697",
       "1082858",
-      "1082859",
-      "1082860",
-      "1082861",
-      "1082897",
-      "1082898",
-      "1082900",
-      "1082901",
-      "1082792",
-      "1082793"
+      "1082792"
     ],
     "source_urls": [
       "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "https://play.hotspawn.com/lobby",
-      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json"
+      "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json"
     ],
-    "observed_at": "2026-10-25T15:27:55Z"
+    "observed_at": "2026-10-25T16:10:27Z"
+  },
+  {
+    "id": "93c7475a-non-featured-line-picks",
+    "title": "2 open fixture(s) carry a pick that is not a featured market line",
+    "severity": "notice",
+    "detail": "Their published pick comes from an explicitly uncalibrated research rung. Every money surface was read at the observation time and returned no compliant two-way price for these exact names: 1082861 Rooster vs Abyssal; 1082793 5star vs 1WIN.",
+    "match_ids": [
+      "1082861",
+      "1082793"
+    ],
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
+      "https://www.hltv.org/matches"
+    ],
+    "observed_at": "2026-10-25T16:10:27Z"
   },
   {
     "id": "93c7475a-esportsbook-surface-refusals",
@@ -67,7 +62,7 @@
       "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
       "https://stake.com/sports/esports/counter-strike"
     ],
-    "observed_at": "2026-10-25T15:27:55Z"
+    "observed_at": "2026-10-25T16:10:27Z"
   },
   {
     "id": "93c7475a-name-mismatch-1086697",
@@ -81,6 +76,6 @@
       "https://www.hltv.org/matches/2399918/tropa-do-kingui-vs-yawara-cct-2026-south-america-series-7",
       "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
     ],
-    "observed_at": "2026-10-25T15:27:55Z"
+    "observed_at": "2026-10-25T16:10:27Z"
   }
 ]
