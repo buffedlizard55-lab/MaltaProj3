@@ -1,0 +1,63 @@
+{
+ "session": "arena-27ac20d6",
+ "snapshot_generated_at": "2026-10-25T05:12:25Z",
+ "snapshot_bound_to_dossier": true,
+ "checks": [
+  {
+   "name": "dossier-integrity",
+   "status": "pass",
+   "detail": "2 researched fixtures, 9 dated source reads, 5 flags - every read and flag carries an https source link"
+  },
+  {
+   "name": "valve-evidence-identities",
+   "status": "pass",
+   "detail": "standings 2026-10-05: The Huns rows [701, 944], HOTU [1437], Spirit Academy [981], LFO rows ['LFO 7', 'LFO 8', 'LFO 9'] (no LFO 10) - the two raw-snapshot blockers reproduce exactly from committed official evidence"
+  },
+  {
+   "name": "valve-crosscheck-1082792",
+   "status": "pass",
+   "detail": "project Valve model (RD 75) on committed points: HOTU 94.1% vs the HLTV-verified #122 core (944 pts), 98.4% vs the #213 core (701 pts); published network figure is 98.2% - direction agrees, magnitude single-sourced"
+  },
+  {
+   "name": "exec-summary-sections",
+   "status": "pass",
+   "detail": "landing page carries start-here, picks-at-a-glance, the separate unresolved register, the no-line register and the fallback register"
+  },
+  {
+   "name": "exec-summary-links",
+   "status": "pass",
+   "detail": "executive summary links one tap to the glance picks, the unresolved register, coverage/refresh status and methodology"
+  },
+  {
+   "name": "glance-rows-sourced",
+   "status": "pass",
+   "detail": "18 glance rows; each carries a state marker, both teams' percentages or an explicit unresolved/even label, an external source link and a live detail anchor"
+  },
+  {
+   "name": "glance-snapshot-parity",
+   "status": "pass",
+   "detail": "glance lists 18 fixtures, snapshot has 18 open - identical sets, no fixture dropped"
+  },
+  {
+   "name": "unresolved-register-names",
+   "status": "pass",
+   "detail": "all 2 raw-unresolved open fixtures are named in the landing-page unresolved register, which states their limitations"
+  },
+  {
+   "name": "valve-replay-model-rows",
+   "status": "pass",
+   "detail": "both Valve-model glance rows (1082793, 1082861) reproduce to within 0.15pp from the committed official standings"
+  },
+  {
+   "name": "snapshot-freshness (info)",
+   "status": "info",
+   "detail": "snapshot 2026-10-25T05:12:25Z is 9.2h old at verification time; published bound is 8h - reported, not failed"
+  }
+ ],
+ "summary": {
+  "pass": 9,
+  "fail": 0,
+  "skip": 0,
+  "info": 1
+ }
+}

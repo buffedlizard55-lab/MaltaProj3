@@ -1,0 +1,165 @@
+{
+  "session": "arena-27ac20d6",
+  "task": "27AC-1 HLTV-first research for the active fixtures the featured method could not resolve; 27AC-2 executive-summary contract",
+  "observed_window_utc": ["2026-10-25T14:17Z", "2026-10-25T14:50Z"],
+  "snapshot_generated_at": "2026-10-25T05:12:25Z",
+  "snapshot_counts": {"inventory": 79, "upcoming": 18, "market": 9, "bookmaker": 2, "model": 5, "unresolved": 2, "picks": 16},
+  "published_layer": "The committed root build (index.html) shows 18 of 18 active fixtures with a directional pick and 0 unresolved: the two raw-unresolved fixtures are resolved by the researched layer, and two featured-model fixtures are upgraded to money-backed consensus lines. Every figure below is quoted from that published build, not recomputed into a new pick.",
+  "method": "HLTV first (match, event and team pages read directly; this environment is not 403'd by HLTV the way the CI runners are), then esportsbooks/exchanges (Polymarket event page, EGamersWorld aggregation, bo3.gg), then the official Valve VRS standings committed at data/evidence/valve-ratings.json (2026-10-05) replayed with the project's own model formula (scripts/domain.py valve_analysis, RD 75). Nothing here writes a probability, a pick or an alias: each read records what the source actually published at observation time, with its URL. HLTV fan votes and Polymarket best-ask displays are recorded as what they are, never as win probabilities.",
+  "fixtures": [
+    {
+      "fixture_id": "1082792",
+      "teams": ["HOTU", "The Huns"],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "featured_status": "unresolved in the raw snapshot: Polymarket book rejected for spread 0.43 over the 0.15 ceiling; Valve cross-check blocked ('The Huns: multiple Valve rosters share this name')",
+      "published": {
+        "pick": "HOTU",
+        "probabilities_percent": [98.2, 1.8],
+        "basis_label": "Researched - own network estimate (bo3.gg finished-series graph)",
+        "origination_card": "origination/index.html#match-1082792"
+      },
+      "reads": [
+        {
+          "source": "HLTV match page",
+          "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+          "observed_at": "2026-10-25T14:17Z",
+          "found": "Fixture confirmed: GLuck Moscow Cyber Games 2026, Best of 3 (LAN) semi-final, 31 Oct 2026 (countdown 5d 18h 43m at read time, i.e. 09:00Z, matching Hotspawn). Lineups: HOTU = dwushka, frontales, mizu, n0rb3r7, kade0; The Huns = Bart4k, controlez, bexyz, Cozen, DarkMeister. Rankings shown on the page: HOTU HLTV #38 / VRS #38; The Huns HLTV #134 / VRS #122. The HLTV betting panel rendered no numeric odds pair (promocode row only). 'Pick a winner' fan vote read HOTU 76.0% / The Huns 24.0%.",
+          "verdict": "Identity evidence. The Huns' playing core matches 4 of 5 players of Valve's 944-point row (#122 in the committed 2026-10-05 standings; DarkMeister in place of Annihilation) and only 2 of 5 of the 701-point row (#213), and HLTV's own VRS link for the team resolves to #122. HOTU's lineup is 5 of 5 of its Valve row (1437 points). The fan vote is sentiment, not a probability; no line is taken from HLTV."
+        },
+        {
+          "source": "Valve official standings (committed evidence, replayed with the project formula)",
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "observed_at": "2026-10-25T14:25Z",
+          "found": "data/evidence/valve-ratings.json (standings 2026-10-05) carries HOTU once (#31, 1437 pts) and The Huns twice (#122, 944 pts, roster Annihilation/Bart4k/bexyz/controlez/Cozen; #213, 701 pts, roster Bart4k/controlez/nin9/sk0R/xerolte). Replaying scripts/domain.py valve_analysis (RD 75): HOTU 94.1% against the #122 roster, 98.4% against the #213 roster.",
+          "verdict": "Cross-check only, computed and labelled as the project's uncalibrated research model. Against the HLTV-verified core the model says 94.1%, i.e. about 4 points below the published network figure. Direction agrees (HOTU)."
+        },
+        {
+          "source": "Polymarket event page (series market exists but is unusably wide)",
+          "url": "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
+          "observed_at": "2026-10-25T14:40Z",
+          "found": "Market exists: 'Counter-Strike: HOTU vs The Huns Esports (BO3) - Moscow Cyber Games Playoffs', scheduled 31 Oct 2026 5:00 AM ET (= 09:00Z), resolution source hltv.org. At read time the moneyline displayed best asks of 92c (HOTU) and 53c (The Huns Esports) on $690 moneyline volume; the two asks sum to 145%, so neither number is a probability. The pipeline's 05:12Z capture recorded bid/ask 0.50/0.93 vs 0.07/0.50 (spread 0.43) and rejected the book under the project's 0.15 ceiling (origination card).",
+          "verdict": "No readable line. The book's shape corroborates HOTU as a strong favourite; no midpoint probability is quoted because a 43-cent-wide book has no meaningful midpoint under the project's own rule."
+        },
+        {
+          "source": "EGamersWorld match page (aggregated bookmaker reference)",
+          "url": "https://egamersworld.com/counterstrike/match/EkalRNMvVx/hotu-vs-the-huns-esports-SfdtzDhiK",
+          "observed_at": "2026-10-25T14:18Z",
+          "found": "Page confirms the fixture (31.10.2026, Bo3, GLuck Moscow Cyber Games 2026) and both lineups exactly as HLTV. The header odds read 1.8 / 1.8, the same placeholder-shaped pair the pipeline's reviewed capture already rejected on the origination card (the EGW index snippet's 1.09/6.60 carries no timezone-qualified bookmaker anchor).",
+          "verdict": "No usable line; independent read agrees with the pipeline's rejection. Recorded as an aggregator inconsistency, not used."
+        },
+        {
+          "source": "bo3.gg fixture and team pages (the published pick's own cited source site)",
+          "url": "https://bo3.gg/matches",
+          "observed_at": "2026-10-25T14:47Z",
+          "found": "No fixture page at the canonical slug bo3.gg/matches/hotu-vs-the-huns-31-10-2026 (HTTP 404 body 'Page not found'). The two human-verification links printed on the published origination card, bo3.gg/teams/2720 ('HOTU rating') and bo3.gg/teams/9127 ('The Huns rating'), also returned 404 bodies at read time.",
+          "verdict": "The model's input data (bo3.gg finished series) is captured as pipeline evidence, but a reader following the card's rating links reaches a dead page. Flagged (27ac20d6-bo3-team-links-404); the estimate itself is neither confirmed nor refuted by this."
+        }
+      ],
+      "verdict": "Pick direction HOTU is corroborated by every source read (HLTV rankings #38 vs #134, the Valve points gap on either roster, the shape of the Polymarket book, EGW's fixture framing). The published 98.2% magnitude rests solely on the project's uncalibrated network fit: the project's own Valve model on the HLTV-verified roster gives 94.1%, and no usable bookmaker or exchange line exists today to arbitrate. The figure is left untouched and flagged for review (27ac20d6-1082792-magnitude). Mechanically this is expected to self-correct: the fixture is six days out and every 4-hour refresh re-runs the ladder, so a tightening Polymarket book (spread <= 0.15) would replace the model number with a market line automatically.",
+      "limitations": [
+        "No exact-five-player HLTV proof exists for The Huns: the event lineup differs from Valve's #122 row by one player (DarkMeister for Annihilation), so the ladder's strict uniqueness rule still cannot take the Valve rung unaided. Disambiguation by 4-of-5 core plus HLTV's own VRS #122 link is recorded here as evidence for a future ladder rung, not applied.",
+        "Valve points used in the cross-check are the committed 2026-10-05 standings; HLTV's live VRS mirror (25 Oct) already ranks HOTU #38, so points have drifted since the file the pipeline used.",
+        "Polymarket figures are best asks on a $690 book, recorded to show why no line could be read; they are not win probabilities.",
+        "Hotspawn best-of was unverified in the snapshot and left blank; HLTV lists this match as Best of 3 (LAN). The snapshot value is not edited from this session."
+      ]
+    },
+    {
+      "fixture_id": "1081156",
+      "teams": ["Spirit Academy", "LFO 10"],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-25T12:00:00Z",
+      "featured_status": "unresolved in the raw snapshot: no exact-name Polymarket fixture; Valve model blocked ('LFO 10: no exact-name Valve rating found'). Locked 2026-10-25T11:54Z, before this session's reads, so no prematch estimate is re-derived here.",
+      "published": {
+        "pick": "Spirit Academy",
+        "probabilities_percent": [69.9, 30.1],
+        "basis_label": "Researched Consensus - median of Polymarket + Kalshi + Smarkets + Bovada via verified alias Sokerorg -> LFO 10",
+        "origination_card": "origination/index.html#match-1081156"
+      },
+      "reads": [
+        {
+          "source": "HLTV team profile (LFO 10)",
+          "url": "https://www.hltv.org/team/14084/lfo-10",
+          "observed_at": "2026-10-25T14:42Z",
+          "found": "LFO 10 is HLTV team 14084 (Sweden). Listed starters dottie, flaw, Sapec, each '10 days' on the team at read time, i.e. the core formed around 15 Oct 2026. HLTV world ranking #167; HLTV's Valve-ranking mirror shows VRS #156 (Europe #111) dated 2026-10-25.",
+          "verdict": "Identity confirmed and the Valve blocker explained: the team's core postdates the committed 2026-10-05 standings file the pipeline used, so 'no exact-name Valve rating' was true of that file. A newer standings file does carry the team (per HLTV's mirror), so a later refresh may resolve the name exactly. No probability is derived from rankings."
+        },
+        {
+          "source": "HLTV event page (CCT 2026 Europe Series 12)",
+          "url": "https://www.hltv.org/events/9457/cct-2026-europe-series-12",
+          "observed_at": "2026-10-25T14:35Z",
+          "found": "Event confirmed (24 teams, $25,000, online Europe, Oct 20 - Nov 1 2026). Both Spirit Academy and LFO 10 are listed participants; the Swiss table shows their 25/10/26 bo3 pairing and LFO 10's earlier results (2-1 vs BAKS on 21/10, 0-2 vs FORZE Reload on 23/10). Spirit Academy is HLTV team 7900; search-indexed HLTV analytics copy for this match framed Spirit Academy as better ranked (#111) and better form, with LFO 10 using stand-ins (Mann3n, L00m1, Toshas).",
+          "verdict": "Fixture identity corroborated on HLTV. The analytics framing is directional context consistent with the published pick, recorded as snippet-level evidence only; the match had already started (12:00Z) so nothing here re-prices it."
+        },
+        {
+          "source": "Valve official standings (committed evidence)",
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "observed_at": "2026-10-25T14:25Z",
+          "found": "The 2026-10-05 file (380 rows) contains Spirit Academy once (#115, 981 pts, roster k0gaSs/Kiryasoo/Netrix/s1nside/VILBy - the same five names HLTV lists as the starting lineup) and LFO 7 (#285, 595), LFO 8 (#279, 602), LFO 9 (#297, 574) - but no LFO 10 row under any name containing 'LFO' or '10'.",
+          "verdict": "The snapshot's stated blocker is exactly reproducible from the committed evidence; the pipeline correctly refused to guess which numbered LFO stack this was."
+        },
+        {
+          "source": "Alias corroboration across the card's own cited books",
+          "url": "https://bo3.gg/matches/spirit-academy-vs-sokerorg-25-10-2026",
+          "observed_at": "2026-10-25T14:32Z",
+          "found": "The published card joins the money lines through the verified registry alias Sokerorg/Sökerorg -> LFO 10: the cited Smarkets market is 'spirit-academy-vs-sokerorg' (25 Oct 12:00), the Bovada event is 'spirit-academy-sokerorg-202610250800', the Kalshi ticker embeds SKRTSA, the Polymarket slug is cs2-tsa-skr2-2026-10-25, and bo3.gg lists the same fixture as spirit-academy-vs-sokerorg-25-10-2026. 'Söker org' is Swedish for 'looking for org' (LFO), and HLTV's LFO 10 is a Swedish free-agent stack.",
+          "verdict": "The alias the consensus rests on is independently plausible from five first-party URLs plus HLTV nationality; the original registry evidence remains the authority and is not re-adjudicated here. Nothing about the median's arithmetic is re-derived from post-start pages."
+        }
+      ],
+      "verdict": "Identity and blocker fully verified; the published resolution path (verified alias into four independent money sources) is the documented ladder behaviour for exactly this situation. The fixture locked before this session began, so the dossier records provenance only. Flagged as information (27ac20d6-lfo10-vrs-now-exists): a future refresh with a post-15-Oct standings file should resolve 'LFO 10' by exact name, retiring this blocker class for the team.",
+      "limitations": [
+        "All reads are post-lock (match started 12:00Z); no prematch price is re-observed and no retrospective probability is manufactured.",
+        "HLTV lists only three starters for LFO 10 plus stand-ins, so even with a newer standings file a roster-exact Valve join may remain unavailable; the exact-name team row is what the model consumes.",
+        "The consensus inputs themselves (four order books at 05:12Z) are pipeline-captured evidence on the origination card; they cannot be re-read after the start and are not re-verified here beyond identity."
+      ]
+    }
+  ],
+  "model_replay": [
+    {
+      "fixture_id": "1082793",
+      "teams": ["5star", "1WIN"],
+      "published_percent": {"5star": 17.8, "1WIN": 82.2},
+      "replay": "Valve rows 5star #80 (1110 pts) and 1win #38 (1383 pts) from data/evidence/valve-ratings.json through scripts/domain.py valve_analysis (RD 75) reproduce 82.2% for 1WIN.",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "verdict": "matches published"
+    },
+    {
+      "fixture_id": "1082861",
+      "teams": ["Rooster", "Abyssal"],
+      "published_percent": {"Rooster": 47.8, "Abyssal": 52.2},
+      "replay": "Valve rows Rooster #205 (718 pts) and Abyssal #195 (734 pts) through the same formula reproduce 52.2% for Abyssal.",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "verdict": "matches published"
+    },
+    {
+      "fixture_id": "1082996",
+      "teams": ["Acend", "UNiTY"],
+      "published_percent": {"Acend": 38.6, "UNiTY": 61.4},
+      "replay": "Not a model row in the published layer. The raw snapshot carries the featured-layer Valve pick (Acend) while the published glance shows UNiTY 61.4%; the origination card documents the upgrade verbatim ('Upgraded from the featured Valve-model estimate (54.2% / 45.8%): the alias-aware research found a verified money-backed line'), so the two layers disagree by design and the card is the reconciliation.",
+      "source_url": "https://polymarket.com/event/cs2-ace1-unity-2026-10-25",
+      "verdict": "explained on its own card; recorded so the raw-vs-published difference is not misread as an error"
+    }
+  ],
+  "provenance_notes": [
+    {
+      "fixture_ids": ["1082859", "1082860"],
+      "note": "The two Thunderpick bookmaker rows link the glance source to the generic endpoint https://thunderpick.io/api/matches rather than a per-match page, and the committed data/evidence/thunderpick-matches.json capture predates both fixtures (it contains FlyQuest but neither NEXVOID/Alter Ego nor Staqued). The verifiable record of the two lines (1.60/2.20 and 1.001/12.00) is the quote block on each origination card. Recorded as a reader-verifiability limitation, not a data error."
+    }
+  ],
+  "executive_summary_contract": {
+    "page": "index.html (committed root build, the same bytes the legacy Pages builder serves)",
+    "checked_at": "2026-10-25T14:50Z",
+    "requirements": [
+      "Landing page leads to the updated picks in one tap: #picks-at-a-glance lists every active fixture with the pick, both teams' win percentages and the basis of the number.",
+      "A separate unresolved-picks register with limitations lives on the same page (#unresolved-register), alongside the no-line register and the fallback register, and the executive banner links to each plus coverage/ and methodology/.",
+      "Every glance row carries a pick marker (or an explicit unresolved/even label), an external source link for the number, and a working 'Full detail' anchor into origination/.",
+      "The glance fixture set equals the snapshot's open fixture set - no fixture silently dropped."
+    ],
+    "result": "Machine-checked by scripts/27ac20d6_verify.py against the committed build; see research.md for the per-check table. The live page read at 14:14Z showed the same structure with 18 rows, 18 directional picks, 0 unresolved, under a staleness banner (snapshot 05:12Z, past the 8-hour bound at read time)."
+  },
+  "freshness_observation": {
+    "live_snapshot_generated_at": "2026-10-25T05:12:25Z",
+    "checked_at": "2026-10-25T14:52Z",
+    "detail": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json serves the same 05:12:25Z snapshot as the repo root, ~9.7 hours old at read time, past the published 8-hour bound; the landing page banner says so ('Do not treat these as current picks'). The unfreeze is owned by PR #328 (arena-824a2780) and PR #332 (arena-0db056f7); this session records the state and re-checks after one merges (task 27AC-3) rather than duplicating their fix."
+  }
+}
