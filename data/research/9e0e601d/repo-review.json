@@ -1,0 +1,173 @@
+{
+  "session": "arena-9e0e601d",
+  "scope": "Independent audit of the deployed CS2 dashboard on 2026-10-25 (15:01Z and 15:04Z observations from a GitHub runner), a full replay of every published method, and the refresh pipeline that is supposed to keep it current every four hours.",
+  "review_clock_utc": "2026-10-25T15:05Z",
+  "method": "Every fact below was read from the live host or the repository at the stamped time; response bodies are archived under data/research/9e0e601d/raw/ with their SHA-256 and the dossiers are replayable offline (python -m scripts.9e0e601d_audit --replay). No probability, pick or alias was written by this session; the publisher's ladder remains the only path to a published number.",
+  "items": [
+    {
+      "id": "9E-R01",
+      "area": "Four-hour publisher blocked by a stale dossier assertion",
+      "status": "fixed",
+      "finding": "The 14:34Z scheduled refresh (run 40202907756) failed at 'Regression tests (repository fixtures, before any cache restore)', so the site would have stopped refreshing again. The failing assertion required fixture 1081156 to be present in the checked-in replay snapshot data/latest.json. That file is the pre-collection fixture and predates the dossier by days, so the assertion could never hold; scripts/0962d605_verify.py even documents that absence must be reported as a note. Reproduced in a clean worktree at origin/main.",
+      "handling": "check_published_estimates now compares only the figures a dossier actually attributes to the board, and requires an https evidence URL plus a UTC observation time when the row is absent from the fixture — exactly the contract in its own docstring. Three regression tests pin the rule, including a mutation case that still fails closed when an estimate has no evidence. No probability, pick, threshold or published number changed.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40202907756",
+          "detail": "The 2026-10-25T14:34:56Z scheduled refresh: the verify-and-deploy job failed at the regression-test step, before collection."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_0962d605_verification.py",
+          "detail": "The assertion that failed: published estimates must match the board, pinned against the mutable pre-collection fixture."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/0962d605/gap-research.json",
+          "detail": "The dossier names two fixtures; 1081156 carries published_estimate: null, so it attributes no figure to the board at all."
+        }
+      ]
+    },
+    {
+      "id": "9E-R02",
+      "area": "Live page linked 15 downloads that answered 404",
+      "status": "needs review",
+      "finding": "The deployed executive summary links 24 local data/... downloads. At 2026-10-25T15:04:56Z, 15 of them answered HTTP 404 on the public host — every saved Polymarket order-book and event capture for the current fixtures (events 1238706, 1238707, 1243020, 1248800, 1249433). The served page is byte-identical to the branch-root index.html (SHA-256 b5db80d4ec3c945483f1d23541a6a843c74bf0ec6aa9df7eed17c6aa4b365466), which proves GitHub Pages is serving the branch root; the root publisher carried the HTML but never the evidence files it references.",
+      "handling": "scripts/root_publish.py now plans every local download the published pages link, and adds it to the branch root when the path is not already tracked by git. Tracked replay fixtures are skipped and printed, so a publish can never overwrite the deterministic fixture that the test suite replays. The build also writes the complete-picks download and the CSV at the site root (origination.json, picks.csv) and the pages link those, so the two downloads a reviewer needs always match the page. Verified by plan-level tests; the 404s disappear on the first root sync after this merge, which this session records below.",
+      "evidence": [
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+          "detail": "Deployed executive summary at 2026-10-25T15:04:56Z; its data/... links were probed individually (see the dossier)."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-event-1249433.json",
+          "detail": "HTTP 404 at 2026-10-25T15:04:56Z — a saved market capture the page presents as evidence."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/9e0e601d/audit.md",
+          "detail": "The dossier lists every probed link with its status, plus the SHA-256 of every response body parsed."
+        }
+      ]
+    },
+    {
+      "id": "9E-R03",
+      "area": "Page and its downloads were different observations",
+      "status": "needs review",
+      "finding": "At 15:01Z and again at 15:04Z the rendered summary reported inventory checked 2026-10-25T14:31:56Z and snapshot.json said 14:32:11Z, while /data/latest.json still reported 2026-10-15T08:36:13Z and /data/origination.json 2026-10-15T09:31:24Z — the checked-in replay fixtures, 245 hours older. Both stayed byte-identical across eleven minutes (SHA-256 16c4437804abd527… and 661ac8ff3a202e6f…), so this is a publishing mode, not a caching artefact: the branch root is being served and it carries only HTML, assets and snapshot.json.",
+      "handling": "The two downloads a reviewer actually needs are now published as build outputs at the site root (origination.json, picks.csv) and linked from the pages, so the complete picks list and the CSV always match the rendered page. /data/latest.json and /data/origination.json are git-tracked replay fixtures and are deliberately not overwritten: doing so would break scripts.build on main and freeze the refresh. No page links /data/latest.json any more; the snapshot download is /snapshot.json, which was current.",
+      "evidence": [
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+          "detail": "observed_at 2026-10-25T15:01:35Z: generated_at 2026-10-15T08:36:13Z while the page beside it reported 14:32:11Z."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+          "detail": "generated_at 2026-10-25T14:32:11Z — the current observation the pages are rendered from."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/9e0e601d/audit.json",
+          "detail": "deployment_parity block records all four artefact clocks and the computed gap for the observation."
+        }
+      ]
+    },
+    {
+      "id": "9E-R04",
+      "area": "Every published number re-derived, including the fallback methods",
+      "status": "verified",
+      "finding": "The existing replay covered only the three featured methods. The complete picks list also publishes consensus medians, relayed and aggregated bookmaker prices, and the repository's own network and form models, which the earlier verifier reported as 'not replayed'. At 15:04:56Z this session re-derived 17/17 complete-list rows and 13/13 featured rows from their own evidence with 0 structural violations: no probability outside (0,1), no pair that fails to sum to 1, no fair_decimal that is not the reciprocal, no pick that fails to select the favourite, no missing https source, no crowd percentage in any input.",
+      "handling": "New scripts/9e0e601d_verify.py replays market midpoints, no-vig odds, consensus medians, Valve/HLTV/network/form models and reference odds, and reports a row it cannot reproduce as 'not replayed' with the reason instead of passing it. 49 offline tests pin every method, its mutation cases and the live-page render contract; the live result is recorded in the dossier.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/9e0e601d/audit.md",
+          "detail": "Replay result for the 2026-10-25T15:04:56Z observation: 17/17 and 13/13 re-derived, 0 violations."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+          "detail": "The featured snapshot the 13 rows were re-derived from."
+        }
+      ]
+    },
+    {
+      "id": "9E-R05",
+      "area": "Live inventory matches the rendered lobby",
+      "status": "verified",
+      "finding": "At 2026-10-25T15:01:35Z the official scheduled-fixture API returned 77 records, of which 15 start in the future; the rendered lobby encoded exactly those 15 fixture ids, with no id present in one set and absent from the other. The rendered executive summary carried 16 glance rows for the snapshot it was built from (14:32Z, before one fixture started), and every row had a deep link to its evidence.",
+      "handling": "Recorded with the observation time, byte count and SHA-256 of both responses under data/research/9e0e601d/raw/. No inventory, probability or pick was written by this audit.",
+      "evidence": [
+        {
+          "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+          "detail": "Official scheduled-fixture feed: 77 records, 15 open, read at 2026-10-25T15:01:35Z."
+        },
+        {
+          "url": "https://play.hotspawn.com/lobby",
+          "detail": "Rendered lobby: the same 15 fixture ids, read at 2026-10-25T15:01:35Z."
+        }
+      ]
+    },
+    {
+      "id": "9E-R06",
+      "area": "One-hour schedule disagreement on fixture 1086696",
+      "status": "needs review",
+      "finding": "Hotspawn schedules BORRACHEIROS vs RED Canids Academy (CCT South America 2026 Series #7) at 2026-10-25T16:00:00Z. HLTV lists the identical pairing at a start 3600 seconds earlier. The project's identity window is 60 seconds, so the two records must not be joined; the fixture is published from Hotspawn's own time and no provider price is bound to it from HLTV's timestamp.",
+      "handling": "Published as a limitation on this register rather than smoothed over. The audit reports the delta for every HLTV join, so the disagreement stays visible on each run.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399917/borracheiros-vs-red-canids-academy-cct-2026-south-america-series-7",
+          "detail": "HLTV's own match page; its start is 3600 s earlier than Hotspawn's 16:00Z for the same pairing."
+        },
+        {
+          "url": "https://play.hotspawn.com/cs2-pickems",
+          "detail": "Hotspawn's CS2 pick'em listing, the source of the fixture's own scheduled start."
+        }
+      ]
+    },
+    {
+      "id": "9E-R07",
+      "area": "Team name differs between Hotspawn and HLTV for 1086697",
+      "status": "needs review",
+      "finding": "Hotspawn lists 'Projeto do KinGui' vs 'Yawara' at 2026-10-25T19:00:00Z. HLTV's upcoming listing carries one of those names against a different opponent, so the audit could not join the fixture to an HLTV match page without inventing an alias. The row is priced from a two-provider consensus, not from an HLTV identity.",
+      "handling": "No alias was added. The reviewed alias registry only accepts an alias with official evidence of the same team in the same competition, and the audit records the join as 'shares one name only'. Flagged for manual review.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches",
+          "detail": "HLTV upcoming listing at 2026-10-25T15:01:37Z; no exact two-name row for this pairing inside the 60 s window."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
+          "detail": "The published complete picks row for 1086697, including the providers behind its 65.1%/34.9% consensus line."
+        }
+      ]
+    },
+    {
+      "id": "9E-R08",
+      "area": "Source access and query-parameter limits on runners",
+      "status": "platform limitation",
+      "finding": "EGamersWorld answered HTTP 403 to the runner on every attempt (15:01:39Z), so its bookmaker average cannot be read automatically and only dated hash-checked captures are usable. Separately, Hotspawn's fixture API answers HTTP 400 when an unknown query parameter is appended: the same URL returned 200 without it and 400 with '&cb=' at 14:53Z. A cache-buster therefore silently empties the inventory rather than failing loudly.",
+      "handling": "The audit requests the documented URL unchanged and sends a no-cache header instead; a test pins the URL so a future cache-buster cannot reintroduce the empty inventory. A 403 is recorded as a limitation of this runner, never as proof that no market exists.",
+      "evidence": [
+        {
+          "url": "https://egamersworld.com/counterstrike/matches",
+          "detail": "HTTP 403 to the GitHub runner at 2026-10-25T15:01:39Z (SHA-256 16d1a4738ef9ab05…)."
+        },
+        {
+          "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+          "detail": "HTTP 200 and 77 records at 15:01:35Z with the documented parameters only; HTTP 400 at 14:53:42Z when '&cb=' was appended."
+        }
+      ]
+    },
+    {
+      "id": "9E-R09",
+      "area": "A two-way price too lopsided to be actionable",
+      "status": "needs review",
+      "finding": "Thunderpick listed FlyQuest vs Staqued (DFRAG Invitational 2026, 2026-10-27T03:00:00Z) at 1.001 / 12.0 at 15:01:38Z. A 12.0 quote for the underdog implies a book that is effectively settled; it is recorded as an observation but it is not a usable win probability and must not become the reason a pick looks certain.",
+      "handling": "Recorded as guidance only. No probability was computed from it by this session, and the publisher's own spread and plausibility gates decide whether any ladder rung may use it.",
+      "evidence": [
+        {
+          "url": "https://thunderpick.io/api/matches",
+          "detail": "Public match feed read at 2026-10-25T15:01:38Z; the Match Winner pair for this fixture is 1.001 / 12.0."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/",
+          "detail": "The published row for 1082860 shows which method actually priced it and its limitations."
+        }
+      ]
+    }
+  ]
+}

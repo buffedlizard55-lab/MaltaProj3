@@ -63,6 +63,12 @@ REGISTERS = (
     # no-money-line fixture, the 14:00Z/14:30Z schedule disagreement on 1085542,
     # the Projeto/Tropa do KinGui name variant, and the esportsbook access limits.
     'research/0c034b94/repo-review.json',
+    # Session 9e0e601d: full replay of every published method (17/17 complete-list
+    # and 13/13 featured rows, 0 violations), the publisher's stale-dossier
+    # regression at 14:34Z, 15 of 24 local downloads answering 404 because Pages
+    # serves the branch root, the page/download parity gap, live inventory parity,
+    # and the source interfaces that refuse runners.
+    'research/9e0e601d/repo-review.json',
 )
 STATUS = {
     'fixed': ('Fixed', 'green'),

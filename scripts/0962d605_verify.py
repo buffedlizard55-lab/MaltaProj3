@@ -101,6 +101,13 @@ def check_published_estimates(dossier: dict, snapshot: dict, origination: dict) 
     dossier must carry its own published-page evidence and observation time, so
     a figure is never unattributed; the absence is reported by the caller as a
     note, never smoothed into a match.
+
+    Absence on its own is never an error. Hotspawn retires a fixture from the
+    scheduled feed once the snapshot advances past its start (1081156 at
+    2026-10-25T12:00Z, retired by 2bd1f36), and the checked-in snapshot is the
+    pre-collection replay fixture, which can predate a dossier by days. Pinning
+    absence as a failure is what turned the 2026-10-25T14:34Z publisher run red
+    after #326; the rule below checks what a dossier actually claims.
     """
     errors = []
     snap_at = str(snapshot.get('generated_at') or '')
@@ -108,24 +115,29 @@ def check_published_estimates(dossier: dict, snapshot: dict, origination: dict) 
     board = {str(m['id']): m for m in (origination.get('matches') or [])}
     for fixture in dossier.get('fixtures') or []:
         fid = str(fixture.get('id'))
-        starts_at = str((fixture.get('hotspawn') or {}).get('starts_at') or '')
+        published = fixture.get('published_estimate')
+        if not published:
+            # No figure is attributed to the board for this fixture, so there is
+            # nothing to compare and nothing to source here.
+            continue
+        if not str(published.get('source_url') or '').startswith('https://'):
+            errors.append(f'{fid}: published estimate has no https source')
+        probs = published.get('probabilities') or []
+        if len(probs) != 2 or abs(sum(probs) - 1.0) > 1e-4:
+            errors.append(f'{fid}: published estimate does not sum to 1')
         if fid not in snap:
-            # Hotspawn retires finished/in-play fixtures from the scheduled feed
-            # once snapshot['generated_at'] advances past fixture start time
-            # (e.g. 1081156 at 2026-10-25T12:00:00Z retired in 2bd1f36 at 14:32Z).
+            starts_at = str((fixture.get('hotspawn') or {}).get('starts_at') or '')
             retired = (
                 bool(snap_at and starts_at and ISO_Z.match(snap_at) and ISO_Z.match(starts_at))
                 and _utc(snap_at) > _utc(starts_at)
             )
-            if not retired:
-                errors.append(f'{fid}: not present in the checked-in snapshot')
+            if not (str(published.get('evidence_url') or '').startswith('https://')
+                    and ISO_Z.match(str(published.get('observed_at') or ''))):
+                errors.append(
+                    f'{fid}: not in the checked-in snapshot'
+                    f'{" (retired from the scheduled feed)" if retired else ""} and the dossier'
+                    ' names no published evidence URL and observation time')
             continue
-        published = fixture.get('published_estimate')
-        if not published:
-            continue
-        probs = published.get('probabilities') or []
-        if len(probs) != 2 or abs(sum(probs) - 1.0) > 1e-4:
-            errors.append(f'{fid}: published estimate does not sum to 1')
         origin = (board.get(fid) or {}).get('origination') or {}
         if origin.get('probabilities'):
             a, b = origin['probabilities']
@@ -134,8 +146,6 @@ def check_published_estimates(dossier: dict, snapshot: dict, origination: dict) 
         elif not (str(published.get('evidence_url') or '').startswith('https://')
                   and ISO_Z.match(str(published.get('observed_at') or ''))):
             errors.append(f'{fid}: board has no row for this fixture and the dossier names no published evidence')
-        if not str(published.get('source_url') or '').startswith('https://'):
-            errors.append(f'{fid}: published estimate has no https source')
     return errors
 
 

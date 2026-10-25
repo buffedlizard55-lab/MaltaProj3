@@ -1,0 +1,108 @@
+name: 9e0e601d live coverage audit
+
+# Session arena-9e0e601d. The authoring sandbox has no route to play.hotspawn.com,
+# hltv.org, the esportsbooks or the published Pages site (every request dies with
+# SSL_ERROR_SYSCALL), so the coverage question — does every live Hotspawn CS2
+# fixture carry a pick, and does every published number replay from its own
+# evidence — can only be answered with first-hand bytes on a runner.
+#
+# This workflow writes evidence only: no probability, pick or alias is produced
+# here, and `scripts/originate.py` remains the only path to a published number.
+# The push trigger is limited to this workflow and the two scripts it runs, and
+# the evidence commit carries `[skip ci]`, so the branch's `Validate dashboard`
+# queue is never consumed by the audit.
+on:
+  push:
+    branches: ['arena/9e0e601d-maltaproj3']
+    paths:
+      - '.github/workflows/9e0e601d-audit.yml'
+      - 'scripts/9e0e601d_audit.py'
+      - 'scripts/9e0e601d_verify.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: 9e0e601d-audit-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  audit:
+    if: startsWith(github.ref_name, 'arena/9e0e601d')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install the audit's declared dependencies
+        run: python -m pip install --quiet requests==2.32.5 beautifulsoup4==4.14.3
+      - name: Read the deployed site, the live inventory, HLTV and the books
+        run: python -m scripts.9e0e601d_audit
+      - name: Re-derive the dossier from the archived bodies
+        # The replay reads the originals the live step just archived and writes
+        # its own copy, so a parser regression is visible as a diff between two
+        # dossiers built from the same bytes.
+        run: python -m scripts.9e0e601d_audit --replay --output data/research/9e0e601d/replay --raw data/research/9e0e601d/raw
+      - name: Build the site from the checked-in fixtures
+        run: python -m scripts.build
+      - name: Replay the checked-in fixtures with the same engine
+        # The same replay engine against the repository's own verified fixture and
+        # its own rendered summary, so the live result above is comparable with a
+        # result anybody can reproduce offline.
+        run: python -m scripts.9e0e601d_verify --snapshot data/latest.json --origination data/origination.json --site site/index.html --max-age-hours 100000
+      - name: Commit the evidence
+        if: always()
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/9e0e601d
+          if git diff --cached --quiet; then
+            echo 'No change in the recorded facts.' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git commit -m 'research: 9e0e601d live coverage and replay evidence [skip ci]'
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+      - name: Summarise the recorded facts
+        if: always()
+        run: |
+          python - <<'PY'
+          import json, pathlib
+          path = pathlib.Path('data/research/9e0e601d/audit.json')
+          if not path.exists():
+              print('::error::the audit wrote no dossier'); raise SystemExit(1)
+          d = json.loads(path.read_text())
+          v, cov, inv, dep = d['verification'], d['coverage'], d['inventory'], d['deployed']
+          print('## Live coverage audit', '')
+          print(f"Observed **{d['observed_at']}** ({d['mode']})", '')
+          print('| Fact | Value |', '| --- | --- |')
+          print(f"| deployed snapshot | {dep['snapshot_generated_at']} |")
+          print(f"| executive summary inventory clock | {dep['index_snapshot_at']} |")
+          print(f"| open Hotspawn fixtures | {inv['api_open_fixtures']} |")
+          print(f"| complete-list rows with a pick | {cov['with_pick']} / {cov['open']} |")
+          print(f"| open fixtures with no pick | {len(cov['open_without_pick'])} |")
+          print(f"| fixtures researched below the featured line | {len(cov['research_targets'])} |")
+          print(f"| complete-list rows replayed | {v['replay']['replayed']}/{v['replay']['rows']} |")
+          print(f"| featured rows replayed | {v['featured_replay']['replayed']}/{v['featured_replay']['rows']} |")
+          print(f"| structural violations | {len(v['violations'])} |")
+          print(f"| snapshot age (h) | {v.get('age_hours')} |")
+          p = d['deployment_parity']
+          print(f"| page and downloads agree | {'no' if p['inconsistent'] else 'yes'} |", '')
+          if p['inconsistent']:
+              print(f"**Deployment parity:** {p['detail']}", '')
+          if cov.get('unverifiable_reason'):
+              print('**Coverage not asserted:** ' + ' '.join(cov['unverifiable_reason']), '')
+          if v['violations']:
+              print('### Violations')
+              for item in v['violations']:
+                  print(f'- {item}')
+          if v.get('problems'):
+              print('### Problems')
+              for item in v['problems']:
+                  print(f'- {item}')
+          for t in d['targets']:
+              f = t['fixture']
+              print(f"- **{f['id']}** {' vs '.join(n or '?' for n in f['teams'])} — {t.get('gap_reason')}: "
+                    f"{t['research_conclusion']}")
+          PY
