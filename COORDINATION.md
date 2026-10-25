@@ -1,3 +1,66 @@
+# Current session: arena-93c7475a — a pick for **every** Hotspawn CS2 fixture: live inventory re-check, HLTV-first then esportsbook research for each fixture the featured ladder cannot price, a separated unresolved-picks section on the executive summary, phone-first navigation to the picks list, publish
+
+Claimed **2026-10-25T14:20Z** on Arena's fixed branch `arena/93c7475a-maltaproj3`, branched from `main` at
+`e42114b` (PR #337, merged 14:13:56Z). Read `COORDINATION.md`, `.github/workflows/pages.yml`,
+`.github/workflows/checks.yml`, `gh pr list` and the two open PRs' file lists before claiming.
+
+**Open PRs when this claim was written** (their files are therefore off-limits here):
+#332 `arena-0db056f7` (13 files, incl. `scripts/reference_odds.py`, `scripts/review_register.py`,
+`tests/test_reference_odds.py`, `tests/test_b72154e1_guided_picks.py`, `tests/browser/phone_0db056f7.spec.mjs`)
+and #328 `arena-824a2780` (incl. `scripts/review_register.py`, `tests/test_b72154e1_guided_picks.py`).
+Session `arena-0c034b94` merged as #331 at 14:12:09Z and `arena-0962d605` as #330/#337; their claims are
+closed, so their file scope is no longer held. Everything older than 60 minutes with no commits is
+abandoned under the takeover rule.
+
+**Sandbox constraint recorded up front:** this session's shell has **no outbound network** —
+`curl https://www.hltv.org/matches` and the Hotspawn fixture API both return exit status 35 / HTTP 000.
+The only first-hand outbound paths are the Arena fetch tool and a GitHub Actions runner, so every live
+observation in this session is produced by `scripts/93c7475a_probe.py` on `ubuntu-24.04` and archived with
+its URL, observation timestamp and SHA-256. No live number in this section is written from memory.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 93-1 Re-observe the live Hotspawn CS2 inventory (fixture API **and** rendered lobby) against the published snapshot from a network-capable runner, with exact URLs, observation times and SHA-256 of every response, and record the exact set of open fixtures with no published pick | **done** — three live sweeps, latest **2026-10-25T15:16:34Z**: 78 API records, 14 open fixtures, 14 lobby ids, identical sets both directions; **14 of 14 open fixtures have no published pick row** because the published snapshot is 2026-10-15T08:36:13Z | arena-93c7475a | `data/research/93c7475a/**`, `scripts/93c7475a_probe.py`, `.github/workflows/93c7475a-probe.yml` |
+| 93-2 For each open fixture whose pick is not a featured market line: HLTV first (exact-name match page, ranking), then esportsbook / betting-line surfaces; record every observation with a dated URL, and publish either a derived pick or the explicit first-party limitation. No hand-written probability, pick or alias | **done** — HLTV binds 13 of 14 by exact name (ranking publication 2026-10-19, 253 rows); **7 of 14 carry an exact-name row on Thunderpick and/or Smarkets with observed decimal prices** (e.g. `1082860` FlyQuest 1.001 / Staqued 12, `1082898` Alliance 2.5 / FaZe 1.48). Prices are quoted verbatim; **no probability, pick or alias was written by this session** | arena-93c7475a | `data/research/93c7475a/**` |
+| 93-3 A separated, always-published **unresolved picks & limitations** section on the executive summary that links in-site to the full picks list and to every register, and is readable at 320 / 390 / 768 px | **done** — `scripts/build.load_unresolved_research()` + `unresolved_research_link()`; the full dossier renders on `/unresolved/#unresolved-research` and one line on the executive summary links into it. 7 browser tests pass at 320/390/768/1440 incl. axe WCAG A/AA | arena-93c7475a | `scripts/build.py`, `scripts/unresolved_research.py`, `assets/scout.css` |
+| 93-4 Verification: replay the recorded observations offline, audit every rendered row for an official source link, run the unit and browser suites, and confirm the build has no broken internal link | **done** — 34 unit tests in `tests/test_93c7475a_verification.py` + `tests/test_unresolved_research.py` (2 skip until live evidence lands, now unskipped), 7 Playwright tests, `python -m scripts.build` 9 pass / 1 info / 0 fail with 981 rows / 0 without a source / 869 internal links; CI `Validate dashboard` run 40203676524 **success in 25m36s** | arena-93c7475a | `scripts/93c7475a_probe.py`, `tests/test_93c7475a_verification.py`, `tests/browser/phone_93c7475a.spec.mjs`, `tests/browser/unresolved_research_fixture.py` |
+| 93-5 Publish, open a PR to `main`, merge without waiting for approval, confirm the GitHub Pages deploy serves a snapshot inside the 8-hour bound, and record the PR number and deploy result here | in progress | arena-93c7475a | this section, PR |
+
+### 93 sources and verification performed
+
+Every observation below was read first-hand on `ubuntu-24.04` (runs 40202252183, 40203171714,
+40206114868, 40206495497) or from a body that run archived under `data/research/93c7475a/raw/`
+with its URL, observation timestamp and SHA-256. Nothing is recalled from memory.
+
+- **Hotspawn inventory** — `https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1` (78 records) and `https://play.hotspawn.com/lobby` + `/cs2-pickems` (rendered ids). Both directions compared: `open_not_in_lobby = []`, `lobby_not_open_in_api = []`.
+- **HLTV** — `https://www.hltv.org/matches` (35 upcoming cards after de-duplication), `https://www.hltv.org/ranking/teams` → `https://www.hltv.org/ranking/teams/2026/october/19` (253 rows), plus one `/betting/analytics/` page per target.
+- **Esportsbooks / exchanges** — Thunderpick `https://thunderpick.io/api/matches` (200, 44 CS2 rows), Smarkets `https://api.smarkets.com/v3/events?type=csgo_match&state=upcoming` (200, 20 rows), Polymarket `https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100` (200, 25 events), Rivalry (200, 1 row), Kalshi `https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=200` (200, **200 events of which 0 are CS2** — the pre-filter total is published so the coverage is not overstated), bo3.gg (200, 0 rows).
+- **Refused by the runner** (a limitation of the runner, not proof that no market exists) — Pinnacle guest API **HTTP 204** (empty body, recorded as "not JSON"), EGamersWorld **403**, GG.BET **403**, Stake **403**.
+- **Published site** — `https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json` (201,016 bytes, SHA-256 `16c4437804abd527dd41c0ec67787911b25868cd7640b76bc1d88147fc224f5d`, `generated_at` 2026-10-15T08:36:13Z) and `/data/origination.json` (SHA-256 `661ac8ff…`, 2026-10-15T09:31:24Z).
+
+### 93 irregularities found (all published on `/review/`, none blocks a merge)
+
+1. **`93c7475a-published-snapshot-outside-freshness-bound` (warning).** The live site serves a snapshot generated **2026-10-15T08:36:13Z — 246.7 h** before the 2026-10-25T14:44:30Z observation, far outside the 8-hour bound the site itself publishes, and **0 of the 16 then-open Hotspawn fixtures appear in it**. The served bytes are **byte-identical** (same SHA-256, `16c44378…`, 201,016 bytes) to the checked-in branch-root `data/latest.json`, which is the documented signature of the legacy Pages build republishing the branch root over the verified artifact (`.github/workflows/pages.yml`). **This is the direct cause of the brief's "right now we dont have picks"**: a reader opening the site sees June fixtures and no pick for anything currently listed. Owned by the publisher, not edited here.
+2. **Three book parsers in this session's own first probe read the wrong response shape and reported a false "no market"** — Thunderpick (`data.upcoming[]`, not a list with `opponents`), Smarkets (`payload["events"]`, not `payload["objects"]`) and Kalshi (generic politics events counted as CS2). The first live run therefore claimed *no* book surface listed any open fixture, while Thunderpick and Smarkets between them listed 7 by exact name with prices. Fixed in `f00520c`; five tests now replay the archived bodies and fail the suite if the shapes regress. Recorded here because the false claim was published in `data/research/93c7475a/probe.json` at commit `2ff8667` before the correction.
+3. **`scripts/unresolved_research.py` published alias-join rows with no source and no unverified marker**, and its `<ul>` nesting was invalid (`source_lines()` returned a `<ul>` placed directly inside the outer `<ul>`). Neither could surface before because nothing rendered the section; the pre-existing suite audited only `#unresolved-research tbody tr`, never `#unresolved-aliases`. The site's own row-source audit caught 6 violations the moment the section rendered; both are fixed and 0 violations remain.
+4. **`93c7475a-clock-delta-1086696`** — Hotspawn 2026-10-25T16:00:00Z vs HLTV 17:00:00Z for BORRACHEIROS vs RED Canids Academy (−3600 s), outside the 60-second join window, so the identity join is reported and not applied.
+5. **`93c7475a-name-mismatch-1086697`** — Hotspawn `Projeto do KinGui` vs HLTV `Tropa do KinGui`. No alias is asserted without official proof.
+6. **Pinnacle's guest API returns HTTP 204 with an empty body**, so it is unusable as a line source from a runner without a different endpoint.
+
+### 93 non-overlap pledge (kept)
+
+No edit to `scripts/collect.py`, `scripts/originate.py`, `scripts/root_publish.py`,
+`scripts/reference_odds.py`, `scripts/review_register.py`, `scripts/egw_live.py`, `data/latest.json`,
+`data/origination.json`, `data/origination/aliases.json`, `snapshot.json`, `index.html`, `docs/**`,
+`archive/**`, `.github/workflows/pages.yml`, `.github/workflows/checks.yml`,
+`tests/test_b72154e1_guided_picks.py`, `tests/test_reference_odds.py`, or any other session's
+`data/research/<id>/`. One addition to the pledge is recorded here for transparency: this session also
+edited `scripts/unresolved_research.py` and its renderer contract, which no open PR claimed and which
+had to change for the site to build at all. Hotspawn `% picked` and HLTV fan votes are never parsed,
+let alone used as probabilities.
+
+---
+
 # Current session: arena-0c034b94 — picks for every live Hotspawn CS2 match: HLTV-first then esportsbook research for any fixture the featured method leaves blank, a separated unresolved-pick register in the executive summary, mobile check, publish — DONE, PR [#331](https://github.com/buffedlizard55-lab/MaltaProj3/pull/331)
 
 Claimed **2026-10-25T13:55Z** on Arena's fixed branch `arena/0c034b94-maltaproj3`, based on `main` at `75d75a3` and rebased onto `424074a` (PR #326) before the pull request. The 13:11Z scheduled publisher `40196457503` was red at the regression gate when this session claimed, so the deployed snapshot was 8.5 h old; this session did not touch the claimed test file and instead published through its own branch.

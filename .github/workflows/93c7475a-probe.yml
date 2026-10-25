@@ -1,0 +1,129 @@
+name: 93c7475a live-picks probe
+
+# Session arena-93c7475a. The authoring sandbox has no outbound network at all
+# (verified: `curl https://www.hltv.org/matches` and the Hotspawn fixture API
+# both exit 35 with no status line), so this runner is the only place the
+# brief's coverage and research questions can be answered with first-hand
+# evidence.
+#
+# It records facts only — no probability, pick or alias is produced here, and
+# the publisher's ladder stays the only path to a published number.
+#
+# The push trigger is limited to this workflow and its probe script so the
+# evidence commit below cannot re-enter it. The evidence commit carries
+# `[skip ci]`, which keeps the branch's `Validate dashboard` queue free.
+on:
+  push:
+    branches: ['arena/93c7475a-maltaproj3']
+    paths:
+      - '.github/workflows/93c7475a-probe.yml'
+      - 'scripts/93c7475a_probe.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: 93c7475a-probe-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  probe:
+    if: startsWith(github.ref_name, 'arena/93c7475a')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install the probe's declared dependencies
+        run: python -m pip install --quiet requests==2.32.5 beautifulsoup4==4.14.3
+      - name: Read the live inventory, HLTV and every esportsbook surface
+        # The runner's log host is not always reachable from a restricted
+        # environment, so a failure must leave its own trace in the evidence
+        # tree. `continue-on-error` keeps the commit step running; the job's
+        # final status is restored from the probe's own exit file below.
+        run: |
+          set +e
+          python -m scripts.93c7475a_probe
+          code=$?
+          echo "$code" > data/research/93c7475a/probe-exit-code.txt
+          if [ "$code" -ne 0 ]; then
+            echo "::error title=probe failed::exit $code — see data/research/93c7475a/probe-error.txt"
+          fi
+          exit "$code"
+      - name: Re-parse the archived bodies to prove the parsers replay offline
+        run: python -m scripts.93c7475a_probe --parse-raw --output data/research/93c7475a/replay
+      - name: Validate the emitted dossier against the site's own renderer
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from scripts.unresolved_research import load_research, render_section
+          data = load_research(Path('data/research/93c7475a/unresolved-research.json'))
+          html = render_section(data)
+          print('dossier schema-valid:', len(data['fixtures']), 'fixtures,',
+                len(data['limitations']), 'limitations,', len(html), 'rendered chars')
+          assert len(html) > 2000, 'the rendered section is implausibly short'
+          for fixture in data['fixtures']:
+              assert fixture['resolution'] in ('stays-unresolved', 'expected-at-next-refresh')
+          print('every fixture carries an explicit resolution status')
+          PY
+      - name: Commit the evidence
+        if: always()
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/93c7475a
+          if git diff --cached --quiet; then
+            echo 'No change in the recorded facts.' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git commit -m 'research: 93c7475a live-picks probe evidence [skip ci]'
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+      - name: Fail the job if the probe itself failed
+        if: always()
+        run: |
+          code=$(cat data/research/93c7475a/probe-exit-code.txt 2>/dev/null || echo 1)
+          if [ "$code" != "0" ]; then
+            echo "The probe exited $code; its traceback is in data/research/93c7475a/probe-error.txt."
+            exit 1
+          fi
+      - name: Summarise the recorded facts
+        run: |
+          python - <<'PY'
+          import json
+          d = json.load(open('data/research/93c7475a/probe.json'))
+          s = d['summary']
+          c = s['coverage']
+          print('## Live-picks probe (arena-93c7475a)', '')
+          print('Observed', d['observed_at'], '| mode', d['mode'], '')
+          print('| Fact | Value |')
+          print('| --- | --- |')
+          print('| published snapshot generated | ' + str(c['published_snapshot_generated_at']) + ' |')
+          print('| Hotspawn fixture API records | ' + str(c['api_records']) + ' |')
+          print('| open fixtures in the API | ' + str(c['api_open_fixtures']) + ' |')
+          print('| fixture ids in the rendered lobby | ' + str(c['lobby_fixture_ids']) + ' |')
+          print('| open but not in the lobby | ' + str(c['open_not_in_lobby'] or '[]') + ' |')
+          print('| in the lobby but not open | ' + str(c['lobby_not_open_in_api'] or '[]') + ' |')
+          print('| open fixtures with **no published row** | ' + str(len(c['open_without_published_row'])) + ' |')
+          print('| open fixtures with a **non-featured-line** pick | ' + str(len(c['open_with_non_featured_pick'])) + ' |')
+          print('| HLTV upcoming rows parsed | ' + str(s['hltv']['upcoming_rows_parsed']) + ' |')
+          print('| HLTV ranking rows parsed | ' + str(s['hltv']['ranking_rows_parsed']) + ' |')
+          print('')
+          print('### Esportsbook / betting-line surfaces')
+          print('')
+          print('| Surface | Status | HTTP | Rows parsed |')
+          print('| --- | --- | --- | --- |')
+          for b in s['books']:
+              print('| ' + b['label'] + ' | ' + str(b['status']) + ' | ' + str(b.get('http_status') or '—') +
+                    ' | ' + str(b.get('titles_parsed', 0)) + ' |')
+          print('')
+          print('### Research targets (HLTV first, then the books)')
+          print('')
+          for t in s['targets']:
+              f = t['fixture']
+              names = ' vs '.join(n for n in f['teams'] if n)
+              exact = ', '.join(r['url'] for r in t['hltv_exact']) or 'not found'
+              print('- **' + f['id'] + ' ' + names + '** (' + t['reason'] + ') — HLTV exact: ' + exact +
+                    ' · books with an exact row: ' + (', '.join(t['books_with_exact_row']) or 'none'))
+          PY

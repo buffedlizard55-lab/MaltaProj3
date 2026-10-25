@@ -57,6 +57,18 @@ def load_research(path: Path) -> dict:
         quote = fixture.get('guidance_quote')
         if quote is not None and not quote.get('observed_at'):
             raise ValueError('guidance quotes must carry an observation time')
+    # Session arena-93c7475a: an alias join asserts that two names are the same
+    # team, so its evidence is held to the same rule as every other observation.
+    # Entries without inline evidence still load — they simply render with an
+    # explicit unverified marker instead of a link.
+    for entry in data.get('aliases_added_this_session') or []:
+        if not entry.get('alias') or not entry.get('canonical'):
+            raise ValueError('every alias join needs an alias and a canonical name')
+        for src in entry.get('evidence') or []:
+            if not str(src.get('url', '')).startswith('https://'):
+                raise ValueError('alias-join evidence must be https links')
+            if not src.get('observed_at'):
+                raise ValueError('alias-join evidence must carry an observation time')
     for block in data.get('model_upgrades_available') or []:
         if not block.get('sources'):
             raise ValueError('model upgrades need their evidence links')
@@ -120,10 +132,16 @@ def render_section(data: dict, prefix: str = '../') -> str:
         teams = ' vs '.join(e(t) for t in fixture['teams'])
         checks = ['<ul class="limitations">']
         for check in fixture['checks']:
+            # Session arena-93c7475a: the guidance quote and the source list were
+            # appended as siblings of the <li>, so source_lines()' own <ul> sat
+            # directly inside the outer <ul>. That is invalid HTML and axe fails
+            # it as a `list` violation the first time the section is rendered.
+            # Both now live inside the same list item.
             checks.append(f'<li><strong>{e(check["stage"])}</strong> — {e(check["verdict"])}: '
-                          f'{e(check.get("detail") or "")}</li>')
-            checks.append(_quote_cell(check.get('guidance_quote')) if check.get('guidance_quote') else '')
-            checks.append(source_lines(check.get('sources')))
+                          f'{e(check.get("detail") or "")}'
+                          + (_quote_cell(check['guidance_quote']) if check.get('guidance_quote') else '')
+                          + source_lines(check.get('sources'))
+                          + '</li>')
         checks.append('</ul>')
         resolved = fixture['resolution'] == 'expected-at-next-refresh'
         out += ('<tr>'
@@ -149,10 +167,27 @@ def render_section(data: dict, prefix: str = '../') -> str:
                 '<th scope="col">Scoped to</th></tr></thead><tbody>')
         for entry in aliases:
             scopes = ', '.join(e(s) for s in entry.get('applies_to') or [])
+            # Session arena-93c7475a: this table had never been rendered, so its
+            # rows had never met the site's own row-source rule — an alias join
+            # published with no official link and no unverified marker. Each row
+            # now links its own registry evidence, and a join whose evidence was
+            # not recorded inline is visibly marked unverified rather than
+            # quietly asserting a name equivalence.
+            links = ''.join(
+                external(src['url'], src.get('source') or 'Registry evidence')
+                + (f' <small class="tiny">observed {e(src["observed_at"])}</small>'
+                   if src.get('observed_at') else '')
+                for src in (entry.get('evidence') or [])
+                if str(src.get('url', '')).startswith('https://'))
+            if not links:
+                links = '<span class="unverified">no inline registry evidence — unverified</span>'
+            registry_note = (f' <a class="source-link" href="{prefix}data/origination/aliases.json">'
+                             f'{e(entry.get("registry") or "reviewed alias registry")}</a>'
+                             if entry.get('registry') else '')
             out += ('<tr>'
                     f'<th scope="row">{e(entry.get("alias") or "")}</th>'
                     f'<td>{e(entry.get("canonical") or "")}</td>'
-                    f'<td>{scopes}<small>{e(entry.get("registry") or "")}</small></td></tr>')
+                    f'<td>{scopes} {links}{registry_note}</td></tr>')
         out += '</tbody></table></div></section>'
 
     upgrades = data.get('model_upgrades_available') or []

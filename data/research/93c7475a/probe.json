@@ -1,0 +1,1257 @@
+{
+  "mode": "live",
+  "observed_at": "2026-10-25T15:27:55Z",
+  "session": "arena-93c7475a",
+  "sources": [
+    {
+      "bytes": 201016,
+      "content_type": "application/json; charset=utf-8",
+      "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+      "http_status": 200,
+      "label": "published-latest-json",
+      "observed_at": "2026-10-25T15:27:55Z",
+      "sha256": "16c4437804abd527dd41c0ec67787911b25868cd7640b76bc1d88147fc224f5d",
+      "status": "ok",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json"
+    },
+    {
+      "bytes": 88452,
+      "content_type": "application/json; charset=utf-8",
+      "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+      "http_status": 200,
+      "label": "published-origination-json",
+      "observed_at": "2026-10-25T15:27:55Z",
+      "sha256": "661ac8ff3a202e6ffc6dc2da8d57d94c91653ff71dfa790b1448422bf02ff5b2",
+      "status": "ok",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json"
+    },
+    {
+      "bytes": 58714,
+      "content_type": "application/json; charset=utf-8",
+      "final_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "http_status": 200,
+      "label": "hotspawn-fixtures-api",
+      "observed_at": "2026-10-25T15:27:55Z",
+      "sha256": "baf295bbbc60f3f193da2a9bae02d0b10fb2ed19e3e2e8905c4b40bbf9441600",
+      "status": "ok",
+      "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
+    },
+    {
+      "bytes": 273225,
+      "content_type": "text/html;charset=UTF-8",
+      "final_url": "https://play.hotspawn.com/lobby?cb=1792942075",
+      "http_status": 200,
+      "label": "hotspawn-lobby",
+      "observed_at": "2026-10-25T15:27:56Z",
+      "sha256": "93f7db66be9e34a4a883dd261bba0aa878e6d993d99dd12c177675af9e7e753c",
+      "status": "ok",
+      "url": "https://play.hotspawn.com/lobby?cb=1792942075"
+    },
+    {
+      "bytes": 299140,
+      "content_type": "text/html;charset=UTF-8",
+      "final_url": "https://play.hotspawn.com/cs2-pickems",
+      "http_status": 200,
+      "label": "hotspawn-cs2-pickems",
+      "observed_at": "2026-10-25T15:27:57Z",
+      "sha256": "b0485821012824137cab0086b97241e04c5304e74240143854b5f2479be69d32",
+      "status": "ok",
+      "url": "https://play.hotspawn.com/cs2-pickems"
+    },
+    {
+      "bytes": 630574,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.hltv.org/matches",
+      "http_status": 200,
+      "label": "hltv-matches",
+      "observed_at": "2026-10-25T15:27:57Z",
+      "sha256": "f140692aab67ef511b44fb9587b9ae1f3ccf08b7d0d8444bb3f0d2759d6b771e",
+      "status": "ok",
+      "url": "https://www.hltv.org/matches"
+    },
+    {
+      "bytes": 1155072,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.hltv.org/ranking/teams/2026/october/19",
+      "http_status": 200,
+      "label": "hltv-ranking",
+      "observed_at": "2026-10-25T15:27:58Z",
+      "sha256": "5575b8f5e0a69ba2126b8c600d800fd38350ae68932eda8d9eeb5307545f9c37",
+      "status": "ok",
+      "url": "https://www.hltv.org/ranking/teams"
+    },
+    {
+      "bytes": 530606,
+      "content_type": "application/json",
+      "final_url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100",
+      "http_status": 200,
+      "label": "polymarket-cs2-tag",
+      "observed_at": "2026-10-25T15:27:59Z",
+      "sha256": "d2e82b98a93fee43817da5df23fa42ed57febd5cd132444d4884e465abe9e56d",
+      "status": "ok",
+      "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100"
+    },
+    {
+      "bytes": 146151,
+      "content_type": "application/json; charset=utf-8",
+      "final_url": "https://thunderpick.io/api/matches",
+      "http_status": 200,
+      "label": "thunderpick-matches",
+      "observed_at": "2026-10-25T15:28:00Z",
+      "sha256": "61ad7558a885672e818f93518f118146324624a613a78b90531ab3160eaafabe",
+      "status": "ok",
+      "url": "https://thunderpick.io/api/matches"
+    },
+    {
+      "bytes": 147067,
+      "content_type": "application/json",
+      "final_url": "https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=200",
+      "http_status": 200,
+      "label": "kalshi-cs2-events",
+      "observed_at": "2026-10-25T15:28:00Z",
+      "sha256": "e62350d98768a002e6a6dacee099ad5a8259a296dd58557e722ae4ed9be3d423",
+      "status": "ok",
+      "url": "https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=200"
+    },
+    {
+      "bytes": 0,
+      "content_type": null,
+      "error": "not JSON: JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+      "final_url": "https://guest.api.arcadia.pinnacle.com/0.1/esports/matchups?sportId=22&live=0",
+      "http_status": 204,
+      "label": "pinnacle-esports",
+      "observed_at": "2026-10-25T15:28:00Z",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "error",
+      "url": "https://guest.api.arcadia.pinnacle.com/0.1/esports/matchups?sportId=22&live=0"
+    },
+    {
+      "bytes": 14044,
+      "content_type": "application/json",
+      "final_url": "https://api.smarkets.com/v3/events/?state=upcoming&type=csgo_match",
+      "http_status": 200,
+      "label": "smarkets-cs2",
+      "observed_at": "2026-10-25T15:28:00Z",
+      "sha256": "7bcb039cbae42874421ee260edccedc9d89cf6b14b4d17988c736e2e0578cffb",
+      "status": "ok",
+      "url": "https://api.smarkets.com/v3/events?type=csgo_match&state=upcoming"
+    },
+    {
+      "bytes": 13188,
+      "content_type": "text/html;charset=utf-8",
+      "final_url": "https://bo3.gg/matches",
+      "http_status": 200,
+      "label": "bo3gg-matches",
+      "observed_at": "2026-10-25T15:28:01Z",
+      "sha256": "ed918ceec359c157dc30fa4176529d36058881b8ef2d19fe5523aa458c97ce5f",
+      "status": "ok",
+      "url": "https://bo3.gg/matches"
+    },
+    {
+      "bytes": 5672,
+      "content_type": "text/html; charset=UTF-8",
+      "error": "HTTP 403",
+      "final_url": "https://egamersworld.com/counterstrike/matches",
+      "http_status": 403,
+      "label": "egamersworld-matches",
+      "observed_at": "2026-10-25T15:28:01Z",
+      "sha256": "9effaa3a985d3f36b63f45256649ede8d73de09c739052712813d70717d63115",
+      "status": "error",
+      "url": "https://egamersworld.com/counterstrike/matches"
+    },
+    {
+      "bytes": 126,
+      "content_type": "text/plain",
+      "error": "HTTP 403",
+      "final_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
+      "http_status": 403,
+      "label": "ggbet-cs2",
+      "observed_at": "2026-10-25T15:28:01Z",
+      "sha256": "7583d10fb1a03d33887157aee047f499dfe10cfbfcf0aeee800d7121df60e519",
+      "status": "error",
+      "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
+    },
+    {
+      "bytes": 5689,
+      "content_type": "text/html; charset=UTF-8",
+      "error": "HTTP 403",
+      "final_url": "https://stake.com/sports/esports/counter-strike",
+      "http_status": 403,
+      "label": "stake-cs2",
+      "observed_at": "2026-10-25T15:28:01Z",
+      "sha256": "b7ef1bdf2c879582e824e6b95f0344725e4e632a0bbb37ff5b29c53daec44dd5",
+      "status": "error",
+      "url": "https://stake.com/sports/esports/counter-strike"
+    },
+    {
+      "bytes": 61219,
+      "content_type": "text/html;charset=utf-8",
+      "final_url": "https://www.rivalry.com/",
+      "http_status": 200,
+      "label": "rivalry-cs2",
+      "observed_at": "2026-10-25T15:28:01Z",
+      "sha256": "6d65066f2329de053acf9dfda490ffe99da503d4ae49509e89327d32ba42d05d",
+      "status": "ok",
+      "url": "https://www.rivalry.com/esports/counter-strike-betting"
+    },
+    {
+      "bytes": 247843,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.hltv.org/betting/analytics/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12",
+      "http_status": 200,
+      "label": "hltv-odds-2399508",
+      "observed_at": "2026-10-25T15:28:02Z",
+      "sha256": "b85ec125a89721dd9205a9c50e8feae32e4cc7937836fa62aa3d2e69e5115947",
+      "status": "ok",
+      "url": "https://www.hltv.org/betting/analytics/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12"
+    },
+    {
+      "bytes": 259193,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.hltv.org/betting/analytics/2399819/pain-vs-bestia-circuit-x-curitiba-season-4",
+      "http_status": 200,
+      "label": "hltv-odds-2399819",
+      "observed_at": "2026-10-25T15:28:03Z",
+      "sha256": "1cdf3c2aed6e50054af8ef8b238a3944a9f1fd502e75657ab26b503af465f63e",
+      "status": "ok",
+      "url": "https://www.hltv.org/betting/analytics/2399819/pain-vs-bestia-circuit-x-curitiba-season-4"
+    },
+    {
+      "bytes": 244757,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.hltv.org/betting/analytics/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+      "http_status": 200,
+      "label": "hltv-odds-2399115",
+      "observed_at": "2026-10-25T15:28:03Z",
+      "sha256": "e07a65da25cb230b57edda7cefe472a94e1e84fc1ceff00c7eb1f45b7941f6e2",
+      "status": "ok",
+      "url": "https://www.hltv.org/betting/analytics/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13"
+    },
+    {
+      "bytes": 252343,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.hltv.org/betting/analytics/2399918/tropa-do-kingui-vs-yawara-cct-2026-south-america-series-7",
+      "http_status": 200,
+      "label": "hltv-odds-2399918",
+      "observed_at": "2026-10-25T15:28:04Z",
+      "sha256": "8feebb3b9dce06491685be9cb0e6804640ede31d3f6527f21fa33b7af0d47be7",
+      "status": "ok",
+      "url": "https://www.hltv.org/betting/analytics/2399918/tropa-do-kingui-vs-yawara-cct-2026-south-america-series-7"
+    },
+    {
+      "bytes": 251510,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.hltv.org/betting/analytics/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+      "http_status": 200,
+      "label": "hltv-odds-2399888",
+      "observed_at": "2026-10-25T15:28:05Z",
+      "sha256": "956158462c4f6a89df85872f43c44194f3749d3b2de55e626ac710e996c01e2a",
+      "status": "ok",
+      "url": "https://www.hltv.org/betting/analytics/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026"
+    },
+    {
+      "bytes": 250548,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.hltv.org/betting/analytics/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026",
+      "http_status": 200,
+      "label": "hltv-odds-2399889",
+      "observed_at": "2026-10-25T15:28:06Z",
+      "sha256": "cfaaaaaee846527343b825588782e88a84bc4b87861e22df55726f5c0659b0a4",
+      "status": "ok",
+      "url": "https://www.hltv.org/betting/analytics/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026"
+    },
+    {
+      "bytes": 249166,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.hltv.org/betting/analytics/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+      "http_status": 200,
+      "label": "hltv-odds-2399890",
+      "observed_at": "2026-10-25T15:28:07Z",
+      "sha256": "eeeb45a4d60a44528d34b502068050271707ce248685f53637e727cd90615d42",
+      "status": "ok",
+      "url": "https://www.hltv.org/betting/analytics/2399890/flyquest-vs-staqued-dfrag-invitational-2026"
+    },
+    {
+      "bytes": 253346,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.hltv.org/betting/analytics/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+      "http_status": 200,
+      "label": "hltv-odds-2399891",
+      "observed_at": "2026-10-25T15:28:08Z",
+      "sha256": "f7b71b0e87e943f1d68a0443e852e3e57f189538f5372c965b0fab6178404f89",
+      "status": "ok",
+      "url": "https://www.hltv.org/betting/analytics/2399891/rooster-vs-abyssal-dfrag-invitational-2026"
+    },
+    {
+      "bytes": 251720,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.hltv.org/betting/analytics/2399866/b8-vs-k27-rlg-tesla-cup-2026",
+      "http_status": 200,
+      "label": "hltv-odds-2399866",
+      "observed_at": "2026-10-25T15:28:09Z",
+      "sha256": "fb5d1703d58363b87f2d134c7ddb37320dbec86dc391d4951ebde74340c9b1a3",
+      "status": "ok",
+      "url": "https://www.hltv.org/betting/analytics/2399866/b8-vs-k27-rlg-tesla-cup-2026"
+    },
+    {
+      "bytes": 253367,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.hltv.org/betting/analytics/2399867/alliance-vs-faze-rlg-tesla-cup-2026",
+      "http_status": 200,
+      "label": "hltv-odds-2399867",
+      "observed_at": "2026-10-25T15:28:10Z",
+      "sha256": "b07f871a3083963dd4926ec5d39774695c2e812e5635074c4d5f6f3f88305905",
+      "status": "ok",
+      "url": "https://www.hltv.org/betting/analytics/2399867/alliance-vs-faze-rlg-tesla-cup-2026"
+    },
+    {
+      "bytes": 252562,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.hltv.org/betting/analytics/2399869/luminosity-vs-hotu-rlg-tesla-cup-2026",
+      "http_status": 200,
+      "label": "hltv-odds-2399869",
+      "observed_at": "2026-10-25T15:28:11Z",
+      "sha256": "9bb9b862a96c40aae073a9c9c500fe948c634669f0556d315840250a7e7a45c4",
+      "status": "ok",
+      "url": "https://www.hltv.org/betting/analytics/2399869/luminosity-vs-hotu-rlg-tesla-cup-2026"
+    },
+    {
+      "bytes": 253456,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.hltv.org/betting/analytics/2399870/envy-vs-gamerlegion-rlg-tesla-cup-2026",
+      "http_status": 200,
+      "label": "hltv-odds-2399870",
+      "observed_at": "2026-10-25T15:28:11Z",
+      "sha256": "e85c101e19cb3d8d7634bdb61c2df975e93322e44ca0be2f164e06120a3faf7a",
+      "status": "ok",
+      "url": "https://www.hltv.org/betting/analytics/2399870/envy-vs-gamerlegion-rlg-tesla-cup-2026"
+    },
+    {
+      "bytes": 252215,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.hltv.org/betting/analytics/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "http_status": 200,
+      "label": "hltv-odds-2399437",
+      "observed_at": "2026-10-25T15:28:12Z",
+      "sha256": "37e5d74b32b578c62b4d5d1c9025e0c9310c725ba9ba8f53d7abff04f55c8e76",
+      "status": "ok",
+      "url": "https://www.hltv.org/betting/analytics/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026"
+    },
+    {
+      "bytes": 253490,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.hltv.org/betting/analytics/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+      "http_status": 200,
+      "label": "hltv-odds-2399438",
+      "observed_at": "2026-10-25T15:28:13Z",
+      "sha256": "1fce252705a451cd5bd293954635e70b0103e01df6d22ccdad7eec29c740e9f3",
+      "status": "ok",
+      "url": "https://www.hltv.org/betting/analytics/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026"
+    }
+  ],
+  "summary": {
+    "books": [
+      {
+        "detail": "Polymarket CS2 tag surface read for the gap fixtures.",
+        "error": null,
+        "http_status": 200,
+        "label": "polymarket-cs2-tag",
+        "observed_at": "2026-10-25T15:27:59Z",
+        "source": "Polymarket CS2 tag",
+        "source_url": "https://polymarket.com/esports/counter-strike",
+        "status": "ok",
+        "titles_parsed": 25,
+        "total_events_before_filter": null,
+        "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100"
+      },
+      {
+        "detail": "Thunderpick esportsbook surface read for the gap fixtures.",
+        "error": null,
+        "http_status": 200,
+        "label": "thunderpick-matches",
+        "observed_at": "2026-10-25T15:28:00Z",
+        "source": "Thunderpick esportsbook",
+        "source_url": "https://thunderpick.io/esports/counter-strike",
+        "status": "ok",
+        "titles_parsed": 45,
+        "total_events_before_filter": null,
+        "url": "https://thunderpick.io/api/matches"
+      },
+      {
+        "detail": "Kalshi exchange surface read for the gap fixtures.",
+        "error": null,
+        "http_status": 200,
+        "label": "kalshi-cs2-events",
+        "observed_at": "2026-10-25T15:28:00Z",
+        "source": "Kalshi exchange",
+        "source_url": "https://kalshi.com/markets/esports",
+        "status": "ok",
+        "titles_parsed": 0,
+        "total_events_before_filter": 200,
+        "url": "https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=200"
+      },
+      {
+        "detail": "Pinnacle esportsbook surface read for the gap fixtures.",
+        "error": "not JSON: JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "http_status": 204,
+        "label": "pinnacle-esports",
+        "observed_at": "2026-10-25T15:28:00Z",
+        "source": "Pinnacle esportsbook",
+        "source_url": "https://www.pinnacle.com/en/esports/counter-strike-2",
+        "status": "error",
+        "titles_parsed": 0,
+        "total_events_before_filter": null,
+        "url": "https://guest.api.arcadia.pinnacle.com/0.1/esports/matchups?sportId=22&live=0"
+      },
+      {
+        "detail": "Smarkets exchange surface read for the gap fixtures.",
+        "error": null,
+        "http_status": 200,
+        "label": "smarkets-cs2",
+        "observed_at": "2026-10-25T15:28:00Z",
+        "source": "Smarkets exchange",
+        "source_url": "https://smarkets.com/sport/esports/cs-go",
+        "status": "ok",
+        "titles_parsed": 20,
+        "total_events_before_filter": null,
+        "url": "https://api.smarkets.com/v3/events?type=csgo_match&state=upcoming"
+      },
+      {
+        "detail": "bo3.gg results feed surface read for the gap fixtures.",
+        "error": null,
+        "http_status": 200,
+        "label": "bo3gg-matches",
+        "observed_at": "2026-10-25T15:28:01Z",
+        "source": "bo3.gg results feed",
+        "source_url": "https://bo3.gg/matches",
+        "status": "ok",
+        "titles_parsed": 0,
+        "total_events_before_filter": null,
+        "url": "https://bo3.gg/matches"
+      },
+      {
+        "detail": "EGamersWorld odds aggregator surface read for the gap fixtures.",
+        "error": "HTTP 403",
+        "http_status": 403,
+        "label": "egamersworld-matches",
+        "observed_at": "2026-10-25T15:28:01Z",
+        "source": "EGamersWorld odds aggregator",
+        "source_url": "https://egamersworld.com/counterstrike/matches",
+        "status": "error",
+        "titles_parsed": 0,
+        "total_events_before_filter": null,
+        "url": "https://egamersworld.com/counterstrike/matches"
+      },
+      {
+        "detail": "GG.BET esportsbook surface read for the gap fixtures.",
+        "error": "HTTP 403",
+        "http_status": 403,
+        "label": "ggbet-cs2",
+        "observed_at": "2026-10-25T15:28:01Z",
+        "source": "GG.BET esportsbook",
+        "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
+        "status": "error",
+        "titles_parsed": 0,
+        "total_events_before_filter": null,
+        "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
+      },
+      {
+        "detail": "Stake esportsbook surface read for the gap fixtures.",
+        "error": "HTTP 403",
+        "http_status": 403,
+        "label": "stake-cs2",
+        "observed_at": "2026-10-25T15:28:01Z",
+        "source": "Stake esportsbook",
+        "source_url": "https://stake.com/sports/esports/counter-strike",
+        "status": "error",
+        "titles_parsed": 0,
+        "total_events_before_filter": null,
+        "url": "https://stake.com/sports/esports/counter-strike"
+      },
+      {
+        "detail": "Rivalry esportsbook surface read for the gap fixtures.",
+        "error": null,
+        "http_status": 200,
+        "label": "rivalry-cs2",
+        "observed_at": "2026-10-25T15:28:01Z",
+        "source": "Rivalry esportsbook",
+        "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
+        "status": "ok",
+        "titles_parsed": 1,
+        "total_events_before_filter": null,
+        "url": "https://www.rivalry.com/esports/counter-strike-betting"
+      }
+    ],
+    "coverage": {
+      "api_open_fixtures": 14,
+      "api_records": 75,
+      "branch_root_generated_at": "2026-10-15T08:36:13Z",
+      "branch_root_sha256": "16c4437804abd527dd41c0ec67787911b25868cd7640b76bc1d88147fc224f5d",
+      "lobby_fixture_ids": 14,
+      "lobby_not_open_in_api": [],
+      "open_not_in_lobby": [],
+      "open_with_non_featured_pick": [],
+      "open_without_published_row": [
+        {
+          "competition": "CCT Europe 2026 Series #12",
+          "id": "1081158",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-25T18:00:00Z",
+          "teams": [
+            "FORZE Reload",
+            "ex-RUSTEC"
+          ],
+          "tier": "b"
+        },
+        {
+          "competition": "Circuit X Curitiba #4",
+          "id": "1082697",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-25T18:00:00Z",
+          "teams": [
+            "BESTIA",
+            "paiN"
+          ],
+          "tier": "c"
+        },
+        {
+          "competition": "NODWIN Clutch Series #13",
+          "id": "1079200",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-25T18:00:00Z",
+          "teams": [
+            "Color",
+            "ex-Zero Tenacity"
+          ],
+          "tier": "b"
+        },
+        {
+          "competition": "CCT South America 2026 Series #7",
+          "id": "1086697",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-25T19:00:00Z",
+          "teams": [
+            "Projeto do KinGui",
+            "Yawara"
+          ],
+          "tier": "c"
+        },
+        {
+          "competition": "DFRAG Invitational 2026",
+          "id": "1082858",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-26T03:00:00Z",
+          "teams": [
+            "Ground Zero",
+            "Off Chops"
+          ],
+          "tier": "b"
+        },
+        {
+          "competition": "DFRAG Invitational 2026",
+          "id": "1082859",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-26T03:00:00Z",
+          "teams": [
+            "NEXVOID",
+            "Alter Ego"
+          ],
+          "tier": "b"
+        },
+        {
+          "competition": "DFRAG Invitational 2026",
+          "id": "1082860",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-27T03:00:00Z",
+          "teams": [
+            "FlyQuest",
+            "Staqued"
+          ],
+          "tier": "b"
+        },
+        {
+          "competition": "DFRAG Invitational 2026",
+          "id": "1082861",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-27T03:00:00Z",
+          "teams": [
+            "Rooster",
+            "Abyssal"
+          ],
+          "tier": "b"
+        },
+        {
+          "competition": "Tesla Cup 2026",
+          "id": "1082897",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-27T08:00:00Z",
+          "teams": [
+            "B8",
+            "K27"
+          ],
+          "tier": "b"
+        },
+        {
+          "competition": "Tesla Cup 2026",
+          "id": "1082898",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-27T11:00:00Z",
+          "teams": [
+            "Alliance",
+            "FaZe"
+          ],
+          "tier": "b"
+        },
+        {
+          "competition": "Tesla Cup 2026",
+          "id": "1082900",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-27T17:00:00Z",
+          "teams": [
+            "Luminosity",
+            "HOTU"
+          ],
+          "tier": "b"
+        },
+        {
+          "competition": "Tesla Cup 2026",
+          "id": "1082901",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-27T20:00:00Z",
+          "teams": [
+            "Envy",
+            "GamerLegion"
+          ],
+          "tier": "b"
+        },
+        {
+          "competition": "Moscow Cyber Games 2026",
+          "id": "1082792",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-31T09:00:00Z",
+          "teams": [
+            "HOTU",
+            "The Huns"
+          ],
+          "tier": "b"
+        },
+        {
+          "competition": "Moscow Cyber Games 2026",
+          "id": "1082793",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-31T13:00:00Z",
+          "teams": [
+            "5star",
+            "1WIN"
+          ],
+          "tier": "b"
+        }
+      ],
+      "published_matches_branch_root": true,
+      "published_origination_generated_at": "2026-10-15T09:31:24Z",
+      "published_pick_rows": 17,
+      "published_rows_in_open_inventory": 0,
+      "published_sha256": "16c4437804abd527dd41c0ec67787911b25868cd7640b76bc1d88147fc224f5d",
+      "published_snapshot_age_hours": 246.86,
+      "published_snapshot_generated_at": "2026-10-15T08:36:13Z",
+      "research_target_errors": [],
+      "research_targets": 14,
+      "stale_after_hours": 8
+    },
+    "hltv": {
+      "ranking_final_url": "https://www.hltv.org/ranking/teams/2026/october/19",
+      "ranking_rows_parsed": 253,
+      "upcoming_rows_parsed": 31
+    },
+    "mode": "live",
+    "observed_at": "2026-10-25T15:27:55Z",
+    "purpose": "Record what Hotspawn, HLTV and the esportsbook surfaces publish for the live CS2 fixtures whose pick is not a featured market line, and for every open fixture missing from the published snapshot. Facts only: no probability, pick or alias is written here.",
+    "session": "arena-93c7475a",
+    "targets": [
+      {
+        "books_with_exact_row": [
+          "thunderpick-matches"
+        ],
+        "fixture": {
+          "competition": "CCT Europe 2026 Series #12",
+          "id": "1081158",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-25T18:00:00Z",
+          "teams": [
+            "FORZE Reload",
+            "ex-RUSTEC"
+          ],
+          "tier": "b"
+        },
+        "hltv_analytics": {
+          "distinct_odds": [
+            "1.23"
+          ],
+          "distinct_odds_count": 1,
+          "http_status": 200,
+          "observed_at": "2026-10-25T15:28:02Z",
+          "url": "https://www.hltv.org/betting/analytics/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12",
+          "usable_two_way_price": false
+        },
+        "hltv_exact": [
+          {
+            "start_delta_seconds": 0,
+            "url": "https://www.hltv.org/matches/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12"
+          }
+        ],
+        "hltv_shared": [],
+        "published_method": null,
+        "published_pick": null,
+        "ranking": {
+          "FORZE Reload": "rank 80, 11 points",
+          "ex-RUSTEC": "rank 70, 13 points"
+        },
+        "reason": "no-published-row"
+      },
+      {
+        "books_with_exact_row": [],
+        "fixture": {
+          "competition": "Circuit X Curitiba #4",
+          "id": "1082697",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-25T18:00:00Z",
+          "teams": [
+            "BESTIA",
+            "paiN"
+          ],
+          "tier": "c"
+        },
+        "hltv_analytics": {
+          "distinct_odds": [
+            "1.23"
+          ],
+          "distinct_odds_count": 1,
+          "http_status": 200,
+          "observed_at": "2026-10-25T15:28:03Z",
+          "url": "https://www.hltv.org/betting/analytics/2399819/pain-vs-bestia-circuit-x-curitiba-season-4",
+          "usable_two_way_price": false
+        },
+        "hltv_exact": [
+          {
+            "start_delta_seconds": 0,
+            "url": "https://www.hltv.org/matches/2399819/pain-vs-bestia-circuit-x-curitiba-season-4"
+          }
+        ],
+        "hltv_shared": [],
+        "published_method": null,
+        "published_pick": null,
+        "ranking": {
+          "BESTIA": "rank 76, 12 points",
+          "paiN": "rank 32, 55 points"
+        },
+        "reason": "no-published-row"
+      },
+      {
+        "books_with_exact_row": [],
+        "fixture": {
+          "competition": "NODWIN Clutch Series #13",
+          "id": "1079200",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-25T18:00:00Z",
+          "teams": [
+            "Color",
+            "ex-Zero Tenacity"
+          ],
+          "tier": "b"
+        },
+        "hltv_analytics": {
+          "distinct_odds": [
+            "1.23"
+          ],
+          "distinct_odds_count": 1,
+          "http_status": 200,
+          "observed_at": "2026-10-25T15:28:03Z",
+          "url": "https://www.hltv.org/betting/analytics/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+          "usable_two_way_price": false
+        },
+        "hltv_exact": [
+          {
+            "start_delta_seconds": 0,
+            "url": "https://www.hltv.org/matches/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13"
+          }
+        ],
+        "hltv_shared": [],
+        "published_method": null,
+        "published_pick": null,
+        "ranking": {
+          "Color": null,
+          "ex-Zero Tenacity": "rank 67, 13 points"
+        },
+        "reason": "no-published-row"
+      },
+      {
+        "books_with_exact_row": [],
+        "fixture": {
+          "competition": "CCT South America 2026 Series #7",
+          "id": "1086697",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-25T19:00:00Z",
+          "teams": [
+            "Projeto do KinGui",
+            "Yawara"
+          ],
+          "tier": "c"
+        },
+        "hltv_analytics": {
+          "distinct_odds": [
+            "1.23"
+          ],
+          "distinct_odds_count": 1,
+          "http_status": 200,
+          "observed_at": "2026-10-25T15:28:04Z",
+          "url": "https://www.hltv.org/betting/analytics/2399918/tropa-do-kingui-vs-yawara-cct-2026-south-america-series-7",
+          "usable_two_way_price": false
+        },
+        "hltv_exact": [],
+        "hltv_shared": [
+          {
+            "teams": [
+              "Tropa do KinGui",
+              "Yawara"
+            ],
+            "url": "https://www.hltv.org/matches/2399918/tropa-do-kingui-vs-yawara-cct-2026-south-america-series-7"
+          }
+        ],
+        "published_method": null,
+        "published_pick": null,
+        "ranking": {
+          "Projeto do KinGui": null,
+          "Yawara": "rank 157, 4 points"
+        },
+        "reason": "no-published-row"
+      },
+      {
+        "books_with_exact_row": [
+          "smarkets-cs2"
+        ],
+        "fixture": {
+          "competition": "DFRAG Invitational 2026",
+          "id": "1082858",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-26T03:00:00Z",
+          "teams": [
+            "Ground Zero",
+            "Off Chops"
+          ],
+          "tier": "b"
+        },
+        "hltv_analytics": {
+          "distinct_odds": [
+            "1.23"
+          ],
+          "distinct_odds_count": 1,
+          "http_status": 200,
+          "observed_at": "2026-10-25T15:28:05Z",
+          "url": "https://www.hltv.org/betting/analytics/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+          "usable_two_way_price": false
+        },
+        "hltv_exact": [
+          {
+            "start_delta_seconds": 0,
+            "url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026"
+          }
+        ],
+        "hltv_shared": [],
+        "published_method": null,
+        "published_pick": null,
+        "ranking": {
+          "Ground Zero": "rank 143, 5 points",
+          "Off Chops": "rank 142, 5 points"
+        },
+        "reason": "no-published-row"
+      },
+      {
+        "books_with_exact_row": [
+          "thunderpick-matches"
+        ],
+        "fixture": {
+          "competition": "DFRAG Invitational 2026",
+          "id": "1082859",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-26T03:00:00Z",
+          "teams": [
+            "NEXVOID",
+            "Alter Ego"
+          ],
+          "tier": "b"
+        },
+        "hltv_analytics": {
+          "distinct_odds": [
+            "1.23"
+          ],
+          "distinct_odds_count": 1,
+          "http_status": 200,
+          "observed_at": "2026-10-25T15:28:06Z",
+          "url": "https://www.hltv.org/betting/analytics/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026",
+          "usable_two_way_price": false
+        },
+        "hltv_exact": [
+          {
+            "start_delta_seconds": 0,
+            "url": "https://www.hltv.org/matches/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026"
+          }
+        ],
+        "hltv_shared": [],
+        "published_method": null,
+        "published_pick": null,
+        "ranking": {
+          "Alter Ego": "rank 132, 6 points",
+          "NEXVOID": "rank 77, 11 points"
+        },
+        "reason": "no-published-row"
+      },
+      {
+        "books_with_exact_row": [
+          "thunderpick-matches",
+          "smarkets-cs2"
+        ],
+        "fixture": {
+          "competition": "DFRAG Invitational 2026",
+          "id": "1082860",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-27T03:00:00Z",
+          "teams": [
+            "FlyQuest",
+            "Staqued"
+          ],
+          "tier": "b"
+        },
+        "hltv_analytics": {
+          "distinct_odds": [
+            "1.23"
+          ],
+          "distinct_odds_count": 1,
+          "http_status": 200,
+          "observed_at": "2026-10-25T15:28:07Z",
+          "url": "https://www.hltv.org/betting/analytics/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+          "usable_two_way_price": false
+        },
+        "hltv_exact": [
+          {
+            "start_delta_seconds": 0,
+            "url": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026"
+          }
+        ],
+        "hltv_shared": [],
+        "published_method": null,
+        "published_pick": null,
+        "ranking": {
+          "FlyQuest": "rank 61, 16 points",
+          "Staqued": null
+        },
+        "reason": "no-published-row"
+      },
+      {
+        "books_with_exact_row": [
+          "smarkets-cs2"
+        ],
+        "fixture": {
+          "competition": "DFRAG Invitational 2026",
+          "id": "1082861",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-27T03:00:00Z",
+          "teams": [
+            "Rooster",
+            "Abyssal"
+          ],
+          "tier": "b"
+        },
+        "hltv_analytics": {
+          "distinct_odds": [
+            "1.23"
+          ],
+          "distinct_odds_count": 1,
+          "http_status": 200,
+          "observed_at": "2026-10-25T15:28:08Z",
+          "url": "https://www.hltv.org/betting/analytics/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+          "usable_two_way_price": false
+        },
+        "hltv_exact": [
+          {
+            "start_delta_seconds": 0,
+            "url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026"
+          }
+        ],
+        "hltv_shared": [],
+        "published_method": null,
+        "published_pick": null,
+        "ranking": {
+          "Abyssal": "rank 128, 6 points",
+          "Rooster": "rank 181, 3 points"
+        },
+        "reason": "no-published-row"
+      },
+      {
+        "books_with_exact_row": [
+          "thunderpick-matches",
+          "smarkets-cs2"
+        ],
+        "fixture": {
+          "competition": "Tesla Cup 2026",
+          "id": "1082897",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-27T08:00:00Z",
+          "teams": [
+            "B8",
+            "K27"
+          ],
+          "tier": "b"
+        },
+        "hltv_analytics": {
+          "distinct_odds": [
+            "1.23"
+          ],
+          "distinct_odds_count": 1,
+          "http_status": 200,
+          "observed_at": "2026-10-25T15:28:09Z",
+          "url": "https://www.hltv.org/betting/analytics/2399866/b8-vs-k27-rlg-tesla-cup-2026",
+          "usable_two_way_price": false
+        },
+        "hltv_exact": [
+          {
+            "start_delta_seconds": 0,
+            "url": "https://www.hltv.org/matches/2399866/b8-vs-k27-rlg-tesla-cup-2026"
+          }
+        ],
+        "hltv_shared": [
+          {
+            "teams": [
+              "HEROIC",
+              "B8"
+            ],
+            "url": "https://www.hltv.org/matches/2399856/heroic-vs-b8-iem-beijing-2026"
+          }
+        ],
+        "published_method": null,
+        "published_pick": null,
+        "ranking": {
+          "B8": "rank 21, 98 points",
+          "K27": "rank 46, 32 points"
+        },
+        "reason": "no-published-row"
+      },
+      {
+        "books_with_exact_row": [
+          "thunderpick-matches",
+          "smarkets-cs2"
+        ],
+        "fixture": {
+          "competition": "Tesla Cup 2026",
+          "id": "1082898",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-27T11:00:00Z",
+          "teams": [
+            "Alliance",
+            "FaZe"
+          ],
+          "tier": "b"
+        },
+        "hltv_analytics": {
+          "distinct_odds": [
+            "1.23"
+          ],
+          "distinct_odds_count": 1,
+          "http_status": 200,
+          "observed_at": "2026-10-25T15:28:10Z",
+          "url": "https://www.hltv.org/betting/analytics/2399867/alliance-vs-faze-rlg-tesla-cup-2026",
+          "usable_two_way_price": false
+        },
+        "hltv_exact": [
+          {
+            "start_delta_seconds": 0,
+            "url": "https://www.hltv.org/matches/2399867/alliance-vs-faze-rlg-tesla-cup-2026"
+          }
+        ],
+        "hltv_shared": [
+          {
+            "teams": [
+              "FURIA",
+              "FaZe"
+            ],
+            "url": "https://www.hltv.org/matches/2399857/furia-vs-faze-iem-beijing-2026"
+          }
+        ],
+        "published_method": null,
+        "published_pick": null,
+        "ranking": {
+          "Alliance": "rank 29, 68 points",
+          "FaZe": "rank 17, 127 points"
+        },
+        "reason": "no-published-row"
+      },
+      {
+        "books_with_exact_row": [],
+        "fixture": {
+          "competition": "Tesla Cup 2026",
+          "id": "1082900",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-27T17:00:00Z",
+          "teams": [
+            "Luminosity",
+            "HOTU"
+          ],
+          "tier": "b"
+        },
+        "hltv_analytics": {
+          "distinct_odds": [
+            "1.23"
+          ],
+          "distinct_odds_count": 1,
+          "http_status": 200,
+          "observed_at": "2026-10-25T15:28:11Z",
+          "url": "https://www.hltv.org/betting/analytics/2399869/luminosity-vs-hotu-rlg-tesla-cup-2026",
+          "usable_two_way_price": false
+        },
+        "hltv_exact": [
+          {
+            "start_delta_seconds": 0,
+            "url": "https://www.hltv.org/matches/2399869/luminosity-vs-hotu-rlg-tesla-cup-2026"
+          }
+        ],
+        "hltv_shared": [
+          {
+            "teams": [
+              "HOTU",
+              "The Huns"
+            ],
+            "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026"
+          }
+        ],
+        "published_method": null,
+        "published_pick": null,
+        "ranking": {
+          "HOTU": "rank 38, 43 points",
+          "Luminosity": "rank 28, 76 points"
+        },
+        "reason": "no-published-row"
+      },
+      {
+        "books_with_exact_row": [],
+        "fixture": {
+          "competition": "Tesla Cup 2026",
+          "id": "1082901",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-27T20:00:00Z",
+          "teams": [
+            "Envy",
+            "GamerLegion"
+          ],
+          "tier": "b"
+        },
+        "hltv_analytics": {
+          "distinct_odds": [
+            "1.23"
+          ],
+          "distinct_odds_count": 1,
+          "http_status": 200,
+          "observed_at": "2026-10-25T15:28:11Z",
+          "url": "https://www.hltv.org/betting/analytics/2399870/envy-vs-gamerlegion-rlg-tesla-cup-2026",
+          "usable_two_way_price": false
+        },
+        "hltv_exact": [
+          {
+            "start_delta_seconds": 0,
+            "url": "https://www.hltv.org/matches/2399870/envy-vs-gamerlegion-rlg-tesla-cup-2026"
+          }
+        ],
+        "hltv_shared": [],
+        "published_method": null,
+        "published_pick": null,
+        "ranking": {
+          "Envy": "rank 22, 94 points",
+          "GamerLegion": "rank 23, 87 points"
+        },
+        "reason": "no-published-row"
+      },
+      {
+        "books_with_exact_row": [],
+        "fixture": {
+          "competition": "Moscow Cyber Games 2026",
+          "id": "1082792",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-31T09:00:00Z",
+          "teams": [
+            "HOTU",
+            "The Huns"
+          ],
+          "tier": "b"
+        },
+        "hltv_analytics": {
+          "distinct_odds": [
+            "1.23"
+          ],
+          "distinct_odds_count": 1,
+          "http_status": 200,
+          "observed_at": "2026-10-25T15:28:12Z",
+          "url": "https://www.hltv.org/betting/analytics/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+          "usable_two_way_price": false
+        },
+        "hltv_exact": [
+          {
+            "start_delta_seconds": 0,
+            "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026"
+          }
+        ],
+        "hltv_shared": [
+          {
+            "teams": [
+              "Luminosity",
+              "HOTU"
+            ],
+            "url": "https://www.hltv.org/matches/2399869/luminosity-vs-hotu-rlg-tesla-cup-2026"
+          }
+        ],
+        "published_method": null,
+        "published_pick": null,
+        "ranking": {
+          "HOTU": "rank 38, 43 points",
+          "The Huns": "rank 134, 5 points"
+        },
+        "reason": "no-published-row"
+      },
+      {
+        "books_with_exact_row": [],
+        "fixture": {
+          "competition": "Moscow Cyber Games 2026",
+          "id": "1082793",
+          "source_status": "scheduled",
+          "starts_at": "2026-10-31T13:00:00Z",
+          "teams": [
+            "5star",
+            "1WIN"
+          ],
+          "tier": "b"
+        },
+        "hltv_analytics": {
+          "distinct_odds": [
+            "1.23"
+          ],
+          "distinct_odds_count": 1,
+          "http_status": 200,
+          "observed_at": "2026-10-25T15:28:13Z",
+          "url": "https://www.hltv.org/betting/analytics/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+          "usable_two_way_price": false
+        },
+        "hltv_exact": [
+          {
+            "start_delta_seconds": 0,
+            "url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026"
+          }
+        ],
+        "hltv_shared": [],
+        "published_method": null,
+        "published_pick": null,
+        "ranking": {
+          "1WIN": "rank 14, 158 points",
+          "5star": "rank 36, 50 points"
+        },
+        "reason": "no-published-row"
+      }
+    ]
+  }
+}
