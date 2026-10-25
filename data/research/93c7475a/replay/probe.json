@@ -1,6 +1,6 @@
 {
   "mode": "parse-raw",
-  "observed_at": "2026-10-25T15:16:55Z",
+  "observed_at": "2026-10-25T15:28:14Z",
   "session": "arena-93c7475a",
   "sources": [],
   "summary": {
@@ -139,17 +139,23 @@
     "coverage": {
       "api_open_fixtures": 0,
       "api_records": 0,
+      "branch_root_generated_at": "2026-10-15T08:36:13Z",
+      "branch_root_sha256": "16c4437804abd527dd41c0ec67787911b25868cd7640b76bc1d88147fc224f5d",
       "lobby_fixture_ids": 0,
       "lobby_not_open_in_api": [],
       "open_not_in_lobby": [],
       "open_with_non_featured_pick": [],
       "open_without_published_row": [],
+      "published_matches_branch_root": false,
       "published_origination_generated_at": null,
       "published_pick_rows": 0,
       "published_rows_in_open_inventory": 0,
+      "published_sha256": null,
+      "published_snapshot_age_hours": null,
       "published_snapshot_generated_at": null,
       "research_target_errors": [],
-      "research_targets": 0
+      "research_targets": 0,
+      "stale_after_hours": 8
     },
     "hltv": {
       "ranking_final_url": null,
@@ -157,7 +163,7 @@
       "upcoming_rows_parsed": 0
     },
     "mode": "parse-raw",
-    "observed_at": "2026-10-25T15:16:55Z",
+    "observed_at": "2026-10-25T15:28:14Z",
     "purpose": "Record what Hotspawn, HLTV and the esportsbook surfaces publish for the live CS2 fixtures whose pick is not a featured market line, and for every open fixture missing from the published snapshot. Facts only: no probability, pick or alias is written here.",
     "session": "arena-93c7475a",
     "targets": []
