@@ -92,17 +92,13 @@ class GuidedPicksTest(unittest.TestCase):
         # layer resolved the row instead, is the ladder's business -- not a
         # regression. Pinning any of those states to a mutable root snapshot is
         # what froze the publisher.
-        checked = 0
-        featured = 0
         for fid in self.GROUP_B:
             match = self.by_id.get(fid)
             if match is None:
                 continue
-            checked += 1
             analysis = match.get('analysis')
             if not analysis:
                 continue
-            featured += 1
             probs = analysis.get('probabilities') or []
             self.assertEqual(len(probs), 2, fid)
             self.assertAlmostEqual(sum(probs), 1.0, places=4, msg=fid)

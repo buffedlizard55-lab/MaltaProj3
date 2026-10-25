@@ -19,6 +19,7 @@ def main():
         flag['title'] = '25 October runner coverage and HLTV-first no-line research'
         flag['source_urls'][-1] = ('https://github.com/buffedlizard55-lab/MaltaProj3/'
                                   'blob/main/data/research/04174d83/audit.json')
+    flags.extend(json.loads((OUT / 'regression.json').read_text()))
     (OUT / 'flags.json').write_text(json.dumps(flags, indent=2) + '\n')
     # State exactly what was audited: collected data is NOT proof of deployment.
     (OUT / 'README.md').write_text(
