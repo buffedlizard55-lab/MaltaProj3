@@ -1,8 +1,5 @@
 name: bf1f9ce5 live Hotspawn and HLTV-first research probe
 on:
-  push:
-    branches: [arena/bf1f9ce5-maltaproj3]
-    paths: ['.github/workflows/bf1f9ce5-probe.yml', 'scripts/bf1f9ce5_probe.py']
   workflow_dispatch:
 permissions:
   contents: write

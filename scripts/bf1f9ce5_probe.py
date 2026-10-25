@@ -778,7 +778,11 @@ def run_probe(out_dir: Path, timeout_sec: int = 20) -> dict:
             hp = pf.get('hltv_page') or {}
             h_txt = f"HTTP {hp.get('http_status')} ({pf.get('hltv_url')})" if hp.get('ok') else (pf.get('hltv_url') or '—')
             sm_ev = pf.get('smarkets_evidence') or {}
-            sm_txt = f"{sm_ev.get('event_url')} (narrow={sm_ev.get('two_sided')})" if sm_ev else 'not bound'
+            sm_txt = (
+                f"{sm_ev.get('event_url')} (two_sided={sm_ev.get('two_sided')}, spread>0.15)"
+                if sm_ev
+                else 'not bound'
+            )
             lsr_md.append(
                 f"| {' vs '.join(pf['teams'])} ({pf['competition']}) | `{pf['starts_at']}` | {pf['current_label']} | "
                 f"{h_txt} | {pf['polymarket_state']} | {sm_txt} | "
