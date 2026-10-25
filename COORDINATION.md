@@ -9257,3 +9257,22 @@ Claimed **2026-10-25T14:37Z** on Arena's fixed branch `arena/41d73e19-maltaproj3
 - The live landing page (read 2026-10-25T14:14Z) leads with "Snapshot needs attention … Do not treat these as current picks" — the snapshot is ~9 h old, past the 8 h bound; the four-hour publisher has not produced a newer one since 05:12Z. That unfreeze is owned by PR #328/#332 (see above).
 - `1081156` locked 2026-10-25T11:54Z (already started); `1082792` starts 2026-10-31T09:00Z and is the only still-open raw-unresolved fixture. Per the standing rule, no retrospective prematch probability is manufactured for started matches; 27AC-1 documents what sources published and whether the identity blockers are real.
 - GitHub REST API rate limit was hit at 2026-10-25T14:15Z (`gh run list` → 403); `gh` calls are being rationed this session and run-state claims will be re-read, not assumed.
+
+### 27AC result — dossier published, contract verified, publisher observed unfrozen (2026-10-25T14:50Z)
+
+| Task | Status | Evidence |
+| --- | --- | --- |
+| 27AC-1 HLTV-first research for the non-featured fixtures | **done** | `data/research/27ac20d6/research.{json,md}` — 9 dated direct source reads for `1082792` + `1081156`, model-row replays, `flags.json` (5 flags) |
+| 27AC-2 Executive-summary contract on the committed root | **done** | `scripts/27ac20d6_verify.py`: 9 pass / 0 fail / 1 info on the 05:12Z build; 6 pass / 0 fail / 3 skip (snapshot guard) / 1 info on the fresh build. `tests/test_27ac20d6_research.py` 9 tests OK on both trees |
+| 27AC-3 Freshness watch | **done — no takeover needed** | PR #332 merged 14:20Z; root snapshot `2026-10-25T14:23:33Z` (0.2 h old at re-verify); all 3 new fixtures carry picks; addendum `data/research/27ac20d6/fresh-snapshot-check.md` |
+| 27AC-4 PR, merge, deploy verification | in progress | this PR; result appended below when merged |
+
+**Key findings (all sourced in the dossier, none written into a pick).**
+1. `1082792` HOTU vs The Huns: direction unanimous (HLTV #38 vs #134; HLTV resolves The Huns to **VRS #122**, 4/5 core match to the 944-pt Valve row). Published 98.2% is single-sourced from the uncalibrated network fit; the project's Valve model on the verified core gives **94.1%**; Polymarket's market exists but is 43¢ wide (best asks 92¢/53¢ at 14:40Z — not probabilities); EGW 1.8/1.8 placeholder again. Flagged `27ac20d6-1082792-magnitude`; the ladder re-prices it every 4 h and will self-correct if the book tightens before 31 Oct.
+2. The published card's bo3.gg rating links (`bo3.gg/teams/2720`, `/9127`) return **404** (read 14:47Z) — flag `27ac20d6-bo3-team-links-404`. **Change request (owner: originate.py link builder):** bo3.gg's team route changed; point the "rating" links at live pages or drop them to the captured evidence.
+3. **Change request (owner: collector ladder):** consider a majority-core (≥4/5) lineup-disambiguation rung using a sourced event lineup (HLTV match page) so same-name VRS rosters like The Huns can take the Valve rung with the caveat printed; today the strict exact-five refusal is correct but leaves the model as the only route (flag `27ac20d6-huns-identity-resolvable`).
+4. `1081156` LFO 10 blocker was standings vintage: HLTV team 14084 formed ≈15 Oct, after the committed 2026-10-05 file (which holds LFO 7/8/9 only — reproduced exactly); HLTV's VRS mirror already lists LFO 10 #156, so a newer standings file self-heals it (flag `27ac20d6-lfo10-vrs-now-exists`).
+5. Fresh snapshot's other raw-unresolved fixture `1082858` fell out of the featured rung because all three books breached the 0.15 spread ceiling (0.21/0.29/0.19); published network pick keeps the same side (Off Chops). Recorded in the addendum.
+6. Model rows `1082793`/`1082861` replay to the published tenth from committed Valve evidence; `1082996`'s raw-vs-published difference is documented on its own card (model → verified money consensus upgrade).
+
+**Verification performed.** Local on the rebased tree: `27ac20d6_verify.py` (above), `tests.test_27ac20d6_research` 9 OK, `python -m scripts.build` PASS (971 rows, 0 without a source; acceptance 9/1/0), `scripts.audit_rows --site site --strict` 0 violations. Full `unittest discover` + Playwright phone checks run in CI on the PR (`Validate dashboard`). Rebased onto `origin/main` `3ef73f4` before the PR; no other session's files touched (scope held: new files only + this board).
