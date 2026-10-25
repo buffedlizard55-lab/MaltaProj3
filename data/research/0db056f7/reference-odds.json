@@ -1,0 +1,102 @@
+{
+ "session_id": "arena-0db056f7",
+ "observed_at": "2026-10-25T13:45:00Z",
+ "captured_at": "2026-10-25T13:45:00Z",
+ "policy": "First-hand EGamersWorld match-page reads via the browser-fetch tool (sandbox has no direct egress to egamersworld.com and GitHub Actions receives HTTP 403 there). An entry is captured only when the page carries the EGWxxxBOT bookmaker-average sentence and its header odds agree with that sentence; 1.8/1.8 placeholder pages and sentence-less pages are recorded under rejected with the reason. Same schema, identity, hash and 8-hour freshness gates as every earlier capture.",
+ "entries": [
+  {
+   "fixture_id": "1086696",
+   "event": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-25T16:00:00Z",
+   "teams": [
+    "BORRACHEIROS",
+    "RED Canids Academy"
+   ],
+   "provider_teams": [
+    "BORRACHEIROS",
+    "RED Canids Academy"
+   ],
+   "provider": "EGamersWorld (published bookmaker average)",
+   "source_url": "https://egamersworld.com/counterstrike/match/0U32SId-H/borracheiros-vs-red-canids-academy-5tMfbA07u",
+   "observed_at": "2026-10-25T13:40:00Z",
+   "banner_odds": [
+    2.1,
+    1.62
+   ],
+   "odds": [
+    2.1,
+    1.62
+   ],
+   "excerpt": "Now, the majority of bookmaker companies believe in RED Canids Academy victory. Odds on them are equal to 1.62. According to bookmakers data, BORRACHEIROS are the outsider and odds on their victory amounts 2.1.",
+   "excerpt_sha256": "f7265e8668d440a18a35d2c6afc287affabd3bbe8d143e7fc81f22713c224633",
+   "overround": 1.093474,
+   "no_vig": [
+    0.43548387,
+    0.56451613
+   ],
+   "note": "New Hotspawn fixture added after the deployed 2026-10-25T05:12:25Z snapshot (live API read 2026-10-25T13:38Z, tier C, locks 15:54:00Z). HLTV covers the fixture in CCT 2026 South America Series 7 (event 9452, semifinal, BO3). Polymarket public-search at 13:44Z surfaced only the Oct 24 quarter-finals for both teams, so no first-party exact-name market was verified; if one opens before the lock the ladder prefers it over this aggregated rung. EGW header odds (2.1 / 1.62) match the EGWxxxBOT bookmaker-average sentence retained above; page countdown 2:20:08 at read time agrees with the 16:00:00Z Hotspawn start. Hotspawn crowd split (11% / 89%) is excluded."
+  }
+ ],
+ "rejected": [
+  {
+   "fixture_id": "1086697",
+   "teams": [
+    "Projeto do KinGui",
+    "Yawara"
+   ],
+   "starts_at": "2026-10-25T19:00:00Z",
+   "source_url": "https://egamersworld.com/counterstrike/match/0U32SId-H/projeto-do-kingui-vs-yawara-3gUs-7A9Zu",
+   "observed_at": "2026-10-25T13:41:00Z",
+   "rejected": true,
+   "reason": "Match page displays a 1.8/1.8 header with no EGWxxxBOT bookmaker-average sentence; identical prices are a site placeholder, not a market (scripts/reference_odds.py problems()). Fixture is new since the deployed 05:12Z snapshot; competition-scoped aliases Yawara Esports -> Yawara and Tropa do KinGui -> Projeto do KinGui already exist, so a first-party book/exchange line can bind automatically on the next publisher run; otherwise the Valve/network model rungs decide."
+  },
+  {
+   "fixture_id": "1082697",
+   "teams": [
+    "BESTIA",
+    "paiN"
+   ],
+   "starts_at": "2026-10-25T18:00:00Z",
+   "source_url": "https://egamersworld.com/counterstrike/match/N1oRKrSYEl/pain-gaming-vs-bestia-cKOI-68YS",
+   "observed_at": "2026-10-25T13:42:00Z",
+   "rejected": true,
+   "reason": "EGW match page header (paiN Gaming 1.76 / BESTIA 1.91) and tip page (1.64 / 2.15, best odds 1.80 / 2.15) disagree with each other and neither carries the EGWxxxBOT bookmaker-average sentence this rung requires, so no reference quote is captured. Not needed: Polymarket event 1249433 (cs2-pain-bst-2026-10-25) lists exact names paiN / BESTIA at eventStartTime 2026-10-25T18:00:00Z with deep liquidity, and the paiN Gaming -> paiN alias already covers Bovada for Circuit X Curitiba #4, so the featured/money ladder resolves this fixture on the next publisher run."
+  },
+  {
+   "fixture_id": "1082792",
+   "teams": [
+    "HOTU",
+    "The Huns"
+   ],
+   "starts_at": "2026-10-31T09:00:00Z",
+   "source_url": "https://egamersworld.com/counterstrike/match/EkalRNMvVx/hotu-vs-the-huns-esports-SfdtzDhiK",
+   "observed_at": "2026-10-25T13:43:00Z",
+   "rejected": true,
+   "reason": "EGW match page shows the 1.8 placeholder header with no bookmaker-average sentence six days before the start. HLTV match 2399437 confirms the fixture (GLuck Moscow Cyber Games 2026). Polymarket lists cs2-hotu-the9-2026-10-31 and the The Huns Esports -> The Huns alias already exists, but the book was non-compliant at the 05:12Z publisher read, leaving the uncalibrated bo3.gg network estimate (98.2% HOTU) - flagged as extreme in gap-research.md."
+  },
+  {
+   "fixture_id": "1082793",
+   "teams": [
+    "5star",
+    "1WIN"
+   ],
+   "starts_at": "2026-10-31T13:00:00Z",
+   "source_url": "https://egamersworld.com/counterstrike/match/EkalRNMvVx/1win-vs-5star-esports-4hTvdd1uN",
+   "observed_at": "2026-10-25T13:44:00Z",
+   "rejected": true,
+   "reason": "EGW shows a 1.8/1.8 placeholder pair with no bookmaker-average sentence. HLTV match 2399438 confirms the fixture; Polymarket lists the event with $0.00 volume (1.04x stub), so no compliant two-sided line exists today and the Valve-rating research estimate stands until a book prices the Oct 31 LAN semi-final."
+  },
+  {
+   "fixture_id": "1082861",
+   "teams": [
+    "Rooster",
+    "Abyssal"
+   ],
+   "starts_at": "2026-10-27T03:00:00Z",
+   "source_url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/rooster-vs-team-abyssal-P1tTp3RAg8",
+   "observed_at": "2026-10-25T13:45:00Z",
+   "rejected": true,
+   "reason": "EGW header shows the 1.8 placeholder and no bookmaker-average sentence. Polymarket lists Rooster vs Abyssal (DFRAG Invitational Group B) at $0.00 volume with a 50/50 stub, so no compliant two-sided price exists ~37h before the start; the Valve-rating research estimate stands and every publisher run re-checks the money ladder first."
+  }
+ ]
+}

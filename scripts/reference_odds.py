@@ -41,6 +41,11 @@ UTC = timezone.utc
 EVIDENCE_PATH = Path('research/57b1ee04/reference-odds.json')
 CAPTURE_PATHS = (
     EVIDENCE_PATH,
+    # Session arena-0db056f7 (2026-10-25T13:40:00Z): first-hand EGW match-page
+    # capture for new Hotspawn fixture 1086696 (BORRACHEIROS vs RED Canids
+    # Academy, CCT South America 2026 Series #7), added to the lobby after the
+    # deployed 05:12Z snapshot; five sentence-less/placeholder pages rejected.
+    Path('research/0db056f7/reference-odds.json'),
     # Session arena-c2a74e33 (2026-10-24T16:42:00Z): fresh first-hand EGW
     # match-page captures (placed ahead of E57's expired 06:29Z capture so
     # Ground Zero vs Off Chops 1082858 resolves inside the 8h freshness gate).
