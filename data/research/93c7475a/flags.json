@@ -1,5 +1,33 @@
 [
   {
+    "id": "93c7475a-published-snapshot-outside-freshness-bound",
+    "title": "Published snapshot is 246.9 h old and covers none of the open fixtures",
+    "severity": "warning",
+    "detail": "The published dashboard was generated 2026-10-15T08:36:13Z, 246.9 hours before this observation \u2014 outside the 8-hour bound the site itself publishes. 0 of the 14 currently open Hotspawn CS2 fixtures appear in it, so a reader opening the site now sees an old inventory. The served bytes are byte-identical (same SHA-256) to the checked-in branch-root data/latest.json generated 2026-10-15T08:36:13Z, which is the signature of the legacy Pages build republishing the branch root over the verified artifact \u2014 the race documented at length in .github/workflows/pages.yml.",
+    "match_ids": [
+      "1081158",
+      "1082697",
+      "1079200",
+      "1086697",
+      "1082858",
+      "1082859",
+      "1082860",
+      "1082861",
+      "1082897",
+      "1082898",
+      "1082900",
+      "1082901",
+      "1082792",
+      "1082793"
+    ],
+    "source_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://play.hotspawn.com/lobby"
+    ],
+    "observed_at": "2026-10-25T15:27:55Z"
+  },
+  {
     "id": "93c7475a-open-fixtures-missing-from-snapshot",
     "title": "14 open Hotspawn CS2 fixture(s) have no published pick row",
     "severity": "warning",
@@ -25,7 +53,7 @@
       "https://play.hotspawn.com/lobby",
       "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json"
     ],
-    "observed_at": "2026-10-25T15:16:34Z"
+    "observed_at": "2026-10-25T15:27:55Z"
   },
   {
     "id": "93c7475a-esportsbook-surface-refusals",
@@ -39,7 +67,7 @@
       "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
       "https://stake.com/sports/esports/counter-strike"
     ],
-    "observed_at": "2026-10-25T15:16:34Z"
+    "observed_at": "2026-10-25T15:27:55Z"
   },
   {
     "id": "93c7475a-name-mismatch-1086697",
@@ -53,6 +81,6 @@
       "https://www.hltv.org/matches/2399918/tropa-do-kingui-vs-yawara-cct-2026-south-america-series-7",
       "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
     ],
-    "observed_at": "2026-10-25T15:16:34Z"
+    "observed_at": "2026-10-25T15:27:55Z"
   }
 ]
