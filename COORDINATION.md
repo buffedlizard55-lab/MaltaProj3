@@ -2,7 +2,7 @@
 
 | Task | Status | Owner | Scope |
 | --- | --- | --- | --- |
-| Diagnose latest scheduled publisher failure, independently test existing coverage/mobile pipeline, publish limitations and repair reproduced regression | in progress | arena-04174d83 | new data/research/04174d83/**, new tests/test_04174d83*.py; failing test scope to be recorded after diagnosis; this heading |
+| Diagnose latest scheduled publisher failure, independently test existing coverage/mobile pipeline, publish limitations and repair reproduced regression | in progress | arena-04174d83 | new data/research/04174d83/**, new tests/test_04174d83*.py; tests/test_b72154e1_guided_picks.py (stale completed-session test; Group A snapshot binding and Group B expiry assertions); this heading |
 | Fresh runner research (HLTV then books only for gaps), integration PR and Pages confirmation | in progress | arena-04174d83 | new .github/workflows/04174d83-audit.yml, new scripts/session_04174d83_audit.py; this heading |
 
 Read the existing task board and open PRs before claiming. Existing implementation scopes are not claimed here. Fixed Arena branch used as required by platform; no alternate branch created. Sandbox outbound hosts exclude Hotspawn, HLTV, bookmakers and Pages: use GitHub Actions for fresh research, never claim local live verification. Latest failed publisher 40174233578 failed its regression-test step, confirmed via GitHub jobs API; logs host is blocked here. Existing site already implements mobile pick tables, unresolved register and four-hour scheduling; review and repair rather than duplicate.
