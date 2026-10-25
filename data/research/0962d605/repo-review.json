@@ -126,6 +126,27 @@
           "detail": "Annotations carry the FAIL line; the log archive itself was unreachable."
         }
       ]
+    },
+    {
+      "id": "0962-R08",
+      "area": "probability policy",
+      "status": "needs review",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+          "detail": "Match header displays HOTU 76.0% / The Huns 24.0% and HOTU VRS #34; read 2026-10-25T15:10:00Z."
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "Two complete five-player rows named The Huns: standing 122 with 944 points and standing 213 with 701 points."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-hotu-the9-2026-10-31",
+          "detail": "Market 6085308 quoted bid 0.38 / ask 0.92, a 0.54 spread, read 2026-10-25T13:52:00Z."
+        }
+      ],
+      "finding": "Fixture 1082792 (HOTU vs The Huns, 2026-10-31T09:00:00Z) has three unusable money sources and one usable forecast: Polymarket market 6085308 quotes 0.38/0.92 (0.54 spread against a 0.15 ceiling); EGamersWorld prints a single unpaired 1.80 HOTU price; Valve's 2026-10-05 standings carry two complete five-player 'The Huns' rows (944 and 701 points) that neither match HLTV's current lineup exactly, so scripts/domain.py:valve_analysis fails closed. HLTV itself displays HOTU 76.0% / 24.0% and VRS #34.",
+      "handling": "Recorded in data/research/0962d605/gap-research.json as evidence and published on Flagged for Review. Not adopted as this board's probability: the published-line policy admits observed two-way prices and Valve ratings only, and adopting a third-party forecast is a policy change. Two options are on the table - an explicitly labelled 'HLTV-published forecast' rung used only when no admissible line exists, or a roster-resolution rule that selects one duplicate Valve row from a first-party lineup source. Neither is applied here."
     }
   ]
 }
