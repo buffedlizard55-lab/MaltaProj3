@@ -88,11 +88,11 @@
           "The Huns": 134
         },
         "detail": "HLTV match 2399437 schedules the BO3 semi-final at 05:00 ET = 09:00Z on 31 October 2026 and HLTV's analytics page ranks HOTU #38 and The Huns #134. Same order, same teams, same competition as Hotspawn 1082792 and Polymarket cs2-hotu-the9-2026-10-31.",
-        "observed_at_forecast": "2026-10-25T15:10:00Z",
+        "observed_at_forecast": "2026-10-25T14:00:00Z",
         "forecast": {
           "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
           "displayed": "HOTU 76.0% / The Huns 24.0%",
-          "observed_at": "2026-10-25T15:10:00Z",
+          "observed_at": "2026-10-25T14:00:00Z",
           "what_it_is": "HLTV's own published win forecast for the fixture, read from the match page header. It is a third-party forecast, not an observed two-way price and not this project's model."
         },
         "vrs_header": "HLTV match header prints HOTU VRS #34 alongside world #38; The Huns VRS is not printed on the match header."
@@ -131,7 +131,7 @@
         "evidence_url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082792",
         "observed_at": "2026-10-25T13:41:00Z"
       },
-      "conclusion": "A market does exist and the identity join is correct (the registered alias 'The Huns Esports' -> 'The Huns' is scoped to Moscow Cyber Games 2026 and matches the same 09:00Z start). The book is 0.54 wide, so it cannot produce a compliant pick; the published 98.2% is a labelled research model, not a line. A third-party forecast does exist: HLTV displays HOTU 76.0% / The Huns 24.0% for this fixture (read 15:10Z). It is recorded here as evidence, not published as this project's probability, because the published-line policy admits observed two-way prices and Valve ratings only; adopting a third-party forecast rung is requested as review item 0962-R08.",
+      "conclusion": "A market does exist and the identity join is correct (the registered alias 'The Huns Esports' -> 'The Huns' is scoped to Moscow Cyber Games 2026 and matches the same 09:00Z start). The book is 0.54 wide, so it cannot produce a compliant pick; the published 98.2% is a labelled research model, not a line. A third-party forecast does exist: HLTV displays HOTU 76.0% / The Huns 24.0% for this fixture (read 14:00Z). It is recorded here as evidence, not published as this project's probability, because the published-line policy admits observed two-way prices and Valve ratings only; adopting a third-party forecast rung is requested as review item 0962-R08.",
       "limitations": [
         "The only two-sided book is 0.54 wide, above every published ceiling; policy rejects it as a line.",
         "The published model estimate diverges from the market's implied price by about 33 points.",
@@ -182,7 +182,7 @@
         {
           "source": "EGamersWorld match page",
           "url": "https://egamersworld.com/counterstrike/match/EkalRNMvVx/hotu-vs-the-huns-esports-SfdtzDhiK",
-          "observed_at": "2026-10-25T15:05:00Z",
+          "observed_at": "2026-10-25T14:01:00Z",
           "value": "a single 1.80 quote for HOTU with no paired opponent price",
           "usable": false,
           "why": "One unpaired price cannot be de-vigged and is not a two-way book; a one-sided quote is not published as a probability."
@@ -238,14 +238,14 @@
     {
       "name": "HLTV match page 2399437 (forecast header)",
       "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
-      "observed_at": "2026-10-25T15:10:00Z",
-      "detail": "HLTV match page for HOTU vs The Huns at GLuck Moscow Cyber Games 2026: header displays HOTU 76.0% / 24.0%, HOTU VRS #34, kickoff 2026-10-31T09:00:00Z, Best of 3 (LAN), semi-final; read 2026-10-25T15:10:00Z."
+      "observed_at": "2026-10-25T14:00:00Z",
+      "detail": "HLTV match page for HOTU vs The Huns at GLuck Moscow Cyber Games 2026: header displays HOTU 76.0% / 24.0%, HOTU VRS #34, kickoff 2026-10-31T09:00:00Z, Best of 3 (LAN), semi-final; read 2026-10-25T14:00:00Z."
     },
     {
       "name": "EGamersWorld HOTU vs The Huns Esports",
       "url": "https://egamersworld.com/counterstrike/match/EkalRNMvVx/hotu-vs-the-huns-esports-SfdtzDhiK",
-      "observed_at": "2026-10-25T15:05:00Z",
-      "detail": "EGamersWorld match page for HOTU vs The Huns Esports: EGW ratings 46 vs 59 and a single 1.80 HOTU quote with no paired opponent price; read 2026-10-25T15:05:00Z."
+      "observed_at": "2026-10-25T14:01:00Z",
+      "detail": "EGamersWorld match page for HOTU vs The Huns Esports: EGW ratings 46 vs 59 and a single 1.80 HOTU quote with no paired opponent price; read 2026-10-25T14:01:00Z."
     }
   ]
 }
