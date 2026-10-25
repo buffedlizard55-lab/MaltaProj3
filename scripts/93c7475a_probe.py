@@ -151,8 +151,20 @@ def get(label: str, url: str, *, expect_json: bool = False, method: str = 'GET',
     path = RAW / f'{slug(label)}.{"json" if expect_json else "html.gz"}'
     if response.ok:
         path.write_bytes(response.content if expect_json else gzip.compress(response.content))
-    return entry, (response.json() if expect_json and response.ok else
-                   (response.text if response.ok else None))
+    if not response.ok:
+        return entry, None
+    if not expect_json:
+        return entry, response.text
+    # A surface can answer HTTP 200 with an HTML challenge page instead of JSON.
+    # That is a fact about the surface, not a crash: record it as an error so the
+    # dossier reports the surface as refused, and keep going. (This is what
+    # stopped the first live run — the JSON decode was unguarded.)
+    try:
+        return entry, response.json()
+    except ValueError as exc:
+        entry['status'] = 'error'
+        entry['error'] = 'not JSON: ' + type(exc).__name__ + ': ' + str(exc)[:300]
+        return entry, None
 
 
 def read_archived(label: str, expect_json: bool):
@@ -320,8 +332,12 @@ def book_titles(label: str, payload, text) -> list:
                 titles.append({'id': str(row.get('id')), 'title': f'{names[0]} vs {names[1]}',
                                'url': 'https://www.pinnacle.com/en/esports/counter-strike-2'})
     elif text:
-        for match in re.findall(r'([A-Za-z0-9 .\-&\']{2,40})\s*(?:vs\.?|—)\s*([A-Za-z0-9 .\-&\']{2,40})', text):
-            titles.append({'id': None, 'title': f'{match[0].strip()} vs {match[1].strip()}', 'url': None})
+        # Loose HTML scan, bounded: a multi-megabyte SPA shell would make this
+        # regex the slowest thing in the sweep for no benefit.
+        if len(text) <= 2_000_000:
+            for match in re.findall(r'([A-Za-z0-9 .\-&\']{2,40})\s*(?:vs\.?|—)\s*([A-Za-z0-9 .\-&\']{2,40})',
+                                    text)[:2000]:
+                titles.append({'id': None, 'title': f'{match[0].strip()} vs {match[1].strip()}', 'url': None})
     return titles
 
 
@@ -631,16 +647,23 @@ def main(argv: list[str] | None = None) -> int:
     # 4. Then the esportsbooks and exchanges.
     books = []
     for label, url, kind, source_name, source_url in BOOKS:
-        if kind == 'post-json':
-            entry, payload = text_of(label, url, expect_json=True, method='POST', payload={'gameIds': [6]})
-            text = None
-        elif kind == 'json':
-            entry, payload = text_of(label, url, expect_json=True)
-            text = None
-        else:
-            entry, text = text_of(label, url)
-            payload = None
-        titles = book_titles(label, payload, text) if entry.get('status') == 'ok' else []
+        # One unreadable surface is a finding, not a crash: the sweep must still
+        # report what the other nine published.
+        try:
+            if kind == 'post-json':
+                entry, payload = text_of(label, url, expect_json=True, method='POST', payload={'gameIds': [6]})
+                text = None
+            elif kind == 'json':
+                entry, payload = text_of(label, url, expect_json=True)
+                text = None
+            else:
+                entry, text = text_of(label, url)
+                payload = None
+            titles = book_titles(label, payload, text) if entry.get('status') == 'ok' else []
+        except Exception as exc:                                    # noqa: BLE001 - recorded, not raised
+            entry, titles = {'label': label, 'url': url, 'observed_at': now_iso(), 'status': 'error',
+                             'error': type(exc).__name__ + ': ' + str(exc)[:300]}, []
+            sources.append(entry)
         books.append({'label': label, 'source': source_name, 'url': url, 'source_url': source_url,
                       'detail': f'{source_name} surface read for the gap fixtures.',
                       'status': entry.get('status'), 'http_status': entry.get('http_status'),
@@ -654,7 +677,9 @@ def main(argv: list[str] | None = None) -> int:
     latest_by_id = {str(m.get('id')): m for m in (latest or {}).get('matches') or []}
 
     targets = []
+    target_errors = []
     for item in records_open:
+      try:
         fixture = fixture_view(item)
         row = published.get(fixture['id'])
         method = ((row or {}).get('origination') or {}).get('method')
@@ -702,6 +727,9 @@ def main(argv: list[str] | None = None) -> int:
                            'hits': exact_book_hits(fixture, b['titles']) if b['status'] == 'ok' else []}
                           for b in books],
         })
+      except Exception as exc:                                      # noqa: BLE001 - recorded, not raised
+        target_errors.append({'fixture_id': str(item.get('id')),
+                              'error': type(exc).__name__ + ': ' + str(exc)[:400]})
 
     open_ids = set(api_open_ids)
     lobby_ids_set = set(lobby_ids)
@@ -715,6 +743,7 @@ def main(argv: list[str] | None = None) -> int:
         'open_without_published_row': [t['fixture'] for t in targets if t['reason'] == 'no-published-row'],
         'open_with_non_featured_pick': [t['fixture'] for t in targets if t['reason'] != 'no-published-row'],
         'research_targets': len(targets),
+        'research_target_errors': target_errors,
         'published_snapshot_generated_at': (latest or {}).get('generated_at'),
         'published_origination_generated_at': (origination or {}).get('generated_at'),
         'published_pick_rows': len(published),
@@ -814,4 +843,14 @@ def render_markdown(summary: dict, sources: list, targets: list) -> str:
 
 
 if __name__ == '__main__':
-    raise SystemExit(main())
+    try:
+        raise SystemExit(main())
+    except SystemExit:
+        raise
+    except BaseException:                                          # noqa: BLE001 - diagnostic, then re-raised
+        import traceback
+        # The runner's log host is not always reachable, so the traceback is
+        # written into the evidence tree where the workflow commits it.
+        OUT.mkdir(parents=True, exist_ok=True)
+        (OUT / 'probe-error.txt').write_text(traceback.format_exc())
+        raise

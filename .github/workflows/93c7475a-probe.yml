@@ -37,7 +37,19 @@ jobs:
       - name: Install the probe's declared dependencies
         run: python -m pip install --quiet requests==2.32.5 beautifulsoup4==4.14.3
       - name: Read the live inventory, HLTV and every esportsbook surface
-        run: python -m scripts.93c7475a_probe
+        # The runner's log host is not always reachable from a restricted
+        # environment, so a failure must leave its own trace in the evidence
+        # tree. `continue-on-error` keeps the commit step running; the job's
+        # final status is restored from the probe's own exit file below.
+        run: |
+          set +e
+          python -m scripts.93c7475a_probe
+          code=$?
+          echo "$code" > data/research/93c7475a/probe-exit-code.txt
+          if [ "$code" -ne 0 ]; then
+            echo "::error title=probe failed::exit $code — see data/research/93c7475a/probe-error.txt"
+          fi
+          exit "$code"
       - name: Re-parse the archived bodies to prove the parsers replay offline
         run: python -m scripts.93c7475a_probe --parse-raw --output data/research/93c7475a/replay
       - name: Validate the emitted dossier against the site's own renderer
@@ -55,6 +67,7 @@ jobs:
           print('every fixture carries an explicit resolution status')
           PY
       - name: Commit the evidence
+        if: always()
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
@@ -67,6 +80,14 @@ jobs:
           git commit -m 'research: 93c7475a live-picks probe evidence [skip ci]'
           git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
           git push origin "HEAD:${GITHUB_REF_NAME}"
+      - name: Fail the job if the probe itself failed
+        if: always()
+        run: |
+          code=$(cat data/research/93c7475a/probe-exit-code.txt 2>/dev/null || echo 1)
+          if [ "$code" != "0" ]; then
+            echo "The probe exited $code; its traceback is in data/research/93c7475a/probe-error.txt."
+            exit 1
+          fi
       - name: Summarise the recorded facts
         run: |
           python - <<'PY'
