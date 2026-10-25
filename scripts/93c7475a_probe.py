@@ -297,37 +297,78 @@ def ranking_row(name: str, rows: list) -> dict | None:
 
 
 def book_titles(label: str, payload, text) -> list:
-    """Fixture-ish titles a book surface publishes, for an exact-name search."""
+    """Rows a book surface publishes, with any two-way price it shows.
+
+    Each row keeps the *observed* decimal prices verbatim. Nothing here converts
+    a price into a probability: the publisher's ladder owns every number. The
+    shapes below were read from the archived response bodies in ``raw/`` during
+    this session; the first version of this function guessed them and silently
+    reported zero rows for three surfaces that were in fact serving CS2 lines.
+    """
     titles = []
     if label == 'polymarket-cs2-tag' and isinstance(payload, list):
         for event in payload:
             if isinstance(event, dict):
                 titles.append({'id': str(event.get('id')), 'title': event.get('title'),
-                               'slug': event.get('slug'), 'url': 'https://polymarket.com/event/' + str(event.get('slug'))})
+                               'slug': event.get('slug'),
+                               'url': 'https://polymarket.com/event/' + str(event.get('slug')),
+                               'starts_at': event.get('startDate')})
     elif label == 'thunderpick-matches' and isinstance(payload, dict):
-        for row in payload.get('data') or payload.get('matches') or []:
-            if isinstance(row, dict):
-                left = ((row.get('opponents') or [{}])[0] or {}).get('name')
-                right = ((row.get('opponents') or [{}, {}])[-1] or {}).get('name')
-                if left and right:
-                    titles.append({'id': str(row.get('id')), 'title': f'{left} vs {right}',
-                                   'url': 'https://thunderpick.io/esports/counter-strike'})
+        # Real shape: {"statusCode":200,"ok":true,"data":{"upcoming":[...],"live":[...],"outrights":[...]}}.
+        # Each match carries teams.home/teams.away and preferredMarkets[], where
+        # the full-series winner is the market literally named "Match Winner".
+        data = payload.get('data') if isinstance(payload.get('data'), dict) else {}
+        for row in (data.get('upcoming') or []) + (data.get('live') or []):
+            if not isinstance(row, dict):
+                continue
+            teams = row.get('teams') if isinstance(row.get('teams'), dict) else {}
+            home = (teams.get('home') or {}).get('name')
+            away = (teams.get('away') or {}).get('name')
+            if not (home and away):
+                continue
+            odds = []
+            for market in row.get('preferredMarkets') or []:
+                if not isinstance(market, dict) or market.get('name') != 'Match Winner':
+                    continue
+                # bool is a subclass of int, so it is excluded explicitly.
+                odds = [(s.get('name'), s.get('odds')) for s in market.get('selections') or []
+                        if isinstance(s, dict) and isinstance(s.get('odds'), (int, float))
+                        and not isinstance(s.get('odds'), bool)]
+            comp = row.get('competition') if isinstance(row.get('competition'), dict) else {}
+            titles.append({'id': str(row.get('id')), 'title': f'{home} vs {away}',
+                           'url': 'https://thunderpick.io/esports/counter-strike',
+                           'starts_at': row.get('startTime'), 'competition': comp.get('name'),
+                           'odds': odds, 'best_of': row.get('bestOf')})
     elif label == 'kalshi-cs2-events' and isinstance(payload, dict):
+        # The generic open-events endpoint answers 200 with politics and science
+        # events, not esports. Counting those as CS2 rows would overstate the
+        # coverage, so only rows whose own title names the sport are kept, and
+        # the total is reported separately in the summary.
         for event in payload.get('events') or []:
-            if isinstance(event, dict):
-                titles.append({'id': str(event.get('event_ticker')), 'title': event.get('title'),
-                               'url': 'https://kalshi.com/markets/esports'})
+            if not isinstance(event, dict):
+                continue
+            title = str(event.get('title') or '')
+            if not any(word in title.lower() for word in ('counter-strike', 'cs2', 'csgo')):
+                continue
+            titles.append({'id': str(event.get('event_ticker')), 'title': title,
+                           'url': 'https://kalshi.com/markets/esports'})
     elif label == 'smarkets-cs2' and isinstance(payload, dict):
-        for event in payload.get('objects') or []:
-            if isinstance(event, dict) and event.get('type') == 'event':
-                titles.append({'id': str(event.get('id')), 'title': event.get('name'),
-                               'url': 'https://smarkets.com/sport/esports/cs-go'})
+        # Real shape: {"events":[{...}]}, each with name "A vs B" and a full_slug
+        # under /sport/esports/cs-go/. The first version of this function read
+        # payload["objects"], which does not exist, and reported zero rows while
+        # the exchange was listing several of the live fixtures by exact name.
+        for event in payload.get('events') or []:
+            if not isinstance(event, dict) or not event.get('name'):
+                continue
+            slug = event.get('full_slug') or ''
+            titles.append({'id': str(event.get('id')), 'title': event.get('name'),
+                           'url': ('https://smarkets.com' + slug) if slug.startswith('/')
+                                  else 'https://smarkets.com/sport/esports/cs-go'})
     elif label == 'pinnacle-esports' and isinstance(payload, list):
         for row in payload:
             if not isinstance(row, dict):
                 continue
-            parts = row.get('participants') or []
-            names = [p.get('name') for p in parts if isinstance(p, dict)]
+            names = [p.get('name') for p in (row.get('participants') or []) if isinstance(p, dict)]
             if len(names) == 2:
                 titles.append({'id': str(row.get('id')), 'title': f'{names[0]} vs {names[1]}',
                                'url': 'https://www.pinnacle.com/en/esports/counter-strike-2'})
@@ -439,15 +480,32 @@ def build_dossier(observed_at: str, targets: list, books: list, hltv: dict) -> d
                     'runner, so nothing can be said about its coverage of this fixture. That is a limitation of the '
                     'runner, not proof that no market exists.')
             elif hits:
-                verdict, detail = 'exact-name-row-found', (
-                    f'{code_text}; {len(hits)} row(s) with these exact two names.')
+                # Quote the observed price verbatim. This dossier never converts
+                # a price into a probability: the publisher's ladder owns every
+                # published number, and this row is a dated research lead.
+                priced = [h for h in hits if h.get('odds')]
+                quoted = []
+                for hit in hits[:3]:
+                    prices = hit.get('odds') or []
+                    pair = (' / '.join(f'{name} {odd:g}' for name, odd in prices[:2]) if prices
+                            else 'listed, no price on this endpoint')
+                    quoted.append(pair + (f' (start {hit["starts_at"]})' if hit.get('starts_at') else ''))
+                verdict = 'exact-name-price-observed' if priced else 'exact-name-row-found'
+                detail = (f'{code_text}; {len(hits)} row(s) with these exact two names: ' + '; '.join(quoted) + '.'
+                          + (' Observed price only — no probability is derived here and the published pick is '
+                             'unchanged.' if priced else
+                             ' The row confirms the fixture is listed; this endpoint carries no price for it.'))
             else:
                 verdict, detail = 'reachable-no-exact-row', (
                     f"{code_text} — surface readable, but no row with these exact two names at the observation time.")
+            hit_sources = [{'url': h['url'], 'source': surface['source'] + ' · matched row',
+                            'detail': f'Row "{h.get("title")}" for these exact two names.',
+                            'observed_at': surface['observed_at']}
+                           for h in hits[:3] if str(h.get('url') or '').startswith('https://')]
             checks.append({'stage': surface['label'], 'verdict': verdict, 'detail': detail,
                            'sources': [{'url': surface['url'], 'source': surface['source'],
                                         'detail': surface['detail'],
-                                        'observed_at': surface['observed_at']}]})
+                                        'observed_at': surface['observed_at']}] + hit_sources})
 
         checks.append({'stage': 'Publisher ladder', 'verdict': target['reason'],
                        'detail': 'The four-hour publisher retries every money surface, the Valve official-ratings model '
@@ -649,6 +707,7 @@ def main(argv: list[str] | None = None) -> int:
     for label, url, kind, source_name, source_url in BOOKS:
         # One unreadable surface is a finding, not a crash: the sweep must still
         # report what the other nine published.
+        total_events = None
         try:
             if kind == 'post-json':
                 entry, payload = text_of(label, url, expect_json=True, method='POST', payload={'gameIds': [6]})
@@ -660,6 +719,11 @@ def main(argv: list[str] | None = None) -> int:
                 entry, text = text_of(label, url)
                 payload = None
             titles = book_titles(label, payload, text) if entry.get('status') == 'ok' else []
+            # Kalshi's generic open-events endpoint answers with politics and
+            # science events; reporting those as CS2 rows would overstate the
+            # coverage, so the pre-filter total is kept alongside the CS2 count.
+            if label == 'kalshi-cs2-events' and isinstance(payload, dict):
+                total_events = len(payload.get('events') or [])
         except Exception as exc:                                    # noqa: BLE001 - recorded, not raised
             entry, titles = {'label': label, 'url': url, 'observed_at': now_iso(), 'status': 'error',
                              'error': type(exc).__name__ + ': ' + str(exc)[:300]}, []
@@ -668,7 +732,8 @@ def main(argv: list[str] | None = None) -> int:
                       'detail': f'{source_name} surface read for the gap fixtures.',
                       'status': entry.get('status'), 'http_status': entry.get('http_status'),
                       'error': entry.get('error'), 'observed_at': entry.get('observed_at'),
-                      'titles_parsed': len(titles), 'titles': titles[:400]})
+                      'titles_parsed': len(titles), 'titles': titles[:400],
+                      'total_events_before_filter': total_events})
 
     # 5. Which open fixtures lack a featured line, or lack a row entirely.
     published = {}
