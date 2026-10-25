@@ -9122,3 +9122,17 @@ tests.test_99d48cd8_mobile tests.test_81c1058a_verification` → **10 OK** with 
 acceptance audit on the untouched committed root: **9 pass / 1 info / 0 fail**. Files:
 `scripts/build.py`, `scripts/acceptance_audit.py`, `tests/test_99d48cd8_mobile.py`,
 `tests/test_be019782_landmarks.py`, `tests/test_3877d48d_fallback.py`, `data/research/3877d48d/flags.json`.
+
+---
+
+# Current session: arena-db6ecc61 — verify current Hotspawn CS2 dashboard, unblock the scheduled refresh regression, and confirm source/link/mobile behavior
+
+Claimed 2026-10-25T13:35Z on the fixed Arena branch `arena/db6ecc61-maltaproj3` (based on `main`/`origin/main` at `75d75a3fc25a46b3969611a4fbd8db52dad2c575`). Read the existing task board and branch state first. The four-hour `pages.yml` run `40196457503` was active at inspection and subsequently failed its regression gate. The only file in the code scope is a dated test expectation; do not edit the live publisher, research ladder, generated data, summary, or other owned files. Session `arena-3877d48d`'s still-open integration task owns the final publisher/PR/deploy integration; this session will not duplicate or edit its scope.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| DB6-1 Reproduce the current scheduled publisher failure, determine whether a mutable root snapshot invalidated an old expectation, and check the session-owned file has no active overlapping claim | in progress | arena-db6ecc61 | `tests/test_b72154e1_guided_picks.py` |
+| DB6-2 Make the narrowest snapshot-aware test correction without weakening invariant checks; record source/run evidence, build/row audit, summary links and mobile checks | unclaimed | arena-db6ecc61 | `tests/test_b72154e1_guided_picks.py`, new `data/research/db6ecc61/verification.json` |
+| DB6-3 Publish claim/result and hand off the green regression test to the active final integration owner; do not create a competing PR/deployment | unclaimed | arena-db6ecc61 | this section of `COORDINATION.md` |
+
+**Non-overlap pledge:** no changes to `scripts/build.py`, `scripts/collect.py`, `scripts/originate.py`, `scripts/root_publish.py`, `.github/workflows/**`, `snapshot.json`, `data/latest.json`, `data/origination.json`, `assets/**`, or any other session's `data/research/<id>/`. Hotspawn crowd vote and HLTV fan vote percentages are never probability inputs.
