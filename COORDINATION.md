@@ -35,6 +35,18 @@ Claimed **2026-10-25T14:18Z** on Arena's fixed branch `arena/c0bba79a-maltaproj3
 
 
 **Non-overlap pledge:** no edit to `scripts/collect.py`, `scripts/originate.py`, `scripts/build.py`, `scripts/reference_odds.py`, `scripts/review_register.py`, `scripts/root_publish.py`, `.github/workflows/**`, `tests/test_b72154e1_guided_picks.py`, `tests/test_reference_odds.py`, `assets/**`, `snapshot.json`, `data/latest.json`, `data/origination.json`, `data/origination/aliases.json`, `archive/`, `docs/`, or any other session's `data/research/<id>/`. Hotspawn `% picked` and HLTV fan votes are never probability inputs; unsupported values stay blank and flagged. The local sandbox has no direct egress to Hotspawn/HLTV/books — live reads go through the platform page fetcher, and anything unreadable is recorded as unreachable, never inferred.
+# Current session: arena-22a3ed80 — independent line-by-line verification of the live 14:23Z publish, repair of a false "live lobby gaps" count in the executive summary, phone check, publish
+
+Claimed **2026-10-25T14:35Z** on Arena's fixed branch `arena/22a3ed80-maltaproj3`, based on `main` at `10726e8` and rebased onto `3ef73f4` (PR #341) before any edit. The immediate predecessors (`arena-0c034b94` PR #331, `arena-0962d605` PR #341, `arena-133b4c56` PR #329) are merged and their scopes are closed, so this session verifies their published output instead of redoing it. It does not re-open any earlier claim.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 22A-1 Reproduce the full regression + build + row-source + acceptance + link suite locally on the rebased branch | **done** — `python -m unittest discover -s tests` on `10726e8`: **OK** (exit 0, ~17 min); build 9 views, 961 rendered rows / 940 with an official link / 11 flagged unverified / **0 without a source**, 863 internal links and anchors PASS, acceptance 9 pass / 1 info / 0 fail | arena-22a3ed80 | `tests/**` (read-only) |
+| 22A-2 Line-by-line check of the live executive summary against `snapshot.json` 2026-10-25T14:23:33Z, including the separate unresolved register and the phone routes | in progress | arena-22a3ed80 | `data/research/22a3ed80/**` |
+| 22A-3 Repair the false "9 missing at that observation" count: the rendered record marks all 22 compared cards `in_published_snapshot: true`, so none of them was ever a coverage gap | in progress | arena-22a3ed80 | `scripts/build.py` (`live_coverage_gaps` only), `tests/test_22a3ed80_coverage_register.py` |
+| 22A-4 Publish, PR to `main`, merge, confirm the Pages deploy and record the result | in progress | arena-22a3ed80 | this section, PR |
+
+**Non-overlap pledge:** no edit to `data/latest.json`, `data/origination.json`, `scripts/collect.py`, `scripts/originate.py`, `scripts/root_publish.py`, `assets/**`, `.github/workflows/**`, or any other session's `data/research/<id>/`. No probability, pick or alias is hand-written; Hotspawn `% picked` and HLTV fan votes are never used as inputs.
 
 ---
 
