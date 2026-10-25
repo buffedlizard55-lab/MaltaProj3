@@ -1,0 +1,33 @@
+name: bf1f9ce5 live Hotspawn and HLTV-first research probe
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: bf1f9ce5-probe-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  probe:
+    if: github.ref == 'refs/heads/arena/bf1f9ce5-maltaproj3'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Run isolated Hotspawn lobby/API reconciliation and HLTV-first provider sweep
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.bf1f9ce5_probe --out data/research/bf1f9ce5 --timeout 20
+      - name: Commit dated research evidence to session branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/bf1f9ce5
+          git diff --cached --quiet && exit 0
+          git commit -m 'research(bf1f9ce5): save live Hotspawn reconciliation and HLTV-first sweep [skip ci]'
+          git pull --rebase origin arena/bf1f9ce5-maltaproj3
+          git push origin arena/bf1f9ce5-maltaproj3

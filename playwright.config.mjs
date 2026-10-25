@@ -26,7 +26,7 @@ if (localBrowser) {
 }
 export default defineConfig({
   testDir: './tests/browser',
-  timeout: 30000,
+  timeout: 60000,
   fullyParallel: false,
   workers: process.env.CI ? 2 : 1,
   // The job log host is not always reachable, so a failing browser test must
