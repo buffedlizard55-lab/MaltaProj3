@@ -712,3 +712,16 @@
    "why is this not a featured pick?" without leaving the phone view. */
 .unresolved-summary-card .fallback-why{margin:0;color:#526472;line-height:1.75;overflow-wrap:anywhere}
 .researched-cards .tried-chip{white-space:normal}
+
+/* Session arena-93c7475a — the executive summary's one-line pointer into the
+   separate unresolved-pick research section. The brief asks that the picks be
+   findable on a phone, so each link is a real tap target (measured 17px of
+   line-box before this rule, which is under the 24px the rest of this
+   stylesheet holds small links to) and the two links stack rather than
+   overflowing a 320px viewport. */
+.unresolved-research-line{padding:0 20px 18px;line-height:1.9;overflow-wrap:anywhere}
+.unresolved-research-line .internal-link{white-space:normal;min-height:32px;padding:6px 0;align-items:baseline}
+@media(max-width:700px){
+  .unresolved-research-line{padding:0 17px 16px;font-size:12px}
+  .unresolved-research-line .internal-link{display:flex;font-size:12px;min-height:44px;padding:10px 0}
+}
