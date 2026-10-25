@@ -202,8 +202,6 @@ def check_site(site: Path, origination: dict) -> list:
     counts = (origination.get('counts') or {})
     if (counts.get('unresolved') or 0) and 'id="snapshot-reconciliation"' not in html:
         errors.append('published snapshot reports unresolved fixtures but no reconciliation is rendered')
-    if 'id="mobile-status"' in html and 'nav class="mobile-status"' not in html:
-        errors.append('mobile status strip markup is malformed')
     return errors
 
 

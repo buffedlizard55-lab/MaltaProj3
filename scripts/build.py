@@ -973,11 +973,12 @@ def snapshot_reconciliation(data: dict, complete: dict, researched: int, prefix:
     return ('<p class="tiny muted" id="snapshot-reconciliation">'
             f'<strong>Two records, two counts.</strong> The collected snapshot '
             f'(<a class="internal-link" href="{prefix}snapshot.json">snapshot.json</a>) records '
-            f'{e(snap_picks)} fixture(s) priced by the featured line and {e(snap_unresolved)} without one; this board '
+            f'{e(snap_picks)} fixture(s) priced by the featured line and {e(snap_unresolved)} without one. This board '
             f'resolves {e(board_with if board_with is not None else researched)} of '
-            f'{e(board_active if board_active is not None else researched)} active fixtures with the researched '
-            f'estimates below, so the {e(researched)} row(s) here are the difference. Both files stay downloadable '
-            'and neither number is rounded into the other.</p>')
+            f'{e(board_active if board_active is not None else researched)} active fixtures, and '
+            f'{e(researched)} of the snapshot\'s {e(snap_unresolved)} featured-line gap(s) carry a researched estimate '
+            'below, with its own source and limitation. Both files stay downloadable and neither number is rounded '
+            'into the other.</p>')
 
 
 def source_probe_block(data, prefix):
