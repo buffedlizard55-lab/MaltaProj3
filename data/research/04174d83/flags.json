@@ -1,0 +1,45 @@
+[
+  {
+    "id": "04174d83-current-coverage-audit",
+    "severity": "notice",
+    "match_ids": [],
+    "title": "25 October runner coverage and HLTV-first no-line research",
+    "detail": "Dated audit 2026-10-25T13:25:24.204776+00:00: runner-collected (not deployed) snapshot 2026-10-25T13:24:33Z; 17 active records, 17 complete rows, 17 directional picks, 0 unresolved, 4 without an external betting line. HLTV was probed first, then esportsbooks. HTTP success or a team mention is not a verified price. Relay responses are leads only, never new picks. Consult current pick cards, not this historical audit. ",
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://www.hltv.org/matches",
+      "https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/04174d83/audit.json"
+    ]
+  },
+  {
+    "id": "04174d83-refresh-regression",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "25 October refresh failure: historical unresolved assertion blocked new picks",
+    "detail": "GitHub run 40174233578 failed its regression step: test_group_a_are_snapshot_unresolved required 1082858 to have no pick even after the 2026-10-25T05:12:25Z root snapshot resolved it. Reproduced locally: pick_index=1, assertion expected None. The repair binds historical expectations to the dossier timestamp and allows weekly retirement; new tests still reject a changed historical state and invalid current probabilities. This is a test-only repair, not a new source or price. Source reachability and full live coverage are separately audited; no claim that all repository historical assertions have been independently reverified.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40174233578",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_b72154e1_guided_picks.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_04174d83_snapshot_evolution.py"
+    ]
+  },
+  {
+    "id": "04174d83-no-line-limitations",
+    "severity": "warning",
+    "match_ids": [
+      "1082858",
+      "1082861",
+      "1082792",
+      "1082793"
+    ],
+    "title": "25 October: four picks have models, not verified betting lines",
+    "detail": "At 13:24:33Z the runner collected 78 Hotspawn CS2 records and 17 active matches; all 17 had directional picks, but four were model-only: Ground Zero\u2013Off Chops, Rooster\u2013Abyssal, HOTU\u2013The Huns and 5star\u20131WIN. HLTV was probed first (403), then esportsbooks; no newly accepted paired price was obtained in this independent sweep. Access blocks do not prove a market is absent. Ground Zero\u2013Off Chops uses a low-confidence network estimate whose one-sigma win-probability interval crosses 50%; HOTU\u2013The Huns uses a four-of-five historical roster association. Models are uncalibrated estimates, never verified true win probabilities. See live cards for updated prices; these figures are dated runner evidence, not confirmation of deployment.",
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://www.hltv.org/matches",
+      "https://www.pinnacle.com/en/esports/counter-strike-2",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/04174d83/audit.json"
+    ]
+  }
+]

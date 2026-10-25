@@ -1,0 +1,39 @@
+name: 04174d83 fresh coverage and gap research
+on:
+  push:
+    branches: [arena/04174d83-maltaproj3]
+    paths: ['.github/workflows/04174d83-audit.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  audit:
+    if: github.ref == 'refs/heads/arena/04174d83-maltaproj3'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - name: Collect full Hotspawn inventory and external featured prices
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect
+      - name: Research gaps and originate supported lines
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live
+      - name: Independent coverage and HLTV-first book research
+        run: python -m scripts.session_04174d83_audit
+      - name: Retain only dated research, not production snapshots
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/04174d83
+          git diff --cached --quiet && exit 0
+          git commit -m 'research: save 04174d83 runner coverage and source limitations [skip ci]'
+          git stash push --include-untracked -m 'runner scratch collection'
+          git pull --rebase origin arena/04174d83-maltaproj3
+          git push origin arena/04174d83-maltaproj3

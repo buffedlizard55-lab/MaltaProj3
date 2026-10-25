@@ -1,0 +1,14 @@
+[
+  {
+    "id": "04174d83-refresh-regression",
+    "severity": "warning",
+    "match_ids": [],
+    "title": "25 October refresh failure: historical unresolved assertion blocked new picks",
+    "detail": "GitHub run 40174233578 failed its regression step: test_group_a_are_snapshot_unresolved required 1082858 to have no pick even after the 2026-10-25T05:12:25Z root snapshot resolved it. Reproduced locally: pick_index=1, assertion expected None. The repair binds historical expectations to the dossier timestamp and allows weekly retirement; new tests still reject a changed historical state and invalid current probabilities. This is a test-only repair, not a new source or price. Source reachability and full live coverage are separately audited; no claim that all repository historical assertions have been independently reverified.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40174233578",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_b72154e1_guided_picks.py",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_04174d83_snapshot_evolution.py"
+    ]
+  }
+]

@@ -1,3 +1,19 @@
+# Session arena-04174d83 — 2026-10-25
+
+| Task | Status | Owner | Scope |
+| --- | --- | --- | --- |
+| Diagnose latest scheduled publisher failure, independently test existing coverage/mobile pipeline, publish limitations and repair reproduced regression | in progress | arena-04174d83 | new data/research/04174d83/**, new tests/test_04174d83*.py; tests/test_b72154e1_guided_picks.py (stale completed-session test; Group A snapshot binding and Group B expiry assertions); this heading |
+| Fresh runner research (HLTV then books only for gaps), integration PR and Pages confirmation | in progress | arena-04174d83 | new .github/workflows/04174d83-audit.yml, new scripts/session_04174d83_audit.py; this heading |
+
+### Verification update (2026-10-25)
+- PR: https://github.com/buffedlizard55-lab/MaltaProj3/pull/326 (integration in progress).
+- Fresh research run https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40197399156 succeeded. Inventory observed 13:24:33Z: 78 records, 17 active, 17 complete picks, 0 missing/extra IDs, 0 unresolved. Independent official API re-fetch agrees on all 78 IDs. Four model-only rows retain explicit limitations; HLTV directory/ranking returned 403, then 11 bookmaker/directory surfaces were checked; HTTP success is not treated as a price. Saved under data/research/04174d83/; no manually entered probabilities.
+- Reproduced publisher failure locally and fixed historical Group A assertion. Four new regression cases cover legitimate upgrades, eventual retirement, historical mismatch rejection and invalid probability rejection; focused suite 11 pass.
+- Local build: 9 acceptance pass / 1 informational / 0 fail; 859 internal links checked; 945 table rows, no rows without source. This build uses checked-in test fixtures, NOT fresh deployed data. Full suites and fresh deployment still pending.
+- Initial claim push: assigned branch did not yet exist remotely, so pull of that ref failed. Pulled origin/main with rebase, then pushed only the assigned branch; no conflict or discarded work.
+
+Read the existing task board and open PRs before claiming. Existing implementation scopes are not claimed here. Fixed Arena branch used as required by platform; no alternate branch created. Sandbox outbound hosts exclude Hotspawn, HLTV, bookmakers and Pages: use GitHub Actions for fresh research, never claim local live verification. Latest failed publisher 40174233578 failed its regression-test step, confirmed via GitHub jobs API; logs host is blocked here. Existing site already implements mobile pick tables, unresolved register and four-hour scheduling; review and repair rather than duplicate.
+
 # Current session: arena-c2a74e33 — live Hotspawn CS2 full-inventory verification, HLTV-first + esportsbook/exchange gap research & alias audit, line-by-line repo review, mobile/WCAG verification, and publish
 
 Claimed **2026-10-24T16:27Z** on Arena's fixed branch `arena/c2a74e33-maltaproj3`, branched from `main` at `487a0e0` (= current `origin/main` head; the `2026-10-24T14:24:32Z` verified snapshot). Read `COORDINATION.md`, all open PRs (#292, #273, #255, #248, #246, #245, #242, #227, #225, #224, #165, #139 — all >4.8h stale without commits), and active parallel branch `arena/3877d48d-maltaproj3` first. Active session `arena-3877d48d` owns `data/research/3877d48d/**`, `scripts/build.py`, `assets/scout.css`, `tests/test_3877d48d_fallback.py`, and the bottom section of `COORDINATION.md`; none of those files or hunks are touched here.
