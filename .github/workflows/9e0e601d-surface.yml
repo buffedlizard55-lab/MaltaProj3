@@ -1,0 +1,79 @@
+name: Deployed-surface audit (9e0e601d)
+
+# Why this workflow exists
+# -----------------------
+# The publisher verifies a fixed whitelist of JSON endpoints (scripts/verify_live.py).
+# On 2026-10-25T15:04:56Z that verification was green while the served page linked
+# 15 local downloads that answered 404, because nobody had fetched the links the HTML
+# actually carries. This job fetches them, and compares the deployed complete-picks
+# list with the live Hotspawn CS2 inventory, from a network-capable runner.
+#
+# It writes data/research/9e0e601d/surface.json + surface.md and commits them with
+# [skip ci], so the evidence is dated, hashed and replayable rather than asserted.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ['arena/9e0e601d-maltaproj3']
+    paths:
+      - 'scripts/9e0e601d_surface.py'
+      - '.github/workflows/9e0e601d-surface.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: 9e0e601d-surface-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  surface:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Measure the deployed surface
+        run: |
+          set -euo pipefail
+          python -m scripts.9e0e601d_surface --out data/research/9e0e601d | tee "$RUNNER_TEMP/surface.out"
+          {
+            echo '### Deployed-surface audit'
+            echo '```'
+            cat "$RUNNER_TEMP/surface.out"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Show the reader-facing summary
+        if: always()
+        run: |
+          if [ -f data/research/9e0e601d/surface.md ]; then
+            { echo '<details><summary>surface.md</summary>'; echo; cat data/research/9e0e601d/surface.md; echo; echo '</details>'; } >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Commit the evidence
+        if: always()
+        run: |
+          set -euo pipefail
+          if [ -z "$(git status --porcelain data/research/9e0e601d)" ]; then
+            echo "Nothing new to commit: the recorded surface already matches." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/9e0e601d
+          git commit -m 'audit(9e0e601d): record the deployed surface and its link health [skip ci]'
+          for attempt in 1 2 3; do
+            if git pull --rebase --autostash origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}"; then
+              echo "Committed the surface audit on attempt $attempt." >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+            sleep $((attempt * 5))
+          done
+          echo '::error::could not publish the surface audit commit'
+          exit 1
