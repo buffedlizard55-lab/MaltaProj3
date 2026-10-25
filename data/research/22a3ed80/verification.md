@@ -1,6 +1,6 @@
 # Session arena-22a3ed80 — published-state verification (2026-10-25)
 
-**Snapshot verified:** `2026-10-25T14:23:33Z` — 78 Hotspawn CS2 records, 16 active, 62 archived.
+**Snapshot verified:** `2026-10-25T14:32:11Z` (the publish that followed the `14:23:33Z` build this session started from; both carry the same 78 / 16 / 62 inventory and 13 + 3 pick split) — 78 Hotspawn CS2 records, 16 active, 62 archived.
 **Page verified:** `index.html` (executive summary) + `snapshot.json`, both from the same publish.
 **Command:** `python -m scripts.22a3ed80_verify --site . --check`
 **Result:** 14 hard checks, 0 failures, 16 rows checked, 16 of 16 rows link an official source.
@@ -10,7 +10,7 @@ Machine-readable copy: `data/research/22a3ed80/verification.json`.
 
 | # | Check | Result | Evidence |
 | --- | --- | --- | --- |
-| 1 | The page's `data-snapshot-generated` stamp equals `snapshot.json.generated_at` | pass — both `2026-10-25T14:23:33Z` | `index.html`, `snapshot.json` |
+| 1 | The page's `data-snapshot-generated` stamp equals `snapshot.json.generated_at` | pass — both `2026-10-25T14:32:11Z` | `index.html`, `snapshot.json` |
 | 2 | One picks-at-a-glance row per active fixture, no extra and none missing | pass — 16 upcoming, 16 rows | `#glance-list` |
 | 3 | Every rendered row carries at least one `https://` source link | pass — 16 of 16 | per-row link list in `verification.json` |
 | 4 | Every featured pick and both percentages re-derived from the fixture's own `analysis` block | pass — 13 featured rows, 0 mismatches | `snapshot.json` → `analysis.probabilities` + `pick_index` |
@@ -36,7 +36,7 @@ Researched fallbacks (not re-derived here; each keeps its own dossier and blocke
 
 ## Defect found and repaired
 
-The same page rendered **"Live Hotspawn fixtures missing from this snapshot — 9 missing at that observation"** and listed nine cards whose notes in the very same record read *"Carried in the published complete picks list (…); crowd picks excluded"*.
+The `2026-10-25T14:23:33Z` build rendered **"Live Hotspawn fixtures missing from this snapshot — 9 missing at that observation"** and listed nine cards whose notes in the very same record read *"Carried in the published complete picks list (…); crowd picks excluded"*.
 `data/research/c2a74e33/live-coverage.json` marks **all 22** compared cards `in_published_snapshot: true`, so none of them was ever a coverage gap; they had left the snapshot only because they started.
 
 `scripts/build.py::live_coverage_gaps` now drops any card the record marks as carried from the missing count and names those cards separately, with their own Hotspawn links, under `#live-coverage-rotated` — "not counted above … never a coverage gap". Cards with no published row are still counted and listed exactly as before.
