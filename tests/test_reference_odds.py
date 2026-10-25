@@ -32,10 +32,9 @@ class CaptureFileTests(unittest.TestCase):
     def test_every_shipped_entry_is_valid_and_replays(self):
         data = reference_odds.load(ROOT / 'data')
         self.assertFalse(data['missing'])
-        # Nine earlier reviewed captures plus E57 (1), C2A7 (4) and arena-0db056f7 (1:
-        # fixture 1086696, added to the Hotspawn lobby after the 2026-10-25T05:12Z
-        # snapshot) match-page captures.
-        self.assertEqual(len(data['entries']), 15)
+        # Nine earlier reviewed captures plus E57 (1), C2A7 (4), arena-0db056f7 (1:
+        # fixture 1086696), and arena-35e31fef (3: 1082858, 1082859, 1086696) captures.
+        self.assertEqual(len(data['entries']), 18)
         for entry in data['entries']:
             self.assertEqual(reference_odds.problems(entry), [], entry.get('fixture_id'))
             entry_now = datetime.fromisoformat(entry['observed_at'].replace('Z', '+00:00')) + timedelta(minutes=5)

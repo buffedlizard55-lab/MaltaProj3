@@ -1,0 +1,93 @@
+[
+  {
+    "id": "35e31fef-001",
+    "severity": "warning",
+    "title": "0/5 player overlap between Oct 5 Valve VRS snapshot and HLTV 2399438 lineups on 1082793 (5star vs 1WIN)",
+    "detail": "Fixture 1082793 (5star vs 1WIN, 2026-10-31T13:00:00Z, Moscow Cyber Games 2026 LAN) currently prices on the 2026-10-05 Valve Regional Standings snapshot because Polymarket cs2-1win-5s-2026-10-31 has an empty 0.04/0.96 book (spread 0.92, $0 vol) and EGW prints 1.8/1.8 six days before start. Line-by-line audit against HLTV 2399438 shows 0/5 player overlap on both teams: Valve Oct 5 lists 5star (#80, 1110 pts: ariucle, clouden, hoolig4n, NEUZ, rate) and 1WIN (#38, 1397 pts: ArtFr0st, Ax1Le, BELCHONOKK, fame, nafany), whereas HLTV 2399438 confirms 5star (#36, VRS #64: deffen, Sange, def1zer, h1te, tENZY) vs 1win (#14, VRS #20: lattykk, interz, oz1k, cronuss, buster). Both rankings still favor 1WIN, and the 4-hour collector will replace the model automatically once books tighten.",
+    "match_ids": [
+      "1082793"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://gamma-api.polymarket.com/events?slug=cs2-1win-5s-2026-10-31"
+    ]
+  },
+  {
+    "id": "35e31fef-002",
+    "severity": "warning",
+    "title": "Cross-team stand-in drift on 1082861 (Rooster vs Abyssal): foggers moved from Abyssal (Oct 5 Valve) to Rooster substitute (HLTV 2399891)",
+    "detail": "On 1082861 (Rooster vs Abyssal, 2026-10-27T03:00:00Z, DFRAG Invitational 2026 LAN), Valve 2026-10-05 standings credit foggers to Abyssal (950 pts: blood, dangeR, foggers, Forleks, vinhy) against Rooster (934 pts: asap, chelleos, DannyG, sliimey, Terryyy) for a 47.8% / 52.2% Abyssal estimate, whereas HLTV 2399891 lists Rooster (SkulL, rekonz, chelleos + substitutes TjP and foggers) against Abyssal (Forleks, zune, dangeR, vinhy, blood). Polymarket (spread 0.26) and Kalshi (spread 0.24-0.25) exceed the 0.15 spread ceiling and EGW displays 1.8/1.8.",
+    "match_ids": [
+      "1082861"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://gamma-api.polymarket.com/events?slug=cs2-rstr-abyssa-2026-10-26"
+    ]
+  },
+  {
+    "id": "35e31fef-003",
+    "severity": "notice",
+    "title": "Three post-05:12Z South American Hotspawn fixtures (1086696, 1082697, 1086697) verified with tight 0.01-spread Polymarket books",
+    "detail": "At 2026-10-25T13:37:45Z, cache-busted play.hotspawn.com/lobby?cb=1792935450 lists 3 fixtures added after the 05:12:25Z snapshot: 1086696 (BORRACHEIROS vs RED Canids Academy, 16:00Z, Polymarket cs2-chama-reda-2026-10-25 0.42/0.43 vs 0.57/0.58 -> 42.5%/57.5% RED Canids Academy, sub FasteR on HLTV 2399917), 1082697 (BESTIA vs paiN, 18:00Z, Polymarket cs2-pain-bst-2026-10-25 0.42/0.43 vs 0.57/0.58 -> 42.5%/57.5% paiN, HLTV 2399819), and 1086697 (Projeto do KinGui vs Yawara, 19:00Z, Polymarket cs2-tdkg-yaw-2026-10-25 0.61/0.62 vs 0.38/0.39 -> 61.5%/38.5% Projeto do KinGui via existing Tropa do KinGui / Yawara Esports aliases, HLTV 2399918). Hotspawn cards 1086696 and 1086697 omit View Match links.",
+    "match_ids": [
+      "1086696",
+      "1082697",
+      "1086697"
+    ],
+    "source_urls": [
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://www.hltv.org/matches/2399917/borracheiros-vs-red-canids-academy-cct-2026-south-america-series-7",
+      "https://www.hltv.org/matches/2399819/pain-vs-bestia-circuit-x-curitiba-season-4",
+      "https://www.hltv.org/matches/2399918/tropa-do-kingui-vs-yawara-cct-2026-south-america-series-7"
+    ]
+  },
+  {
+    "id": "35e31fef-004",
+    "severity": "warning",
+    "title": "Provider timestamp discrepancies flagged: Kalshi 3h rule-text drift on 1086697, Polymarket prose 3pm ET typo on 1086696, and HLTV 30m pushback on 1085542",
+    "detail": "(1) Kalshi event KXCS2GAME-26OCT251200YAWTDKG states Oct 25, 2026 at 12:00 PM EDT (16:00Z), 3 hours earlier than Hotspawn 1086697 and HLTV 2399918 (19:00Z), and is rightly rejected by START_TOLERANCE_SEC=60. (2) Polymarket cs2-chama-reda-2026-10-25 carries machine eventStartTime 2026-10-25T16:00:00Z matching Hotspawn 1086696 and HLTV 2399917, while its prose description says October 25 at 3:00 PM ET (19:00Z). (3) HLTV 2399340 pushed 1085542 (ex-Zero Tenacity vs Spirit Academy) 30m to 14:30Z after Spirit Academy 12:00Z Series #12 match, while Hotspawn keeps lock at 13:54Z.",
+    "match_ids": [
+      "1086697",
+      "1086696",
+      "1085542"
+    ],
+    "source_urls": [
+      "https://api.elections.kalshi.com/trade-api/v2/markets?event_ticker=KXCS2GAME-26OCT251200YAWTDKG",
+      "https://gamma-api.polymarket.com/events?slug=cs2-chama-reda-2026-10-25",
+      "https://www.hltv.org/matches/2399340/ex-zero-tenacity-vs-spirit-academy-cct-2026-europe-series-11"
+    ]
+  },
+  {
+    "id": "35e31fef-005",
+    "severity": "notice",
+    "title": "Refreshed <8h EGamersWorld captures (1082858, 1082859, 1086696) in CAPTURE_PATHS protect DFRAG/CCT fallbacks when books widen",
+    "detail": "Session c2a74e33 captures from 2026-10-24T16:42Z aged past MAX_PRICE_AGE_HOURS = 8 (>21h old), and at 2026-10-25T13:41Z Polymarket 6066508 on 1082858 (Ground Zero vs Off Chops) widened back to 0.25/0.48 (spread 0.23 > 0.15) alongside Smarkets (0.186) and Kalshi (0.29), while GitHub Actions hits HTTP 403 on egamersworld.com. Fresh 2026-10-25T13:41:00Z SHA-256 match-page captures for 1082858 (3.44/1.24 -> 26.5%/73.5% Off Chops; HLTV 2399888 confirms stand-in tucks on Ground Zero, 86% Hotspawn crowd inverted), 1082859 (1.609/2.197 -> 57.7%/42.3% NEXVOID; sub Bloody on Alter Ego), and 1086696 (2.1/1.62 -> 43.5%/56.5% RED Canids Academy) are wired into CAPTURE_PATHS.",
+    "match_ids": [
+      "1082858",
+      "1082859",
+      "1086696"
+    ],
+    "source_urls": [
+      "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+      "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/nexvoid-vs-alter-ego-HfdcJeXmT",
+      "https://egamersworld.com/counterstrike/match/0U32SId-H/borracheiros-vs-red-canids-academy-5tMfbA07u",
+      "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026"
+    ]
+  },
+  {
+    "id": "35e31fef-006",
+    "severity": "notice",
+    "title": "1079200 EGW match page reverted from 1.55/2.22 to 1.82/1.82 placeholder, validating 8h freshness + identical-price gates",
+    "detail": "At 2026-10-24T16:42Z, EGamersWorld match page color-vs-ex-zero-tenacity-rvwRf5V1F published a 1.55/2.22 bookmaker-average quote, whereas at 2026-10-25T13:41Z it displays an identical 1.82/1.82 banner with no EGWxxxBOT sentence while Polymarket cs2-color-zerote-2026-10-25 prices ex-Zero Tenacity 51.5% / Color 48.5%. Both the 8-hour freshness expiry on the older capture and the identical-decimal placeholder rejection prevented stale or placeholder numbers from entering picks.",
+    "match_ids": [
+      "1079200"
+    ],
+    "source_urls": [
+      "https://egamersworld.com/counterstrike/match/Nk9F-Ov54e/color-vs-ex-zero-tenacity-rvwRf5V1F",
+      "https://polymarket.com/event/cs2-color-zerote-2026-10-25"
+    ]
+  }
+]
