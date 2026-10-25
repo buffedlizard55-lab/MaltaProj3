@@ -1,6 +1,6 @@
 # Live probe — a pick for every Hotspawn CS2 match
 
-Observed 2026-10-25T14:44:50Z (parse-raw).
+Observed 2026-10-25T15:16:55Z (parse-raw).
 Facts only: this file records what each source served. No probability, pick or alias is written here.
 
 ## Sources read
