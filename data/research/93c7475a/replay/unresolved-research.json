@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "title": "Unresolved and non-featured-line picks \u2014 HLTV first, then the esportsbooks",
+  "prepared_at": "2026-10-25T14:44:50Z",
+  "research_window": {
+    "from": "2026-10-25T14:44:50Z",
+    "to": "2026-10-25T14:44:50Z"
+  },
+  "prepared_by": "arena-93c7475a",
+  "policy": "Dated first-hand research on every open Hotspawn CS2 fixture whose pick is not a featured market line, plus every open fixture missing from the published snapshot. Method order follows the brief: HLTV identity and the official world ranking first, then Polymarket, Thunderpick, Kalshi, Pinnacle, Smarkets, bo3.gg, EGamersWorld, GG.BET, Stake and Rivalry. Every observation carries its own https source and timestamp. Nothing here is a probability invented by this session.",
+  "method_order": [
+    "HLTV identity and the official weekly world ranking (never a probability input by itself)",
+    "Polymarket unique full-series match-winner books",
+    "Thunderpick / Bovada / Pinnacle / Rivalry / Stake / GG.BET prematch series prices",
+    "Kalshi and Smarkets exchange books",
+    "bo3.gg finished-series results for our own network and form rungs",
+    "Valve official regional standings model (exact unique five-player rows only)"
+  ],
+  "fixtures": [],
+  "limitations": [
+    "This dossier records dated observations only. It writes no probability, no pick and no alias; the publisher ladder in scripts/originate.py remains the only path to a published number.",
+    "Hotspawn \"% picked\" shares and HLTV fan \"Pick a winner\" votes are excluded from every calculation by policy and are not parsed here.",
+    "The following surfaces refused or failed from the runner at the observation time, so their silence is a limitation of the runner and not proof that no market exists: polymarket-cs2-tag (None); thunderpick-matches (None); kalshi-cs2-events (None); pinnacle-esports (None); smarkets-cs2 (None); bo3gg-matches (None); egamersworld-matches (None); ggbet-cs2 (None); stake-cs2 (None); rivalry-cs2 (None).",
+    "A book surface answering HTTP 200 without a row for these exact two names is not evidence that no market exists: low-tier CS2 lines often open close to start.",
+    "HLTV odds-comparison pages were read, but a page whose only price is one repeated placeholder across every bookmaker is refused as a two-way line; it would fabricate a price.",
+    "Identity is exact-name only (case, Unicode and whitespace equivalence). Sponsor, abbreviation and fuzzy aliases are never applied here, so a differently spelled team stays unresolved rather than guessed.",
+    "Current lineups, stand-ins and map vetoes are unverified for every fixture in this dossier."
+  ]
+}
