@@ -1,0 +1,69 @@
+[
+ {
+  "id": "c0bba79a-live-reconciliation-gap",
+  "severity": "notice",
+  "title": "25 Oct 14:16-14:33Z three-way reconciliation: lobby 16 open = API future 16, deployed 05:12Z snapshot covered 13, coverage gap closed by the 14:23Z republish",
+  "detail": "Session arena-c0bba79a read the rendered lobby (16 open cards, 14:17Z), the Hotspawn scheduled-fixtures API (78 records, 14:16Z, 8 contiguous chunks join-verified) and the then-deployed snapshot (2026-10-25T05:12:25Z) first-hand. The sets reconcile exactly: 79 snapshot records - 4 started-and-dropped + 3 new = 78 API records; the lobby's 16 open cards equal the API's 16 future records; the deployed snapshot still-open 13 + started 5 = its 18 upcoming. The only open fixtures missing from the deployed site were 1086696, 1082697, 1086697 - created after the 05:12Z build while the publisher sat red at its regression gate (runs 40174233578, 40196457503). The recovery republish at 2026-10-25T14:23:33Z (this session read its latest.json and executive summary directly) serves 78 inventory / 16 upcoming with 16 directional picks and 0 explicitly unresolved; the publisher's own collect recorded inventory 78, matching this session's independent API read. Full arithmetic and id lists: data/research/c0bba79a/live-reconciliation.json.",
+  "match_ids": ["1086696", "1082697", "1086697", "1082792", "1081156"],
+  "source_urls": [
+   "https://play.hotspawn.com/lobby",
+   "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+   "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/c0bba79a/live-reconciliation.json"
+  ]
+ },
+ {
+  "id": "c0bba79a-polymarket-keyword-search-blindspot",
+  "severity": "review",
+  "title": "Keyword search on Polymarket public-search missed both CCT SA semifinal events that already existed; direct slug/tag reads found them",
+  "detail": "At 14:31-14:33Z this session queried gamma-api public-search findings were superseded by direct slug queries: event 1249731 (cs2-tdkg-yaw-2026-10-25, created 2026-10-25T01:55:12Z, outcomes 'Tropa do KinGui'/'Yawara Esports', eventStartTime 19:00:00Z) and event 1248800 (cs2-chama-reda-2026-10-25, created 2026-10-24T21:45:12Z, outcomes 'BORRACHEIROS'/'RED Canids Academy', eventStartTime 16:00:00Z) both predate the 13:44-13:46Z keyword searches that reported no Oct 25 semifinal market. Keyword search orders by relevance/volume and surfaces older closed events first; it must never be used as proof that no market exists. The collector's tag/slug enumeration and direct events?slug= queries are the verified path. Recorded so future sessions do not repeat the 'no market yet' conclusion from a keyword search alone.",
+  "match_ids": ["1086697", "1086696"],
+  "source_urls": [
+   "https://gamma-api.polymarket.com/events?slug=cs2-tdkg-yaw-2026-10-25",
+   "https://gamma-api.polymarket.com/events?slug=cs2-chama-reda-2026-10-25"
+  ]
+ },
+ {
+  "id": "c0bba79a-1086697-valve-rung-absent",
+  "severity": "notice",
+  "title": "1086697 cannot be priced by the Valve standings rung: no rating row exists for Projeto do KinGui/Tropa do KinGui in the official files",
+  "detail": "First-hand read of ValveSoftware/counter-strike_regional_standings live/2026/standings_global_2026_10_05.md (the file scripts/originate.py reads): Yawara is present (rank 147, rating 845) but a case-insensitive search returns zero rows for KinGui/Projeto do KinGui/Tropa do KinGui in either the global or Americas file; the alias-evidence roster has dispersed (CutzMeretz now on MEIA NOITE #227, t9rnay on EHISTO BASE #224). model_estimate therefore correctly returns 'no Valve rating row found' rather than inventing a rating. The fixture's published pick came instead from the complete-layer consensus rung after Polymarket event 1249731 opened (65.1/34.9, median of 2 books, observed 14:23Z). If both consensus books ever become unavailable, this fixture must fall to a labelled HLTV-rank/bo3.gg rung or the unresolved register - never to a placeholder. HLTV team 13151 shows world ranking '-' (peak #164), so a world-ranking rung has no numerical input either.",
+  "match_ids": ["1086697"],
+  "source_urls": [
+   "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "https://www.hltv.org/team/13151/tropa-do-kingui",
+   "https://www.hltv.org/matches/2399918/tropa-do-kingui-vs-yawara-cct-2026-south-america-series-7"
+  ]
+ },
+ {
+  "id": "c0bba79a-1082792-extreme-reaffirmed",
+  "severity": "notice",
+  "title": "1082792 published 98.2/1.8 bo3.gg network estimate re-observed on the live summary; direction supported, magnitude still flagged (cross-ref 0DB0-R03)",
+  "detail": "Re-read of the deployed executive summary at 14:33Z shows row 15 'HOTU 98.2% / The Huns 1.8% Researched' with no featured market line - the complete-layer estimate replacing an expired/weakened line, exactly the case 0DB0-R03 flags as extreme and uncalibrated. This session independently re-confirms the direction (HLTV match 2399437 binds the identity; Polymarket cs2-hotu-the9-2026-10-31 existed but was non-compliant at the last read; EGW shows only a 1.8/1.8 placeholder, rejected) and re-affirms that the magnitude must stay on Flagged for Review until a compliant external line replaces it. No number was altered by this session.",
+  "match_ids": ["1082792"],
+  "source_urls": [
+   "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+   "https://buffedlizard55-lab.github.io/MaltaProj3/"
+  ]
+ },
+ {
+  "id": "c0bba79a-polymarket-timestamp-wording",
+  "severity": "review",
+  "title": "Polymarket 1249433 rule text says '3:00 PM ET' (19:00Z wording) while its machine timestamps say 18:00Z matching Hotspawn",
+  "detail": "Event 1249433 (paiN vs BESTIA, 1082697) description says 'initially scheduled for October 25, 2026 at 3:00 PM ET' (= 19:00Z) but eventStartTime/gameStartTime are both 2026-10-25T18:00:00Z and Hotspawn schedules the fixture at 18:00Z; the published pick (paiN 58.5/41.5) bound the 18:00Z machine timestamps as the join key. The same sentence pattern appears on event 1249731 (initially scheduled 3:00 PM ET) whose eventStartTime is 19:00Z = Hotspawn exactly - so the ET sentence is not a reliable schedule source anywhere in this event family. Join rule: machine timestamps only; the prose mismatch is recorded here for manual review, never smoothed over.",
+  "match_ids": ["1082697"],
+  "source_urls": [
+   "https://gamma-api.polymarket.com/events/1249433",
+   "https://polymarket.com/event/cs2-pain-bst-2026-10-25"
+  ]
+ },
+ {
+  "id": "c0bba79a-egw-403-reaffirmed",
+  "severity": "notice",
+  "title": "EGamersWorld still answers HTTP 403 to this sandbox's page fetcher (re-confirmed 14:21Z); 403 is a platform limitation, not evidence of absence",
+  "detail": "Independent re-probe of the EGW match page for 1086696 returned HTTP 403 to the platform fetcher, matching the board-established runner limitation. EGW-derived numbers quoted in this session's dossier come from the hash-checked capture in data/research/0db056f7/reference-odds.json (PR #332, observed 13:40Z), not from a fresh read by this session. The identical-decimal EGW 1.8/1.8 headers (e.g. 1086697) remain rejected placeholders per standing policy. Recorded so the limitation appears on Flagged for Review rather than silently constraining coverage.",
+  "match_ids": ["1086696", "1086697"],
+  "source_urls": [
+   "https://egamersworld.com/counterstrike/match/0U32SId-H/borracheiros-vs-red-canids-academy-5tMfbA07u"
+  ]
+ }
+]
