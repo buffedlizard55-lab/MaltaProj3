@@ -132,10 +132,16 @@ def render_section(data: dict, prefix: str = '../') -> str:
         teams = ' vs '.join(e(t) for t in fixture['teams'])
         checks = ['<ul class="limitations">']
         for check in fixture['checks']:
+            # Session arena-93c7475a: the guidance quote and the source list were
+            # appended as siblings of the <li>, so source_lines()' own <ul> sat
+            # directly inside the outer <ul>. That is invalid HTML and axe fails
+            # it as a `list` violation the first time the section is rendered.
+            # Both now live inside the same list item.
             checks.append(f'<li><strong>{e(check["stage"])}</strong> — {e(check["verdict"])}: '
-                          f'{e(check.get("detail") or "")}</li>')
-            checks.append(_quote_cell(check.get('guidance_quote')) if check.get('guidance_quote') else '')
-            checks.append(source_lines(check.get('sources')))
+                          f'{e(check.get("detail") or "")}'
+                          + (_quote_cell(check['guidance_quote']) if check.get('guidance_quote') else '')
+                          + source_lines(check.get('sources'))
+                          + '</li>')
         checks.append('</ul>')
         resolved = fixture['resolution'] == 'expected-at-next-refresh'
         out += ('<tr>'
