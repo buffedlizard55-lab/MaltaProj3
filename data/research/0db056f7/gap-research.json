@@ -1,0 +1,112 @@
+{
+ "session": "arena-0db056f7",
+ "researched_at": "2026-10-25T13:50:00Z",
+ "deployed_snapshot": "2026-10-25T05:12:25Z",
+ "live_api_read_at": "2026-10-25T13:38:00Z",
+ "live_api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+ "new_fixtures_since_snapshot": [
+  "1086696",
+  "1082697",
+  "1086697"
+ ],
+ "fixtures": [
+  {
+   "fixture_id": "1086696",
+   "match": "BORRACHEIROS vs RED Canids Academy",
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-25T16:00:00Z",
+   "status": "resolved-reference",
+   "hltv": "https://www.hltv.org/events/9452/cct-2026-south-america-series-7",
+   "pricing_source": "https://egamersworld.com/counterstrike/match/0U32SId-H/borracheiros-vs-red-canids-academy-5tMfbA07u",
+   "odds": [
+    2.1,
+    1.62
+   ],
+   "no_vig": [
+    0.43548387,
+    0.56451613
+   ],
+   "pick": "RED Canids Academy",
+   "capture": "data/research/0db056f7/reference-odds.json",
+   "limitations": [
+    "Aggregated EGamersWorld bookmaker average, not a first-party quote",
+    "Tier-C fixture; no verified Polymarket exact-name market at research time"
+   ]
+  },
+  {
+   "fixture_id": "1082697",
+   "match": "BESTIA vs paiN",
+   "competition": "Circuit X Curitiba #4",
+   "starts_at": "2026-10-25T18:00:00Z",
+   "status": "resolves-on-money-ladder",
+   "polymarket_event": "1249433",
+   "polymarket_slug": "cs2-pain-bst-2026-10-25",
+   "alias_existing": "paiN Gaming -> paiN (Circuit X Curitiba #4)",
+   "egw": "rejected: header/tip odds disagree, no EGWxxxBOT sentence",
+   "limitations": [
+    "Uncovered on the live site only because publishing was frozen since 05:12Z"
+   ],
+   "polymarket_url": "https://polymarket.com/event/cs2-pain-bst-2026-10-25",
+   "egw_url": "https://egamersworld.com/counterstrike/match/N1oRKrSYEl/pain-gaming-vs-bestia-cKOI-68YS"
+  },
+  {
+   "fixture_id": "1086697",
+   "match": "Projeto do KinGui vs Yawara",
+   "competition": "CCT South America 2026 Series #7",
+   "starts_at": "2026-10-25T19:00:00Z",
+   "status": "no-compliant-line-at-research-time",
+   "egw": "rejected: 1.8/1.8 placeholder, no sentence",
+   "aliases_existing": [
+    "Yawara Esports -> Yawara",
+    "Tropa do KinGui -> Projeto do KinGui"
+   ],
+   "limitations": [
+    "Tier-C, low-coverage rosters; may never be priced by a book",
+    "Falls to labelled model rungs or stays explicitly unresolved"
+   ],
+   "hltv_event": "https://www.hltv.org/events/9452/cct-2026-south-america-series-7",
+   "egw_url": "https://egamersworld.com/counterstrike/match/0U32SId-H/projeto-do-kingui-vs-yawara-3gUs-7A9Zu"
+  },
+  {
+   "fixture_id": "1082792",
+   "match": "HOTU vs The Huns",
+   "competition": "Moscow Cyber Games 2026",
+   "starts_at": "2026-10-31T09:00:00Z",
+   "status": "model-only-flagged-extreme",
+   "hltv": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+   "published_estimate": "bo3.gg network model 98.2% HOTU (uncalibrated)",
+   "limitations": [
+    "98.2% magnitude unreliable for a LAN BO3; direction only",
+    "Polymarket book non-compliant at last publisher read; EGW placeholder"
+   ]
+  },
+  {
+   "fixture_id": "1082861",
+   "match": "Rooster vs Abyssal",
+   "competition": "DFRAG Invitational 2026",
+   "starts_at": "2026-10-27T03:00:00Z",
+   "status": "model-only",
+   "published_estimate": "Valve-rating model: Abyssal 52.2% / Rooster 47.8%",
+   "limitations": [
+    "Polymarket $0-volume stub; EGW placeholder",
+    "Near coin-flip model estimate; Rooster stand-ins flagged by earlier session"
+   ],
+   "egw_url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/rooster-vs-team-abyssal-P1tTp3RAg8",
+   "polymarket_url": "https://polymarket.com/esports/cs2/dfrag-invitational"
+  },
+  {
+   "fixture_id": "1082793",
+   "match": "5star vs 1WIN",
+   "competition": "Moscow Cyber Games 2026",
+   "starts_at": "2026-10-31T13:00:00Z",
+   "status": "model-only",
+   "hltv": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+   "published_estimate": "Valve-rating model: 1WIN 82.2% / 5star 17.8%",
+   "limitations": [
+    "Polymarket $0-volume stub; EGW 1.8/1.8 placeholder",
+    "Six days out; real lines expected closer to the LAN"
+   ]
+  }
+ ],
+ "method": "HLTV first, then Polymarket Gamma public-search/events, EGamersWorld match+tip pages, Bovada board, official event site. Crowd percentages (Hotspawn % picked, HLTV fan votes) never used as inputs. Placeholders recorded as no-line, never as prices."
+}

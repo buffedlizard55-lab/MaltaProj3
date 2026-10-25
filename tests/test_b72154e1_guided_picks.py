@@ -56,12 +56,37 @@ class GuidedPicksTest(unittest.TestCase):
             self.assertTrue(row.get('limitations'), fid)
 
     def test_group_a_are_snapshot_unresolved(self):
+        # Same wall-clock trap the Group B test below documents: "unresolved"
+        # is a state of the snapshot the dossier read (2026-10-23T20:10:00Z),
+        # not of `snapshot.json` forever. The 2026-10-25T05:12:25Z publisher
+        # snapshot resolved 1082858 on a two-sided Polymarket book
+        # (0.25/0.75, pick_index 1), so the unguarded assertion below failed
+        # the publisher's regression step in runs 40174233578 (07:49Z) and
+        # 40196457503 (13:11Z) and froze the site on the 05:12Z build —
+        # the same failure class as runs 40085158851 / 40116915898.
+        # Pinned expectations therefore only run against the snapshot the
+        # dossier names; the always-on invariants after them accept a
+        # fixture graduating to a sourced pick (that is the gap closing)
+        # while still requiring identity to match and any published pair
+        # to add up. Fix-forward by arena-0db056f7 (2026-10-25).
+        named = (self.dossier.get('published_snapshot') or {}).get('generated_at')
         for fid in ('1082858', '1082792'):
-            self.assertEqual(self.fixtures[fid]['group'], 'A-unresolved')
-            # This historical dossier is not a constraint on future picks.
-            # 1082858 acquired a pick on 25 October, legitimately closing a gap.
-            if self.snapshot.get('generated_at') == self.dossier['published_snapshot']['generated_at']:
-                self.assertIsNone(self.by_id[fid].get('pick_index'), fid)
+            self.assertEqual(self.fixtures[fid]['group'], 'A-unresolved', fid)
+            match = self.by_id.get(fid)
+            if self.snapshot.get('generated_at') == named:
+                self.assertIsNotNone(match, fid)
+                self.assertIsNone(match.get('pick_index'), fid)
+            if match is None:
+                continue
+            self.assertEqual([t.get('name') for t in match.get('teams') or []],
+                             self.fixtures[fid]['teams'], fid)
+            analysis = match.get('analysis') or {}
+            probs = analysis.get('probabilities')
+            if probs:
+                self.assertEqual(len(probs), 2, fid)
+                self.assertAlmostEqual(sum(probs), 1.0, places=4, msg=fid)
+                if abs(probs[0] - probs[1]) > 1e-9:
+                    self.assertIsNotNone(match.get('pick_index'), fid)
 
     GROUP_B = ('1082996', '1079198', '1079200', '1082861', '1082793')
 
