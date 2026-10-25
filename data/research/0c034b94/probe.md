@@ -1,6 +1,6 @@
 # Live probe - picks for every Hotspawn CS2 match
 
-Observed 2026-10-25T14:04:50Z (live).
+Observed 2026-10-25T14:25:18Z (live).
 Facts only: this file records what each source served. No probability, pick or alias is written here.
 
 ## Published dashboard
@@ -93,17 +93,17 @@ Open fixtures with **no published row at all**: 1086696 BORRACHEIROS vs RED Cani
 
 | Source | Status | HTTP | Observed | URL |
 | --- | --- | --- | --- | --- |
-| published latest.json | ok | 200 | 2026-10-25T14:04:40Z | https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json |
-| published origination.json | ok | 200 | 2026-10-25T14:04:41Z | https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json |
-| hotspawn fixtures api | ok | 200 | 2026-10-25T14:04:41Z | https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1 |
-| hotspawn lobby | ok | 200 | 2026-10-25T14:04:42Z | https://play.hotspawn.com/lobby?cb=1792937081 |
-| hltv matches | ok | 200 | 2026-10-25T14:04:43Z | https://www.hltv.org/matches |
-| hltv ranking 0 | ok | 200 | 2026-10-25T14:04:44Z | https://www.hltv.org/ranking/teams/2026/october/19 |
-| egamersworld matches | error | 403 | 2026-10-25T14:04:44Z | https://egamersworld.com/counterstrike/matches |
-| polymarket cs2 tag | ok | 200 | 2026-10-25T14:04:44Z | https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100 |
-| hltv betting analytics 1086696 | ok | 200 | 2026-10-25T14:04:45Z | https://www.hltv.org/betting/analytics/2399917/borracheiros-vs-red-canids-academy-cct-2026-south-america-series-7 |
-| hltv betting analytics 1082697 | ok | 200 | 2026-10-25T14:04:46Z | https://www.hltv.org/betting/analytics/2399819/pain-vs-bestia-circuit-x-curitiba-season-4 |
-| hltv betting analytics 1086697 | ok | 200 | 2026-10-25T14:04:47Z | https://www.hltv.org/betting/analytics/2399918/tropa-do-kingui-vs-yawara-cct-2026-south-america-series-7 |
-| hltv betting analytics 1082861 | ok | 200 | 2026-10-25T14:04:48Z | https://www.hltv.org/betting/analytics/2399891/rooster-vs-abyssal-dfrag-invitational-2026 |
-| hltv betting analytics 1082792 | ok | 200 | 2026-10-25T14:04:49Z | https://www.hltv.org/betting/analytics/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026 |
-| hltv betting analytics 1082793 | ok | 200 | 2026-10-25T14:04:50Z | https://www.hltv.org/betting/analytics/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026 |
+| published latest.json | ok | 200 | 2026-10-25T14:25:09Z | https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json |
+| published origination.json | ok | 200 | 2026-10-25T14:25:09Z | https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json |
+| hotspawn fixtures api | ok | 200 | 2026-10-25T14:25:09Z | https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1 |
+| hotspawn lobby | ok | 200 | 2026-10-25T14:25:10Z | https://play.hotspawn.com/lobby?cb=1792938309 |
+| hltv matches | ok | 200 | 2026-10-25T14:25:11Z | https://www.hltv.org/matches |
+| hltv ranking 0 | ok | 200 | 2026-10-25T14:25:12Z | https://www.hltv.org/ranking/teams/2026/october/19 |
+| egamersworld matches | error | 403 | 2026-10-25T14:25:13Z | https://egamersworld.com/counterstrike/matches |
+| polymarket cs2 tag | ok | 200 | 2026-10-25T14:25:13Z | https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100 |
+| hltv betting analytics 1086696 | ok | 200 | 2026-10-25T14:25:14Z | https://www.hltv.org/betting/analytics/2399917/borracheiros-vs-red-canids-academy-cct-2026-south-america-series-7 |
+| hltv betting analytics 1082697 | ok | 200 | 2026-10-25T14:25:14Z | https://www.hltv.org/betting/analytics/2399819/pain-vs-bestia-circuit-x-curitiba-season-4 |
+| hltv betting analytics 1086697 | ok | 200 | 2026-10-25T14:25:15Z | https://www.hltv.org/betting/analytics/2399918/tropa-do-kingui-vs-yawara-cct-2026-south-america-series-7 |
+| hltv betting analytics 1082861 | ok | 200 | 2026-10-25T14:25:16Z | https://www.hltv.org/betting/analytics/2399891/rooster-vs-abyssal-dfrag-invitational-2026 |
+| hltv betting analytics 1082792 | ok | 200 | 2026-10-25T14:25:17Z | https://www.hltv.org/betting/analytics/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026 |
+| hltv betting analytics 1082793 | ok | 200 | 2026-10-25T14:25:18Z | https://www.hltv.org/betting/analytics/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026 |
