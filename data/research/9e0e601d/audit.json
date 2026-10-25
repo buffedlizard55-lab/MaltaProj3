@@ -1,12 +1,12 @@
 {
   "session": "9e0e601d",
   "mode": "live",
-  "observed_at": "2026-10-25T15:04:56Z",
+  "observed_at": "2026-10-25T16:03:06Z",
   "sources": [
     {
       "label": "deployed snapshot.json",
       "url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
-      "observed_at": "2026-10-25T15:04:46Z",
+      "observed_at": "2026-10-25T16:02:57Z",
       "status": "ok",
       "http_status": 200,
       "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
@@ -18,7 +18,7 @@
     {
       "label": "deployed origination.json",
       "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
-      "observed_at": "2026-10-25T15:04:46Z",
+      "observed_at": "2026-10-25T16:02:57Z",
       "status": "ok",
       "http_status": 200,
       "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
@@ -30,7 +30,7 @@
     {
       "label": "deployed data/latest.json",
       "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
-      "observed_at": "2026-10-25T15:04:47Z",
+      "observed_at": "2026-10-25T16:02:57Z",
       "status": "ok",
       "http_status": 200,
       "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
@@ -42,7 +42,7 @@
     {
       "label": "deployed index.html",
       "url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
-      "observed_at": "2026-10-25T15:04:47Z",
+      "observed_at": "2026-10-25T16:02:57Z",
       "status": "ok",
       "http_status": 200,
       "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
@@ -54,85 +54,85 @@
     {
       "label": "hotspawn fixtures api",
       "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-      "observed_at": "2026-10-25T15:04:47Z",
+      "observed_at": "2026-10-25T16:02:57Z",
       "status": "ok",
       "http_status": 200,
       "final_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "content_type": "application/json; charset=utf-8",
-      "bytes": 60261,
-      "sha256": "8e5a350d44aa0fa61df10ceca042963c32245808351ee309af9bc2ecdcde5c2c",
+      "bytes": 58714,
+      "sha256": "baf295bbbc60f3f193da2a9bae02d0b10fb2ed19e3e2e8905c4b40bbf9441600",
       "raw": "data/research/9e0e601d/raw/hotspawn-fixtures-api.json"
     },
     {
       "label": "hotspawn lobby",
-      "url": "https://play.hotspawn.com/lobby?cb=1792940686",
-      "observed_at": "2026-10-25T15:04:48Z",
+      "url": "https://play.hotspawn.com/lobby?cb=1792944177",
+      "observed_at": "2026-10-25T16:02:58Z",
       "status": "ok",
       "http_status": 200,
-      "final_url": "https://play.hotspawn.com/lobby?cb=1792940686",
+      "final_url": "https://play.hotspawn.com/lobby?cb=1792944177",
       "content_type": "text/html;charset=UTF-8",
-      "bytes": 282241,
-      "sha256": "c1ecc899a5f15106559ec0cd427dd1bd7695ab837403ea887275d7c7b4b92960",
+      "bytes": 273309,
+      "sha256": "5f507fdbc6e7475b07e065110e9a082517743945bce0ed9a72672c3033730c00",
       "raw": "data/research/9e0e601d/raw/hotspawn-lobby.html.gz"
     },
     {
       "label": "hltv matches",
       "url": "https://www.hltv.org/matches",
-      "observed_at": "2026-10-25T15:04:49Z",
+      "observed_at": "2026-10-25T16:02:59Z",
       "status": "ok",
       "http_status": 200,
       "final_url": "https://www.hltv.org/matches",
       "content_type": "text/html; charset=UTF-8",
-      "bytes": 614729,
-      "sha256": "2d7188e2ad8207f165a310f516a5055427a35e91182adcc8073139579e10808c",
+      "bytes": 601400,
+      "sha256": "433055e2d752d49761b8556535fc3057969fd8fdc713193daf692368cd72579a",
       "raw": "data/research/9e0e601d/raw/hltv-matches.html.gz"
     },
     {
       "label": "hltv ranking",
       "url": "https://www.hltv.org/ranking/teams/2026/october/19",
-      "observed_at": "2026-10-25T15:04:49Z",
+      "observed_at": "2026-10-25T16:03:00Z",
       "status": "ok",
       "http_status": 200,
       "final_url": "https://www.hltv.org/ranking/teams/2026/october/19",
       "content_type": "text/html; charset=UTF-8",
-      "bytes": 1150897,
-      "sha256": "bdc49362a7ba962b7aac7af6bbd6e03165d5a1c07b1a6d1da050118e3e38c03b",
+      "bytes": 1149279,
+      "sha256": "da3d1b0504a0d070a4f22f191c248ed0ff0ff91725d392411e79ec2cbf9bf31f",
       "raw": "data/research/9e0e601d/raw/hltv-ranking.html.gz"
     },
     {
       "label": "polymarket cs2 tag",
       "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100",
-      "observed_at": "2026-10-25T15:04:50Z",
+      "observed_at": "2026-10-25T16:03:00Z",
       "status": "ok",
       "http_status": 200,
       "final_url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100",
       "content_type": "application/json",
-      "bytes": 530737,
-      "sha256": "85f8f391ce020f0ade65fe7df5073253bb61a29d91dc82730efa04136bc7b56f",
+      "bytes": 530615,
+      "sha256": "a13872c4f6cb5cb02b8a22e34c709290212d6eacee9abfcec78e2a41bbda82d6",
       "raw": "data/research/9e0e601d/raw/polymarket-cs2-tag.json"
     },
     {
       "label": "thunderpick matches",
       "url": "https://thunderpick.io/api/matches",
-      "observed_at": "2026-10-25T15:04:50Z",
+      "observed_at": "2026-10-25T16:03:00Z",
       "status": "ok",
       "http_status": 200,
       "final_url": "https://thunderpick.io/api/matches",
       "content_type": "application/json; charset=utf-8",
-      "bytes": 141932,
-      "sha256": "7051abdd0788c1e3742da1fef9782bd61f7dd64e2fdcb812433fdbcaf9731c5e",
+      "bytes": 136034,
+      "sha256": "e1de95389d88e6e6825dff5340273ba6e97e6564129ae67cb5fbdebac82fa5cb",
       "raw": "data/research/9e0e601d/raw/thunderpick-matches.json"
     },
     {
       "label": "egamersworld matches",
       "url": "https://egamersworld.com/counterstrike/matches",
-      "observed_at": "2026-10-25T15:04:50Z",
+      "observed_at": "2026-10-25T16:03:01Z",
       "status": "error",
       "http_status": 403,
       "final_url": "https://egamersworld.com/counterstrike/matches",
       "content_type": "text/html; charset=UTF-8",
       "bytes": 5672,
-      "sha256": "67c0b8d64ce2a45671c5681ae9add234c98b84b042e6f4e43576a7124b39464d",
+      "sha256": "8abadf449ef7654020913ab1f7f2c39bedb1551a4eb75bf2b1620f11dde52868",
       "error": "HTTP 403"
     }
   ],
@@ -167,9 +167,9 @@
     "index_glance_ids": 16
   },
   "inventory": {
-    "api_records": 77,
-    "api_open_fixtures": 15,
-    "lobby_fixture_ids": 15,
+    "api_records": 75,
+    "api_open_fixtures": 14,
+    "lobby_fixture_ids": 14,
     "open_ids": [
       "1079200",
       "1081158",
@@ -184,7 +184,6 @@
       "1082898",
       "1082900",
       "1082901",
-      "1086696",
       "1086697"
     ],
     "lobby_ids_missing_from_api": []
@@ -233,168 +232,168 @@
         "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/c2a74e33/live-coverage.json",
         "status": 200,
         "bytes": 2810,
-        "observed_at": "2026-10-25T15:04:51Z"
+        "observed_at": "2026-10-25T16:03:01Z"
       },
       {
         "path": "data/research/c2a74e33/live-coverage.md",
         "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/c2a74e33/live-coverage.md",
         "status": 200,
         "bytes": 1939,
-        "observed_at": "2026-10-25T15:04:51Z"
+        "observed_at": "2026-10-25T16:03:01Z"
       },
       {
         "path": "data/research/f1277d3b/line-source-research.md",
         "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/f1277d3b/line-source-research.md",
         "status": 200,
         "bytes": 2559,
-        "observed_at": "2026-10-25T15:04:51Z"
+        "observed_at": "2026-10-25T16:03:01Z"
       },
       {
         "path": "data/research/f1277d3b/line-source-research.json",
         "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/f1277d3b/line-source-research.json",
         "status": 200,
         "bytes": 7465,
-        "observed_at": "2026-10-25T15:04:51Z"
+        "observed_at": "2026-10-25T16:03:02Z"
       },
       {
         "path": "data/research/a7128fdd/direct-observations.md",
         "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/a7128fdd/direct-observations.md",
         "status": 200,
         "bytes": 7666,
-        "observed_at": "2026-10-25T15:04:51Z"
+        "observed_at": "2026-10-25T16:03:02Z"
       },
       {
         "path": "data/research/a7128fdd/direct-observations.json",
         "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/a7128fdd/direct-observations.json",
         "status": 200,
         "bytes": 9499,
-        "observed_at": "2026-10-25T15:04:51Z"
+        "observed_at": "2026-10-25T16:03:02Z"
       },
       {
         "path": "data/evidence/hotspawn-fixtures.json",
         "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/hotspawn-fixtures.json",
         "status": 200,
         "bytes": 5450,
-        "observed_at": "2026-10-25T15:04:51Z"
+        "observed_at": "2026-10-25T16:03:02Z"
       },
       {
         "path": "data/evidence/polymarket-event-1238706.json",
         "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-event-1238706.json",
         "status": 404,
         "bytes": 5254,
-        "observed_at": "2026-10-25T15:04:51Z"
+        "observed_at": "2026-10-25T16:03:02Z"
       },
       {
         "path": "data/evidence/polymarket-book-1238706-0.json",
         "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-book-1238706-0.json",
         "status": 404,
         "bytes": 5254,
-        "observed_at": "2026-10-25T15:04:52Z"
+        "observed_at": "2026-10-25T16:03:02Z"
       },
       {
         "path": "data/evidence/polymarket-book-1238706-1.json",
         "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-book-1238706-1.json",
         "status": 404,
         "bytes": 5254,
-        "observed_at": "2026-10-25T15:04:52Z"
+        "observed_at": "2026-10-25T16:03:02Z"
       },
       {
         "path": "data/evidence/polymarket-event-1248800.json",
         "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-event-1248800.json",
         "status": 404,
         "bytes": 5254,
-        "observed_at": "2026-10-25T15:04:52Z"
+        "observed_at": "2026-10-25T16:03:02Z"
       },
       {
         "path": "data/evidence/polymarket-book-1248800-0.json",
         "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-book-1248800-0.json",
         "status": 404,
         "bytes": 5254,
-        "observed_at": "2026-10-25T15:04:52Z"
+        "observed_at": "2026-10-25T16:03:03Z"
       },
       {
         "path": "data/evidence/polymarket-book-1248800-1.json",
         "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-book-1248800-1.json",
         "status": 404,
         "bytes": 5254,
-        "observed_at": "2026-10-25T15:04:52Z"
+        "observed_at": "2026-10-25T16:03:03Z"
       },
       {
         "path": "data/evidence/polymarket-event-1238707.json",
         "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-event-1238707.json",
         "status": 404,
         "bytes": 5254,
-        "observed_at": "2026-10-25T15:04:52Z"
+        "observed_at": "2026-10-25T16:03:03Z"
       },
       {
         "path": "data/evidence/polymarket-book-1238707-0.json",
         "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-book-1238707-0.json",
         "status": 404,
         "bytes": 5254,
-        "observed_at": "2026-10-25T15:04:52Z"
+        "observed_at": "2026-10-25T16:03:03Z"
       },
       {
         "path": "data/evidence/polymarket-book-1238707-1.json",
         "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-book-1238707-1.json",
         "status": 404,
         "bytes": 5254,
-        "observed_at": "2026-10-25T15:04:53Z"
+        "observed_at": "2026-10-25T16:03:03Z"
       },
       {
         "path": "data/evidence/polymarket-event-1243020.json",
         "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-event-1243020.json",
         "status": 404,
         "bytes": 5254,
-        "observed_at": "2026-10-25T15:04:54Z"
+        "observed_at": "2026-10-25T16:03:03Z"
       },
       {
         "path": "data/evidence/polymarket-book-1243020-0.json",
         "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-book-1243020-0.json",
         "status": 404,
         "bytes": 5254,
-        "observed_at": "2026-10-25T15:04:54Z"
+        "observed_at": "2026-10-25T16:03:03Z"
       },
       {
         "path": "data/evidence/polymarket-book-1243020-1.json",
         "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-book-1243020-1.json",
         "status": 404,
         "bytes": 5254,
-        "observed_at": "2026-10-25T15:04:54Z"
+        "observed_at": "2026-10-25T16:03:04Z"
       },
       {
         "path": "data/evidence/polymarket-event-1249433.json",
         "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-event-1249433.json",
         "status": 404,
         "bytes": 5254,
-        "observed_at": "2026-10-25T15:04:54Z"
+        "observed_at": "2026-10-25T16:03:04Z"
       },
       {
         "path": "data/evidence/polymarket-book-1249433-0.json",
         "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-book-1249433-0.json",
         "status": 404,
         "bytes": 5254,
-        "observed_at": "2026-10-25T15:04:54Z"
+        "observed_at": "2026-10-25T16:03:04Z"
       },
       {
         "path": "data/evidence/polymarket-book-1249433-1.json",
         "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-book-1249433-1.json",
         "status": 404,
         "bytes": 5254,
-        "observed_at": "2026-10-25T15:04:54Z"
+        "observed_at": "2026-10-25T16:03:04Z"
       },
       {
         "path": "data/contrarian.json",
         "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/contrarian.json",
         "status": 200,
         "bytes": 1093,
-        "observed_at": "2026-10-25T15:04:54Z"
+        "observed_at": "2026-10-25T16:03:04Z"
       },
       {
         "path": "data/research/8fa2b226/coverage-probe.json",
         "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/8fa2b226/coverage-probe.json",
         "status": 200,
         "bytes": 753,
-        "observed_at": "2026-10-25T15:04:55Z"
+        "observed_at": "2026-10-25T16:03:05Z"
       }
     ],
     "health": {
@@ -425,11 +424,10 @@
     "unverifiable_reason": [
       "the deployed complete picks list is a different observation from the deployed page, so fixture-by-fixture coverage is not asserted against it"
     ],
-    "open": 15,
+    "open": 14,
     "published_rows": 17,
     "with_pick": 17,
     "open_without_pick": [
-      "1086696",
       "1081158",
       "1082697",
       "1079200",
@@ -447,7 +445,6 @@
     ],
     "fallback_priced": [],
     "research_targets": [
-      "1086696",
       "1081158",
       "1082697",
       "1079200",
@@ -464,7 +461,6 @@
       "1082793"
     ],
     "open_missing_from_complete_list": [
-      "1086696",
       "1081158",
       "1082697",
       "1079200",
@@ -672,65 +668,9 @@
       "problems": []
     },
     "violations": [],
-    "age_hours": 0.55
+    "age_hours": 1.51
   },
   "targets": [
-    {
-      "fixture": {
-        "id": "1086696",
-        "teams": [
-          "BORRACHEIROS",
-          "RED Canids Academy"
-        ],
-        "competition": "CCT South America 2026 Series #7",
-        "tier": "c",
-        "source_status": "scheduled",
-        "starts_at": "2026-10-25T16:00:00Z"
-      },
-      "published_row": null,
-      "hltv_exact": [
-        {
-          "match_id": "2399917",
-          "url": "https://www.hltv.org/matches/2399917/borracheiros-vs-red-canids-academy-cct-2026-south-america-series-7",
-          "teams": [
-            "BORRACHEIROS",
-            "RED Canids Academy"
-          ],
-          "starts_at": "2026-10-25T15:10:00Z",
-          "event": "CCT 2026 South America Series 7",
-          "best_of": "bo3",
-          "live": false,
-          "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399917/borracheiros-vs-red-canids-academy-cct-2026-south-america-series-7",
-          "start_delta_seconds": -3000
-        }
-      ],
-      "hltv_shares_one_name": [],
-      "hltv_ranking": [
-        {
-          "team": "BORRACHEIROS",
-          "points": 4.0,
-          "team_url": "https://www.hltv.org/team/13902/borracheiros"
-        },
-        {
-          "team": "RED Canids Academy",
-          "points": 4.0,
-          "team_url": "https://www.hltv.org/team/13029/red-canids-academy"
-        }
-      ],
-      "polymarket_exact": [],
-      "polymarket_shares_one_name": [],
-      "thunderpick_exact": [],
-      "thunderpick_shares_one_name": [],
-      "egamersworld": {
-        "status": "error",
-        "error": "HTTP 403",
-        "http_status": 403,
-        "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:50Z"
-      },
-      "research_conclusion": "HLTV lists the identical pairing (start delta -3000s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.",
-      "gap_reason": "no row on the deployed complete picks list"
-    },
     {
       "fixture": {
         "id": "1081158",
@@ -808,7 +748,7 @@
         "error": "HTTP 403",
         "http_status": 403,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:50Z"
+        "observed_at": "2026-10-25T16:03:01Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; Thunderpick lists 1 exact row(s), 1 with a two-way price; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -890,7 +830,7 @@
         "error": "HTTP 403",
         "http_status": 403,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:50Z"
+        "observed_at": "2026-10-25T16:03:01Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -942,7 +882,7 @@
         "error": "HTTP 403",
         "http_status": 403,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:50Z"
+        "observed_at": "2026-10-25T16:03:01Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -994,7 +934,7 @@
         "error": "HTTP 403",
         "http_status": 403,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:50Z"
+        "observed_at": "2026-10-25T16:03:01Z"
       },
       "research_conclusion": "HLTV lists one of these names against a different opponent under this fixture name \u2014 identity not joined; no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -1076,7 +1016,7 @@
         "error": "HTTP 403",
         "http_status": 403,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:50Z"
+        "observed_at": "2026-10-25T16:03:01Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -1158,7 +1098,7 @@
         "error": "HTTP 403",
         "http_status": 403,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:50Z"
+        "observed_at": "2026-10-25T16:03:01Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; Thunderpick lists 1 exact row(s), 1 with a two-way price; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -1236,7 +1176,7 @@
         "error": "HTTP 403",
         "http_status": 403,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:50Z"
+        "observed_at": "2026-10-25T16:03:01Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; Thunderpick lists 1 exact row(s), 1 with a two-way price; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -1292,7 +1232,7 @@
         "error": "HTTP 403",
         "http_status": 403,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:50Z"
+        "observed_at": "2026-10-25T16:03:01Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -1415,7 +1355,7 @@
         "error": "HTTP 403",
         "http_status": 403,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:50Z"
+        "observed_at": "2026-10-25T16:03:01Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; Thunderpick lists 1 exact row(s), 1 with a two-way price; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -1538,7 +1478,7 @@
         "error": "HTTP 403",
         "http_status": 403,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:50Z"
+        "observed_at": "2026-10-25T16:03:01Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; Thunderpick lists 1 exact row(s), 1 with a two-way price; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -1635,7 +1575,7 @@
         "error": "HTTP 403",
         "http_status": 403,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:50Z"
+        "observed_at": "2026-10-25T16:03:01Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -1717,7 +1657,7 @@
         "error": "HTTP 403",
         "http_status": 403,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:50Z"
+        "observed_at": "2026-10-25T16:03:01Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -1814,7 +1754,7 @@
         "error": "HTTP 403",
         "http_status": 403,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:50Z"
+        "observed_at": "2026-10-25T16:03:01Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -1870,7 +1810,7 @@
         "error": "HTTP 403",
         "http_status": 403,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:50Z"
+        "observed_at": "2026-10-25T16:03:01Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"

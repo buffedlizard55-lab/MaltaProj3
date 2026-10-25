@@ -1,4 +1,4 @@
-# Live coverage audit — 2026-10-25T15:04:57Z (replay)
+# Live coverage audit — 2026-10-25T16:03:07Z (replay)
 
 ## What the deployed dashboard serves
 
@@ -16,9 +16,9 @@
 
 | Fact | Value |
 | --- | --- |
-| Hotspawn scheduled-fixture records | 77 |
-| open fixtures right now | 15 |
-| fixture ids encoded by the rendered lobby | 15 |
+| Hotspawn scheduled-fixture records | 75 |
+| open fixtures right now | 14 |
+| fixture ids encoded by the rendered lobby | 14 |
 | lobby ids absent from the API window | 0 |
 
 ## Deployment parity (page vs downloadable data)
@@ -40,7 +40,7 @@
 - Featured snapshot: **13/13** rows re-derived.
 - Structural violations: **0**.
 - Executive summary: 16 glance rows, 16 deep links, 0 render problems.
-- Snapshot age at observation: 0.55 h.
+- Snapshot age at observation: 1.52 h.
 
 ### Problems
 
@@ -49,17 +49,9 @@
 
 ## Fixtures without a published pick
 
-15 of 15 open fixtures have no pick row on the deployed site.
+14 of 14 open fixtures have no pick row on the deployed site.
 
 0 further fixture(s) carry a pick that the featured exact-name line could not produce (none); those are researched below in the brief's order — HLTV first, then esportsbooks and exchanges.
-
-**Why this fixture is researched:** no row on the deployed complete picks list
-
-### 1086696 — BORRACHEIROS vs RED Canids Academy (CCT South America 2026 Series #7, 2026-10-25T16:00:00Z)
-
-- Research conclusion: HLTV lists the identical pairing (start delta -3000s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is unavailable from this runner. No probability or pick is written here.
-- HLTV exact: <https://www.hltv.org/matches/2399917/borracheiros-vs-red-canids-academy-cct-2026-south-america-series-7> start delta -3000s
-- EGamersWorld: missing
 
 **Why this fixture is researched:** no row on the deployed complete picks list
 
@@ -181,14 +173,14 @@
 
 | Source | Status | HTTP | Observed | SHA-256 |
 | --- | --- | --- | --- | --- |
-| deployed snapshot.json | archived |  | 2026-10-25T15:04:56Z |  |
-| deployed origination.json | archived |  | 2026-10-25T15:04:56Z |  |
-| deployed data/latest.json | archived |  | 2026-10-25T15:04:56Z |  |
-| deployed index.html | archived |  | 2026-10-25T15:04:56Z |  |
-| hotspawn fixtures api | archived |  | 2026-10-25T15:04:56Z |  |
-| hotspawn lobby | archived |  | 2026-10-25T15:04:56Z |  |
-| hltv matches | archived |  | 2026-10-25T15:04:56Z |  |
-| hltv ranking | archived |  | 2026-10-25T15:04:56Z |  |
-| polymarket cs2 tag | archived |  | 2026-10-25T15:04:56Z |  |
-| thunderpick matches | archived |  | 2026-10-25T15:04:56Z |  |
-| egamersworld matches | missing |  | 2026-10-25T15:04:56Z |  |
+| deployed snapshot.json | archived |  | 2026-10-25T16:03:06Z |  |
+| deployed origination.json | archived |  | 2026-10-25T16:03:06Z |  |
+| deployed data/latest.json | archived |  | 2026-10-25T16:03:06Z |  |
+| deployed index.html | archived |  | 2026-10-25T16:03:06Z |  |
+| hotspawn fixtures api | archived |  | 2026-10-25T16:03:06Z |  |
+| hotspawn lobby | archived |  | 2026-10-25T16:03:06Z |  |
+| hltv matches | archived |  | 2026-10-25T16:03:06Z |  |
+| hltv ranking | archived |  | 2026-10-25T16:03:06Z |  |
+| polymarket cs2 tag | archived |  | 2026-10-25T16:03:06Z |  |
+| thunderpick matches | archived |  | 2026-10-25T16:03:06Z |  |
+| egamersworld matches | missing |  | 2026-10-25T16:03:06Z |  |

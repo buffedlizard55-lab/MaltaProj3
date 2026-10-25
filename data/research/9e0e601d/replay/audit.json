@@ -1,83 +1,83 @@
 {
   "session": "9e0e601d",
   "mode": "replay",
-  "observed_at": "2026-10-25T15:04:57Z",
+  "observed_at": "2026-10-25T16:03:07Z",
   "sources": [
     {
       "label": "deployed snapshot.json",
       "url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
       "status": "archived",
-      "observed_at": "2026-10-25T15:04:56Z",
+      "observed_at": "2026-10-25T16:03:06Z",
       "raw": "data/research/9e0e601d/raw/deployed-snapshot-json"
     },
     {
       "label": "deployed origination.json",
       "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
       "status": "archived",
-      "observed_at": "2026-10-25T15:04:56Z",
+      "observed_at": "2026-10-25T16:03:06Z",
       "raw": "data/research/9e0e601d/raw/deployed-origination-json"
     },
     {
       "label": "deployed data/latest.json",
       "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
       "status": "archived",
-      "observed_at": "2026-10-25T15:04:56Z",
+      "observed_at": "2026-10-25T16:03:06Z",
       "raw": "data/research/9e0e601d/raw/deployed-data-latest-json"
     },
     {
       "label": "deployed index.html",
       "url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
       "status": "archived",
-      "observed_at": "2026-10-25T15:04:56Z",
+      "observed_at": "2026-10-25T16:03:06Z",
       "raw": "data/research/9e0e601d/raw/deployed-index-html"
     },
     {
       "label": "hotspawn fixtures api",
       "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
       "status": "archived",
-      "observed_at": "2026-10-25T15:04:56Z",
+      "observed_at": "2026-10-25T16:03:06Z",
       "raw": "data/research/9e0e601d/raw/hotspawn-fixtures-api"
     },
     {
       "label": "hotspawn lobby",
-      "url": "https://play.hotspawn.com/lobby?cb=1792940696",
+      "url": "https://play.hotspawn.com/lobby?cb=1792944186",
       "status": "archived",
-      "observed_at": "2026-10-25T15:04:56Z",
+      "observed_at": "2026-10-25T16:03:06Z",
       "raw": "data/research/9e0e601d/raw/hotspawn-lobby"
     },
     {
       "label": "hltv matches",
       "url": "https://www.hltv.org/matches",
       "status": "archived",
-      "observed_at": "2026-10-25T15:04:56Z",
+      "observed_at": "2026-10-25T16:03:06Z",
       "raw": "data/research/9e0e601d/raw/hltv-matches"
     },
     {
       "label": "hltv ranking",
       "url": "https://www.hltv.org/ranking/teams/2026/october/19",
       "status": "archived",
-      "observed_at": "2026-10-25T15:04:56Z",
+      "observed_at": "2026-10-25T16:03:06Z",
       "raw": "data/research/9e0e601d/raw/hltv-ranking"
     },
     {
       "label": "polymarket cs2 tag",
       "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100",
       "status": "archived",
-      "observed_at": "2026-10-25T15:04:56Z",
+      "observed_at": "2026-10-25T16:03:06Z",
       "raw": "data/research/9e0e601d/raw/polymarket-cs2-tag"
     },
     {
       "label": "thunderpick matches",
       "url": "https://thunderpick.io/api/matches",
       "status": "archived",
-      "observed_at": "2026-10-25T15:04:56Z",
+      "observed_at": "2026-10-25T16:03:06Z",
       "raw": "data/research/9e0e601d/raw/thunderpick-matches"
     },
     {
       "label": "egamersworld matches",
       "url": "https://egamersworld.com/counterstrike/matches",
       "status": "missing",
-      "observed_at": "2026-10-25T15:04:56Z",
+      "observed_at": "2026-10-25T16:03:06Z",
       "raw": "data/research/9e0e601d/raw/egamersworld-matches"
     }
   ],
@@ -112,9 +112,9 @@
     "index_glance_ids": 16
   },
   "inventory": {
-    "api_records": 77,
-    "api_open_fixtures": 15,
-    "lobby_fixture_ids": 15,
+    "api_records": 75,
+    "api_open_fixtures": 14,
+    "lobby_fixture_ids": 14,
     "open_ids": [
       "1079200",
       "1081158",
@@ -129,7 +129,6 @@
       "1082898",
       "1082900",
       "1082901",
-      "1086696",
       "1086697"
     ],
     "lobby_ids_missing_from_api": []
@@ -182,11 +181,10 @@
     "unverifiable_reason": [
       "the deployed complete picks list is a different observation from the deployed page, so fixture-by-fixture coverage is not asserted against it"
     ],
-    "open": 15,
+    "open": 14,
     "published_rows": 17,
     "with_pick": 17,
     "open_without_pick": [
-      "1086696",
       "1081158",
       "1082697",
       "1079200",
@@ -204,7 +202,6 @@
     ],
     "fallback_priced": [],
     "research_targets": [
-      "1086696",
       "1081158",
       "1082697",
       "1079200",
@@ -221,7 +218,6 @@
       "1082793"
     ],
     "open_missing_from_complete_list": [
-      "1086696",
       "1081158",
       "1082697",
       "1079200",
@@ -428,65 +424,9 @@
       "problems": []
     },
     "violations": [],
-    "age_hours": 0.55
+    "age_hours": 1.52
   },
   "targets": [
-    {
-      "fixture": {
-        "id": "1086696",
-        "teams": [
-          "BORRACHEIROS",
-          "RED Canids Academy"
-        ],
-        "competition": "CCT South America 2026 Series #7",
-        "tier": "c",
-        "source_status": "scheduled",
-        "starts_at": "2026-10-25T16:00:00Z"
-      },
-      "published_row": null,
-      "hltv_exact": [
-        {
-          "match_id": "2399917",
-          "url": "https://www.hltv.org/matches/2399917/borracheiros-vs-red-canids-academy-cct-2026-south-america-series-7",
-          "teams": [
-            "BORRACHEIROS",
-            "RED Canids Academy"
-          ],
-          "starts_at": "2026-10-25T15:10:00Z",
-          "event": "CCT 2026 South America Series 7",
-          "best_of": "bo3",
-          "live": false,
-          "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399917/borracheiros-vs-red-canids-academy-cct-2026-south-america-series-7",
-          "start_delta_seconds": -3000
-        }
-      ],
-      "hltv_shares_one_name": [],
-      "hltv_ranking": [
-        {
-          "team": "BORRACHEIROS",
-          "points": 4.0,
-          "team_url": "https://www.hltv.org/team/13902/borracheiros"
-        },
-        {
-          "team": "RED Canids Academy",
-          "points": 4.0,
-          "team_url": "https://www.hltv.org/team/13029/red-canids-academy"
-        }
-      ],
-      "polymarket_exact": [],
-      "polymarket_shares_one_name": [],
-      "thunderpick_exact": [],
-      "thunderpick_shares_one_name": [],
-      "egamersworld": {
-        "status": "missing",
-        "error": null,
-        "http_status": null,
-        "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:56Z"
-      },
-      "research_conclusion": "HLTV lists the identical pairing (start delta -3000s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
-      "gap_reason": "no row on the deployed complete picks list"
-    },
     {
       "fixture": {
         "id": "1081158",
@@ -564,7 +504,7 @@
         "error": null,
         "http_status": null,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:56Z"
+        "observed_at": "2026-10-25T16:03:06Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; Thunderpick lists 1 exact row(s), 1 with a two-way price; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -646,7 +586,7 @@
         "error": null,
         "http_status": null,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:56Z"
+        "observed_at": "2026-10-25T16:03:06Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -698,7 +638,7 @@
         "error": null,
         "http_status": null,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:56Z"
+        "observed_at": "2026-10-25T16:03:06Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -750,7 +690,7 @@
         "error": null,
         "http_status": null,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:56Z"
+        "observed_at": "2026-10-25T16:03:06Z"
       },
       "research_conclusion": "HLTV lists one of these names against a different opponent under this fixture name \u2014 identity not joined; no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -832,7 +772,7 @@
         "error": null,
         "http_status": null,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:56Z"
+        "observed_at": "2026-10-25T16:03:06Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -914,7 +854,7 @@
         "error": null,
         "http_status": null,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:56Z"
+        "observed_at": "2026-10-25T16:03:06Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; Thunderpick lists 1 exact row(s), 1 with a two-way price; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -992,7 +932,7 @@
         "error": null,
         "http_status": null,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:56Z"
+        "observed_at": "2026-10-25T16:03:06Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; Thunderpick lists 1 exact row(s), 1 with a two-way price; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -1048,7 +988,7 @@
         "error": null,
         "http_status": null,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:56Z"
+        "observed_at": "2026-10-25T16:03:06Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -1171,7 +1111,7 @@
         "error": null,
         "http_status": null,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:56Z"
+        "observed_at": "2026-10-25T16:03:06Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; Thunderpick lists 1 exact row(s), 1 with a two-way price; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -1294,7 +1234,7 @@
         "error": null,
         "http_status": null,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:56Z"
+        "observed_at": "2026-10-25T16:03:06Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; Thunderpick lists 1 exact row(s), 1 with a two-way price; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -1391,7 +1331,7 @@
         "error": null,
         "http_status": null,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:56Z"
+        "observed_at": "2026-10-25T16:03:06Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -1473,7 +1413,7 @@
         "error": null,
         "http_status": null,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:56Z"
+        "observed_at": "2026-10-25T16:03:06Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -1570,7 +1510,7 @@
         "error": null,
         "http_status": null,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:56Z"
+        "observed_at": "2026-10-25T16:03:06Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
@@ -1626,7 +1566,7 @@
         "error": null,
         "http_status": null,
         "url": "https://egamersworld.com/counterstrike/matches",
-        "observed_at": "2026-10-25T15:04:56Z"
+        "observed_at": "2026-10-25T16:03:06Z"
       },
       "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
       "gap_reason": "no row on the deployed complete picks list"
