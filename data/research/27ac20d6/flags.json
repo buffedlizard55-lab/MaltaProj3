@@ -1,0 +1,58 @@
+[
+  {
+    "id": "27ac20d6-1082792-magnitude",
+    "severity": "warning",
+    "match_ids": ["1082792"],
+    "title": "HOTU 98.2% rests only on the uncalibrated network fit; every cross-check reads lower",
+    "detail": "Fixture 1082792 (HOTU vs The Huns, Moscow Cyber Games 2026, 2026-10-31) is published at HOTU 98.2% / The Huns 1.8% from the project's own bo3.gg network model. Independent reads on 2026-10-25 (data/research/27ac20d6/research.json): HLTV ranks the teams #38 vs #134 and resolves The Huns to VRS #122; replaying the project's Valve model (RD 75) on the committed 2026-10-05 points gives HOTU 94.1% against that roster (98.4% against the weaker same-name roster); the Polymarket book for the fixture exists but is 43 cents wide (rejected by the project's own 0.15 ceiling; best asks 92c/53c on $690 at 14:40Z are not probabilities); EGamersWorld shows a 1.8/1.8 placeholder. Pick direction (HOTU) is unanimous; only the magnitude is single-sourced. The published figure is left untouched for review; the 4-hour ladder will replace it automatically if a usable market line appears before 31 Oct.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    ]
+  },
+  {
+    "id": "27ac20d6-bo3-team-links-404",
+    "severity": "warning",
+    "match_ids": ["1082792"],
+    "title": "The bo3.gg 'rating' source links on the 1082792 card return 404",
+    "detail": "The published origination card for 1082792 links 'HOTU rating' to https://bo3.gg/teams/2720 and 'The Huns rating' to https://bo3.gg/teams/9127. Both returned bo3.gg's '404 Page not found' body when read at 2026-10-25T14:47Z, and no fixture page exists at the canonical slug bo3.gg/matches/hotu-vs-the-huns-31-10-2026. The underlying model inputs are pipeline-captured evidence, so the estimate's provenance inside the repo is intact, but a reader following the card's own links cannot verify the number at the source. Fix belongs to the link builder in scripts/originate.py (bo3.gg team route changed); logged as a change request in COORDINATION.md, not edited by this session.",
+    "source_urls": [
+      "https://bo3.gg/teams/2720",
+      "https://bo3.gg/teams/9127",
+      "https://bo3.gg/matches"
+    ]
+  },
+  {
+    "id": "27ac20d6-huns-identity-resolvable",
+    "severity": "info",
+    "match_ids": ["1082792"],
+    "title": "The Huns' VRS identity is resolvable from HLTV, but not by the ladder's exact-five rule",
+    "detail": "The featured ladder leaves 1082792's Valve rung unresolved because two Valve rows share the name 'The Huns' (#122, 944 pts; #213, 701 pts in the 2026-10-05 standings). HLTV's match page lists the event lineup Bart4k/controlez/bexyz/Cozen/DarkMeister - 4 of 5 of the #122 core, 2 of 5 of #213 - and HLTV's own VRS link for team 12510 resolves to #122. A future rung that disambiguates by majority core overlap against a sourced event lineup could take the Valve estimate here; under the current strict exact-five rule the refusal is correct. Recorded as a change request, with the full read in data/research/27ac20d6/research.json.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "https://www.hltv.org/valve-ranking/teams?teamId=12510"
+    ]
+  },
+  {
+    "id": "27ac20d6-lfo10-vrs-now-exists",
+    "severity": "info",
+    "match_ids": ["1081156"],
+    "title": "LFO 10's Valve blocker was a standings-vintage artifact; the team is now VRS-listed",
+    "detail": "Fixture 1081156's raw-snapshot blocker ('LFO 10: no exact-name Valve rating found') reproduces exactly against the committed 2026-10-05 standings (LFO 7/8/9 present, LFO 10 absent). HLTV's team page (team 14084, Sweden; core dottie/flaw/Sapec, each 10 days on the team at 2026-10-25) shows the core formed after that file, and HLTV's 2026-10-25 VRS mirror already lists LFO 10 at #156. A refresh using a newer standings file should resolve the name exactly; no alias or model change is needed. The published pick (4-source money consensus via Sokerorg -> LFO 10) is unaffected.",
+    "source_urls": [
+      "https://www.hltv.org/team/14084/lfo-10",
+      "https://www.hltv.org/valve-ranking/teams?teamId=14084"
+    ]
+  },
+  {
+    "id": "27ac20d6-thunderpick-generic-link",
+    "severity": "info",
+    "match_ids": ["1082859", "1082860"],
+    "title": "Bookmaker rows link to the generic Thunderpick API endpoint, not a verifiable match page",
+    "detail": "The glance source link for both Thunderpick rows is https://thunderpick.io/api/matches (a live generic endpoint), and the committed data/evidence/thunderpick-matches.json capture predates the two fixtures. The durable record of the observed lines (1.60/2.20 for 1082859, 1.001/12.00 for 1082860) is the quote block on each origination card. A reader cannot re-derive either line from the published link alone after the market closes; noted as a verifiability limitation, not a data error.",
+    "source_urls": [
+      "https://thunderpick.io/esports/counter-strike"
+    ]
+  }
+]
