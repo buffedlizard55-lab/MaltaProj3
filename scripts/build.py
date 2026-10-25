@@ -616,7 +616,7 @@ def exec_banner(data, prefix):
         f'<a class="secondary" href="{prefix}picks/" aria-label="Open the searchable featured-picks audit"><span class="label">Featured picks feed<span class="sub">Searchable audit · method filters</span></span><span aria-hidden="true">→</span></a>'
         f'<a class="tertiary" href="{prefix}unresolved/" aria-label="Open the unresolved picks page with every source tried and why each is still missing a pick"><span class="label">Unresolved &amp; limitations<span class="sub">{unresolved} without a pick · {model} from research models · why + sources</span></span><span aria-hidden="true">→</span></a>'
         f'</div>'
-        f'<p class="exec-banner-meta">Inventory {local_time(data.get("inventory_observed_at"))} · snapshot {generated} · refresh every 4 h (catch-up 2.5 h later keeps it inside 8 h) · <a href="{prefix}coverage/">coverage &amp; refresh status →</a> · <a href="{prefix}methodology/">how the list is built →</a> · <a href="{prefix}#picks-at-a-glance">picks at a glance ↓</a>{gaps} · <a href="{prefix}origination/#unresolved">every research trail →</a></p>'
+        f'<p class="exec-banner-meta">Inventory {local_time(data.get("inventory_observed_at"))} · snapshot {generated} · refresh every 4 h (catch-up 2.5 h later keeps it inside 8 h) · <a href="{prefix}coverage/">coverage &amp; refresh status →</a> · <a href="{prefix}methodology/">how the list is built →</a> · <a href="{prefix}#picks-at-a-glance">picks at a glance ↓</a> · <a href="{prefix}#unresolved-register">unresolved picks &amp; limits ↓</a>{gaps} · <a href="{prefix}origination/#unresolved">every research trail →</a></p>'
         f'</section>'
     )
 
