@@ -1,6 +1,6 @@
 # Live probe - picks for every Hotspawn CS2 match
 
-Observed 2026-10-25T14:04:51Z (parse-raw).
+Observed 2026-10-25T14:25:19Z (parse-raw).
 Facts only: this file records what each source served. No probability, pick or alias is written here.
 
 ## Published dashboard
@@ -93,11 +93,11 @@ Open fixtures with **no published row at all**: 1086696 BORRACHEIROS vs RED Cani
 
 | Source | Status | HTTP | Observed | URL |
 | --- | --- | --- | --- | --- |
-| published latest.json | archived |  | 2026-10-25T14:04:50Z | https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json |
-| published origination.json | archived |  | 2026-10-25T14:04:50Z | https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json |
-| hotspawn fixtures api | archived |  | 2026-10-25T14:04:50Z | https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1 |
-| hotspawn lobby | archived |  | 2026-10-25T14:04:50Z | https://play.hotspawn.com/lobby?cb=1792937090 |
-| hltv matches | archived |  | 2026-10-25T14:04:50Z | https://www.hltv.org/matches |
-| hltv ranking 0 | archived |  | 2026-10-25T14:04:50Z | https://www.hltv.org/ranking/teams |
-| egamersworld matches | error | not archived | 2026-10-25T14:04:51Z | https://egamersworld.com/counterstrike/matches |
-| polymarket cs2 tag | archived |  | 2026-10-25T14:04:51Z | https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100 |
+| published latest.json | archived |  | 2026-10-25T14:25:18Z | https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json |
+| published origination.json | archived |  | 2026-10-25T14:25:18Z | https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json |
+| hotspawn fixtures api | archived |  | 2026-10-25T14:25:18Z | https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1 |
+| hotspawn lobby | archived |  | 2026-10-25T14:25:18Z | https://play.hotspawn.com/lobby?cb=1792938318 |
+| hltv matches | archived |  | 2026-10-25T14:25:18Z | https://www.hltv.org/matches |
+| hltv ranking 0 | archived |  | 2026-10-25T14:25:18Z | https://www.hltv.org/ranking/teams |
+| egamersworld matches | error | not archived | 2026-10-25T14:25:19Z | https://egamersworld.com/counterstrike/matches |
+| polymarket cs2 tag | archived |  | 2026-10-25T14:25:19Z | https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100 |
