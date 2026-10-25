@@ -212,7 +212,9 @@ class ProbeContractTests(unittest.TestCase):
         # scripts/build.py globs data/research/*/flags.json and iterates the
         # parsed value directly; a wrapper object breaks the entire build.
         text = PROBE.read_text()
-        self.assertIn('build_flags(observed_at, summary, books, targets), indent=2', text)
+        self.assertIn('build_flags(observed_at, summary, books, targets,', text)
+        # The bare list is written directly, not wrapped in a schema object.
+        self.assertNotIn("'flags': build_flags", text)
         for key in ('match_ids', 'source_urls'):
             self.assertIn(f"'{key}':", text, key)
 

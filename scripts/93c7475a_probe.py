@@ -579,9 +579,32 @@ def build_dossier(observed_at: str, targets: list, books: list, hltv: dict) -> d
     }
 
 
-def build_flags(observed_at: str, summary: dict, books: list, targets: list) -> list:
+def build_flags(observed_at: str, summary: dict, books: list, targets: list, *,
+                published_matches_branch_root: bool | None = None,
+                branch_root_generated_at: str | None = None) -> list:
     """Findings for the Flagged for Review page. Every one carries its sources."""
     flags = []
+    snapshot_age = summary['coverage'].get('published_snapshot_age_hours')
+    if snapshot_age is not None and snapshot_age > summary['coverage'].get('stale_after_hours', 8):
+        detail = (f"The published dashboard was generated {summary['coverage']['published_snapshot_generated_at']}, "
+                  f'{snapshot_age:.1f} hours before this observation — outside the 8-hour bound the site itself '
+                  f"publishes. {summary['coverage']['published_rows_in_open_inventory']} of the "
+                  f"{summary['coverage']['api_open_fixtures']} currently open Hotspawn CS2 fixtures appear in it, so a "
+                  'reader opening the site now sees an old inventory.')
+        if published_matches_branch_root:
+            detail += (' The served bytes are byte-identical (same SHA-256) to the checked-in branch-root '
+                       f'data/latest.json generated {branch_root_generated_at}, which is the signature of the legacy '
+                       'Pages build republishing the branch root over the verified artifact — the race documented at '
+                       'length in .github/workflows/pages.yml.')
+        flags.append({
+            'id': '93c7475a-published-snapshot-outside-freshness-bound',
+            'title': f'Published snapshot is {snapshot_age:.1f} h old and covers none of the open fixtures',
+            'severity': 'warning',
+            'detail': detail,
+            'match_ids': [t['fixture']['id'] for t in targets],
+            'source_urls': [DEPLOYED + 'data/latest.json', FIXTURES_API, LOBBY],
+            'observed_at': observed_at,
+        })
     missing = summary['coverage']['open_without_published_row']
     if missing:
         flags.append({
@@ -813,7 +836,24 @@ def main(argv: list[str] | None = None) -> int:
         'published_origination_generated_at': (origination or {}).get('generated_at'),
         'published_pick_rows': len(published),
         'published_rows_in_open_inventory': len([i for i in api_open_ids if i in published_ids]),
+        'stale_after_hours': (latest or {}).get('stale_after_hours', 8),
+        'published_snapshot_age_hours': (
+            round((reference - generated).total_seconds() / 3600, 2)
+            if (generated := timestamp((latest or {}).get('generated_at'))) else None),
+        # The served bytes are archived, so the branch-root comparison is exact.
+        'published_sha256': next((s.get('sha256') for s in sources
+                                  if s.get('label') == 'published-latest-json'), None),
     }
+    branch_root = Path('data/latest.json')
+    branch_root_sha = (hashlib.sha256(branch_root.read_bytes()).hexdigest()
+                       if branch_root.is_file() else None)
+    coverage['branch_root_sha256'] = branch_root_sha
+    coverage['published_matches_branch_root'] = (
+        bool(coverage['published_sha256']) and coverage['published_sha256'] == branch_root_sha)
+    try:
+        coverage['branch_root_generated_at'] = json.loads(branch_root.read_text()).get('generated_at')
+    except (OSError, ValueError):
+        coverage['branch_root_generated_at'] = None
 
     dossier = build_dossier(observed_at, targets, books, {
         'observed_at': hltv_entry.get('observed_at'),
@@ -857,7 +897,9 @@ def main(argv: list[str] | None = None) -> int:
     # finding schema (``id``, ``severity``, ``title``, ``detail``, ``match_ids``,
     # ``source_urls``) — a wrapper object breaks the whole build.
     (out_dir / 'flags.json').write_text(json.dumps(
-        build_flags(observed_at, summary, books, targets), indent=2) + '\n')
+        build_flags(observed_at, summary, books, targets,
+                    published_matches_branch_root=coverage['published_matches_branch_root'],
+                    branch_root_generated_at=coverage['branch_root_generated_at']), indent=2) + '\n')
     print(f"{summary['mode']}: {coverage['api_open_fixtures']} open fixtures, "
           f"{len(coverage['open_without_published_row'])} with no published row, "
           f"{len(coverage['open_with_non_featured_pick'])} with a non-featured pick, "
