@@ -103,12 +103,22 @@ def check_published_estimates(dossier: dict, snapshot: dict, origination: dict) 
     note, never smoothed into a match.
     """
     errors = []
+    snap_at = str(snapshot.get('generated_at') or '')
     snap = {str(m['id']): m for m in snapshot.get('matches') or []}
     board = {str(m['id']): m for m in (origination.get('matches') or [])}
     for fixture in dossier.get('fixtures') or []:
         fid = str(fixture.get('id'))
+        starts_at = str((fixture.get('hotspawn') or {}).get('starts_at') or '')
         if fid not in snap:
-            errors.append(f'{fid}: not present in the checked-in snapshot')
+            # Hotspawn retires finished/in-play fixtures from the scheduled feed
+            # once snapshot['generated_at'] advances past fixture start time
+            # (e.g. 1081156 at 2026-10-25T12:00:00Z retired in 2bd1f36 at 14:32Z).
+            retired = (
+                bool(snap_at and starts_at and ISO_Z.match(snap_at) and ISO_Z.match(starts_at))
+                and _utc(snap_at) > _utc(starts_at)
+            )
+            if not retired:
+                errors.append(f'{fid}: not present in the checked-in snapshot')
             continue
         published = fixture.get('published_estimate')
         if not published:
