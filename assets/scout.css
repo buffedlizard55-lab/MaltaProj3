@@ -706,3 +706,9 @@
   .findings-filter>p{font-size:11px;align-self:flex-start;white-space:normal}
   .findings-filter .filter-tabs button{min-height:44px}
 }
+
+/* Session arena-0962d605 — a researched row in the unresolved register carries
+   its pick, both probabilities and the recorded blocker, so the section answers
+   "why is this not a featured pick?" without leaving the phone view. */
+.unresolved-summary-card .fallback-why{margin:0;color:#526472;line-height:1.75;overflow-wrap:anywhere}
+.researched-cards .tried-chip{white-space:normal}

@@ -47,6 +47,10 @@ REGISTERS = (
     # complete-pick replay, <8h EGW match-page refresh for 1082858 in
     # CAPTURE_PATHS, Polymarket CLOB tightening on 1082996, and HLTV stand-in flags.
     'research/c2a74e33/repo-review.json',
+    # Session 0962d605: unresolved-register reconciliation (board vs published
+    # snapshot counts), the two gap fixtures' official HLTV/Polymarket records,
+    # the stopped four-hour publisher, and the 20-day-old Valve rating input.
+    'research/0962d605/repo-review.json',
 )
 STATUS = {
     'fixed': ('Fixed', 'green'),
