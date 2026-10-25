@@ -1,0 +1,43 @@
+[
+  {
+    "id": "0962d605-in-play-fixture-no-prematch-pick",
+    "severity": "warning",
+    "match_ids": [
+      "1081156"
+    ],
+    "title": "1081156 Spirit Academy vs LFO 10: the only market was in play and its start differs from Hotspawn's by 25 minutes",
+    "detail": "Polymarket's official event 1243019 starts this fixture at 2026-10-25T12:25:00Z and quoted Map 1 at 0.999 / 1.000 when read at 13:44Z, while Hotspawn schedules it at 12:00:00Z. The 25-minute gap is outside the 60-second identity window, and an in-play price is never published as a prematch pick, so this fixture carries no prematch probability. HLTV ranks both teams (#111 / #167) but publishes no points, so the ranking rung cannot price it either. Nothing is estimated after the fact.",
+    "source_urls": [
+      "https://gamma-api.polymarket.com/events?slug=cs2-tsa-skr2-2026-10-25",
+      "https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156",
+      "https://www.hltv.org/matches/2399506/spirit-academy-vs-lfo-10-cct-2026-europe-series-12"
+    ]
+  },
+  {
+    "id": "0962d605-wide-book-versus-model-divergence",
+    "severity": "warning",
+    "match_ids": [
+      "1082792"
+    ],
+    "title": "1082792 HOTU vs The Huns: the published model estimate is 33 points away from the only market observation",
+    "detail": "Polymarket's Match Winner market 6085308 exists at the same 09:00Z start and displays 65c HOTU / 35c The Huns Esports, but its two-sided book is 0.38 / 0.92 (spread 0.54) and cannot be used as a line. The board publishes 98.2% HOTU from the uncalibrated results-network model. Both figures are labelled: one is an unquotable market, the other is a research model. Precedence between them is a policy question for review, not something this session changes.",
+    "source_urls": [
+      "https://gamma-api.polymarket.com/events?slug=cs2-hotu-the9-2026-10-31",
+      "https://www.hltv.org/betting/analytics/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "https://bo3.gg/matches"
+    ]
+  },
+  {
+    "id": "0962d605-third-party-forecast-not-adopted",
+    "severity": "info",
+    "match_ids": [
+      "1082792"
+    ],
+    "title": "A sourced third-party forecast exists for a fixture this board leaves unresolved",
+    "detail": "HLTV displays HOTU 76.0% / The Huns 24.0% for the 31 October fixture (read 2026-10-25T14:00:00Z) and prints HOTU VRS #34. The board still lists the fixture in the unresolved register because no admissible two-way price exists and no unique Valve roster can be proven. Publishing the forecast is a policy decision, tracked as review item 0962-R08 - not applied here.",
+    "source_urls": [
+      "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    ]
+  }
+]
