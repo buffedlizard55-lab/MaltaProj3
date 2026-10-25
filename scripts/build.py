@@ -1849,7 +1849,14 @@ def live_coverage_gaps(data, prefix):
       both feeds and matches the exact team pair);
     * the section never claims the cards are live "right now": it prints the
       record's own observation time and states that the list is a dated
-      observation, not a live claim.
+      observation, not a live claim;
+    * a card the record itself marks ``in_published_snapshot`` was *already
+      carried* by the published picks list at that observation, so it is not a
+      coverage gap (session 22a3ed80). The 2026-10-25T14:23:33Z publish shipped
+      "9 missing at that observation" for exactly those cards while their own
+      notes read "Carried in the published complete picks list": they had left
+      the snapshot only because they started. They are named separately, with
+      links, and never counted as missing.
     """
     record = data.get('_live_coverage') or {}
     live = record.get('live_fixtures') or []
@@ -1870,12 +1877,21 @@ def live_coverage_gaps(data, prefix):
         if row.get('id') is not None:
             known.add(str(row.get('id')))
     missing = []
+    # Cards the dated record itself says the published picks list already
+    # carried at that observation. Absent from *this* snapshot only because
+    # they started since; counting them as gaps published "9 missing" on the
+    # shipped executive summary for fixtures whose own notes said "Carried in
+    # the published complete picks list" (session 22a3ed80).
+    rotated = []
     for fixture in live:
         identity = fixture.get('id')
         if identity is not None and str(identity) in known:
             continue
         teams = [name_key(t) for t in fixture.get('teams') or []]
         if len(teams) == 2 and all(teams) and frozenset(teams) in known_pairs:
+            continue
+        if fixture.get('in_published_snapshot'):
+            rotated.append(fixture)
             continue
         missing.append(fixture)
     observed = local_time(record.get('observed_at')) if record.get('observed_at') else blank()
@@ -1900,6 +1916,28 @@ def live_coverage_gaps(data, prefix):
                  f'<span class="line-source-note">{e(note)}</span>{links}</li>')
     empty = ('<p class="tiny">Every live lobby fixture in that research window is already in this snapshot. '
              'The next four-hour collect is still the authority for new cards.</p>')
+    if rotated:
+        # Dated, linked and explicitly *not* a gap count: a reader on a phone
+        # must not read nine played cards as nine missing picks.
+        carried = ' · '.join(
+            (external(f['hotspawn_url'], ' vs '.join(f.get('teams') or []) or 'Unverified pairing')
+             if f.get('hotspawn_url') else e(' vs '.join(f.get('teams') or []) or 'Unverified pairing'))
+            for f in rotated)
+        count = len(rotated)
+        gap_note = (
+            f'<p class="tiny muted" id="live-coverage-rotated">Not counted above: '
+            f'<strong>{count}</strong> further card{"s" if count != 1 else ""} compared at that observation '
+            f'{"were" if count != 1 else "was"} already carried by the published complete picks list then, and '
+            f'{"have" if count != 1 else "has"} since left this snapshot only because '
+            f'{"they" if count != 1 else "it"} started. '
+            f'{"They were" if count != 1 else "It was"} never a coverage gap and no probability is invented: '
+            f'{carried}</p>')
+    else:
+        gap_note = ''
+    if not rows and rotated:
+        empty = ('<p class="tiny">No card compared at that observation is missing from the published picks list: '
+                 'each one was either already in the snapshot or carried by the complete list then. '
+                 'The next four-hour collect is still the authority for new cards.</p>')
     body = f'<ul class="line-source-list" id="live-coverage-gap-list">{rows}</ul>' if rows else empty
     return (
         f'<section class="content-section" id="live-coverage-gaps">'
@@ -1919,7 +1957,7 @@ def live_coverage_gaps(data, prefix):
         + (f'<a class="internal-link" href="{prefix}data/{e(record["_markdown_path"])}">Markdown ↓</a> '
            if record.get('_markdown_path') else '')
         + f'<a class="internal-link" href="{prefix}unresolved/">Unresolved &amp; limitations →</a></p>'
-        + body + '</section>'
+        + body + gap_note + '</section>'
     )
 
 

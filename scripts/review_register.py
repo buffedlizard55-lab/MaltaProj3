@@ -73,6 +73,12 @@ REGISTERS = (
     # serves the branch root, the page/download parity gap, live inventory parity,
     # and the source interfaces that refuse runners.
     'research/9e0e601d/repo-review.json',
+    # Session 22a3ed80: independent replay of the published 2026-10-25T14:23:33Z
+    # summary (16/16 active rows, 13 featured re-derived, 3 labelled fallbacks),
+    # the repair of a false "9 missing" lobby-gap count on cards the record says
+    # were already carried, the scheduled-publisher failure class, and the
+    # legacy branch-root / sandbox egress limitations.
+    'research/22a3ed80/repo-review.json',
 )
 STATUS = {
     'fixed': ('Fixed', 'green'),
