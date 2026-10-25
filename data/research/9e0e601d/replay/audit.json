@@ -1,0 +1,1640 @@
+{
+  "session": "9e0e601d",
+  "mode": "replay",
+  "observed_at": "2026-10-25T15:04:57Z",
+  "sources": [
+    {
+      "label": "deployed snapshot.json",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+      "status": "archived",
+      "observed_at": "2026-10-25T15:04:56Z",
+      "raw": "data/research/9e0e601d/raw/deployed-snapshot-json"
+    },
+    {
+      "label": "deployed origination.json",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+      "status": "archived",
+      "observed_at": "2026-10-25T15:04:56Z",
+      "raw": "data/research/9e0e601d/raw/deployed-origination-json"
+    },
+    {
+      "label": "deployed data/latest.json",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+      "status": "archived",
+      "observed_at": "2026-10-25T15:04:56Z",
+      "raw": "data/research/9e0e601d/raw/deployed-data-latest-json"
+    },
+    {
+      "label": "deployed index.html",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+      "status": "archived",
+      "observed_at": "2026-10-25T15:04:56Z",
+      "raw": "data/research/9e0e601d/raw/deployed-index-html"
+    },
+    {
+      "label": "hotspawn fixtures api",
+      "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "status": "archived",
+      "observed_at": "2026-10-25T15:04:56Z",
+      "raw": "data/research/9e0e601d/raw/hotspawn-fixtures-api"
+    },
+    {
+      "label": "hotspawn lobby",
+      "url": "https://play.hotspawn.com/lobby?cb=1792940696",
+      "status": "archived",
+      "observed_at": "2026-10-25T15:04:56Z",
+      "raw": "data/research/9e0e601d/raw/hotspawn-lobby"
+    },
+    {
+      "label": "hltv matches",
+      "url": "https://www.hltv.org/matches",
+      "status": "archived",
+      "observed_at": "2026-10-25T15:04:56Z",
+      "raw": "data/research/9e0e601d/raw/hltv-matches"
+    },
+    {
+      "label": "hltv ranking",
+      "url": "https://www.hltv.org/ranking/teams/2026/october/19",
+      "status": "archived",
+      "observed_at": "2026-10-25T15:04:56Z",
+      "raw": "data/research/9e0e601d/raw/hltv-ranking"
+    },
+    {
+      "label": "polymarket cs2 tag",
+      "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100",
+      "status": "archived",
+      "observed_at": "2026-10-25T15:04:56Z",
+      "raw": "data/research/9e0e601d/raw/polymarket-cs2-tag"
+    },
+    {
+      "label": "thunderpick matches",
+      "url": "https://thunderpick.io/api/matches",
+      "status": "archived",
+      "observed_at": "2026-10-25T15:04:56Z",
+      "raw": "data/research/9e0e601d/raw/thunderpick-matches"
+    },
+    {
+      "label": "egamersworld matches",
+      "url": "https://egamersworld.com/counterstrike/matches",
+      "status": "missing",
+      "observed_at": "2026-10-25T15:04:56Z",
+      "raw": "data/research/9e0e601d/raw/egamersworld-matches"
+    }
+  ],
+  "deployed": {
+    "snapshot_generated_at": "2026-10-25T14:32:11Z",
+    "snapshot_counts": {
+      "inventory": 78,
+      "upcoming": 16,
+      "archived": 62,
+      "unknown_schedule": 0,
+      "market": 10,
+      "bookmaker": 1,
+      "model": 2,
+      "unresolved": 3,
+      "picks": 13,
+      "no_edge": 0
+    },
+    "origination_generated_at": "2026-10-15T09:31:24Z",
+    "origination_counts": {
+      "active": 17,
+      "resolved": 17,
+      "unresolved": 0,
+      "with_pick": 17,
+      "consensus": 0,
+      "market": 7,
+      "bookmaker": 5,
+      "model": 5,
+      "alias_joined": 4
+    },
+    "data_latest_generated_at": "2026-10-15T08:36:13Z",
+    "index_snapshot_at": "2026-10-25T14:31:56Z",
+    "index_glance_ids": 16
+  },
+  "inventory": {
+    "api_records": 77,
+    "api_open_fixtures": 15,
+    "lobby_fixture_ids": 15,
+    "open_ids": [
+      "1079200",
+      "1081158",
+      "1082697",
+      "1082792",
+      "1082793",
+      "1082858",
+      "1082859",
+      "1082860",
+      "1082861",
+      "1082897",
+      "1082898",
+      "1082900",
+      "1082901",
+      "1086696",
+      "1086697"
+    ],
+    "lobby_ids_missing_from_api": []
+  },
+  "deployment_parity": {
+    "artefacts": {
+      "index.html": "2026-10-25T14:31:56Z",
+      "snapshot.json": "2026-10-25T14:32:11Z",
+      "data/latest.json": "2026-10-15T08:36:13Z",
+      "data/origination.json": "2026-10-15T09:31:24Z"
+    },
+    "inconsistent": true,
+    "detail": "the newest artefact is 2026-10-25T14:32:11Z but data/origination.json is 245.01 h older, data/latest.json is 245.93 h older",
+    "tolerance_minutes": 60
+  },
+  "internal_links": {
+    "links": [
+      "data/research/c2a74e33/live-coverage.json",
+      "data/research/c2a74e33/live-coverage.md",
+      "data/research/f1277d3b/line-source-research.md",
+      "data/research/f1277d3b/line-source-research.json",
+      "data/research/a7128fdd/direct-observations.md",
+      "data/research/a7128fdd/direct-observations.json",
+      "data/evidence/hotspawn-fixtures.json",
+      "data/evidence/polymarket-event-1238706.json",
+      "data/evidence/polymarket-book-1238706-0.json",
+      "data/evidence/polymarket-book-1238706-1.json",
+      "data/evidence/polymarket-event-1248800.json",
+      "data/evidence/polymarket-book-1248800-0.json",
+      "data/evidence/polymarket-book-1248800-1.json",
+      "data/evidence/polymarket-event-1238707.json",
+      "data/evidence/polymarket-book-1238707-0.json",
+      "data/evidence/polymarket-book-1238707-1.json",
+      "data/evidence/polymarket-event-1243020.json",
+      "data/evidence/polymarket-book-1243020-0.json",
+      "data/evidence/polymarket-book-1243020-1.json",
+      "data/evidence/polymarket-event-1249433.json",
+      "data/evidence/polymarket-book-1249433-0.json",
+      "data/evidence/polymarket-book-1249433-1.json",
+      "data/contrarian.json",
+      "data/research/8fa2b226/coverage-probe.json"
+    ],
+    "results": [],
+    "health": {
+      "probed": 0
+    }
+  },
+  "coverage": {
+    "asserted": false,
+    "unverifiable_reason": [
+      "the deployed complete picks list is a different observation from the deployed page, so fixture-by-fixture coverage is not asserted against it"
+    ],
+    "open": 15,
+    "published_rows": 17,
+    "with_pick": 17,
+    "open_without_pick": [
+      "1086696",
+      "1081158",
+      "1082697",
+      "1079200",
+      "1086697",
+      "1082858",
+      "1082859",
+      "1082860",
+      "1082861",
+      "1082897",
+      "1082898",
+      "1082900",
+      "1082901",
+      "1082792",
+      "1082793"
+    ],
+    "fallback_priced": [],
+    "research_targets": [
+      "1086696",
+      "1081158",
+      "1082697",
+      "1079200",
+      "1086697",
+      "1082858",
+      "1082859",
+      "1082860",
+      "1082861",
+      "1082897",
+      "1082898",
+      "1082900",
+      "1082901",
+      "1082792",
+      "1082793"
+    ],
+    "open_missing_from_complete_list": [
+      "1086696",
+      "1081158",
+      "1082697",
+      "1079200",
+      "1086697",
+      "1082858",
+      "1082859",
+      "1082860",
+      "1082861",
+      "1082897",
+      "1082898",
+      "1082900",
+      "1082901",
+      "1082792",
+      "1082793"
+    ]
+  },
+  "verification": {
+    "snapshot_at": "2026-10-25T14:32:11Z",
+    "problems": [
+      "coverage not asserted: 16 fixture(s) differ between the deployed snapshot and the deployed complete picks list, which are different observations",
+      "the deployed page and its downloadable data are different observations: the newest artefact is 2026-10-25T14:32:11Z but data/origination.json is 245.01 h older, data/latest.json is 245.93 h older"
+    ],
+    "replay": {
+      "rows": 17,
+      "replayed": 17,
+      "not_replayed": [],
+      "violations": [],
+      "methods": {
+        "bookmaker": 5,
+        "market": 7,
+        "model": 5
+      }
+    },
+    "featured_replay": {
+      "rows": 13,
+      "replayed": 13,
+      "not_replayed": [],
+      "violations": [],
+      "methods": {
+        "market": 10,
+        "bookmaker": 1,
+        "model": 2
+      }
+    },
+    "coverage": {
+      "open": 16,
+      "complete_rows": 17,
+      "with_pick": 17,
+      "without_pick": [
+        {
+          "id": "1079199",
+          "teams": [
+            "Infinite",
+            "BRUTE"
+          ],
+          "reason": "no row in the complete picks list"
+        },
+        {
+          "id": "1086696",
+          "teams": [
+            "BORRACHEIROS",
+            "RED Canids Academy"
+          ],
+          "reason": "no row in the complete picks list"
+        },
+        {
+          "id": "1079200",
+          "teams": [
+            "Color",
+            "ex-Zero Tenacity"
+          ],
+          "reason": "no row in the complete picks list"
+        },
+        {
+          "id": "1081158",
+          "teams": [
+            "FORZE Reload",
+            "ex-RUSTEC"
+          ],
+          "reason": "no row in the complete picks list"
+        },
+        {
+          "id": "1082697",
+          "teams": [
+            "BESTIA",
+            "paiN"
+          ],
+          "reason": "no row in the complete picks list"
+        },
+        {
+          "id": "1086697",
+          "teams": [
+            "Projeto do KinGui",
+            "Yawara"
+          ],
+          "reason": "no row in the complete picks list"
+        },
+        {
+          "id": "1082858",
+          "teams": [
+            "Ground Zero",
+            "Off Chops"
+          ],
+          "reason": "no row in the complete picks list"
+        },
+        {
+          "id": "1082859",
+          "teams": [
+            "NEXVOID",
+            "Alter Ego"
+          ],
+          "reason": "no row in the complete picks list"
+        },
+        {
+          "id": "1082860",
+          "teams": [
+            "FlyQuest",
+            "Staqued"
+          ],
+          "reason": "no row in the complete picks list"
+        },
+        {
+          "id": "1082861",
+          "teams": [
+            "Rooster",
+            "Abyssal"
+          ],
+          "reason": "no row in the complete picks list"
+        },
+        {
+          "id": "1082897",
+          "teams": [
+            "B8",
+            "K27"
+          ],
+          "reason": "no row in the complete picks list"
+        },
+        {
+          "id": "1082898",
+          "teams": [
+            "Alliance",
+            "FaZe"
+          ],
+          "reason": "no row in the complete picks list"
+        },
+        {
+          "id": "1082900",
+          "teams": [
+            "Luminosity",
+            "HOTU"
+          ],
+          "reason": "no row in the complete picks list"
+        },
+        {
+          "id": "1082901",
+          "teams": [
+            "Envy",
+            "GamerLegion"
+          ],
+          "reason": "no row in the complete picks list"
+        },
+        {
+          "id": "1082792",
+          "teams": [
+            "HOTU",
+            "The Huns"
+          ],
+          "reason": "no row in the complete picks list"
+        },
+        {
+          "id": "1082793",
+          "teams": [
+            "5star",
+            "1WIN"
+          ],
+          "reason": "no row in the complete picks list"
+        }
+      ],
+      "rows_outside_snapshot": [
+        "1079440",
+        "1079442",
+        "1080202",
+        "1080203",
+        "1080204",
+        "1080280",
+        "1080281",
+        "1080282",
+        "1080283",
+        "1080284",
+        "1080285",
+        "1080286",
+        "1080287",
+        "1080288",
+        "1080289",
+        "1080290",
+        "1081120"
+      ],
+      "asserted": false
+    },
+    "site": {
+      "glance_rows": 16,
+      "glance_ids": 16,
+      "deep_links": 16,
+      "problems": []
+    },
+    "violations": [],
+    "age_hours": 0.55
+  },
+  "targets": [
+    {
+      "fixture": {
+        "id": "1086696",
+        "teams": [
+          "BORRACHEIROS",
+          "RED Canids Academy"
+        ],
+        "competition": "CCT South America 2026 Series #7",
+        "tier": "c",
+        "source_status": "scheduled",
+        "starts_at": "2026-10-25T16:00:00Z"
+      },
+      "published_row": null,
+      "hltv_exact": [
+        {
+          "match_id": "2399917",
+          "url": "https://www.hltv.org/matches/2399917/borracheiros-vs-red-canids-academy-cct-2026-south-america-series-7",
+          "teams": [
+            "BORRACHEIROS",
+            "RED Canids Academy"
+          ],
+          "starts_at": "2026-10-25T15:10:00Z",
+          "event": "CCT 2026 South America Series 7",
+          "best_of": "bo3",
+          "live": false,
+          "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399917/borracheiros-vs-red-canids-academy-cct-2026-south-america-series-7",
+          "start_delta_seconds": -3000
+        }
+      ],
+      "hltv_shares_one_name": [],
+      "hltv_ranking": [
+        {
+          "team": "BORRACHEIROS",
+          "points": 4.0,
+          "team_url": "https://www.hltv.org/team/13902/borracheiros"
+        },
+        {
+          "team": "RED Canids Academy",
+          "points": 4.0,
+          "team_url": "https://www.hltv.org/team/13029/red-canids-academy"
+        }
+      ],
+      "polymarket_exact": [],
+      "polymarket_shares_one_name": [],
+      "thunderpick_exact": [],
+      "thunderpick_shares_one_name": [],
+      "egamersworld": {
+        "status": "missing",
+        "error": null,
+        "http_status": null,
+        "url": "https://egamersworld.com/counterstrike/matches",
+        "observed_at": "2026-10-25T15:04:56Z"
+      },
+      "research_conclusion": "HLTV lists the identical pairing (start delta -3000s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
+      "gap_reason": "no row on the deployed complete picks list"
+    },
+    {
+      "fixture": {
+        "id": "1081158",
+        "teams": [
+          "FORZE Reload",
+          "ex-RUSTEC"
+        ],
+        "competition": "CCT Europe 2026 Series #12",
+        "tier": "b",
+        "source_status": "scheduled",
+        "starts_at": "2026-10-25T18:00:00Z"
+      },
+      "published_row": null,
+      "hltv_exact": [
+        {
+          "match_id": "2399508",
+          "url": "https://www.hltv.org/matches/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12",
+          "teams": [
+            "FORZE Reload",
+            "ex-RUSTEC"
+          ],
+          "starts_at": "2026-10-25T18:00:00Z",
+          "event": "CCT 2026 Europe Series 12",
+          "best_of": "bo3",
+          "live": false,
+          "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12",
+          "start_delta_seconds": 0
+        }
+      ],
+      "hltv_shares_one_name": [],
+      "hltv_ranking": [
+        {
+          "team": "FORZE Reload",
+          "points": 11.0,
+          "team_url": "https://www.hltv.org/team/12857/forze-reload"
+        },
+        {
+          "team": "ex-RUSTEC",
+          "points": 13.0,
+          "team_url": "https://www.hltv.org/team/13901/ex-rustec"
+        }
+      ],
+      "polymarket_exact": [],
+      "polymarket_shares_one_name": [],
+      "thunderpick_exact": [
+        {
+          "event_id": "2884233",
+          "start": "2026-10-25T18:00:00+00:00",
+          "teams": [
+            "FORZE Reload",
+            "ex-RUSTEC"
+          ],
+          "selections": [
+            {
+              "name": "FORZE Reload",
+              "odds": 1.65,
+              "status": 1,
+              "type": "home"
+            },
+            {
+              "name": "ex-RUSTEC",
+              "odds": 2.1,
+              "status": 1,
+              "type": "away"
+            }
+          ],
+          "best_of": 3,
+          "in_play": true,
+          "start_delta_seconds": 0
+        }
+      ],
+      "thunderpick_shares_one_name": [],
+      "egamersworld": {
+        "status": "missing",
+        "error": null,
+        "http_status": null,
+        "url": "https://egamersworld.com/counterstrike/matches",
+        "observed_at": "2026-10-25T15:04:56Z"
+      },
+      "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; Thunderpick lists 1 exact row(s), 1 with a two-way price; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
+      "gap_reason": "no row on the deployed complete picks list"
+    },
+    {
+      "fixture": {
+        "id": "1082697",
+        "teams": [
+          "BESTIA",
+          "paiN"
+        ],
+        "competition": "Circuit X Curitiba #4",
+        "tier": "c",
+        "source_status": "scheduled",
+        "starts_at": "2026-10-25T18:00:00Z"
+      },
+      "published_row": null,
+      "hltv_exact": [
+        {
+          "match_id": "2399819",
+          "url": "https://www.hltv.org/matches/2399819/pain-vs-bestia-circuit-x-curitiba-season-4",
+          "teams": [
+            "paiN",
+            "BESTIA"
+          ],
+          "starts_at": "2026-10-25T18:00:00Z",
+          "event": "Circuit X Curitiba Season 4",
+          "best_of": "bo3",
+          "live": false,
+          "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399819/pain-vs-bestia-circuit-x-curitiba-season-4",
+          "start_delta_seconds": 0
+        }
+      ],
+      "hltv_shares_one_name": [],
+      "hltv_ranking": [
+        {
+          "team": "BESTIA",
+          "points": 12.0,
+          "team_url": "https://www.hltv.org/team/12144/bestia"
+        },
+        {
+          "team": "paiN",
+          "points": 55.0,
+          "team_url": "https://www.hltv.org/team/4773/pain"
+        }
+      ],
+      "polymarket_exact": [],
+      "polymarket_shares_one_name": [],
+      "thunderpick_exact": [],
+      "thunderpick_shares_one_name": [
+        {
+          "event_id": "2884646",
+          "start": "2026-10-25T18:00:00+00:00",
+          "teams": [
+            "paiN Gaming",
+            "BESTIA"
+          ],
+          "selections": [
+            {
+              "name": "paiN Gaming",
+              "odds": 1.62,
+              "status": 1,
+              "type": "home"
+            },
+            {
+              "name": "BESTIA",
+              "odds": 2.15,
+              "status": 1,
+              "type": "away"
+            }
+          ],
+          "best_of": 3,
+          "in_play": true,
+          "start_delta_seconds": 0
+        }
+      ],
+      "egamersworld": {
+        "status": "missing",
+        "error": null,
+        "http_status": null,
+        "url": "https://egamersworld.com/counterstrike/matches",
+        "observed_at": "2026-10-25T15:04:56Z"
+      },
+      "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
+      "gap_reason": "no row on the deployed complete picks list"
+    },
+    {
+      "fixture": {
+        "id": "1079200",
+        "teams": [
+          "Color",
+          "ex-Zero Tenacity"
+        ],
+        "competition": "NODWIN Clutch Series #13",
+        "tier": "b",
+        "source_status": "scheduled",
+        "starts_at": "2026-10-25T18:00:00Z"
+      },
+      "published_row": null,
+      "hltv_exact": [
+        {
+          "match_id": "2399115",
+          "url": "https://www.hltv.org/matches/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+          "teams": [
+            "Color",
+            "ex-Zero Tenacity"
+          ],
+          "starts_at": "2026-10-25T18:00:00Z",
+          "event": "NODWIN Clutch Series 13",
+          "best_of": "bo3",
+          "live": false,
+          "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+          "start_delta_seconds": 0
+        }
+      ],
+      "hltv_shares_one_name": [],
+      "hltv_ranking": [
+        null,
+        {
+          "team": "ex-Zero Tenacity",
+          "points": 13.0,
+          "team_url": "https://www.hltv.org/team/13573/ex-zero-tenacity"
+        }
+      ],
+      "polymarket_exact": [],
+      "polymarket_shares_one_name": [],
+      "thunderpick_exact": [],
+      "thunderpick_shares_one_name": [],
+      "egamersworld": {
+        "status": "missing",
+        "error": null,
+        "http_status": null,
+        "url": "https://egamersworld.com/counterstrike/matches",
+        "observed_at": "2026-10-25T15:04:56Z"
+      },
+      "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
+      "gap_reason": "no row on the deployed complete picks list"
+    },
+    {
+      "fixture": {
+        "id": "1086697",
+        "teams": [
+          "Projeto do KinGui",
+          "Yawara"
+        ],
+        "competition": "CCT South America 2026 Series #7",
+        "tier": "c",
+        "source_status": "scheduled",
+        "starts_at": "2026-10-25T19:00:00Z"
+      },
+      "published_row": null,
+      "hltv_exact": [],
+      "hltv_shares_one_name": [
+        {
+          "match_id": "2399918",
+          "url": "https://www.hltv.org/matches/2399918/tropa-do-kingui-vs-yawara-cct-2026-south-america-series-7",
+          "teams": [
+            "Tropa do KinGui",
+            "Yawara"
+          ],
+          "starts_at": "2026-10-25T18:00:00Z",
+          "event": "CCT 2026 South America Series 7",
+          "best_of": "bo3",
+          "live": false,
+          "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399918/tropa-do-kingui-vs-yawara-cct-2026-south-america-series-7",
+          "start_delta_seconds": -3600
+        }
+      ],
+      "hltv_ranking": [
+        null,
+        {
+          "team": "Yawara",
+          "points": 4.0,
+          "team_url": "https://www.hltv.org/team/11933/yawara"
+        }
+      ],
+      "polymarket_exact": [],
+      "polymarket_shares_one_name": [],
+      "thunderpick_exact": [],
+      "thunderpick_shares_one_name": [],
+      "egamersworld": {
+        "status": "missing",
+        "error": null,
+        "http_status": null,
+        "url": "https://egamersworld.com/counterstrike/matches",
+        "observed_at": "2026-10-25T15:04:56Z"
+      },
+      "research_conclusion": "HLTV lists one of these names against a different opponent under this fixture name \u2014 identity not joined; no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
+      "gap_reason": "no row on the deployed complete picks list"
+    },
+    {
+      "fixture": {
+        "id": "1082858",
+        "teams": [
+          "Ground Zero",
+          "Off Chops"
+        ],
+        "competition": "DFRAG Invitational 2026",
+        "tier": "b",
+        "source_status": "scheduled",
+        "starts_at": "2026-10-26T03:00:00Z"
+      },
+      "published_row": null,
+      "hltv_exact": [
+        {
+          "match_id": "2399888",
+          "url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+          "teams": [
+            "Ground Zero",
+            "Off Chops"
+          ],
+          "starts_at": "2026-10-26T03:00:00Z",
+          "event": "DFRAG Invitational 2026",
+          "best_of": "bo3",
+          "live": false,
+          "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+          "start_delta_seconds": 0
+        }
+      ],
+      "hltv_shares_one_name": [],
+      "hltv_ranking": [
+        {
+          "team": "Ground Zero",
+          "points": 5.0,
+          "team_url": "https://www.hltv.org/team/8536/ground-zero"
+        },
+        {
+          "team": "Off Chops",
+          "points": 5.0,
+          "team_url": "https://www.hltv.org/team/14095/off-chops"
+        }
+      ],
+      "polymarket_exact": [],
+      "polymarket_shares_one_name": [],
+      "thunderpick_exact": [],
+      "thunderpick_shares_one_name": [
+        {
+          "event_id": "2872334",
+          "start": "2026-10-26T03:00:00+00:00",
+          "teams": [
+            "Ground Zero",
+            "THUNDERdOWNUNDER"
+          ],
+          "selections": [
+            {
+              "name": "Ground Zero",
+              "odds": 3.5,
+              "status": 1,
+              "type": "home"
+            },
+            {
+              "name": "THUNDERdOWNUNDER",
+              "odds": 1.25,
+              "status": 1,
+              "type": "away"
+            }
+          ],
+          "best_of": 3,
+          "in_play": false,
+          "start_delta_seconds": 0
+        }
+      ],
+      "egamersworld": {
+        "status": "missing",
+        "error": null,
+        "http_status": null,
+        "url": "https://egamersworld.com/counterstrike/matches",
+        "observed_at": "2026-10-25T15:04:56Z"
+      },
+      "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
+      "gap_reason": "no row on the deployed complete picks list"
+    },
+    {
+      "fixture": {
+        "id": "1082859",
+        "teams": [
+          "NEXVOID",
+          "Alter Ego"
+        ],
+        "competition": "DFRAG Invitational 2026",
+        "tier": "b",
+        "source_status": "scheduled",
+        "starts_at": "2026-10-26T03:00:00Z"
+      },
+      "published_row": null,
+      "hltv_exact": [
+        {
+          "match_id": "2399889",
+          "url": "https://www.hltv.org/matches/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026",
+          "teams": [
+            "NEXVOID",
+            "Alter Ego"
+          ],
+          "starts_at": "2026-10-26T03:00:00Z",
+          "event": "DFRAG Invitational 2026",
+          "best_of": "bo3",
+          "live": false,
+          "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026",
+          "start_delta_seconds": 0
+        }
+      ],
+      "hltv_shares_one_name": [],
+      "hltv_ranking": [
+        {
+          "team": "NEXVOID",
+          "points": 11.0,
+          "team_url": "https://www.hltv.org/team/13667/nexvoid"
+        },
+        {
+          "team": "Alter Ego",
+          "points": 6.0,
+          "team_url": "https://www.hltv.org/team/9958/alter-ego"
+        }
+      ],
+      "polymarket_exact": [],
+      "polymarket_shares_one_name": [],
+      "thunderpick_exact": [
+        {
+          "event_id": "2870940",
+          "start": "2026-10-26T03:00:00+00:00",
+          "teams": [
+            "NEXVOID",
+            "Alter Ego"
+          ],
+          "selections": [
+            {
+              "name": "NEXVOID",
+              "odds": 1.6,
+              "status": 1,
+              "type": "home"
+            },
+            {
+              "name": "Alter Ego",
+              "odds": 2.2,
+              "status": 1,
+              "type": "away"
+            }
+          ],
+          "best_of": 3,
+          "in_play": false,
+          "start_delta_seconds": 0
+        }
+      ],
+      "thunderpick_shares_one_name": [],
+      "egamersworld": {
+        "status": "missing",
+        "error": null,
+        "http_status": null,
+        "url": "https://egamersworld.com/counterstrike/matches",
+        "observed_at": "2026-10-25T15:04:56Z"
+      },
+      "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; Thunderpick lists 1 exact row(s), 1 with a two-way price; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
+      "gap_reason": "no row on the deployed complete picks list"
+    },
+    {
+      "fixture": {
+        "id": "1082860",
+        "teams": [
+          "FlyQuest",
+          "Staqued"
+        ],
+        "competition": "DFRAG Invitational 2026",
+        "tier": "b",
+        "source_status": "scheduled",
+        "starts_at": "2026-10-27T03:00:00Z"
+      },
+      "published_row": null,
+      "hltv_exact": [
+        {
+          "match_id": "2399890",
+          "url": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+          "teams": [
+            "FlyQuest",
+            "Staqued"
+          ],
+          "starts_at": "2026-10-27T03:00:00Z",
+          "event": "DFRAG Invitational 2026",
+          "best_of": "bo3",
+          "live": false,
+          "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+          "start_delta_seconds": 0
+        }
+      ],
+      "hltv_shares_one_name": [],
+      "hltv_ranking": [
+        {
+          "team": "FlyQuest",
+          "points": 16.0,
+          "team_url": "https://www.hltv.org/team/12774/flyquest"
+        },
+        null
+      ],
+      "polymarket_exact": [],
+      "polymarket_shares_one_name": [],
+      "thunderpick_exact": [
+        {
+          "event_id": "2872333",
+          "start": "2026-10-27T03:00:00+00:00",
+          "teams": [
+            "FlyQuest",
+            "Staqued"
+          ],
+          "selections": [
+            {
+              "name": "FlyQuest",
+              "odds": 1.001,
+              "status": 1,
+              "type": "home"
+            },
+            {
+              "name": "Staqued",
+              "odds": 12,
+              "status": 1,
+              "type": "away"
+            }
+          ],
+          "best_of": 3,
+          "in_play": false,
+          "start_delta_seconds": 0
+        }
+      ],
+      "thunderpick_shares_one_name": [],
+      "egamersworld": {
+        "status": "missing",
+        "error": null,
+        "http_status": null,
+        "url": "https://egamersworld.com/counterstrike/matches",
+        "observed_at": "2026-10-25T15:04:56Z"
+      },
+      "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; Thunderpick lists 1 exact row(s), 1 with a two-way price; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
+      "gap_reason": "no row on the deployed complete picks list"
+    },
+    {
+      "fixture": {
+        "id": "1082861",
+        "teams": [
+          "Rooster",
+          "Abyssal"
+        ],
+        "competition": "DFRAG Invitational 2026",
+        "tier": "b",
+        "source_status": "scheduled",
+        "starts_at": "2026-10-27T03:00:00Z"
+      },
+      "published_row": null,
+      "hltv_exact": [
+        {
+          "match_id": "2399891",
+          "url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+          "teams": [
+            "Rooster",
+            "Abyssal"
+          ],
+          "starts_at": "2026-10-27T03:00:00Z",
+          "event": "DFRAG Invitational 2026",
+          "best_of": "bo3",
+          "live": false,
+          "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+          "start_delta_seconds": 0
+        }
+      ],
+      "hltv_shares_one_name": [],
+      "hltv_ranking": [
+        {
+          "team": "Rooster",
+          "points": 3.0,
+          "team_url": "https://www.hltv.org/team/9881/rooster"
+        },
+        {
+          "team": "Abyssal",
+          "points": 6.0,
+          "team_url": "https://www.hltv.org/team/13686/abyssal"
+        }
+      ],
+      "polymarket_exact": [],
+      "polymarket_shares_one_name": [],
+      "thunderpick_exact": [],
+      "thunderpick_shares_one_name": [],
+      "egamersworld": {
+        "status": "missing",
+        "error": null,
+        "http_status": null,
+        "url": "https://egamersworld.com/counterstrike/matches",
+        "observed_at": "2026-10-25T15:04:56Z"
+      },
+      "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
+      "gap_reason": "no row on the deployed complete picks list"
+    },
+    {
+      "fixture": {
+        "id": "1082897",
+        "teams": [
+          "B8",
+          "K27"
+        ],
+        "competition": "Tesla Cup 2026",
+        "tier": "b",
+        "source_status": "scheduled",
+        "starts_at": "2026-10-27T08:00:00Z"
+      },
+      "published_row": null,
+      "hltv_exact": [
+        {
+          "match_id": "2399866",
+          "url": "https://www.hltv.org/matches/2399866/b8-vs-k27-rlg-tesla-cup-2026",
+          "teams": [
+            "B8",
+            "K27"
+          ],
+          "starts_at": "2026-10-27T08:00:00Z",
+          "event": "RLG Tesla Cup 2026",
+          "best_of": "bo3",
+          "live": false,
+          "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399866/b8-vs-k27-rlg-tesla-cup-2026",
+          "start_delta_seconds": 0
+        }
+      ],
+      "hltv_shares_one_name": [
+        {
+          "match_id": "2399856",
+          "url": "https://www.hltv.org/matches/2399856/heroic-vs-b8-iem-beijing-2026",
+          "teams": [
+            "HEROIC",
+            "B8"
+          ],
+          "starts_at": "2026-11-02T07:00:00Z",
+          "event": "IEM Beijing 2026",
+          "best_of": "bo3",
+          "live": false,
+          "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399856/heroic-vs-b8-iem-beijing-2026",
+          "start_delta_seconds": 514800
+        }
+      ],
+      "hltv_ranking": [
+        {
+          "team": "B8",
+          "points": 98.0,
+          "team_url": "https://www.hltv.org/team/11241/b8"
+        },
+        {
+          "team": "K27",
+          "points": 32.0,
+          "team_url": "https://www.hltv.org/team/12895/k27"
+        }
+      ],
+      "polymarket_exact": [],
+      "polymarket_shares_one_name": [],
+      "thunderpick_exact": [
+        {
+          "event_id": "2865386",
+          "start": "2026-10-27T08:00:00+00:00",
+          "teams": [
+            "B8",
+            "K27"
+          ],
+          "selections": [
+            {
+              "name": "B8",
+              "odds": 1.62,
+              "status": 1,
+              "type": "home"
+            },
+            {
+              "name": "K27",
+              "odds": 2.15,
+              "status": 1,
+              "type": "away"
+            }
+          ],
+          "best_of": 3,
+          "in_play": true,
+          "start_delta_seconds": 0
+        }
+      ],
+      "thunderpick_shares_one_name": [
+        {
+          "event_id": "2859600",
+          "start": "2026-11-02T07:00:00+00:00",
+          "teams": [
+            "HEROIC",
+            "B8"
+          ],
+          "selections": [
+            {
+              "name": "HEROIC",
+              "odds": 1.65,
+              "status": 1,
+              "type": "home"
+            },
+            {
+              "name": "B8",
+              "odds": 2.1,
+              "status": 1,
+              "type": "away"
+            }
+          ],
+          "best_of": 3,
+          "in_play": true,
+          "start_delta_seconds": 514800
+        }
+      ],
+      "egamersworld": {
+        "status": "missing",
+        "error": null,
+        "http_status": null,
+        "url": "https://egamersworld.com/counterstrike/matches",
+        "observed_at": "2026-10-25T15:04:56Z"
+      },
+      "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; Thunderpick lists 1 exact row(s), 1 with a two-way price; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
+      "gap_reason": "no row on the deployed complete picks list"
+    },
+    {
+      "fixture": {
+        "id": "1082898",
+        "teams": [
+          "Alliance",
+          "FaZe"
+        ],
+        "competition": "Tesla Cup 2026",
+        "tier": "b",
+        "source_status": "scheduled",
+        "starts_at": "2026-10-27T11:00:00Z"
+      },
+      "published_row": null,
+      "hltv_exact": [
+        {
+          "match_id": "2399867",
+          "url": "https://www.hltv.org/matches/2399867/alliance-vs-faze-rlg-tesla-cup-2026",
+          "teams": [
+            "Alliance",
+            "FaZe"
+          ],
+          "starts_at": "2026-10-27T11:00:00Z",
+          "event": "RLG Tesla Cup 2026",
+          "best_of": "bo3",
+          "live": false,
+          "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399867/alliance-vs-faze-rlg-tesla-cup-2026",
+          "start_delta_seconds": 0
+        }
+      ],
+      "hltv_shares_one_name": [
+        {
+          "match_id": "2399857",
+          "url": "https://www.hltv.org/matches/2399857/furia-vs-faze-iem-beijing-2026",
+          "teams": [
+            "FURIA",
+            "FaZe"
+          ],
+          "starts_at": "2026-11-02T07:00:00Z",
+          "event": "IEM Beijing 2026",
+          "best_of": "bo3",
+          "live": false,
+          "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399857/furia-vs-faze-iem-beijing-2026",
+          "start_delta_seconds": 504000
+        }
+      ],
+      "hltv_ranking": [
+        {
+          "team": "Alliance",
+          "points": 68.0,
+          "team_url": "https://www.hltv.org/team/12474/alliance"
+        },
+        {
+          "team": "FaZe",
+          "points": 127.0,
+          "team_url": "https://www.hltv.org/team/6667/faze"
+        }
+      ],
+      "polymarket_exact": [],
+      "polymarket_shares_one_name": [],
+      "thunderpick_exact": [
+        {
+          "event_id": "2865383",
+          "start": "2026-10-27T11:00:00+00:00",
+          "teams": [
+            "Alliance",
+            "FaZe"
+          ],
+          "selections": [
+            {
+              "name": "Alliance",
+              "odds": 2.5,
+              "status": 1,
+              "type": "home"
+            },
+            {
+              "name": "FaZe",
+              "odds": 1.48,
+              "status": 1,
+              "type": "away"
+            }
+          ],
+          "best_of": 3,
+          "in_play": true,
+          "start_delta_seconds": 0
+        }
+      ],
+      "thunderpick_shares_one_name": [
+        {
+          "event_id": "2859599",
+          "start": "2026-11-02T07:00:00+00:00",
+          "teams": [
+            "Furia",
+            "FaZe"
+          ],
+          "selections": [
+            {
+              "name": "Furia",
+              "odds": 1.26,
+              "status": 1,
+              "type": "home"
+            },
+            {
+              "name": "FaZe",
+              "odds": 3.4,
+              "status": 1,
+              "type": "away"
+            }
+          ],
+          "best_of": 3,
+          "in_play": true,
+          "start_delta_seconds": 504000
+        }
+      ],
+      "egamersworld": {
+        "status": "missing",
+        "error": null,
+        "http_status": null,
+        "url": "https://egamersworld.com/counterstrike/matches",
+        "observed_at": "2026-10-25T15:04:56Z"
+      },
+      "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; Thunderpick lists 1 exact row(s), 1 with a two-way price; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
+      "gap_reason": "no row on the deployed complete picks list"
+    },
+    {
+      "fixture": {
+        "id": "1082900",
+        "teams": [
+          "Luminosity",
+          "HOTU"
+        ],
+        "competition": "Tesla Cup 2026",
+        "tier": "b",
+        "source_status": "scheduled",
+        "starts_at": "2026-10-27T17:00:00Z"
+      },
+      "published_row": null,
+      "hltv_exact": [
+        {
+          "match_id": "2399869",
+          "url": "https://www.hltv.org/matches/2399869/luminosity-vs-hotu-rlg-tesla-cup-2026",
+          "teams": [
+            "Luminosity",
+            "HOTU"
+          ],
+          "starts_at": "2026-10-27T17:00:00Z",
+          "event": "RLG Tesla Cup 2026",
+          "best_of": "bo3",
+          "live": false,
+          "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399869/luminosity-vs-hotu-rlg-tesla-cup-2026",
+          "start_delta_seconds": 0
+        }
+      ],
+      "hltv_shares_one_name": [
+        {
+          "match_id": "2399437",
+          "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+          "teams": [
+            "HOTU",
+            "The Huns"
+          ],
+          "starts_at": "2026-10-31T09:00:00Z",
+          "event": "GLuck Moscow Cyber Games 2026",
+          "best_of": "bo3",
+          "live": false,
+          "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+          "start_delta_seconds": 316800
+        }
+      ],
+      "hltv_ranking": [
+        {
+          "team": "Luminosity",
+          "points": 76.0,
+          "team_url": "https://www.hltv.org/team/6290/luminosity"
+        },
+        {
+          "team": "HOTU",
+          "points": 43.0,
+          "team_url": "https://www.hltv.org/team/11581/hotu"
+        }
+      ],
+      "polymarket_exact": [],
+      "polymarket_shares_one_name": [],
+      "thunderpick_exact": [],
+      "thunderpick_shares_one_name": [
+        {
+          "event_id": "2865384",
+          "start": "2026-10-27T17:00:00+00:00",
+          "teams": [
+            "Luminosity Gaming",
+            "HOTU"
+          ],
+          "selections": [
+            {
+              "name": "Luminosity Gaming",
+              "odds": 1.75,
+              "status": 1,
+              "type": "home"
+            },
+            {
+              "name": "HOTU",
+              "odds": 1.95,
+              "status": 1,
+              "type": "away"
+            }
+          ],
+          "best_of": 3,
+          "in_play": true,
+          "start_delta_seconds": 0
+        }
+      ],
+      "egamersworld": {
+        "status": "missing",
+        "error": null,
+        "http_status": null,
+        "url": "https://egamersworld.com/counterstrike/matches",
+        "observed_at": "2026-10-25T15:04:56Z"
+      },
+      "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
+      "gap_reason": "no row on the deployed complete picks list"
+    },
+    {
+      "fixture": {
+        "id": "1082901",
+        "teams": [
+          "Envy",
+          "GamerLegion"
+        ],
+        "competition": "Tesla Cup 2026",
+        "tier": "b",
+        "source_status": "scheduled",
+        "starts_at": "2026-10-27T20:00:00Z"
+      },
+      "published_row": null,
+      "hltv_exact": [
+        {
+          "match_id": "2399870",
+          "url": "https://www.hltv.org/matches/2399870/envy-vs-gamerlegion-rlg-tesla-cup-2026",
+          "teams": [
+            "Envy",
+            "GamerLegion"
+          ],
+          "starts_at": "2026-10-27T20:00:00Z",
+          "event": "RLG Tesla Cup 2026",
+          "best_of": "bo3",
+          "live": false,
+          "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399870/envy-vs-gamerlegion-rlg-tesla-cup-2026",
+          "start_delta_seconds": 0
+        }
+      ],
+      "hltv_shares_one_name": [],
+      "hltv_ranking": [
+        {
+          "team": "Envy",
+          "points": 94.0,
+          "team_url": "https://www.hltv.org/team/5991/envy"
+        },
+        {
+          "team": "GamerLegion",
+          "points": 87.0,
+          "team_url": "https://www.hltv.org/team/9928/gamerlegion"
+        }
+      ],
+      "polymarket_exact": [],
+      "polymarket_shares_one_name": [],
+      "thunderpick_exact": [],
+      "thunderpick_shares_one_name": [
+        {
+          "event_id": "2865385",
+          "start": "2026-10-27T20:00:00+00:00",
+          "teams": [
+            "Team Envy",
+            "GamerLegion"
+          ],
+          "selections": [
+            {
+              "name": "Team Envy",
+              "odds": 1.92,
+              "status": 1,
+              "type": "home"
+            },
+            {
+              "name": "GamerLegion",
+              "odds": 1.78,
+              "status": 1,
+              "type": "away"
+            }
+          ],
+          "best_of": 3,
+          "in_play": true,
+          "start_delta_seconds": 0
+        }
+      ],
+      "egamersworld": {
+        "status": "missing",
+        "error": null,
+        "http_status": null,
+        "url": "https://egamersworld.com/counterstrike/matches",
+        "observed_at": "2026-10-25T15:04:56Z"
+      },
+      "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
+      "gap_reason": "no row on the deployed complete picks list"
+    },
+    {
+      "fixture": {
+        "id": "1082792",
+        "teams": [
+          "HOTU",
+          "The Huns"
+        ],
+        "competition": "Moscow Cyber Games 2026",
+        "tier": "b",
+        "source_status": "scheduled",
+        "starts_at": "2026-10-31T09:00:00Z"
+      },
+      "published_row": null,
+      "hltv_exact": [
+        {
+          "match_id": "2399437",
+          "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+          "teams": [
+            "HOTU",
+            "The Huns"
+          ],
+          "starts_at": "2026-10-31T09:00:00Z",
+          "event": "GLuck Moscow Cyber Games 2026",
+          "best_of": "bo3",
+          "live": false,
+          "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+          "start_delta_seconds": 0
+        }
+      ],
+      "hltv_shares_one_name": [
+        {
+          "match_id": "2399869",
+          "url": "https://www.hltv.org/matches/2399869/luminosity-vs-hotu-rlg-tesla-cup-2026",
+          "teams": [
+            "Luminosity",
+            "HOTU"
+          ],
+          "starts_at": "2026-10-27T17:00:00Z",
+          "event": "RLG Tesla Cup 2026",
+          "best_of": "bo3",
+          "live": false,
+          "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399869/luminosity-vs-hotu-rlg-tesla-cup-2026",
+          "start_delta_seconds": -316800
+        }
+      ],
+      "hltv_ranking": [
+        {
+          "team": "HOTU",
+          "points": 43.0,
+          "team_url": "https://www.hltv.org/team/11581/hotu"
+        },
+        {
+          "team": "The Huns",
+          "points": 5.0,
+          "team_url": "https://www.hltv.org/team/12510/the-huns"
+        }
+      ],
+      "polymarket_exact": [],
+      "polymarket_shares_one_name": [],
+      "thunderpick_exact": [],
+      "thunderpick_shares_one_name": [
+        {
+          "event_id": "2865384",
+          "start": "2026-10-27T17:00:00+00:00",
+          "teams": [
+            "Luminosity Gaming",
+            "HOTU"
+          ],
+          "selections": [
+            {
+              "name": "Luminosity Gaming",
+              "odds": 1.75,
+              "status": 1,
+              "type": "home"
+            },
+            {
+              "name": "HOTU",
+              "odds": 1.95,
+              "status": 1,
+              "type": "away"
+            }
+          ],
+          "best_of": 3,
+          "in_play": true,
+          "start_delta_seconds": -316800
+        }
+      ],
+      "egamersworld": {
+        "status": "missing",
+        "error": null,
+        "http_status": null,
+        "url": "https://egamersworld.com/counterstrike/matches",
+        "observed_at": "2026-10-25T15:04:56Z"
+      },
+      "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
+      "gap_reason": "no row on the deployed complete picks list"
+    },
+    {
+      "fixture": {
+        "id": "1082793",
+        "teams": [
+          "5star",
+          "1WIN"
+        ],
+        "competition": "Moscow Cyber Games 2026",
+        "tier": "b",
+        "source_status": "scheduled",
+        "starts_at": "2026-10-31T13:00:00Z"
+      },
+      "published_row": null,
+      "hltv_exact": [
+        {
+          "match_id": "2399438",
+          "url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+          "teams": [
+            "1win",
+            "5star"
+          ],
+          "starts_at": "2026-10-31T13:00:00Z",
+          "event": "GLuck Moscow Cyber Games 2026",
+          "best_of": "bo3",
+          "live": false,
+          "betting_analytics_url": "https://www.hltv.org/betting/analytics/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+          "start_delta_seconds": 0
+        }
+      ],
+      "hltv_shares_one_name": [],
+      "hltv_ranking": [
+        {
+          "team": "5star",
+          "points": 50.0,
+          "team_url": "https://www.hltv.org/team/13724/5star"
+        },
+        {
+          "team": "1win",
+          "points": 158.0,
+          "team_url": "https://www.hltv.org/team/10621/1win"
+        }
+      ],
+      "polymarket_exact": [],
+      "polymarket_shares_one_name": [],
+      "thunderpick_exact": [],
+      "thunderpick_shares_one_name": [],
+      "egamersworld": {
+        "status": "missing",
+        "error": null,
+        "http_status": null,
+        "url": "https://egamersworld.com/counterstrike/matches",
+        "observed_at": "2026-10-25T15:04:56Z"
+      },
+      "research_conclusion": "HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is unavailable from this runner. No probability or pick is written here.",
+      "gap_reason": "no row on the deployed complete picks list"
+    }
+  ],
+  "limitations": [
+    "A 403 or a connection failure recorded here is a limitation of this runner, not evidence that a market does not exist.",
+    "HLTV is used for identity, schedule and ranking membership only; fan votes are never read.",
+    "This audit writes no probability, pick or alias; only scripts/originate.py may publish a number."
+  ]
+}

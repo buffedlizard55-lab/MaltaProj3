@@ -113,7 +113,7 @@ def evidence(m, prefix, fallback=None):
                              f' <span class="tiny muted">BO{e(s.get("bo"))}</span></li>')
                 body += '</ul></details>'
             body += (f'<div class="evidence-links">{external(a.get("source_url"), "bo3.gg fixture")}'
-                     f'<a href="{prefix}data/origination.json">Saved origination evidence ↓</a></div>')
+                     f'<a href="{prefix}origination.json">Saved origination evidence ↓</a></div>')
         elif a['method'] == 'model' and a.get('family') == 'network':
             body += (f'<p class="notice-inline"><strong>Own network estimate.</strong> Neither side has a '
                      'complete official rating row and no money line prices this fixture, so both ratings come '
@@ -130,7 +130,7 @@ def evidence(m, prefix, fallback=None):
                      f'probability interval {a["interval"][0]:.3f}–{a["interval"][1]:.3f} · graph size '
                      f'{e(a.get("graph_matches"))} series · {e(a.get("graph_anchors"))} anchored teams.</p>')
             body += (f'<div class="evidence-links">{external("https://bo3.gg/matches", "bo3.gg results")}'
-                     f'<a href="{prefix}data/origination.json">Saved origination evidence ↓</a></div>')
+                     f'<a href="{prefix}origination.json">Saved origination evidence ↓</a></div>')
         elif a['method'] == 'model':
             body += f'<p>Rating snapshot: <strong>{e(a["snapshot_date"])}</strong>. Roster lists below belong to that snapshot, not a confirmed current lineup.</p><div class="mini-table-wrap"><table class="mini-table"><caption>Published model inputs</caption><thead><tr><th>Team</th><th>Points</th><th>Source</th></tr></thead><tbody>'
             for r in a['inputs']:
@@ -2548,7 +2548,7 @@ def picks(data, prefix, now=None):
              'unresolved': sum(1 for b, _ in basis if b == 'unresolved')}
     researched = sum(1 for _, fb in basis if fb)
     with_pick = shown['all'] - shown['unresolved']
-    out = heading('Every non-archived match', 'Match picks & probabilities', 'See both sides. Know the pick. Check the evidence. Full-series estimates only; no map, handicap or popularity-derived lines.', '<a class="button secondary" href="' + prefix + 'data/picks.csv">Download CSV ↓</a>')
+    out = heading('Every non-archived match', 'Match picks & probabilities', 'See both sides. Know the pick. Check the evidence. Full-series estimates only; no map, handicap or popularity-derived lines.', '<a class="button secondary" href="' + prefix + 'picks.csv">Download CSV ↓</a>')
     # Session 4c972a51: the sentence used to add the *featured* counts (11 money
     # + 12 researched) while the header counted every displayed row (33), so the
     # arithmetic did not add up and a reader could think ten matches had no pick.
@@ -2665,7 +2665,7 @@ def coverage(data, prefix, now=None):
             detail = e(detail)
         out += f'<tr><th scope="row">{e(title)}</th><td>{detail}</td><td>{external(url, label)}</td></tr>'
     reconciliation = '<a href="' + prefix + 'data/evidence/hotspawn-context.json">Inventory reconciliation ↓</a>' if data.get('inventory_observed_at') else ''
-    out += '</tbody></table></div><div class="inline-links downloads"><a href="' + prefix + 'snapshot.json">Full snapshot JSON ↓</a>' + reconciliation + '<a href="' + prefix + 'data/picks.csv">Picks CSV ↓</a>' + '<a href="' + prefix + 'data/acceptance-audit.md">Brief-line acceptance audit ↓</a></div></section>'
+    out += '</tbody></table></div><div class="inline-links downloads"><a href="' + prefix + 'snapshot.json">Full snapshot JSON ↓</a>' + reconciliation + '<a href="' + prefix + 'picks.csv">Picks CSV ↓</a>' + '<a href="' + prefix + 'data/acceptance-audit.md">Brief-line acceptance audit ↓</a></div></section>'
     out += f'<section class="content-section" id="archive"><div class="section-heading"><div><p class="eyebrow">Preserved, not misrepresented</p><h2>Past-start source archive <span class="heading-count">{c["archived"]}</span></h2></div></div><p class="section-intro">These records still exist in Hotspawn’s scheduled feed, but their scheduled starts are in the past. “Scheduled” is the source’s value, not a verified present status. Results, current picks and retrospective probabilities are not invented.</p><div class="table-scroll"><table class="simple-table archive-table"><caption class="sr-only">Every past-start CS2 record retained from the original Hotspawn feed</caption><thead><tr><th>Match / tournament</th><th>Scheduled start</th><th>Source status</th><th>Original source</th></tr></thead><tbody>'
     for m in data['matches']:
         if m['availability'] != 'past':
@@ -2959,6 +2959,15 @@ def build(source: Path, output: Path, now=None):
         prefix = './' if key == 'summary' else '../'
         target.write_text(shell(data, key, renderers[key](data, prefix), prefix, now=now))
     (output / 'data/picks.csv').write_text(picks_csv(data))
+    # The complete researched list and the CSV are the two downloads a reader uses
+    # to check every row. `data/origination.json` and `data/picks.csv` are also
+    # git-tracked CI replay fixtures, so the branch-root publisher must never
+    # overwrite them; these top-level copies are build outputs, and
+    # scripts/root_publish.py carries them, so the page and its downloads are the
+    # same observation under either Pages mode (session 9e0e601d).
+    for name in ('origination.json', 'picks.csv'):
+        if (output / 'data' / name).is_file():
+            shutil.copyfile(output / 'data' / name, output / name)
     if data.get('_twc_report'):
         (output / 'data/twc-day3-picks.json').write_text(json.dumps(data['_twc_report'], ensure_ascii=False, indent=2) + '\n')
         (output / 'data/twc-day4-picks.json').write_text(json.dumps(data['_twc_report']['day4'], ensure_ascii=False, indent=2) + '\n')

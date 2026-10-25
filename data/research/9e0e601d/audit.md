@@ -1,0 +1,216 @@
+# Live coverage audit — 2026-10-25T15:04:56Z (live)
+
+## What the deployed dashboard serves
+
+| Fact | Value |
+| --- | --- |
+| snapshot.json generated_at | 2026-10-25T14:32:11Z |
+| origination.json generated_at | 2026-10-15T09:31:24Z |
+| data/latest.json generated_at | 2026-10-15T08:36:13Z |
+| executive summary shows inventory checked | 2026-10-25T14:31:56Z |
+| glance rows on the summary | 16 |
+| complete-list rows | 17 |
+| rows with a pick | 17 |
+
+## Live inventory
+
+| Fact | Value |
+| --- | --- |
+| Hotspawn scheduled-fixture records | 77 |
+| open fixtures right now | 15 |
+| fixture ids encoded by the rendered lobby | 15 |
+| lobby ids absent from the API window | 0 |
+
+## Deployment parity (page vs downloadable data)
+
+| Artefact | Observation |
+| --- | --- |
+| index.html | 2026-10-25T14:31:56Z |
+| snapshot.json | 2026-10-25T14:32:11Z |
+| data/latest.json | 2026-10-15T08:36:13Z |
+| data/origination.json | 2026-10-15T09:31:24Z |
+
+**Inconsistent:** the newest artefact is 2026-10-25T14:32:11Z but data/origination.json is 245.01 h older, data/latest.json is 245.93 h older
+
+**Coverage not asserted.** the deployed complete picks list is a different observation from the deployed page, so fixture-by-fixture coverage is not asserted against it
+
+## Internal evidence links on the deployed page
+
+- probed **24** `data/...` downloads linked by the summary
+- **9** answered 200, **15** did not
+
+- **404** <https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-event-1238706.json>
+- **404** <https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-book-1238706-0.json>
+- **404** <https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-book-1238706-1.json>
+- **404** <https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-event-1248800.json>
+- **404** <https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-book-1248800-0.json>
+- **404** <https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-book-1248800-1.json>
+- **404** <https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-event-1238707.json>
+- **404** <https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-book-1238707-0.json>
+- **404** <https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-book-1238707-1.json>
+- **404** <https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-event-1243020.json>
+- **404** <https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-book-1243020-0.json>
+- **404** <https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-book-1243020-1.json>
+- **404** <https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-event-1249433.json>
+- **404** <https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-book-1249433-0.json>
+- **404** <https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-book-1249433-1.json>
+
+## Independent replay of the deployed numbers
+
+- Complete picks list: **17/17** rows re-derived; 0 not replayable from published inputs.
+- Featured snapshot: **13/13** rows re-derived.
+- Structural violations: **0**.
+- Executive summary: 16 glance rows, 16 deep links, 0 render problems.
+- Snapshot age at observation: 0.55 h.
+
+### Problems
+
+- coverage not asserted: 16 fixture(s) differ between the deployed snapshot and the deployed complete picks list, which are different observations
+- the deployed page and its downloadable data are different observations: the newest artefact is 2026-10-25T14:32:11Z but data/origination.json is 245.01 h older, data/latest.json is 245.93 h older
+- 15 of 24 internal data downloads linked by the executive summary did not answer 200 on the deployed host
+
+## Fixtures without a published pick
+
+15 of 15 open fixtures have no pick row on the deployed site.
+
+0 further fixture(s) carry a pick that the featured exact-name line could not produce (none); those are researched below in the brief's order — HLTV first, then esportsbooks and exchanges.
+
+**Why this fixture is researched:** no row on the deployed complete picks list
+
+### 1086696 — BORRACHEIROS vs RED Canids Academy (CCT South America 2026 Series #7, 2026-10-25T16:00:00Z)
+
+- Research conclusion: HLTV lists the identical pairing (start delta -3000s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.
+- HLTV exact: <https://www.hltv.org/matches/2399917/borracheiros-vs-red-canids-academy-cct-2026-south-america-series-7> start delta -3000s
+- EGamersWorld: error (HTTP 403)
+
+**Why this fixture is researched:** no row on the deployed complete picks list
+
+### 1081158 — FORZE Reload vs ex-RUSTEC (CCT Europe 2026 Series #12, 2026-10-25T18:00:00Z)
+
+- Research conclusion: HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; Thunderpick lists 1 exact row(s), 1 with a two-way price; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.
+- HLTV exact: <https://www.hltv.org/matches/2399508/forze-reload-vs-ex-rustec-cct-2026-europe-series-12> start delta +0s
+- Thunderpick exact: event 2884233, start delta 0s, FORZE Reload 1.65 / ex-RUSTEC 2.1
+- EGamersWorld: error (HTTP 403)
+
+**Why this fixture is researched:** no row on the deployed complete picks list
+
+### 1082697 — BESTIA vs paiN (Circuit X Curitiba #4, 2026-10-25T18:00:00Z)
+
+- Research conclusion: HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.
+- HLTV exact: <https://www.hltv.org/matches/2399819/pain-vs-bestia-circuit-x-curitiba-season-4> start delta +0s
+- EGamersWorld: error (HTTP 403)
+
+**Why this fixture is researched:** no row on the deployed complete picks list
+
+### 1079200 — Color vs ex-Zero Tenacity (NODWIN Clutch Series #13, 2026-10-25T18:00:00Z)
+
+- Research conclusion: HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.
+- HLTV exact: <https://www.hltv.org/matches/2399115/color-vs-ex-zero-tenacity-nodwin-clutch-series-13> start delta +0s
+- EGamersWorld: error (HTTP 403)
+
+**Why this fixture is researched:** no row on the deployed complete picks list
+
+### 1086697 — Projeto do KinGui vs Yawara (CCT South America 2026 Series #7, 2026-10-25T19:00:00Z)
+
+- Research conclusion: HLTV lists one of these names against a different opponent under this fixture name — identity not joined; no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.
+- EGamersWorld: error (HTTP 403)
+
+**Why this fixture is researched:** no row on the deployed complete picks list
+
+### 1082858 — Ground Zero vs Off Chops (DFRAG Invitational 2026, 2026-10-26T03:00:00Z)
+
+- Research conclusion: HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.
+- HLTV exact: <https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026> start delta +0s
+- EGamersWorld: error (HTTP 403)
+
+**Why this fixture is researched:** no row on the deployed complete picks list
+
+### 1082859 — NEXVOID vs Alter Ego (DFRAG Invitational 2026, 2026-10-26T03:00:00Z)
+
+- Research conclusion: HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; Thunderpick lists 1 exact row(s), 1 with a two-way price; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.
+- HLTV exact: <https://www.hltv.org/matches/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026> start delta +0s
+- Thunderpick exact: event 2870940, start delta 0s, NEXVOID 1.6 / Alter Ego 2.2
+- EGamersWorld: error (HTTP 403)
+
+**Why this fixture is researched:** no row on the deployed complete picks list
+
+### 1082860 — FlyQuest vs Staqued (DFRAG Invitational 2026, 2026-10-27T03:00:00Z)
+
+- Research conclusion: HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; Thunderpick lists 1 exact row(s), 1 with a two-way price; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.
+- HLTV exact: <https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026> start delta +0s
+- Thunderpick exact: event 2872333, start delta 0s, FlyQuest 1.001 / Staqued 12
+- EGamersWorld: error (HTTP 403)
+
+**Why this fixture is researched:** no row on the deployed complete picks list
+
+### 1082861 — Rooster vs Abyssal (DFRAG Invitational 2026, 2026-10-27T03:00:00Z)
+
+- Research conclusion: HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.
+- HLTV exact: <https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026> start delta +0s
+- EGamersWorld: error (HTTP 403)
+
+**Why this fixture is researched:** no row on the deployed complete picks list
+
+### 1082897 — B8 vs K27 (Tesla Cup 2026, 2026-10-27T08:00:00Z)
+
+- Research conclusion: HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; Thunderpick lists 1 exact row(s), 1 with a two-way price; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.
+- HLTV exact: <https://www.hltv.org/matches/2399866/b8-vs-k27-rlg-tesla-cup-2026> start delta +0s
+- Thunderpick exact: event 2865386, start delta 0s, B8 1.62 / K27 2.15
+- EGamersWorld: error (HTTP 403)
+
+**Why this fixture is researched:** no row on the deployed complete picks list
+
+### 1082898 — Alliance vs FaZe (Tesla Cup 2026, 2026-10-27T11:00:00Z)
+
+- Research conclusion: HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; Thunderpick lists 1 exact row(s), 1 with a two-way price; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.
+- HLTV exact: <https://www.hltv.org/matches/2399867/alliance-vs-faze-rlg-tesla-cup-2026> start delta +0s
+- Thunderpick exact: event 2865383, start delta 0s, Alliance 2.5 / FaZe 1.48
+- EGamersWorld: error (HTTP 403)
+
+**Why this fixture is researched:** no row on the deployed complete picks list
+
+### 1082900 — Luminosity vs HOTU (Tesla Cup 2026, 2026-10-27T17:00:00Z)
+
+- Research conclusion: HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.
+- HLTV exact: <https://www.hltv.org/matches/2399869/luminosity-vs-hotu-rlg-tesla-cup-2026> start delta +0s
+- EGamersWorld: error (HTTP 403)
+
+**Why this fixture is researched:** no row on the deployed complete picks list
+
+### 1082901 — Envy vs GamerLegion (Tesla Cup 2026, 2026-10-27T20:00:00Z)
+
+- Research conclusion: HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.
+- HLTV exact: <https://www.hltv.org/matches/2399870/envy-vs-gamerlegion-rlg-tesla-cup-2026> start delta +0s
+- EGamersWorld: error (HTTP 403)
+
+**Why this fixture is researched:** no row on the deployed complete picks list
+
+### 1082792 — HOTU vs The Huns (Moscow Cyber Games 2026, 2026-10-31T09:00:00Z)
+
+- Research conclusion: HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.
+- HLTV exact: <https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026> start delta +0s
+- EGamersWorld: error (HTTP 403)
+
+**Why this fixture is researched:** no row on the deployed complete picks list
+
+### 1082793 — 5star vs 1WIN (Moscow Cyber Games 2026, 2026-10-31T13:00:00Z)
+
+- Research conclusion: HLTV lists the identical pairing (start delta +0s); no exact-name Polymarket event; no exact Thunderpick row; EGamersWorld is HTTP 403 from this runner. No probability or pick is written here.
+- HLTV exact: <https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026> start delta +0s
+- EGamersWorld: error (HTTP 403)
+
+## Sources read
+
+| Source | Status | HTTP | Observed | SHA-256 |
+| --- | --- | --- | --- | --- |
+| deployed snapshot.json | ok | 200 | 2026-10-25T15:04:46Z | 26914d8df5c5a89b |
+| deployed origination.json | ok | 200 | 2026-10-25T15:04:46Z | 661ac8ff3a202e6f |
+| deployed data/latest.json | ok | 200 | 2026-10-25T15:04:47Z | 16c4437804abd527 |
+| deployed index.html | ok | 200 | 2026-10-25T15:04:47Z | b5db80d4ec3c9454 |
+| hotspawn fixtures api | ok | 200 | 2026-10-25T15:04:47Z | 8e5a350d44aa0fa6 |
+| hotspawn lobby | ok | 200 | 2026-10-25T15:04:48Z | c1ecc899a5f15106 |
+| hltv matches | ok | 200 | 2026-10-25T15:04:49Z | 2d7188e2ad8207f1 |
+| hltv ranking | ok | 200 | 2026-10-25T15:04:49Z | bdc49362a7ba962b |
+| polymarket cs2 tag | ok | 200 | 2026-10-25T15:04:50Z | 85f8f391ce020f0a |
+| thunderpick matches | ok | 200 | 2026-10-25T15:04:50Z | 7051abdd0788c1e3 |
+| egamersworld matches | error | 403 | 2026-10-25T15:04:50Z | 67c0b8d64ce2a456 |
