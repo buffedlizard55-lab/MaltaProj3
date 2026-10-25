@@ -1,0 +1,168 @@
+{
+  "session": "arena-0c034b94",
+  "scope": "Every live Hotspawn CS2 fixture at 2026-10-25T13:45:44Z checked against the published picks, plus an independent arithmetic replay of the published snapshot and an HLTV-first identity/ranking read of every fixture whose pick is not a featured market line. Facts only: no probability, pick or provider alias was written by this session.",
+  "review_clock_utc": "2026-10-25T13:45:44Z",
+  "method": "A read-only GitHub Actions runner fetched the Hotspawn scheduled-fixtures API and the cache-busted lobby, the published latest.json and origination.json, HLTV's upcoming-matches page and official weekly world ranking, Polymarket's public CS2 tag and EGamersWorld's match directory (scripts/0c034b94_probe.py). Every response is archived under data/research/0c034b94/raw/ with its SHA-256 and can be re-parsed offline. The snapshot's own numbers were then re-derived from their evidence (scripts/0c034b94_verify.py): Valve fit.js expectation from the official points, order-book midpoints for Polymarket rows, no-vig conversion for bookmaker odds.",
+  "items": [
+    {
+      "id": "0C-R01",
+      "area": "Independent replay of every published probability and pick",
+      "status": "verified",
+      "finding": "All 16 open fixtures that carry a featured analysis were re-derived from the evidence inside the snapshot with 0 violations: 5 Valve-rating rows recomputed from the two official points values with Valve's own g(RD=75) = 0.9728209910486895, 9 prediction-market rows rebuilt from their two-sided order-book midpoints, 2 esportsbook rows rebuilt from their quoted decimal odds by proportional no-vig. Every row also carries two probabilities summing to 1, a fair decimal equal to 1/p, a pick equal to the higher-probability side and a UTC observation stamp. Two further open fixtures have no featured analysis and are carried by the researched layer instead (1081156 multi-book consensus, 1082792 own network model); both publish limitations and https research trails.",
+      "handling": "Replayed offline from the committed snapshot; the same verifier is shipped as a regression test (tests/test_0c034b94_verification.py) so a future row that stops replaying fails the build instead of publishing.",
+      "evidence": [
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+          "detail": "Published snapshot generated 2026-10-25T05:12:25Z, inventory observed 2026-10-25T05:12:10Z: 79 records, 18 open, 16 featured analyses replayed with 0 violations."
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "Official Valve global standings (2026-10-05) used as the only input to the research model, e.g. 5star 1110 points at standing 80 and 1WIN 1383 at standing 38, which recompute to 0.17816902 for 5star."
+        }
+      ]
+    },
+    {
+      "id": "0C-R02",
+      "area": "Three live fixtures had no published pick at all; publisher red since 08:17Z",
+      "status": "needs review",
+      "finding": "At 2026-10-25T13:45:44Z the live Hotspawn CS2 feed listed 17 open fixtures but the deployed complete-picks feed (generated 2026-10-25T05:12:40Z) carried only 14 of them. 1086696 BORRACHEIROS vs RED Canids Academy (16:00Z), 1082697 BESTIA vs paiN (18:00Z) and 1086697 Projeto do KinGui vs Yawara (19:00Z) had no card and therefore no pick. The published snapshot was 8 h 33 m old at that observation, outside the 8-hour bound the brief sets, because the scheduled publisher runs 40174233578 and 40196457503 failed their regression step (`test_group_a_are_snapshot_unresolved` in tests/test_b72154e1_guided_picks.py, a dated expectation pinned to the 2026-10-23 dossier snapshot) and every later step was skipped.",
+      "handling": "Logged, not edited: that test file is claimed by parallel sessions 04174d83 (PR #326), db6ecc61 (PR #327) and 824a2780 (PR #328), so this session kept its hands off it. The three missing fixtures are a collection lag, not a refused pick - they were still open, and each has an HLTV page bound with a 0-second start delta, so the next successful refresh prices them normally. This session's own publish (PR from arena/0c034b94-maltaproj3) re-runs the four-hourly workflow, which is what clears the lag.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40196457503",
+          "detail": "Scheduled run at 2026-10-25T13:11Z: failed at 'Regression tests (repository fixtures, before any cache restore)'; the check annotation names test_group_a_are_snapshot_unresolved, pick_index 1 on 1082858 against a dossier that predates the market."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40174233578",
+          "detail": "Earlier scheduled run, also failed, same regression step - so the freshness gap spans more than one slot."
+        },
+        {
+          "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+          "detail": "Official Hotspawn fixture feed read at 2026-10-25T13:45:44Z: 78 records, 17 with a future scheduled_start_time, including the three ids above. Response archived with SHA-256 in data/research/0c034b94/raw/hotspawn-fixtures-api.json."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json",
+          "detail": "Deployed complete-picks feed generated 2026-10-25T05:12:40Z: 18 rows, 0 without a pick, methods bookmaker/consensus/market/model."
+        }
+      ]
+    },
+    {
+      "id": "0C-R03",
+      "area": "Lobby and fixture API agree; the published snapshot is what lags",
+      "status": "verified",
+      "finding": "The rendered lobby (cache-busted) and the official scheduled-fixtures API agreed exactly at 2026-10-25T13:45:44Z: 17 open fixtures in the API and 17 fixture ids in the lobby HTML, with no id in one and not the other. So the missing picks in 0C-R02 are not a Hotspawn-side discrepancy and not a scraper disagreement - they are simply later than the last successful collect.",
+      "handling": "Recorded as the reason the coverage question has a single answer; no code or data change was made.",
+      "evidence": [
+        {
+          "url": "https://play.hotspawn.com/lobby?cb=1792935939",
+          "detail": "Cache-busted rendered lobby read at 2026-10-25T13:45:39Z; 17 encoded fixture ids, identical to the API's open set."
+        },
+        {
+          "url": "https://play.hotspawn.com/cs2-pickems",
+          "detail": "CS2 Pick'ems lobby the published rows link per fixture (lobby_url with a #fixture-<id> anchor)."
+        }
+      ]
+    },
+    {
+      "id": "0C-R04",
+      "area": "HLTV-first identity and ranking for every fixture without a featured money line",
+      "status": "verified",
+      "finding": "Six live fixtures were not resolved by a featured market line: three with no published row (0C-R02) and three published by a research model only (1082861 Rooster vs Abyssal, 1082792 HOTU vs The Huns, 1082793 5star vs 1WIN). HLTV lists a match page for five of them with a 0-second start delta against Hotspawn: 2399917 (BORRACHEIROS vs RED Canids Academy, 16:00Z), 2399819 (paiN vs BESTIA, 18:00Z), 2399891 (Rooster vs Abyssal, 2026-10-27T03:00Z), 2399437 (HOTU vs The Huns, 2026-10-31T09:00Z) and 2399438 (1WIN vs 5star, 2026-10-31T13:00Z). HLTV's official weekly ranking published 2026-10-19 lists both sides of each model row (HOTU 38 / The Huns 134; Rooster 181 / Abyssal 128), which is the ranking the last-resort research rung reads. Each of those cards also links HLTV's own odds overview (`/betting/analytics/<match id>/…`); all five answered HTTP 200 with a title naming 'odds and prediction', but the served HTML contains no two-way bookmaker price - the odds table is rendered client-side and the only decimal prices present are one repeated promo-widget value (1.23, six times, identical on all five pages), which was refused as a placeholder rather than used. HLTV therefore contributes identity and ranking here, not a money line.",
+      "handling": "Recorded with the exact pages; nothing was converted into a probability by this session. The three model-only fixtures keep their labelled research estimates and their published limitations.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+          "detail": "HLTV match page for 1082792; HLTV start equals the Hotspawn start (0 s delta). This also settles the earlier 'multiple Valve rosters share the name The Huns' blocker: the fixture's identity is bound on HLTV, while the Valve row stays ambiguous."
+        },
+        {
+          "url": "https://www.hltv.org/ranking/teams/2026/october/19",
+          "detail": "HLTV official world ranking, publication 2026-10-19, 253 team rows parsed in one page; the source the research rung uses when no money line exists."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+          "detail": "HLTV match page for 1082861 (Rooster vs Abyssal), 0 s start delta."
+        },
+        {
+          "url": "https://www.hltv.org/betting/analytics/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+          "detail": "HLTV odds overview for 1082792 at 2026-10-25T13:55Z: HTTP 200, title 'HOTU vs The Huns odds and prediction | Full overview'; the archived response holds no two-sided bookmaker table and repeats the same promo value 1.23 six times, so no price was taken from it."
+        }
+      ]
+    },
+    {
+      "id": "0C-R05",
+      "area": "Schedule disagreement: Hotspawn 14:00Z vs HLTV 14:30Z on 1085542",
+      "status": "needs review",
+      "finding": "Fixture 1085542 (ex-Zero Tenacity vs Spirit Academy, CCT 2026 Europe Series 11, Hotspawn POINTS tier B) is published by Hotspawn with scheduled_start_time 2026-10-25T14:00:00Z and a 13:54:00Z pick lock, while HLTV match 2399340 publishes data-unix 1792938600000 = 2026-10-25T14:30:00Z for the same two teams in the same event. The 30-minute difference is far outside the project's 60-second identity window, so no price or result may be joined across it; one of the two schedules is stale. The published row for 1085542 (ex-Zero Tenacity 55.5% / Spirit Academy 44.5%, multi-book consensus) was priced before either page changed.",
+      "handling": "Flagged, not reconciled: this session does not edit a schedule, a probability or a join window. A reader should treat the 14:00Z lock as Hotspawn's own contract and re-check the start on both pages.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399340/ex-zero-tenacity-vs-spirit-academy-cct-2026-europe-series-11",
+          "detail": "HLTV card read 2026-10-25T13:45:44Z: data-unix 1792938600000 (14:30Z), bo3, event 'CCT 2026 Europe Series 11', stage Semifinal."
+        },
+        {
+          "url": "https://play.hotspawn.com/cs2-pickems#fixture-1085542",
+          "detail": "Hotspawn fixture whose official feed record carries scheduled_start_time 1792936800000 (14:00Z) and lock_time 1792936440000 (13:54Z) in the archived API response."
+        }
+      ]
+    },
+    {
+      "id": "0C-R06",
+      "area": "Team-name variant: Hotspawn 'Projeto do KinGui' vs HLTV 'Tropa do KinGui'",
+      "status": "needs review",
+      "finding": "Hotspawn fixture 1086697 (CCT South America 2026 Series #7, 19:00Z) names the first team 'Projeto do KinGui'; the HLTV card for the same slot (match 2399918, 0-second start delta) names it 'Tropa do KinGui' against the same opponent, Yawara. Neither name appears in Valve's standings, and no official team page proving the two names are the same organisation was read here, so the pair was not aliased: an unverified alias would silently attach another team's rating or price to this fixture.",
+      "handling": "Flagged for review. If an official team page (organiser announcement, club page or Valve roster record) proves the equivalence, the reviewed alias registry (data/origination/aliases.json, competition-scoped) can carry it and the fixture becomes priceable by the ranking rung; until then it stays blank rather than guessed.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399918/tropa-do-kingui-vs-yawara-cct-2026-south-america-series-7",
+          "detail": "HLTV card: 'Tropa do KinGui' vs 'Yawara', 19:00Z, CCT 2026 South America Series 7."
+        },
+        {
+          "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+          "detail": "Official Hotspawn feed: fixture 1086696/1086697 pair in the same competition, participants0_name 'Projeto do KinGui', scheduled_start_time 1792954800000 (19:00Z)."
+        }
+      ]
+    },
+    {
+      "id": "0C-R07",
+      "area": "Esportsbook access limits seen from a GitHub runner",
+      "status": "platform limitation",
+      "finding": "From the runner that produced this evidence, HLTV answered 200 (matches and ranking), Hotspawn answered 200 (API and cache-busted lobby) and Polymarket's public CS2 tag answered 200, while EGamersWorld's CS2 match directory answered HTTP 403. The published snapshot's own trails record the same class of failure for GG.BET and Stake (403) and for Pinnacle and Rivalry (redirect to a generic landing page with no match-level lines). A refused page is not proof that no market exists; it is proof that this runner cannot price from it.",
+      "handling": "Published as a limitation of the fallback ladder rather than as a reason to guess a price. Fixtures that only these surfaces cover stay on a labelled research estimate or in the unresolved register.",
+      "evidence": [
+        {
+          "url": "https://egamersworld.com/counterstrike/matches",
+          "detail": "HTTP 403 to the runner's public GET at 2026-10-25T13:45:44Z; recorded with the response status in probe.json and no body archived."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100",
+          "detail": "HTTP 200 at the same observation; the public CS2 tag the market rung discovers fixtures from."
+        },
+        {
+          "url": "https://www.hltv.org/matches",
+          "detail": "HTTP 200 at the same observation; 44 upcoming match cards parsed (not 14 as an earlier selector read), each with an epoch start, event, best-of and permalink."
+        }
+      ]
+    },
+    {
+      "id": "0C-R08",
+      "area": "Executive summary routes and phone readability",
+      "status": "verified",
+      "finding": "The built executive summary carries all seven in-site routes a reader needs: ./origination/#picks (complete list), ./origination/#unresolved, ./unresolved/ (dedicated page), ./#picks-at-a-glance, ./#unresolved-register, ./#no-line-register (picks without a betting line) and ./#fallback-register (picks that did not come from the featured market line). The unresolved register is a real section of the summary (id=unresolved-register) with a heading that names unresolved picks and limitations, the page declares a device-width viewport, and it keeps the skip link and labelled navigation the phone specs assert.",
+      "handling": "Pinned by tests/test_0c034b94_verification.py (13 tests, green locally on the committed data). The Playwright phone suite (320/390/768/1440 px, axe WCAG A/AA) runs in CI on the pull request; it cannot run in the authoring sandbox because the browser download host is unreachable there, so this item claims only what was measured here.",
+      "evidence": [
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+          "detail": "Deployed executive summary the routes above were read from (built 2026-10-25T05:12Z); the same ids and hrefs are re-asserted against a fresh local build by the new test module."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#unresolved",
+          "detail": "Complete picks list with its unresolved section, linked from the summary."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/",
+          "detail": "Dedicated unresolved-and-limitations page linked from the summary."
+        }
+      ]
+    }
+  ]
+}
