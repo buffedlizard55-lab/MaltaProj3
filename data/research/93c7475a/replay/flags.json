@@ -1,0 +1,22 @@
+[
+  {
+    "id": "93c7475a-esportsbook-surface-refusals",
+    "title": "10 esportsbook / betting-line surface(s) refused the runner",
+    "severity": "notice",
+    "detail": "Their silence is a limitation of this runner, not proof that no market exists: polymarket-cs2-tag \u2192 None; thunderpick-matches \u2192 None; kalshi-cs2-events \u2192 None; pinnacle-esports \u2192 None; smarkets-cs2 \u2192 None; bo3gg-matches \u2192 None; egamersworld-matches \u2192 None; ggbet-cs2 \u2192 None; stake-cs2 \u2192 None; rivalry-cs2 \u2192 None.",
+    "match_ids": [],
+    "source_urls": [
+      "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100",
+      "https://thunderpick.io/api/matches",
+      "https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=200",
+      "https://guest.api.arcadia.pinnacle.com/0.1/esports/matchups?sportId=22&live=0",
+      "https://api.smarkets.com/v3/events?type=csgo_match&state=upcoming",
+      "https://bo3.gg/matches",
+      "https://egamersworld.com/counterstrike/matches",
+      "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
+      "https://stake.com/sports/esports/counter-strike",
+      "https://www.rivalry.com/esports/counter-strike-betting"
+    ],
+    "observed_at": "2026-10-25T14:44:50Z"
+  }
+]
