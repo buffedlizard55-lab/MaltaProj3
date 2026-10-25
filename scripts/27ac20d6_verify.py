@@ -201,8 +201,16 @@ def run(root: Path = ROOT) -> dict:
                 problems.append(f"{fid}: fewer than two percentages and no unresolved/even label")
             external = [u for u in re.findall(r'href="(https://[^"]+)"', row_html)
                         if "hotspawn.com" not in u]
-            if not external:
+            # Session arena-22a3ed80: a row published as explicitly unresolved has
+            # no number to source, so the external-price requirement cannot apply
+            # to it (fixture 1086697 on the 2026-10-25T16:20:19Z publish). What it
+            # must carry instead is the reason, linked into the unresolved
+            # register. A row with numbers still needs a non-Hotspawn source.
+            unresolved_row = len(percents) < 2 and ("Unresolved" in text or "no side" in text)
+            if not external and not unresolved_row:
                 problems.append(f"{fid}: no external source link for the number")
+            if unresolved_row and "origination/#unresolved" not in row_html:
+                problems.append(f"{fid}: unresolved row does not link its reason")
             if f'id="match-{fid}"' not in origination_html:
                 problems.append(f"{fid}: detail anchor #match-{fid} missing in origination/")
         checks.append(_check(

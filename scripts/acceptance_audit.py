@@ -207,6 +207,7 @@ def check_glance_rows(site: Path, soup: BeautifulSoup) -> Check:
                           str(site / 'index.html'))
     missing_pick, missing_pair, bad_sum, sourced, no_source = [], [], [], 0, []
     explained_no_side = 0
+    explained_unresolved = 0
     for row in rows:
         match = _text(row.select_one('.glance-match'))
         choice = row.select_one('.glance-choice')
@@ -225,7 +226,18 @@ def check_glance_rows(site: Path, soup: BeautifulSoup) -> Check:
             continue
         values = _pct(_text(choice))
         if len(values) < 2:
-            missing_pair.append(match)
+            # Session arena-22a3ed80: a row the build publishes as explicitly
+            # unresolved (fixture 1086697 on the 2026-10-25T16:20:19Z publish)
+            # has no number to show, by design. The brief allows a blank only when
+            # it is flagged, so the row must say "Unresolved", link the reason and
+            # keep an official source link; it is then reported, never silently
+            # passed, and a build where every row is unresolved still fails.
+            reason = [a.get('href') or '' for a in choice.select('a[href]')]
+            if ('unresolved' in _text(choice).lower()
+                    and any('unresolved' in href for href in reason)):
+                explained_unresolved += 1
+            else:
+                missing_pair.append(match)
         elif abs(sum(values[:2]) - 100.0) > 0.2:
             bad_sum.append(f'{match}: {values[:2]}')
         links = [a.get('href') or '' for a in row.select('.glance-links a')]
@@ -243,11 +255,18 @@ def check_glance_rows(site: Path, soup: BeautifulSoup) -> Check:
         return check.fail(f'{len(bad_sum)} glance rows have percentages that do not sum to 100.', *bad_sum[:5])
     if no_source:
         return check.fail(f'{len(no_source)} glance rows carry no official/primary source link.', *no_source[:5])
-    detail = (f'{len(rows)} glance rows: every one names a pick, shows both percentages summing to 100, '
-              f'and links an official/primary source ({sourced}/{len(rows)}).')
+    if explained_unresolved == len(rows):
+        return check.fail('Every glance row is unresolved: no fixture on this build carries a probability.')
+    detail = (f'{len(rows)} glance rows: every one names a pick or states why it has none, shows both '
+              f'percentages summing to 100 where a number exists, and links an official/primary source '
+              f'({sourced}/{len(rows)}).')
     if explained_no_side:
         detail += (f' {explained_no_side} of them are exactly even two-sided books: labelled '
-                   '"Even · no side" with both prices and the reason linked.')
+                   f'"Even . no side" with both prices and the reason linked.')
+    if explained_unresolved:
+        detail += (f' {explained_unresolved} published as explicitly unresolved: no number is invented, '
+                   f'the row names the limitation and links the reason (see Unresolved picks & limitations '
+                   f'and Flagged for Review).')
     return check.ok(detail, f'{site}/index.html#picks-at-a-glance')
 
 

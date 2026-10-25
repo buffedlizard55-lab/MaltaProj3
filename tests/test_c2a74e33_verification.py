@@ -72,7 +72,15 @@ class SessionC2A74E33VerificationTests(unittest.TestCase):
         self.assertIsNotNone(selected)
         self.assertGreaterEqual(selected['observed_at'], cov['observed_at'])
         html = build.live_coverage_gaps({'matches': [], 'complete_picks': {'matches': []}, '_live_coverage': cov}, '')
-        self.assertIn('22 missing at that observation', html)
+        # Changed by session arena-22a3ed80: every fixture in this record carries
+        # `in_published_snapshot: true`, i.e. the published complete picks list
+        # already carried it when the sweep ran, so none of them is a coverage
+        # gap. They are named under #live-coverage-rotated instead of being
+        # counted as missing (the shipped page advertised "9 missing" for cards
+        # whose own notes said they were carried). The zero-percent-sign and
+        # per-row source-link contracts below are unchanged.
+        self.assertIn('0 missing at that observation', html)
+        self.assertIn(f"<strong>{len(cov['live_fixtures'])}</strong> further cards", html)
         self.assertNotIn('%', html)
         for row in cov['live_fixtures']:
             self.assertIn(row['hotspawn_url'], html)

@@ -1,0 +1,130 @@
+{
+  "session": "arena-22a3ed80",
+  "scope": "Line-by-line verification of the published 2026-10-25T14:23:33Z executive summary (16 active Hotspawn CS2 fixtures, 13 featured rows, 3 researched fallbacks), the separate unresolved-pick register, the dated lobby-gap register and the phone routes; plus the repair of a false coverage-gap count those pages displayed.",
+  "review_clock_utc": "2026-10-25T16:20:19Z",
+  "method": "Read only what is published in this repository: snapshot.json (the byte-identical copy of the verified data/latest.json that the publisher writes into the branch root) and index.html (the executive summary built from the same snapshot). Every featured pick and both of its percentages were re-derived arithmetically from that fixture's own analysis.probabilities and pick_index (scripts/22a3ed80_verify.py, 14 hard checks, 0 failures); every rendered row was checked for an https source link; the headline and phone-status numbers were reconciled with snapshot.counts; the dated lobby-gap register was compared with the record that produced it (data/research/c2a74e33/live-coverage.json). No value was inferred, no probability was hand-written, and no live network source was queried from this sandbox (its egress does not reach Hotspawn, HLTV, bookmakers or Pages), so freshness itself is verified from the publisher run that produced the snapshot.",
+  "items": [
+    {
+      "id": "22A-R01",
+      "area": "Executive summary advertised 9 coverage gaps for cards it said were already carried",
+      "status": "fixed",
+      "finding": "The 2026-10-25T14:23:33Z build (and the 14:32:11Z build that replaced it, same inventory) rendered 'Live Hotspawn fixtures missing from this snapshot \u2014 9 missing at that observation' and listed nine cards whose own notes in the same record read 'Carried in the published complete picks list (\u2026); crowd picks excluded'. All 22 cards in data/research/c2a74e33/live-coverage.json carry in_published_snapshot: true, so none of them was ever a coverage gap: they left the snapshot only because they had started. A reader on a phone was told a fully covered 16-fixture inventory had nine holes.",
+      "handling": "Fixed in scripts/build.py::live_coverage_gaps (session 22a3ed80): a card the record marks in_published_snapshot is excluded from the missing count and named separately, with its own Hotspawn link, under #live-coverage-rotated as 'not counted above \u2026 never a coverage gap'. Genuinely uncovered cards are unchanged and still counted and listed. Pinned by tests/test_22a3ed80_coverage_register.py (11 tests: shipped record, synthetic carried/missing/known cases, phone banner) and tests/test_22a3ed80_verification.py.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/c2a74e33/live-coverage.json",
+          "detail": "The dated record behind the section: 22 live_fixtures, every one with in_published_snapshot: true, observed_at 2026-10-24T16:42:00Z."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/snapshot.json",
+          "detail": "The published snapshot the page was built from: generated_at 2026-10-25T14:23:33Z, counts upcoming 16 / picks 13 / unresolved 3."
+        },
+        {
+          "url": "https://www.hotspawn.com/matches/acend-vs-unity-nodwin-clutch-series-13-1082996",
+          "detail": "One of the nine cards that was published as 'missing': its official Hotspawn match page. It carried a pick (UNiTY 61.4% at 05:12Z) before it started."
+        }
+      ]
+    },
+    {
+      "id": "22A-R02",
+      "area": "Coverage of the published summary re-verified: 13 of 14 active fixtures priced, 1 published as explicitly unresolved",
+      "status": "verified",
+      "finding": "At snapshot 2026-10-25T16:20:19Z the site lists 14 active Hotspawn CS2 fixtures: 13 carry a priced pick (12 re-derived exactly from their own featured analysis block \u2014 published pick equals teams[pick_index] and both percentages equal round(p\u00d7100, 1) summing to 100.0 \u2014 plus 1 labelled researched fallback for 1082792 HOTU 84.0%), and 1 (1086697 Projeto do KinGui vs Yawara) is published as explicitly unresolved with its reason linked. Every one of the 14 rows links at least one https source. The headline sentence (14 active / 13 picked / 11 external / 2 research model / 1 explicitly unresolved) reconciles with the rows' own declared methods and the phone status reads '13 picks ready of 14 \u00b7 1 unresolved'. The earlier 14:32:11Z publish was fully covered (16 of 16 priced) and the same checks passed there.",
+      "handling": "No invented number: the blank row stays blank and the page states the blocker per source. Published with the command so it can be re-run on any later snapshot: python -m scripts.22a3ed80_verify --site . --check (15 hard checks, 0 failures).",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/22a3ed80/verification.json",
+          "detail": "Machine-readable result for the 2026-10-25T16:20:19Z publish: 15 hard checks, 0 failures, 14 rows with per-row verification mode and source-link counts."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/snapshot.json",
+          "detail": "The published snapshot the page was built from (counts reconciled against the rendered headline and phone status)."
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-inf6-brute-2026-10-25",
+          "detail": "Worked example of a replayed row: fixture 1079199 Infinite vs BRUTE scores 0.445 / 0.555 with pick_index 1, and the page publishes BRUTE 55.5% / Infinite 44.5%."
+        }
+      ]
+    },
+    {
+      "id": "22A-R03",
+      "area": "Scheduled four-hour publisher still fails intermittently at its regression gate",
+      "status": "needs review",
+      "finding": "Between 2026-10-24T17:36Z and 2026-10-25T13:11Z six scheduled runs failed, every one at the same step ('Regression tests (repository fixtures, before any cache restore)') before any collection, which froze the published site: 40116915898, 40122318265, 40133172544, 40174233578 and 40196457503 all failed on tests/test_b72154e1_guided_picks.py::GuidedPicksTest.test_group_a_are_snapshot_unresolved, a dossier expectation pinned to a snapshot date while the publisher rewrites snapshot.json every four hours. PR #326 and session arena-0db056f7 guarded that block, and the 2026-10-25T14:32:11Z snapshot is the first fresh publish since; this session's full local run of `python -m unittest discover -s tests` passes on that base, but no scheduled run has yet exercised the guard.",
+      "handling": "Logged, not edited: the affected test file was owned by parallel sessions. This session's new tests deliberately pin no fixture id, team name, probability or timestamp so they cannot repeat the failure class. Recommend the next scheduled slot (14:47Z) be read on the run page; a red result there means the wall-clock guard needs another pass.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40196457503",
+          "detail": "Scheduled 13:11Z run: republish job green, verify-and-deploy red at step 5 with the unittest annotation 'FAIL: test_group_a_are_snapshot_unresolved'."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40200734631",
+          "detail": "The 14:07Z push run that succeeded and deployed the 14:23:33Z snapshot, proving the regression gate is green on the current tree."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_b72154e1_guided_picks.py",
+          "detail": "The repaired block: pinned expectations now run only against the snapshot the dossier names, with invariant checks on any newer snapshot."
+        }
+      ]
+    },
+    {
+      "id": "22A-R04",
+      "area": "Branch-root data files can lag the deployed site (legacy Pages build mode)",
+      "status": "platform limitation",
+      "finding": "The repository's Pages site is in legacy mode, so every push to main also republishes the checked-in branch root. The tracked fixtures data/latest.json and data/origination.json are the deterministic CI replay fixture and still read generated_at 2026-10-15T08:36:13Z, while the current observation is served from snapshot.json (2026-10-25T14:32:11Z) and, on the artifact path, from the freshly built data/ tree. A reader who lands on a /data/ JSON URL during a legacy race can therefore see a ten-day-old fixture next to a current page. The executive summary avoids this by linking its open-data control to ./snapshot.json.",
+      "handling": "Documented, not changed: switching the Pages source to workflow mode answers HTTP 403 to the workflow token (recorded in scripts/root_publish.py), and overwriting the tracked fixtures would break the evidence replay the publisher depends on. The mitigation already shipped (data-independent snapshot.json + verify_live after deploy) is what this session verified.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/root_publish.py",
+          "detail": "Explains why data/* is never copied into the branch root and how snapshot.json stays current."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/workflows/pages.yml",
+          "detail": "The legacy-build race guard: republish-last-verified, the refuse-if-older-than-live check and the post-deploy verify_live step."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/snapshot.json",
+          "detail": "The current, byte-identical copy of the verified snapshot that the summary links as its open-data download."
+        }
+      ]
+    },
+    {
+      "id": "22A-R05",
+      "area": "Live source verification cannot run from this sandbox",
+      "status": "platform limitation",
+      "finding": "This sandbox's outbound network reaches only GitHub, npm and PyPI: requests to play.hotspawn.com, www.hltv.org, the Hotspawn fixtures API, Polymarket and buffedlizard55-lab.github.io all failed before any HTTP response, so no live inventory, no live price and no live page fetch could be verified from here. Freshness is therefore evidenced through the publisher run that produced the snapshot rather than by a first-hand read.",
+      "handling": "No claim in this session was based on a source it could not read; every figure published here comes from files already in the repository, and the run link is given so the live deployment can be checked manually. Repository-side probes that need those hosts continue to run in GitHub Actions, where the same requests are answered (or recorded as 403, for example EGamersWorld).",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40200734631",
+          "detail": "Runner-side collection and verification for this snapshot, including the collector's own source-status output."
+        },
+        {
+          "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+          "detail": "The official Hotspawn fixture feed the publisher collects from; unreachable from this sandbox, reachable in Actions."
+        }
+      ]
+    },
+    {
+      "id": "22A-R07",
+      "area": "One live fixture has no derivable pick: 1086697 Projeto do KinGui vs Yawara",
+      "status": "needs review",
+      "finding": "At 2026-10-25T16:20:19Z fixture 1086697 (CCT South America 2026 Series #7, 19:00Z) is the only active Hotspawn CS2 card without a pick. The published research trail records, per source: HLTV research unavailable (hltv-matches 403 Forbidden to the runner); no alias-verified Polymarket series-winner line; no alias-verified Kalshi or Smarkets match-winner line; no alias-verified Thunderpick price. An earlier consensus capture for this pair aged past the 8-hour price window, which is why the row moved from a 65.1% consensus pick to an explicit blank. Separately, Hotspawn names the team 'Projeto do KinGui' while HLTV's card for the same slot names 'Tropa do KinGui', and no official page proving the two names are one organisation has been read, so the alias cannot be registered.",
+      "handling": "Left blank and published, per the brief's rule that a value which cannot be confirmed from an official source is not filled in. Closing it needs either an official record proving the Projeto/Tropa do KinGui equivalence (then the ranking rung can price it) or a fresh two-sided prematch book quote inside the 8-hour window. No probability, pick or alias was invented, and the executive summary counts it as 1 unresolved with the reason linked.",
+      "evidence": [
+        {
+          "url": "https://www.hotspawn.com/matches/projeto-do-kingui-vs-yawara-cct-south-america-2026-series-7-1086697",
+          "detail": "Official Hotspawn fixture 1086697, CCT South America 2026 Series #7, 19:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399918/tropa-do-kingui-vs-yawara-cct-2026-south-america-series-7",
+          "detail": "HLTV card for the same slot, naming 'Tropa do KinGui' \u2014 the unresolved identity variant."
+        },
+        {
+          "url": "https://www.hltv.org/matches",
+          "detail": "HLTV's matches index, which answered HTTP 403 to the publisher runner during this refresh (recorded in the research trail)."
+        }
+      ]
+    }
+  ]
+}
