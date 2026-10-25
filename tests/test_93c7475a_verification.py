@@ -20,6 +20,7 @@ These tests pin the four contracts this session changed:
    schema, and no dossier can express an invented probability.
 """
 import json
+import tempfile
 import unittest
 from datetime import datetime, timezone
 from pathlib import Path
@@ -209,14 +210,40 @@ class ProbeContractTests(unittest.TestCase):
         self.module = __import__('scripts.93c7475a_probe', fromlist=['main'])
 
     def test_flags_file_is_a_bare_list_in_the_site_schema(self):
-        # scripts/build.py globs data/research/*/flags.json and iterates the
-        # parsed value directly; a wrapper object breaks the entire build.
-        text = PROBE.read_text()
-        self.assertIn('build_flags(observed_at, summary, books, targets,', text)
-        # The bare list is written directly, not wrapped in a schema object.
-        self.assertNotIn("'flags': build_flags", text)
-        for key in ('match_ids', 'source_urls'):
-            self.assertIn(f"'{key}':", text, key)
+        # ``scripts/build.py`` globs ``data/research/*/flags.json`` and iterates
+        # the parsed value directly, so a wrapper object breaks the entire build.
+        # That contract is tested on what ``build_flags`` actually returns, not
+        # on how the call site happens to be formatted — a source-text grep here
+        # would pass on a call site that produced the wrong shape and fail on a
+        # correct one.
+        summary = {'coverage': {
+            'stale_after_hours': 8,
+            'published_snapshot_age_hours': None,
+            'cited_age_hours': None,
+            'published_artifact_url': 'https://example.invalid/snapshot.json',
+            'cited_artifact_url': 'https://example.invalid/data/latest.json',
+            'open_without_published_row': [{'id': '1082697', 'teams': ['BESTIA', 'paiN']}],
+            'published_open_picks': 13,
+            'published_open_rows': 16,
+        }}
+        flags = self.module.build_flags('2026-10-25T00:00:00Z', summary, [], [])
+        self.assertIsInstance(flags, list, 'flags.json must be a bare list')
+        self.assertTrue(flags, 'a fixture with no published row must produce a finding')
+        required = {'id', 'severity', 'title', 'detail', 'match_ids', 'source_urls'}
+        for flag in flags:
+            self.assertIsInstance(flag, dict)
+            self.assertEqual(required - set(flag), set(), f'missing keys in {flag.get("id")}')
+            self.assertIn(flag['severity'], {'notice', 'warning'}, flag['id'])
+            self.assertIsInstance(flag['match_ids'], list, flag['id'])
+            self.assertIsInstance(flag['source_urls'], list, flag['id'])
+            for url in flag['source_urls']:
+                self.assertTrue(url.startswith('https://'), f'{flag["id"]}: {url}')
+        # A stale citation artefact is its own finding, and a fresh dashboard
+        # feed must never be reported as stale.
+        ids = {f['id'] for f in flags}
+        self.assertIn('93c7475a-open-fixtures-missing-from-snapshot', ids)
+        self.assertNotIn('93c7475a-published-snapshot-outside-freshness-bound', ids)
+        self.assertNotIn('93c7475a-cited-source-artifact-stale', ids)
 
     def test_a_refused_surface_is_never_described_as_reachable(self):
         dossier = make_dossier()
@@ -252,11 +279,72 @@ class ProbeContractTests(unittest.TestCase):
         self.assertIn("'usable_two_way_price': len(distinct) >= 2", text)
 
     def test_dossier_cannot_express_an_invented_probability(self):
+        # The invariant is about the dossier that gets published, not about which
+        # source lines mention the word "probabilities": the probe legitimately
+        # *reads* a published probability off the dashboard feed to decide
+        # whether a pick already exists.  So this drives the real builder and
+        # asserts on its output.
+        target = {
+            'fixture': {'id': '1082697', 'teams': ['BESTIA', 'paiN'], 'competition': 'Circuit X',
+                        'starts_at': '2026-10-25T18:00:00Z'},
+            'reason': 'pick-not-a-featured-line',
+            'published_method': 'model',
+            'published_pick': 1,
+            'in_feed': True,
+            'latest_availability': 'open',
+            'hltv': {'exact': [{'url': 'https://www.hltv.org/matches/2399819/pain-vs-bestia',
+                                'start_delta_seconds': 0, 'best_of': 'BO3'}],
+                     'shares_one_name': []},
+            'hltv_analytics': None,
+            'ranking': {'BESTIA': {'position': 76, 'points': 180.5}},
+            'book_hits': [],
+        }
+        dossier = self.module.build_dossier(
+            '2026-10-25T16:00:00Z', [target], [],
+            {'observed_at': '2026-10-25T16:00:00Z', 'upcoming_rows': 40,
+             'ranking_observed_at': '2026-10-25T16:00:00Z',
+             'ranking_final_url': 'https://www.hltv.org/ranking/teams/2026/october/19',
+             'ranking_rows': 253})
+        # No probability, pick index or invented 50/50 anywhere in the output.
+        def walk(node, path='$'):
+            if isinstance(node, dict):
+                for key, value in node.items():
+                    self.assertNotIn(key, ('probabilities', 'pick_index', 'probability'), f'{path}.{key}')
+                    walk(value, f'{path}.{key}')
+            elif isinstance(node, list):
+                for index, value in enumerate(node):
+                    walk(value, f'{path}[{index}]')
+        walk(dossier)
+        # ``resolution`` is the only thing allowed to stand in for an outcome, and
+        # it is restricted to the two honest values.
+        for fixture in dossier['fixtures']:
+            self.assertIn(fixture['resolution'], {'stays-unresolved', 'expected-at-next-refresh'})
+            self.assertTrue(fixture['resolution_detail'])
+        # The dossier must still pass the renderer's own schema gate, which is
+        # the check that actually decides whether the section can be published.
+        with tempfile.TemporaryDirectory(prefix='93c7475a-dossier-') as tmp:
+            path = Path(tmp) / 'unresolved-research.json'
+            path.write_text(json.dumps(dossier))
+            loaded = load_research(path)
+        self.assertEqual(loaded['schema_version'], 1)
+        self.assertEqual(len(loaded['fixtures']), 1)
+        # And it must render without raising.
+        self.assertIn('unresolved-research', render_section(dossier, '../'))
+
+    def test_a_fixture_with_no_pick_is_not_reported_as_having_one(self):
+        # Regression pin for the correction made in this session: the dashboard
+        # feed (snapshot.json) is the authority on whether a pick exists, because
+        # that is what a published page loads.  data/origination.json is a
+        # separate artefact that can be many days older; using it as the
+        # authority reported all 14 open fixtures as pickless when the feed in
+        # fact carried 13 picks.
         text = PROBE.read_text()
-        self.assertIn("'stays-unresolved'", text)
-        self.assertIn("'expected-at-next-refresh'", text)
-        # No probability key is ever written into the dossier.
-        self.assertNotIn("'probabilities'", text)
+        self.assertIn('for row in feed_matches:', text)
+        self.assertIn("published.setdefault(str(row.get('id')), row)", text)
+        # A row that exists but carries no pick is still "no published row", and
+        # the dossier says so without claiming the fixture is absent.
+        self.assertIn('has_pick', text)
+        self.assertIn("'in_feed': bool(row)", text)
 
     def test_hotspawn_vote_share_is_never_parsed(self):
         text = PROBE.read_text()

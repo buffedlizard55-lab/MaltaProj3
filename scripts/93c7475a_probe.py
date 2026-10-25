@@ -177,6 +177,18 @@ def read_archived(label: str, expect_json: bool):
     return gzip.decompress(raw).decode('utf-8', 'replace')
 
 
+def archived_sha256(label: str, expect_json: bool) -> str | None:
+    """SHA-256 of the archived bytes, so a replay can re-prove a byte identity.
+
+    The live runner hashes the served bytes; a replay hashes the same bytes as
+    they were committed under ``raw/``.  Both are recorded with their provenance
+    (``archived: True`` on the source entry) so a reader can tell which is which.
+    A missing archive returns None rather than a fabricated digest.
+    """
+    path = RAW / f'{slug(label)}.{"json" if expect_json else "html.gz"}'
+    return hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else None
+
+
 # ---------------------------------------------------------------------------
 # Parsers (exact names only; nothing fuzzy)
 # ---------------------------------------------------------------------------
@@ -517,6 +529,21 @@ def build_dossier(observed_at: str, targets: list, books: list, hltv: dict) -> d
                                     'observed_at': observed_at}]})
 
         resolution = 'expected-at-next-refresh' if target['reason'] == 'no-published-row' else 'stays-unresolved'
+        if resolution == 'expected-at-next-refresh':
+            resolution_detail = (
+                'The dashboard feed (snapshot.json) carries a row for this fixture but no pick on it, so the ladder '
+                'returned nothing usable at the last collection. The next scheduled refresh re-attempts it through '
+                'the same ladder; no probability is written here in the meantime.'
+                if target.get('in_feed') else
+                'This fixture is not in the dashboard feed at all: it appeared on Hotspawn after the last successful '
+                'collection. The next scheduled refresh collects it and prices it through the same ladder; no '
+                'probability is written here in the meantime.')
+        else:
+            resolution_detail = (
+                'A published pick exists but it is not a featured market line — it comes from an explicitly '
+                'uncalibrated research rung. Every money surface named above was read at the observation time and '
+                'returned no compliant two-way price for these exact names. The pick stays as published; this dossier '
+                'does not replace it.')
         fixtures.append({
             'hotspawn_id': fixture['id'],
             'teams': fixture['teams'],
@@ -525,15 +552,7 @@ def build_dossier(observed_at: str, targets: list, books: list, hltv: dict) -> d
             'hltv_url': (exact[0]['url'] if exact else None),
             'checks': checks,
             'resolution': resolution,
-            'resolution_detail': (
-                'This fixture is not in the published snapshot at all: it appeared on Hotspawn after the last '
-                'successful collection. The next scheduled refresh collects it and prices it through the same '
-                'ladder; no probability is written here in the meantime.'
-                if resolution == 'expected-at-next-refresh' else
-                'A published pick exists but it is not a featured market line — it comes from an explicitly '
-                'uncalibrated research rung. Every money surface named above was read at the observation time and '
-                'returned no compliant two-way price for these exact names. The pick stays as published; this dossier '
-                'does not replace it.'),
+            'resolution_detail': resolution_detail,
         })
 
     refused = [b for b in books if b.get('status') != 'ok']
@@ -579,44 +598,79 @@ def build_dossier(observed_at: str, targets: list, books: list, hltv: dict) -> d
     }
 
 
-def build_flags(observed_at: str, summary: dict, books: list, targets: list, *,
-                published_matches_branch_root: bool | None = None,
-                branch_root_generated_at: str | None = None) -> list:
+def build_flags(observed_at: str, summary: dict, books: list, targets: list) -> list:
     """Findings for the Flagged for Review page. Every one carries its sources."""
     flags = []
-    snapshot_age = summary['coverage'].get('published_snapshot_age_hours')
-    if snapshot_age is not None and snapshot_age > summary['coverage'].get('stale_after_hours', 8):
-        detail = (f"The published dashboard was generated {summary['coverage']['published_snapshot_generated_at']}, "
-                  f'{snapshot_age:.1f} hours before this observation — outside the 8-hour bound the site itself '
-                  f"publishes. {summary['coverage']['published_rows_in_open_inventory']} of the "
-                  f"{summary['coverage']['api_open_fixtures']} currently open Hotspawn CS2 fixtures appear in it, so a "
-                  'reader opening the site now sees an old inventory.')
-        if published_matches_branch_root:
-            detail += (' The served bytes are byte-identical (same SHA-256) to the checked-in branch-root '
-                       f'data/latest.json generated {branch_root_generated_at}, which is the signature of the legacy '
-                       'Pages build republishing the branch root over the verified artifact — the race documented at '
-                       'length in .github/workflows/pages.yml.')
+    cov = summary['coverage']
+    stale_after = cov.get('stale_after_hours', 8)
+    feed_age = cov.get('published_snapshot_age_hours')
+    cited_age = cov.get('cited_age_hours')
+
+    # The dashboard's freshness is judged on the feed a published page actually
+    # loads (snapshot.json), not on the citation artefact.
+    if feed_age is not None and feed_age > stale_after:
         flags.append({
             'id': '93c7475a-published-snapshot-outside-freshness-bound',
-            'title': f'Published snapshot is {snapshot_age:.1f} h old and covers none of the open fixtures',
+            'title': f'Published dashboard feed is {feed_age:.1f} h old',
+            'severity': 'warning',
+            'detail': (f"The feed every published page declares (snapshot.json) was generated "
+                       f"{cov['published_snapshot_generated_at']}, {feed_age:.1f} hours before this observation — "
+                       f"outside the {stale_after}-hour bound the site itself publishes. "
+                       f"{cov['published_rows_in_open_inventory']} of the {cov['api_open_fixtures']} currently open "
+                       'Hotspawn CS2 fixtures appear in it, so a reader opening the site now sees an old inventory.'),
+            'match_ids': [t['fixture']['id'] for t in targets],
+            'source_urls': [cov['published_artifact_url'], FIXTURES_API, LOBBY],
+            'observed_at': observed_at,
+        })
+
+    # The citation artefact can lag the dashboard.  That is a real defect — the
+    # Flagged for Review page links it as evidence — but it is not a stale
+    # dashboard, and it must not be reported as one.
+    if (cited_age is not None and feed_age is not None and cited_age > stale_after
+            and (feed_age <= stale_after or cov.get('cited_vs_feed_inventory_delta'))):
+        delta = cov.get('cited_vs_feed_inventory_delta')
+        detail = (f"data/latest.json is linked from the Flagged for Review page as the source for individual "
+                  f"findings, but it was generated {cov['cited_generated_at']} — {cited_age:.1f} hours before this "
+                  f"observation, outside the site's own {stale_after}-hour bound. At the same moment the dashboard "
+                  f"feed (snapshot.json) was {feed_age:.1f} hours old, so the two artefacts served from the same "
+                  f"site disagree.")
+        if delta is not None:
+            detail += (f" The inventory differs too: {cov['cited_inventory_rows']} rows in the cited artefact against "
+                       f"{cov['published_inventory_rows']} in the feed ({cov['cited_open_rows']} open rows against "
+                       f"{cov['published_open_rows']}). A reader following a citation link is handed a different "
+                       'inventory than the dashboard shows.')
+        if cov.get('cited_matches_branch_root'):
+            detail += (' The served bytes are byte-identical (same SHA-256) to the checked-in branch-root '
+                       f"data/latest.json generated {cov.get('branch_root_generated_at')}: the publisher writes the "
+                       'rendered artefacts back to the branch root but never refreshes this source file, so the '
+                       'stale copy is republished unchanged.')
+        detail += (' This does not by itself change any displayed pick — the pages render from snapshot.json — but '
+                   'every citation that points here is out of date.')
+        flags.append({
+            'id': '93c7475a-cited-source-artifact-stale',
+            'title': (f'Source-citation file data/latest.json is {cited_age:.1f} h old and disagrees with the '
+                      'dashboard it is cited from'),
             'severity': 'warning',
             'detail': detail,
             'match_ids': [t['fixture']['id'] for t in targets],
-            'source_urls': [DEPLOYED + 'data/latest.json', FIXTURES_API, LOBBY],
+            'source_urls': [cov['cited_artifact_url'], cov['published_artifact_url'], FIXTURES_API],
             'observed_at': observed_at,
         })
+
     missing = summary['coverage']['open_without_published_row']
     if missing:
         flags.append({
             'id': '93c7475a-open-fixtures-missing-from-snapshot',
             'title': f'{len(missing)} open Hotspawn CS2 fixture(s) have no published pick row',
             'severity': 'warning',
-            'detail': ('These fixtures are open on Hotspawn now but absent from the published snapshot, so a reader '
-                       'sees no pick for them: ' + '; '.join(f"{m['id']} {' vs '.join(n for n in m['teams'] if n)}"
-                                                             for m in missing) + '. Cause: the fixture appeared after '
-                       'the last successful collection. The next scheduled refresh collects and prices them.'),
+            'detail': ('These fixtures are open on Hotspawn now but carry no pick row: '
+                       + '; '.join(f"{m['id']} {' vs '.join(n for n in m['teams'] if n)}"
+                                   for m in missing) + '. The dashboard feed shows '
+                       f"{cov.get('published_open_picks')} picks across {cov.get('published_open_rows')} open rows. "
+                       'Cause: the fixture appeared after the last successful collection, or no rung of the publisher '
+                       'ladder returned a compliant two-way price for it. The next scheduled refresh re-attempts it.'),
             'match_ids': [m['id'] for m in missing],
-            'source_urls': [FIXTURES_API, LOBBY, DEPLOYED + 'data/latest.json'],
+            'source_urls': [FIXTURES_API, LOBBY, cov['published_artifact_url']],
             'observed_at': observed_at,
         })
     non_featured = [t for t in targets if t['reason'] != 'no-published-row']
@@ -697,14 +751,46 @@ def main(argv: list[str] | None = None) -> int:
     def text_of(label: str, url: str, *, expect_json: bool = False, method: str = 'GET', payload=None):
         if args.parse_raw:
             body = read_archived(label, expect_json)
-            return {'label': label, 'url': url, 'observed_at': 'archived', 'status': 'ok' if body is not None else 'error',
-                    'http_status': 200 if body is not None else None, 'archived': True}, body
+            # Recorded in the manifest exactly like a live fetch, but marked
+            # ``archived`` so nobody mistakes a replay for a fresh observation.
+            entry = {'label': label, 'url': url, 'observed_at': 'archived',
+                     'status': 'ok' if body is not None else 'error',
+                     'http_status': 200 if body is not None else None, 'archived': True,
+                     'sha256': archived_sha256(label, expect_json)}
+            sources.append(entry)
+            return entry, body
         entry, body = get(label, url, expect_json=expect_json, method=method, payload=payload)
         sources.append(entry)
         return entry, body
 
     # 1. What the dashboard currently claims.
+    #
+    # Two different JSON artefacts are served from the same Pages site and they
+    # are NOT interchangeable:
+    #
+    #   snapshot.json        the feed every published page declares
+    #                        (<body data-data-url="./snapshot.json">, and the
+    #                        footer "Open data" link).  This is what a reader's
+    #                        browser loads, so it — and only it — decides whether
+    #                        the dashboard is fresh.
+    #   data/latest.json     a source-citation artefact.  It is linked from the
+    #                        Flagged for Review page as evidence for individual
+    #                        findings, never loaded by a page.
+    #
+    # Measuring freshness off data/latest.json therefore reports the *citation*'s
+    # age as if it were the dashboard's.  Both are read, and kept separate.
     latest_entry, latest = text_of('published-latest-json', DEPLOYED + 'data/latest.json', expect_json=True)
+    feed_entry, feed = text_of('published-snapshot-json', DEPLOYED + 'snapshot.json', expect_json=True)
+
+    feed_matches = (feed or {}).get('matches') or []
+    feed_ids = {str(m.get('id')) for m in feed_matches}
+    feed_open_ids = {str(m.get('id')) for m in feed_matches if m.get('availability') == 'open'}
+    feed_picked_ids = {str(m.get('id')) for m in feed_matches
+                       if m.get('availability') == 'open' and m.get('pick_index') is not None}
+    # The source-citation artefact, kept distinct so its age is never reported as
+    # the dashboard's.
+    cited_matches = (latest or {}).get('matches') or []
+    cited_ids = {str(m.get('id')) for m in cited_matches}
     orig_entry, origination = text_of('published-origination-json', DEPLOYED + 'data/origination.json', expect_json=True)
 
     # 2. The Hotspawn inventory, read twice.
@@ -759,9 +845,19 @@ def main(argv: list[str] | None = None) -> int:
                       'total_events_before_filter': total_events})
 
     # 5. Which open fixtures lack a featured line, or lack a row entirely.
+    #
+    # The dashboard renders from snapshot.json, so the feed is the authority on
+    # whether a pick exists for a fixture.  data/origination.json is a separate,
+    # independently published artefact and can be many days older than the feed;
+    # treating it as the authority reports every fixture that appeared after it
+    # was written as having no pick at all, which is not what the site shows.
+    # Feed rows are therefore read first and the origination artefact only fills
+    # the gaps the feed leaves.
     published = {}
-    for row in (origination or {}).get('matches') or []:
+    for row in feed_matches:
         published[str(row.get('id'))] = row
+    for row in (origination or {}).get('matches') or []:
+        published.setdefault(str(row.get('id')), row)
     latest_by_id = {str(m.get('id')): m for m in (latest or {}).get('matches') or []}
 
     targets = []
@@ -770,8 +866,13 @@ def main(argv: list[str] | None = None) -> int:
       try:
         fixture = fixture_view(item)
         row = published.get(fixture['id'])
-        method = ((row or {}).get('origination') or {}).get('method')
-        if row is None:
+        # A feed row carries its method under `analysis`; an origination row
+        # carries it under `origination`.  Both shapes are read, never assumed.
+        method = (((row or {}).get('origination') or {}).get('method')
+                  or ((row or {}).get('analysis') or {}).get('method'))
+        has_pick = bool(row) and ((row.get('pick_index') is not None)
+                                  or bool(((row.get('origination') or {}).get('probabilities'))))
+        if not has_pick:
             reason = 'no-published-row'
         elif method not in MONEY_METHODS:
             reason = 'pick-not-a-featured-line'
@@ -806,6 +907,10 @@ def main(argv: list[str] | None = None) -> int:
             'reason': reason,
             'published_method': method,
             'published_pick': (row or {}).get('pick_index'),
+            # Whether the dashboard's own feed carries a row for this fixture at
+            # all.  "No pick" and "no row" are different statements and the
+            # dossier must not conflate them.
+            'in_feed': bool(row),
             'latest_availability': (latest_by_id.get(fixture['id']) or {}).get('availability'),
             'hltv': hltv,
             'hltv_analytics': analytics,
@@ -821,7 +926,12 @@ def main(argv: list[str] | None = None) -> int:
 
     open_ids = set(api_open_ids)
     lobby_ids_set = set(lobby_ids)
-    published_ids = {str(m.get('id')) for m in (latest or {}).get('matches') or []}
+    # The dashboard's own feed.  Rows it marks open, and the picks it carries.
+
+    def _age(record):
+        generated = timestamp((record or {}).get('generated_at'))
+        return (round((reference - generated).total_seconds() / 3600, 2) if generated else None)
+
     coverage = {
         'api_records': len(api_records),
         'api_open_fixtures': len(api_open_ids),
@@ -832,26 +942,56 @@ def main(argv: list[str] | None = None) -> int:
         'open_with_non_featured_pick': [t['fixture'] for t in targets if t['reason'] != 'no-published-row'],
         'research_targets': len(targets),
         'research_target_errors': target_errors,
-        'published_snapshot_generated_at': (latest or {}).get('generated_at'),
+        # --- the feed a published page actually loads ---
+        'published_artifact_url': DEPLOYED + 'snapshot.json',
+        'published_snapshot_generated_at': (feed or {}).get('generated_at'),
+        'published_snapshot_age_hours': _age(feed),
+        'published_inventory_rows': len(feed_matches),
+        'published_open_rows': len(feed_open_ids),
+        'published_open_picks': len(feed_picked_ids),
+        'published_rows_in_open_inventory': len([i for i in api_open_ids if i in feed_ids]),
+        'stale_after_hours': (feed or {}).get('stale_after_hours', 8),
+        'published_coverage_complete': (feed or {}).get('coverage_complete'),
+        'published_run_status': (feed or {}).get('run_status'),
+        'published_sha256': next((s.get('sha256') for s in sources
+                                  if s.get('label') == 'published-snapshot-json'), None),
+        # --- the source-citation artefact ---
+        'cited_artifact_url': DEPLOYED + 'data/latest.json',
+        'cited_generated_at': (latest or {}).get('generated_at'),
+        'cited_age_hours': _age(latest),
+        'cited_inventory_rows': len(cited_matches),
+        'cited_open_rows': len({str(m.get('id')) for m in cited_matches
+                                if m.get('availability') == 'open'}),
+        'cited_rows_in_open_inventory': len([i for i in api_open_ids if i in cited_ids]),
         'published_origination_generated_at': (origination or {}).get('generated_at'),
         'published_pick_rows': len(published),
-        'published_rows_in_open_inventory': len([i for i in api_open_ids if i in published_ids]),
-        'stale_after_hours': (latest or {}).get('stale_after_hours', 8),
-        'published_snapshot_age_hours': (
-            round((reference - generated).total_seconds() / 3600, 2)
-            if (generated := timestamp((latest or {}).get('generated_at'))) else None),
-        # The served bytes are archived, so the branch-root comparison is exact.
-        'published_sha256': next((s.get('sha256') for s in sources
-                                  if s.get('label') == 'published-latest-json'), None),
     }
-    branch_root = Path('data/latest.json')
-    branch_root_sha = (hashlib.sha256(branch_root.read_bytes()).hexdigest()
-                       if branch_root.is_file() else None)
-    coverage['branch_root_sha256'] = branch_root_sha
+    # How far the two artefacts disagree, so a reader following a citation link is
+    # never quietly handed a different inventory than the dashboard shows.
+    coverage['cited_vs_feed_inventory_delta'] = (
+        len(cited_matches) - len(feed_matches) if feed_matches and cited_matches else None)
+    coverage['cited_vs_feed_open_delta'] = (
+        coverage['cited_open_rows'] - coverage['published_open_rows']
+        if feed_matches and cited_matches else None)
+    # Byte-identity checks.  Each served artefact is compared only with the
+    # checked-in file of the same name, and a comparison is published only when
+    # the served bytes were actually archived.
+    def _served_sha(label):
+        return next((s.get('sha256') for s in sources if s.get('label') == label), None)
+
+    def _root_sha(relpath):
+        p = Path(relpath)
+        return hashlib.sha256(p.read_bytes()).hexdigest() if p.is_file() else None
+
+    coverage['cited_sha256'] = _served_sha('published-latest-json')
+    coverage['branch_root_sha256'] = _root_sha('data/latest.json')
+    coverage['branch_root_feed_sha256'] = _root_sha('snapshot.json')
     coverage['published_matches_branch_root'] = (
-        bool(coverage['published_sha256']) and coverage['published_sha256'] == branch_root_sha)
+        bool(coverage['published_sha256']) and coverage['published_sha256'] == coverage['branch_root_feed_sha256'])
+    coverage['cited_matches_branch_root'] = (
+        bool(coverage['cited_sha256']) and coverage['cited_sha256'] == coverage['branch_root_sha256'])
     try:
-        coverage['branch_root_generated_at'] = json.loads(branch_root.read_text()).get('generated_at')
+        coverage['branch_root_generated_at'] = json.loads(Path('data/latest.json').read_text()).get('generated_at')
     except (OSError, ValueError):
         coverage['branch_root_generated_at'] = None
 
@@ -897,9 +1037,7 @@ def main(argv: list[str] | None = None) -> int:
     # finding schema (``id``, ``severity``, ``title``, ``detail``, ``match_ids``,
     # ``source_urls``) — a wrapper object breaks the whole build.
     (out_dir / 'flags.json').write_text(json.dumps(
-        build_flags(observed_at, summary, books, targets,
-                    published_matches_branch_root=coverage['published_matches_branch_root'],
-                    branch_root_generated_at=coverage['branch_root_generated_at']), indent=2) + '\n')
+        build_flags(observed_at, summary, books, targets), indent=2) + '\n')
     print(f"{summary['mode']}: {coverage['api_open_fixtures']} open fixtures, "
           f"{len(coverage['open_without_published_row'])} with no published row, "
           f"{len(coverage['open_with_non_featured_pick'])} with a non-featured pick, "
