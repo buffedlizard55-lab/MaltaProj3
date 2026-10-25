@@ -16,6 +16,11 @@ REGISTER = 'research/c07e1b40/repo-review.json'
 # present in the tree is simply not rendered.
 REGISTERS = (
     REGISTER,
+    # Session 35e31fef: 17/17 live future Hotspawn CS2 lobby parity (13:37Z),
+    # 18/18 active pick replay, <8h EGW match-page refresh in CAPTURE_PATHS
+    # (1082858, 1082859, 1086696), 3 post-snapshot Polymarket tight books
+    # (1086696, 1082697, 1086697), and HLTV-vs-Valve 2026-10-05 roster-drift flags.
+    'research/35e31fef/repo-review.json',
     'research/534ae9e5/repo-review.json',
     'research/c03ef201/repo-review.json',
     'research/f5223859/repo-review.json',

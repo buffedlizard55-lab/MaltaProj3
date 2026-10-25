@@ -1,0 +1,105 @@
+{
+  "session": "arena-35e31fef",
+  "scope": "Line-by-line audit of all 18 active CS2 fixtures in the 2026-10-25T05:12:25Z snapshot and all 17 live future Hotspawn lobby cards at 13:37:45Z (including 3 post-snapshot South American additions), HLTV-first + multi-exchange/sportsbook fallback verification, <8h EGamersWorld reference-odds refresh in CAPTURE_PATHS, HLTV-vs-Valve roster-drift flags, and mobile/WCAG verification.",
+  "review_clock_utc": "2026-10-25T13:41:00Z",
+  "method": "Replayed all 16 featured resolved rows in snapshot.json to 1e-8 and audited all 18 complete-pick cards in origination/index.html; fetched cache-busted Hotspawn lobby + Cloudways API, 17/17 HLTV match pages, Polymarket Gamma/CLOB, Kalshi, Smarkets, Bovada, Thunderpick/bo3.gg, and EGamersWorld first-hand; ran audit_rows --strict and Playwright + axe-core across 320/375/390/768px viewports.",
+  "items": [
+    {
+      "id": "35E3-R01",
+      "area": "8-hour reference-odds freshness renewal for 1082858, 1082859, and 1086696 in CAPTURE_PATHS",
+      "status": "fixed",
+      "finding": "Prior c2a74e33 EGW captures (2026-10-24T16:42Z) aged past MAX_PRICE_AGE_HOURS = 8 (>21h old), while at 13:41Z Polymarket 6066508 on 1082858 (Ground Zero vs Off Chops) widened back to 0.25/0.48 (spread 0.23 > 0.15) alongside Smarkets (0.186) and Kalshi (0.29), and GitHub Actions receives HTTP 403 on egamersworld.com.",
+      "handling": "Verified live EGWxxxBOT match-page quotes at 2026-10-25T13:41:00Z for 1082858 (3.44/1.24 -> 26.50%/73.50% Off Chops), 1082859 (1.609/2.197 -> 57.72%/42.28% NEXVOID), and 1086696 (2.1/1.62 -> 43.55%/56.45% RED Canids Academy), rejected 5 placeholder pages (1.8/1.8 or 1.82/1.82), and registered research/35e31fef/reference-odds.json ahead of c2a74e33 in scripts/reference_odds.py::CAPTURE_PATHS.",
+      "evidence": [
+        {
+          "url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/ground-zero-vs-off-chops-5mfkMFe7d",
+          "detail": "Match page publishing verbatim EGWxxxBOT average odds 3.44 / 1.24 (Off Chops favorite)."
+        },
+        {
+          "url": "https://egamersworld.com/counterstrike/match/4kaAQWgKEx/nexvoid-vs-alter-ego-HfdcJeXmT",
+          "detail": "Match page publishing verbatim EGWxxxBOT average odds 1.609 / 2.197 (NEXVOID favorite)."
+        },
+        {
+          "url": "https://egamersworld.com/counterstrike/match/0U32SId-H/borracheiros-vs-red-canids-academy-5tMfbA07u",
+          "detail": "Match page publishing verbatim EGWxxxBOT average odds 2.1 / 1.62 (RED Canids Academy favorite)."
+        }
+      ]
+    },
+    {
+      "id": "35E3-R02",
+      "area": "17/17 live Hotspawn lobby reconciliation & 3 post-05:12Z fixtures verified with 0.01-spread Polymarket books",
+      "status": "verified",
+      "finding": "Cache-busted play.hotspawn.com/lobby?cb=1792935450 and scheduled API report 78 CS2 records (61 archived + 17 open; unbusted /lobby lagged at 80), including 3 post-05:12Z additions: 1086696 (BORRACHEIROS vs RED Canids Academy, 42.5%/57.5%), 1082697 (BESTIA vs paiN, 42.5%/57.5%), and 1086697 (Projeto do KinGui vs Yawara, 61.5%/38.5% via existing Tropa do KinGui / Yawara Esports scoped aliases).",
+      "handling": "Published data/research/35e31fef/live-coverage.{json,md} (auto-selected onto Executive Summary #live-coverage-gaps with 17/17 Hotspawn + 17/17 HLTV links and zero percent signs) so readers have dated visibility until the next 4-hour collect ingests all three.",
+      "evidence": [
+        {
+          "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+          "detail": "Hotspawn scheduled CS2 API returning 78 total records (17 open future fixtures at 13:37:45Z)."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-tdkg-yaw-2026-10-25",
+          "detail": "Polymarket event 1249642 / market 6169151 quoting 0.61/0.62 vs 0.38/0.39 (spread 0.01) at 19:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399918/tropa-do-kingui-vs-yawara-cct-2026-south-america-series-7",
+          "detail": "HLTV match 2399918 confirming BO3 semifinal at 2026-10-25T19:00:00Z."
+        }
+      ]
+    },
+    {
+      "id": "35E3-R03",
+      "area": "HLTV-vs-Valve 2026-10-05 lineup-drift audit on model-backed rows (1082793, 1082861, 1082792)",
+      "status": "needs review",
+      "finding": "On 1082793 (5star vs 1WIN), Valve 2026-10-05 five-player rosters have 0/5 player overlap with HLTV 2399438 confirmed lineups; on 1082861 (Rooster vs Abyssal), foggers is credited to Abyssal in Valve 2026-10-05 but stands in for Rooster on HLTV 2399891; on 1082792 (HOTU vs The Huns), duplicate The Huns Valve rows trigger fallback to the bo3.gg results network model (98.2%/1.8%).",
+      "handling": "No uncalibrated adjustment is invented; published flags 35e31fef-001 and 35e31fef-002 on Flagged for Review (/review/) with official HLTV and Valve standings links while 4-hour refreshes poll for tight pre-match books.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+          "detail": "HLTV 2399438 lineups (1win #14/VRS #20 vs 5star #36/VRS #64) showing 0/5 overlap with Oct 5 Valve."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+          "detail": "HLTV 2399891 listing TjP and foggers as substitutes for Rooster against Abyssal."
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "Official 2026-10-05 Valve global standings file used by the rating rung."
+        }
+      ]
+    },
+    {
+      "id": "35E3-R04",
+      "area": "Cross-provider timestamp & schedule-shift audit (Kalshi 1086697, Polymarket 1086696, HLTV 1085542)",
+      "status": "verified",
+      "finding": "Kalshi KXCS2GAME-26OCT251200YAWTDKG prints 12:00 PM EDT (16:00Z) vs 19:00Z on Hotspawn 1086697 and HLTV 2399918; Polymarket cs2-chama-reda-2026-10-25 prose says 3:00 PM ET vs machine eventStartTime 16:00Z; HLTV 2399340 pushed 1085542 30m later to 14:30Z while Hotspawn lock stays 13:54Z.",
+      "handling": "Verified START_TOLERANCE_SEC = 60 rejects the 3h-drifted Kalshi market automatically and flagged all three timestamp discrepancies in 35e31fef-004 on /review/.",
+      "evidence": [
+        {
+          "url": "https://api.elections.kalshi.com/trade-api/v2/markets?event_ticker=KXCS2GAME-26OCT251200YAWTDKG",
+          "detail": "Kalshi market metadata carrying 12:00 PM EDT rule text against 19:00Z match start."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399340/ex-zero-tenacity-vs-spirit-academy-cct-2026-europe-series-11",
+          "detail": "HLTV 2399340 showing 14:30Z start vs 14:00Z Hotspawn schedule."
+        }
+      ]
+    },
+    {
+      "id": "35E3-R05",
+      "area": "Mathematical replay of all 18 active rows, zero crowd-% audit, and phone/WCAG verification",
+      "status": "verified",
+      "finding": "All 16 featured resolved rows in snapshot.json (11 Polymarket midpoints + 5 Valve VRS ratings with VALVE_RD=75) replay to <1e-8 and all 18 complete-pick cards in origination/index.html carry official https links, zero crowd-% fields, zero horizontal overflow, and zero WCAG 2.1 A/AA axe violations across 320/375/390/768px viewports.",
+      "handling": "Codified in scripts/session_35e31fef_verify.py, tests/test_35e31fef_verification.py, and tests/browser/phone_35e31fef.spec.mjs.",
+      "evidence": [
+        {
+          "url": "https://play.hotspawn.com/lobby",
+          "detail": "Hotspawn lobby verified as fixture-inventory source only; crowd percentages excluded."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+          "detail": "4-hour scheduled + 2.5h catch-up GitHub Pages publisher workflow."
+        }
+      ]
+    }
+  ]
+}
