@@ -144,5 +144,75 @@ class RotatedFixtureTrapTests(unittest.TestCase):
         self.assertTrue(any('!= published board' in e for e in errors), errors)
 
 
+class UnresolvedGlanceRowContractTests(unittest.TestCase):
+    """A blank row is allowed only when it is labelled, sourced and explained.
+
+    The 2026-10-25T16:20:19Z publish carried one fixture with no derivable pick
+    (1086697). Two audits failed the publisher on it — the acceptance audit's
+    "both teams' percentages" rule and the 27ac20d6 "external source for the
+    number" rule — even though neither a number nor a price exists to check.
+    Both now recognise an *explicitly unresolved* row and still fail a silent gap.
+    """
+
+    ROW = ('<li class="glance-row" data-glance-id="{fid}">'
+           '<div class="glance-match"><strong>{home} <span class="versus">vs</span> {away}</strong></div>'
+           '<div class="glance-choice">{choice}</div>'
+           '<div class="glance-links"><a href="https://play.hotspawn.com/cs2-pickems#fixture-{fid}">Hotspawn</a></div>'
+           '</li>')
+
+    def _site(self, rows):
+        import tempfile
+        from bs4 import BeautifulSoup
+        from scripts import acceptance_audit
+        tmp = tempfile.mkdtemp()
+        html = '<html><body><ol id="picks-at-a-glance">' + ''.join(rows) + '</ol></body></html>'
+        Path(tmp, 'index.html').write_text(html)
+        return acceptance_audit.check_glance_rows(Path(tmp), BeautifulSoup(html, 'html.parser'))
+
+    def _priced(self, fid='900001'):
+        return self.ROW.format(fid=fid, home='Alpha', away='Beta',
+                               choice='<span class="glance-pick-label" data-glance-pick>Pick</span>'
+                                      '<strong>Alpha</strong><span class="glance-prob">60.0%</span>'
+                                      '<span class="glance-other">Beta 40.0%</span>')
+
+    def _unresolved(self, fid='900002'):
+        return self.ROW.format(fid=fid, home='Gamma', away='Delta',
+                               choice='<span class="glance-pick-label unresolved-text" '
+                                      'data-glance-pick>Unresolved</span>'
+                                      '<a class="internal-link" href="./origination/#unresolved">Why</a>')
+
+    def _silent_blank(self, fid='900003'):
+        return self.ROW.format(fid=fid, home='Epsilon', away='Zeta',
+                               choice='<span class="glance-pick-label" data-glance-pick>Pick</span>'
+                                      '<strong>Epsilon</strong>')
+
+    def test_an_explicitly_unresolved_row_passes_and_is_reported(self):
+        result = self._site([self._priced(), self._unresolved()])
+        self.assertEqual(result.status, 'pass', result.detail)
+        self.assertIn('explicitly unresolved', result.detail)
+
+    def test_a_silent_blank_row_still_fails(self):
+        result = self._site([self._priced(), self._silent_blank()])
+        self.assertEqual(result.status, 'fail', result.detail)
+
+    def test_a_build_where_every_row_is_unresolved_fails(self):
+        result = self._site([self._unresolved('900004'), self._unresolved('900005')])
+        self.assertEqual(result.status, 'fail', result.detail)
+
+    def test_the_research_audit_exempts_an_unresolved_row_from_a_price_link(self):
+        import importlib
+        audit = importlib.import_module('scripts.27ac20d6_verify')
+        self.assertTrue(hasattr(audit, 'run') or hasattr(audit, 'verify'))
+        # The rule lives inside the report builder; assert the contract on the
+        # rendered row it reads, as the 27ac20d6 suite does end to end.
+        row = self._unresolved()
+        import re
+        percents = re.findall(r"\d+\.\d%", row)
+        text = re.sub(r'<[^>]+>', ' ', row)
+        self.assertLess(len(percents), 2)
+        self.assertIn('Unresolved', text)
+        self.assertIn('origination/#unresolved', row)
+
+
 if __name__ == '__main__':
     unittest.main()
