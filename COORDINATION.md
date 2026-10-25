@@ -9221,3 +9221,19 @@ tests.test_99d48cd8_mobile tests.test_81c1058a_verification` → **10 OK** with 
 acceptance audit on the untouched committed root: **9 pass / 1 info / 0 fail**. Files:
 `scripts/build.py`, `scripts/acceptance_audit.py`, `tests/test_99d48cd8_mobile.py`,
 `tests/test_be019782_landmarks.py`, `tests/test_3877d48d_fallback.py`, `data/research/3877d48d/flags.json`.
+
+
+# Current session: arena-41d73e19 — refresh stale data, run picks-for-every-match pipeline, verify line by line, publish to GitHub Pages, PR and merge
+
+Claimed **2026-10-25T14:37Z** on Arena's fixed branch `arena/41d73e19-maltaproj3`, branched from `main` at `3ef73f4` (= `origin/main` head; the `2026-10-25T14:23:33Z` verified root-synced build). Board read first; no live claim held by another session on the files in my scope. Sandbox outbound hosts exclude Hotspawn, HLTV, bookmakers and Pages — fresh collection and research run through GitHub Actions (pages.yml / origination.yml), never locally.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 41D-1 Claim scope and record the current repo state (stale `data/latest.json` 2026-10-15T08:36:13Z, 80 records / 17 upcoming / 13 picks / 4 unresolved; build and full test suite green on tracked fixtures) | in progress | arena-41d73e19 | `COORDINATION.md` (this claim), `data/latest.json`, `scripts/**`, `tests/**` |
+| 41D-2 Trigger the four-hour publisher via GitHub Actions to collect a fresh Hotspawn CS2 inventory and resolve picks (Polymarket → HLTV → books → research model), recording every source and limitation per match | unclaimed | arena-41d73e19 | `.github/workflows/pages.yml`, `scripts/collect.py`, `scripts/domain.py`, `scripts/sources.py`, `data/latest.json` |
+| 41D-3 Confirm the separate unresolved-picks section is rendered with pick, both probabilities, method, blocker and source for every fixture without a compliant line, and that the executive summary links to the updated picks list | unclaimed | arena-41d73e19 | `scripts/build.py` (executive summary only), `assets/scout.css`, `index.html`, `unresolved/index.html` |
+| 41D-4 Verify mobile readability: picks table, probabilities and obvious pick above the fold on phone widths; navigation links to complete picks and unresolved register | unclaimed | arena-41d73e19 | `assets/scout.js`, `assets/scout.css`, `assets/glance-lock.js` |
+| 41D-5 Line-by-line verification: every rendered table row carries an official source link; blank values flagged unverified; no inferred values | unclaimed | arena-41d73e19 | `scripts/acceptance_audit.py`, `scripts/row_source_audit.py`, `tests/test_row_sources.py` |
+| 41D-6 Integration: PR to `main`, merge without waiting, confirm GitHub Pages deploys a fresh snapshot inside the 8-hour bound, record PR and deploy result here | unclaimed | arena-41d73e19 | top section of `COORDINATION.md`, PR |
+
+**Non-overlap pledge:** no edit to `data/research/<other-id>/`, `tests/test_b72154e1_guided_picks.py`, `scripts/build.py`, `scripts/collect.py`, `scripts/originate.py`, `scripts/root_publish.py`, `assets/**`, `data/latest.json`, `data/origination.json`, `snapshot.json`, `.github/workflows/pages.yml`, or any other session's `data/research/<id>/`. Hotspawn `% picked` and HLTV fan votes are never probability inputs. Unsupported values stay blank and are published on Flagged for Review with their sources.
