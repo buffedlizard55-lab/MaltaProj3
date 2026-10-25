@@ -1,0 +1,50 @@
+{
+  "session": "arena-133b4c56",
+  "observed_at": "2026-10-25T13:48:00Z",
+  "scope": "Independent audit of current checked-in/published dashboard artifacts, unresolved-fallback rendering, mobile navigation, refresh automation, and the scheduled refresh failure.",
+  "claims_and_evidence": [
+    {
+      "claim": "The indexed source snapshot at this audit contains 79 Hotspawn fixtures, 18 open, of which the featured exact-name layer has 16 picks and 2 unresolved rows.",
+      "repository_evidence": "snapshot.json (generated_at 2026-10-25T05:12:25Z; inventory_observed_at 2026-10-25T05:12:10Z; counts: inventory=79, upcoming=18, archived=61, picks=16, unresolved=2).",
+      "official_fixture_source": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "limitations": "This is the saved source snapshot, not a live re-fetch during this audit. The featured-layer unresolved count is not the complete researched-picks count."
+    },
+    {
+      "claim": "The checked-in Executive Summary separately reports 18 of 18 complete-ladder picks; the two featured-layer gaps have named alternatives, not fabricated 50/50s.",
+      "repository_evidence": "index.html, observed 2026-10-25T13:48Z: row 1081156 displays Spirit Academy 69.9% / LFO 10 30.1%, method consensus of four books; row 1082792 displays HOTU 98.2% / The Huns 1.8%, labelled research model. The summary distinguishes the featured method's two gaps and gives links to both match details and the unresolved/limitations register.",
+      "hotspawn_fixture_sources": [
+        "https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156",
+        "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792"
+      ],
+      "third_party_source": "https://www.bo3.gg/matches",
+      "limitations": "The identity/market blockers remain substantive: the saved research for 1081156 records no exact-name Valve rating or uniquely validated original-bookmaker pair; for 1082792 it records multiple Valve rosters under The Huns. HLTV requests were blocked (403) in the saved research. A research model is not a betting line and is labelled separately. No Hotspawn crowd percentage or HLTV fan vote is used as probability."
+    },
+    {
+      "claim": "The scheduled 2026-10-25 production refresh failed before collection or deployment because a historical test hard-pinned a mutable snapshot state.",
+      "repository_evidence": "GitHub Actions run 40196457503 failed at Regression tests at 2026-10-25T13:30:53Z. Full local unittest discovery reproduced the same single failure: test_b72154e1_guided_picks.GuidedPicksTest.test_group_a_are_snapshot_unresolved expected fixture 1082858 to have no pick, but snapshot.json contains a Polymarket-derived pick.",
+      "source": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40196457503",
+      "fix": "The historical assertion failure was independently reproduced, then resolved upstream in PR #326 (merged 2026-10-25T13:51:27Z): its historical classification is pinned to the dossier's named snapshot, so a later estimate does not block refresh. This audit branch does not duplicate that code change.",
+      "verification": "After merge of #326, python -m unittest tests.test_b72154e1_guided_picks -v: 7 passed. Post-merge scheduled refresh 40199536037 was queued at observation time; deploy not yet confirmed."
+    },
+    {
+      "claim": "The Executive Summary has mobile-first in-site picks navigation and explicit refresh/staleness messaging.",
+      "repository_evidence": "index.html links directly to the complete picks list, unresolved details, leaderboard plan, and on-page picks; viewport meta is present; the header states checks every 4h. .github/workflows/pages.yml has a four-hour schedule plus a staggered catch-up schedule; its production workflow is run 40196457503.",
+      "source": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+      "verification": "After building into site/, Playwright completed 128/128 browser checks, including 320/390/768/1440px and WCAG A/AA automated checks. The standalone pick-safety browser audit passed 106 assertions."
+    },
+    {
+      "claim": "A local build from the checked-in collector fixtures is not a faithful replay of the top-level saved snapshot used for the 2026-10-25 page.",
+      "repository_evidence": "At audit time top-level snapshot.json was generated 2026-10-25T05:12:25Z, while data/latest.json was generated 2026-10-15T08:36:13Z and data/origination.json 2026-10-15T09:31:24Z (live_collection=false). scripts.build reads data/latest.json and data/origination.json as its input fixtures and builds snapshot.json from that data. A local build therefore rendered the 2026-10-15 fixture rather than the 2026-10-25 top-level artifact.",
+      "severity": "review",
+      "limitation": "The hosted publisher collects and pairs fresh artifacts in its workflow; this finding concerns reproducibility from the checked-in local inputs and must not be read as proof that the deploy artifact itself used the old inputs. The scheduled run failure above prevented a newer fresh publish, so the latest successful inventory was more than eight hours old at audit time."
+    }
+  ],
+  "verification_results": {
+    "targeted_unit": "7 passed after fix",
+    "full_unit_before_fix": "1753 tests; 1 failure; 16 skipped",
+    "fresh_build": "PASS: scripts.build, acceptance audit 9 pass / 1 info / 0 fail; local generated site strict row-source audit 0 violations",
+    "browser": "128 passed; 320, 390, 768, 1440 widths, no-JS, stale-state and axe WCAG A/AA checks",
+    "standalone_pick_safety": "106 assertions passed",
+    "repository_root_row_audit_before_build": "2 violations confined to old twc-final/index.html internal-only audit-note rows; generated current site audit had 0 violations"
+  }
+}

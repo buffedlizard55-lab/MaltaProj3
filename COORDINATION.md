@@ -1,3 +1,25 @@
+# Current session: arena-133b4c56 — source-linked independent audit and freshness recovery verification
+
+Claimed 2026-10-25 on fixed Arena branch `arena/133b4c56-maltaproj3`. Read COORDINATION.md, checked the current branch and workflow state, and found the scheduled publisher regression now independently repaired upstream in PR #326. This session does not duplicate its code fix: it records an independent audit, the two uncovered-layer limitations, and a local build reproducibility caveat; it will verify the follow-up publish.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 133B-1 Verify saved fixture inventory, researched fallback labels and unresolved/limitations summary; record source links and caveats | done | arena-133b4c56 | `data/research/133b4c56/**` |
+| 133B-2 Publish review flags for the failed scheduled refresh and stale local build fixture mismatch | in progress | arena-133b4c56 | `data/research/133b4c56/flags.json`, this board section |
+| 133B-3 Verify PR checks, successful post-merge publisher and deployed snapshot freshness; record outcome | in progress | arena-133b4c56 | this board section, PR #329 |
+
+**Non-overlap pledge:** audit/report-only; no shared build, generated site data, workflow, model or odds edits. PR #326 already fixed the known regression, so this branch does not repeat that test change. No manual probability or pick inputs.
+
+### 133B audit result and limitations (25 October)
+
+- Saved top-level `snapshot.json` (05:12:25Z) lists 79 fixtures, 18 open, 16 featured-method picks and 2 featured-method gaps. The complete researched summary separately resolves 1081156 Spirit Academy–LFO 10 (69.9/30.1 consensus across Polymarket, Kalshi, Smarkets and Bovada) and 1082792 HOTU–The Huns (98.2/1.8, labelled bo3.gg results-network model). For 1082792 multiple Valve rosters match “The Huns”; it is a model, not a sportsbook price. HLTV and exact-name market blockers are disclosed. The summary has a separate linked “Unresolved picks & limitations” register; no crowd % or fan votes are probabilities. Links and detailed evidence: `data/research/133b4c56/release-audit.md` / `.json`.
+- Verified source links: [Hotspawn fixture API](https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1), [1081156 match](https://www.hotspawn.com/matches/spirit-academy-vs-lfo-10-cct-europe-2026-series-12-1081156), [1082792 match](https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792), [Polymarket](https://polymarket.com/event/cs2-tsa-skr2-2026-10-25), [Kalshi](https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct250800skrtsa), [Smarkets](https://smarkets.com/sport/esports/cs-go/cct-europe/group-stage/2026/10/25/12-00/spirit-academy-vs-sokerorg), [Bovada](https://www.bovada.lv/esports/counter-strike-2/cct-europe/series-12/spirit-academy-sokerorg-202610250800), [bo3.gg match results](https://www.bo3.gg/matches).
+- Run [40196457503](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40196457503) failed before collection; the stale Group A test was resolved by merged [PR #326](https://github.com/buffedlizard55-lab/MaltaProj3/pull/326). Focused module after merge: 7/7 pass. Follow-up publisher [40199536037](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40199536037) was queued at audit time. We flag the incident until a fresh successful deployment is confirmed.
+- Local fixture irregularity: top-level snapshot was 25 Oct but checked-in `data/latest.json` / `data/origination.json` were 15 Oct; a local `scripts.build` therefore cannot replay the current HTML without the workflow’s paired collector artifact. This is recorded as a notice, not proof of deployed stale data.
+- Local verification: build pass; acceptance audit 9 pass / 1 info / 0 fail; generated-site row-source strict audit 0 violations; Playwright 128/128 at 320/390/768/1440px with axe A/AA; pick-safety browser 106 assertions. Full unit discovery before upstream fix found only the single now-fixed assertion (1,753 tests, 16 skipped). Full post-merge run is pending.
+
+---
+
 # Session arena-04174d83 — 2026-10-25
 
 | Task | Status | Owner | Scope |
