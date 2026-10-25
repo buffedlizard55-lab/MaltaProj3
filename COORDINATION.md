@@ -9368,3 +9368,44 @@ dossier's internal recompute/source checks and the invented-probability/crossed-
 tests stay unconditional and still exercise the fail-closed path via 1082792. Verified:
 `tests.test_0962d605_verification` 12 OK locally. No data, probability, pick or dossier byte
 changed; noted on PR #343 for session 0962d605.
+
+### 27AC close-out — PR #343 merged, deploys verified, one live-unresolved fixture documented (2026-10-25T17:00Z)
+
+- **PR #343 merged** 2026-10-25T15:55:10Z as `d09cd21`, after `Validate dashboard` run
+  [40205486708](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40205486708)
+  **passed in full** (34m26s: unit suite, replay build, row-source audit, Playwright
+  320/390/768/1440 + no-JS + staleness + WCAG) and `originate` passed. First run
+  [40203097335](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40203097335) failed
+  only on the pre-existing dated-presence test fixed forward above (reproduced on clean
+  `origin/main` first).
+- **Deploys.** The merge's legacy `pages build and deployment` (40209204698) succeeded in 27 s;
+  live `snapshot.json` then read `2026-10-25T14:23:33Z`, superseded by publisher run
+  [40207478580](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40207478580)
+  (**success**, checked out pre-#343 code) which root-synced snapshot `2026-10-25T16:20:19Z`
+  (`a67622a`) — read back from `origin/main` and confirmed matching structure. The landing
+  page's stale-warning element is `hidden` at that vintage (checked in the served markup; the
+  text a no-JS extractor surfaces is the hidden template copy). Live executive summary at
+  16:20Z build: 14 active fixtures, 13 directional picks, 1 explicitly unresolved (below).
+  This session's own publisher push-run (40209205546) was **cancelled while pending** behind
+  the merge train (the documented push-group behaviour); the run carrying this session's code,
+  [40210944216](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40210944216), was
+  still in progress at close-out — freshness does not depend on it (4 h schedule + 2.5 h
+  catch-up continue).
+- **Flags.** `data/research/27ac20d6/flags.json` is merged and live as data
+  (read back from the Pages host); `test_review_flags` aggregation over it passed in CI, so the
+  five flags join the rendered Flagged for Review page with the first publisher build that
+  checks out post-#343 code (the 16:20Z build predates the merge and does not contain them yet —
+  verified by grep, recorded here so nobody "fixes" a non-defect).
+- **`1086697` follow-up (the live-unresolved fixture).** In the 16:20Z build, Projeto do KinGui
+  vs Yawara (today 19:00Z, locks 18:54Z) went from the 14:23Z 2-source consensus to explicitly
+  **Unresolved**: that collection found no alias-verified line on any rung and both models lack
+  inputs. Direct read at 2026-10-25T16:37Z: the Polymarket market
+  ([cs2-tdkg-yaw-2026-10-25](https://polymarket.com/event/cs2-tdkg-yaw-2026-10-25)) is live and
+  displays moneyline asks TDKG 80¢ / YAW 24¢ on $1.7K volume — asks, not a verified midpoint, so
+  no number is quoted here; the registered aliases mean the in-flight/next collection can rebind
+  it automatically if the book validates. A manual `workflow_dispatch` of `pages.yml` was
+  attempted and refused (`HTTP 403: Resource not accessible by integration`) — this session's
+  token cannot dispatch; recorded so the next session does not retry blindly.
+- All 27AC tasks are **done**. Open items handed over, in the dossier's change requests:
+  bo3.gg team-link route in `originate.py`; majority-core lineup disambiguation rung;
+  `27ac20d6-1082792-magnitude` stays flagged for the owner's review (figure untouched).
