@@ -1,0 +1,81 @@
+{
+  "session_id": "arena-c0bba79a",
+  "task": "C0B-1",
+  "policy": "Every figure below was read first-hand through the platform page fetcher at the stated observation time. Hotspawn crowd '% picked' and HLTV fan votes are recorded as excluded and are never probability inputs. No value here is inferred: anything not directly rendered by a source is left out.",
+  "observations": [
+    {
+      "source": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+      "kind": "published snapshot",
+      "observed_at": "2026-10-25T14:15:00Z",
+      "figures": {
+        "generated_at": "2026-10-25T05:12:25Z",
+        "inventory_observed_at": "2026-10-25T05:12:10Z",
+        "coverage_complete": true,
+        "run_status": "partial-picks",
+        "counts": {"inventory": 79, "upcoming": 18, "archived": 61, "market": 9, "bookmaker": 2, "model": 5, "unresolved": 2, "picks": 16, "no_edge": 0},
+        "age_at_observation": "9h03m (past the site's own 8-hour stale bound)"
+      }
+    },
+    {
+      "source": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "kind": "official Hotspawn scheduled-fixtures API",
+      "observed_at": "2026-10-25T14:16:00Z",
+      "fetch_method": "platform page fetcher, 8 contiguous character-sliced chunks; every chunk join verified verbatim (e.g. chunk0 tail '...\"competition_id\":\"35439\",\"competiti' + chunk1 head 'on_name\":\"Svenska CS-Ligan 2026\"')",
+      "figures": {
+        "records_total": 78,
+        "open_or_in_play_ids": ["1079199", "1086696", "1081158", "1082697", "1079200", "1086697", "1082858", "1082859", "1082860", "1082861", "1082897", "1082898", "1082900", "1082901", "1082792", "1082793", "1085542"],
+        "open_count": 17,
+        "in_play": [{"id": "1085542", "starts_at": "2026-10-25T14:00:00Z", "note": "still in the API at read time, already past its start; not rendered on the lobby"}],
+        "future_count": 16
+      }
+    },
+    {
+      "source": "https://play.hotspawn.com/lobby",
+      "kind": "rendered pick'em lobby (the reverse-engineering target)",
+      "observed_at": "2026-10-25T14:17:00Z",
+      "figures": {
+        "page_title": "Pick'ems Lobby | Hotspawn Play",
+        "header": "This week - 233 matches this week (CS2 + LoL combined; the CS2 filter below is the CS2 subset)",
+        "cs2_filter_rendered": "All tiers (80) | B (33) | C (47)",
+        "tournament_filter_rendered": "CCT Europe 2026 Challengers #4 (8), CCT Europe 2026 Series #11 (2), CCT Europe 2026 Series #12 (2), CCT South America 2026 Series #3 (8), CCT South America 2026 Series #7 (3), Circuit X Curitiba #4 (1), DACH CS Masters Season 5 (1), DFRAG Invitational 2026 (4), DraculaN Season 7 (6), European Pro League Series 8 (1), European Pro League Series 8 Play-In (6), LG UltraGear Tournament 2026 (1), Moscow Cyber Games 2026 (2), NODWIN Clutch Series #13 (3), Rainhas do Clutch 2026 (2), Svenska CS-Ligan 2026 (6), Tesla Cup 2026 (4), Thunderpick World Championship 2026: South American Series #1 (8), Urban Riga Open #5 (12)",
+        "weekly_reset_line": "Resets in 0d 09h 52m 09s at read time (=> reset about 2026-10-26T00:09Z)",
+        "rendered_open_cards": 16,
+        "rendered_open_card_ids": ["1079199", "1086696", "1081158", "1082697", "1079200", "1086697", "1082858", "1082859", "1082860", "1082861", "1082897", "1082898", "1082900", "1082901", "1082792", "1082793"],
+        "sections": {"closing_soon": 8, "upcoming": 8},
+        "display_timezone": "Lobby card times render as US Eastern (UTC-4): e.g. 1079199 shows 'Oct 25, 11:00' for its 15:00Z start; this session records both.",
+        "filter_note": "The tournament/filter counts are the lobby's own weekly-window card counts as rendered. This session does not equate them with the API record total (78) because the lobby does not publish its window boundaries; the difference is recorded, not smoothed over."
+      }
+    },
+    {
+      "source": "local checkout snapshot.json",
+      "kind": "checked-in / deployed snapshot (byte-identical to the live data/latest.json read above)",
+      "observed_at": "2026-10-25T14:15:00Z",
+      "figures": {"generated_at": "2026-10-25T05:12:25Z", "records": 79, "upcoming": 18, "archived": 61}
+    }
+  ],
+  "reconciliation": {
+    "method": "set arithmetic on fixture ids, both directions, from the three reads above",
+    "snapshot_upcoming_18": ["1082996", "1085541", "1079198", "1081156", "1085542", "1079199", "1079200", "1081158", "1082858", "1082859", "1082860", "1082861", "1082897", "1082898", "1082900", "1082901", "1082792", "1082793"],
+    "snapshot_still_open_13": ["1079199", "1079200", "1081158", "1082858", "1082859", "1082860", "1082861", "1082897", "1082898", "1082900", "1082901", "1082792", "1082793"],
+    "snapshot_started_and_dropped_from_api_4": ["1082996", "1085541", "1079198", "1081156"],
+    "snapshot_in_play_api_only_1": ["1085542"],
+    "open_on_live_site_but_absent_from_deployed_snapshot_3": ["1086696", "1082697", "1086697"],
+    "api_total_check": "79 snapshot records - 4 started/dropped + 3 new = 78 API records (exact)",
+    "lobby_vs_api_open_check": "lobby 16 open = API 16 future (identical sets); API additionally carries in-play 1085542 which the lobby has already dropped (documented lobby/API lag on started cards)",
+    "coverage_gap": "The 3 new fixtures (1086696, 1082697, 1086697 - all 2026-10-25, CCT SA #7 and Circuit X Curitiba #4) are the only open lobby fixtures with no row in the deployed snapshot, because the publisher has been blocked at its regression gate since 07:49Z (runs 40174233578, 40196457503) and republish-last-verified keeps serving the 05:12:25Z build. Fix in flight: PR #332 (merged 2026-10-25T14:2xZ) unfroze the publisher and wired 1086696/1082697 inputs.",
+    "still_open_without_featured_analysis": ["1082792"],
+    "still_open_without_featured_analysis_note": "Of the 13 still-open snapshot fixtures, exactly one (1082792 HOTU vs The Huns) has analysis: null in the featured layer - it is one of the two documented featured-unresolved rows. Its published pick comes from the complete layer and was observed first-hand on the deployed executive summary at 2026-10-25T14:33Z as row 15: 'Pick HOTU 98.2% / The Huns 1.8% Researched' linked to bo3.gg results, already flagged as 0DB0-R03 (extreme/uncalibrated magnitude, direction supported). The other featured-unresolved snapshot row (1081156) had already started by then.",
+    "every_deployed_open_fixture_has_a_pick": "Yes - all 13 still-open snapshot fixtures carry a published pick (featured analysis for 12, complete layer for 1082792) on the live site; the 5 that started since the snapshot also carried picks. Zero deployed open rows are blank."
+  },
+  "post_recovery_live_state": {
+    "observation": "2026-10-25T14:33Z, first-hand read of the deployed executive summary and data/latest.json",
+    "published_generated_at": "2026-10-25T14:23:33Z",
+    "published_inventory_observed_at": "2026-10-25T14:23:15Z",
+    "counts": {"inventory": 78, "upcoming": 16, "archived": 62, "market": 10, "bookmaker": 1, "model": 2, "unresolved": 3, "picks": 13},
+    "rendered_summary": "16 active fixtures, 16 with a directional pick, 12 from an external betting line, 4 from a research model, 0 explicitly unresolved",
+    "coverage_gap_closed": "All 3 previously missing fixtures now publish a pick: 1086696 RED Canids Academy 56.5/43.5 (Market line, Polymarket event cs2-chama-reda-2026-10-25), 1082697 paiN 58.5/41.5 (Market line, Polymarket cs2-pain-bst - exactly the 0.585/0.415 pair this session read first-hand at 14:18Z), 1086697 Projeto do KinGui 65.1/34.9 (Researched consensus, median of 2 books, Polymarket cs2-tdkg-yaw-2026-10-25).",
+    "independent_corroboration": "This session re-read both new semifinal Polymarket events by slug at 14:31-14:33Z: event 1249731 (created 2026-10-25T01:55:12Z, outcomes 'Tropa do KinGui'/'Yawara Esports', eventStartTime 19:00:00Z = Hotspawn 1086697 exactly) and event 1248800 (created 2026-10-24T21:45:12Z, outcomes 'BORRACHEIROS'/'RED Canids Academy', eventStartTime 16:00:00Z = Hotspawn 1086696 exactly). Methodology finding: both events predate the 13:44-13:46Z keyword searches that reported no market - Polymarket public-search under-reports new low-volume events, while the collector's tag/slug enumeration and direct slug queries find them; keyword search must never be treated as proof of absence.",
+    "api_count_agreement": "The publisher's own collect at 14:23:15Z recorded inventory 78 - identical to this session's independent API read at 14:16Z (two readers, same total).",
+    "root_sync_at_rebase": "After this session rebased onto origin/main (2026-10-25T14:57Z), the checked-in root snapshot.json carried generated_at 2026-10-25T14:32:11Z with identical counts (78/16/62, market 10, bookmaker 1, model 2, unresolved 3, picks 13) - a further verified refresh of the same inventory; scripts/c0bba79a_verify passes against it because the id-set equality is date-guarded to the snapshot this dossier names and newer snapshots receive structural invariants only."
+  }
+}
