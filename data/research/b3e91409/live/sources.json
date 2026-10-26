@@ -1,10 +1,10 @@
 {
  "schema_version": 1,
- "observed_at": "2026-10-26T00:53:10Z",
+ "observed_at": "2026-10-26T00:54:12Z",
  "sources": {
   "hotspawn_api": {
    "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-   "observed_at": "2026-10-26T00:53:10Z",
+   "observed_at": "2026-10-26T00:54:12Z",
    "http_status": 200,
    "status": "ok",
    "bytes": 63325,
@@ -14,12 +14,12 @@
    "open_records": 19
   },
   "hotspawn-lobby": {
-   "url": "https://play.hotspawn.com/lobby?cb=1792975990",
-   "observed_at": "2026-10-26T00:53:10Z",
+   "url": "https://play.hotspawn.com/lobby?cb=1792976052",
+   "observed_at": "2026-10-26T00:54:12Z",
    "http_status": 200,
    "status": "ok",
-   "bytes": 309876,
-   "response_sha256": "808ee849e8cd9829170ac64af15dcb217b5d5bdbf68965ecbc01287bca7f3640",
+   "bytes": 309942,
+   "response_sha256": "e15c5ad9cc3e7fdefa576d0e0367d0055bb75bc8360f3f204ada77caf1fb251b",
    "cache_status": "MISS",
    "cache_age_sec": "0",
    "error": null,
@@ -48,12 +48,12 @@
    ]
   },
   "hotspawn-cs2": {
-   "url": "https://play.hotspawn.com/cs2-pickems?cb=1792975990",
-   "observed_at": "2026-10-26T00:53:12Z",
+   "url": "https://play.hotspawn.com/cs2-pickems?cb=1792976052",
+   "observed_at": "2026-10-26T00:54:13Z",
    "http_status": 200,
    "status": "ok",
-   "bytes": 308937,
-   "response_sha256": "ef3f014e1e35fda0e8aa2828773a918e3c4f0406ebe7cae509c60283f6f327bf",
+   "bytes": 309003,
+   "response_sha256": "9793848f500cc99845ead1a31dbf700a91166c817ef642eebdb8440c0fc68c6c",
    "cache_status": "MISS",
    "cache_age_sec": "0",
    "error": null,
@@ -63,22 +63,22 @@
   },
   "hltv": {
    "url": "https://www.hltv.org/matches",
-   "observed_at": "2026-10-26T00:53:12Z",
+   "observed_at": "2026-10-26T00:54:14Z",
    "http_status": 200,
    "status": "ok",
-   "bytes": 459505,
-   "response_sha256": "5f500641a01e4c6467b73c1b3bca321750f1f3e935263e91f2851a53cee3fee7",
+   "bytes": 459931,
+   "response_sha256": "d9976853076116e53eccf7339b264c3934e5f61e75039e2059eb12cdecfe866a",
    "error": null,
    "cards": 59,
    "ambiguous_cards_skipped": 74
   },
   "hltv_ranking": {
    "url": "https://www.hltv.org/ranking/teams",
-   "observed_at": "2026-10-26T00:53:13Z",
+   "observed_at": "2026-10-26T00:54:15Z",
    "http_status": 200,
    "status": "ok",
-   "bytes": 1061663,
-   "response_sha256": "6bec3d1a284445d3256114c6632b82402f889952b76415dcc7e0f3fc0a20947a",
+   "bytes": 1062093,
+   "response_sha256": "04b26e9e5951598ebd47051a93c7b326c2385efb51005f3f5b11b68453f2fb2e",
    "error": null,
    "rows": 253
   },
@@ -88,7 +88,7 @@
      "offset": 0,
      "records": 100,
      "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=0",
-     "observed_at": "2026-10-26T00:53:15Z",
+     "observed_at": "2026-10-26T00:54:16Z",
      "sha256": "9b9144144a27c275384008ebc222cf129fe0a07a3c9202a1fdb9307f10e88c54",
      "http_status": 200
     },
@@ -96,7 +96,7 @@
      "offset": 100,
      "records": 100,
      "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=100",
-     "observed_at": "2026-10-26T00:53:15Z",
+     "observed_at": "2026-10-26T00:54:16Z",
      "sha256": "7dad963d61cf5bbb2cc7af104fe1a7af33a4897ad12d835e0b84b06ccecec624",
      "http_status": 200
     },
@@ -104,7 +104,7 @@
      "offset": 200,
      "records": 100,
      "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=200",
-     "observed_at": "2026-10-26T00:53:15Z",
+     "observed_at": "2026-10-26T00:54:16Z",
      "sha256": "a4757022d9790e6352c916778ce5dae1a9f767918c01e8a7a6e4aae79c2ae57b",
      "http_status": 200
     },
@@ -112,7 +112,7 @@
      "offset": 300,
      "records": 100,
      "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=300",
-     "observed_at": "2026-10-26T00:53:15Z",
+     "observed_at": "2026-10-26T00:54:17Z",
      "sha256": "280bdbf7ef00465a3c278986f31094c0919fa1f4b96c9882633d1bd6bd063bda",
      "http_status": 200
     },
@@ -120,7 +120,7 @@
      "offset": 400,
      "records": 28,
      "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=400",
-     "observed_at": "2026-10-26T00:53:16Z",
+     "observed_at": "2026-10-26T00:54:17Z",
      "sha256": "863e782560c1f3e24a19bd7ccdc7849abdc4f925d7bc6814d57cbe33368d1f71",
      "http_status": 200
     }
@@ -130,11 +130,11 @@
   },
   "thunderpick": {
    "url": "https://thunderpick.io/api/matches",
-   "observed_at": "2026-10-26T00:53:16Z",
+   "observed_at": "2026-10-26T00:54:17Z",
    "http_status": 200,
    "status": "ok",
-   "bytes": 159767,
-   "response_sha256": "47a9e60b2495641302010b23d1d089ed4cb417162cc39790f2a8e04b8ca06053",
+   "bytes": 159771,
+   "response_sha256": "be897ef40ad91df1140d777344bde97cf5a9f125eac3a3138a1c9ac729036974",
    "error": null,
    "rows": 47
   },
@@ -144,7 +144,7 @@
   },
   "kalshi-events": {
    "url": "https://api.elections.kalshi.com/trade-api/v2/events",
-   "observed_at": "2026-10-26T00:53:17Z",
+   "observed_at": "2026-10-26T00:54:18Z",
    "http_status": 200,
    "status": "ok",
    "bytes": 150100,
@@ -153,7 +153,7 @@
   },
   "bovada-cs2": {
    "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?marketFilterId=def&preMatchOnly=true&lang=en",
-   "observed_at": "2026-10-26T00:53:17Z",
+   "observed_at": "2026-10-26T00:54:18Z",
    "http_status": 200,
    "status": "ok",
    "bytes": 57723,
