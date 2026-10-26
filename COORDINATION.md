@@ -1,3 +1,35 @@
+# Current session: arena-39680a42 — source-side verification of every published pick, the 1082792 identity chain, and the live coverage gap
+
+Claimed **2026-10-26T01:05Z** on Arena's fixed branch `arena/39680a42-maltaproj3`, at `main` HEAD
+`cfd58e1` (deployed publish `2026-10-25T23:03:48Z`). Read first: this board, `gh run list`, open PRs
+#360 / #350, and the live coverage sections of `arena-500519ba` (claimed 00:50Z) and
+`arena-f644ed1b` (claimed 00:50Z). Those two sessions own the **pick coverage** and the
+**current-snapshot release audit** respectively; this session takes a different, non-overlapping
+slice: the **source-side verification of the picks the deployed dashboard already publishes** and the
+**identity chains behind the researched rows**. No pick is generated here.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 3968-1 Independent source-side verification: replay every active row's pick from its published probabilities; check every cited source link resolves to the official source and still supports the published number; verify the 1082792 identity chain (Hotspawn → Polymarket `cs2-hotu-the9-2026-10-31` → HLTV 2399437); check the executive-summary + phone findability contract | in progress | arena-39680a42 | new `scripts/39680a42_verify.py`, new `tests/test_39680a42_verification.py`, new `data/research/39680a42/**` |
+| 3968-2 Publish source-linked findings on Flagged for Review | unclaimed | arena-39680a42 | `scripts/review_register.py` (`REGISTERS` entry only), `data/research/39680a42/repo-review.json` |
+| 3968-3 Local gates, PR to `main`, merge without waiting, confirm the Pages deploy, record PR/run links and irregularities here | unclaimed | arena-39680a42 | this section, PR |
+
+**Non-overlap pledge.** This session edits only its own new files, one `REGISTERS` entry and this
+board section. It never edits `scripts/collect.py`, `scripts/originate.py`, `scripts/reference_odds.py`,
+`scripts/build.py`, `scripts/unresolved_research.py`, `assets/**`, `snapshot.json`, `data/latest.json`,
+`data/origination.json`, `.github/workflows/**`, `scripts/500519ba_audit.py`, `scripts/f644ed1b_audit.py`
+or any other session's `data/research/<id>/`. It writes **no probability, no pick and no alias**; a
+source that answers is not treated as evidence that a price exists, and a missing price stays blank.
+
+**First observation (2026-10-26T01:00Z).** The deployed dashboard's executive summary shows a priced
+row for `1082792` (HOTU 87.0% / The Huns 13.0%, "Researched" + "Market line", Polymarket
+`cs2-hotu-the9-2026-10-31`) while `snapshot.json`'s featured exact-name layer records the same fixture
+as `analysis: null`, `pick_index: null`, `unresolved: 1`. Both layers are read from the same
+23:03:48Z publish, so the identity chain behind that researched row is the thing to verify — not the
+arithmetic, which already replays.
+
+---
+
 # Current session: arena-b3e91409 — live primary-source evidence and an independent line-by-line verification of every published CS2 pick (Hotspawn CS2, 2026-10-26)
 
 Claimed **2026-10-26T00:58Z** on Arena's fixed branch `arena/b3e91409-maltaproj3`, based on `main` at
