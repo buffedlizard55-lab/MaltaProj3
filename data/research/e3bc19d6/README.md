@@ -75,8 +75,9 @@ All ten rows replay to better than 1e-8. The rules are the publisher's own: norm
 ## 6. How to re-check it
 
 ```bash
-python -m scripts.e3bc19d6_verify          # replays every row, cross-checks the official files
-python -m unittest tests.test_e3bc19d6_verification
+python -m scripts.e3bc19d6_verify                    # replays every row, cross-checks the official files
+python -m scripts.e3bc19d6_verify --published .      # every open fixture in a built tree has a pick or an explicit blocker
+python -m unittest tests.test_e3bc19d6_verification  # 35 tests, including mutations that must fail
 ```
 
 The verifier also compares the transcribed inventory against the collector's own `data/evidence/hotspawn-fixtures.json` whenever that file carries the same fixture id, so after the next refresh a transcription error cannot survive; when the published evidence is a different vintage it reports `absent-from-vintage` instead of passing silently.

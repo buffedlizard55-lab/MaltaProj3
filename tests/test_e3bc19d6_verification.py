@@ -245,6 +245,68 @@ class ReviewFlags(unittest.TestCase):
                                  '1093218', '1081162', '1081163', '1081164']))
 
 
+class PublishedBuildCoverage(unittest.TestCase):
+    """The "picks for every match" invariant, checked against a built site."""
+
+    def _build(self, folder, rows, unresolved=()):
+        document = {'schema_version': 1, 'unresolved_ids': list(unresolved), 'matches': rows}
+        (Path(folder) / 'origination.json').write_text(json.dumps(document))
+        return Path(folder)
+
+    def _row(self, fixture='1', resolved=True):
+        return {'id': fixture, 'availability': 'open',
+                'teams': [{'name': 'Alpha'}, {'name': 'Beta'}],
+                'pick_index': 1 if resolved else None,
+                'origination': ({'method': 'market', 'probabilities': [0.25, 0.75],
+                                 'source_url': 'https://example.com/market'} if resolved else None)}
+
+    def test_a_full_build_passes(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as folder:
+            errors, table = v.published_coverage(self._build(folder, [self._row()]))
+        self.assertEqual(errors, [])
+        self.assertEqual(table[0]['state'], 'pick')
+        self.assertEqual(table[0]['pick'], 'Beta')
+
+    def test_a_silent_blank_fails(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as folder:
+            errors, table = v.published_coverage(self._build(folder, [self._row(resolved=False)]))
+        self.assertTrue(errors)
+        self.assertEqual(table[0]['state'], 'silent-blank')
+
+    def test_an_explicit_unresolved_entry_passes(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as folder:
+            errors, table = v.published_coverage(
+                self._build(folder, [self._row(resolved=False)], unresolved=['1']))
+        self.assertEqual(errors, [])
+        self.assertEqual(table[0]['state'], 'unresolved-with-blocker')
+
+    def test_a_pick_without_a_source_link_fails(self):
+        import tempfile
+        row = self._row()
+        row['origination'] = {'method': 'market', 'probabilities': [0.25, 0.75], 'source_url': ''}
+        with tempfile.TemporaryDirectory() as folder:
+            errors, _ = v.published_coverage(self._build(folder, [row]))
+        self.assertTrue(any('source link' in message for message in errors))
+
+    def test_archived_rows_are_not_demanded_a_pick(self):
+        import tempfile
+        row = self._row(resolved=False)
+        row['availability'] = 'past'
+        with tempfile.TemporaryDirectory() as folder:
+            errors, table = v.published_coverage(self._build(folder, [row]))
+        self.assertEqual(errors, [])
+        self.assertEqual(table, [])
+
+    # Deliberately no test that reads the live branch-root build: the publisher
+    # runs this suite against freshly collected data, and a newly drawn fixture
+    # that the ladder has not priced yet must never be able to freeze the
+    # four-hour refresh. The same invariant is enforced on demand with
+    # `python -m scripts.e3bc19d6_verify --published <build>`.
+
+
 class NoCommunityVoteInputs(unittest.TestCase):
     def test_no_vote_value_is_carried(self):
         self.assertEqual(v.check_no_votes({}), [])

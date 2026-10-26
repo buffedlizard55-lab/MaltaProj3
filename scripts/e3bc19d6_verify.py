@@ -359,6 +359,110 @@ def check_no_votes(_report: dict) -> list[str]:
     return errors
 
 
+def published_coverage(build: Path, now_open_only: bool = True) -> tuple[list[str], list[dict]]:
+    """Check a published build: does every open fixture carry a pick or a blocker?
+
+    ``build`` is a directory holding the published ``origination.json`` (the
+    researched list the site renders) and, optionally, ``snapshot.json``. A
+    fixture passes when it has a pick index and a two-value probability pair
+    that sums to one. A fixture without a pick passes only when the build lists
+    its id in ``unresolved_ids``, i.e. it is published with an explicit blocker
+    in the unresolved register. A silent blank fails.
+    """
+    errors: list[str] = []
+    path = build / 'origination.json'
+    if not path.exists():
+        return [f'{path} is missing'], []
+    document = _load(path)
+    rows = document.get('matches') if isinstance(document, dict) else document
+    if not isinstance(rows, list):
+        return ['origination.json does not carry a match list'], []
+    open_ids = document.get('unresolved_ids') if isinstance(document, dict) else None
+    open_ids = list(open_ids or [])
+    table = []
+    for row in rows:
+        fixture = str(row.get('id'))
+        availability = row.get('availability')
+        if now_open_only and availability not in (None, 'open'):
+            continue
+        origination = row.get('origination') or {}
+        probabilities = origination.get('probabilities')
+        pick_index = row.get('pick_index')
+        resolved = (isinstance(probabilities, list) and len(probabilities) == 2
+                    and all(isinstance(v, (int, float)) for v in probabilities)
+                    and abs(sum(probabilities) - 1) <= 1e-4
+                    and pick_index in (0, 1))
+        if resolved:
+            table.append({'fixture_id': fixture, 'state': 'pick',
+                          'pick': row['teams'][pick_index]['name'],
+                          'probability': round(float(probabilities[pick_index]), 6),
+                          'method': origination.get('method'),
+                          'source_url': origination.get('source_url')})
+            if not str(origination.get('source_url') or '').startswith('https://'):
+                errors.append(f'{fixture}: a pick has no https source link')
+        elif fixture in open_ids:
+            table.append({'fixture_id': fixture, 'state': 'unresolved-with-blocker'})
+        else:
+            errors.append(f'{fixture}: open fixture has neither a pick nor an unresolved entry')
+            table.append({'fixture_id': fixture, 'state': 'silent-blank'})
+    published = {str(item.get('id')) for item in rows}
+    for fixture in open_ids:
+        if fixture not in published:
+            errors.append(f'{fixture}: listed as unresolved but has no published row at all')
+    return errors, table
+
+
+def published_coverage(build: Path, open_only: bool = True) -> tuple[list[str], list[dict]]:
+    """Check a published build: does every open fixture carry a pick or a blocker?
+
+    ``build`` is a directory holding the published ``origination.json`` (the
+    researched list the site renders). A fixture passes when it has a pick index
+    and a two-value probability pair that sums to one. A fixture without a pick
+    passes only when the build lists its id in ``unresolved_ids``, i.e. it is
+    published with an explicit blocker in the unresolved register. A silent
+    blank fails.
+    """
+    errors: list[str] = []
+    path = build / 'origination.json'
+    if not path.exists():
+        return [f'{path} is missing'], []
+    document = _load(path)
+    rows = document.get('matches') if isinstance(document, dict) else document
+    if not isinstance(rows, list):
+        return ['origination.json does not carry a match list'], []
+    unresolved_ids = list((document.get('unresolved_ids') if isinstance(document, dict) else None) or [])
+    table = []
+    for row in rows:
+        fixture = str(row.get('id'))
+        if open_only and row.get('availability') not in (None, 'open'):
+            continue
+        origination = row.get('origination') or {}
+        probabilities = origination.get('probabilities')
+        pick_index = row.get('pick_index')
+        resolved = (isinstance(probabilities, list) and len(probabilities) == 2
+                    and all(isinstance(value, (int, float)) for value in probabilities)
+                    and abs(sum(probabilities) - 1) <= 1e-4
+                    and pick_index in (0, 1))
+        if resolved:
+            table.append({'fixture_id': fixture, 'state': 'pick',
+                          'pick': row['teams'][pick_index]['name'],
+                          'probability': round(float(probabilities[pick_index]), 6),
+                          'method': origination.get('method'),
+                          'source_url': origination.get('source_url')})
+            if not str(origination.get('source_url') or '').startswith('https://'):
+                errors.append(f'{fixture}: a pick has no https source link')
+        elif fixture in unresolved_ids:
+            table.append({'fixture_id': fixture, 'state': 'unresolved-with-blocker'})
+        else:
+            table.append({'fixture_id': fixture, 'state': 'silent-blank'})
+            errors.append(f'{fixture}: open fixture has neither a pick nor an unresolved entry')
+    published_ids = {str(item.get('id')) for item in rows}
+    for fixture in unresolved_ids:
+        if fixture not in published_ids:
+            errors.append(f'{fixture}: listed as unresolved but has no published row at all')
+    return errors, table
+
+
 def verify() -> tuple[list[str], dict]:
     report = {'checks': [], 'replay': [], 'valve_rows': [], 'inventory': [],
               'identities': [], 'coverage': {}, 'flags': 0}
@@ -376,8 +480,24 @@ def verify() -> tuple[list[str], dict]:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument('--json', type=Path, help='write the machine-readable report here')
+    parser.add_argument('--published', type=Path,
+                        help='also check a published build directory (origination.json): every open '
+                             'fixture must carry a pick or an explicit unresolved entry')
     args = parser.parse_args(argv)
     errors, report = verify()
+    if args.published:
+        published_errors, table = published_coverage(args.published)
+        report['published'] = {'build': str(args.published), 'rows': table,
+                               'checks': {'errors': published_errors, 'ok': not published_errors}}
+        errors.extend(f'published: {message}' for message in published_errors)
+        picks = [r for r in table if r['state'] == 'pick']
+        print(f'\nPublished build {args.published}: {len(table)} open fixtures, '
+              f'{len(picks)} with a pick, '
+              f'{sum(1 for r in table if r["state"] == "unresolved-with-blocker")} explicitly unresolved')
+        for row in table:
+            detail = (f'{row["pick"]} {row["probability"]:.4f} via {row["method"]}'
+                      if row['state'] == 'pick' else row['state'])
+            print(f'  {row["fixture_id"]}  {detail}')
     if args.json:
         args.json.parent.mkdir(parents=True, exist_ok=True)
         args.json.write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
