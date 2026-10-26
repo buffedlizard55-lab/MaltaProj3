@@ -10,9 +10,32 @@ slice: the **source-side verification of the picks the deployed dashboard alread
 
 | Task | Status | Owner | File scope |
 | --- | --- | --- | --- |
-| 3968-1 Independent source-side verification: replay every active row's pick from its published probabilities; check every cited source link resolves to the official source and still supports the published number; verify the 1082792 identity chain (Hotspawn → Polymarket `cs2-hotu-the9-2026-10-31` → HLTV 2399437); check the executive-summary + phone findability contract | in progress | arena-39680a42 | new `scripts/39680a42_verify.py`, new `tests/test_39680a42_verification.py`, new `data/research/39680a42/**` |
-| 3968-2 Publish source-linked findings on Flagged for Review | unclaimed | arena-39680a42 | `scripts/review_register.py` (`REGISTERS` entry only), `data/research/39680a42/repo-review.json` |
-| 3968-3 Local gates, PR to `main`, merge without waiting, confirm the Pages deploy, record PR/run links and irregularities here | unclaimed | arena-39680a42 | this section, PR |
+| 3968-1 Independent source-side verification: replay every active row's pick from its published probabilities; check every cited source link resolves to the official source and still supports the published number; verify the 1082792 identity chain (Hotspawn → Polymarket `cs2-hotu-the9-2026-10-31` → HLTV 2399437); check the executive-summary + phone findability contract | **done — 5 checks, 0 errors; 15 tests OK** | arena-39680a42 | new `scripts/39680a42_verify.py`, new `tests/test_39680a42_verification.py`, new `data/research/39680a42/**` |
+| 3968-2 Publish source-linked findings on Flagged for Review | **done — `3968A-R01`..`R05`, 4 `flags.json` entries** | arena-39680a42 | `scripts/review_register.py` (`REGISTERS` entry only), `data/research/39680a42/repo-review.json` |
+| 3968-3 Local gates, PR to `main`, merge without waiting, confirm the Pages deploy, record PR/run links and irregularities here | in progress | arena-39680a42 | this section, PR |
+
+### What was verified (2026-10-26T01:20Z, deployed snapshot `2026-10-25T23:03:48Z`)
+
+Every active row's two probabilities were replayed from its own `analysis.probabilities` and `pick_index`
+(10 active rows: 6 `market`, 1 `bookmaker`, 2 `model`, 1 unresolved; 0 arithmetic errors). Every cited
+`source_url` was required to be `https` and to name an official source — none points at a Hotspawn
+pick'ems page and none at an HLTV fan-vote surface. The full local gate ran: `python -m unittest
+discover -s tests` **1939 tests, OK (skipped=4)**, `scripts.build` 870 internal links,
+row-source audit 1031 rows / 1007 with an official link / 0 without a source.
+
+The one thing worth reading is the researched row for **`1082792`**: the executive summary prices it
+(HOTU 87.0% / The Huns 13.0%, "Researched" + "Market line", Polymarket) while `snapshot.json`'s
+featured exact-name layer records the same fixture as `analysis: null`, `pick_index: null`,
+`featured.unresolved: 1`. The identity chain was verified against three independent sources read
+through the platform page fetcher and it holds: Hotspawn 1082792 starts `2026-10-31T09:00:00Z`;
+Polymarket event `cs2-hotu-the9-2026-10-31` has `eventStartTime 2026-10-31T09:00:00Z` with outcomes
+"HOTU"/"The Huns Esports" in the Moscow Cyber Games Playoffs Semifinal 1; HLTV match 2399437 is "HOTU
+vs. The Huns at GLuck Moscow Cyber Games 2026", Best of 3 (LAN), Semi-final. So the summary's row is a
+prediction-market money line with a researched identity, not a Hotspawn crowd percentage. The nine
+open fixtures Hotspawn listed at 00:48-00:50Z that the snapshot does not serve
+(1079201/1081159/1079202/1081160/1079203/1093218/1081162/1081163/1081164) are recorded as a dated gap;
+`collect.py` reads the API wholesale, so they appear on the next publisher refresh. Details:
+`data/research/39680a42/identity-chain-1082792.json`, `live-lobby-snapshot.json`, `verification.json`.
 
 **Non-overlap pledge.** This session edits only its own new files, one `REGISTERS` entry and this
 board section. It never edits `scripts/collect.py`, `scripts/originate.py`, `scripts/reference_odds.py`,
