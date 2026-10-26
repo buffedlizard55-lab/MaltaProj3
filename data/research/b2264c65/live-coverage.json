@@ -1,0 +1,323 @@
+{
+  "schema_version": 1,
+  "session": "arena-b2264c65",
+  "observed_at": "2026-10-26T01:09:00Z",
+  "environment": "authoring-fetch-path",
+  "role": "Line-by-line reconciliation of all 81 Hotspawn Cloudways scheduled CS2 records (62 archived past + 19 open future fixtures) and live play.hotspawn.com/lobby (All tiers 81, 19 open cards) against the root-synced 2026-10-26T01:04:20Z snapshot.json (19 upcoming, 17 featured picks, 2 featured blanks) and 2026-10-26T01:04:30Z origination.json (19/19 originated picks, 0 unresolved). Zero probability, pick, or crowd figures invented here.",
+  "published_site": {
+    "snapshot_generated_at": "2026-10-26T01:04:20Z",
+    "origination_generated_at": "2026-10-26T01:04:30Z"
+  },
+  "hotspawn": {
+    "lobby_url": "https://play.hotspawn.com/lobby",
+    "pickems_url": "https://play.hotspawn.com/cs2-pickems",
+    "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "note": "At 2026-10-26T00:54Z-01:09Z, Cloudways scheduled API and play.hotspawn.com/lobby both expose All tiers (81) with 62 past and 19 open CS2 fixtures, while play.hotspawn.com/cs2-pickems displays header banner 19 matches this week over a cached SSR body still listing All tiers (72) / 10 cards. Collector reads the canonical Cloudways API directly so all 19 open fixtures are captured."
+  },
+  "counts": {
+    "scheduled_api_total": 81,
+    "archived_past": 62,
+    "live_future_fixtures": 19,
+    "hltv_match_pages_verified": 19,
+    "in_published_snapshot": 19,
+    "in_published_complete_picks": 19,
+    "missing_from_published": 0
+  },
+  "source_urls": [
+    "https://play.hotspawn.com/lobby",
+    "https://play.hotspawn.com/cs2-pickems",
+    "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "https://www.hltv.org/matches",
+    "https://egamersworld.com/counterstrike/matches",
+    "https://thunderpick.io/api/matches",
+    "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?marketFilterId=def&preMatchOnly=true&lang=en",
+    "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+  ],
+  "live_fixtures": [
+    {
+      "id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
+      "hltv_url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "Market-implied estimate (market)",
+      "note": "Observed on live play.hotspawn.com/lobby and Cloudways scheduled API at 2026-10-26T01:09:00Z; HLTV match page verified (BO3 LAN Group A; Ground Zero fields substitute tucks; Off Chops is ex-THUNDER dOWNUNDER core dexter, Gratisfaction, Liazz, damyo, coach viridian.) Carried in the published complete picks list (Market-implied estimate (market)); Hotspawn crowd picks and HLTV fan votes excluded."
+    },
+    {
+      "id": "1082859",
+      "teams": [
+        "NEXVOID",
+        "Alter Ego"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/nexvoid-vs-alter-ego-dfrag-invitational-2026-1082859",
+      "hltv_url": "https://www.hltv.org/matches/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026",
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "No-vig bookmaker estimate (bookmaker)",
+      "note": "Observed on live play.hotspawn.com/lobby and Cloudways scheduled API at 2026-10-26T01:09:00Z; HLTV match page verified (BO3 LAN Group B; Alter Ego fields substitute Bloody.) Carried in the published complete picks list (No-vig bookmaker estimate (bookmaker)); Hotspawn crowd picks and HLTV fan votes excluded."
+    },
+    {
+      "id": "1079201",
+      "teams": [
+        "INOX Division",
+        "Nemesis"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-26T09:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/inox-division-vs-nemesis-nodwin-clutch-series-13-1079201",
+      "hltv_url": "https://www.hltv.org/matches/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13",
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "Valve-rating research estimate (model)",
+      "note": "Observed on live play.hotspawn.com/lobby and Cloudways scheduled API at 2026-10-26T01:09:00Z; HLTV match page verified (BO3 online Round of 16 (reversed home/away vs Hotspawn); INOX Division fields two substitutes m1QUSE and gooddeph.) Carried in the published complete picks list (Valve-rating research estimate (model)); Hotspawn crowd picks and HLTV fan votes excluded."
+    },
+    {
+      "id": "1079202",
+      "teams": [
+        "FOKUS",
+        "ex-Zero Tenacity"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-26T12:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/fokus-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079202",
+      "hltv_url": "https://www.hltv.org/matches/2399117/fokus-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "No-vig bookmaker estimate (bookmaker)",
+      "note": "Observed on live play.hotspawn.com/lobby and Cloudways scheduled API at 2026-10-26T01:09:00Z; HLTV match page verified (BO3 online Round of 16; exact 5-man lineups confirmed.) Carried in the published complete picks list (No-vig bookmaker estimate (bookmaker)); Hotspawn crowd picks and HLTV fan votes excluded."
+    },
+    {
+      "id": "1081159",
+      "teams": [
+        "LFO 10",
+        "ex-6666"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-26T12:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/lfo-10-vs-ex-6666-cct-europe-2026-series-12-1081159",
+      "hltv_url": "https://www.hltv.org/matches/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
+      "in_published_snapshot": true,
+      "in_featured_resolved": false,
+      "published_method": "Own results-based estimate (bo3.gg series results) (model)",
+      "note": "Observed on live play.hotspawn.com/lobby and Cloudways scheduled API at 2026-10-26T01:09:00Z; HLTV match page verified (BO3 online Swiss Round 3; LFO 10 lists 3-man core dottie, flaw, Sapec plus 2 TBA slots; ex-6666 lists 4/5 of Valve #127 6666.) Carried in the published complete picks list (Own results-based estimate (bo3.gg series results) (model)); Hotspawn crowd picks and HLTV fan votes excluded."
+    },
+    {
+      "id": "1079203",
+      "teams": [
+        "Metizport",
+        "BRUTE"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-26T15:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/metizport-vs-brute-nodwin-clutch-series-13-1079203",
+      "hltv_url": "https://www.hltv.org/matches/2399118/metizport-vs-brute-nodwin-clutch-series-13",
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "No-vig bookmaker estimate (bookmaker)",
+      "note": "Observed on live play.hotspawn.com/lobby and Cloudways scheduled API at 2026-10-26T01:09:00Z; HLTV match page verified (BO3 online Round of 16; BRUTE fields substitute oontoma and matches 4/5 of Valve #75 (disambiguating duplicate Valve #218).) Carried in the published complete picks list (No-vig bookmaker estimate (bookmaker)); Hotspawn crowd picks and HLTV fan votes excluded."
+    },
+    {
+      "id": "1081160",
+      "teams": [
+        "HAVU",
+        "ILLYRIANS"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-26T15:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/havu-vs-illyrians-cct-europe-2026-series-12-1081160",
+      "hltv_url": "https://www.hltv.org/matches/2399510/havu-vs-illyrians-cct-2026-europe-series-12",
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "Valve-rating research estimate (model)",
+      "note": "Observed on live play.hotspawn.com/lobby and Cloudways scheduled API at 2026-10-26T01:09:00Z; HLTV match page verified (BO3 online Swiss Round 3; HAVU vs ILLYRIANS exact 5-man lineups confirmed.) Carried in the published complete picks list (Valve-rating research estimate (model)); Hotspawn crowd picks and HLTV fan votes excluded."
+    },
+    {
+      "id": "1093218",
+      "teams": [
+        "Nuclear TigeRES",
+        "UNiTY"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-26T18:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-unity-nodwin-clutch-series-13-1093218",
+      "hltv_url": "https://www.hltv.org/matches/2399119/nuclear-tigeres-vs-unity-nodwin-clutch-series-13",
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "Originated consensus line (median of independent money sources) (consensus)",
+      "note": "Observed on live play.hotspawn.com/lobby and Cloudways scheduled API at 2026-10-26T01:09:00Z; HLTV match page verified (BO3 online Round of 16; Nuclear TigeRES vs UNiTY exact 5-man lineups confirmed.) Carried in the published complete picks list (Originated consensus line (median of independent money sources) (consensus)); Hotspawn crowd picks and HLTV fan votes excluded."
+    },
+    {
+      "id": "1082860",
+      "teams": [
+        "FlyQuest",
+        "Staqued"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
+      "hltv_url": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "Market-implied estimate (market)",
+      "note": "Observed on live play.hotspawn.com/lobby and Cloudways scheduled API at 2026-10-26T01:09:00Z; HLTV match page verified (BO3 LAN Group A; FlyQuest vs Staqued exact 5-man lineups confirmed.) Carried in the published complete picks list (Market-implied estimate (market)); Hotspawn crowd picks and HLTV fan votes excluded."
+    },
+    {
+      "id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
+      "hltv_url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "Valve-rating research estimate (model)",
+      "note": "Observed on live play.hotspawn.com/lobby and Cloudways scheduled API at 2026-10-26T01:09:00Z; HLTV match page verified (BO3 LAN Group B; Rooster fields substitutes TjP and foggers (foggers was on Valve 2026-10-05 Abyssal row).) Carried in the published complete picks list (Valve-rating research estimate (model)); Hotspawn crowd picks and HLTV fan votes excluded."
+    },
+    {
+      "id": "1082897",
+      "teams": [
+        "B8",
+        "K27"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T08:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/b8-vs-k27-tesla-cup-2026-1082897",
+      "hltv_url": "https://www.hltv.org/matches/2399866/b8-vs-k27-rlg-tesla-cup-2026",
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "Market-implied estimate (market)",
+      "note": "Observed on live play.hotspawn.com/lobby and Cloudways scheduled API at 2026-10-26T01:09:00Z; HLTV match page verified (BO3 LAN Group A; B8 vs K27 exact 5-man lineups confirmed.) Carried in the published complete picks list (Market-implied estimate (market)); Hotspawn crowd picks and HLTV fan votes excluded."
+    },
+    {
+      "id": "1082898",
+      "teams": [
+        "Alliance",
+        "FaZe"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T11:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/alliance-vs-faze-tesla-cup-2026-1082898",
+      "hltv_url": "https://www.hltv.org/matches/2399867/alliance-vs-faze-rlg-tesla-cup-2026",
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "Market-implied estimate (market)",
+      "note": "Observed on live play.hotspawn.com/lobby and Cloudways scheduled API at 2026-10-26T01:09:00Z; HLTV match page verified (BO3 LAN Group A; Alliance vs FaZe exact 5-man lineups confirmed.) Carried in the published complete picks list (Market-implied estimate (market)); Hotspawn crowd picks and HLTV fan votes excluded."
+    },
+    {
+      "id": "1081162",
+      "teams": [
+        "ex-RUSTEC",
+        "Spirit Academy"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-27T12:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ex-rustec-vs-spirit-academy-cct-europe-2026-series-12-1081162",
+      "hltv_url": "https://www.hltv.org/matches/2399512/ex-rustec-vs-spirit-academy-cct-2026-europe-series-12",
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "Valve-rating research estimate (model)",
+      "note": "Observed on live play.hotspawn.com/lobby and Cloudways scheduled API at 2026-10-26T01:09:00Z; HLTV match page verified (BO3 online Swiss Round 3; ex-RUSTEC (#92 complete 5-man row; #152 4-man excluded) vs Spirit Academy (#115).) Carried in the published complete picks list (Valve-rating research estimate (model)); Hotspawn crowd picks and HLTV fan votes excluded."
+    },
+    {
+      "id": "1081163",
+      "teams": [
+        "BakS",
+        "Saint Sinners"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-27T15:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/baks-vs-saint-sinners-cct-europe-2026-series-12-1081163",
+      "hltv_url": "https://www.hltv.org/matches/2399513/baks-vs-saint-sinners-cct-2026-europe-series-12",
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "Valve-rating research estimate (model)",
+      "note": "Observed on live play.hotspawn.com/lobby and Cloudways scheduled API at 2026-10-26T01:09:00Z; HLTV match page verified (BO3 online Swiss Round 3; BakS vs Saint Sinners exact 5-man lineups confirmed.) Carried in the published complete picks list (Valve-rating research estimate (model)); Hotspawn crowd picks and HLTV fan votes excluded."
+    },
+    {
+      "id": "1082900",
+      "teams": [
+        "Luminosity",
+        "HOTU"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T17:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/luminosity-vs-hotu-tesla-cup-2026-1082900",
+      "hltv_url": "https://www.hltv.org/matches/2399869/luminosity-vs-hotu-rlg-tesla-cup-2026",
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "Market-implied estimate (market)",
+      "note": "Observed on live play.hotspawn.com/lobby and Cloudways scheduled API at 2026-10-26T01:09:00Z; HLTV match page verified (BO3 LAN Group B; Luminosity vs HOTU exact 5-man lineups confirmed.) Carried in the published complete picks list (Market-implied estimate (market)); Hotspawn crowd picks and HLTV fan votes excluded."
+    },
+    {
+      "id": "1081164",
+      "teams": [
+        "Inner Circle Academy",
+        "Lavked"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-27T18:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/inner-circle-academy-vs-lavked-cct-europe-2026-series-12-1081164",
+      "hltv_url": "https://www.hltv.org/matches/2399514/inner-circle-academy-vs-lavked-cct-2026-europe-series-12",
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "Valve-rating research estimate (model)",
+      "note": "Observed on live play.hotspawn.com/lobby and Cloudways scheduled API at 2026-10-26T01:09:00Z; HLTV match page verified (BO3 online Swiss Round 3; Lavked fields two substitutes takanashi and FREXEMP.) Carried in the published complete picks list (Valve-rating research estimate (model)); Hotspawn crowd picks and HLTV fan votes excluded."
+    },
+    {
+      "id": "1082901",
+      "teams": [
+        "Envy",
+        "GamerLegion"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T20:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/envy-vs-gamerlegion-tesla-cup-2026-1082901",
+      "hltv_url": "https://www.hltv.org/matches/2399870/envy-vs-gamerlegion-rlg-tesla-cup-2026",
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "Market-implied estimate (market)",
+      "note": "Observed on live play.hotspawn.com/lobby and Cloudways scheduled API at 2026-10-26T01:09:00Z; HLTV match page verified (BO3 LAN Group B; Envy vs GamerLegion exact 5-man lineups confirmed.) Carried in the published complete picks list (Market-implied estimate (market)); Hotspawn crowd picks and HLTV fan votes excluded."
+    },
+    {
+      "id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+      "hltv_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "in_published_snapshot": true,
+      "in_featured_resolved": false,
+      "published_method": "Originated market line (Polymarket) (market)",
+      "note": "Observed on live play.hotspawn.com/lobby and Cloudways scheduled API at 2026-10-26T01:09:00Z; HLTV match page verified (BO3 LAN Semifinal; HOTU vs The Huns (4/5 overlap with Valve #122 over duplicate #213).) Carried in the published complete picks list (Originated market line (Polymarket) (market)); Hotspawn crowd picks and HLTV fan votes excluded."
+    },
+    {
+      "id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T13:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
+      "hltv_url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "Valve-rating research estimate (model)",
+      "note": "Observed on live play.hotspawn.com/lobby and Cloudways scheduled API at 2026-10-26T01:09:00Z; HLTV match page verified (BO3 LAN Semifinal (reversed home/away vs Hotspawn); both rosters turned over post-Oct-5 Valve snapshot.) Carried in the published complete picks list (Valve-rating research estimate (model)); Hotspawn crowd picks and HLTV fan votes excluded."
+    }
+  ]
+}

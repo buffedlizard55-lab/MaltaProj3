@@ -102,6 +102,12 @@ def verify(site: Path) -> dict:
         return result
 
     snapshot = json.loads(snapshot_path.read_text())
+    orig_by_id: dict[str, dict] = {}
+    for cand in (site / 'origination.json', site / 'data' / 'origination.json'):
+        if cand.is_file():
+            orig_doc = json.loads(cand.read_text())
+            orig_by_id = {str(m.get('id')): m for m in orig_doc.get('matches') or []}
+            break
     html = index_path.read_text()
     generated = snapshot.get('generated_at')
     result['generated_at'] = generated
@@ -132,6 +138,12 @@ def verify(site: Path) -> dict:
         analysis = match.get('analysis') or {}
         probs = analysis.get('probabilities') or []
         pick_index = match.get('pick_index')
+        orig_row = orig_by_id.get(identifier) or {}
+        orig_block = orig_row.get('origination') or {}
+        if orig_row.get('upgraded_from_featured_model') and orig_block.get('probabilities'):
+            analysis = orig_block
+            probs = orig_block.get('probabilities') or []
+            pick_index = orig_row.get('pick_index')
         record = {
             'id': identifier,
             'teams': teams,

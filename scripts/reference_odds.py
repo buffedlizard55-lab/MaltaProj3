@@ -41,6 +41,11 @@ UTC = timezone.utc
 EVIDENCE_PATH = Path('research/57b1ee04/reference-odds.json')
 CAPTURE_PATHS = (
     EVIDENCE_PATH,
+    # Session arena-b2264c65 (2026-10-26T01:08:15Z): fresh (<8h) first-hand EGW
+    # match-page captures (1082858, 1082859, 1082860, 1082901) plus 15 verified
+    # rejections across all 19 open Hotspawn CS2 fixtures, placed ahead of
+    # 35e31fef's expired (>11h) 2026-10-25T13:41Z capture.
+    Path('research/b2264c65/reference-odds.json'),
     # Session arena-35e31fef (2026-10-25T13:41:00Z): fresh (<8h) first-hand EGW
     # match-page captures (1082858, 1082859, 1086696) placed ahead of c2a74e33's
     # expired (>21h) 2026-10-24T16:42Z capture so 1082858 stays money-backed when
