@@ -1,0 +1,23 @@
+{
+ "schema_version": 1,
+ "session": "arena-b3e91409",
+ "observed_at": "2026-10-26T00:53:19Z",
+ "source_manifest": "data/research/b3e91409/live/sources.json",
+ "policy": {
+  "identity": "exact Unicode/case/whitespace-equivalent team names and a start time within 60 s",
+  "exchange": "exchange midpoint with both sides two-sided and spread <= 0.1",
+  "bookmaker": "paired decimal odds with margin in [0.85, 1.35]",
+  "model": "published rating points only, formula printed per row",
+  "never": "Hotspawn % picked, HLTV fan votes, inferred values, default 50/50"
+ },
+ "counts": {
+  "open": 0,
+  "with_line": 0,
+  "with_model": 0,
+  "unresolved": 0,
+  "market": 0,
+  "bookmaker": 0
+ },
+ "fixtures": [],
+ "book_requests": []
+}
