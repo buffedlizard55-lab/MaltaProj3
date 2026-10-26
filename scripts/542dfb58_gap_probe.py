@@ -39,7 +39,7 @@ from html import unescape
 from pathlib import Path
 from urllib.parse import urlencode
 
-from scripts.domain import identity_matches, name_key, no_vig
+from scripts.domain import identity_matches, name_key
 from scripts.sources import CS2_LOBBY, FIXTURES_API, LOBBY, Client, SourceError, hotspawn
 
 UTC = timezone.utc
@@ -109,8 +109,12 @@ def grab(client: Client, out_dir: Path, label: str, url: str, *, method='GET', p
 
 def usable_pair(odds) -> dict:
     """Apply the project's own bookmaker contract to a two-decimal-price pair."""
+    if not isinstance(odds, (list, tuple)) or len(odds) != 2:
+        return {'usable': False, 'reason': 'a series-winner market needs exactly two prices'}
     try:
         implied = [1 / float(o) for o in odds]
+        if any(float(o) <= 1 for o in odds):
+            return {'usable': False, 'reason': 'a decimal price must be above 1'}
     except (TypeError, ValueError, ZeroDivisionError):
         return {'usable': False, 'reason': 'not two decimal prices above 1'}
     margin = sum(implied)
@@ -120,7 +124,11 @@ def usable_pair(odds) -> dict:
     if float(odds[0]) == float(odds[1]):
         return {'usable': False, 'reason': 'identical prices on both sides (site placeholder)',
                 'margin': round(margin, 4)}
-    return {'usable': True, 'margin': round(margin, 4), 'no_vig': no_vig(list(odds))}
+    # Deliberately no probability here. Whether these two prices make a published
+    # estimate is decided by the ladder's own reader, with its own evidence; this
+    # probe only reports that the book published a pair inside the project's
+    # margin policy, so a reviewer can see the same numbers the ladder would see.
+    return {'usable': True, 'margin': round(margin, 4), 'policy': 'paired margin inside 0.85-1.35'}
 
 
 def team_keys(fixture: dict) -> list:
@@ -238,13 +246,17 @@ def reconcile(inventory: dict, deployed: dict) -> dict:
         f_analysis = (feat or {}).get('analysis') or {}
         r_analysis = ((res or {}).get('origination') or {})
         method = f_analysis.get('method') or r_analysis.get('method')
+        # A pick exists when EITHER deployed layer names a side. The complete list
+        # (`origination.json`) carries the researched fallbacks, so reading only the
+        # featured file counted 1082792 — priced at 87/13 on Polymarket — as unpicked
+        # (reproduced from the 01:04:33Z run before this rule landed).
         pick_side = None
-        if feat and feat.get('pick_index') is not None:
-            pick_side = fixture['teams'][feat['pick_index']]['name']
-        elif res and r_analysis.get('pick') is not None:
-            pick_side = r_analysis.get('pick')
-        elif res and r_analysis.get('selection') is not None:
-            pick_side = fixture['teams'][r_analysis['selection']]['name']
+        for candidate in (feat, res):
+            index = (candidate or {}).get('pick_index')
+            if isinstance(index, int) and 0 <= index < len(fixture['teams']):
+                pick_side = fixture['teams'][index]['name']
+                break
+        estimate = bool(f_analysis.get('probabilities') or r_analysis.get('probabilities'))
         row = {
             'fixture_id': fid,
             'teams': [t['name'] for t in fixture['teams']],
@@ -259,6 +271,7 @@ def reconcile(inventory: dict, deployed: dict) -> dict:
             'priced_by_money': method in MONEY_METHODS,
             'model_only': method in MODEL_METHODS,
             'pick': pick_side,
+            'estimate_published': estimate,
             'source_url': (f_analysis or r_analysis).get('source_url'),
             'limitation_count': len((feat or {}).get('limitations') or []),
         }
@@ -819,13 +832,20 @@ def build_flags(inventory: dict, coverage: dict, surfaces: dict, joins: dict) ->
                         'four hours and will take a compliant price the moment one validates.',
             'source_urls': [surfaces[l].get('url', '') for l in unreachable][:6]})
     for row in coverage['unpicked']:
+        nothing = not row['estimate_published']
         flags.append({
-            'id': f'542dfb58-unpicked-{row["fixture_id"]}', 'severity': 'critical',
+            'id': f'542dfb58-unpicked-{row["fixture_id"]}',
+            'severity': 'critical' if nothing else 'warning',
             'match_ids': [row['fixture_id']],
-            'title': f'No pick published for {row["teams"][0]} vs {row["teams"][1]}',
-            'detail': f'Hotspawn lists this {row["competition"]} fixture open (starts {row["starts_at"]}, tier '
-                      f'{row["tier"]}) and neither the featured line nor the researched fallback produced a pick. '
-                      'Sources tried this hour are in data/research/542dfb58/probe.json.',
+            'title': (f'No pick published for {row["teams"][0]} vs {row["teams"][1]}' if nothing
+                      else f'{row["teams"][0]} vs {row["teams"][1]} has an estimate but no named side'),
+            'detail': (f'Hotspawn lists this {row["competition"]} fixture open (starts {row["starts_at"]}, tier '
+                       f'{row["tier"]}) and neither the featured line nor the researched fallback produced a pick. '
+                       if nothing else
+                       f'Hotspawn lists this {row["competition"]} fixture open (starts {row["starts_at"]}, tier '
+                       f'{row["tier"]}); a sourced estimate exists on the complete list but no side is named, '
+                       'which is the project\'s even-money refusal, not a missing number. ')
+                      + 'Sources tried this hour are in data/research/542dfb58/probe.json.',
             'source_urls': [row['source_url'] or (SITE + '/snapshot.json')]})
     for row in coverage['model_or_guidance_only']:
         found = joins.get(row['fixture_id']) or []
