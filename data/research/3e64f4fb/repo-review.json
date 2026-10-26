@@ -164,6 +164,27 @@
      "detail": "Live re-read at 00:50Z: best bid 0.82 / ask 0.92, outcomes HOTU and The Huns Esports - unchanged from the published 23:04Z observation."
     }
    ]
+  },
+  {
+   "id": "3E64-R10",
+   "area": "Resolution paths for every match without a featured line (sweep 2, 2026-10-26T01:39Z)",
+   "status": "verified",
+   "finding": "With corrected source contracts, the second HLTV-first sweep establishes what can and cannot price each non-featured fixture today. 1082859 (single Thunderpick book): the book moved to 1.56/2.26 and Kalshi independently quotes NEXVOID yes 0.55/0.59 with traded volume, so the published pick now has a second money source pointing the same way. 1082861 (Valve-model only): Kalshi lists the match but its book is Abyssal yes 0.45/0.69 and Rooster yes 0.31/0.55 with zero volume - a 0.24 spread, twice the publisher's 0.12 cap - so no compliant betting line exists yet and the labelled model estimate remains the honest basis. 1082793 (Valve-model only): no Polymarket, Thunderpick or Kalshi market was found in either sweep; HLTV confirms the fixture and ranks 1WIN #14 against 5star #36, the same direction as the model. Of the nine rotation-gap fixtures, four already have tight, volume-bearing Kalshi books (1079201, 1079202, 1079203, 1093218) and two have paired Thunderpick prices (1079202 at 1.35/2.90, 1079203 at 1.50/2.40), so the next collection has compliant external sources for them; the remaining CCT fixtures (1081160, 1081162, 1081163, 1081164) show only empty 0.06/0.94 placeholder books and will depend on the bookmaker/model ladder or stay explicitly unresolved with limitations. GG.BET and Stake answered 403 to the runner and Pinnacle/Rivalry redirected to their roots, so those books could not be read first-hand; that is a runner limitation, not proof no market exists.",
+   "handling": "Published as the per-fixture answer to the brief's research order (HLTV, then esportsbooks/exchanges). No probability was originated from these observations in this session: raw observed prices are archived with timestamps so the four-hour origination ladder - the only path to a published pick - can consume or reject them under its own spread, freshness and identity rules at the next refresh.",
+   "evidence": [
+    {
+     "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/",
+     "detail": "Kalshi's CS2 series (KXCS2GAME) read live via its documented public API: raw yes bid/ask dollar strings for all 13 researched fixtures are archived in this session's kalshi-reparse.json."
+    },
+    {
+     "url": "https://thunderpick.io/esports/counter-strike",
+     "detail": "Thunderpick CS2 board (production POST contract): paired Match Winner odds observed for 1082859 (1.56/2.26), 1079202 (1.35/2.90) and 1079203 (1.50/2.40) at 2026-10-26T01:39Z."
+    },
+    {
+     "url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+     "detail": "HLTV identity/schedule confirmation for the model-only fixture 1082793, for which no exchange or book market was found in either sweep."
+    }
+   ]
   }
  ]
 }
