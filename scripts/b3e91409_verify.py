@@ -44,7 +44,8 @@ METHODS = {'market', 'bookmaker', 'model', 'consensus', 'reference', 'network', 
 MARKET_TOL = 5e-7
 MODEL_RD = 75
 EXTERNAL_HOSTS = ('polymarket.com', 'thunderpick.io', 'github.com', 'kalshi.com', 'bovada.lv',
-                  'hltv.org', 'pinnacle.com', 'gg.bet', 'stake.com', 'rivalry.com', 'smarkets.com')
+                  'hltv.org', 'pinnacle.com', 'gg.bet', 'stake.com', 'rivalry.com', 'smarkets.com',
+                  'bo3.gg', 'egamersworld.com')
 
 
 def now():
@@ -141,6 +142,23 @@ def replay_bookmaker(analysis):
 
 
 def replay_model(analysis):
+    """Valve's published fit.js logistic, unless the row is a fitted results model.
+
+    A fitted form model publishes posterior means, a rating sd and the series it was fitted on, but
+    not the predictive integral that turns those into a win probability. That number cannot be
+    replayed from the row; the checker reports the standard Elo on the same published points so the
+    size of the gap is visible instead of being hidden.
+    """
+    if analysis.get('family') == 'form' or 'results-based' in str(analysis.get('provider', '')).lower() or any(
+            isinstance(i, dict) and i.get('fitted') for i in analysis.get('inputs') or []):
+        inputs = analysis.get('inputs') or []
+        points = [number(i.get('points')) for i in inputs if isinstance(i, dict)]
+        if len(points) == 2 and all(p is not None for p in points):
+            elo = 1 / (1 + 10 ** ((points[1] - points[0]) / 400))
+            return None, ('a fitted results model does not publish the predictive formula that turns its '
+                          f'posterior means {points} into a probability; a standard 400-point Elo on the same '
+                          f'points gives {elo:.6f}')
+        return None, 'a fitted results model publishes no replayable formula'
     inputs = analysis.get('inputs') or []
     if len(inputs) != 2:
         return None, 'a model row must publish both teams\' rating inputs'
@@ -258,6 +276,17 @@ def check_row(row):
         else:
             record['verdict'] = 'verified'
 
+    # Identity: a model's published inputs must name the same two teams the row does.
+    inputs = analysis.get('inputs') or []
+    if analysis.get('method') == 'model' and len(inputs) == 2 and len(names) == 2:
+        published_names = [str(i.get('name') or '') for i in inputs if isinstance(i, dict)]
+        if [n.casefold().strip() for n in published_names] != [n.casefold().strip() for n in names]:
+            order = [[n.casefold().strip() for n in names], [n.casefold().strip() for n in published_names]]
+            if sorted(order[0]) != sorted(order[1]):
+                findings.append(('error', row.get('id'),
+                                 f'model inputs name different teams than the row: {published_names} vs {names}'))
+            else:
+                findings.append(('note', row.get('id'), 'model inputs are published in the opposite team order'))
     fair = analysis.get('fair_decimal')
     if fair:
         expected_fair = [round(1 / v, 3) for v in values]

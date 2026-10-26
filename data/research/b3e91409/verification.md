@@ -1,53 +1,42 @@
-# Independent verification — 2026-10-26T00:56:24Z
+# Independent verification — 2026-10-26T01:15:51Z
 
-Rows checked: **10** · verified: **10** · blank (explained): **0** · errors: **0** · live coverage gaps: **9** · notes: **1**
+Rows checked: **19** · verified: **18** · blank (explained): **0** · errors: **1** · live coverage gaps: **0** · notes: **3**
 
 ## Inputs
 
-- `origination.json` · generated 2026-10-25T23:04:02Z · sha256 `30cc91ed42b5c58b…`
-- `snapshot.json` · generated 2026-10-25T23:03:48Z · sha256 `1c8a8c9af0c5ca6e…`
+- `/tmp/mainart/origination.json` · generated 2026-10-26T01:04:30Z · sha256 `6c14cb1e7c9ac7fd…`
+- `/tmp/mainart/snapshot.json` · generated 2026-10-26T01:04:20Z · sha256 `6ec8e288ed36ab15…`
 
 ## Rows
 
 | Fixture | Teams | Method | Probabilities | Pick | Replay | Verdict |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1082858 | Ground Zero vs Off Chops | market | 20.0% / 80.0% | Off Chops | 0.0e+00 | verified |
-| 1082859 | NEXVOID vs Alter Ego | bookmaker | 57.5% / 42.5% | NEXVOID | 8.2e-10 | verified |
+| 1082858 | Ground Zero vs Off Chops | market | 20.5% / 79.5% | Off Chops | 0.0e+00 | verified |
+| 1082859 | NEXVOID vs Alter Ego | bookmaker | 59.2% / 40.8% | NEXVOID | 3.4e-09 | verified |
+| 1079201 | INOX Division vs Nemesis | model | 12.3% / 87.7% | Nemesis | 2.9e-09 | verified |
+| 1079202 | FOKUS vs ex-Zero Tenacity | bookmaker | 68.2% / 31.8% | FOKUS | 1.2e-09 | verified |
+| 1081159 | LFO 10 vs ex-6666 | model | 39.0% / 61.0% | ex-6666 | — | unreplayable |
+| 1079203 | Metizport vs BRUTE | bookmaker | 61.5% / 38.5% | Metizport | 4.6e-09 | verified |
+| 1081160 | HAVU vs ILLYRIANS | model | 60.3% / 39.7% | HAVU | 5.0e-10 | verified |
+| 1093218 | Nuclear TigeRES vs UNiTY | consensus | 58.3% / 41.7% | Nuclear TigeRES | 5.0e-09 | verified |
 | 1082860 | FlyQuest vs Staqued | market | 92.5% / 7.5% | FlyQuest | 0.0e+00 | verified |
 | 1082861 | Rooster vs Abyssal | model | 47.8% / 52.2% | Abyssal | 2.8e-09 | verified |
 | 1082897 | B8 vs K27 | market | 59.5% / 40.5% | B8 | 0.0e+00 | verified |
-| 1082898 | Alliance vs FaZe | market | 37.5% / 62.5% | FaZe | 0.0e+00 | verified |
+| 1082898 | Alliance vs FaZe | market | 34.0% / 66.0% | FaZe | 0.0e+00 | verified |
+| 1081162 | ex-RUSTEC vs Spirit Academy | model | 61.7% / 38.3% | ex-RUSTEC | 4.5e-09 | verified |
+| 1081163 | BakS vs Saint Sinners | model | 78.8% / 21.2% | BakS | 2.8e-09 | verified |
 | 1082900 | Luminosity vs HOTU | market | 52.5% / 47.5% | Luminosity | 0.0e+00 | verified |
+| 1081164 | Inner Circle Academy vs Lavked | model | 75.6% / 24.4% | Inner Circle Academy | 3.3e-09 | verified |
 | 1082901 | Envy vs GamerLegion | market | 45.5% / 54.5% | GamerLegion | 0.0e+00 | verified |
 | 1082792 | HOTU vs The Huns | market | 87.0% / 13.0% | HOTU | 0.0e+00 | verified |
 | 1082793 | 5star vs 1WIN | model | 17.8% / 82.2% | 1WIN | 3.1e-09 | verified |
 
 ## Findings
 
+- **note** `1081159` — the analysis publishes no limitation text
+- **error** `1081159` — cannot replay the published numbers: a fitted results model does not publish the predictive formula that turns its posterior means [825.0, 923.0] into a probability; a standard 400-point Elo on the same points gives 0.362592
+- **note** `1093218` — the analysis publishes no limitation text
 - **note** `1082792` — the analysis publishes no limitation text
-- **coverage-gap** `1079201` — live open fixture INOX Division vs Nemesis (2026-10-26T09:00:00Z) has no published row
-- **coverage-gap** `1079202` — live open fixture FOKUS vs ex-Zero Tenacity (2026-10-26T12:00:00Z) has no published row
-- **coverage-gap** `1081159` — live open fixture LFO 10 vs ex-6666 (2026-10-26T12:00:00Z) has no published row
-- **coverage-gap** `1079203` — live open fixture Metizport vs BRUTE (2026-10-26T15:00:00Z) has no published row
-- **coverage-gap** `1081160` — live open fixture HAVU vs ILLYRIANS (2026-10-26T15:00:00Z) has no published row
-- **coverage-gap** `1093218` — live open fixture Nuclear TigeRES vs UNiTY (2026-10-26T18:00:00Z) has no published row
-- **coverage-gap** `1081162` — live open fixture ex-RUSTEC vs Spirit Academy (2026-10-27T12:00:00Z) has no published row
-- **coverage-gap** `1081163` — live open fixture BakS vs Saint Sinners (2026-10-27T15:00:00Z) has no published row
-- **coverage-gap** `1081164` — live open fixture Inner Circle Academy vs Lavked (2026-10-27T18:00:00Z) has no published row
-
-## Live fixtures with no published row
-
-| Fixture | Teams | Starts (UTC) | Competition | Hotspawn |
-| --- | --- | --- | --- | --- |
-| 1079201 | INOX Division vs Nemesis | 2026-10-26T09:00:00Z | NODWIN Clutch Series #13 | https://play.hotspawn.com/cs2-pickems#fixture-1079201 |
-| 1079202 | FOKUS vs ex-Zero Tenacity | 2026-10-26T12:00:00Z | NODWIN Clutch Series #13 | https://play.hotspawn.com/cs2-pickems#fixture-1079202 |
-| 1081159 | LFO 10 vs ex-6666 | 2026-10-26T12:00:00Z | CCT Europe 2026 Series #12 | https://play.hotspawn.com/cs2-pickems#fixture-1081159 |
-| 1079203 | Metizport vs BRUTE | 2026-10-26T15:00:00Z | NODWIN Clutch Series #13 | https://play.hotspawn.com/cs2-pickems#fixture-1079203 |
-| 1081160 | HAVU vs ILLYRIANS | 2026-10-26T15:00:00Z | CCT Europe 2026 Series #12 | https://play.hotspawn.com/cs2-pickems#fixture-1081160 |
-| 1093218 | Nuclear TigeRES vs UNiTY | 2026-10-26T18:00:00Z | NODWIN Clutch Series #13 | https://play.hotspawn.com/cs2-pickems#fixture-1093218 |
-| 1081162 | ex-RUSTEC vs Spirit Academy | 2026-10-27T12:00:00Z | CCT Europe 2026 Series #12 | https://play.hotspawn.com/cs2-pickems#fixture-1081162 |
-| 1081163 | BakS vs Saint Sinners | 2026-10-27T15:00:00Z | CCT Europe 2026 Series #12 | https://play.hotspawn.com/cs2-pickems#fixture-1081163 |
-| 1081164 | Inner Circle Academy vs Lavked | 2026-10-27T18:00:00Z | CCT Europe 2026 Series #12 | https://play.hotspawn.com/cs2-pickems#fixture-1081164 |
 
 ## Limits of this check
 

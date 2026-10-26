@@ -1,37 +1,45 @@
 {
  "schema_version": 1,
  "session": "arena-b3e91409",
- "verified_at": "2026-10-26T00:56:24Z",
+ "verified_at": "2026-10-26T01:15:51Z",
  "inputs": [
   {
-   "path": "origination.json",
-   "sha256": "30cc91ed42b5c58b21fa05df6d66c80d73d37fbd22bc14b024260ce631c48998",
-   "generated_at": "2026-10-25T23:04:02Z"
+   "path": "/tmp/mainart/origination.json",
+   "sha256": "6c14cb1e7c9ac7fd1becb62aa05108b3db0a3d9fce3be1ae9ad1104a909ef9e8",
+   "generated_at": "2026-10-26T01:04:30Z"
   },
   {
-   "path": "snapshot.json",
-   "sha256": "1c8a8c9af0c5ca6e77b1550650037c13701aaefd06c28e8bba26d699e0ed1952",
-   "generated_at": "2026-10-25T23:03:48Z"
+   "path": "/tmp/mainart/snapshot.json",
+   "sha256": "6ec8e288ed36ab1580c2ac569ec9ba2f8c5ec91ccdc4ad594e1dc893e482f99c",
+   "generated_at": "2026-10-26T01:04:20Z"
   }
  ],
  "published": {
   "counts": {
-   "active": 10,
-   "resolved": 10,
+   "active": 19,
+   "resolved": 19,
    "unresolved": 0,
-   "with_pick": 10,
-   "consensus": 0,
+   "with_pick": 19,
+   "consensus": 1,
    "market": 7,
-   "bookmaker": 1,
+   "bookmaker": 3,
    "reference": 0,
-   "model": 2,
+   "model": 8,
    "network": 0,
    "relay": 0,
    "guidance": 0,
-   "alias_joined": 1
+   "alias_joined": 3
   },
-  "generated_at": "2026-10-25T23:04:02Z",
+  "generated_at": "2026-10-26T01:04:30Z",
   "active_ids": [
+   "1079201",
+   "1079202",
+   "1079203",
+   "1081159",
+   "1081160",
+   "1081162",
+   "1081163",
+   "1081164",
    "1082792",
    "1082793",
    "1082858",
@@ -41,7 +49,8 @@
    "1082897",
    "1082898",
    "1082900",
-   "1082901"
+   "1082901",
+   "1093218"
   ]
  },
  "live": {
@@ -57,12 +66,12 @@
   "source": "data/research/b3e91409/live/analysis.json"
  },
  "summary": {
-  "rows": 10,
-  "verified": 10,
+  "rows": 19,
+  "verified": 18,
   "blank": 0,
-  "errors": 0,
-  "coverage_gaps": 9,
-  "notes": 1
+  "errors": 1,
+  "coverage_gaps": 0,
+  "notes": 3
  },
  "rows": [
   {
@@ -75,16 +84,16 @@
    "availability": "open",
    "method": "market",
    "probabilities": [
-    0.2,
-    0.8
+    0.205,
+    0.795
    ],
    "pick": "Off Chops",
    "replay": {
     "values": [
-     0.2,
-     0.8
+     0.205,
+     0.795
     ],
-    "detail": "one quote per side: midpoints [0.2, 0.8] normalised by 1.0",
+    "detail": "one quote per side: midpoints [0.205, 0.795] normalised by 1.0",
     "deltas": [
      0.0,
      0.0
@@ -102,19 +111,174 @@
    "availability": "open",
    "method": "bookmaker",
    "probabilities": [
-    0.57519789,
-    0.42480211
+    0.59162304,
+    0.40837696
    ],
    "pick": "NEXVOID",
    "replay": {
     "values": [
-     0.575197889,
-     0.424802111
+     0.591623037,
+     0.408376963
     ],
-    "detail": "implied [0.621118, 0.458716] de-vigged by 1.079834",
+    "detail": "implied [0.641026, 0.442478] de-vigged by 1.083504",
     "deltas": [
-     8.18e-10,
-     8.18e-10
+     3.351e-09,
+     3.351e-09
+    ]
+   },
+   "verdict": "verified"
+  },
+  {
+   "id": "1079201",
+   "teams": [
+    "INOX Division",
+    "Nemesis"
+   ],
+   "starts_at": "2026-10-26T09:00:00Z",
+   "availability": "open",
+   "method": "model",
+   "probabilities": [
+    0.12346675,
+    0.87653325
+   ],
+   "pick": "Nemesis",
+   "replay": {
+    "values": [
+     0.123466753,
+     0.876533247
+    ],
+    "detail": "points [1105.0, 1455.0] · RD 75.0 · g 0.972820991 · fit.js logistic",
+    "deltas": [
+     2.861e-09,
+     2.861e-09
+    ]
+   },
+   "verdict": "verified"
+  },
+  {
+   "id": "1079202",
+   "teams": [
+    "FOKUS",
+    "ex-Zero Tenacity"
+   ],
+   "starts_at": "2026-10-26T12:00:00Z",
+   "availability": "open",
+   "method": "bookmaker",
+   "probabilities": [
+    0.68235294,
+    0.31764706
+   ],
+   "pick": "FOKUS",
+   "replay": {
+    "values": [
+     0.682352941,
+     0.317647059
+    ],
+    "detail": "implied [0.740741, 0.344828] de-vigged by 1.085568",
+    "deltas": [
+     1.176e-09,
+     1.176e-09
+    ]
+   },
+   "verdict": "verified"
+  },
+  {
+   "id": "1081159",
+   "teams": [
+    "LFO 10",
+    "ex-6666"
+   ],
+   "starts_at": "2026-10-26T12:00:00Z",
+   "availability": "open",
+   "method": "model",
+   "probabilities": [
+    0.39044605815543665,
+    0.6095539418445634
+   ],
+   "pick": "ex-6666",
+   "replay": {
+    "values": null,
+    "detail": "a fitted results model does not publish the predictive formula that turns its posterior means [825.0, 923.0] into a probability; a standard 400-point Elo on the same points gives 0.362592"
+   },
+   "verdict": "unreplayable"
+  },
+  {
+   "id": "1079203",
+   "teams": [
+    "Metizport",
+    "BRUTE"
+   ],
+   "starts_at": "2026-10-26T15:00:00Z",
+   "availability": "open",
+   "method": "bookmaker",
+   "probabilities": [
+    0.61538462,
+    0.38461538
+   ],
+   "pick": "Metizport",
+   "replay": {
+    "values": [
+     0.615384615,
+     0.384615385
+    ],
+    "detail": "implied [0.666667, 0.416667] de-vigged by 1.083333",
+    "deltas": [
+     4.615e-09,
+     4.615e-09
+    ]
+   },
+   "verdict": "verified"
+  },
+  {
+   "id": "1081160",
+   "teams": [
+    "HAVU",
+    "ILLYRIANS"
+   ],
+   "starts_at": "2026-10-26T15:00:00Z",
+   "availability": "open",
+   "method": "model",
+   "probabilities": [
+    0.60348339,
+    0.39651661
+   ],
+   "pick": "HAVU",
+   "replay": {
+    "values": [
+     0.603483389,
+     0.396516611
+    ],
+    "detail": "points [937.0, 862.0] · RD 75.0 · g 0.972820991 · fit.js logistic",
+    "deltas": [
+     5.03e-10,
+     5.03e-10
+    ]
+   },
+   "verdict": "verified"
+  },
+  {
+   "id": "1093218",
+   "teams": [
+    "Nuclear TigeRES",
+    "UNiTY"
+   ],
+   "starts_at": "2026-10-26T18:00:00Z",
+   "availability": "open",
+   "method": "consensus",
+   "probabilities": [
+    0.58275378,
+    0.41724622
+   ],
+   "pick": "Nuclear TigeRES",
+   "replay": {
+    "values": [
+     0.582753785,
+     0.417246215
+    ],
+    "detail": "median of 2 published quote pairs",
+    "deltas": [
+     5e-09,
+     5e-09
     ]
    },
    "verdict": "verified"
@@ -210,19 +374,73 @@
    "availability": "open",
    "method": "market",
    "probabilities": [
-    0.375,
-    0.625
+    0.34,
+    0.66
    ],
    "pick": "FaZe",
    "replay": {
     "values": [
-     0.375,
-     0.625
+     0.34,
+     0.66
     ],
-    "detail": "one quote per side: midpoints [0.375, 0.625] normalised by 1.0",
+    "detail": "one quote per side: midpoints [0.34, 0.66] normalised by 1.0",
     "deltas": [
      0.0,
      0.0
+    ]
+   },
+   "verdict": "verified"
+  },
+  {
+   "id": "1081162",
+   "teams": [
+    "ex-RUSTEC",
+    "Spirit Academy"
+   ],
+   "starts_at": "2026-10-27T12:00:00Z",
+   "availability": "open",
+   "method": "model",
+   "probabilities": [
+    0.61680305,
+    0.38319695
+   ],
+   "pick": "ex-RUSTEC",
+   "replay": {
+    "values": [
+     0.616803046,
+     0.383196954
+    ],
+    "detail": "points [1066.0, 981.0] · RD 75.0 · g 0.972820991 · fit.js logistic",
+    "deltas": [
+     4.493e-09,
+     4.493e-09
+    ]
+   },
+   "verdict": "verified"
+  },
+  {
+   "id": "1081163",
+   "teams": [
+    "BakS",
+    "Saint Sinners"
+   ],
+   "starts_at": "2026-10-27T15:00:00Z",
+   "availability": "open",
+   "method": "model",
+   "probabilities": [
+    0.78758039,
+    0.21241961
+   ],
+   "pick": "BakS",
+   "replay": {
+    "values": [
+     0.787580387,
+     0.212419613
+    ],
+    "detail": "points [1044.0, 810.0] · RD 75.0 · g 0.972820991 · fit.js logistic",
+    "deltas": [
+     2.764e-09,
+     2.764e-09
     ]
    },
    "verdict": "verified"
@@ -250,6 +468,33 @@
     "deltas": [
      0.0,
      0.0
+    ]
+   },
+   "verdict": "verified"
+  },
+  {
+   "id": "1081164",
+   "teams": [
+    "Inner Circle Academy",
+    "Lavked"
+   ],
+   "starts_at": "2026-10-27T18:00:00Z",
+   "availability": "open",
+   "method": "model",
+   "probabilities": [
+    0.75606058,
+    0.24393942
+   ],
+   "pick": "Inner Circle Academy",
+   "replay": {
+    "values": [
+     0.756060577,
+     0.243939423
+    ],
+    "detail": "points [1064.0, 862.0] · RD 75.0 · g 0.972820991 · fit.js logistic",
+    "deltas": [
+     3.289e-09,
+     3.289e-09
     ]
    },
    "verdict": "verified"
@@ -339,156 +584,26 @@
  "findings": [
   {
    "severity": "note",
-   "id": "1082792",
+   "id": "1081159",
    "detail": "the analysis publishes no limitation text"
   },
   {
-   "severity": "coverage-gap",
-   "id": "1079201",
-   "detail": "live open fixture INOX Division vs Nemesis (2026-10-26T09:00:00Z) has no published row"
-  },
-  {
-   "severity": "coverage-gap",
-   "id": "1079202",
-   "detail": "live open fixture FOKUS vs ex-Zero Tenacity (2026-10-26T12:00:00Z) has no published row"
-  },
-  {
-   "severity": "coverage-gap",
+   "severity": "error",
    "id": "1081159",
-   "detail": "live open fixture LFO 10 vs ex-6666 (2026-10-26T12:00:00Z) has no published row"
+   "detail": "cannot replay the published numbers: a fitted results model does not publish the predictive formula that turns its posterior means [825.0, 923.0] into a probability; a standard 400-point Elo on the same points gives 0.362592"
   },
   {
-   "severity": "coverage-gap",
-   "id": "1079203",
-   "detail": "live open fixture Metizport vs BRUTE (2026-10-26T15:00:00Z) has no published row"
-  },
-  {
-   "severity": "coverage-gap",
-   "id": "1081160",
-   "detail": "live open fixture HAVU vs ILLYRIANS (2026-10-26T15:00:00Z) has no published row"
-  },
-  {
-   "severity": "coverage-gap",
+   "severity": "note",
    "id": "1093218",
-   "detail": "live open fixture Nuclear TigeRES vs UNiTY (2026-10-26T18:00:00Z) has no published row"
+   "detail": "the analysis publishes no limitation text"
   },
   {
-   "severity": "coverage-gap",
-   "id": "1081162",
-   "detail": "live open fixture ex-RUSTEC vs Spirit Academy (2026-10-27T12:00:00Z) has no published row"
-  },
-  {
-   "severity": "coverage-gap",
-   "id": "1081163",
-   "detail": "live open fixture BakS vs Saint Sinners (2026-10-27T15:00:00Z) has no published row"
-  },
-  {
-   "severity": "coverage-gap",
-   "id": "1081164",
-   "detail": "live open fixture Inner Circle Academy vs Lavked (2026-10-27T18:00:00Z) has no published row"
+   "severity": "note",
+   "id": "1082792",
+   "detail": "the analysis publishes no limitation text"
   }
  ],
- "coverage_gaps": [
-  {
-   "id": "1079201",
-   "teams": [
-    "INOX Division",
-    "Nemesis"
-   ],
-   "starts_at": "2026-10-26T09:00:00Z",
-   "competition": "NODWIN Clutch Series #13",
-   "source_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079201",
-   "analysis": null
-  },
-  {
-   "id": "1079202",
-   "teams": [
-    "FOKUS",
-    "ex-Zero Tenacity"
-   ],
-   "starts_at": "2026-10-26T12:00:00Z",
-   "competition": "NODWIN Clutch Series #13",
-   "source_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079202",
-   "analysis": null
-  },
-  {
-   "id": "1081159",
-   "teams": [
-    "LFO 10",
-    "ex-6666"
-   ],
-   "starts_at": "2026-10-26T12:00:00Z",
-   "competition": "CCT Europe 2026 Series #12",
-   "source_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081159",
-   "analysis": null
-  },
-  {
-   "id": "1079203",
-   "teams": [
-    "Metizport",
-    "BRUTE"
-   ],
-   "starts_at": "2026-10-26T15:00:00Z",
-   "competition": "NODWIN Clutch Series #13",
-   "source_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079203",
-   "analysis": null
-  },
-  {
-   "id": "1081160",
-   "teams": [
-    "HAVU",
-    "ILLYRIANS"
-   ],
-   "starts_at": "2026-10-26T15:00:00Z",
-   "competition": "CCT Europe 2026 Series #12",
-   "source_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081160",
-   "analysis": null
-  },
-  {
-   "id": "1093218",
-   "teams": [
-    "Nuclear TigeRES",
-    "UNiTY"
-   ],
-   "starts_at": "2026-10-26T18:00:00Z",
-   "competition": "NODWIN Clutch Series #13",
-   "source_url": "https://play.hotspawn.com/cs2-pickems#fixture-1093218",
-   "analysis": null
-  },
-  {
-   "id": "1081162",
-   "teams": [
-    "ex-RUSTEC",
-    "Spirit Academy"
-   ],
-   "starts_at": "2026-10-27T12:00:00Z",
-   "competition": "CCT Europe 2026 Series #12",
-   "source_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081162",
-   "analysis": null
-  },
-  {
-   "id": "1081163",
-   "teams": [
-    "BakS",
-    "Saint Sinners"
-   ],
-   "starts_at": "2026-10-27T15:00:00Z",
-   "competition": "CCT Europe 2026 Series #12",
-   "source_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081163",
-   "analysis": null
-  },
-  {
-   "id": "1081164",
-   "teams": [
-    "Inner Circle Academy",
-    "Lavked"
-   ],
-   "starts_at": "2026-10-27T18:00:00Z",
-   "competition": "CCT Europe 2026 Series #12",
-   "source_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081164",
-   "analysis": null
-  }
- ],
+ "coverage_gaps": [],
  "limits": [
   "Offline replay only: each number is re-derived from the inputs the row itself publishes. The live sources captured by scripts.b3e91409_probe are compared for coverage and identity, not re-priced after the fact.",
   "A verified row means \"the published probabilities follow from the published inputs\"; it does not mean the source price was profitable, liquid or still current."
