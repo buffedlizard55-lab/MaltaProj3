@@ -1,39 +1,21 @@
 # arena-3e64f4fb live research — HLTV first, then esportsbooks
 
-Observed `2026-10-26T02:52:01Z` on a GitHub runner. **Evidence only:** raw observed prices, no derived probability or pick.
+Observed `2026-10-26T04:11:55Z` on a GitHub runner. **Evidence only:** raw observed prices, no derived probability or pick.
 
-- Published snapshot `2026-10-26T01:33:57Z`, origination `2026-10-26T01:34:11Z`
-- Hotspawn API open fixtures: **19**; lobby fixture ids parsed: 19
+- Published snapshot `2026-10-26T03:46:08Z`, origination `2026-10-26T03:46:21Z`
+- Hotspawn API open fixtures: **17**; lobby fixture ids parsed: 19
 - Live-open fixtures missing from the published board: **none**
 - Published fixtures no longer live-open (started/rotated): none
-- HLTV listing rows parsed: 42; ranking rows: 253
-
-## 1082859 — NEXVOID vs Alter Ego (DFRAG Invitational 2026, 2026-10-26T03:00:00Z)
-- Published basis: featured=bookmaker, complete=bookmaker, pick_index=0
-- HLTV exact: not found on /matches
-- HLTV match page: `null`
-- HLTV ranking: {"NEXVOID": {"rank": 77, "points": 11.0, "team_url": "https://www.hltv.org/team/13667/nexvoid"}, "Alter Ego": {"rank": 132, "points": 6.0, "team_url": "https://www.hltv.org/team/9958/alter-ego"}}
-- Polymarket observed: none found
-- Thunderpick observed: none found
-- Kalshi observed: Alter Ego vs. NEXVOID
+- HLTV listing rows parsed: 41; ranking rows: 253
 
 ## 1079201 — INOX Division vs Nemesis (NODWIN Clutch Series #13, 2026-10-26T09:00:00Z)
-- Published basis: featured=model, complete=model, pick_index=1
+- Published basis: featured=model, complete=consensus, pick_index=1
 - HLTV exact: https://www.hltv.org/matches/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13 @ 2026-10-26T09:00:00Z (NODWIN Clutch Series 13)
 - HLTV match page: `{"starts_at": "2026-10-26T09:00:00Z", "format": "BO3", "teams": ["Nemesis", "INOX Division"]}`
 - HLTV ranking: {"INOX Division": {"rank": 84, "points": 10.0, "team_url": "https://www.hltv.org/team/13814/inox-division"}, "Nemesis": {"rank": 47, "points": 32.0, "team_url": "https://www.hltv.org/team/13355/nemesis"}}
-- Polymarket observed: none found
+- Polymarket observed: https://polymarket.com/event/cs2-nem-inox-2026-10-26 bid 0.74 / ask 0.77 (['Team Nemesis', 'INOX Division'])
 - Thunderpick observed: none found
 - Kalshi observed: INOX Division vs. Team Nemesis
-
-## 1079202 — FOKUS vs ex-Zero Tenacity (NODWIN Clutch Series #13, 2026-10-26T12:00:00Z)
-- Published basis: featured=bookmaker, complete=bookmaker, pick_index=0
-- HLTV exact: https://www.hltv.org/matches/2399117/fokus-vs-ex-zero-tenacity-nodwin-clutch-series-13 @ 2026-10-26T12:00:00Z (NODWIN Clutch Series 13)
-- HLTV match page: `{"starts_at": "2026-10-26T12:00:00Z", "format": "BO3", "teams": ["FOKUS", "ex-Zero Tenacity"]}`
-- HLTV ranking: {"FOKUS": {"rank": 49, "points": 27.0, "team_url": "https://www.hltv.org/team/13679/fokus"}, "ex-Zero Tenacity": {"rank": 67, "points": 13.0, "team_url": "https://www.hltv.org/team/13573/ex-zero-tenacity"}}
-- Polymarket observed: none found
-- Thunderpick observed: ['FOKUS', 'ex-Zero Tenacity'] odds [1.35, 2.9] start 2026-10-26T12:00:00+00:00
-- Kalshi observed: ex-Zero Tenacity vs. FOKUS
 
 ## 1081159 — LFO 10 vs ex-6666 (CCT Europe 2026 Series #12, 2026-10-26T12:00:00Z)
 - Published basis: featured=None, complete=model, pick_index=1
@@ -44,30 +26,12 @@ Observed `2026-10-26T02:52:01Z` on a GitHub runner. **Evidence only:** raw obser
 - Thunderpick observed: none found
 - Kalshi observed: none found
 
-## 1079203 — Metizport vs BRUTE (NODWIN Clutch Series #13, 2026-10-26T15:00:00Z)
-- Published basis: featured=bookmaker, complete=bookmaker, pick_index=0
-- HLTV exact: https://www.hltv.org/matches/2399118/metizport-vs-brute-nodwin-clutch-series-13 @ 2026-10-26T15:00:00Z (NODWIN Clutch Series 13)
-- HLTV match page: `{"starts_at": "2026-10-26T15:00:00Z", "format": "BO3", "teams": ["Metizport", "BRUTE"]}`
-- HLTV ranking: {"Metizport": {"rank": 59, "points": 16.0, "team_url": "https://www.hltv.org/team/11641/metizport"}, "BRUTE": {"rank": 109, "points": 8.0, "team_url": "https://www.hltv.org/team/9139/brute"}}
-- Polymarket observed: none found
-- Thunderpick observed: ['Metizport', 'Brute'] odds [1.5, 2.4] start 2026-10-26T15:00:00+00:00
-- Kalshi observed: Brute vs. Metizport
-
-## 1081160 — HAVU vs ILLYRIANS (CCT Europe 2026 Series #12, 2026-10-26T15:00:00Z)
-- Published basis: featured=model, complete=model, pick_index=0
-- HLTV exact: https://www.hltv.org/matches/2399510/havu-vs-illyrians-cct-2026-europe-series-12 @ 2026-10-26T15:00:00Z (CCT 2026 Europe Series 12)
-- HLTV match page: `{"starts_at": "2026-10-26T15:00:00Z", "format": "BO3", "teams": ["HAVU", "Illyrians"]}`
-- HLTV ranking: {"HAVU": {"rank": 108, "points": 8.0, "team_url": "https://www.hltv.org/team/7865/havu"}, "ILLYRIANS": {"rank": 124, "points": 6.0, "team_url": "https://www.hltv.org/team/11719/illyrians"}}
-- Polymarket observed: none found
-- Thunderpick observed: none found
-- Kalshi observed: ILLYRIANS vs. HAVU
-
 ## 1093218 — Nuclear TigeRES vs UNiTY (NODWIN Clutch Series #13, 2026-10-26T18:00:00Z)
 - Published basis: featured=model, complete=consensus, pick_index=0
 - HLTV exact: https://www.hltv.org/matches/2399119/nuclear-tigeres-vs-unity-nodwin-clutch-series-13 @ 2026-10-26T18:00:00Z (NODWIN Clutch Series 13)
 - HLTV match page: `{"starts_at": "2026-10-26T18:00:00Z", "format": "BO3", "teams": ["Nuclear TigeRES", "UNiTY"]}`
 - HLTV ranking: {"Nuclear TigeRES": {"rank": 50, "points": 27.0, "team_url": "https://www.hltv.org/team/13027/nuclear-tigeres"}, "UNiTY": {"rank": 86, "points": 10.0, "team_url": "https://www.hltv.org/team/12267/unity"}}
-- Polymarket observed: none found
+- Polymarket observed: https://polymarket.com/event/cs2-ntr-unity-2026-10-26 bid 0.61 / ask 0.62 (['Nuclear TigeRES', 'UNiTY esports'])
 - Thunderpick observed: none found
 - Kalshi observed: UNiTY esports vs. Nuclear TigeRES
 
