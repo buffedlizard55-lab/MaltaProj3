@@ -46,10 +46,15 @@ jobs:
       - name: Reconcile the live lobby with the deployed site and read every gap source
         run: |
           set +e
-          python -m scripts.542dfb58_gap_probe
-          code=$?
+          # A later success must not leave a previous failure's artefacts behind as if
+          # they were current, and a later failure must not read as a clean run: both
+          # files are cleared here and the error file is written only when this run failed.
+          rm -f data/research/542dfb58/probe-error.txt data/research/542dfb58/inventory-failure.json
+          python -m scripts.542dfb58_gap_probe 2>&1 | tee /tmp/probe-log.txt
+          code=${PIPESTATUS[0]}
           echo "$code" > data/research/542dfb58/probe-exit-code.txt
           if [ "$code" -ne 0 ]; then
+            tail -c 4000 /tmp/probe-log.txt > data/research/542dfb58/probe-error.txt
             echo "::error title=gap probe failed::exit $code — see the step log; evidence up to the failure is committed"
           fi
           exit 0
