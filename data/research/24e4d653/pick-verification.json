@@ -1,0 +1,674 @@
+{
+  "session": "arena-24e4d653",
+  "snapshot_generated_at": "2026-10-26T01:33:57Z",
+  "origination_generated_at": "2026-10-26T01:34:11Z",
+  "active": {
+    "active_rows": 19,
+    "with_pick": 19,
+    "without_pick": [],
+    "replay_counts": {
+      "ok": 19
+    },
+    "rows": [
+      {
+        "id": "1082858",
+        "teams": [
+          "Ground Zero",
+          "Off Chops"
+        ],
+        "method": "market",
+        "published": [
+          0.205,
+          0.795
+        ],
+        "published_pick": "Off Chops",
+        "expected": [
+          0.205,
+          0.795
+        ],
+        "expected_pick": "Off Chops",
+        "replay": "ok",
+        "detail": "midpoints of 0.2-0.21 / 0.79-0.8, normalised",
+        "source_url": "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25",
+        "observed_at": "2026-10-26T01:33:46Z",
+        "limitation": "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded.",
+        "spread": [
+          0.01,
+          0.01
+        ]
+      },
+      {
+        "id": "1082859",
+        "teams": [
+          "NEXVOID",
+          "Alter Ego"
+        ],
+        "method": "bookmaker",
+        "published": [
+          0.59162304,
+          0.40837696
+        ],
+        "published_pick": "NEXVOID",
+        "expected": [
+          0.591623,
+          0.408377
+        ],
+        "expected_pick": "NEXVOID",
+        "replay": "ok",
+        "detail": "no-vig normalisation of 1.56 / 2.26",
+        "source_url": "https://thunderpick.io/api/matches",
+        "observed_at": "2026-10-26T01:33:53Z",
+        "limitation": "Bookmaker margin removed by proportional normalization. A single source is not a consensus."
+      },
+      {
+        "id": "1079201",
+        "teams": [
+          "INOX Division",
+          "Nemesis"
+        ],
+        "method": "model",
+        "published": [
+          0.12346675,
+          0.87653325
+        ],
+        "published_pick": "Nemesis",
+        "expected": [
+          0.123467,
+          0.876533
+        ],
+        "expected_pick": "Nemesis",
+        "replay": "ok",
+        "detail": "Valve's published transform over 1105 / 1455 points (RD 75)",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "observed_at": "2026-10-26T01:33:54Z",
+        "limitation": "Research model, not observed betting odds or a verified true win probability."
+      },
+      {
+        "id": "1079202",
+        "teams": [
+          "FOKUS",
+          "ex-Zero Tenacity"
+        ],
+        "method": "bookmaker",
+        "published": [
+          0.68235294,
+          0.31764706
+        ],
+        "published_pick": "FOKUS",
+        "expected": [
+          0.682353,
+          0.317647
+        ],
+        "expected_pick": "FOKUS",
+        "replay": "ok",
+        "detail": "no-vig normalisation of 1.35 / 2.9",
+        "source_url": "https://thunderpick.io/api/matches",
+        "observed_at": "2026-10-26T01:33:53Z",
+        "limitation": "Bookmaker margin removed by proportional normalization. A single source is not a consensus."
+      },
+      {
+        "id": "1081159",
+        "teams": [
+          "LFO 10",
+          "ex-6666"
+        ],
+        "method": "model",
+        "published": [
+          0.39044605815543665,
+          0.6095539418445634
+        ],
+        "published_pick": "ex-6666",
+        "expected": [
+          0.390446,
+          0.609554
+        ],
+        "expected_pick": "ex-6666",
+        "replay": "ok",
+        "detail": "results-based fit rule over 825 / 923 points (RD 244.868)",
+        "source_url": "https://bo3.gg/matches/sokerorg-vs-ex-6666-26-10-2026",
+        "observed_at": "2026-10-26T01:34:29Z",
+        "limitation": "Own uncalibrated results model, not observed betting odds: a single rating was fitted to 10 finished series against officially rated opponents (posterior SD 114.7 points, one-sigma interval 0.184-0.645). The sample is small, opponent strength is taken from a dated official snapshot and current lineups, stand-ins and map vetoes are unverified."
+      },
+      {
+        "id": "1079203",
+        "teams": [
+          "Metizport",
+          "BRUTE"
+        ],
+        "method": "bookmaker",
+        "published": [
+          0.61538462,
+          0.38461538
+        ],
+        "published_pick": "Metizport",
+        "expected": [
+          0.615385,
+          0.384615
+        ],
+        "expected_pick": "Metizport",
+        "replay": "ok",
+        "detail": "no-vig normalisation of 1.5 / 2.4",
+        "source_url": "https://thunderpick.io/api/matches",
+        "observed_at": "2026-10-26T01:33:53Z",
+        "limitation": "Bookmaker margin removed by proportional normalization. A single source is not a consensus."
+      },
+      {
+        "id": "1081160",
+        "teams": [
+          "HAVU",
+          "ILLYRIANS"
+        ],
+        "method": "model",
+        "published": [
+          0.60348339,
+          0.39651661
+        ],
+        "published_pick": "HAVU",
+        "expected": [
+          0.603483,
+          0.396517
+        ],
+        "expected_pick": "HAVU",
+        "replay": "ok",
+        "detail": "Valve's published transform over 937 / 862 points (RD 75)",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "observed_at": "2026-10-26T01:33:54Z",
+        "limitation": "Research model, not observed betting odds or a verified true win probability."
+      },
+      {
+        "id": "1093218",
+        "teams": [
+          "Nuclear TigeRES",
+          "UNiTY"
+        ],
+        "method": "consensus",
+        "published": [
+          0.58275378,
+          0.41724622
+        ],
+        "published_pick": "Nuclear TigeRES",
+        "expected": [
+          0.582754,
+          0.417246
+        ],
+        "expected_pick": "Nuclear TigeRES",
+        "replay": "ok",
+        "detail": "median of 2 independent quotes: 58.28% / 41.72%",
+        "source_url": "https://thunderpick.io/esports/counter-strike",
+        "observed_at": "2026-10-26T01:34:11Z",
+        "limitation": "Margin removed where applicable. Estimate is not a guaranteed outcome."
+      },
+      {
+        "id": "1082860",
+        "teams": [
+          "FlyQuest",
+          "Staqued"
+        ],
+        "method": "market",
+        "published": [
+          0.925,
+          0.075
+        ],
+        "published_pick": "FlyQuest",
+        "expected": [
+          0.925,
+          0.075
+        ],
+        "expected_pick": "FlyQuest",
+        "replay": "ok",
+        "detail": "midpoints of 0.91-0.94 / 0.06-0.09, normalised",
+        "source_url": "https://polymarket.com/event/cs2-fly-staque-2026-10-26",
+        "observed_at": "2026-10-26T01:33:47Z",
+        "limitation": "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded.",
+        "spread": [
+          0.03,
+          0.03
+        ]
+      },
+      {
+        "id": "1082861",
+        "teams": [
+          "Rooster",
+          "Abyssal"
+        ],
+        "method": "model",
+        "published": [
+          0.47761494,
+          0.52238506
+        ],
+        "published_pick": "Abyssal",
+        "expected": [
+          0.477615,
+          0.522385
+        ],
+        "expected_pick": "Abyssal",
+        "replay": "ok",
+        "detail": "Valve's published transform over 718 / 734 points (RD 75)",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "observed_at": "2026-10-26T01:33:54Z",
+        "limitation": "Research model, not observed betting odds or a verified true win probability."
+      },
+      {
+        "id": "1082897",
+        "teams": [
+          "B8",
+          "K27"
+        ],
+        "method": "market",
+        "published": [
+          0.595,
+          0.405
+        ],
+        "published_pick": "B8",
+        "expected": [
+          0.595,
+          0.405
+        ],
+        "expected_pick": "B8",
+        "replay": "ok",
+        "detail": "midpoints of 0.59-0.6 / 0.4-0.41, normalised",
+        "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
+        "observed_at": "2026-10-26T01:33:48Z",
+        "limitation": "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded.",
+        "spread": [
+          0.01,
+          0.01
+        ]
+      },
+      {
+        "id": "1082898",
+        "teams": [
+          "Alliance",
+          "FaZe"
+        ],
+        "method": "market",
+        "published": [
+          0.34,
+          0.66
+        ],
+        "published_pick": "FaZe",
+        "expected": [
+          0.34,
+          0.66
+        ],
+        "expected_pick": "FaZe",
+        "replay": "ok",
+        "detail": "midpoints of 0.33-0.35 / 0.65-0.67, normalised",
+        "source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
+        "observed_at": "2026-10-26T01:33:49Z",
+        "limitation": "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded.",
+        "spread": [
+          0.02,
+          0.02
+        ]
+      },
+      {
+        "id": "1081162",
+        "teams": [
+          "ex-RUSTEC",
+          "Spirit Academy"
+        ],
+        "method": "model",
+        "published": [
+          0.61680305,
+          0.38319695
+        ],
+        "published_pick": "ex-RUSTEC",
+        "expected": [
+          0.616803,
+          0.383197
+        ],
+        "expected_pick": "ex-RUSTEC",
+        "replay": "ok",
+        "detail": "Valve's published transform over 1066 / 981 points (RD 75)",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "observed_at": "2026-10-26T01:33:54Z",
+        "limitation": "Research model, not observed betting odds or a verified true win probability."
+      },
+      {
+        "id": "1081163",
+        "teams": [
+          "BakS",
+          "Saint Sinners"
+        ],
+        "method": "model",
+        "published": [
+          0.78758039,
+          0.21241961
+        ],
+        "published_pick": "BakS",
+        "expected": [
+          0.78758,
+          0.21242
+        ],
+        "expected_pick": "BakS",
+        "replay": "ok",
+        "detail": "Valve's published transform over 1044 / 810 points (RD 75)",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "observed_at": "2026-10-26T01:33:54Z",
+        "limitation": "Research model, not observed betting odds or a verified true win probability."
+      },
+      {
+        "id": "1082900",
+        "teams": [
+          "Luminosity",
+          "HOTU"
+        ],
+        "method": "market",
+        "published": [
+          0.525,
+          0.475
+        ],
+        "published_pick": "Luminosity",
+        "expected": [
+          0.525,
+          0.475
+        ],
+        "expected_pick": "Luminosity",
+        "replay": "ok",
+        "detail": "midpoints of 0.51-0.54 / 0.46-0.49, normalised",
+        "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
+        "observed_at": "2026-10-26T01:33:50Z",
+        "limitation": "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded.",
+        "spread": [
+          0.03,
+          0.03
+        ]
+      },
+      {
+        "id": "1081164",
+        "teams": [
+          "Inner Circle Academy",
+          "Lavked"
+        ],
+        "method": "model",
+        "published": [
+          0.75606058,
+          0.24393942
+        ],
+        "published_pick": "Inner Circle Academy",
+        "expected": [
+          0.756061,
+          0.243939
+        ],
+        "expected_pick": "Inner Circle Academy",
+        "replay": "ok",
+        "detail": "Valve's published transform over 1064 / 862 points (RD 75)",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "observed_at": "2026-10-26T01:33:54Z",
+        "limitation": "Research model, not observed betting odds or a verified true win probability."
+      },
+      {
+        "id": "1082901",
+        "teams": [
+          "Envy",
+          "GamerLegion"
+        ],
+        "method": "market",
+        "published": [
+          0.455,
+          0.545
+        ],
+        "published_pick": "GamerLegion",
+        "expected": [
+          0.455,
+          0.545
+        ],
+        "expected_pick": "GamerLegion",
+        "replay": "ok",
+        "detail": "midpoints of 0.45-0.46 / 0.54-0.55, normalised",
+        "source_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
+        "observed_at": "2026-10-26T01:33:51Z",
+        "limitation": "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded.",
+        "spread": [
+          0.01,
+          0.01
+        ]
+      },
+      {
+        "id": "1082792",
+        "teams": [
+          "HOTU",
+          "The Huns"
+        ],
+        "method": "market",
+        "published": [
+          0.87,
+          0.13
+        ],
+        "published_pick": "HOTU",
+        "expected": [
+          0.87,
+          0.13
+        ],
+        "expected_pick": "HOTU",
+        "replay": "ok",
+        "detail": "midpoints of 0.82-0.92 / 0.08-0.18, normalised",
+        "source_url": "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
+        "observed_at": "2026-10-26T01:34:16Z",
+        "limitation": "Single independent source; not a multi-source consensus.",
+        "spread": [
+          0.1,
+          0.1
+        ]
+      },
+      {
+        "id": "1082793",
+        "teams": [
+          "5star",
+          "1WIN"
+        ],
+        "method": "model",
+        "published": [
+          0.17816902,
+          0.82183098
+        ],
+        "published_pick": "1WIN",
+        "expected": [
+          0.178169,
+          0.821831
+        ],
+        "expected_pick": "1WIN",
+        "replay": "ok",
+        "detail": "Valve's published transform over 1110 / 1383 points (RD 75)",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "observed_at": "2026-10-26T01:33:54Z",
+        "limitation": "Research model, not observed betting odds or a verified true win probability."
+      }
+    ],
+    "rows_without_a_limitation": [],
+    "ok": true
+  },
+  "coverage": {
+    "available": true,
+    "checked": false,
+    "observed_at": "2026-10-26T01:16:00Z",
+    "detail": "the record is dated to snapshot 2026-10-26T01:04:20Z; this checkout carries 2026-10-26T01:33:57Z, so its flags are not compared here",
+    "ok": true
+  },
+  "rendered": {
+    "checks": [
+      {
+        "check": "phone viewport",
+        "status": "pass",
+        "detail": "meta viewport with width=device-width is present"
+      },
+      {
+        "check": "in-site links to the updated picks",
+        "status": "pass",
+        "detail": "start-here links: ['./#picks-at-a-glance', './origination/#picks', './strategy/', './origination/#unresolved', './#unresolved-register']"
+      },
+      {
+        "check": "separate unresolved/limitations register in the summary",
+        "status": "pass",
+        "detail": "section #unresolved-register present"
+      },
+      {
+        "check": "register names the limitation for each unresolved/fallback row",
+        "status": "pass",
+        "detail": "the register states each row's blocker (or that none are unresolved)"
+      },
+      {
+        "check": "register links an official source",
+        "status": "pass",
+        "detail": "the register carries at least one external source link"
+      },
+      {
+        "check": "both teams' win probability on every glance row",
+        "status": "pass",
+        "detail": "19 glance row(s); rows without two percentages: none"
+      },
+      {
+        "check": "an obvious pick on every glance row",
+        "status": "pass",
+        "detail": "rows without a pick marker: none"
+      },
+      {
+        "check": "a named method on every glance row",
+        "status": "pass",
+        "detail": "rows without data-method: none"
+      },
+      {
+        "check": "mobile navigation to the picks",
+        "status": "pass",
+        "detail": "bottom mobile navigation present"
+      }
+    ],
+    "rows": 19,
+    "ok": true,
+    "failures": []
+  },
+  "ok": true,
+  "purpose": "Independent replay of every published CS2 pick on the 2026-10-26T01:04:20Z public build, plus a live re-read of the primary source behind the rows that could still change direction, plus the executive-summary/phone contract read off the built page. Nothing here writes a probability, a pick or an alias: a row that cannot be replayed is reported as unreplayable and left alone.",
+  "verified_build": {
+    "snapshot_generated_at": "2026-10-26T01:04:20Z",
+    "origination_generated_at": "2026-10-26T01:04:30Z",
+    "public_urls": [
+      "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination.json",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/"
+    ],
+    "main_commit": "bcfdcdaa (publish: sync the verified build into the branch root)",
+    "read_from": "git fetch origin main && git show origin/main:{snapshot.json,origination.json,index.html}"
+  },
+  "source_reads": [
+    {
+      "id": "1082901",
+      "row": "Envy vs GamerLegion",
+      "url": "https://gamma-api.polymarket.com/markets?slug=cs2-envy-gl1-2026-10-27",
+      "read_at": "2026-10-26T00:52Z",
+      "what_was_read": "market 6037120, event 1233851, active true, acceptingOrders true, outcomes [\"Envy\",\"GamerLegion\"], outcomePrices [\"0.455\",\"0.545\"], gameStartTime \"2026-10-27 20:00:00+00\", volume 9832.88, liquidity 21333.94, updatedAt 2026-10-26T00:50:37Z",
+      "published": [
+        0.455,
+        0.545
+      ],
+      "verdict": "matches the published pair exactly; the pick (GamerLegion) is the larger side"
+    },
+    {
+      "id": "1082900",
+      "row": "Luminosity vs HOTU",
+      "url": "https://gamma-api.polymarket.com/markets?slug=cs2-lg6-hotu-2026-10-27",
+      "read_at": "2026-10-26T00:52Z",
+      "what_was_read": "market 6024960, event 1231335, active true, outcomePrices [\"0.525\",\"0.475\"], gameStartTime \"2026-10-27 17:00:00+00\", volume 7.25, liquidity 15977.48, updatedAt 2026-10-26T00:48:38Z",
+      "published": [
+        0.525,
+        0.475
+      ],
+      "verdict": "matches exactly; note the market has traded $7.25 lifetime, so this price is a maker quote on a deep book, not evidence that anyone has traded it"
+    },
+    {
+      "id": "1082792",
+      "row": "HOTU vs The Huns",
+      "url": "https://gamma-api.polymarket.com/markets?slug=cs2-hotu-the9-2026-10-31",
+      "read_at": "2026-10-26T00:52Z",
+      "what_was_read": "market 6085308, event 1241313, active true, outcomes [\"HOTU\",\"The Huns Esports\"], outcomePrices [\"0.87\",\"0.13\"], gameStartTime \"2026-10-31 09:00:00+00\", volume 792.11, liquidity 4197.96, endDate 2026-10-31T15:00:00Z",
+      "published": [
+        0.87,
+        0.13
+      ],
+      "verdict": "matches the published pair exactly"
+    },
+    {
+      "id": "1082792",
+      "row": "HOTU vs The Huns — order book behind the published 82-92c band",
+      "url": "https://clob.polymarket.com/book?token_id=43239252433702517576143365450177111134823446149714231636394861281951485540532",
+      "read_at": "2026-10-26T00:53Z",
+      "what_was_read": "best bid 0.82 (size 5), best ask 0.92 (size 117), tick 0.01, min order 5, payload timestamp 2026-10-26T00:36:05Z; asks thin out above 0.92 to 0.99, bids step down to 0.01",
+      "published": [
+        0.82,
+        0.92
+      ],
+      "verdict": "the published band is the real top of book, not a synthesised +/-5c window; spread 0.10 is inside the project's 0.15 ceiling, which is why this row is a market line and not a model"
+    },
+    {
+      "id": "1082861 / 1082793 / 1079201 / 1081160 / 1081162 / 1081163 / 1081164",
+      "row": "every Valve-model row",
+      "url": "https://api.github.com/repos/ValveSoftware/counter-strike_regional_standings/contents/live/2026/standings_global_2026_10_05.md",
+      "read_at": "2026-10-26T00:57Z",
+      "what_was_read": "blob sha 2aa2805394fbc68f36a5752a5b16026f2ab2fed5 (77,872 bytes): Rooster #205 718, Abyssal #195 734, 5star #80 1110, 1win #38 1383, INOX Division #82 1105, Nemesis #29 1455, HAVU #124 937, Illyrians #141 862, ex-RUSTEC #92 1066, Spirit Academy #115 981, BAKS #100 1044, Saint Sinners #158 810, Inner Circle Academy #94 1064, Lavked #143 862, Nuclear TigeRES #46 1324, UNiTY #69 1167, HOTU #31 1437, Luminosity #16 1547",
+      "published": null,
+      "verdict": "every published points pair on the board is character-for-character one of these rows, and the replayed Glicko value matches the published probability to 6 decimal places (e.g. Rooster 718 / Abyssal 734 -> 47.761494% / 52.238506%)"
+    }
+  ],
+  "irregularities": [
+    {
+      "id": "24e4d653-market-volume",
+      "severity": "info",
+      "matches": [
+        "1082900"
+      ],
+      "title": "Luminosity vs HOTU is a maker-quoted market with $7.25 of lifetime volume",
+      "detail": "The published 52.5/47.5 replays exactly from the Polymarket book, and the book carries $15,977 of liquidity, but the market has traded $7.25 in total (gamma volume, read 2026-10-26T00:52Z). A reader should treat it as one market maker's quote, not as a crowd consensus. The row is left as published; the spread rule that qualifies it (0.03) is about depth, not about traded interest, so the page does not claim a traded price.",
+      "source_urls": [
+        "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27"
+      ]
+    },
+    {
+      "id": "24e4d653-flag-text-superseded",
+      "severity": "warning",
+      "matches": [
+        "1082792"
+      ],
+      "title": "The repo review page still quotes a 98.2% HOTU figure the site no longer publishes",
+      "detail": "data/research/27ac20d6/flags.json (\"27ac20d6-1082792-magnitude\") states the fixture is \"published at HOTU 98.2% / The Huns 1.8% from the project's own bo3.gg network model\" and that \"the Polymarket book ... is 43 cents wide (rejected by the project's own 0.15 ceiling)\". Both sentences describe the 2026-10-25 build. The 2026-10-26T01:04:20Z build publishes HOTU 87.0% from a 0.10-wide book (82-92 cents, verified first-hand at 2026-10-26T00:53Z). The flag's own prediction came true, but a reader on the review page is still told the site publishes 98.2%. Correcting that text is outside this session's file scope (data/research/27ac20d6 is another session's record) and is logged as a change request in COORDINATION.md.",
+      "source_urls": [
+        "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
+        "https://clob.polymarket.com/book?token_id=43239252433702517576143365450177111134823446149714231636394861281951485540532"
+      ]
+    },
+    {
+      "id": "24e4d653-widest-uncertainty",
+      "severity": "info",
+      "matches": [
+        "1081159"
+      ],
+      "title": "LFO 10 vs ex-6666 is the widest-uncertainty row on the board and it is labelled as such",
+      "detail": "The row is the project's results-based fit: LFO 10 has 10 anchored series, a posterior SD of 114.7 points and a prior centre of 981, which is scored with the fit rule RD = 150 + 300/sqrt(10) = 244.87 points rather than Valve's 75. Replaying that rule reproduces the published 39.0% / 61.0% exactly, and the row publishes a one-sigma interval of 18.4%-64.5% plus \"low_confidence\": true. No money line is used: the Polymarket order book for the same fixture is 0.53 wide and is recorded as refused rather than averaged.",
+      "source_urls": [
+        "https://bo3.gg/matches/sokerorg-vs-ex-6666-26-10-2026"
+      ]
+    },
+    {
+      "id": "24e4d653-checked-in-fallback",
+      "severity": "info",
+      "matches": [],
+      "title": "The checked-in data/origination.json is an eleven-day-old replay fallback, not the live board",
+      "detail": "data/origination.json in the worktree is dated 2026-10-15T09:31:24Z with 17 rows; the live board is the root origination.json (2026-10-26T01:04:30Z, 19 rows), which the publisher copies to /data/origination.json on deploy. This is documented behaviour (root_publish replay fallback), not a defect, but anyone reading the repository while auditing the site will see the older file first.",
+      "source_urls": [
+        "https://buffedlizard55-lab.github.io/MaltaProj3/data/origination.json"
+      ]
+    }
+  ],
+  "summary": {
+    "active_rows": 19,
+    "replayed_exactly": 19,
+    "mismatched": 0,
+    "unreplayable": 0,
+    "rows_without_a_pick": [],
+    "rows_without_a_limitation": [],
+    "executive_summary_failures": [],
+    "glance_rows": 19
+  },
+  "reverified_at": "2026-10-26T02:20Z",
+  "reverified_note": "Re-run on the newer public build (2026-10-26T01:33:57Z) after the branch was rebased onto main; the first-hand source reads below were made at the 01:04:20Z build and were not re-read."
+}
