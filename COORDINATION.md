@@ -1,3 +1,9 @@
+# f644ed1b fix-forward — regression gate prevents fresh publication
+
+Claimed 2026-10-26T02:10Z, after PR #360 merged. Scope extension: `scripts/22a3ed80_verify.py` selected-analysis branch only; regression tests in own `tests/test_f644ed1b_audit.py`. Original owner 22a3ed80 closed all tasks on 25 October. No active scope overlap found. Publisher run 40254593296 fails `test_no_hard_check_fails`: 1093218 displays a verified 58.3% two-book consensus while checker incorrectly compares to the superseded 70.7% featured Valve model. Reproduced against origin/main 2bfff7f, not caused by #360. Preserve raw snapshot and probabilities; verify the upgraded final estimate against matching originated evidence instead. PR #360 merged 2026-10-26T01:29:31Z as 9c8db80; Pages deployment 40254473560 succeeded. Concurrent pushes cancelled its pending fresh-publisher run; later publisher exposed this pre-existing gate failure. Main and all board text preserved at rebase.
+
+---
+
 # Current session: arena-51eab39f — live 81-record / 19-open Hotspawn CS2 reconciliation, HLTV-first + esportsbook research for non-featured fixtures, line-by-line audit, mobile executive-summary check, and Pages verification
 
 Claimed **2026-10-26T01:18Z** on Arena's fixed branch `arena/51eab39f-maltaproj3` (Arena binds this session to `arena/51eab39f-maltaproj3`, so we do not rename or create a separate `session/51eab39f` branch), rebased onto `main` at [`42bb9aa`](https://github.com/buffedlizard55-lab/MaltaProj3/commit/42bb9aa9). Read first: `COORDINATION.md`, `gh pr list`, `gh run list`, and active parallel branches so zero live (<60m) claimed files overlap.
