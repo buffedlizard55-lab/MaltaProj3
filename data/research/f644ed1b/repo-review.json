@@ -1,0 +1,59 @@
+{
+  "session": "arena-f644ed1b",
+  "scope": "Current snapshot audit; no live book verification",
+  "items": [
+    {
+      "id": "F644-R01",
+      "area": "Current published snapshot replay",
+      "status": "verified",
+      "finding": "Captured snapshot 2026-10-25T23:03:48Z contains 72 records, 10 upcoming: six market, one bookmaker, two Valve model and one unresolved. Independent arithmetic replay returned zero errors for all nine priced rows. Safety audit checks all ten active rows. This is captured evidence verification, not a new live read of the lobby or books.",
+      "handling": "No prices changed. Added a fixture-independent safety checker with mutation tests; inputs and per-row sources are in rows.json.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40240728081",
+          "detail": "GitHub reports successful scheduled refresh; checked in this session."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/cfd58e113c76dc82e6482aec17d1b57a9491cadf/snapshot.json",
+          "detail": "Immutable published snapshot audited."
+        }
+      ]
+    },
+    {
+      "id": "F644-R02",
+      "area": "HOTU\u2013The Huns: identity and model limitations",
+      "status": "needs review",
+      "finding": "The featured snapshot leaves fixture 1082792 blank after HLTV and bookmaker research. Direct official Valve file read confirms The Huns appears twice: #122 at 944 points and #213 at 701 points, with different player cores. The same file confirms Rooster 718, Abyssal 734, 5star 1110 and 1win 1383 used by the two model rows. Standings are dated 5 October; current match lineups and model calibration were not verified here.",
+      "handling": "Keep the featured pick blank until an identity-verified source resolves it. Any separate researched estimate on the complete-picks page is not a verified betting line. No retrospective or crowd-based probability was added.",
+      "evidence": [
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "Fetched through GitHub API during this session; exact captured file saved alongside rows.json."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+          "detail": "HLTV match URL in the captured research trail, not fetched live from this sandbox."
+        }
+      ]
+    },
+    {
+      "id": "F644-R03",
+      "area": "Verification boundary and automated refresh",
+      "status": "platform limitation",
+      "finding": "Sandbox outbound policy prevents independent live Hotspawn/HLTV/book access. GitHub Actions reports the scheduled refresh and legacy Pages deployment successful; Pages API reports built. Configured schedule is four hours with catch-up slots, not a guaranteed upstream availability SLA.",
+      "handling": "Do not label inaccessible sources freshly verified. Preserve observation times, source-failure trails and blank unsupported values. Existing stale warnings and automated source ladder remain unchanged.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40243418535",
+          "detail": "Successful Pages deployment reported by GitHub."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/pages.yml",
+          "detail": "Primary cron 17 */4 * * *; catch-up 47 2-22/4 * * *."
+        }
+      ]
+    }
+  ],
+  "review_clock_utc": "2026-10-26T00:49:00Z",
+  "method": "Independent captured-snapshot replay and safety checks; official Valve file fetched via GitHub API. No fresh live book or lobby access."
+}

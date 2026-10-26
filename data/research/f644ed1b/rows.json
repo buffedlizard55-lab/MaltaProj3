@@ -1,0 +1,242 @@
+{
+  "snapshot": "2026-10-25T23:03:48Z",
+  "scope": "Captured evidence only; not live verification",
+  "rows": [
+    {
+      "id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "method": "market",
+      "source_url": "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25",
+      "probabilities": [
+        0.2,
+        0.8
+      ],
+      "research": [],
+      "limitations": [
+        "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+      ],
+      "errors": []
+    },
+    {
+      "id": "1082859",
+      "teams": [
+        "NEXVOID",
+        "Alter Ego"
+      ],
+      "method": "bookmaker",
+      "source_url": "https://thunderpick.io/api/matches",
+      "probabilities": [
+        0.57519789,
+        0.42480211
+      ],
+      "research": [],
+      "limitations": [
+        "Bookmaker margin removed by proportional normalization. A single source is not a consensus."
+      ],
+      "errors": []
+    },
+    {
+      "id": "1082860",
+      "teams": [
+        "FlyQuest",
+        "Staqued"
+      ],
+      "method": "market",
+      "source_url": "https://polymarket.com/event/cs2-fly-staque-2026-10-26",
+      "probabilities": [
+        0.925,
+        0.075
+      ],
+      "research": [],
+      "limitations": [
+        "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+      ],
+      "errors": []
+    },
+    {
+      "id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "method": "model",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "probabilities": [
+        0.47761494,
+        0.52238506
+      ],
+      "research": [],
+      "limitations": [
+        "Research model, not observed betting odds or a verified true win probability.",
+        "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
+        "Fixed rating deviation of 75 follows Valve\u2019s published fit example. This deployment has not been backtested or calibrated."
+      ],
+      "errors": []
+    },
+    {
+      "id": "1082897",
+      "teams": [
+        "B8",
+        "K27"
+      ],
+      "method": "market",
+      "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
+      "probabilities": [
+        0.595,
+        0.405
+      ],
+      "research": [],
+      "limitations": [
+        "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+      ],
+      "errors": []
+    },
+    {
+      "id": "1082898",
+      "teams": [
+        "Alliance",
+        "FaZe"
+      ],
+      "method": "market",
+      "source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
+      "probabilities": [
+        0.375,
+        0.625
+      ],
+      "research": [],
+      "limitations": [
+        "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+      ],
+      "errors": []
+    },
+    {
+      "id": "1082900",
+      "teams": [
+        "Luminosity",
+        "HOTU"
+      ],
+      "method": "market",
+      "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
+      "probabilities": [
+        0.525,
+        0.475
+      ],
+      "research": [],
+      "limitations": [
+        "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+      ],
+      "errors": []
+    },
+    {
+      "id": "1082901",
+      "teams": [
+        "Envy",
+        "GamerLegion"
+      ],
+      "method": "market",
+      "source_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
+      "probabilities": [
+        0.455,
+        0.545
+      ],
+      "research": [],
+      "limitations": [
+        "One prediction market, not a multi-book consensus. Midpoints are not guaranteed execution prices. Fees are excluded."
+      ],
+      "errors": []
+    },
+    {
+      "id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "method": "unresolved",
+      "source_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+      "probabilities": null,
+      "research": [
+        {
+          "stage": "Primary: Polymarket",
+          "source_url": "https://polymarket.com/esports/cs2",
+          "status": "unresolved",
+          "detail": "No unique exact-name, exact-start-time fixture. Directory and paginated CS2-tag API checked where available; sponsor/abbreviated names are not silently aliased."
+        },
+        {
+          "stage": "HLTV research",
+          "source_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+          "status": "checked",
+          "detail": "Exact teams/time confirmed on HLTV; HLTV lists BO3; Hotspawn format remains separately unverified. No original bookmaker price verified at this stage."
+        },
+        {
+          "stage": "Original esportsbook lines",
+          "source_url": "https://thunderpick.io/esports/counter-strike",
+          "status": "unresolved",
+          "detail": "No unique validated pair of original bookmaker odds available; source failures are not proof that no market exists."
+        },
+        {
+          "stage": "GG.BET esportsbook",
+          "source_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
+          "status": "unavailable",
+          "observed_at": "2026-10-25T23:03:46Z",
+          "detail": "ggbet-cs2: 403 Client Error: Forbidden for url: https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike"
+        },
+        {
+          "stage": "Pinnacle esportsbook",
+          "source_url": "https://www.pinnacle.com/en/esports-hub/cs2",
+          "status": "unavailable",
+          "observed_at": "2026-10-25T23:03:46Z",
+          "detail": "Redirected to a generic landing page; no match-level betting lines verified."
+        },
+        {
+          "stage": "Rivalry esportsbook",
+          "source_url": "https://www.rivalry.com/esports/counter-strike-betting",
+          "status": "unavailable",
+          "observed_at": "2026-10-25T23:03:47Z",
+          "detail": "Redirected to a generic landing page; no match-level betting lines verified."
+        },
+        {
+          "stage": "Stake esportsbook",
+          "source_url": "https://stake.com/sports/esports/counter-strike",
+          "status": "unavailable",
+          "observed_at": "2026-10-25T23:03:47Z",
+          "detail": "stake-cs2: 403 Client Error: Forbidden for url: https://stake.com/sports/esports/counter-strike"
+        },
+        {
+          "stage": "Valve research model",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings",
+          "status": "unresolved",
+          "detail": "The Huns: multiple Valve rosters share this name; identity is unresolved"
+        }
+      ],
+      "limitations": [
+        "Hotspawn best-of format is unverified; left blank.",
+        "The Huns: multiple Valve rosters share this name; identity is unresolved"
+      ],
+      "errors": []
+    },
+    {
+      "id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "method": "model",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "probabilities": [
+        0.17816902,
+        0.82183098
+      ],
+      "research": [],
+      "limitations": [
+        "Research model, not observed betting odds or a verified true win probability.",
+        "Exact-name association only; current rosters, stand-ins and map vetoes are not independently confirmed.",
+        "Fixed rating deviation of 75 follows Valve\u2019s published fit example. This deployment has not been backtested or calibrated."
+      ],
+      "errors": []
+    }
+  ],
+  "errors": []
+}
