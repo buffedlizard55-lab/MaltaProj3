@@ -153,12 +153,6 @@ def verify(site: Path) -> dict:
         analysis = match.get('analysis') or {}
         probs = analysis.get('probabilities') or []
         pick_index = match.get('pick_index')
-        orig_row = orig_by_id.get(identifier) or {}
-        orig_block = orig_row.get('origination') or {}
-        if orig_row.get('upgraded_from_featured_model') and orig_block.get('probabilities'):
-            analysis = orig_block
-            probs = orig_block.get('probabilities') or []
-            pick_index = orig_row.get('pick_index')
         record = {
             'id': identifier,
             'teams': teams,
