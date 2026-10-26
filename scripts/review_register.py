@@ -109,6 +109,12 @@ REGISTERS = (
     # start-time conflicts, the LFO 10 identity gap, and the Valve standings
     # re-read.
     'research/60019704/repo-review.json',
+    # Session 3e64f4fb: two-layer replay of the 2026-10-25T23:03:48Z board
+    # (featured + complete list, 10/10 picks, 0 errors), the verified The Huns
+    # identity refusal and its researched resolution, the $7.25-volume market
+    # and 16-rating-point model pick, the nine root-absent evidence downloads,
+    # and the executive-summary unresolved section / phone path.
+    'research/3e64f4fb/repo-review.json',
 )
 STATUS = {
     'fixed': ('Fixed', 'green'),

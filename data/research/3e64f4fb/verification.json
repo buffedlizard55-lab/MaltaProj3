@@ -1,0 +1,259 @@
+{
+ "session": "arena-3e64f4fb",
+ "snapshot_generated_at": "2026-10-25T23:03:48Z",
+ "snapshot_inventory_observed_at": "2026-10-25T23:03:30Z",
+ "origination_generated_at": "2026-10-25T23:04:02Z",
+ "active_fixtures": 10,
+ "checks": {
+  "inventory": {
+   "errors": 0,
+   "detail": {
+    "inventory": 72,
+    "upcoming": 10,
+    "archived": 62,
+    "market": 6,
+    "bookmaker": 1,
+    "model": 2,
+    "unresolved": 1,
+    "picks": 9
+   }
+  },
+  "featured": {
+   "errors": 0,
+   "priced": 9,
+   "blank": [
+    "1082792"
+   ]
+  },
+  "complete": {
+   "errors": 0,
+   "priced": 10,
+   "blank": []
+  },
+  "cross_layer": {
+   "errors": 0,
+   "researched_resolutions": [
+    "1082792"
+   ]
+  },
+  "summary": {
+   "errors": 0,
+   "sections": [
+    "picks-at-a-glance",
+    "unresolved-register",
+    "no-line-register",
+    "fallback-register"
+   ],
+   "percentages_missing_verbatim": [],
+   "broken_links": [],
+   "missing_downloads": [
+    "./data/evidence/polymarket-book-1231333-0.json",
+    "./data/evidence/polymarket-book-1231333-1.json",
+    "./data/evidence/polymarket-book-1237427-0.json",
+    "./data/evidence/polymarket-book-1237427-1.json",
+    "./data/evidence/polymarket-book-1237429-0.json",
+    "./data/evidence/polymarket-book-1237429-1.json",
+    "./data/evidence/polymarket-event-1231333.json",
+    "./data/evidence/polymarket-event-1237427.json",
+    "./data/evidence/polymarket-event-1237429.json"
+   ],
+   "viewport_ok": true
+  }
+ },
+ "rows": [
+  {
+   "id": "1082858",
+   "teams": [
+    "Ground Zero",
+    "Off Chops"
+   ],
+   "competition": "DFRAG Invitational 2026",
+   "starts_at": "2026-10-26T03:00:00Z",
+   "featured_basis": "market-midpoint",
+   "complete_basis": "market-midpoint",
+   "complete_method": "market",
+   "probabilities": [
+    0.2,
+    0.8
+   ],
+   "pick": "Off Chops",
+   "source_url": "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25",
+   "researched_resolution": false
+  },
+  {
+   "id": "1082859",
+   "teams": [
+    "NEXVOID",
+    "Alter Ego"
+   ],
+   "competition": "DFRAG Invitational 2026",
+   "starts_at": "2026-10-26T03:00:00Z",
+   "featured_basis": "bookmaker-no-vig",
+   "complete_basis": "bookmaker-no-vig",
+   "complete_method": "bookmaker",
+   "probabilities": [
+    0.57519789,
+    0.42480211
+   ],
+   "pick": "NEXVOID",
+   "source_url": "https://thunderpick.io/api/matches",
+   "researched_resolution": false
+  },
+  {
+   "id": "1082860",
+   "teams": [
+    "FlyQuest",
+    "Staqued"
+   ],
+   "competition": "DFRAG Invitational 2026",
+   "starts_at": "2026-10-27T03:00:00Z",
+   "featured_basis": "market-midpoint",
+   "complete_basis": "market-midpoint",
+   "complete_method": "market",
+   "probabilities": [
+    0.925,
+    0.075
+   ],
+   "pick": "FlyQuest",
+   "source_url": "https://polymarket.com/event/cs2-fly-staque-2026-10-26",
+   "researched_resolution": false
+  },
+  {
+   "id": "1082861",
+   "teams": [
+    "Rooster",
+    "Abyssal"
+   ],
+   "competition": "DFRAG Invitational 2026",
+   "starts_at": "2026-10-27T03:00:00Z",
+   "featured_basis": "valve-glicko",
+   "complete_basis": "valve-glicko",
+   "complete_method": "model",
+   "probabilities": [
+    0.47761494,
+    0.52238506
+   ],
+   "pick": "Abyssal",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "researched_resolution": false
+  },
+  {
+   "id": "1082897",
+   "teams": [
+    "B8",
+    "K27"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T08:00:00Z",
+   "featured_basis": "market-midpoint",
+   "complete_basis": "market-midpoint",
+   "complete_method": "market",
+   "probabilities": [
+    0.595,
+    0.405
+   ],
+   "pick": "B8",
+   "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
+   "researched_resolution": false
+  },
+  {
+   "id": "1082898",
+   "teams": [
+    "Alliance",
+    "FaZe"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T11:00:00Z",
+   "featured_basis": "market-midpoint",
+   "complete_basis": "market-midpoint",
+   "complete_method": "market",
+   "probabilities": [
+    0.375,
+    0.625
+   ],
+   "pick": "FaZe",
+   "source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
+   "researched_resolution": false
+  },
+  {
+   "id": "1082900",
+   "teams": [
+    "Luminosity",
+    "HOTU"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T17:00:00Z",
+   "featured_basis": "market-midpoint",
+   "complete_basis": "market-midpoint",
+   "complete_method": "market",
+   "probabilities": [
+    0.525,
+    0.475
+   ],
+   "pick": "Luminosity",
+   "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
+   "researched_resolution": false
+  },
+  {
+   "id": "1082901",
+   "teams": [
+    "Envy",
+    "GamerLegion"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T20:00:00Z",
+   "featured_basis": "market-midpoint",
+   "complete_basis": "market-midpoint",
+   "complete_method": "market",
+   "probabilities": [
+    0.455,
+    0.545
+   ],
+   "pick": "GamerLegion",
+   "source_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
+   "researched_resolution": false
+  },
+  {
+   "id": "1082792",
+   "teams": [
+    "HOTU",
+    "The Huns"
+   ],
+   "competition": "Moscow Cyber Games 2026",
+   "starts_at": "2026-10-31T09:00:00Z",
+   "featured_basis": "blank",
+   "complete_basis": "market-midpoint",
+   "complete_method": "market",
+   "probabilities": [
+    0.87,
+    0.13
+   ],
+   "pick": "HOTU",
+   "source_url": "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
+   "researched_resolution": true
+  },
+  {
+   "id": "1082793",
+   "teams": [
+    "5star",
+    "1WIN"
+   ],
+   "competition": "Moscow Cyber Games 2026",
+   "starts_at": "2026-10-31T13:00:00Z",
+   "featured_basis": "valve-glicko",
+   "complete_basis": "valve-glicko",
+   "complete_method": "model",
+   "probabilities": [
+    0.17816902,
+    0.82183098
+   ],
+   "pick": "1WIN",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "researched_resolution": false
+  }
+ ],
+ "errors": [],
+ "warnings": [
+  "summary: evidence downloads linked from the executive summary are absent from the checked-in root (served by the artifact deployment, would 404 from a branch-root serve): ./data/evidence/polymarket-book-1231333-0.json, ./data/evidence/polymarket-book-1231333-1.json, ./data/evidence/polymarket-book-1237427-0.json, ./data/evidence/polymarket-book-1237427-1.json, ./data/evidence/polymarket-book-1237429-0.json, ./data/evidence/polymarket-book-1237429-1.json, ./data/evidence/polymarket-event-1231333.json, ./data/evidence/polymarket-event-1237427.json, ./data/evidence/polymarket-event-1237429.json"
+ ]
+}

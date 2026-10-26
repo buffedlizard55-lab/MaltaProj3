@@ -1,0 +1,396 @@
+{
+ "session": "arena-3e64f4fb",
+ "snapshot_generated_at": "2026-10-26T03:46:08Z",
+ "snapshot_inventory_observed_at": "2026-10-26T03:45:53Z",
+ "origination_generated_at": "2026-10-26T03:46:21Z",
+ "active_fixtures": 17,
+ "checks": {
+  "inventory": {
+   "errors": 0,
+   "detail": {
+    "inventory": 80,
+    "upcoming": 17,
+    "archived": 63,
+    "market": 8,
+    "bookmaker": 0,
+    "model": 7,
+    "unresolved": 2,
+    "picks": 15
+   }
+  },
+  "featured": {
+   "errors": 0,
+   "priced": 15,
+   "blank": [
+    "1081159",
+    "1082792"
+   ]
+  },
+  "complete": {
+   "errors": 0,
+   "priced": 17,
+   "blank": []
+  },
+  "cross_layer": {
+   "errors": 0,
+   "researched_resolutions": [
+    "1081159",
+    "1082792"
+   ]
+  },
+  "summary": {
+   "errors": 0,
+   "sections": [
+    "picks-at-a-glance",
+    "unresolved-register",
+    "no-line-register",
+    "fallback-register"
+   ],
+   "percentages_missing_verbatim": [],
+   "broken_links": [],
+   "missing_downloads": [
+    "./data/evidence/polymarket-book-1252125-0.json",
+    "./data/evidence/polymarket-book-1252125-1.json",
+    "./data/evidence/polymarket-book-1255013-0.json",
+    "./data/evidence/polymarket-book-1255013-1.json",
+    "./data/evidence/polymarket-book-1255952-0.json",
+    "./data/evidence/polymarket-book-1255952-1.json",
+    "./data/evidence/polymarket-event-1252125.json",
+    "./data/evidence/polymarket-event-1255013.json",
+    "./data/evidence/polymarket-event-1255952.json"
+   ],
+   "viewport_ok": true
+  }
+ },
+ "rows": [
+  {
+   "id": "1079201",
+   "teams": [
+    "INOX Division",
+    "Nemesis"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at": "2026-10-26T09:00:00Z",
+   "featured_basis": "valve-glicko",
+   "complete_basis": "bookmaker-no-vig",
+   "complete_method": "consensus",
+   "probabilities": [
+    0.25381253,
+    0.74618747
+   ],
+   "pick": "Nemesis",
+   "source_url": "https://polymarket.com/event/cs2-nem-inox-2026-10-26",
+   "researched_resolution": false
+  },
+  {
+   "id": "1079202",
+   "teams": [
+    "FOKUS",
+    "ex-Zero Tenacity"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at": "2026-10-26T12:00:00Z",
+   "featured_basis": "market-midpoint",
+   "complete_basis": "market-midpoint",
+   "complete_method": "market",
+   "probabilities": [
+    0.62,
+    0.38
+   ],
+   "pick": "FOKUS",
+   "source_url": "https://polymarket.com/event/cs2-fokus-zerote-2026-10-26",
+   "researched_resolution": false
+  },
+  {
+   "id": "1081159",
+   "teams": [
+    "LFO 10",
+    "ex-6666"
+   ],
+   "competition": "CCT Europe 2026 Series #12",
+   "starts_at": "2026-10-26T12:00:00Z",
+   "featured_basis": "blank",
+   "complete_basis": "form-fit",
+   "complete_method": "model",
+   "probabilities": [
+    0.39044605815543665,
+    0.6095539418445634
+   ],
+   "pick": "ex-6666",
+   "source_url": "https://bo3.gg/matches/sokerorg-vs-ex-6666-26-10-2026",
+   "researched_resolution": true
+  },
+  {
+   "id": "1079203",
+   "teams": [
+    "Metizport",
+    "BRUTE"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at": "2026-10-26T15:00:00Z",
+   "featured_basis": "market-midpoint",
+   "complete_basis": "market-midpoint",
+   "complete_method": "market",
+   "probabilities": [
+    0.59,
+    0.41
+   ],
+   "pick": "Metizport",
+   "source_url": "https://polymarket.com/event/cs2-mzp-brute-2026-10-26",
+   "researched_resolution": false
+  },
+  {
+   "id": "1081160",
+   "teams": [
+    "HAVU",
+    "ILLYRIANS"
+   ],
+   "competition": "CCT Europe 2026 Series #12",
+   "starts_at": "2026-10-26T15:00:00Z",
+   "featured_basis": "market-midpoint",
+   "complete_basis": "market-midpoint",
+   "complete_method": "market",
+   "probabilities": [
+    0.535,
+    0.465
+   ],
+   "pick": "HAVU",
+   "source_url": "https://polymarket.com/event/cs2-havu-ill4-2026-10-26",
+   "researched_resolution": false
+  },
+  {
+   "id": "1093218",
+   "teams": [
+    "Nuclear TigeRES",
+    "UNiTY"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at": "2026-10-26T18:00:00Z",
+   "featured_basis": "valve-glicko",
+   "complete_basis": "bookmaker-no-vig",
+   "complete_method": "consensus",
+   "probabilities": [
+    0.58349699,
+    0.41650301
+   ],
+   "pick": "Nuclear TigeRES",
+   "source_url": "https://polymarket.com/event/cs2-ntr-unity-2026-10-26",
+   "researched_resolution": false
+  },
+  {
+   "id": "1082860",
+   "teams": [
+    "FlyQuest",
+    "Staqued"
+   ],
+   "competition": "DFRAG Invitational 2026",
+   "starts_at": "2026-10-27T03:00:00Z",
+   "featured_basis": "market-midpoint",
+   "complete_basis": "market-midpoint",
+   "complete_method": "market",
+   "probabilities": [
+    0.92,
+    0.08
+   ],
+   "pick": "FlyQuest",
+   "source_url": "https://polymarket.com/event/cs2-fly-staque-2026-10-26",
+   "researched_resolution": false
+  },
+  {
+   "id": "1082861",
+   "teams": [
+    "Rooster",
+    "Abyssal"
+   ],
+   "competition": "DFRAG Invitational 2026",
+   "starts_at": "2026-10-27T03:00:00Z",
+   "featured_basis": "valve-glicko",
+   "complete_basis": "valve-glicko",
+   "complete_method": "model",
+   "probabilities": [
+    0.47761494,
+    0.52238506
+   ],
+   "pick": "Abyssal",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "researched_resolution": false
+  },
+  {
+   "id": "1082897",
+   "teams": [
+    "B8",
+    "K27"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T08:00:00Z",
+   "featured_basis": "market-midpoint",
+   "complete_basis": "market-midpoint",
+   "complete_method": "market",
+   "probabilities": [
+    0.595,
+    0.405
+   ],
+   "pick": "B8",
+   "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
+   "researched_resolution": false
+  },
+  {
+   "id": "1082898",
+   "teams": [
+    "Alliance",
+    "FaZe"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T11:00:00Z",
+   "featured_basis": "market-midpoint",
+   "complete_basis": "market-midpoint",
+   "complete_method": "market",
+   "probabilities": [
+    0.34,
+    0.66
+   ],
+   "pick": "FaZe",
+   "source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
+   "researched_resolution": false
+  },
+  {
+   "id": "1081162",
+   "teams": [
+    "ex-RUSTEC",
+    "Spirit Academy"
+   ],
+   "competition": "CCT Europe 2026 Series #12",
+   "starts_at": "2026-10-27T12:00:00Z",
+   "featured_basis": "valve-glicko",
+   "complete_basis": "valve-glicko",
+   "complete_method": "model",
+   "probabilities": [
+    0.61680305,
+    0.38319695
+   ],
+   "pick": "ex-RUSTEC",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "researched_resolution": false
+  },
+  {
+   "id": "1081163",
+   "teams": [
+    "BakS",
+    "Saint Sinners"
+   ],
+   "competition": "CCT Europe 2026 Series #12",
+   "starts_at": "2026-10-27T15:00:00Z",
+   "featured_basis": "valve-glicko",
+   "complete_basis": "valve-glicko",
+   "complete_method": "model",
+   "probabilities": [
+    0.78758039,
+    0.21241961
+   ],
+   "pick": "BakS",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "researched_resolution": false
+  },
+  {
+   "id": "1082900",
+   "teams": [
+    "Luminosity",
+    "HOTU"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T17:00:00Z",
+   "featured_basis": "market-midpoint",
+   "complete_basis": "market-midpoint",
+   "complete_method": "market",
+   "probabilities": [
+    0.525,
+    0.475
+   ],
+   "pick": "Luminosity",
+   "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
+   "researched_resolution": false
+  },
+  {
+   "id": "1081164",
+   "teams": [
+    "Inner Circle Academy",
+    "Lavked"
+   ],
+   "competition": "CCT Europe 2026 Series #12",
+   "starts_at": "2026-10-27T18:00:00Z",
+   "featured_basis": "valve-glicko",
+   "complete_basis": "valve-glicko",
+   "complete_method": "model",
+   "probabilities": [
+    0.75606058,
+    0.24393942
+   ],
+   "pick": "Inner Circle Academy",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "researched_resolution": false
+  },
+  {
+   "id": "1082901",
+   "teams": [
+    "Envy",
+    "GamerLegion"
+   ],
+   "competition": "Tesla Cup 2026",
+   "starts_at": "2026-10-27T20:00:00Z",
+   "featured_basis": "market-midpoint",
+   "complete_basis": "market-midpoint",
+   "complete_method": "market",
+   "probabilities": [
+    0.455,
+    0.545
+   ],
+   "pick": "GamerLegion",
+   "source_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
+   "researched_resolution": false
+  },
+  {
+   "id": "1082792",
+   "teams": [
+    "HOTU",
+    "The Huns"
+   ],
+   "competition": "Moscow Cyber Games 2026",
+   "starts_at": "2026-10-31T09:00:00Z",
+   "featured_basis": "blank",
+   "complete_basis": "market-midpoint",
+   "complete_method": "market",
+   "probabilities": [
+    0.87,
+    0.13
+   ],
+   "pick": "HOTU",
+   "source_url": "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
+   "researched_resolution": true
+  },
+  {
+   "id": "1082793",
+   "teams": [
+    "5star",
+    "1WIN"
+   ],
+   "competition": "Moscow Cyber Games 2026",
+   "starts_at": "2026-10-31T13:00:00Z",
+   "featured_basis": "valve-glicko",
+   "complete_basis": "valve-glicko",
+   "complete_method": "model",
+   "probabilities": [
+    0.17816902,
+    0.82183098
+   ],
+   "pick": "1WIN",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "researched_resolution": false
+  }
+ ],
+ "errors": [],
+ "warnings": [
+  "1081159: form estimate carries no limitations",
+  "1081159: complete-list model row carries no limitations",
+  "summary: evidence downloads linked from the executive summary are absent from the checked-in root (served by the artifact deployment, would 404 from a branch-root serve): ./data/evidence/polymarket-book-1252125-0.json, ./data/evidence/polymarket-book-1252125-1.json, ./data/evidence/polymarket-book-1255013-0.json, ./data/evidence/polymarket-book-1255013-1.json, ./data/evidence/polymarket-book-1255952-0.json, ./data/evidence/polymarket-book-1255952-1.json, ./data/evidence/polymarket-event-1252125.json, ./data/evidence/polymarket-event-1255013.json, ./data/evidence/polymarket-event-1255952.json"
+ ]
+}
