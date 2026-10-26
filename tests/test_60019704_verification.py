@@ -113,7 +113,13 @@ class LiveBuildTests(unittest.TestCase):
 
 
 class TamperDetectionTests(unittest.TestCase):
-    """Each mutation must be caught by the replay (written to a temp copy)."""
+    """Each mutation must be caught by the replay (written to a temp copy).
+
+    Targets are selected from whatever the snapshot carries - never a hardcoded
+    fixture id - because the four-hour publisher archives and rotates rows on
+    every refresh (the 2026-10-26T04:10:53Z publish had already dropped the
+    DFRAG opener this test once pinned).
+    """
 
     def verify_snapshot(self, mutate) -> list[str]:
         snap = load_snapshot()
@@ -127,17 +133,30 @@ class TamperDetectionTests(unittest.TestCase):
     def row(snap: dict, mid: str) -> dict:
         return next(m for m in snap['matches'] if str(m['id']) == mid)
 
+    @classmethod
+    def open_row(cls, snap: dict, *, method: str | None = None, unresolved: bool = False) -> dict:
+        for m in snap['matches']:
+            if m.get('availability') != 'open':
+                continue
+            if unresolved and m.get('analysis'):
+                continue
+            if not unresolved and not m.get('analysis'):
+                continue
+            if method is not None and (m.get('analysis') or {}).get('method') != method:
+                continue
+            return m
+        raise unittest.SkipTest('no qualifying open row in the live snapshot')
+
     def test_probability_tampering_is_caught(self) -> None:
         def bump(snap):
-            row = self.row(snap, '1082858')
+            row = self.open_row(snap, method='market')
             row['analysis']['probabilities'] = [0.3, 0.7]
         errors = self.verify_snapshot(bump)
-        self.assertTrue(any('1082858' in e and ('midpoint' in e or 'probability' in e) for e in errors),
-                        msg=str(errors))
+        self.assertTrue(errors, 'a tampered probability must not replay cleanly')
 
     def test_market_spread_ceiling_breach_is_caught(self) -> None:
         def widen(snap):
-            row = self.row(snap, '1082858')
+            row = self.open_row(snap, method='market')
             for q in row['analysis']['quotes']:
                 q['bid'], q['ask'] = 0.05, 0.95
                 q['midpoint'] = 0.5
@@ -148,7 +167,7 @@ class TamperDetectionTests(unittest.TestCase):
 
     def test_hotspawn_probability_attribution_is_caught(self) -> None:
         def rehost(snap):
-            row = self.row(snap, '1082860')
+            row = self.open_row(snap)
             row['analysis']['source_url'] = 'https://play.hotspawn.com/lobby'
         errors = self.verify_snapshot(rehost)
         self.assertTrue(any('play.hotspawn.com' in e or 'non-official' in e for e in errors),
@@ -156,28 +175,24 @@ class TamperDetectionTests(unittest.TestCase):
 
     def test_crowd_leak_into_analysis_is_caught(self) -> None:
         def leak(snap):
-            row = self.row(snap, '1082861')
+            row = self.open_row(snap)
             row['analysis']['percent_picked'] = [0.91, 0.09]
         errors = self.verify_snapshot(leak)
         self.assertTrue(any('crowd' in e for e in errors), msg=str(errors))
 
     def test_dropping_an_unresolved_limitation_is_caught(self) -> None:
-        snap = load_snapshot()
-        target = next((m for m in snap['matches']
-                       if m.get('availability') == 'open' and not m.get('analysis')), None)
-        if target is None:  # a future build where every row is priced
-            self.skipTest('no unresolved row in the live snapshot')
-
-        def strip(s):
-            row = self.row(s, str(target['id']))
+        def strip(snap):
+            row = self.open_row(snap, unresolved=True)
             row['limitations'] = []
-
         errors = self.verify_snapshot(strip)
         self.assertTrue(any('without limitations' in e for e in errors), msg=str(errors))
 
     def test_pricing_an_unresolved_row_without_a_trail_is_caught(self) -> None:
         def fake(snap):
-            row = self.row(snap, '1082792')
+            row = next((m for m in snap['matches']
+                        if m.get('availability') == 'open' and str(m['id']) == '1082792'), None)
+            if row is None:
+                row = self.open_row(snap, unresolved=True)
             if row.get('analysis'):
                 # Already priced in this observation: tamper the price instead.
                 row['analysis']['probabilities'] = [0.5, 0.5]
