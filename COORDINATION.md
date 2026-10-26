@@ -1,3 +1,37 @@
+# Current session: arena-542dfb58 — a pick for **every** live Hotspawn CS2 fixture: live lobby↔API↔deployed reconciliation from a network-capable runner, HLTV-first then esportsbook/esports-betting-line research for every fixture the featured ladder cannot price, new source rungs proven by dated first-hand evidence, phone-first executive summary, publish
+
+Claimed **2026-10-26T00:55Z** on Arena's fixed branch `arena/542dfb58-maltaproj3`, branched from
+`main` at [`cfd58e1`](https://github.com/buffedlizard55-lab/MaltaProj3/commit/cfd58e113c76dc82e6482aec17d1b57a9491cadf)
+(the 2026-10-25T23:08:43Z root-synced publish, snapshot `2026-10-25T23:03:48Z`).
+Board, all 14 open PRs, the run history and the live site were read first. The newest open PR
+(#350, `arena/93c7475a`) has been idle 9 h and its rendered-section work is already on `main`
+(the landing page ships `./unresolved/`, the `#unresolved-register` block and the 10-of-10 phone
+status bar), so this session does **not** re-do it; it builds on it.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 542A-1 Runner-live reconciliation: Hotspawn scheduled API + both rendered lobbies vs the **deployed** snapshot and the researched layer; every open CS2 fixture must carry a pick or an explicit published limitation, with an id-level gap list | in progress | arena-542dfb58 | `scripts/542dfb58_gap_probe.py`, `.github/workflows/542dfb58-probe.yml`, `data/research/542dfb58/**`, this section |
+| 542A-2 HLTV-first, then esportsbook / esports-betting-line research **only** for fixtures the money rungs cannot price — 9 surfaces probed with status, byte count, SHA-256 and an exact-name+start-time join; facts only, never a probability | in progress | arena-542dfb58 | `data/research/542dfb58/**`, `scripts/542dfb58_gap_probe.py` |
+| 542A-3 Implement whatever the evidence supports as a new compliant last-resort rung (Smarkets traded price / Rivalry event API / 1xBet public line feed / HLTV-published book prices), fail-closed, dated, linked; refuse silently if the source contract is not met | unclaimed | arena-542dfb58 | new `scripts/gap_lines.py`, new `tests/test_542dfb58_gap_lines.py`; a one-rung insertion in `scripts/originate.py` **only if** the probe proves a compliant price source (no other session is editing `originate.py` — all claims are >8 h old) |
+| 542A-4 Executive summary + phone: the picks route, the unresolved/limitations register, deep links, tap targets and WCAG verified in Chromium at 320/390/768 px on a locally built site | unclaimed | arena-542dfb58 | `scripts/build.py`/`assets/**` only for a verified defect (none claimed yet), new `tests/browser/542dfb58*.spec.mjs` |
+| 542A-5 PR to `main`, merge without waiting, confirm Pages serves a fresh verified build, record sources/verification/irregularities here | unclaimed | arena-542dfb58 | this section, PR |
+
+**Non-overlap pledge.** This session edits only its own new files, `data/research/542dfb58/**`
+and this board section. It will not touch `snapshot.json`, `data/latest.json`,
+`data/origination.json`, `.github/workflows/pages.yml`, `assets/scout.css`, any other session's
+`data/research/<id>/`, or PR #350's tree. `scripts/originate.py` is entered only under the board's
+stale-claim handoff rule (every competing claim predates 2026-10-25T17:00Z), for one narrow
+fail-closed rung plus its tests, and the handoff is logged here before the edit.
+Hotspawn "% picked", HLTV fan votes and single rest-ing odds are never treated as probabilities.
+
+**Sandbox network state (verified 2026-10-26T00:50Z).** `curl https://buffedlizard55-lab.github.io/MaltaProj3/`
+exits 35 `SSL_ERROR_SYSCALL` with no status line; only `github.com`, `api.github.com`,
+`codeload.github.com`, `registry.npmjs.org`, `pypi.org` and `files.pythonhosted.org` are reachable.
+So every live fact in this session is produced by a GitHub Actions runner on this branch
+(`542A-1`/`542A-2`) and archived as dated evidence, never asserted from the sandbox.
+
+---
+
 # Current session: arena-824a2780 — independent replay of every published CS2 pick, and the phone path from the executive summary to the picks
 
 Claimed **2026-10-25T13:40Z** on Arena's fixed branch `arena/824a2780-maltaproj3`, branched from
