@@ -1,3 +1,16 @@
+# Session arena-f644ed1b — current-snapshot release audit
+
+Claimed 2026-10-26 UTC on fixed branch `arena/f644ed1b-maltaproj3`.
+
+| Task | Status | Owner | Scope |
+| --- | --- | --- | --- |
+| Independent current-snapshot safety audit, source-linked findings and regression tests | in progress | arena-f644ed1b | new `scripts/f644ed1b_audit.py`, `tests/test_f644ed1b_audit.py`, `data/research/f644ed1b/`, one entry in `scripts/review_register.py`, this board |
+| Integration gates, PR merge and Pages verification | in progress | arena-f644ed1b | same scope |
+
+No existing collector, renderer, workflow or probability inputs will be edited. Existing live claims and open PR scopes were read; no overlap claimed. Sandbox outbound access excludes Hotspawn and books; captured-source replay is not a fresh live verification. Primary GitHub run evidence will be linked. Branch remains Arena's fixed branch rather than creating the requested session branch.
+
+---
+
 # Current session: 32ce1d11 — final integration: HLTV-first identity resolution for 1082792, mobile-first executive-summary verification, line-by-line site verification, PR to main, merge, deploy
 
 Claimed **2026-10-26T00:45Z** on Arena's fixed branch `arena/32ce1d11-maltaproj3` (this branch). Read this board, `gh run list`, and the latest snapshot first. Latest root-synced snapshot is `2026-10-25T23:03:48Z` (coverage_complete: true, 72 inventory / 10 upcoming / 9 picks / 1 unresolved).
