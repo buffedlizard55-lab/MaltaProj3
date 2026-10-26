@@ -161,6 +161,64 @@ class SessionB2264C65VerificationTests(unittest.TestCase):
             for u in fl['source_urls']:
                 self.assertTrue(audit_rows.is_official(u), u)
 
+    def test_22a3ed80_verify_accepts_upgraded_from_featured_model_rows(self):
+        import importlib
+        import tempfile
+
+        v22 = importlib.import_module('scripts.22a3ed80_verify')
+        with tempfile.TemporaryDirectory() as td:
+            site = Path(td)
+            snap = {
+                'generated_at': '2026-10-26T01:30:00Z',
+                'counts': {'upcoming': 1, 'unresolved': 0},
+                'unresolved_ids': [],
+                'matches': [{
+                    'id': '1079201',
+                    'availability': 'open',
+                    'starts_at': '2026-10-26T09:00:00Z',
+                    'teams': [{'id': '1', 'name': 'INOX Division'}, {'id': '2', 'name': 'Nemesis'}],
+                    'analysis': {'method': 'model', 'probabilities': [0.12346675, 0.87653325]},
+                    'pick_index': 1,
+                }],
+            }
+            orig = {
+                'generated_at': '2026-10-26T01:30:05Z',
+                'matches': [{
+                    'id': '1079201',
+                    'upgraded_from_featured_model': True,
+                    'pick_index': 1,
+                    'origination': {'method': 'bookmaker', 'probabilities': [0.3125, 0.6875]},
+                }],
+            }
+            (site / 'snapshot.json').write_text(json.dumps(snap), encoding='utf-8')
+            (site / 'origination.json').write_text(json.dumps(orig), encoding='utf-8')
+            for sub in ('picks', 'unresolved', 'origination', 'review'):
+                (site / sub).mkdir()
+            (site / 'picks' / 'index.html').write_text('<main id="picks"></main>', encoding='utf-8')
+            (site / 'unresolved' / 'index.html').write_text('<main id="main"><section id="unresolved"></section></main>', encoding='utf-8')
+            (site / 'origination' / 'index.html').write_text('<main id="picks"><section id="unresolved"></section></main>', encoding='utf-8')
+            (site / 'review' / 'index.html').write_text('<main id="flagged-items"></main>', encoding='utf-8')
+            (site / 'index.html').write_text(
+                '<html data-snapshot-generated="2026-10-26T01:30:00Z"><body>'
+                '<nav class="mobile-status">1 picks ready of 1 · 0 unresolved</nav>'
+                '<a href="./#picks-at-a-glance">a</a><a href="./#unresolved-register">b</a>'
+                '<a href="./#no-line-register">c</a><a href="./#fallback-register">d</a>'
+                '<section id="picks-at-a-glance">'
+                '<p>1 active Hotspawn CS2 fixtures in this snapshot, 1 with a directional pick — '
+                '1 from an external betting line, 0 from a research model — and 0 explicitly unresolved</p>'
+                '<ol class="glance-list">'
+                '<li class="glance-row" data-glance-id="1079201" data-method="bookmaker">'
+                '<div class="glance-match"><strong>INOX Division <span class="versus">vs</span> Nemesis</strong></div>'
+                '<div class="glance-choice"><span class="glance-pick-label">Pick</span> <strong>Nemesis</strong> '
+                '<span class="glance-prob">68.8%</span> <span class="glance-other">INOX Division 31.2%</span></div>'
+                '<div class="glance-links"><a href="https://www.bovada.lv/sports/esports/counter-strike-2">Bovada</a></div>'
+                '</li></ol></section></body></html>',
+                encoding='utf-8',
+            )
+            res = v22.verify(site)
+            hard_fails = [c for c in res['checks'] if c['hard'] and not c['ok']]
+            self.assertEqual(hard_fails, [], msg=json.dumps(hard_fails, indent=2))
+
 
 if __name__ == '__main__':
     unittest.main()
