@@ -1,19 +1,19 @@
 # arena-3e64f4fb live research — HLTV first, then esportsbooks
 
-Observed `2026-10-26T04:11:55Z` on a GitHub runner. **Evidence only:** raw observed prices, no derived probability or pick.
+Observed `2026-10-26T05:10:07Z` on a GitHub runner. **Evidence only:** raw observed prices, no derived probability or pick.
 
-- Published snapshot `2026-10-26T03:46:08Z`, origination `2026-10-26T03:46:21Z`
-- Hotspawn API open fixtures: **17**; lobby fixture ids parsed: 19
+- Published snapshot `2026-10-26T04:10:53Z`, origination `2026-10-26T04:11:01Z`
+- Hotspawn API open fixtures: **17**; lobby fixture ids parsed: 17
 - Live-open fixtures missing from the published board: **none**
 - Published fixtures no longer live-open (started/rotated): none
-- HLTV listing rows parsed: 41; ranking rows: 253
+- HLTV listing rows parsed: 43; ranking rows: 253
 
 ## 1079201 — INOX Division vs Nemesis (NODWIN Clutch Series #13, 2026-10-26T09:00:00Z)
 - Published basis: featured=model, complete=consensus, pick_index=1
 - HLTV exact: https://www.hltv.org/matches/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13 @ 2026-10-26T09:00:00Z (NODWIN Clutch Series 13)
 - HLTV match page: `{"starts_at": "2026-10-26T09:00:00Z", "format": "BO3", "teams": ["Nemesis", "INOX Division"]}`
 - HLTV ranking: {"INOX Division": {"rank": 84, "points": 10.0, "team_url": "https://www.hltv.org/team/13814/inox-division"}, "Nemesis": {"rank": 47, "points": 32.0, "team_url": "https://www.hltv.org/team/13355/nemesis"}}
-- Polymarket observed: https://polymarket.com/event/cs2-nem-inox-2026-10-26 bid 0.74 / ask 0.77 (['Team Nemesis', 'INOX Division'])
+- Polymarket observed: https://polymarket.com/event/cs2-nem-inox-2026-10-26 bid 0.73 / ask 0.75 (['Team Nemesis', 'INOX Division'])
 - Thunderpick observed: none found
 - Kalshi observed: INOX Division vs. Team Nemesis
 
@@ -31,7 +31,7 @@ Observed `2026-10-26T04:11:55Z` on a GitHub runner. **Evidence only:** raw obser
 - HLTV exact: https://www.hltv.org/matches/2399119/nuclear-tigeres-vs-unity-nodwin-clutch-series-13 @ 2026-10-26T18:00:00Z (NODWIN Clutch Series 13)
 - HLTV match page: `{"starts_at": "2026-10-26T18:00:00Z", "format": "BO3", "teams": ["Nuclear TigeRES", "UNiTY"]}`
 - HLTV ranking: {"Nuclear TigeRES": {"rank": 50, "points": 27.0, "team_url": "https://www.hltv.org/team/13027/nuclear-tigeres"}, "UNiTY": {"rank": 86, "points": 10.0, "team_url": "https://www.hltv.org/team/12267/unity"}}
-- Polymarket observed: https://polymarket.com/event/cs2-ntr-unity-2026-10-26 bid 0.61 / ask 0.62 (['Nuclear TigeRES', 'UNiTY esports'])
+- Polymarket observed: https://polymarket.com/event/cs2-ntr-unity-2026-10-26 bid 0.6 / ask 0.61 (['Nuclear TigeRES', 'UNiTY esports'])
 - Thunderpick observed: none found
 - Kalshi observed: UNiTY esports vs. Nuclear TigeRES
 
