@@ -97,5 +97,17 @@
       "1093218"
     ],
     "severity": "review"
+  },
+  {
+    "id": "500519ba-live-coverage-0239z",
+    "title": "Third live observation, 02:39:04Z: all 19 open Hotspawn CS2 fixtures are priced, and the deployed 01:33:57Z snapshot now carries every one of them",
+    "detail": "The runner re-read the cache-busted lobby and the fixture API at 2026-10-26T02:39:04Z: 81 API records, 19 rendered lobby cards, 19 open fixtures, 19 priced by the fresh ladder, 0 unpicked. The deployed snapshot (generated 2026-10-26T01:33:57Z) lists all 19 open fixtures - the nine-card gap recorded at 00:59Z is closed - and two of its rows still carry no pick of their own (the complete list resolves them, so the page row is not blank). No Hotspawn percentage and no HLTV fan vote is an input at any stage; every priced row keeps its own first-party source link. Only the observation and its source status table are published here; the four-hour publisher remains the only writer of snapshot.json and data/origination.json.",
+    "source_urls": [
+      "https://play.hotspawn.com/lobby",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json"
+    ],
+    "match_ids": [],
+    "severity": "notice"
   }
 ]
