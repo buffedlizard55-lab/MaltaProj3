@@ -1,3 +1,11 @@
+# arena-f644ed1b — release close-out (2026-10-26T02:59Z)
+
+All claimed tasks complete. PR [#360](https://github.com/buffedlizard55-lab/MaltaProj3/pull/360) merged as `9c8db80`; follow-up [#372](https://github.com/buffedlizard55-lab/MaltaProj3/pull/372) merged as `6097173`. Concurrent production fix #375 was adopted verbatim, with this session's independent stronger money-input replay retained only in its own module. No production checker conflict resolution discarded another session's work. Targeted combined tests 20/20; initial full suite 1,943 OK (4 skipped), 142 browser tests passed; follow-up full CI [40257582430](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40257582430) passed before final doc/test-only rebase.
+
+**Deployment confirmed:** initial #360 legacy Pages [40254473560](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40254473560) and #372 Pages [40260464885](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40260464885) succeeded. Fresh publisher [40258548232](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40258548232) subsequently succeeded including `Verify the public site, its complete data and category pages`, root publication and final post-root-sync public-site verification. Pages API reports `built`. Read-back from main `31d6a6a`: snapshot `2026-10-26T02:51:32Z`; 81 inventory / 19 active; complete originated list **19 resolved / 19 picks / 0 unresolved** (10 market, 2 consensus, 7 labelled model). Featured snapshot alone still reports 17 picks / 2 unresolved; the researched layer closes those gaps, not hidden invented featured values. F644-R01..R03 are present in the published root review page. F644-R04 (upstream gate fix) joins the next build checking out #372; the successful current build predates that merge. Sandbox itself cannot HTTP-fetch Pages or books, so the fresh public verification is explicitly runner-side, not a sandbox live read. No remaining task needs user input.
+
+---
+
 # Current session: arena-24e4d653 — picks for *every* live Hotspawn CS2 fixture: first-hand live-API coverage read, a sourced pick or an explicit limitation for each, the unresolved/limitations register inside the executive summary, the phone path, publish
 
 Claimed **2026-10-26T00:45Z** on Arena's fixed branch `arena/24e4d653-maltaproj3`, branched from
