@@ -101,6 +101,16 @@ REGISTERS = (
     # 10 non-featured fixtures, 19/19 exact probability replay, and provider
     # start-time / alias-scope flags.
     'research/c333bb27/repo-review.json',
+    # Session arena-deea3ec4: the 19-open-fixture live reconciliation, the
+    # HLTV-first dossier that bound each new card to its HLTV match and kept the
+    # numbers out of the research note, the replay of every published row from
+    # its own quotes/odds/rating points, the source checks against Valve's
+    # official table and the Polymarket events, and the nine + one findings
+    # below (coverage freshness, stale register, HLTV's client-rendered odds,
+    # the reversed side order, the wide 1082792 book, the lobby countdown, the
+    # replay fixture in data/latest.json, the audit's snapshot-row scope, the
+    # pre-ladder counts key, and Valve's duplicate ex-RUSTEC rows).
+    'research/deea3ec4/repo-review.json',
 )
 STATUS = {
     'fixed': ('Fixed', 'green'),

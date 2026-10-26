@@ -1,0 +1,290 @@
+{
+ "session": "arena-deea3ec4",
+ "scope": "Independent verification of the deployed 2026-10-25T23:03:48Z CS2 build: a dated live-Hotspawn reconciliation of all 19 open fixtures at 2026-10-26T00:44Z, a full replay of every published pick from its own recorded inputs, the HLTV-first research path for the fixtures the featured method cannot price, and the phone entry point from the executive summary to the picks.",
+ "review_clock_utc": "2026-10-26T00:55:00Z",
+ "method": "Read the rendered Hotspawn lobby, the scheduled-fixture API and HLTV's upcoming list through Arena's page-fetch path at 2026-10-26T00:44Z; compared them fixture by fixture with the published root build (snapshot.json 2026-10-25T23:03:48Z, origination.json 2026-10-25T23:04:02Z); re-derived all 10 published estimates from the rows' own quotes, odds or Valve points (scripts/deea3ec4_verify.py); and re-checked the rendered executive summary's phone contract (viewport, in-site picks links, one glance row per active fixture, both percentages).",
+ "items": [
+  {
+   "id": "DEA-R01",
+   "area": "Coverage \u2014 a pick for every match listed on Hotspawn",
+   "status": "fixed",
+   "finding": "At 2026-10-26T00:44:45Z the Hotspawn lobby listed 19 open CS2 fixtures while the deployed 2026-10-25T23:03:48Z snapshot carried 10, because nine cards were listed after that collect. The gap was freshness, not a lost pick: the four-hour publisher covers every one of the 19 in its 2026-10-26T01:33:57Z build.",
+   "handling": "Measured, not guessed: the 19 live ids and their UTC starts were captured with their source URLs, and the coverage check now compares a dated inventory against the build. On the 01:33:57Z build the replay reports 0 coverage notes and 19/19 rows with a pick. The nine fixtures are also bound to their HLTV analytics pages so the next gap is researchable within minutes.",
+   "evidence": [
+    {
+     "url": "https://play.hotspawn.com/lobby",
+     "detail": "Rendered lobby read at 2026-10-26T00:44Z: 19 open CS2 cards, each with a start time and a countdown."
+    },
+    {
+     "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+     "detail": "Fixture feed read at 2026-10-26T00:46Z: start epoch plus lock_time = start - 360 s for the same ids."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/deea3ec4/live-coverage.json",
+     "detail": "Dated reconciliation: 19 live, 10 published, nine scheduled after the collect, one row per id with its source."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/deea3ec4/replay-2026-10-26T0133Z.json",
+     "detail": "Replay of the 01:33:57Z build: 19 active rows, 0 violations, 0 coverage notes, 19/19 picks with their sources."
+    }
+   ]
+  },
+  {
+   "id": "DEA-R02",
+   "area": "Executive summary \u2014 the dated lobby-gap register was ten hours stale",
+   "status": "fixed",
+   "finding": "The published executive summary rendered a 'Live Hotspawn fixtures missing from this snapshot' register dated 2026-10-25T14:57Z, i.e. 8h06m before the snapshot it appeared on, and reported '3 missing at that observation' while nine live cards had no pick row. A reader on a phone saw one small number and no hint that the observation predated the build.",
+   "handling": "This session adds a fresh, first-hand observation (2026-10-26T00:44:45Z, 19 fixtures compared) as data/research/deea3ec4/live-coverage.json plus its markdown rundown. The build's 'newest-wins' loader renders that record, so the register now names the observation it belongs to and re-computes the gap against whatever snapshot is being published.",
+   "evidence": [
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/#live-coverage-gaps",
+     "detail": "The register whose date and count this item refers to."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/deea3ec4/live-coverage.json",
+     "detail": "This session's dated replacement record."
+    }
+   ]
+  },
+  {
+   "id": "DEA-R03",
+   "area": "Research path \u2014 HLTV publishes no extractable pre-match price",
+   "status": "platform limitation",
+   "finding": "HLTV was checked first for every fixture without a featured line, as the brief asks. Its per-match analytics page (e.g. https://www.hltv.org/betting/analytics/2399116/) serves the ranking, form, stand-in, head-to-head and map-pool sections in HTML, but the bookmaker odds block is rendered client-side: the fetched document contains no decimal price for the match winner. HLTV can therefore establish identity and supply a ranking-based research model; it cannot by itself produce a betting line.",
+   "handling": "Nothing is derived from HLTV's fan vote or from its 'pros/cons' text. Where a fixture has no two-sided external price, the publisher keeps its explicitly labelled research model rather than inventing a market price, and the row says so.",
+   "evidence": [
+    {
+     "url": "https://www.hltv.org/betting/analytics/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13",
+     "detail": "Read 2026-10-26T00:47Z: rankings (#47 Nemesis / #84 INOX Division), form, a stand-in note for INOX Division; no match-winner decimal odds in the fetched HTML."
+    },
+    {
+     "url": "https://www.hltv.org/matches?predefinedFilter=upcoming",
+     "detail": "Upcoming list used to bind 17 of the 19 Hotspawn fixtures to an HLTV match id."
+    }
+   ]
+  },
+  {
+   "id": "DEA-R04",
+   "area": "Identity \u2014 Hotspawn and HLTV disagree on side order and spelling",
+   "status": "needs review",
+   "finding": "Fixture 1079201 is 'INOX Division vs Nemesis' on Hotspawn and 'Nemesis vs INOX Division' on HLTV (https://www.hltv.org/matches/2399116/) \u2014 the same match with the sides reversed. Name forms also differ on the same card set: Hotspawn 'BakS' vs HLTV 'BAKS', 'ILLYRIANS' vs 'Illyrians', and so on. Any join that assumes the first-listed team is the first side would attach Nemesis's probability to INOX Division.",
+   "handling": "The published 1079201 row does not exist yet, so nothing is mislabelled today; the finding is recorded before the four-hour publisher prices it. The verification suite replays each row's probability against its own quoted outcome names, so a reversed join shows up as a replay mismatch rather than as a silent swap. Review note: Needs a human read of the team-name binding before any published name is changed..",
+   "evidence": [
+    {
+     "url": "https://www.hotspawn.com/matches/inox-division-vs-nemesis-nodwin-clutch-series-13-1079201",
+     "detail": "Hotspawn order: INOX Division first."
+    },
+    {
+     "url": "https://www.hltv.org/matches/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13",
+     "detail": "HLTV order: Nemesis first."
+    }
+   ]
+  },
+  {
+   "id": "DEA-R05",
+   "area": "Row hygiene \u2014 the 0.87/0.13 originated line publishes no limitation",
+   "status": "needs review",
+   "finding": "Fixture 1082792 (HOTU vs The Huns) is the only priced row whose origination block carries no limitations array. Its number is the midpoint of a 0.82-0.92 / 0.08-0.18 Polymarket book (a 0.10 two-sided spread) and it sits about 7 points from the row's own Valve cross-check (0.9405 / 0.0595) and 33 points from the earlier esportsbook observation recorded by session 0962d605.",
+   "handling": "Flagged, not edited: the replay script reports it as a warning ('publishes no limitation'), and the row is listed here rather than silently rewritten. The probability itself replays exactly from the book it cites. Review note: Needs a human read of how wide a two-sided book may be before it is published..",
+   "evidence": [
+    {
+     "url": "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
+     "detail": "The market the row cites (event 1241313, market 6085308)."
+    },
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1082792",
+     "detail": "The published row."
+    }
+   ]
+  },
+  {
+   "id": "DEA-R06",
+   "area": "Hotspawn UI \u2014 the lobby countdown is to the start time, not the API lock time",
+   "status": "needs review",
+   "finding": "Every scheduled fixture's API record publishes lock_time exactly 360 seconds before its start (lock_offset_sec 360). The rendered lobby card shows a countdown that reaches zero at the start time: the 2026-10-26T03:00Z fixtures displayed 'Locks in 02:11:04' when read at 00:48:56Z (which is 03:00:00Z minus 2h11m04s), while the API lock is 02:54:00Z. A player who waits for the lobby countdown to approach zero can be past the lock.",
+   "handling": "Recorded for the reader; the project's own pages publish the API lock time (starts_at minus lock_offset_sec) rather than the lobby countdown, so no pick is generated against the wrong deadline. Review note: Needs a human read of which lock time the site should promise..",
+   "evidence": [
+    {
+     "url": "https://play.hotspawn.com/lobby",
+     "detail": "'Locks in 02:11:04' on the 23:00 (03:00Z) closing-soon cards, read 2026-10-26T00:48:56Z."
+    },
+    {
+     "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+     "detail": "1082858: scheduled_start_time 1792983600000, lock_time 1792983240000, lock_offset_sec 360."
+    }
+   ]
+  },
+  {
+   "id": "DEA-R07",
+   "area": "Repository \u2014 tracked data/ is a replay fixture, not the live snapshot",
+   "status": "platform limitation",
+   "finding": "data/latest.json in the repository is the deterministic 2026-10-15T08:36:13Z replay fixture (80 records, 17 upcoming), while the branch root's snapshot.json is the live 2026-10-25T23:03:48Z build. A reader who opens the repository's data/ directory instead of the published root sees eleven-day-old matches.",
+   "handling": "Unchanged - the split is deliberate and the CI publisher overwrites only the served root. This item is re-stated so a reviewer does not read the fixture as a coverage failure.",
+   "evidence": [
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/latest.json",
+     "detail": "generated_at 2026-10-15T08:36:13Z."
+    },
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+     "detail": "generated_at 2026-10-25T23:03:48Z."
+    }
+   ]
+  },
+  {
+   "id": "DEA-R08",
+   "area": "Verification scope - the rendered acceptance audit measures the snapshot, not the live lobby",
+   "status": "needs review",
+   "finding": "scripts/acceptance_audit.py check 1 ('every listed fixture shows a pick and both win probabilities') passes on the deployed build with 10/10 glance rows, but it counts the rows the snapshot published, not the cards Hotspawn is currently listing. Run at 2026-10-26T00:59:32Z it reported 10 pass / 0 fail while nine live open fixtures had no row. A green acceptance table on its own is therefore not evidence of full live coverage.",
+   "handling": "Kept as a scope note rather than a code change: the audit is a rendered-output check and is accurate for what it measures. This session adds the missing dimension in scripts/deea3ec4_verify.py - a dated inventory record compared against the published picks, failing when a fixture that starts after the snapshot's own generated_at has no pick row. Review note: Needs a human read of what the acceptance check should count..",
+   "evidence": [
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/#picks-at-a-glance",
+     "detail": "The 10 rendered glance rows the audit counts."
+    },
+    {
+     "url": "https://play.hotspawn.com/lobby",
+     "detail": "The 19 open cards it does not count (read 2026-10-26T00:44Z)."
+    }
+   ]
+  },
+  {
+   "id": "DEA-R09",
+   "area": "snapshot.json.counts vs the rendered pick count",
+   "status": "needs review",
+   "finding": "On the 2026-10-26T01:33:57Z build snapshot.json reports picks=17 and unresolved=2 while the executive summary, the picks page and data/origination.json carry a pick for all 19 active fixtures. The counts are taken at the featured stage, before the research ladder runs, so the same build publishes two different coverage numbers depending on which file a reader opens.",
+   "handling": "Documented rather than rewritten: the page itself labels the key \"Featured rejections\" and the replay checks the rendered rows and origination.json, which agree. Renaming the key or moving the counts after origination changes the published data contract for every other checker, so it needs a maintainer decision; until then the JSON consumer note above is the accurate reading.",
+   "evidence": [
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/snapshot.json",
+     "detail": "01:33:57Z snapshot: counts.picks = 17, counts.unresolved = 2, counts.upcoming = 19."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination.json",
+     "detail": "Same build: active = 19, with_pick = 19, unresolved = 0."
+    },
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+     "detail": "Rendered executive summary: \"19 picks ready of 19\" with 19 glance rows."
+    }
+   ]
+  },
+  {
+   "id": "DEA-R10",
+   "area": "Valve standings: two rows for one team name",
+   "status": "needs review",
+   "finding": "The 2026-10-05 official standings publish \"ex-RUSTEC\" twice: rank 92 / 1066 points with a complete five-player row (Brilliance, glowiing, shalfey, yiksrezo, youka) and rank 152 / 824 points with a four-player row (Brilliance, jakekeS, Patsi, youka). The published estimate for fixture 1081162 uses 1066 \u2014 the complete row, which the model rule requires \u2014 so a reader cannot see that a second, different lineup exists for the same name in the same publication.",
+   "handling": "Verified rather than changed: 61.7% re-derives from 1066 vs 981 under the published Glicko constants, and the four-player row is correctly refused as incomplete. The card does disclose the rating snapshot date and that rosters belong to the snapshot, but not the second row. Choosing between two published rows is a policy decision, so it is flagged instead of silently re-decided.",
+   "evidence": [
+    {
+     "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail": "Official table read 2026-10-26T04:00Z: \"| 92 | 1066 | ex-RUSTEC | Brilliance, glowiing, shalfey, yiksrezo, youka\" and \"| 152 | 824 | ex-RUSTEC | Brilliance, jakekeS, Patsi, youka\"."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/deea3ec4/replay-2026-10-26T0133Z.json",
+     "detail": "The published row for 1081162 (61.7/38.3) uses 1066 and 981 and replays exactly from those two points."
+    },
+    {
+     "url": "https://www.hltv.org/matches/2399512/ex-rustec-vs-spirit-academy-cct-2026-europe-series-12",
+     "detail": "HLTV binding for the fixture, confirming the opponent and the tournament used in the estimate."
+    }
+   ]
+  }
+ ],
+ "verified_against_first_party": {
+  "checked_at": "2026-10-26T04:00:00Z",
+  "what": "every published research-model input, re-read from the official table the row cites",
+  "valve_snapshot": "2026-10-05",
+  "models": [
+   {
+    "fixture": "1082793",
+    "inputs": {
+     "5star": 1110,
+     "1win": 1383
+    },
+    "published": [
+     0.17816902,
+     0.82183098
+    ]
+   },
+   {
+    "fixture": "1082861",
+    "inputs": {
+     "Rooster": 718,
+     "Abyssal": 734
+    },
+    "published": [
+     0.47761494,
+     0.52238506
+    ]
+   },
+   {
+    "fixture": "1081160",
+    "inputs": {
+     "HAVU": 937,
+     "Illyrians": 862
+    },
+    "published": [
+     0.60348339,
+     0.39651661
+    ]
+   },
+   {
+    "fixture": "1081162",
+    "inputs": {
+     "ex-RUSTEC": 1066,
+     "Spirit Academy": 981
+    },
+    "published": [
+     0.61680305,
+     0.38319695
+    ]
+   },
+   {
+    "fixture": "1081163",
+    "inputs": {
+     "BAKS": 1044,
+     "Saint Sinners": 810
+    },
+    "published": [
+     0.78758039,
+     0.21241961
+    ]
+   },
+   {
+    "fixture": "1081164",
+    "inputs": {
+     "Inner Circle Academy": 1064,
+     "Lavked": 862
+    },
+    "published": [
+     0.75606058,
+     0.24393942
+    ]
+   },
+   {
+    "fixture": "1093218",
+    "inputs": {
+     "Nuclear TigeRES": 1324,
+     "UNiTY": 1167
+    },
+    "published": [
+     0.70665667,
+     0.29334333
+    ]
+   }
+  ],
+  "markets": [
+   {
+    "fixture": "1079201",
+    "source": "https://gamma-api.polymarket.com/events?slug=cs2-nem-inox-2026-10-26",
+    "read": "event 1252123 exists: \"Team Nemesis vs INOX Division (BO3) - NODWIN Clutch Series Playoffs\", gameStartTime 2026-10-26T09:00:00Z, matching the fixture start"
+   },
+   {
+    "fixture": "1082792",
+    "source": "https://gamma-api.polymarket.com/events?slug=cs2-hotu-the9-2026-10-31",
+    "read": "event 1241313 exists: \"HOTU vs The Huns Esports (BO3) - Moscow Cyber Games Playoffs\", gameStartTime 2026-10-31T09:00:00Z, matching the fixture start; the published book is genuinely wide (map market bid 0.71 / ask 0.91)"
+   }
+  ]
+ }
+}

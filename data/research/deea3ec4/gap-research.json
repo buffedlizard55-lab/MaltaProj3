@@ -1,0 +1,312 @@
+{
+ "schema_version": 1,
+ "session": "arena-deea3ec4",
+ "observed_at": "2026-10-26T00:59:00Z",
+ "observer": "arena sandbox page-fetch path: hltv.org match/analytics pages and the public Polymarket gamma search API",
+ "role": "HLTV-first research for the fixtures the featured path could not price at this observation. It records what the primary sources published, and it writes no probability and no pick. Every number on the site still comes from the publisher's priced snapshot.",
+ "order_tried": [
+  "HLTV match page (identity, ranking, form, stand-ins, head-to-head)",
+  "Polymarket public event search (is a two-sided market published for this exact fixture?)",
+  "esportsbook / exchange (the four-hour collector's own rungs: Thunderpick, Pinnacle, Smarkets, EGamersWorld aggregate); not reachable from this sandbox, recorded as a limitation"
+ ],
+ "fixtures": [
+  {
+   "id": "1079201",
+   "teams": [
+    "INOX Division",
+    "Nemesis"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at_utc": "2026-10-26T09:00:00Z",
+   "hltv_url": "https://www.hltv.org/matches/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13",
+   "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13",
+   "hltv_findings": [
+    "HLTV world ranking #47 Nemesis, #84 INOX Division (read on the analytics page at 2026-10-26T00:47Z).",
+    "Nemesis: 3 wins in the last 5; better form ranking.",
+    "INOX Division: 4 wins in the last 5, but playing with stand-ins m1QUSE and gooddeph for k0s, and m1QUSE has fewer than five matches with the core.",
+    "HLTV lists the sides in the reverse order of Hotspawn (Nemesis first)."
+   ],
+   "market": "No two-sided price is published in the HLTV document; its bookmaker odds block is client-rendered. Hotspawn's crowd share (Nemesis 80% / INOX 20%) is a popularity poll and is excluded.",
+   "limitation": "Research only. The publisher's own ladder (Polymarket, then the esportsbooks, then the Valve/HLTV rating model) is what may price this fixture on the next collect."
+  },
+  {
+   "id": "1081159",
+   "teams": [
+    "LFO 10",
+    "ex-6666"
+   ],
+   "competition": "CCT Europe 2026 Series #12",
+   "starts_at_utc": "2026-10-26T12:00:00Z",
+   "hltv_url": "https://www.hltv.org/matches/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
+   "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
+   "hltv_findings": [
+    "HLTV world ranking #167 LFO 10, #72 ex-6666 (read at 2026-10-26T00:59Z).",
+    "ex-6666 carries the better form ranking of the two.",
+    "HLTV reports no further insight lines for either side."
+   ],
+   "market": "Polymarket publishes this tournament: the public search API returns event 1244708 'Lavked vs mellren' for CCT Europe Series #12 Group Stage, so the family exists for the event. No event for LFO 10 vs ex-6666 was returned by the same search at the observation.",
+   "limitation": "Research only; no two-sided price for this exact fixture was read here."
+  },
+  {
+   "id": "1079202",
+   "teams": [
+    "FOKUS",
+    "ex-Zero Tenacity"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at_utc": "2026-10-26T12:00:00Z",
+   "hltv_url": "https://www.hltv.org/matches/2399117/fokus-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+   "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399117/fokus-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+   "hltv_findings": [
+    "HLTV match page located and bound by exact names plus the same 12:00Z start; rankings were not transcribed in this observation."
+   ],
+   "market": "Polymarket publishes NODWIN Clutch Series events (e.g. 1238705 'Metizport vs BakS' for the same playoff), so the family exists; no event for this exact fixture was confirmed in this observation.",
+   "limitation": "Research only; no two-sided price for this exact fixture was read here."
+  },
+  {
+   "id": "1081160",
+   "teams": [
+    "HAVU",
+    "ILLYRIANS"
+   ],
+   "competition": "CCT Europe 2026 Series #12",
+   "starts_at_utc": "2026-10-26T15:00:00Z",
+   "hltv_url": "https://www.hltv.org/matches/2399510/havu-vs-illyrians-cct-2026-europe-series-12",
+   "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399510/havu-vs-illyrians-cct-2026-europe-series-12",
+   "hltv_findings": [
+    "Bound by exact names and start; HLTV spells the second side 'Illyrians'."
+   ],
+   "market": "Not confirmed in this observation.",
+   "limitation": "Research only; no two-sided price for this exact fixture was read here."
+  },
+  {
+   "id": "1079203",
+   "teams": [
+    "Metizport",
+    "BRUTE"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at_utc": "2026-10-26T15:00:00Z",
+   "hltv_url": "https://www.hltv.org/matches/2399118/metizport-vs-brute-nodwin-clutch-series-13",
+   "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399118/metizport-vs-brute-nodwin-clutch-series-13",
+   "hltv_findings": [
+    "Bound by exact names and start."
+   ],
+   "market": "Polymarket priced the previous Metizport card in this playoff (event 1238705 vs BakS, now closed), so the family is active for the tournament; no event for this fixture was confirmed here.",
+   "limitation": "Research only; no two-sided price for this exact fixture was read here."
+  },
+  {
+   "id": "1093218",
+   "teams": [
+    "Nuclear TigeRES",
+    "UNiTY"
+   ],
+   "competition": "NODWIN Clutch Series #13",
+   "starts_at_utc": "2026-10-26T18:00:00Z",
+   "hltv_url": "https://www.hltv.org/matches/2399119/nuclear-tigeres-vs-unity-nodwin-clutch-series-13",
+   "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399119/nuclear-tigeres-vs-unity-nodwin-clutch-series-13",
+   "hltv_findings": [
+    "Bound by exact names and start."
+   ],
+   "market": "Not confirmed in this observation.",
+   "limitation": "Research only; no two-sided price for this exact fixture was read here."
+  },
+  {
+   "id": "1081162",
+   "teams": [
+    "ex-RUSTEC",
+    "Spirit Academy"
+   ],
+   "competition": "CCT Europe 2026 Series #12",
+   "starts_at_utc": "2026-10-27T12:00:00Z",
+   "hltv_url": "https://www.hltv.org/matches/2399512/ex-rustec-vs-spirit-academy-cct-2026-europe-series-12",
+   "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399512/ex-rustec-vs-spirit-academy-cct-2026-europe-series-12",
+   "hltv_findings": [
+    "Bound by exact names and start."
+   ],
+   "market": "Not confirmed in this observation.",
+   "limitation": "Research only; no two-sided price for this exact fixture was read here."
+  },
+  {
+   "id": "1081163",
+   "teams": [
+    "BakS",
+    "Saint Sinners"
+   ],
+   "competition": "CCT Europe 2026 Series #12",
+   "starts_at_utc": "2026-10-27T15:00:00Z",
+   "hltv_url": "https://www.hltv.org/matches/2399513/baks-vs-saint-sinners-cct-2026-europe-series-12",
+   "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399513/baks-vs-saint-sinners-cct-2026-europe-series-12",
+   "hltv_findings": [
+    "Bound by exact names and start; HLTV spells the first side 'BAKS'."
+   ],
+   "market": "Not confirmed in this observation.",
+   "limitation": "Research only; no two-sided price for this exact fixture was read here."
+  },
+  {
+   "id": "1081164",
+   "teams": [
+    "Inner Circle Academy",
+    "Lavked"
+   ],
+   "competition": "CCT Europe 2026 Series #12",
+   "starts_at_utc": "2026-10-27T18:00:00Z",
+   "hltv_url": "https://www.hltv.org/matches/2399514/inner-circle-academy-vs-lavked-cct-2026-europe-series-12",
+   "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399514/inner-circle-academy-vs-lavked-cct-2026-europe-series-12",
+   "hltv_findings": [
+    "Bound by exact names and start."
+   ],
+   "market": "Polymarket priced Lavked's previous CCT Europe Series #12 round (event 1244708 vs mellren, now closed and resolved), so the family is active; no event for this fixture was confirmed here.",
+   "limitation": "Research only; no two-sided price for this exact fixture was read here."
+  }
+ ],
+ "not_researched": [
+  {
+   "id": "1082792",
+   "teams": [
+    "HOTU",
+    "The Huns"
+   ],
+   "reason": "Already priced in the deployed snapshot (0.87 / 0.13); see DEA-R05 for its missing limitation."
+  },
+  {
+   "id": "1082793",
+   "teams": [
+    "5star",
+    "1WIN"
+   ],
+   "reason": "Already priced in the deployed snapshot from the Valve ratings; no HLTV match page was located in the fetched upcoming list at this observation."
+  }
+ ],
+ "limitations": [
+  "Nine fixtures are listed above because the deployed snapshot predates them; the four-hour publisher is the only thing that can price them, and it replays its own first-party sources.",
+  "HLTV's odds block is client-rendered, so HLTV supplies identity, ranking and form here, never a price.",
+  "Polymarket 'family exists for the tournament' is evidence about availability, not a price for the fixture listed.",
+  "Hotspawn crowd percentages are excluded from every line of this record.",
+  "This sandbox cannot open a TCP connection to any esportsbook, so no first-party Thunderpick, Pinnacle, Smarkets or EGamersWorld response is quoted here; the collector retries them on every refresh."
+ ],
+ "source_urls": [
+  "https://www.hltv.org/matches?predefinedFilter=upcoming",
+  "https://www.hltv.org/betting/analytics/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13",
+  "https://www.hltv.org/betting/analytics/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
+  "https://gamma-api.polymarket.com/public-search?q=lavked",
+  "https://gamma-api.polymarket.com/public-search?q=metizport"
+ ],
+ "window": "2026-10-26T00:47:00Z-2026-10-26T00:59:00Z",
+ "resolution": {
+  "checked_at": "2026-10-26T02:12:00Z",
+  "published_build": "2026-10-26T01:33:57Z (main 2bfff7f)",
+  "summary": "All nine fixtures this dossier researched are now published with a pick and two probabilities by the four-hour publisher; none of the nine needs a hand-written number.",
+  "rows": [
+   {
+    "id": "1079201",
+    "hltv_url": "https://www.hltv.org/matches/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13",
+    "status": "priced by the 2026-10-26T01:33:57Z publish",
+    "method": "model",
+    "probabilities": [
+     0.12346675,
+     0.87653325
+    ],
+    "pick": "Nemesis",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   {
+    "id": "1081159",
+    "hltv_url": "https://www.hltv.org/matches/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
+    "status": "priced by the 2026-10-26T01:33:57Z publish",
+    "method": "model",
+    "probabilities": [
+     0.39044605815543665,
+     0.6095539418445634
+    ],
+    "pick": "ex-6666",
+    "source_url": "https://bo3.gg/matches/sokerorg-vs-ex-6666-26-10-2026"
+   },
+   {
+    "id": "1079202",
+    "hltv_url": "https://www.hltv.org/matches/2399117/fokus-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+    "status": "priced by the 2026-10-26T01:33:57Z publish",
+    "method": "bookmaker",
+    "probabilities": [
+     0.68235294,
+     0.31764706
+    ],
+    "pick": "FOKUS",
+    "source_url": "https://thunderpick.io/api/matches"
+   },
+   {
+    "id": "1081160",
+    "hltv_url": "https://www.hltv.org/matches/2399510/havu-vs-illyrians-cct-2026-europe-series-12",
+    "status": "priced by the 2026-10-26T01:33:57Z publish",
+    "method": "model",
+    "probabilities": [
+     0.60348339,
+     0.39651661
+    ],
+    "pick": "HAVU",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   {
+    "id": "1079203",
+    "hltv_url": "https://www.hltv.org/matches/2399118/metizport-vs-brute-nodwin-clutch-series-13",
+    "status": "priced by the 2026-10-26T01:33:57Z publish",
+    "method": "bookmaker",
+    "probabilities": [
+     0.61538462,
+     0.38461538
+    ],
+    "pick": "Metizport",
+    "source_url": "https://thunderpick.io/api/matches"
+   },
+   {
+    "id": "1093218",
+    "hltv_url": "https://www.hltv.org/matches/2399119/nuclear-tigeres-vs-unity-nodwin-clutch-series-13",
+    "status": "priced by the 2026-10-26T01:33:57Z publish",
+    "method": "consensus",
+    "probabilities": [
+     0.58275378,
+     0.41724622
+    ],
+    "pick": "Nuclear TigeRES",
+    "source_url": "https://thunderpick.io/esports/counter-strike"
+   },
+   {
+    "id": "1081162",
+    "hltv_url": "https://www.hltv.org/matches/2399512/ex-rustec-vs-spirit-academy-cct-2026-europe-series-12",
+    "status": "priced by the 2026-10-26T01:33:57Z publish",
+    "method": "model",
+    "probabilities": [
+     0.61680305,
+     0.38319695
+    ],
+    "pick": "ex-RUSTEC",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   {
+    "id": "1081163",
+    "hltv_url": "https://www.hltv.org/matches/2399513/baks-vs-saint-sinners-cct-2026-europe-series-12",
+    "status": "priced by the 2026-10-26T01:33:57Z publish",
+    "method": "model",
+    "probabilities": [
+     0.78758039,
+     0.21241961
+    ],
+    "pick": "BakS",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   },
+   {
+    "id": "1081164",
+    "hltv_url": "https://www.hltv.org/matches/2399514/inner-circle-academy-vs-lavked-cct-2026-europe-series-12",
+    "status": "priced by the 2026-10-26T01:33:57Z publish",
+    "method": "model",
+    "probabilities": [
+     0.75606058,
+     0.24393942
+    ],
+    "pick": "Inner Circle Academy",
+    "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+   }
+  ],
+  "independence_note": "The dossier is HLTV-first research: rankings, the HLTV match binding and market availability. It states no probability of its own, and it does not feed the published numbers. The published estimate for each fixture comes from the repository ladder and is replayed row by row in data/research/deea3ec4/replay-2026-10-26T0133Z.json."
+ }
+}

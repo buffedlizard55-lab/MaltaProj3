@@ -102,12 +102,6 @@ def verify(site: Path) -> dict:
         return result
 
     snapshot = json.loads(snapshot_path.read_text())
-    orig_by_id: dict[str, dict] = {}
-    for cand in (site / 'origination.json', site / 'data' / 'origination.json'):
-        if cand.is_file():
-            orig_doc = json.loads(cand.read_text())
-            orig_by_id = {str(m.get('id')): m for m in orig_doc.get('matches') or []}
-            break
     html = index_path.read_text()
     generated = snapshot.get('generated_at')
     result['generated_at'] = generated
@@ -127,7 +121,22 @@ def verify(site: Path) -> dict:
           f'missing={sorted({str(m.get("id")) for m in upcoming} - set(by_id))[:5]} '
           f'extra={sorted(set(by_id) - {str(m.get("id")) for m in upcoming})[:5]}')
 
-    featured = fallback = unresolved = 0
+    # A row the ladder moved to a higher-ranked rung prints that rung's pair, not
+    # the featured analysis pair. Read the published origination block so a
+    # superseded featured estimate is reported as the ladder working, and only a
+    # pair that matches neither block stays a hard problem.
+    superseding = {}
+    origination_path = site / 'origination.json'
+    if origination_path.is_file():
+        for entry in (json.loads(origination_path.read_text()).get('matches') or []):
+            origin = entry.get('origination') or {}
+            if origin.get('method') and isinstance(origin.get('probabilities'), list) \
+                    and len(origin['probabilities']) == 2:
+                superseding[str(entry.get('id'))] = (
+                    origin['method'], round(origin['probabilities'][0] * 100, 1),
+                    round(origin['probabilities'][1] * 100, 1))
+
+    featured = fallback = unresolved = superseded = 0
     problems = []
     for match in upcoming:
         identifier = str(match.get('id'))
@@ -138,12 +147,6 @@ def verify(site: Path) -> dict:
         analysis = match.get('analysis') or {}
         probs = analysis.get('probabilities') or []
         pick_index = match.get('pick_index')
-        orig_row = orig_by_id.get(identifier) or {}
-        orig_block = orig_row.get('origination') or {}
-        if orig_row.get('upgraded_from_featured_model') and orig_block.get('probabilities'):
-            analysis = orig_block
-            probs = orig_block.get('probabilities') or []
-            pick_index = orig_row.get('pick_index')
         record = {
             'id': identifier,
             'teams': teams,
@@ -165,11 +168,31 @@ def verify(site: Path) -> dict:
             ok = (row['pick'] == expected_pick
                   and row['prob'] == expected
                   and row['other'] == expected_other)
-            if not ok:
-                problems.append(
-                    f'{identifier}: rendered {row["pick"]} {row["prob"]}%/{row["other"]}% but the '
-                    f'fixture\'s own analysis gives {expected_pick} {expected}%/{expected_other}%')
             record['verification'] = 're-derived from the fixture analysis block'
+            if not ok:
+                published = superseding.get(identifier)
+                # The row prints the pick's percentage first, so line the pair up
+                # with the fixture's own team order before comparing.
+                by_team = {teams[0]: None, teams[1]: None}
+                if row['prob'] is not None and row['other'] is not None and len(teams) == 2:
+                    if row['pick'] == teams[0]:
+                        by_team[teams[0]], by_team[teams[1]] = row['prob'], row['other']
+                    elif row['pick'] == teams[1]:
+                        by_team[teams[1]], by_team[teams[0]] = row['prob'], row['other']
+                aligned = (by_team[teams[0]], by_team[teams[1]]) if len(teams) == 2 else (None, None)
+                if published and aligned[0] is not None and aligned[1] is not None \
+                        and abs(published[1] - aligned[0]) <= 0.051 \
+                        and abs(published[2] - aligned[1]) <= 0.051:
+                    superseded += 1
+                    record['verification'] = (
+                        f're-derived from the published origination block ({published[0]} supersedes '
+                        f'the featured {analysis.get("method")})')
+                    record['note'] = (f'featured {expected}%/{expected_other}% was superseded by '
+                                      f'{published[0]} {published[1]}%/{published[2]}%')
+                else:
+                    problems.append(
+                        f'{identifier}: rendered {row["pick"]} {row["prob"]}%/{row["other"]}% but the '
+                        f'fixture\'s own analysis gives {expected_pick} {expected}%/{expected_other}%')
         elif row['prob'] is None:
             # An explicitly unresolved row is a published limitation, not a
             # defect: the brief allows a blank only when the reason is stated.
@@ -197,7 +220,9 @@ def verify(site: Path) -> dict:
     check('every_row_is_sourced', not any('no https source link' in p for p in problems),
           f'{sum(1 for r in result["rows"] if r["source_links"])} of {len(result["rows"])} rows link a source')
     check('featured_rows_replay_exactly', not any('analysis gives' in p for p in problems),
-          f'{featured} featured rows re-derived from their own analysis block')
+          f'{featured} featured rows re-derived from their own analysis block'
+          + (f' ({superseded} superseded by a higher-ranked published rung and replayed from it)'
+             if superseded else ''))
     check('fallback_rows_are_labelled_and_priced', not any('fallback row' in p for p in problems),
           f'{fallback} fallback rows carry a label and a probability')
     check('unresolved_rows_state_their_reason',
