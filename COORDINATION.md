@@ -9726,3 +9726,19 @@ Claimed on Arena's fixed branch `arena/e3bc19d6-maltaproj3`, branched from `main
 **Irregularities published on `/review/` (none blocks a merge):** E3B-R01 nine fixtures created after the published snapshot with the exact ids and the rung each needs; E3B-R02 HLTV's odds block for 1081159 renders client-side so no price is readable (limitation, not proof of no market); E3B-R03 the HOTU vs The Huns book is now 0.82/0.92 & 0.08/0.18, so the 87/13 market figure supersedes the earlier 98.2% network estimate recorded by 0962d605/27ac20d6 — those flags stay published as history; E3B-R04 the committed Valve input is the dated 2026-10-05 replay fixture (the live run re-reads the current file); E3B-R05 Hotspawn `best_of` is null on all 19 while HLTV lists bo3 for all nine checked.
 
 **Non-overlap pledge:** only new files (`data/research/e3bc19d6/**`, `scripts/e3bc19d6_verify.py`, `tests/test_e3bc19d6_verification.py`) and this board were touched. No shared renderer, workflow, alias registry, test, or another session's dossier was edited.
+
+### E3B-4 PUBLISHED BUILD VERIFIED — 19/19 open fixtures carry a pick (2026-10-26T01:30Z)
+
+The push that merged PR #362 into `main` started the four-hour publisher, which completed at **2026-10-26T01:04:20Z** (inventory 81 records, **19 open**) and root-synced `origination.json` at **01:04:30Z** on `main` `179f519a`. That build is the proof this session owed:
+
+| Verified | Result |
+| --- | --- |
+| Open fixtures in the published build | **19** |
+| Fixtures with a pick | **19** (`unresolved_ids: []`, `counts.with_pick 19`, `counts.unresolved 0`) |
+| Picks whose both probabilities re-derive from their own evidence | **19/19 exact** (max delta 7.7e-9) |
+| Methods used | 7 prediction-market books, 3 single-bookmaker no-vig lines, 1 two-book consensus (Thunderpick + Bovada), 8 labelled research models (7 official Valve rating rows + 1 own results-based fit) |
+| `python -m scripts.e3bc19d6_verify --published .` | **19 open fixtures, 19 with a pick, 0 unresolved** |
+
+The two fixtures this session had flagged as depending on the HLTV rungs both resolved at a **stronger** evidence class than predicted: `1079203` Metizport vs BRUTE by a verified Thunderpick two-way line (1.50/2.40 → 61.5%/38.5%), and — the fixture with no official rating for either side — `1081159` LFO 10 vs ex-6666 by the project's **own results-based fit** over 10 anchored bo3.gg series (LFO 10 fitted 825 points, 90% interval 18.4%–64.5%, flagged low-confidence, published as a labelled model). Seven of the nine new fixtures took exactly the predicted Valve-rating path. Both files are kept: `coverage.json` holds the read-time prediction and the observed outcome side by side.
+
+**Where to review it:** [`data/research/e3bc19d6/README.md`](data/research/e3bc19d6/README.md) (dossier), `published-verification.json` (19-row replay), `coverage.json` (prediction vs outcome), `replay.json` (the 23:03Z build's 10 rows), and the six flags on `/review/`.
