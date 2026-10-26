@@ -346,18 +346,39 @@ def smarkets_rows(body) -> list:
 def pinnacle_rows(body) -> list:
     """Guest feed rows: names and start only.
 
+    The board is a bare array (observed 2026-10-26T01:01:02Z,
+    data/research/542dfb58/raw/pinnacle-matchups.json.gz) or a `result` wrapper.
+
     Pinnacle prices are read by the publisher through `scripts.pinnacle_lines`
     (market-type, period and participant-id contracts included); re-implementing
     that parser here would risk a *different* answer from the published one, so
     this probe records reachability and fixture presence only.
     """
     rows = []
-    for event in ((body or {}).get('result') or []):
-        home, away = event.get('home') or {}, event.get('away') or {}
+    events = body if isinstance(body, list) else ((body or {}).get('result') or [])
+    for event in events:
+        if not isinstance(event, dict):
+            continue
+        # Shape read from data/research/542dfb58/raw/pinnacle-matchups.json.gz:
+        # two `participants` entries, `startTime`, and the league name alongside.
+        participants = [p for p in (event.get('participants') or []) if isinstance(p, dict)]
+        if len(participants) == 2 and participants[0].get('name') and participants[1].get('name'):
+            home, away = participants[0], participants[1]
+        else:
+            home, away = event.get('home') or {}, event.get('away') or {}
         if not (home.get('name') and away.get('name')):
             continue
-        rows.append({'names': [home['name'], away['name']], 'start': event.get('start_time'),
+        # Keep the CS2 board only, and drop Yes/No specials and totals: they are not
+        # a two-team series-winner market and can never bind a fixture.
+        league = str((event.get('league') or {}).get('name') or '')
+        if 'cs2' not in league.lower() and 'counter' not in league.lower():
+            continue
+        if {str(home['name']).strip().casefold(), str(away['name']).strip().casefold()} <= {'yes', 'no', 'over', 'under', 'odd', 'even', 'home', 'away'}:
+            continue
+        rows.append({'names': [home['name'], away['name']], 'type': event.get('type'),
+                     'start': event.get('startTime') or event.get('start_time'),
                      'prices': None, 'book': 'Pinnacle',
+                     'league': (event.get('league') or {}).get('name'),
                      'url': 'https://www.pinnacle.com/en/esports/matchups'})
     return rows
 
@@ -535,7 +556,7 @@ def probe_surfaces(client: Client, out_dir: Path, fixtures: list) -> dict:
         if kind == 'json-post':
             payload = {'gameIds': [6]}
         data, record = grab(client, out_dir, label, url, method='POST' if payload else 'GET',
-                            payload=payload, json_body=(kind == 'json'))
+                            payload=payload, json_body=(kind in ('json', 'json-post')))
         record['note'] = note
         rows = []
         if data is not None:
@@ -582,6 +603,204 @@ def probe_hltv_pages(client: Client, out_dir: Path, fixtures: list, hltv_rows: l
             record.update(hltv_match_url=hit['url'], **facts)
             detail.setdefault(fixture_id, []).append(record)
     return detail
+
+
+# ------------------------------------------------- site-renderable dated records
+
+def smarkets_quotes(client: Client, out_dir: Path, event_ids: list) -> dict:
+    """Two-sided exchange quotes for the bound Smarkets events, verbatim.
+
+    `GET /v3/markets/?event_ids=` returns each market's contracts with `best_buy`
+    and `best_sell` in pence. Both sides present is the only thing recorded here;
+    turning a price into a probability stays the ladder's job.
+    """
+    found = {}
+    for event_id in event_ids[:4]:
+        data, record = grab(client, out_dir, f'smarkets-markets-{event_id}',
+                           f'{SMARKETS_API}/markets/?event_ids={event_id}', json_body=True)
+        if not isinstance(data, dict):
+            continue
+        sides = {}
+        for market in data.get('markets') or []:
+            for contract in market.get('contracts') or []:
+                if not isinstance(contract, dict):
+                    continue
+                buy, sell = contract.get('best_buy'), contract.get('best_sell')
+                if isinstance(buy, (int, float)) and isinstance(sell, (int, float)) and 0 < buy <= sell < 100:
+                    sides[str(contract.get('name'))] = {'best_buy_pence': buy, 'best_sell_pence': sell,
+                                                         'market_id': market.get('id')}
+        if len(sides) == 2:
+            found[str(event_id)] = {'two_sided': True, 'sides': sides,
+                                     'observed_at': record.get('observed_at'),
+                                     'response_sha256': record.get('response_sha256'),
+                                     'api_url': record.get('url')}
+        else:
+            found[str(event_id)] = {'two_sided': False, 'sides_listed': sorted(sides),
+                                    'observed_at': record.get('observed_at')}
+    return found
+
+
+def emit_live_coverage(out_dir: Path, inventory: dict, coverage: dict, deployed: dict, now: str) -> None:
+    """`data/research/<session>/live-coverage.json` — the register the site renders.
+
+    `scripts.build.load_live_coverage` takes the newest dated record whose
+    `live_fixtures` is non-empty, so this file is published by dropping it in, with
+    no change to the builder. It states coverage and freshness separately: a fixture
+    that started since the last publish is `rotated`, never `missing`.
+    """
+    rows = []
+    for row in coverage['rows']:
+        rows.append({
+            'id': row['fixture_id'], 'teams': row['teams'],
+            'published_pick': row['pick'] or None,
+            'published_method': row['effective_method'] or 'none',
+            'priced_by_money': row['priced_by_money'],
+            'hotspawn_url': row['source_url'] or f'{CS2_LOBBY}#fixture-{row["fixture_id"]}',
+            'in_published_snapshot': row['on_deployed_snapshot'],
+            'in_published_origination': row['on_deployed_origination'],
+            'competition': row['competition'], 'starts_at_utc': row['starts_at'],
+            'starts_at_basis': 'hotspawn_api_snapshot',
+        })
+    record = {
+        'schema_version': 1, 'session': 'arena-542dfb58', 'observed_at': inventory['observed_at'],
+        'observer': 'GitHub Actions runner on arena/542dfb58-maltaproj3: Hotspawn scheduled-fixture API plus '
+                    'both rendered lobby pages, cross-checked against the deployed snapshot.json and '
+                    'origination.json in the same pass',
+        'role': 'Dated inventory observation only. Nothing in this file is a probability input; no '
+                'probability, pick or alias is written by this record.',
+        'hotspawn': {'api_url': FIXTURES_API, 'lobby_pages': [LOBBY, CS2_LOBBY],
+                     'records': inventory['records'], 'open_cs2_fixtures': len(inventory['open_fixture_ids']),
+                     'rendered_lobby_crosscheck': inventory['crosscheck'], 'observed_at': inventory['observed_at']},
+        'published_site': {layer: {'generated_at': (deployed.get(layer) or {}).get('generated_at'),
+                                   'counts': (deployed.get(layer) or {}).get('counts'),
+                                   'status': (deployed.get(layer) or {}).get('status')}
+                           for layer in ('snapshot', 'origination')},
+        'comparison': {
+            'active_fixtures_compared': coverage['open_fixtures'],
+            'with_a_published_pick': coverage['with_a_published_pick'],
+            'unpicked_ids': [r['fixture_id'] for r in coverage['unpicked']],
+            'missing_from_both_deployed_layers': coverage['missing_from_both_layers'],
+            'model_or_guidance_only_ids': [r['fixture_id'] for r in coverage['model_or_guidance_only']],
+            'new_ids_this_observation': len(coverage['missing_from_both_layers']),
+        },
+        'live_fixtures': rows,
+        'line_research_summary': 'Fixtures with no money line were re-researched in the same pass; see '
+                                 'line-source-research.json for the per-fixture verdicts and the raw responses.',
+        'limitations': [
+            'One observation. Hotspawn adds and retires cards continuously; the four-hour ladder re-reads the '
+            'same API, so a card that appeared after this sweep is resolved on the next publish.',
+            'A rendered-lobby page is a cross-check, not the inventory: when Hotspawn serves a cached lobby the '
+            'fixture API stays authoritative and the crosscheck field says so.',
+            'This record counts coverage. It never claims a probability is right, and it never fills a blank.',
+        ],
+        'source_urls': [FIXTURES_API, LOBBY, CS2_LOBBY, SITE + '/snapshot.json', SITE + '/origination.json'],
+        'written_at': now,
+    }
+    (out_dir / 'live-coverage.json').write_text(json.dumps(record, indent=2, ensure_ascii=False) + '\n')
+    lines = ['# Live lobby vs deployed coverage — 542dfb58', '',
+             f'Observed {inventory["observed_at"]} on the GitHub Actions runner. Dated observation only: '
+             'no probability, pick or alias is written here.', '',
+             f'- Hotspawn fixture-API records: **{inventory["records"]}**; open CS2 fixtures: '
+             f'**{len(inventory["open_fixture_ids"])}**; rendered-lobby crosscheck: **{inventory["crosscheck"]}**',
+             f'- Deployed snapshot `generated_at`: **{(deployed.get("snapshot") or {}).get("generated_at")}**',
+             f'- Active fixtures with a published pick: **{coverage["with_a_published_pick"]} of '
+             f'{coverage["open_fixtures"]}**',
+             f'- Unpicked: **{[r["fixture_id"] for r in coverage["unpicked"]] or "none"}**',
+             f'- Present in the live lobby but in neither deployed layer: '
+             f'**{coverage["missing_from_both_layers"] or "none"}**', '',
+             '| fixture | starts | pick on the site | method | priced by money? |', '| --- | --- | --- | --- | --- |']
+    for row in rows:
+        lines.append(f'| {row["teams"][0]} vs {row["teams"][1]} | {row["starts_at_utc"]} | '
+                     f'{row["published_pick"] or "—"} | {row["published_method"]} | '
+                     f'{"yes" if row["priced_by_money"] else "no"} |')
+    lines += ['', 'Limitations:', *[f'- {item}' for item in record['limitations']], '']
+    (out_dir / 'live-coverage.md').write_text('\n'.join(lines))
+
+
+def emit_line_research(out_dir: Path, coverage: dict, surfaces: dict, hltv_details: dict,
+                       smarkets: dict, now: str) -> None:
+    """`line-source-research.json` — the per-fixture verdict block the summary renders."""
+    gap_rows = [row for row in coverage['rows'] if not row['priced_by_money']]
+    per_fixture = []
+    for row in gap_rows:
+        fid = row['fixture_id']
+        joins = (surfaces.get('joins') or {}).get(fid) or []
+        bound_books = sorted({j.get('book') for j in joins if j.get('book')})
+        smarkets_hits = [j for j in joins if j.get('surface') == 'smarkets-events']
+        event_id = (smarkets_hits[0].get('event_id') if smarkets_hits else None)
+        quote = smarkets.get(str(event_id)) if event_id else None
+        usable_lead = [j for j in joins if (j.get('price_check') or {}).get('usable')
+                       and j.get('surface') not in {'smarkets-events', 'thunderpick-matches', 'pinnacle-matchups',
+                                                     'kalshi-events', 'bovada-cs2'}]
+        verdict = (f'{len(joins)} surface(s) published an exact-name, exact-start row for this pairing; '
+                   f'{len(usable_lead)} of them outside the ladder\'s own sources. '
+                   if joins else 'No probed surface published a two-team row for this pairing this hour. ')
+        per_fixture.append({
+            'id': fid, 'teams': row['teams'], 'competition': row['competition'],
+            'starts_at': row['starts_at'], 'tier': row['tier'],
+            'current_method': row['effective_method'] or 'unresolved',
+            'current_label': row['effective_method'] or 'no published estimate',
+            'hotspawn_url': row['source_url'] or f'{CS2_LOBBY}#fixture-{fid}',
+            'surfaces_answered': sorted(label for label, rec in surfaces['surfaces'].items()
+                                        if rec.get('status') == 'ok'),
+            'surfaces_refused': {label: rec.get('http_status') for label, rec in surfaces['surfaces'].items()
+                                 if rec.get('status') != 'ok'},
+            'books_with_a_row': bound_books,
+            'money_line_lead': bool(usable_lead),
+            'lead_rows': usable_lead,
+            'bo3_bound_url': None, 'bo3_bet': None,
+            'smarkets_evidence': ({'two_sided': bool((quote or {}).get('two_sided')),
+                                   'event_url': (smarkets_hits[0].get('url') if smarkets_hits else None),
+                                   'sides': (quote or {}).get('sides'),
+                                   'observed_at': (quote or {}).get('observed_at')}
+                                  if smarkets_hits else None),
+            'hltv_pages': [{k: rec.get(k) for k in ('url', 'http_status', 'status', 'distinct_odds', 'providers',
+                                                     'series_winner_price_published', 'hltv_match_url')}
+                           for rec in (hltv_details or {}).get(fid) or []],
+            'verdict': verdict + 'No probability is derived here; the four-hour ladder replays its own sources '
+                                 'and will adopt a compliant price automatically.',
+        })
+    record = {
+        'schema_version': 1, 'session': 'arena-542dfb58', 'observed_at': coverage_observed(out_dir),
+        'environment': 'github-actions-runner',
+        'policy': 'Read-only research, HLTV first, then esportsbooks and esports betting-line services. '
+                  'Nothing in this file is a probability or a pick; every row keeps the URL and minute it was read.',
+        'target_source': {'source_url': SITE + '/snapshot.json', 'source': 'deployed public site',
+                          'deployed': coverage['rows'][:0]},
+        'per_fixture': per_fixture,
+        'surfaces': {label: {k: rec.get(k) for k in ('url', 'status', 'http_status', 'observed_at', 'rows_parsed',
+                                                      'final_url', 'response_sha256', 'error')}
+                     for label, rec in surfaces['surfaces'].items()},
+        'written_at': now,
+    }
+    (out_dir / 'line-source-research.json').write_text(json.dumps(record, indent=2, ensure_ascii=False) + '\n')
+    lines = ['# Fixtures without a betting line — per-fixture research (542dfb58)', '',
+             f'Runner observation at {coverage["rows"][0]["starts_at"] if coverage["rows"] else ""} — the sweep '
+             f'ran {now}. Facts only.', '']
+    for fixture in per_fixture:
+        lines += [f'## {fixture["teams"][0]} vs {fixture["teams"][1]}', '',
+                  f'- {fixture["competition"]} · starts {fixture["starts_at"]} · tier {fixture["tier"]}',
+                  f'- Published on the site as: {fixture["current_method"]}',
+                  f'- Verdict: {fixture["verdict"]}',
+                  f'- Surfaces that answered: {", ".join(fixture["surfaces_answered"]) or "none"}',
+                  f'- Surfaces that refused: '
+                  f'{", ".join(f"{k} ({v})" for k, v in fixture["surfaces_refused"].items()) or "none"}']
+        for hit in fixture['lead_rows']:
+            lines.append(f'  - lead: {hit["surface"]} {hit["names"]} @ {hit["prices"]} · {hit["url"]}')
+        for page in fixture['hltv_pages']:
+            lines.append(f'  - HLTV {page.get("url")} → {page.get("status")} '
+                         f'(prices seen {page.get("distinct_odds")}, providers {page.get("providers")}, '
+                         f'series-winner price: {page.get("series_winner_price_published")})')
+        lines.append('')
+    (out_dir / 'line-source-research.md').write_text('\n'.join(lines))
+
+
+def coverage_observed(out_dir: Path) -> str:
+    """The inventory minute, read back from the record this run just wrote."""
+    try:
+        return json.loads((out_dir / 'live-coverage.json').read_text())['observed_at']
+    except (OSError, ValueError, KeyError):
+        return now_iso()
 
 
 # ------------------------------------------------------------------ reporting
@@ -769,7 +988,6 @@ def main(argv=None) -> int:
         record = dict(fixture)
         record['starts_at'] = fixture.get('starts_at')
         fixtures.append(record)
-    coverage = reconcile(inventory, {k: dict(v) for k, v in deployed.items()})
     targets = [row for row in coverage['rows'] if not row['priced_by_money']] or [
         row for row in coverage['rows']]
     target_fixtures = [f for f in fixtures if str(f['id']) in {row['fixture_id'] for row in targets}]
@@ -787,6 +1005,17 @@ def main(argv=None) -> int:
         (out_dir / 'hltv-probe-error.txt').write_text(traceback.format_exc())
         print(f'::warning title=HLTV page scan incomplete::{type(exc).__name__}: {exc}')
         hltv_details = {}
+    smarkets_bound = sorted({str((hit or {}).get('event_id'))
+                             for hits in (surfaces['joins'] or {}).values() for hit in hits
+                             if hit.get('surface') == 'smarkets-events' and hit.get('event_id')},
+                            key=lambda value: value)[:4]
+    try:
+        smarkets_quotes_found = smarkets_quotes(client, out_dir, smarkets_bound)
+    except Exception as exc:  # the exchange depth is optional; the coverage record is not
+        print(f'::warning title=Smarkets quote depth skipped::{type(exc).__name__}: {exc}')
+        smarkets_quotes_found = {}
+    emit_live_coverage(out_dir, inventory, coverage, deployed, now_iso())
+    emit_line_research(out_dir, coverage, surfaces, hltv_details, smarkets_quotes_found, now_iso())
     flags = build_flags(inventory, coverage, surfaces['surfaces'], surfaces['joins'])
 
     payload = {
