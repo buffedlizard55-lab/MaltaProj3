@@ -1,0 +1,47 @@
+{
+  "observed_at": "2026-10-26T00:56:46Z",
+  "error": "KeyError: 'availability'",
+  "requests": [
+    {
+      "id": "hotspawn-fixtures",
+      "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "method": "GET",
+      "observed_at": "2026-10-26T00:56:43Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "content_type": "application/json; charset=utf-8",
+      "response_date": "Mon, 26 Oct 2026 00:56:44 GMT",
+      "response_sha256": "edb80c0294dcf134a6b9c1dbb5290acbf5f57d870a66dcebd863a6a625377839",
+      "evidence": "data/evidence/hotspawn-fixtures.json"
+    },
+    {
+      "id": "hotspawn-lobby",
+      "url": "https://play.hotspawn.com/lobby?cb=1792976204",
+      "method": "GET",
+      "observed_at": "2026-10-26T00:56:44Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://play.hotspawn.com/lobby?cb=1792976204",
+      "content_type": "text/html;charset=UTF-8",
+      "response_date": "Mon, 26 Oct 2026 00:56:45 GMT",
+      "response_sha256": "95c00723bf0c64d416d550167594ee2c71af3ce132277da5fc45a08c83fb4329",
+      "cache_age_sec": "0",
+      "cache_status": "MISS"
+    },
+    {
+      "id": "hotspawn-cs2",
+      "url": "https://play.hotspawn.com/cs2-pickems?cb=1792976205",
+      "method": "GET",
+      "observed_at": "2026-10-26T00:56:45Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://play.hotspawn.com/cs2-pickems?cb=1792976205",
+      "content_type": "text/html;charset=UTF-8",
+      "response_date": "Mon, 26 Oct 2026 00:56:46 GMT",
+      "response_sha256": "20343b3ae062c6275617426b7ef5ee946fbf66b274cb7ac35ff6594cae51093d",
+      "cache_age_sec": "0",
+      "cache_status": "MISS"
+    }
+  ]
+}

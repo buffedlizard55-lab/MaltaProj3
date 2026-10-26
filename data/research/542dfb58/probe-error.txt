@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/runner/work/MaltaProj3/MaltaProj3/scripts/542dfb58_gap_probe.py", line 743, in main
+    inventory = live_inventory(client, out_dir, now)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/MaltaProj3/MaltaProj3/scripts/542dfb58_gap_probe.py", line 188, in live_inventory
+    open_rows = [r for r in rows if r['availability'] in {'open', 'locked', 'unknown_lock'}]
+                                    ~^^^^^^^^^^^^^^^^
+KeyError: 'availability'
