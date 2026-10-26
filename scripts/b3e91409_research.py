@@ -365,7 +365,15 @@ def main():
         if not probabilities:
             limitations.append('No observed two-way price and no complete published rating pair at this observation.')
 
+        fair_decimal = [round(1 / p, 3) for p in probabilities] if probabilities else None
+        confidence = ({'market': 'observed exchange order book (both sides two-sided, spread <= 0.10)',
+                       'bookmaker': 'observed single-bookmaker two-way line (margin removed)',
+                       'hltv-rank-elo': 'low - published ranking points only, no observed market',
+                       'valve-glicko': 'low - published Valve points only, no observed market'}
+                      .get(method))
         records.append({
+            'fair_decimal': fair_decimal,
+            'confidence': confidence,
             'id': fixture['id'], 'teams': fixture['teams'], 'competition': fixture['competition'],
             'tier': fixture['tier'], 'starts_at': fixture['starts_at'],
             'source_url': f"https://play.hotspawn.com/cs2-pickems#fixture-{fixture['id']}",
@@ -416,7 +424,9 @@ def main():
         pick = record['pick'] or ('no side — even' if record['probabilities'] else 'no pick')
         lines.append(f"## {record['id']} — {record['teams'][0]} vs {record['teams'][1]}")
         lines.append(f"- {record['starts_at']} · {record['competition']} · tier {record['tier']}")
-        lines.append(f"- **pick {pick}** · {prob} · method `{record['method'] or 'unresolved'}`")
+        lines.append(f"- **pick {pick}** · {prob} · method `{record['method'] or 'unresolved'}`"
+                     + (f" · fair odds {record['fair_decimal'][0]} / {record['fair_decimal'][1]}" if record['fair_decimal'] else ''))
+        lines.append(f"- confidence: {record['confidence']}")
         for stage in record['research']:
             lines.append(f"  - {stage['stage']}: **{stage['status']}** — {stage['detail']}")
         for quote in record['quotes']:

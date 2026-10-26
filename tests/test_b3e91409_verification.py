@@ -244,5 +244,60 @@ class CoverageTests(unittest.TestCase):
             self.assertEqual(verify.main(argv), 0)  # report-only mode writes the finding, exit stays 0
 
 
+class PublishedDossierTests(unittest.TestCase):
+    """The evidence this session publishes must itself obey the brief's rules."""
+
+    def test_review_register_is_wired_and_every_item_links_a_source(self):
+        from scripts.review_register import REGISTERS
+        rel = 'research/b3e91409/repo-review.json'
+        self.assertIn(rel, REGISTERS)
+        data = json.loads((Path('data') / rel).read_text(encoding='utf-8'))
+        self.assertEqual(data['session'], 'arena-b3e91409')
+        self.assertTrue(data['items'])
+        for item in data['items']:
+            for key in ('id', 'area', 'status', 'finding', 'handling', 'evidence'):
+                self.assertIn(key, item, item.get('id'))
+            self.assertTrue(item['evidence'], item['id'])
+            for evidence in item['evidence']:
+                self.assertTrue(evidence['url'].startswith('https://'), (item['id'], evidence['url']))
+                self.assertTrue(evidence.get('detail'), item['id'])
+
+    def test_live_dossier_has_a_source_behind_every_probability(self):
+        path = Path('data/research/b3e91409/live/analysis.json')
+        if not path.exists():
+            self.skipTest('live capture is produced on a runner')
+        dossier = json.loads(path.read_text(encoding='utf-8'))
+        self.assertTrue(dossier['fixtures'])
+        self.assertEqual(dossier['counts']['open'], len(dossier['fixtures']))
+        self.assertEqual(dossier['counts']['unresolved'],
+                         sum(1 for f in dossier['fixtures'] if f['probabilities'] is None))
+        for fixture in dossier['fixtures']:
+            self.assertIn(fixture['method'], (None, 'market', 'bookmaker', 'hltv-rank-elo', 'valve-glicko'),
+                          fixture['id'])
+            if fixture['probabilities']:
+                self.assertAlmostEqual(sum(fixture['probabilities']), 1.0, places=6, msg=fixture['id'])
+                self.assertIn(fixture['pick_index'], (0, 1), fixture['id'])
+                self.assertEqual(fixture['pick'], fixture['teams'][fixture['pick_index']], fixture['id'])
+                source = (fixture['quotes'][0]['url'] if fixture['quotes'] else
+                          (fixture['model'] or {}).get('url'))
+                self.assertTrue(source and source.startswith('https://'), fixture['id'])
+            else:
+                self.assertTrue(fixture['limitations'], fixture['id'])
+            self.assertFalse(verify.find_crowd_fields(fixture), fixture['id'])
+
+    def test_live_capture_manifest_records_hash_and_time_for_every_source(self):
+        path = Path('data/research/b3e91409/live/manifest.json')
+        if not path.exists():
+            self.skipTest('live capture is produced on a runner')
+        entries = json.loads(path.read_text(encoding='utf-8'))
+        self.assertTrue(entries)
+        for entry in entries:
+            self.assertTrue(entry['url'].startswith('https://'), entry['url'])
+            self.assertRegex(entry['observed_at'], r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$')
+            if entry['status'] == 'ok':
+                self.assertTrue(entry.get('response_sha256'), entry['id'])
+                self.assertTrue(entry.get('bytes'), entry['id'])
+
+
 if __name__ == '__main__':
     unittest.main()
