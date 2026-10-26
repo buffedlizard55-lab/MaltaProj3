@@ -184,11 +184,19 @@ def bind(rows: list, fixtures: list) -> list:
 # ------------------------------------------------------------------- inventory
 
 def live_inventory(client: Client, out_dir: Path, now: datetime) -> dict:
-    rows, links, health = hotspawn(client)
-    open_rows = [r for r in rows if r['availability'] in {'open', 'locked', 'unknown_lock'}]
+    # `hotspawn()` hands back the raw API array — exactly what `scripts.collect`
+    # normalises. The probe runs the same normaliser, so "open", "locked" and
+    # "past" mean here precisely what the publisher means by them.
+    from scripts.collect import normalize_fixture
+    raw_rows, links, health = hotspawn(client)
+    observed = health.get('observed_at') or now.strftime('%Y-%m-%dT%H:%M:%SZ')
+    rows = [normalize_fixture(raw, links, observed, now) for raw in raw_rows
+            if isinstance(raw, dict) and raw.get('sport_alias') == 'cs2']
+    open_rows = [r for r in rows if r.get('availability') in {'open', 'locked', 'unknown_lock'}]
     return {
         'observed_at': health.get('observed_at'),
         'records': len(rows),
+        'records_including_past_and_other_sports': len(raw_rows),
         'api_url': FIXTURES_API,
         'lobby_pages': [LOBBY, CS2_LOBBY],
         'visible_cards': health.get('visible_cards'),
