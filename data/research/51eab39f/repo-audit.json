@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "session": "arena-51eab39f",
+  "observed_at": "2026-10-26T01:30:00Z",
+  "environment": "arena-sandbox",
+  "audited_snapshot": {
+    "snapshot_generated_at": "2026-10-26T01:04:20Z",
+    "origination_generated_at": "2026-10-26T01:04:30Z",
+    "valve_snapshot_date": "2026-10-05",
+    "valve_git_blob_sha": "2aa2805394fbc68f36a5752a5b16026f2ab2fed5",
+    "valve_raw_sha256": "df96e7fc3cd91a2687ec08cac0128e50cc4e4e55346581679572e881d79ae61b",
+    "hltv_world_ranking_url": "https://www.hltv.org/ranking/teams/2026/october/19"
+  },
+  "modules_reviewed": [
+    {
+      "path": "scripts/collect.py",
+      "status": "verified",
+      "finding": "Reads Hotspawn scheduled CS2 API for fixture inventory only; crowd pick percentages are ignored; exact-name Polymarket CLOB order books enforce MAX_SPREAD = 0.12 and <= 8h freshness; unverified cells remain null.",
+      "source_urls": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://docs.polymarket.com/api-reference/market-data/get-order-book"
+      ]
+    },
+    {
+      "path": "scripts/originate.py",
+      "status": "verified",
+      "finding": "Executes fallback ladder only when featured exact-name resolution leaves no money line: scoped aliases + Polymarket/Kalshi/Smarkets exchanges (spread <= 0.15, 60s start-time gate) -> Thunderpick/Bovada/Pinnacle bookmakers (sum implied 0.85..1.35, median consensus across independent families) -> official Valve VRS (<= 35d, 5-player roster check) -> bo3.gg MAP series-form model.",
+      "source_urls": [
+        "https://www.hltv.org/matches",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ]
+    },
+    {
+      "path": "scripts/form_model.py",
+      "status": "verified",
+      "finding": "Fits MAP rating on 5-point grid [300..2600] with Gaussian prior SD 250 around median rated-opponent points; requires >= 8 finished BO series against >= 3 Valve-rated opponents inside 120 days; flags low_confidence when posterior SD > 100 or n < 12.",
+      "source_urls": [
+        "https://bo3.gg/matches/sokerorg-vs-ex-6666-26-10-2026",
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+      ]
+    },
+    {
+      "path": "scripts/build.py",
+      "status": "verified",
+      "finding": "Renders mobile-first Executive Summary (/), All Researched Picks (/origination/), Featured Market Picks (/picks/), Unresolved & Limitations (/unresolved/), and Flagged for Review (/review/); auto-discovers newest live-coverage.json and all research/*/flags.json without mutating canonical data/latest.json.",
+      "source_urls": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/build.py",
+        "https://play.hotspawn.com/lobby"
+      ]
+    },
+    {
+      "path": ".github/workflows/origination.yml",
+      "status": "verified",
+      "finding": "Runs every 4 hours (`23 */4 * * *`, well inside the 4–8h SLA), executes collect -> originate -> build -> audit_rows --strict -> acceptance_audit --strict -> Playwright mobile checks -> root_publish + deploy-pages.",
+      "source_urls": [
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/.github/workflows/origination.yml",
+        "https://docs.github.com/en/pages"
+      ]
+    }
+  ],
+  "math_verification_summary": {
+    "active_matches_replayed": 19,
+    "max_probability_abs_error": 0.0,
+    "featured_blanks_preserved_as_null": [
+      "1081159",
+      "1082792"
+    ],
+    "complete_unresolved_count": 0,
+    "row_source_violations": 0
+  },
+  "flags_published": [
+    "51eab39f-001",
+    "51eab39f-002",
+    "51eab39f-003",
+    "51eab39f-004",
+    "51eab39f-005",
+    "51eab39f-006"
+  ]
+}
