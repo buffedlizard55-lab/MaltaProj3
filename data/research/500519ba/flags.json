@@ -2,7 +2,7 @@
   {
     "id": "500519ba-coverage-19-of-19",
     "title": "A pick for every open Hotspawn CS2 fixture: 19 of 19 priced at 2026-10-26T00:59Z, including nine cards the deployed page had not collected",
-    "detail": "A fresh runner collection (2026-10-26T00:58:22Z) and origination (00:58:36Z) resolved all 19 fixtures the Hotspawn lobby was offering with both win probabilities, one named side and a source link: 7 from Polymarket, 3 from Thunderpick, 1 median of Thunderpick and Bovada, 7 from the official Valve rating table and 1 from our own bo3.gg results fit. Nine of them (1079201, 1079202, 1079203, 1081159, 1081160, 1081162, 1081163, 1081164, 1093218 - NODWIN Clutch Series #13 and CCT Europe Series #12) were open on Hotspawn but absent from the deployed 23:03:48Z snapshot, which is the job of the four-hour publisher to close; this session's fresh run prices every one of them. No Hotspawn crowd percentage and no HLTV fan vote enters any number. Full per-fixture table, response hashes and observation times: data/research/500519ba/coverage.json.",
+    "detail": "A fresh runner collection (2026-10-26T00:58:22Z) and origination (00:58:36Z) resolved all 19 fixtures the Hotspawn lobby was offering with both win probabilities, one named side and a source link: 7 from Polymarket, 3 from Thunderpick, 1 median of Thunderpick and Bovada, 7 from the official Valve rating table and 1 from our own bo3.gg results fit. Nine of them (1079201, 1079202, 1079203, 1081159, 1081160, 1081162, 1081163, 1081164, 1093218 - NODWIN Clutch Series #13 and CCT Europe Series #12) were open on Hotspawn but absent from the snapshot the site was serving at 00:59Z; the four-hour publisher collected and deployed all of them at 01:04:20Z (inventory 81, upcoming 19, 17 featured picks, 2 researched-only, complete list 19/19 - re-read from /snapshot.json and /data/origination.json at 01:22Z). No Hotspawn crowd percentage and no HLTV fan vote enters any number. Full per-fixture table, response hashes and observation times: data/research/500519ba/coverage.json.",
     "source_urls": [
       "https://play.hotspawn.com/lobby",
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/500519ba/coverage.json",
@@ -14,13 +14,23 @@
   {
     "id": "500519ba-deployed-gap",
     "title": "The published snapshot omitted 9 of the 19 open Hotspawn fixtures at the 00:59Z observation",
-    "detail": "Between the 23:03:48Z publish and 00:59Z, Hotspawn added the new week's NODWIN Clutch Series #13 and CCT Europe Series #12 cards. The published snapshot listed 10 open fixtures; the cache-busted lobby and the fixture API agreed on 19, and the fresh ladder priced all 19. The nine missing IDs are 1079201, 1079202, 1079203, 1081159, 1081160, 1081162, 1081163, 1081164 and 1093218. This is the four-hour cadence behaving as documented (a reader between publishes sees the previous card set), not a data defect - but it is the exact window in which the site cannot yet show a pick for a new match, so it is published rather than smoothed over.",
+    "detail": "Between the 23:03:48Z publish and 00:59Z, Hotspawn added the new week's NODWIN Clutch Series #13 and CCT Europe Series #12 cards. The published snapshot at that minute listed 10 open fixtures; the cache-busted lobby and the fixture API agreed on 19, and the fresh ladder priced all 19. The nine missing IDs are 1079201, 1079202, 1079203, 1081159, 1081160, 1081162, 1081163, 1081164 and 1093218. Closed by the four-hour publisher: its 2026-10-26T01:04:20Z snapshot carries inventory 81 / upcoming 19 (17 featured picks, 2 researched-only, 19/19 in the complete list), and the nine are all present. The finding is kept because it is the exact window in which the site cannot yet show a pick for a new match - a reader between publishes sees the previous card set - and that bound is the four-hour cadence the brief allows.",
     "source_urls": [
       "https://play.hotspawn.com/lobby",
       "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
       "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/500519ba/live-coverage.json"
     ],
-    "match_ids": ["1079201", "1079202", "1079203", "1081159", "1081160", "1081162", "1081163", "1081164", "1093218"],
+    "match_ids": [
+      "1079201",
+      "1079202",
+      "1079203",
+      "1081159",
+      "1081160",
+      "1081162",
+      "1081163",
+      "1081164",
+      "1093218"
+    ],
     "severity": "review"
   },
   {
@@ -62,13 +72,15 @@
   {
     "id": "500519ba-featured-blank-1082792",
     "title": "HOTU vs The Huns: the featured row in snapshot.json is blank while the complete list carries 87.0% / 13.0% from the same market",
-    "detail": "In the deployed 2026-10-25T23:03:48Z snapshot, fixture 1082792 carries analysis=null, so the featured table shows it as explicitly unresolved; data/origination.json prices it at 87.0% HOTU / 13.0% The Huns from a Polymarket book, and the rendered page shows that researched row. A reader comparing the two downloads sees one fixture described two ways. Nothing is averaged or re-priced here: both numbers are published with their own source links, and the reconciliation is stated on the page. Also unresolved in that snapshot: the Valve identity for 'The Huns' (two rosters share the name, #122 and #213), which is why the ranking rung cannot be the source for this fixture.",
+    "detail": "In the 2026-10-25T23:03:48Z snapshot, fixture 1082792 carried analysis=null, so the featured table showed it as explicitly unresolved, while data/origination.json priced it at 87.0% HOTU / 13.0% The Huns from a Polymarket book and the rendered page showed that researched row. The 2026-10-26T01:04:20Z snapshot has two such researched-only rows (featured picks 17 of 19; complete list 19 of 19). A reader comparing the two downloads sees one fixture described two ways. Nothing is averaged or re-priced: both numbers keep their own source links, and the reconciliation is stated on the page. The Valve identity for 'The Huns' stays ambiguous on purpose (two rosters share the name, #122 and #213), so the ranking rung is not used for this fixture.",
     "source_urls": [
       "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
       "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
       "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
     ],
-    "match_ids": ["1082792"],
+    "match_ids": [
+      "1082792"
+    ],
     "severity": "notice"
   }
 ]
