@@ -7,6 +7,7 @@ import argparse
 from datetime import datetime
 import json
 import math
+from statistics import median
 from urllib.parse import urlsplit
 from pathlib import Path
 
@@ -27,6 +28,58 @@ def external_source(url):
                             ('hotspawn.com', 'cloudwaysapps.com', 'localhost')))
     except (ValueError, TypeError):
         return False
+
+
+def _verified_upgrade(match, row, candidate):
+    """Only a replayable, same-fixture money line may supersede a model.
+
+    This mirrors the renderer's documented model-to-money upgrade without
+    accepting a changed percentage merely because the page prints it.
+    """
+    if not candidate or not candidate.get('upgraded_from_featured_model'):
+        return None
+    if (match.get('analysis') or {}).get('method') != 'model':
+        return None
+    if (candidate.get('teams') != match.get('teams')
+            or candidate.get('starts_at') != match.get('starts_at')):
+        return None
+    a = candidate.get('origination') or {}
+    p = a.get('probabilities') or []
+    method = a.get('method')
+    if (method not in ('market', 'bookmaker', 'consensus') or row.get('method') != method
+            or a.get('source_url') not in row.get('links', []) or len(p) != 2
+            or any(not isinstance(x, (int, float)) or isinstance(x, bool)
+                   or not math.isfinite(x) or not 0 < x < 1 for x in p)
+            or not math.isclose(sum(p), 1, abs_tol=1e-6)):
+        return None
+    # The observed money inputs must reproduce the replacement, not merely
+    # repeat its stored probability. Fail closed for unsupported quote shapes.
+    pairs = []
+    for q in a.get('quotes') or []:
+        odds = q.get('odds')
+        if odds and len(odds) == 2 and all(isinstance(x, (int, float)) and x > 1 for x in odds):
+            inv = [1 / x for x in odds]
+            pairs.append([x / sum(inv) for x in inv])
+        elif method == 'market' and all(k in q for k in ('bid', 'ask')):
+            if not 0 < q['bid'] <= q['ask'] < 1:
+                return None
+            pairs.append((q['bid'] + q['ask']) / 2)
+        else:
+            return None
+    if method == 'market':
+        if len(pairs) != 2 or not all(isinstance(x, (int, float)) for x in pairs):
+            return None
+        expected = [x / sum(pairs) for x in pairs]
+    else:
+        if not pairs or (method == 'consensus' and len(pairs) < 2):
+            return None
+        expected = [median(pair[i] for pair in pairs) for i in (0, 1)]
+        expected = [x / sum(expected) for x in expected]
+    pick = 0 if p[0] > p[1] else 1 if p[1] > p[0] else None
+    if (candidate.get('pick_index') != pick
+            or any(not math.isclose(x, y, abs_tol=1e-6) for x, y in zip(p, expected))):
+        return None
+    return a, pick
 
 
 def audit(snapshot):

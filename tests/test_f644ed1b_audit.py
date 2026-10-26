@@ -40,3 +40,32 @@ class SafetyAudit(unittest.TestCase):
         self.assertFalse(audit(self.snapshot)['errors'])
         m['pick_index'] = 0
         self.assertTrue(audit(self.snapshot)['errors'])
+
+
+class ModelToMoneyUpgrade(unittest.TestCase):
+    def setUp(self):
+        from scripts import f644ed1b_audit
+        self.verify = f644ed1b_audit
+        self.match = {'teams': [{'name': 'A'}, {'name': 'B'}], 'starts_at': '2026-10-27T00:00:00Z',
+                      'analysis': {'method': 'model'}}
+        self.row = {'method': 'consensus', 'links': ['https://thunderpick.io/test']}
+        self.candidate = dict(self.match, upgraded_from_featured_model=True, pick_index=0,
+                              origination={'method': 'consensus', 'source_url': self.row['links'][0],
+                                           'probabilities': [.6, .4],
+                                           'quotes': [{'odds': [1.5, 2.25]}, {'odds': [1.5, 2.25]}]})
+
+    def test_money_inputs_replay(self):
+        result = self.verify._verified_upgrade(self.match, self.row, self.candidate)
+        self.assertIsNotNone(result)
+        self.assertEqual(result[1], 0)
+
+    def test_mutated_inputs_do_not_bypass_featured_check(self):
+        mutations = [lambda c: c['origination'].update(probabilities=[.7, .3]),
+                     lambda c: c['origination'].update(quotes=[]),
+                     lambda c: c.update(starts_at='2026-10-28T00:00:00Z'),
+                     lambda c: c.update(pick_index=1),
+                     lambda c: c['origination'].update(source_url='https://hotspawn.com/test')]
+        for mutate in mutations:
+            c = copy.deepcopy(self.candidate)
+            mutate(c)
+            self.assertIsNone(self.verify._verified_upgrade(self.match, self.row, c))
