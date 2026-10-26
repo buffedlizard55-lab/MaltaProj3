@@ -1,6 +1,6 @@
 # Live coverage audit — session arena-500519ba
 
-Observed **2026-10-26T02:20:24Z** (UTC) on a GitHub Actions runner.
+Observed **2026-10-26T02:39:04Z** (UTC) on a GitHub Actions runner.
 
 Read-only audit. No probability, pick or alias is written here; scripts/originate.py remains the only path to a published number. A refused source is a limitation of this runner, never proof that a market does not exist. Hotspawn "% picked" and HLTV fan votes are never read as inputs.
 
@@ -22,32 +22,32 @@ Read-only audit. No probability, pick or alias is written here; scripts/originat
 | `deployed_snapshot_unpicked` | 2 |
 | note | the cache-buster parameter was refused by the fixture API (HTTP 400); the unmodified array was used and reconciled against both rendered lobbies |
 
-Deployed snapshot `2026-10-26T01:33:57Z`; fresh run `2026-10-26T02:19:22Z` / origination `2026-10-26T02:19:36Z`.
+Deployed snapshot `2026-10-26T01:33:57Z`; fresh run `2026-10-26T02:37:55Z` / origination `2026-10-26T02:38:08Z`.
 
 ## Sources read
 
 | Source | Status | Bytes | SHA-256 | Cache |
 | --- | --- | --- | --- | --- |
-| `fixtures_api` | 200 | 63331 | `60f0e5b67e289dfb` | {'date': 'Mon, 26 Oct 2026 02:20:25 GMT'} |
-| `fixtures_api_cache_busted` | 400 | 83 | `20aebe9d2aadb376` | {'date': 'Mon, 26 Oct 2026 02:20:25 GMT'} |
-| `lobby` | 200 | 309948 | `b61f72971f99f044` | {'age': '0', 'x-cache': 'MISS', 'date': 'Mon, 26 Oct 2026 02:20:26 GMT'} |
-| `cs2_lobby` | 200 | 309009 | `da0274fc18e9ba6c` | {'age': '0', 'x-cache': 'MISS', 'date': 'Mon, 26 Oct 2026 02:20:27 GMT'} |
-| `deployed_snapshot` | 200 | 219290 | `f8dcd4d7b1b2ad32` | {'cache-control': 'max-age=600', 'age': '0', 'x-cache': 'MISS', 'date': 'Mon, 26 Oct 2026 02:20:27 GMT'} |
-| `hltv_matches` | 403 | 5626 | `8096fc7eaec7f321` | {'date': 'Mon, 26 Oct 2026 02:20:27 GMT'} |
-| `hltv_ranking` | 403 | 5665 | `fb63f7b0f2ef60b6` | {'date': 'Mon, 26 Oct 2026 02:20:27 GMT'} |
-| `polymarket_events` | 200 | 530504 | `87ff19882d09ed9e` | {'cache-control': 'public, max-age=300', 'x-cache': 'Miss from cloudfront', 'date': 'Mon, 26 Oct 2026 02:20:27 GMT'} |
-| `thunderpick` | 200 | 50 | `2e3108e9a0e96f2d` | {'cache-control': 'no-cache, no-store, max-age=0, must-revalidate', 'cf-cache-status': 'DYNAMIC', 'date': 'Mon, 26 Oct 2026 02:20:28 GMT'} |
-| `bo3` | 200 | 12827 | `4397d447bdea88d1` | {'cf-cache-status': 'DYNAMIC', 'date': 'Mon, 26 Oct 2026 02:20:28 GMT'} |
-| `egamersworld` | 403 | 5776 | `31a223b4119a6193` | {'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0', 'date': 'Mon, 26 Oct 2026 02:20:28 GMT'} |
+| `fixtures_api` | 200 | 63330 | `b399725e4c237f6a` | {'date': 'Mon, 26 Oct 2026 02:39:05 GMT'} |
+| `fixtures_api_cache_busted` | 400 | 83 | `20aebe9d2aadb376` | {'date': 'Mon, 26 Oct 2026 02:39:05 GMT'} |
+| `lobby` | 200 | 308402 | `e10140d3f027c7ec` | {'age': '0', 'x-cache': 'MISS', 'date': 'Mon, 26 Oct 2026 02:39:06 GMT'} |
+| `cs2_lobby` | 200 | 307448 | `0bdb29495b5e5209` | {'age': '0', 'x-cache': 'MISS', 'date': 'Mon, 26 Oct 2026 02:39:07 GMT'} |
+| `deployed_snapshot` | 200 | 219290 | `f8dcd4d7b1b2ad32` | {'cache-control': 'max-age=600', 'age': '0', 'x-cache': 'MISS', 'date': 'Mon, 26 Oct 2026 02:39:07 GMT'} |
+| `hltv_matches` | 403 | 5626 | `326fbbd3c719c0f2` | {'date': 'Mon, 26 Oct 2026 02:39:07 GMT'} |
+| `hltv_ranking` | 403 | 5665 | `ca8c27453e7417cf` | {'date': 'Mon, 26 Oct 2026 02:39:07 GMT'} |
+| `polymarket_events` | 200 | 530661 | `1f8365cd3726fc93` | {'cache-control': 'public, max-age=300', 'x-cache': 'Miss from cloudfront', 'date': 'Mon, 26 Oct 2026 02:39:07 GMT'} |
+| `thunderpick` | 200 | 50 | `2e3108e9a0e96f2d` | {'cache-control': 'no-cache, no-store, max-age=0, must-revalidate', 'cf-cache-status': 'DYNAMIC', 'date': 'Mon, 26 Oct 2026 02:39:09 GMT'} |
+| `bo3` | 200 | 12827 | `4397d447bdea88d1` | {'cf-cache-status': 'DYNAMIC', 'date': 'Mon, 26 Oct 2026 02:39:10 GMT'} |
+| `egamersworld` | 403 | 5776 | `0aecda5ff6932e2d` | {'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0', 'date': 'Mon, 26 Oct 2026 02:39:10 GMT'} |
 
 ## Every open Hotspawn CS2 fixture
 
 | Fixture | Teams | Starts (UTC) | Tier | Pick | Probabilities | Method | Source | In deployed snapshot |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| [1082858](https://www.hotspawn.com/matches/x-1082858) | Ground Zero vs Off Chops | 2026-10-26T03:00:00Z | b | Off Chops | 22.0% / 78.0% | market | https://polymarket.com/event/cs2-gz1-offcho-2026-10-25 | yes — Off Chops |
-| [1082859](https://www.hotspawn.com/matches/x-1082859) | NEXVOID vs Alter Ego | 2026-10-26T03:00:00Z | b | NEXVOID | 52.9% / 47.1% | market | https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct252300aenex | yes — NEXVOID |
-| [1079201](https://www.hotspawn.com/matches/x-1079201) | INOX Division vs Nemesis | 2026-10-26T09:00:00Z | b | Nemesis | 12.3% / 87.7% | model | https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md | yes — Nemesis |
-| [1079202](https://www.hotspawn.com/matches/x-1079202) | FOKUS vs ex-Zero Tenacity | 2026-10-26T12:00:00Z | b | FOKUS | 63.0% / 37.0% | market | https://polymarket.com/event/cs2-fokus-zerote-2026-10-26 | yes — FOKUS |
+| [1082858](https://www.hotspawn.com/matches/x-1082858) | Ground Zero vs Off Chops | 2026-10-26T03:00:00Z | b | Off Chops | 20.0% / 80.0% | market | https://polymarket.com/event/cs2-gz1-offcho-2026-10-25 | yes — Off Chops |
+| [1082859](https://www.hotspawn.com/matches/x-1082859) | NEXVOID vs Alter Ego | 2026-10-26T03:00:00Z | b | NEXVOID | 52.7% / 47.3% | market | https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct252300aenex | yes — NEXVOID |
+| [1079201](https://www.hotspawn.com/matches/x-1079201) | INOX Division vs Nemesis | 2026-10-26T09:00:00Z | b | Nemesis | 26.6% / 73.4% | consensus | https://polymarket.com/event/cs2-nem-inox-2026-10-26 | yes — Nemesis |
+| [1079202](https://www.hotspawn.com/matches/x-1079202) | FOKUS vs ex-Zero Tenacity | 2026-10-26T12:00:00Z | b | FOKUS | 63.5% / 36.5% | market | https://polymarket.com/event/cs2-fokus-zerote-2026-10-26 | yes — FOKUS |
 | [1081159](https://www.hotspawn.com/matches/x-1081159) | LFO 10 vs ex-6666 | 2026-10-26T12:00:00Z | b | ex-6666 | 39.0% / 61.0% | model | https://bo3.gg/matches/sokerorg-vs-ex-6666-26-10-2026 | yes — no pick |
 | [1079203](https://www.hotspawn.com/matches/x-1079203) | Metizport vs BRUTE | 2026-10-26T15:00:00Z | b | Metizport | 59.0% / 41.0% | market | https://polymarket.com/event/cs2-mzp-brute-2026-10-26 | yes — Metizport |
 | [1081160](https://www.hotspawn.com/matches/x-1081160) | HAVU vs ILLYRIANS | 2026-10-26T15:00:00Z | b | HAVU | 60.3% / 39.7% | model | https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md | yes — HAVU |
