@@ -3,7 +3,7 @@
   "id": "39680a42-identity-chain-1082792",
   "severity": "notice",
   "title": "1082792 identity chain verified: the executive summary's researched HOTU 87.0% row and snapshot.json's unresolved record are two layers of the same publish",
-  "detail": "The deployed executive summary prices Hotspawn fixture 1082792 (HOTU vs The Huns, Moscow Cyber Games 2026, 2026-10-31T09:00:00Z) at HOTU 87.0% / The Huns 13.0%, badged 'Researched' + 'Market line', cited to Polymarket event cs2-hotu-the9-2026-10-31. The same publish's snapshot.json records the identical fixture with analysis null, pick_index null and featured.unresolved 1. Read first-hand through the platform page fetcher, the chain holds across three independent sources: Hotspawn 1082792 starts 2026-10-31T09:00:00Z; Polymarket event 1241313 has eventStartTime 2026-10-31T09:00:00Z and outcomes 'HOTU'/'The Huns Esports' in the Moscow Cyber Games Playoffs Semifinal 1; HLTV match 2399437 is 'HOTU vs. The Huns at GLuck Moscow Cyber Games 2026', Best of 3 (LAN), Semi-final. The featured exact-name layer is unresolved only because it does not silently alias 'The Huns Esports' to 'The Huns' or Polymarket's 'the9' slug. The row is a prediction-market money line, not a Hotspawn crowd percentage and not an HLTV fan vote. No number was changed.",
+  "detail": "The deployed executive summary prices Hotspawn fixture 1082792 (HOTU vs The Huns, Moscow Cyber Games 2026, 2026-10-31T09:00:00Z) at HOTU 87.0% / The Huns 13.0%, badged 'Researched' + 'Market line', cited to Polymarket event cs2-hotu-the9-2026-10-31. snapshot.json's featured exact-name layer records the identical fixture with analysis null, pick_index null and unresolved 1. Read first-hand through the platform page fetcher, the chain holds across three independent sources: Hotspawn 1082792 starts 2026-10-31T09:00:00Z; Polymarket event 1241313 has eventStartTime 2026-10-31T09:00:00Z and outcomes 'HOTU'/'The Huns Esports' in the Moscow Cyber Games Playoffs Semifinal 1; HLTV match 2399437 is 'HOTU vs. The Huns at GLuck Moscow Cyber Games 2026', Best of 3 (LAN), Semi-final. The featured layer is unresolved only because it does not silently alias 'The Huns Esports' to 'The Huns' or Polymarket's 'the9' slug. The row is a prediction-market money line, not a Hotspawn crowd percentage and not an HLTV fan vote. No number was changed.",
   "match_ids": ["1082792"],
   "source_urls": [
    "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
@@ -13,10 +13,10 @@
   ]
  },
  {
-  "id": "39680a42-live-coverage-gap-nine",
+  "id": "39680a42-live-coverage-gap-closed",
   "severity": "notice",
-  "title": "Nine open Hotspawn CS2 fixtures are absent from the deployed snapshot (a dated gap, not a collector defect)",
-  "detail": "At 2026-10-26T00:48-00:50Z the live Hotspawn CS2 lobby lists 19 open fixtures and the scheduled-fixtures API returned records through index 81, while the deployed snapshot (generated 2026-10-25T23:03:48Z; its own inventory recorded 72 records at 23:03:30Z) serves 10 upcoming. The nine the snapshot does not serve are 1079201, 1081159, 1079202, 1081160, 1079203, 1093218 (NODWIN Clutch Series #13) and 1081162, 1081163, 1081164 (CCT Europe 2026 Series #12). All are tier b, lock_offset_sec 360, offered_points 3, and carry very low Hotspawn total_picks (2-8 vs 39-49 on covered fixtures) - exactly the low-tier fixtures the brief requires to still get a pick. scripts/collect.py reads the fixture API wholesale with no client pagination and no date-window filter, so the collector cannot have dropped them; the snapshot's inventory read 72 at 23:03:30Z and the API returned more at 00:50Z, so they were added to Hotspawn's schedule between those reads. The four-hour publisher re-collects on every refresh; a publisher run was in flight when this was recorded.",
+  "title": "The nine-fixture live coverage gap recorded at 00:48Z closed at the 01:04:20Z publish; eight of the nine now carry a pick and one stays unresolved",
+  "detail": "At 2026-10-26T00:48-00:50Z the live Hotspawn CS2 lobby listed 19 open fixtures while the deployed snapshot (generated 2026-10-25T23:03:48Z, inventory 72 at 23:03:30Z) served 10 upcoming. The nine it did not serve were 1079201, 1081159, 1079202, 1081160, 1079203, 1093218 (NODWIN Clutch Series #13) and 1081162, 1081163, 1081164 (CCT Europe 2026 Series #12). scripts/collect.py reads the fixture API wholesale with no client pagination and no date-window filter, so the collector could not have dropped them; the snapshot's inventory read 72 at 23:03:30Z and the API returned more at 00:50Z, so they were added to Hotspawn's schedule between those reads. The four-hour publisher re-collected and published at 2026-10-26T01:04:20Z with inventory 81, 19 upcoming and 17 picks. Eight of the nine now carry a pick - 1079201, 1081160, 1093218, 1081162, 1081163 and 1081164 from the Valve rating model; 1079202 and 1079203 from a Thunderpick bookmaker line. Two fixtures remain unresolved in the featured exact-name layer: 1081159 (LFO 10 vs ex-6666, no line found) and 1082792 (HOTU vs The Huns, identity only).",
   "match_ids": ["1079201", "1081159", "1079202", "1081160", "1079203", "1093218", "1081162", "1081163", "1081164"],
   "source_urls": [
    "https://play.hotspawn.com/lobby",
@@ -27,9 +27,9 @@
  {
   "id": "39680a42-headline-vs-snapshot-count",
   "severity": "review",
-  "title": "Executive summary headline counts 10 priced picks and 0 unresolved; snapshot.json's featured layer counts 9 picked and 1 unresolved",
-  "detail": "The landing-page headline reads '10 active Hotspawn CS2 fixtures in this snapshot, 10 with a directional pick ... and 0 explicitly unresolved'. The same publish's snapshot.json records featured.picked 9 and featured.unresolved 1, where the unresolved fixture (1082792) is priced in the executive summary through the researched complete layer. The summary does disclose the split ('the featured exact-name method left 1 fixture(s) without a pick. Each now carries a researched estimate from a named source'), so the two numbers describe different layers of one publish, but a reader comparing the headline with snapshot.json sees two different unresolved counts.",
-  "match_ids": ["1082792"],
+  "title": "Executive summary headline counts 19 priced picks and 0 unresolved; snapshot.json's featured layer counts 17 picks and 2 unresolved",
+  "detail": "The landing-page headline reads '19 active Hotspawn CS2 fixtures in this snapshot, 19 with a directional pick - 11 from an external betting line, 8 from a research model - and 0 explicitly unresolved' (the 11 = 7 market + 3 bookmaker + 1 consensus, the 8 = model rows, all read from the complete/researched layer). The same publish's snapshot.json records featured picks 17 and featured unresolved 2: the two fixtures the complete layer prices are 1082792 (Polymarket market line, identity resolved by research) and 1081159 (the bo3.gg network fit, badged 'Researched'). The summary does disclose the split in its own words and the no-line register carries the model rows' limitations, so the two numbers describe different layers of one publish - but a reader comparing the headline with snapshot.json sees two different unresolved counts, and the headline's '0 explicitly unresolved' is not the same statement as the snapshot's 'unresolved 2'.",
+  "match_ids": ["1081159", "1082792"],
   "source_urls": [
    "https://buffedlizard55-lab.github.io/MaltaProj3/",
    "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json"
@@ -44,6 +44,17 @@
   "source_urls": [
    "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
    "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026"
+  ]
+ },
+ {
+  "id": "39680a42-1081159-network-line-source",
+  "severity": "notice",
+  "title": "1081159's published 61.0% comes from the project's own bo3.gg network fit, badged 'Researched' - not from a betting line and not from Hotspawn",
+  "detail": "The executive summary's glance row for 1081159 (LFO 10 vs ex-6666) shows Pick ex-6666 61.0% / LFO 10 39.0%, badged 'Researched', with data-method 'model' and source links to the Hotspawn fixture page and to bo3.gg results. The Hotspawn link is the fixture's identity link; the number behind the row is the project's own maximum-a-posteriori Bradley-Terry fit over bo3.gg's finished series, which the methodology page describes as 'a research model, never a bookmaker price'. So the row is correctly excluded from the headline's 'external betting line' count (the 11) and included in the 8 research models, and no Hotspawn crowd percentage is used as a probability anywhere on the row.",
+  "match_ids": ["1081159"],
+  "source_urls": [
+   "https://buffedlizard55-lab.github.io/MaltaProj3/",
+   "https://bo3.gg/"
   ]
  }
 ]

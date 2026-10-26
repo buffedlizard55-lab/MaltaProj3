@@ -133,7 +133,15 @@ class Coverage(unittest.TestCase):
     def test_unrecorded_live_fixture_is_flagged(self):
         live = live_lobby(lobby_open_ids=['1000000', '1000001', '1000002'])
         errors, stats = v.check_coverage_reconciliation(snapshot_with(), live)
-        self.assertTrue(any('coverage gap drift' in e for e in errors))
+        self.assertTrue(any('dossier arithmetic' in e for e in errors))
+
+    def test_a_gap_the_snapshot_has_since_closed_is_reported_not_failed(self):
+        """The dossier is a dated record; a later publish closing the gap is not an error."""
+        errors, stats = v.check_coverage_reconciliation(
+            snapshot_with(), live_lobby(lobby_open_ids=['1000000'], coverage_gap_ids=[]))
+        self.assertEqual(errors, [])
+        self.assertTrue(stats['closed'])
+        self.assertEqual(stats['current_gap'], [])
 
 
 class ExecutiveSummary(unittest.TestCase):

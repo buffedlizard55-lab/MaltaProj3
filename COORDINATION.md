@@ -32,9 +32,16 @@ Polymarket event `cs2-hotu-the9-2026-10-31` has `eventStartTime 2026-10-31T09:00
 "HOTU"/"The Huns Esports" in the Moscow Cyber Games Playoffs Semifinal 1; HLTV match 2399437 is "HOTU
 vs. The Huns at GLuck Moscow Cyber Games 2026", Best of 3 (LAN), Semi-final. So the summary's row is a
 prediction-market money line with a researched identity, not a Hotspawn crowd percentage. The nine
-open fixtures Hotspawn listed at 00:48-00:50Z that the snapshot does not serve
-(1079201/1081159/1079202/1081160/1079203/1093218/1081162/1081163/1081164) are recorded as a dated gap;
-`collect.py` reads the API wholesale, so they appear on the next publisher refresh. Details:
+open fixtures Hotspawn listed at 00:48-00:50Z that the 23:03Z snapshot did not serve
+(1079201/1081159/1079202/1081160/1079203/1093218/1081162/1081163/1081164) were recorded as a dated gap, and
+then **re-checked and closed**: the four-hour publisher re-collected and published at
+`2026-10-26T01:04:20Z` with inventory 81, 19 upcoming and 17 picks, and eight of the nine now carry a pick
+(1079201/1081160/1093218/1081162/1081163/1081164 from the Valve rating model, 1079202/1079203 from a
+Thunderpick bookmaker line). Two fixtures stay unresolved in the featured exact-name layer — `1081159`
+(no line found) and `1082792` (identity only) — and the executive summary prices both through its
+researched complete layer (the bo3.gg network fit and the Polymarket event respectively). That is also why
+the headline now reads "19 with a directional pick … and 0 explicitly unresolved" while `snapshot.json`'s
+featured layer reads picks 17 / unresolved 2: two layers of one publish, flagged as `3968A-R04`. Details:
 `data/research/39680a42/identity-chain-1082792.json`, `live-lobby-snapshot.json`, `verification.json`.
 
 **Non-overlap pledge.** This session edits only its own new files, one `REGISTERS` entry and this

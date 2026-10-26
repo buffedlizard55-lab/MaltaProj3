@@ -3,19 +3,28 @@
   "checks": {
     "published_arithmetic": {
       "errors": [],
-      "active": 10,
+      "active": 19,
       "priced": [
         "1082858",
         "1082859",
+        "1079201",
+        "1079202",
+        "1079203",
+        "1081160",
+        "1093218",
         "1082860",
         "1082861",
         "1082897",
         "1082898",
+        "1081162",
+        "1081163",
         "1082900",
+        "1081164",
         "1082901",
         "1082793"
       ],
       "unresolved": [
+        "1081159",
         "1082792"
       ]
     },
@@ -34,6 +43,48 @@
           "source_url": "https://thunderpick.io/api/matches",
           "host": "thunderpick.io",
           "method": "bookmaker",
+          "blocker": null
+        },
+        {
+          "id": "1079201",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "host": "github.com",
+          "method": "model",
+          "blocker": null
+        },
+        {
+          "id": "1079202",
+          "source_url": "https://thunderpick.io/api/matches",
+          "host": "thunderpick.io",
+          "method": "bookmaker",
+          "blocker": null
+        },
+        {
+          "id": "1081159",
+          "source_url": null,
+          "host": null,
+          "method": null,
+          "blocker": "unresolved"
+        },
+        {
+          "id": "1079203",
+          "source_url": "https://thunderpick.io/api/matches",
+          "host": "thunderpick.io",
+          "method": "bookmaker",
+          "blocker": null
+        },
+        {
+          "id": "1081160",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "host": "github.com",
+          "method": "model",
+          "blocker": null
+        },
+        {
+          "id": "1093218",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "host": "github.com",
+          "method": "model",
           "blocker": null
         },
         {
@@ -65,10 +116,31 @@
           "blocker": null
         },
         {
+          "id": "1081162",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "host": "github.com",
+          "method": "model",
+          "blocker": null
+        },
+        {
+          "id": "1081163",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "host": "github.com",
+          "method": "model",
+          "blocker": null
+        },
+        {
           "id": "1082900",
           "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
           "host": "polymarket.com",
           "method": "market",
+          "blocker": null
+        },
+        {
+          "id": "1081164",
+          "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "host": "github.com",
+          "method": "model",
           "blocker": null
         },
         {
@@ -99,9 +171,7 @@
     },
     "coverage_reconciliation": {
       "errors": [],
-      "upcoming": 10,
-      "lobby_open": 19,
-      "gap": [
+      "recorded_gap": [
         "1079201",
         "1079202",
         "1079203",
@@ -112,11 +182,13 @@
         "1081164",
         "1093218"
       ],
-      "snapshot_only": []
+      "current_gap": [],
+      "closed": true,
+      "lobby_open": 19
     },
     "executive_summary_contract": {
       "errors": [],
-      "glance_rows": 10
+      "glance_rows": 19
     }
   },
   "errors": [],

@@ -132,6 +132,16 @@
     "1081163": {"teams": ["BakS", "Saint Sinners"], "competition_id": 35814, "starts_at": "1793113200000", "total_picks": 2},
     "1081164": {"teams": ["Inner Circle Academy", "Lavked"], "competition_id": 35814, "starts_at": "1793124000000", "total_picks": 2}
   },
+  "closure": {
+    "observed_at": "2026-10-26T01:20:00Z",
+    "snapshot_generated_at": "2026-10-26T01:04:20Z",
+    "inventory_records": 81,
+    "upcoming": 19,
+    "picks": 17,
+    "unresolved": 2,
+    "what_happened": "The four-hour publisher re-collected the scheduled-fixtures API after the 00:48-00:50Z capture and published a new snapshot at 2026-10-26T01:04:20Z with all 19 open fixtures served. Eight of the nine fixtures that were missing at 00:48Z now carry a pick: 1079201, 1081160, 1093218, 1081162, 1081163 and 1081164 from the Valve rating model; 1079202 and 1079203 from a Thunderpick bookmaker line. Two fixtures remain unresolved in the featured exact-name layer - 1081159 (LFO 10 vs ex-6666, no line found) and 1082792 (HOTU vs The Huns, identity only) - and the executive summary prices both through its researched complete layer (bo3.gg network fit and the Polymarket event respectively).",
+    "still_unresolved_featured": ["1081159", "1082792"]
+  },
   "source_urls": [
     "https://play.hotspawn.com/lobby?cb=1792936670",
     "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",

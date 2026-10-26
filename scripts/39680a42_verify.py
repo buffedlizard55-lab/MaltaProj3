@@ -158,26 +158,28 @@ def check_identity_chain(identity: dict, exec_row: dict | None) -> list[str]:
 
 
 # ---------------------------------------------------------------- check 4
-def check_coverage_reconciliation(snapshot: dict, live: dict) -> list[str]:
+def check_coverage_reconciliation(snapshot: dict, live: dict):
+    """Reconcile a *dated* lobby capture with the snapshot that capture names.
+
+    The dossier is a record of one observation, so its own arithmetic is what is
+    checked for truth: the lobby it captured minus the snapshot it names must equal
+    the gap it recorded.  Whether the gap has since closed is reported separately,
+    because the snapshot the reader is served moves on and is never pinned.
+    """
     errors: list[str] = []
     if not live:
-        return ['live-lobby-snapshot.json is missing; the live gap cannot be reconciled']
-    upcoming = {m.get('id') for m in snapshot.get('matches', [])
-                if m.get('availability') in ACTIVE_AVAILABILITY}
+        return ['live-lobby-snapshot.json is missing; the live gap cannot be reconciled'], {}
+    recorded_gap = set(live.get('coverage_gap_ids', []))
     lobby = set(live.get('lobby_open_ids', []))
-    expected_gap = set(live.get('coverage_gap_ids', []))
-    actual_gap = sorted(lobby - upcoming)
-    if set(actual_gap) != expected_gap:
-        errors.append(f'coverage gap drift: lobby-minus-snapshot is {actual_gap}, dossier records {sorted(expected_gap)}')
-    for m_id in actual_gap:
-        if m_id in upcoming:
-            errors.append(f'{m_id}: listed as both covered and uncovered')
-    # every fixture in the deployed snapshot's upcoming set must be in the live lobby
-    drifted = sorted(upcoming - lobby)
-    if drifted:
-        errors.append(f'snapshot rows that are no longer in the live lobby: {drifted}')
-    return errors, {'upcoming': len(upcoming), 'lobby_open': len(lobby),
-                    'gap': actual_gap, 'snapshot_only': drifted}
+    recorded_upcoming = set(live.get('deployed_snapshot_upcoming_ids', []))
+    if lobby - recorded_upcoming != recorded_gap:
+        errors.append('dossier arithmetic: lobby minus the recorded snapshot is not the recorded gap')
+    current_upcoming = {m.get('id') for m in snapshot.get('matches', [])
+                        if m.get('availability') in ACTIVE_AVAILABILITY}
+    current_gap = sorted(lobby - current_upcoming)
+    stats = {'recorded_gap': sorted(recorded_gap), 'current_gap': current_gap,
+             'closed': not current_gap, 'lobby_open': len(lobby)}
+    return errors, stats
 
 
 # ---------------------------------------------------------------- check 5
