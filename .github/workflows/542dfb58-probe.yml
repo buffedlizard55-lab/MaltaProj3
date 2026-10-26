@@ -24,6 +24,13 @@ on:
     paths:
       - '.github/workflows/542dfb58-probe.yml'
       - 'scripts/542dfb58_gap_probe.py'
+  # The brief asks for the full updated list **every 4-8 hours**, and the lobby grows between
+  # publishes. `pages.yml` collects and originates at 17 */4, so this reconciliation runs at
+  # 37 */4 — 20 minutes after a publish has landed, which is exactly the window where a card can
+  # be in the lobby and not yet on the page. It runs from the default branch after this session's
+  # merge, and its evidence commit is `[skip ci]` and path-limited above, so it cannot re-trigger.
+  schedule:
+    - cron: '37 */4 * * *'
   workflow_dispatch:
 permissions:
   contents: write
@@ -99,10 +106,18 @@ jobs:
                         'No probability was produced by this run.', '']
           summary.write_text('\n'.join(lines))
           PY
-      - name: Commit the dated evidence to this session branch
+      - name: Commit the dated evidence to the branch this run started from
         if: always()
         run: |
           set -euo pipefail
+          # A scheduled run starts from the default branch (`main` after this session's merge), a
+          # push run from the session branch. Neither is refs/pull/*, because the triggers are
+          # push/schedule/dispatch only, and the guard keeps a detached ref from being pushed to.
+          case "$GITHUB_REF" in
+            refs/heads/*) ;;
+            *) echo "Not a branch ref ($GITHUB_REF); evidence stays in the run artefacts."; exit 0 ;;
+          esac
+          BRANCH="${GITHUB_REF_NAME}"
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -f data/research/542dfb58
@@ -112,10 +127,10 @@ jobs:
           fi
           git commit -q -m 'research: 542dfb58 live coverage reconciliation and gap-source probe [skip ci]'
           for attempt in 1 2 3 4; do
-            git fetch --quiet origin arena/542dfb58-maltaproj3 || true
-            if git rebase origin/arena/542dfb58-maltaproj3; then
-              if git push --quiet origin HEAD:arena/542dfb58-maltaproj3; then
-                echo "Evidence committed and pushed (attempt $attempt)."
+            git fetch --quiet origin "$BRANCH" || true
+            if git rebase "origin/$BRANCH"; then
+              if git push --quiet origin "HEAD:$BRANCH"; then
+                echo "Evidence committed and pushed to $BRANCH (attempt $attempt)."
                 exit 0
               fi
             else

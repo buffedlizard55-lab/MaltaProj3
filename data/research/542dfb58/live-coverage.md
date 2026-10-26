@@ -1,9 +1,9 @@
 # Live lobby vs deployed coverage — 542dfb58
 
-Observed 2026-10-26T01:27:03Z on the GitHub Actions runner. Dated observation only: no probability, pick or alias is written here.
+Observed 2026-10-26T02:34:40Z on the GitHub Actions runner. Dated observation only: no probability, pick or alias is written here.
 
 - Hotspawn fixture-API records: **81**; open CS2 fixtures: **19**; rendered-lobby crosscheck: **complete**
-- Deployed snapshot `generated_at`: **2026-10-26T01:04:20Z**
+- Deployed snapshot `generated_at`: **2026-10-26T01:33:57Z**
 - Active fixtures with a published pick: **19 of 19**
 - Unpicked: **none**
 - Present in the live lobby but in neither deployed layer: **none**
