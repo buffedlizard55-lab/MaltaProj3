@@ -23,7 +23,7 @@ still runs only through `pages.yml`.
 | 24E-3 Line-by-line verification of every published pick against the captured official payloads **and** a live re-read of the primary source | **done — 19/19 active rows replay exactly; 4 first-hand source re-reads, all matching** | arena-24e4d653 | `scripts/24e4d653_verify.py`, `tests/test_24e4d653_verify.py`, `data/research/24e4d653/pick-verification.{json,md}` |
 | 24E-4 Executive summary: in-site links to the picks, the separate unresolved/limitations register with a per-fixture limitation and source, both probabilities and an obvious pick per row, and a real phone path | **done — 9/9 contract checks pass on the 19-row build by automation, not by eye** | arena-24e4d653 | same as 24E-3 |
 | 24E-5 The structural gap this session measured: a four-hour publisher is blind to cards Hotspawn lists between publishes, and `freshness-watchdog.yml` keys on snapshot age only, so a two-hour-old snapshot with nine holes looks fresh | **done — `scripts/24e4d653_coverage_watch.py` (pure `decide()`, 21 tests) dispatches `pages.yml` on an id-set diff, and `.github/workflows/coverage-watchdog.yml` runs it at `13,43 * * * *`, silent while any publish is queued or running** | arena-24e4d653 | new `scripts/24e4d653_coverage_watch.py`, new `tests/test_24e4d653_coverage_watch.py`, new `.github/workflows/coverage-watchdog.yml` |
-| 24E-6 PR to `main`, merge without waiting, confirm the publisher and the Pages deploy, record ids here | in progress | arena-24e4d653 | this section, PR |
+| 24E-6 PR to `main`, merge without waiting, confirm the publisher and the Pages deploy, record ids here | **done — [PR #367](https://github.com/buffedlizard55-lab/MaltaProj3/pull/367) merged at 2026-10-26T02:44:19Z as `690856c`; checks green (`Rows, build, links, mobile and accessibility`, `originate`); publisher run `40260573804` succeeded at 03:19Z and the live snapshot `2026-10-26T03:14:52Z` serves 81 inventory records / 17 upcoming with `coverage_complete: true` and `inventory_crosscheck: complete`** | arena-24e4d653 | this section, PR |
 | 24E-7 Cross-session finding: the first pull-request run (`40254426815`) was red on `test_no_hard_check_fails` | **done — not this session's defect, and no longer a defect at all.** It reproduced with this session's research directory moved aside, i.e. it was already on `main`: fixture `1093218` renders the originated consensus line while the snapshot's featured `analysis` still records the model line. `main` now reconciles the two layers for a row marked `upgraded_from_featured_model`; this session wrote an equivalent patch, then **dropped it** rather than duplicate `main`'s mechanism, and kept four tests that pin the invariant | arena-24e4d653 | `tests/test_24e4d653_verify.py` (4 tests) |
 
 **Non-overlap pledge.** This session adds only its own new files plus this board section. It does
@@ -126,6 +126,23 @@ carry the same reconciliation under `upgraded_from_featured_model`, so the patch
 than duplicated: one mechanism is better than two. What remains from this session is the invariant,
 pinned in four tests — the shipped build clears, a tampered origination pair fails, and a dropped
 upgrade marker fails.
+
+## 24E merge record
+
+* PR: <https://github.com/buffedlizard55-lab/MaltaProj3/pull/367> — merged **2026-10-26T02:44:19Z**, merge commit
+  `690856c05a488bd72147bc5cbcf68f4af3307942`.
+* Required checks on the head commit: `Rows, build, links, mobile and accessibility` **success** (run
+  `40258102601`, 26m), `originate` **success**. The first attempt (run `40254426815`) failed on
+  `test_no_hard_check_fails`, which was a pre-existing `main` condition, not this session's files — see 24E-7.
+* Publisher: run <https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40260573804> **success** at
+  2026-10-26T03:19Z. Pages now serves snapshot `2026-10-26T03:14:52Z`: 81 inventory records, 17 upcoming,
+  `coverage_complete: true`, `inventory_crosscheck: complete`, run status `partial-picks` (15 featured picks,
+  2 featured-line gaps that the origination layer prices).
+* Landed on `main`: `.github/workflows/coverage-watchdog.yml` (blob `42b0a6ab`), `scripts/24e4d653_coverage_watch.py`,
+  `scripts/24e4d653_verify.py`, both test modules, and `data/research/24e4d653/` (live-coverage and
+  pick-verification, JSON + Markdown).
+* Rebased twice (onto `bcfdcdaa`, then `2bfff7f`, then `880bcf8`) because other sessions merged in between; the
+  commits carry only this session's files, so no generated HTML, snapshot or other session's record was touched.
 
 ## 24E change requests logged for other scopes
 
