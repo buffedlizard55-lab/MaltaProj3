@@ -75,6 +75,11 @@ POLY_EVENTS = ('https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=fals
 THUNDERPICK_API = 'https://thunderpick.io/api/matches'
 BO3_MATCHES = 'https://bo3.gg/matches'
 EGW_MATCHES = 'https://egamersworld.com/counterstrike/matches'
+POLICY = ('Read-only audit. No probability, pick or alias is written here; scripts/originate.py '
+          'remains the only path to a published number. A refused source is a limitation of this '
+          'runner, never proof that a market does not exist. Hotspawn "% picked" and HLTV fan votes '
+          'are never read as inputs.')
+
 HEADERS = {
     'User-Agent': ('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) '
                    'Chrome/128.0 Safari/537.36'),
@@ -143,6 +148,18 @@ def lobby_ids(html: str | None) -> list:
     if not html:
         return []
     return re.findall(r'/matches/[a-z0-9\-]+-(\d{4,})', html)
+
+
+def lobby_links(html: str | None) -> dict:
+    """Fixture ID -> official Hotspawn permalink, from the rendered lobby."""
+    if not html:
+        return {}
+    links = {}
+    for url in re.findall(r'https://www\.hotspawn\.com/matches/[^"\'<> ]+', html):
+        match = re.search(r'-(\d{4,})$', url)
+        if match:
+            links[match.group(1)] = url
+    return links
 
 
 def fixture_record(row: dict) -> dict:
@@ -289,17 +306,17 @@ def audit(data_dir: Path, out_dir: Path, *, live: bool = True, timeout: int = 25
         if summary['pick'] is None:
             summary['independent_sources'] = {
                 'hltv_matches_answered': bool(hltv_text) and records['hltv_matches']['ok'],
-                'hltv_lists_team_0': name_in(one, hltv_text),
-                'hltv_lists_team_1': name_in(two, hltv_text),
+                'hltv_page_mentions_team_0': name_in(one, hltv_text),
+                'hltv_page_mentions_team_1': name_in(two, hltv_text),
                 'hltv_ranking_answered': bool(hltv_ranking_text) and records['hltv_ranking']['ok'],
-                'polymarket_lists_team_0': name_in(one, poly_text),
-                'polymarket_lists_team_1': name_in(two, poly_text),
+                'polymarket_index_mentions_team_0': name_in(one, poly_text),
+                'polymarket_index_mentions_team_1': name_in(two, poly_text),
                 'thunderpick_answered': records['thunderpick']['ok'],
-                'thunderpick_lists_team_0': name_in(one, thunder_text),
-                'thunderpick_lists_team_1': name_in(two, thunder_text),
+                'thunderpick_feed_mentions_team_0': name_in(one, thunder_text),
+                'thunderpick_feed_mentions_team_1': name_in(two, thunder_text),
                 'bo3_answered': records['bo3']['ok'],
-                'bo3_lists_team_0': name_in(one, bo3_text),
-                'bo3_lists_team_1': name_in(two, bo3_text),
+                'bo3_listing_mentions_team_0': name_in(one, bo3_text),
+                'bo3_listing_mentions_team_1': name_in(two, bo3_text),
                 'egamersworld_answered': records['egamersworld']['ok'],
             }
         fixtures.append({
@@ -333,10 +350,7 @@ def audit(data_dir: Path, out_dir: Path, *, live: bool = True, timeout: int = 25
     report = {
         'session': 'arena-500519ba',
         'observed_at': observed_at,
-        'policy': ('Read-only audit. No probability, pick or alias is written here; scripts/originate.py '
-                   'remains the only path to a published number. A refused source is a limitation of this '
-                   'runner, never proof that a market does not exist. Hotspawn "% picked" and HLTV fan votes '
-                   'are never read as inputs.'),
+        'policy': POLICY,
         'sources': source_availability(records),
         'counts': counts,
         'fixtures': fixtures,
@@ -360,11 +374,95 @@ def audit(data_dir: Path, out_dir: Path, *, live: bool = True, timeout: int = 25
         'api_ids_not_linked_by_lobby': sorted(set(str(r['id']) for r in chosen) - set(lobby_page_ids))[:20],
     }
 
+    links = lobby_links(payloads.get('lobby') if isinstance(payloads.get('lobby'), str) else None)
+    record = live_coverage_record(report, links, fresh_orig_by_id, fresh_snap_by_id)
+    report['live_coverage_record'] = {
+        'path': 'data/research/500519ba/live-coverage.json',
+        'fixtures': len(record['live_fixtures']),
+        'missing_from_build': record['counts']['missing_from_build'],
+    }
+
     out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / 'live-coverage.json').write_text(json.dumps(record, ensure_ascii=False, indent=2) + '\n')
+    (out_dir / 'live-coverage.md').write_text(render_live_coverage(record))
     (out_dir / 'coverage.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
     (out_dir / 'coverage.md').write_text(render_markdown(report))
     (out_dir / 'summary.txt').write_text(render_summary(report))
     return report
+
+
+def live_coverage_record(report: dict, links: dict, fresh_orig: dict, fresh_snap: dict) -> dict:
+    """The dated lobby-vs-this-build record the executive summary already renders.
+
+    Schema-compatible with `data/research/<session>/live-coverage.json` as read by
+    `scripts/build.py::load_live_coverage` / `live_coverage_gaps`.  A fixture this
+    run did not collect is published as a named, linked gap with the observation
+    time — never as a probability.  `in_published_snapshot` means *this build's*
+    complete list carries the row, so `live_coverage_gaps` skips it.
+    """
+    fixtures = []
+    for fixture in report['fixtures']:
+        fixture_id = fixture['id']
+        carried = fixture_id in fresh_orig or fixture_id in fresh_snap
+        if fixture['fresh_ladder'].get('pick'):
+            note = ('In this build with a pick (' + str(fixture['fresh_ladder'].get('label') or
+                                                         fixture['fresh_ladder'].get('method')) + ').')
+        elif carried:
+            note = ('In this build, but the ladder published no pick: see the unresolved register '
+                    'for the blocker and the sources actually tried.')
+        else:
+            note = ('Open on Hotspawn at this observation but not in this build: it was scheduled after '
+                    'the collect that produced this snapshot. No probability is invented here; the next '
+                    'four-hour collect is the authority.')
+        fixtures.append({
+            'id': fixture_id,
+            'teams': fixture['teams'],
+            'competition': fixture['competition'],
+            'starts_at': fixture['starts_at'],
+            'hotspawn_url': links.get(fixture_id),
+            'hltv_url': None,
+            'in_published_snapshot': carried,
+            'in_featured_resolved': bool(fixture['fresh_ladder'].get('pick')),
+            'published_method': fixture['fresh_ladder'].get('label'),
+            'note': note,
+        })
+    missing = [f for f in fixtures if not f['in_published_snapshot']]
+    return {
+        'schema_version': 1,
+        'session': report['session'],
+        'observed_at': report['observed_at'],
+        'environment': 'github-actions-runner',
+        'role': ('Dated comparison of the live Hotspawn CS2 lobby with the build this run produced. '
+                 'Evidence only: no probability, pick or alias.'),
+        'source_urls': [LOBBY, CS2_LOBBY, FIXTURES_API],
+        'counts': {
+            'live_fixtures': len(fixtures),
+            'carried_in_build': len(fixtures) - len(missing),
+            'missing_from_build': len(missing),
+            'picked_in_build': sum(1 for f in fixtures if f['in_featured_resolved']),
+        },
+        'live_fixtures': fixtures,
+    }
+
+
+def render_live_coverage(record: dict) -> str:
+    lines = [
+        '# Live Hotspawn CS2 lobby vs this build — session arena-500519ba',
+        '',
+        f"Observed **{record['observed_at']}** (UTC) on a GitHub Actions runner.",
+        '',
+        record['role'],
+        '',
+        '| Fixture | Teams | Starts (UTC) | In this build | Pick | Note |',
+        '| --- | --- | --- | --- | --- | --- |',
+    ]
+    for fixture in record['live_fixtures']:
+        name = ' vs '.join(t or '?' for t in fixture['teams'])
+        label = f"[{name}]({fixture['hotspawn_url']})" if fixture.get('hotspawn_url') else name
+        lines.append(f"| {fixture['id']} | {label} | {fixture['starts_at']} | "
+                     f"{'yes' if fixture['in_published_snapshot'] else '**no**'} | "
+                     f"{'yes' if fixture['in_featured_resolved'] else 'no'} | {fixture['note']} |")
+    return '\n'.join(lines) + '\n'
 
 
 def render_summary(report: dict) -> str:
@@ -443,7 +541,10 @@ def render_markdown(report: dict) -> str:
     for item in report['unpicked']:
         lines += [f"### {item['id']} — {' vs '.join(t or '?' for t in item['teams'])}", '',
                   f"*{item['competition']} · {item['starts_at']} · tier {item['tier']}*", '',
-                  'Trail:', '']
+                  'Limitations:', '']
+        for limitation in item['limitations']:
+            lines.append(f'- {limitation}')
+        lines += ['', 'Trail:', '']
         for stage in item['trail']:
             lines.append(f"- **{stage.get('stage')}** — {stage.get('status')}: {stage.get('detail')} "
                          f"({stage.get('source_url')})")
