@@ -1,0 +1,111 @@
+name: 500519ba live coverage audit
+
+# Session arena-500519ba. The authoring sandbox has no route to play.hotspawn.com,
+# hltv.org, the exchanges/books or the published Pages site (every request dies
+# with SSL_ERROR_SYSCALL before a status line, and the Actions log/artifact hosts
+# are not reachable either), so "does every open Hotspawn CS2 fixture carry a
+# pick, and which fixtures is the deployed page missing" can only be answered with
+# first-hand bytes on a runner — and the answer has to come back through git or a
+# check annotation rather than the job log.
+#
+# This workflow writes evidence only. It runs the publisher's own two stages
+# (`scripts.collect` then `scripts.originate --live`) so the audit describes the
+# ladder that actually publishes, then measures the result against the live
+# inventory and the deployed snapshot. No probability, pick or alias is produced
+# here, and only `data/research/500519ba/` is committed (with `[skip ci]`), so the
+# branch's `Validate dashboard` queue is never consumed by the audit.
+on:
+  push:
+    branches: ['arena/500519ba-maltaproj3']
+    paths:
+      - '.github/workflows/500519ba-audit.yml'
+      - 'scripts/500519ba_audit.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: 500519ba-audit-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  audit:
+    if: startsWith(github.ref_name, 'arena/500519ba')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      # Full history: the evidence commit rebases onto the branch tip, and a
+      # shallow clone makes that rebase fail (observed on this workflow's first
+      # run, which could not be diagnosed from the log host).
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Refresh every Hotspawn CS2 record and the featured external lines
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect
+      - name: Research only the fixtures the featured path left blank
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live
+      - name: Measure live inventory vs fresh ladder vs deployed snapshot
+        run: python -m scripts.500519ba_audit
+      - name: Build the site from this run's data (renders this run's coverage record)
+        run: python -m scripts.build
+      - name: Show the dossier in the log and as a check annotation
+        if: always()
+        run: |
+          if [ -f data/research/500519ba/summary.txt ]; then
+            cat data/research/500519ba/summary.txt
+            summary=$(python - <<'PY'
+          from pathlib import Path
+          text = Path('data/research/500519ba/summary.txt').read_text()
+          print(text.replace('%', '%25').replace('\r', '').replace('\n', '%0A')[:60000])
+          PY
+            )
+            echo "::notice title=500519ba coverage::$summary"
+          else
+            echo '::warning title=500519ba coverage::no dossier written'
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: 500519ba-coverage
+          path: data/research/500519ba/
+          if-no-files-found: warn
+      - name: Commit the evidence
+        if: always()
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/500519ba
+          if git diff --cached --quiet; then
+            echo 'no evidence change'
+            exit 0
+          fi
+          git commit -m 'evidence: 500519ba live coverage audit [skip ci]'
+          # `scripts.collect` and `scripts.originate` leave the live snapshot,
+          # the origination output and the refreshed evidence files modified in
+          # the working tree. They are deliberately NOT committed here (the
+          # publisher owns them), but an unstaged change makes `git rebase`
+          # refuse to run — which is exactly how this workflow's first two runs
+          # failed to save the dossier. Reset the tree to the commit just made.
+          git reset --hard HEAD
+          for attempt in 1 2 3; do
+            if git fetch origin arena/500519ba-maltaproj3 \
+               && git rebase origin/arena/500519ba-maltaproj3 \
+               && git push origin HEAD:arena/500519ba-maltaproj3 2>&1 | tail -5; then
+              echo "evidence pushed on attempt ${attempt}"
+              exit 0
+            fi
+            git rebase --abort || true
+            echo "attempt ${attempt} failed" >&2
+            sleep 5
+          done
+          detail=$(git push origin HEAD:arena/500519ba-maltaproj3 2>&1 | tail -3 | tr '\n' ' ' || true)
+          echo "::error title=500519ba evidence::could not push the evidence commit: ${detail}"
+          exit 1

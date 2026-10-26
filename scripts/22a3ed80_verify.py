@@ -118,6 +118,21 @@ def verify(site: Path) -> dict:
           f'page={stamped.group(1) if stamped else "unset"} snapshot={generated}')
 
     upcoming = [m for m in snapshot.get('matches') or [] if m.get('availability') != 'past']
+    # The build deliberately lets a money-backed researched estimate replace a
+    # lowest-rung model row (scripts/build.py::selected_fallback). A glance row
+    # that shows that replacement is not a mismatch with the snapshot - but the
+    # number must still be the published one, with the same side, so the replay
+    # below checks it against the complete list instead of trusting the page.
+    complete = {}
+    for candidate in (site / 'origination.json', site / 'data' / 'origination.json'):
+        if not candidate.is_file():
+            continue
+        try:
+            for row in json.loads(candidate.read_text()).get('matches') or []:
+                complete[str(row.get('id'))] = row
+        except (ValueError, AttributeError):
+            continue
+    money_methods = {'market', 'bookmaker', 'consensus', 'reference'}
     rows = _glance_rows(html)
     by_id = {row['id']: row for row in rows}
 
@@ -127,7 +142,7 @@ def verify(site: Path) -> dict:
           f'missing={sorted({str(m.get("id")) for m in upcoming} - set(by_id))[:5]} '
           f'extra={sorted(set(by_id) - {str(m.get("id")) for m in upcoming})[:5]}')
 
-    featured = fallback = unresolved = 0
+    featured = fallback = unresolved = upgraded = 0
     problems = []
     for match in upcoming:
         identifier = str(match.get('id'))
@@ -138,12 +153,6 @@ def verify(site: Path) -> dict:
         analysis = match.get('analysis') or {}
         probs = analysis.get('probabilities') or []
         pick_index = match.get('pick_index')
-        orig_row = orig_by_id.get(identifier) or {}
-        orig_block = orig_row.get('origination') or {}
-        if orig_row.get('upgraded_from_featured_model') and orig_block.get('probabilities'):
-            analysis = orig_block
-            probs = orig_block.get('probabilities') or []
-            pick_index = orig_row.get('pick_index')
         record = {
             'id': identifier,
             'teams': teams,
@@ -165,11 +174,34 @@ def verify(site: Path) -> dict:
             ok = (row['pick'] == expected_pick
                   and row['prob'] == expected
                   and row['other'] == expected_other)
-            if not ok:
+            published = complete.get(identifier) or {}
+            published_origination = published.get('origination') or {}
+            published_probs = published_origination.get('probabilities') or []
+            published_pick = published.get('pick_index')
+            replaced = bool(
+                published.get('upgraded_from_featured_model')
+                and published_origination.get('method') in money_methods
+                and len(published_probs) == 2 and published_pick is not None
+                and published_pick < len(teams)
+                and teams[published_pick] == row['pick']
+                and round(published_probs[published_pick] * 100, 1) == row['prob']
+                and round((1 - published_probs[published_pick]) * 100, 1) == row['other'])
+            if not ok and replaced:
+                # Documented and labelled: the row shows the published money-backed
+                # estimate (scripts/build.py::selected_fallback), so the number is
+                # re-derived from the complete list's own probabilities instead of
+                # being compared with a model the page intentionally superseded.
+                upgraded += 1
+                record['verification'] = ('labelled money-backed replacement of a research model '
+                                          '(re-derived from the published origination row)')
+                record['displayed_method'] = published_origination.get('method')
+                record['note'] = (f'featured {analysis.get("method")} {expected}% superseded by '
+                                  f'{published_origination.get("method")} {row["prob"]}%')
+            elif not ok:
                 problems.append(
                     f'{identifier}: rendered {row["pick"]} {row["prob"]}%/{row["other"]}% but the '
                     f'fixture\'s own analysis gives {expected_pick} {expected}%/{expected_other}%')
-            record['verification'] = 're-derived from the fixture analysis block'
+            record['verification'] = record['verification'] or 're-derived from the fixture analysis block'
         elif row['prob'] is None:
             # An explicitly unresolved row is a published limitation, not a
             # defect: the brief allows a blank only when the reason is stated.
@@ -197,7 +229,9 @@ def verify(site: Path) -> dict:
     check('every_row_is_sourced', not any('no https source link' in p for p in problems),
           f'{sum(1 for r in result["rows"] if r["source_links"])} of {len(result["rows"])} rows link a source')
     check('featured_rows_replay_exactly', not any('analysis gives' in p for p in problems),
-          f'{featured} featured rows re-derived from their own analysis block')
+          f'{featured} featured rows re-derived from their own analysis block'
+          + (f'; {upgraded} of them display the published money-backed replacement of a research model'
+             if upgraded else ''))
     check('fallback_rows_are_labelled_and_priced', not any('fallback row' in p for p in problems),
           f'{fallback} fallback rows carry a label and a probability')
     check('unresolved_rows_state_their_reason',
