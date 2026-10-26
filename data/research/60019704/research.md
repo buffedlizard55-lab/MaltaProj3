@@ -102,3 +102,23 @@ standings file was fetched in full and hashed); Polymarket series books were rea
 1079203 and 1082792 only; the HLTV ranking edition is 2026-10-19 (the 10-26 edition was not yet
 published); Thunderpick could not be queried directly (POST-only). Crowd figures are recorded for
 completeness and are **not** probabilities.
+
+## Outcome (dated addendum, recorded 2026-10-26T01:40Z)
+
+While this dossier was being written up, the four-hour publisher re-collected: the deployed
+snapshot moved from the reviewed 2026-10-25T23:03:48Z build (10 open, 9 picks, 1 unresolved) to
+**2026-10-26T01:33:57Z** (inventory 81, **19 open, 17 picks, 2 unresolved**). The outcome matches
+this dossier's predictions exactly:
+
+- Six fixtures picked up **Valve model picks**: 1079201, 1081160, 1093218, 1081162, 1081163, 1081164.
+- Two were priced by the **bookmaker rung** (lines that did not exist at the 00:51–01:05Z read
+  window): 1079202 FOKUS–ex-Zero Tenacity 0.682/0.318 and 1079203 Metizport–BRUTE 0.615/0.385
+  (compare the Polymarket series book read at 00:57Z: 0.595/0.405 — same direction).
+- The two hard-blocked fixtures are the only open rows still without picks: **1081159** (LFO 10
+  identity, flag 6001-04) and **1082792** (The Huns Valve double row + the "The Huns Esports"
+  Polymarket name blocker, flags 6001-03/6001-06).
+
+The reviewed 23:03:48Z snapshot is archived verbatim at
+[`snapshot-2026-10-25T23-03-48Z.json`](snapshot-2026-10-25T23-03-48Z.json) so every dated claim
+above stays reproducible; `scripts/60019704_verify.py` replays it (197 checks) and the live build
+(339 checks on 01:33:57Z) with the same snapshot-independent rules.

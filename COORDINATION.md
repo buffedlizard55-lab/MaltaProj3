@@ -464,7 +464,43 @@ hand-written; Hotspawn "% picked" and HLTV fan votes are never treated as probab
 | 60A-1 First-hand research dossier for every open Hotspawn CS2 fixture without a published pick — the deployed unresolved `1082792` plus each new lobby fixture — HLTV first (ranking, team pages), then esportsbooks/exchanges (Polymarket, Thunderpick, Smarkets, bo3.gg, EGamersWorld, Bovada…), each observation archived with dated URL, UTC time and SHA-256; publish either a sourced direction trail or the explicit per-source limitation | **done — 10/10 fixtures, 6 flags, `research.json`+`research.md`** | arena-60019704 | new `data/research/60019704/**` only |
 | 60A-2 Independent line-by-line replay of the deployed build: every active row's two probabilities recomputed from the inputs the row publishes, every pick re-derived, the unresolved row's stated reason checked against the primary source (Valve standings read live over `api.github.com`) | **done — 219 checks / 0 errors on the 23:03:48Z build (archived at `data/research/60019704/snapshot-2026-10-25T23-03-48Z.json`); checker is snapshot-independent so later publishes replay too; 18 tests** | arena-60019704 | new `scripts/60019704_verify.py`, new `tests/test_60019704_verification.py` |
 | 60A-3 Publish findings and irregularities on the Flagged for Review page | **done — 8 items `60A-01`..`60A-08`** | arena-60019704 | `scripts/review_register.py` (`REGISTERS` entry only), new `data/research/60019704/repo-review.json` |
-| 60A-4 Local gates, PR to `main`, merge without waiting, confirm the Pages deploy, record PR/run links here | in progress — PR [#369](https://github.com/buffedlizard55-lab/MaltaProj3/pull/369); local gates green (1941 unit tests, build, strict row audit) | arena-60019704 | this section, PR |
+| 60A-4 Local gates, PR to `main`, merge without waiting, confirm the Pages deploy, record PR/run links here | in progress — PR [#369](https://github.com/buffedlizard55-lab/MaltaProj3/pull/369); local gates: 2013 unit tests (1 pre-existing main failure, see 60A-09 below — not this branch's diff; reproduced on pristine `origin/main`), build green (873 links, acceptance 9 pass/1 info/0 fail), strict row audit 0 violations | arena-60019704 | this section, PR |
+
+**Findings (full dossier: `data/research/60019704/research.json` + `research.md`; register: `repo-review.json`, items 60A-01..60A-09).**
+Read window 2026-10-26T00:51–01:05Z, every observation URL+UTC-time stamped, first-hand via the
+Arena fetcher / `api.github.com`; the reviewed 23:03:48Z snapshot is archived verbatim at
+`data/research/60019704/snapshot-2026-10-25T23-03-48Z.json` so the dated replay stays reproducible.
+
+- **1082792 HOTU vs The Huns** (the deployed build's one unresolved row): the Polymarket series
+  book tightened to bid 0.82 / ask 0.92 (spread 0.10, midpoints 0.87/0.13 — inside the 0.15
+  ceiling; arena-27ac20d6 recorded 43 cents at 14:40Z on 10-25). Start times agree exactly on
+  Hotspawn/Polymarket/HLTV (2026-10-31T09:00:00Z). The only strict-join blocker is the outcome
+  name "The Huns Esports": `scripts/collect.py`'s market path matches raw outcome names and does
+  **not** consult the alias registry, even though a reviewed alias "The Huns Esports" → "The Huns"
+  scoped to Moscow Cyber Games 2026 already exists (`data/origination/aliases.json`,
+  arena-dd433e7f). Valve side: The Huns has two complete five-player rows (#122 944 / #213 701);
+  the current HLTV roster shares 4/5 players with #122. HLTV #38 vs #134, VRS mirror 38 vs 123.
+- **1079203 Metizport vs BRUTE**: tightest book of the ten (Polymarket series bid 0.59/ask 0.60)
+  but unreachable — 3h start-time conflict (Hotspawn+HLTV 15:00Z vs Polymarket/bo3.gg 12:00Z) and
+  BRUTE's double Valve row (#75 1116 / #218 689; HLTV lineup 4/5 with #75). HLTV #59 vs #109.
+- **Start-time conflicts** on NODWIN QF2/QF3/QF4 (Hotspawn vs Polymarket/bo3.gg by 3–6h); QF1
+  agrees at 09:00Z. QF1 also blocked by outcome name "Team Nemesis", QF3 by "UNiTY esports".
+- **1081159 LFO 10 vs ex-6666**: identity-blocked on every origin but HLTV (no Valve row — only
+  LFO 7/8/9; no bo3.gg team — bo3.gg lists Sökerorg vs ex-6666 in that slot; no book). HLTV match
+  2399509; LFO 10 #167 / ex-6666 #72 (VRS mirror 157/118 — Valve's next file is expected to
+  unblock the model rung).
+- **Valve's newest file is still 2026-10-05** (41 files, read 00:54Z); 7 of the 10 researched
+  fixtures are model-priceable on entry; **no esportsbook prices any of the ten** at read time.
+- **Outcome validation:** the 01:33:57Z publisher run landed while this session wrote up — 19
+  open / 17 picks / 2 unresolved, exactly the predicted split (six model picks; 1079202 + 1079203
+  priced by the bookmaker rung at 0.682/0.318 and 0.615/0.385; 1081159 + 1082792 the only
+  pick-less rows).
+- **60A-09 (flagged, needs review, owner: arena-f644ed1b / PR #372):** `tests/test_22a3ed80_verification.py`
+  fails on pristine `origin/main` at `90483962`: the landing page renders 1093218 as
+  "Nuclear TigeRES 58.3% / UNiTY 41.7% — Researched Consensus, median of 2 books" while the same
+  tree's `snapshot.json` featured analysis is the Valve model [0.70665667, 0.29334333]. A
+  consensus-layer vs featured-layer disagreement in the 01:33:57Z publish; not touched by this
+  session (build/consensus files are outside its pledged scope).
 
 **Non-overlap pledge.** This session never edits `scripts/build.py`, `scripts/collect.py`,
 `scripts/originate.py`, `scripts/reference_odds.py`, `scripts/root_publish.py`,
