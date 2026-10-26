@@ -1,0 +1,325 @@
+{
+  "schema_version": 1,
+  "session": "arena-deea3ec4",
+  "observed_at": "2026-10-26T00:44:45Z",
+  "observer": "arena sandbox page-fetch path (rendered play.hotspawn.com/lobby, the Hotspawn scheduled-fixture API and hltv.org/matches), not a GitHub runner. Byte-level SHA-256 of each response is therefore not recorded; the URLs and the observation time are.",
+  "role": "Dated inventory, identity and coverage reconciliation only. Nothing in this file is a probability, a price or a pick, and it is never written into the priced ladder.",
+  "published_site": {
+    "snapshot_url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+    "generated_at": "2026-10-25T23:03:48Z",
+    "inventory_observed_at": "2026-10-25T23:03:30Z",
+    "counts": {},
+    "role": "The snapshot this record compares against: it is the build deployed at 2026-10-25T23:03:48Z and the branch-root copy at commit cfd58e1."
+  },
+  "hotspawn": {
+    "lobby_url": "https://play.hotspawn.com/lobby",
+    "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "note": "The lobby rendered 19 open CS2 cards at 2026-10-26T00:44Z (Closing Soon and Upcoming), and the scheduled-fixture API carried the same 19 ids plus past-start rows that Hotspawn still reports with status 'scheduled'. Card times on the lobby render in US Eastern (UTC-4 at this date); the API's epoch milliseconds are the authority used for starts_at_utc here. Hotspawn's '% picked' crowd share, offered points and leaderboard are not probabilities and are not used anywhere."
+  },
+  "counts": {
+    "live_future_fixtures": 19,
+    "in_published_snapshot_at_observation": 10,
+    "missing_from_published_at_observation": 9,
+    "hltv_match_pages_located": 17
+  },
+  "live_fixtures": [
+    {
+      "id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at_utc": "2026-10-26T03:00:00Z",
+      "locks_at_utc": "2026-10-26T02:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026",
+      "in_published_snapshot": true,
+      "note": "In the published 2026-10-25T23:03:48Z snapshot. Re-checked at 2026-10-26T00:44Z: the fixture id, both team names, the tournament and the UTC start still agree with the live Hotspawn scheduled-fixture API. The pick and its probabilities belong to the publisher's priced snapshot, not to this record.",
+      "hltv_url": "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026"
+    },
+    {
+      "id": "1082859",
+      "teams": [
+        "NEXVOID",
+        "Alter Ego"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at_utc": "2026-10-26T03:00:00Z",
+      "locks_at_utc": "2026-10-26T02:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/nexvoid-vs-alter-ego-dfrag-invitational-2026",
+      "in_published_snapshot": true,
+      "note": "In the published 2026-10-25T23:03:48Z snapshot. Re-checked at 2026-10-26T00:44Z: the fixture id, both team names, the tournament and the UTC start still agree with the live Hotspawn scheduled-fixture API. The pick and its probabilities belong to the publisher's priced snapshot, not to this record.",
+      "hltv_url": "https://www.hltv.org/matches/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026"
+    },
+    {
+      "id": "1079201",
+      "teams": [
+        "INOX Division",
+        "Nemesis"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at_utc": "2026-10-26T09:00:00Z",
+      "locks_at_utc": "2026-10-26T08:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/inox-division-vs-nemesis-nodwin-clutch-series-13",
+      "in_published_snapshot": false,
+      "note": "Absent from the deployed 2026-10-25T23:03:48Z snapshot. Observed live on the Hotspawn lobby card list and in the scheduled-fixture API at 2026-10-26T00:44Z, so the next four-hour collect is what publishes its pick. This record writes no probability and no pick for it.",
+      "hltv_url": "https://www.hltv.org/matches/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13",
+      "identity_note": "HLTV lists the sides in the reverse order (Nemesis first)."
+    },
+    {
+      "id": "1081159",
+      "teams": [
+        "LFO 10",
+        "ex-6666"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at_utc": "2026-10-26T12:00:00Z",
+      "locks_at_utc": "2026-10-26T11:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/lfo-10-vs-ex-6666-cct-europe-2026-series-12",
+      "in_published_snapshot": false,
+      "note": "Absent from the deployed 2026-10-25T23:03:48Z snapshot. Observed live on the Hotspawn lobby card list and in the scheduled-fixture API at 2026-10-26T00:44Z, so the next four-hour collect is what publishes its pick. This record writes no probability and no pick for it.",
+      "hltv_url": "https://www.hltv.org/matches/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12"
+    },
+    {
+      "id": "1079202",
+      "teams": [
+        "FOKUS",
+        "ex-Zero Tenacity"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at_utc": "2026-10-26T12:00:00Z",
+      "locks_at_utc": "2026-10-26T11:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/fokus-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+      "in_published_snapshot": false,
+      "note": "Absent from the deployed 2026-10-25T23:03:48Z snapshot. Observed live on the Hotspawn lobby card list and in the scheduled-fixture API at 2026-10-26T00:44Z, so the next four-hour collect is what publishes its pick. This record writes no probability and no pick for it.",
+      "hltv_url": "https://www.hltv.org/matches/2399117/fokus-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399117/fokus-vs-ex-zero-tenacity-nodwin-clutch-series-13"
+    },
+    {
+      "id": "1081160",
+      "teams": [
+        "HAVU",
+        "ILLYRIANS"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at_utc": "2026-10-26T15:00:00Z",
+      "locks_at_utc": "2026-10-26T14:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/havu-vs-illyrians-cct-europe-2026-series-12",
+      "in_published_snapshot": false,
+      "note": "Absent from the deployed 2026-10-25T23:03:48Z snapshot. Observed live on the Hotspawn lobby card list and in the scheduled-fixture API at 2026-10-26T00:44Z, so the next four-hour collect is what publishes its pick. This record writes no probability and no pick for it.",
+      "hltv_url": "https://www.hltv.org/matches/2399510/havu-vs-illyrians-cct-2026-europe-series-12",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399510/havu-vs-illyrians-cct-2026-europe-series-12",
+      "identity_note": "HLTV spells the second side 'Illyrians'."
+    },
+    {
+      "id": "1079203",
+      "teams": [
+        "Metizport",
+        "BRUTE"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at_utc": "2026-10-26T15:00:00Z",
+      "locks_at_utc": "2026-10-26T14:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/metizport-vs-brute-nodwin-clutch-series-13",
+      "in_published_snapshot": false,
+      "note": "Absent from the deployed 2026-10-25T23:03:48Z snapshot. Observed live on the Hotspawn lobby card list and in the scheduled-fixture API at 2026-10-26T00:44Z, so the next four-hour collect is what publishes its pick. This record writes no probability and no pick for it.",
+      "hltv_url": "https://www.hltv.org/matches/2399118/metizport-vs-brute-nodwin-clutch-series-13",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399118/metizport-vs-brute-nodwin-clutch-series-13"
+    },
+    {
+      "id": "1093218",
+      "teams": [
+        "Nuclear TigeRES",
+        "UNiTY"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at_utc": "2026-10-26T18:00:00Z",
+      "locks_at_utc": "2026-10-26T17:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-unity-nodwin-clutch-series-13",
+      "in_published_snapshot": false,
+      "note": "Absent from the deployed 2026-10-25T23:03:48Z snapshot. Observed live on the Hotspawn lobby card list and in the scheduled-fixture API at 2026-10-26T00:44Z, so the next four-hour collect is what publishes its pick. This record writes no probability and no pick for it.",
+      "hltv_url": "https://www.hltv.org/matches/2399119/nuclear-tigeres-vs-unity-nodwin-clutch-series-13",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399119/nuclear-tigeres-vs-unity-nodwin-clutch-series-13"
+    },
+    {
+      "id": "1082860",
+      "teams": [
+        "FlyQuest",
+        "Staqued"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at_utc": "2026-10-27T03:00:00Z",
+      "locks_at_utc": "2026-10-27T02:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026",
+      "in_published_snapshot": true,
+      "note": "In the published 2026-10-25T23:03:48Z snapshot. Re-checked at 2026-10-26T00:44Z: the fixture id, both team names, the tournament and the UTC start still agree with the live Hotspawn scheduled-fixture API. The pick and its probabilities belong to the publisher's priced snapshot, not to this record.",
+      "hltv_url": "https://www.hltv.org/matches/2399890/flyquest-vs-staqued-dfrag-invitational-2026",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399890/flyquest-vs-staqued-dfrag-invitational-2026"
+    },
+    {
+      "id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at_utc": "2026-10-27T03:00:00Z",
+      "locks_at_utc": "2026-10-27T02:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026",
+      "in_published_snapshot": true,
+      "note": "In the published 2026-10-25T23:03:48Z snapshot. Re-checked at 2026-10-26T00:44Z: the fixture id, both team names, the tournament and the UTC start still agree with the live Hotspawn scheduled-fixture API. The pick and its probabilities belong to the publisher's priced snapshot, not to this record.",
+      "hltv_url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399891/rooster-vs-abyssal-dfrag-invitational-2026"
+    },
+    {
+      "id": "1082897",
+      "teams": [
+        "B8",
+        "K27"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at_utc": "2026-10-27T08:00:00Z",
+      "locks_at_utc": "2026-10-27T07:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/b8-vs-k27-tesla-cup-2026",
+      "in_published_snapshot": true,
+      "note": "In the published 2026-10-25T23:03:48Z snapshot. Re-checked at 2026-10-26T00:44Z: the fixture id, both team names, the tournament and the UTC start still agree with the live Hotspawn scheduled-fixture API. The pick and its probabilities belong to the publisher's priced snapshot, not to this record.",
+      "hltv_url": "https://www.hltv.org/matches/2399866/b8-vs-k27-rlg-tesla-cup-2026",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399866/b8-vs-k27-rlg-tesla-cup-2026"
+    },
+    {
+      "id": "1082898",
+      "teams": [
+        "Alliance",
+        "FaZe"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at_utc": "2026-10-27T11:00:00Z",
+      "locks_at_utc": "2026-10-27T10:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/alliance-vs-faze-tesla-cup-2026",
+      "in_published_snapshot": true,
+      "note": "In the published 2026-10-25T23:03:48Z snapshot. Re-checked at 2026-10-26T00:44Z: the fixture id, both team names, the tournament and the UTC start still agree with the live Hotspawn scheduled-fixture API. The pick and its probabilities belong to the publisher's priced snapshot, not to this record.",
+      "hltv_url": "https://www.hltv.org/matches/2399867/alliance-vs-faze-rlg-tesla-cup-2026",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399867/alliance-vs-faze-rlg-tesla-cup-2026"
+    },
+    {
+      "id": "1081162",
+      "teams": [
+        "ex-RUSTEC",
+        "Spirit Academy"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at_utc": "2026-10-27T12:00:00Z",
+      "locks_at_utc": "2026-10-27T11:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ex-rustec-vs-spirit-academy-cct-europe-2026-series-12",
+      "in_published_snapshot": false,
+      "note": "Absent from the deployed 2026-10-25T23:03:48Z snapshot. Observed live on the Hotspawn lobby card list and in the scheduled-fixture API at 2026-10-26T00:44Z, so the next four-hour collect is what publishes its pick. This record writes no probability and no pick for it.",
+      "hltv_url": "https://www.hltv.org/matches/2399512/ex-rustec-vs-spirit-academy-cct-2026-europe-series-12",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399512/ex-rustec-vs-spirit-academy-cct-2026-europe-series-12"
+    },
+    {
+      "id": "1081163",
+      "teams": [
+        "BakS",
+        "Saint Sinners"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at_utc": "2026-10-27T15:00:00Z",
+      "locks_at_utc": "2026-10-27T14:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/baks-vs-saint-sinners-cct-europe-2026-series-12",
+      "in_published_snapshot": false,
+      "note": "Absent from the deployed 2026-10-25T23:03:48Z snapshot. Observed live on the Hotspawn lobby card list and in the scheduled-fixture API at 2026-10-26T00:44Z, so the next four-hour collect is what publishes its pick. This record writes no probability and no pick for it.",
+      "hltv_url": "https://www.hltv.org/matches/2399513/baks-vs-saint-sinners-cct-2026-europe-series-12",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399513/baks-vs-saint-sinners-cct-2026-europe-series-12",
+      "identity_note": "HLTV spells the first side 'BAKS'."
+    },
+    {
+      "id": "1082900",
+      "teams": [
+        "Luminosity",
+        "HOTU"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at_utc": "2026-10-27T17:00:00Z",
+      "locks_at_utc": "2026-10-27T16:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/luminosity-vs-hotu-tesla-cup-2026",
+      "in_published_snapshot": true,
+      "note": "In the published 2026-10-25T23:03:48Z snapshot. Re-checked at 2026-10-26T00:44Z: the fixture id, both team names, the tournament and the UTC start still agree with the live Hotspawn scheduled-fixture API. The pick and its probabilities belong to the publisher's priced snapshot, not to this record.",
+      "hltv_url": "https://www.hltv.org/matches/2399869/luminosity-vs-hotu-rlg-tesla-cup-2026",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399869/luminosity-vs-hotu-rlg-tesla-cup-2026"
+    },
+    {
+      "id": "1081164",
+      "teams": [
+        "Inner Circle Academy",
+        "Lavked"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at_utc": "2026-10-27T18:00:00Z",
+      "locks_at_utc": "2026-10-27T17:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/inner-circle-academy-vs-lavked-cct-europe-2026-series-12",
+      "in_published_snapshot": false,
+      "note": "Absent from the deployed 2026-10-25T23:03:48Z snapshot. Observed live on the Hotspawn lobby card list and in the scheduled-fixture API at 2026-10-26T00:44Z, so the next four-hour collect is what publishes its pick. This record writes no probability and no pick for it.",
+      "hltv_url": "https://www.hltv.org/matches/2399514/inner-circle-academy-vs-lavked-cct-2026-europe-series-12",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399514/inner-circle-academy-vs-lavked-cct-2026-europe-series-12"
+    },
+    {
+      "id": "1082901",
+      "teams": [
+        "Envy",
+        "GamerLegion"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at_utc": "2026-10-27T20:00:00Z",
+      "locks_at_utc": "2026-10-27T19:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/envy-vs-gamerlegion-tesla-cup-2026",
+      "in_published_snapshot": true,
+      "note": "In the published 2026-10-25T23:03:48Z snapshot. Re-checked at 2026-10-26T00:44Z: the fixture id, both team names, the tournament and the UTC start still agree with the live Hotspawn scheduled-fixture API. The pick and its probabilities belong to the publisher's priced snapshot, not to this record.",
+      "hltv_url": "https://www.hltv.org/matches/2399870/envy-vs-gamerlegion-rlg-tesla-cup-2026",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399870/envy-vs-gamerlegion-rlg-tesla-cup-2026"
+    },
+    {
+      "id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at_utc": "2026-10-31T09:00:00Z",
+      "locks_at_utc": "2026-10-31T08:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026",
+      "in_published_snapshot": true,
+      "note": "In the published 2026-10-25T23:03:48Z snapshot. Re-checked at 2026-10-26T00:44Z: the fixture id, both team names, the tournament and the UTC start still agree with the live Hotspawn scheduled-fixture API. The pick and its probabilities belong to the publisher's priced snapshot, not to this record."
+    },
+    {
+      "id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at_utc": "2026-10-31T13:00:00Z",
+      "locks_at_utc": "2026-10-31T12:54:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026",
+      "in_published_snapshot": true,
+      "note": "In the published 2026-10-25T23:03:48Z snapshot. Re-checked at 2026-10-26T00:44Z: the fixture id, both team names, the tournament and the UTC start still agree with the live Hotspawn scheduled-fixture API. The pick and its probabilities belong to the publisher's priced snapshot, not to this record."
+    }
+  ],
+  "limitations": [
+    "This is one dated observation, not a live feed. A card scheduled later than 2026-10-26T00:44Z is not in this list.",
+    "The nine cards absent from the 23:03:48Z snapshot are absent because the deployed build predates them; this record cannot prove the minute they were scheduled on Hotspawn, only that the deployed build does not carry them and the live API does.",
+    "HLTV's per-match odds widget is rendered client-side; the fetched HTML exposes the ranking, form, stand-in, head-to-head and map-pool sections but no bookmaker decimal price. It is used for identity and research only, never as a probability.",
+    "Two Moscow Cyber Games cards (1082792, 1082793) had no HLTV match page located in the fetched upcoming list at this observation; they are left without an HLTV link rather than guessed.",
+    "Hotspawn crowd percentages, offered points and leaderboard positions are excluded from every probability in this project."
+  ],
+  "source_urls": [
+    "https://play.hotspawn.com/lobby",
+    "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "https://www.hltv.org/matches?predefinedFilter=upcoming",
+    "https://www.hltv.org/betting/analytics/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13",
+    "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json"
+  ]
+}

@@ -1,0 +1,377 @@
+{
+ "session": "arena-deea3ec4",
+ "kind": "independent replay of the published build",
+ "verified_at": "2026-10-26T02:12:00Z",
+ "published_build": {
+  "main_commit": "2bfff7f",
+  "snapshot_generated_at": "2026-10-26T01:33:57Z",
+  "origination_generated_at": "2026-10-26T01:34:11Z",
+  "upcoming": 19,
+  "inventory": 81
+ },
+ "inventory": {
+  "record": "data/research/deea3ec4/live-coverage.json",
+  "observed_at": "2026-10-26T00:44:45Z",
+  "live_fixtures": 19
+ },
+ "result": {
+  "active_rows": 19,
+  "errors": [],
+  "warnings": [
+   "1093218: the featured model pair (70.7/29.3) was superseded by consensus (58.3/41.7)"
+  ],
+  "coverage_notes": [],
+  "every_row_has_a_pick": true,
+  "methods": {
+   "bookmaker": 3,
+   "consensus": 1,
+   "market": 7,
+   "model": 8
+  }
+ },
+ "rows": [
+  {
+   "id": "1082858",
+   "teams": [
+    "Ground Zero",
+    "Off Chops"
+   ],
+   "probabilities": [
+    0.205,
+    0.795
+   ],
+   "pick": "Off Chops",
+   "method": "market",
+   "source_url": "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25",
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ]
+  },
+  {
+   "id": "1082859",
+   "teams": [
+    "NEXVOID",
+    "Alter Ego"
+   ],
+   "probabilities": [
+    0.59162304,
+    0.40837696
+   ],
+   "pick": "NEXVOID",
+   "method": "bookmaker",
+   "source_url": "https://thunderpick.io/api/matches",
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ]
+  },
+  {
+   "id": "1079201",
+   "teams": [
+    "INOX Division",
+    "Nemesis"
+   ],
+   "probabilities": [
+    0.12346675,
+    0.87653325
+   ],
+   "pick": "Nemesis",
+   "method": "model",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ]
+  },
+  {
+   "id": "1079202",
+   "teams": [
+    "FOKUS",
+    "ex-Zero Tenacity"
+   ],
+   "probabilities": [
+    0.68235294,
+    0.31764706
+   ],
+   "pick": "FOKUS",
+   "method": "bookmaker",
+   "source_url": "https://thunderpick.io/api/matches",
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ]
+  },
+  {
+   "id": "1081159",
+   "teams": [
+    "LFO 10",
+    "ex-6666"
+   ],
+   "probabilities": [
+    0.39044605815543665,
+    0.6095539418445634
+   ],
+   "pick": "ex-6666",
+   "method": "model",
+   "source_url": "https://bo3.gg/matches/sokerorg-vs-ex-6666-26-10-2026",
+   "limitations": [
+    "Own uncalibrated results model, not observed betting odds: a single rating was fitted to 10 finished series against officially rated opponents (posterior SD 114.7 points, one-sigma interval 0.184-0.645). The sample is small, opponent strength is taken from a dated official snapshot and current lineups, stand-ins and map vetoes are unverified.",
+    "Low confidence: the one-sigma interval or the sample size is wide. Treat the direction as indicative only."
+   ]
+  },
+  {
+   "id": "1079203",
+   "teams": [
+    "Metizport",
+    "BRUTE"
+   ],
+   "probabilities": [
+    0.61538462,
+    0.38461538
+   ],
+   "pick": "Metizport",
+   "method": "bookmaker",
+   "source_url": "https://thunderpick.io/api/matches",
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ]
+  },
+  {
+   "id": "1081160",
+   "teams": [
+    "HAVU",
+    "ILLYRIANS"
+   ],
+   "probabilities": [
+    0.60348339,
+    0.39651661
+   ],
+   "pick": "HAVU",
+   "method": "model",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ]
+  },
+  {
+   "id": "1093218",
+   "teams": [
+    "Nuclear TigeRES",
+    "UNiTY"
+   ],
+   "probabilities": [
+    0.58275378,
+    0.41724622
+   ],
+   "pick": "Nuclear TigeRES",
+   "method": "consensus",
+   "source_url": "https://thunderpick.io/esports/counter-strike",
+   "limitations": [
+    "Margin removed where applicable. Estimate is not a guaranteed outcome."
+   ]
+  },
+  {
+   "id": "1082860",
+   "teams": [
+    "FlyQuest",
+    "Staqued"
+   ],
+   "probabilities": [
+    0.925,
+    0.075
+   ],
+   "pick": "FlyQuest",
+   "method": "market",
+   "source_url": "https://polymarket.com/event/cs2-fly-staque-2026-10-26",
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ]
+  },
+  {
+   "id": "1082861",
+   "teams": [
+    "Rooster",
+    "Abyssal"
+   ],
+   "probabilities": [
+    0.47761494,
+    0.52238506
+   ],
+   "pick": "Abyssal",
+   "method": "model",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ]
+  },
+  {
+   "id": "1082897",
+   "teams": [
+    "B8",
+    "K27"
+   ],
+   "probabilities": [
+    0.595,
+    0.405
+   ],
+   "pick": "B8",
+   "method": "market",
+   "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ]
+  },
+  {
+   "id": "1082898",
+   "teams": [
+    "Alliance",
+    "FaZe"
+   ],
+   "probabilities": [
+    0.34,
+    0.66
+   ],
+   "pick": "FaZe",
+   "method": "market",
+   "source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ]
+  },
+  {
+   "id": "1081162",
+   "teams": [
+    "ex-RUSTEC",
+    "Spirit Academy"
+   ],
+   "probabilities": [
+    0.61680305,
+    0.38319695
+   ],
+   "pick": "ex-RUSTEC",
+   "method": "model",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ]
+  },
+  {
+   "id": "1081163",
+   "teams": [
+    "BakS",
+    "Saint Sinners"
+   ],
+   "probabilities": [
+    0.78758039,
+    0.21241961
+   ],
+   "pick": "BakS",
+   "method": "model",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ]
+  },
+  {
+   "id": "1082900",
+   "teams": [
+    "Luminosity",
+    "HOTU"
+   ],
+   "probabilities": [
+    0.525,
+    0.475
+   ],
+   "pick": "Luminosity",
+   "method": "market",
+   "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ]
+  },
+  {
+   "id": "1081164",
+   "teams": [
+    "Inner Circle Academy",
+    "Lavked"
+   ],
+   "probabilities": [
+    0.75606058,
+    0.24393942
+   ],
+   "pick": "Inner Circle Academy",
+   "method": "model",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ]
+  },
+  {
+   "id": "1082901",
+   "teams": [
+    "Envy",
+    "GamerLegion"
+   ],
+   "probabilities": [
+    0.455,
+    0.545
+   ],
+   "pick": "GamerLegion",
+   "method": "market",
+   "source_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ]
+  },
+  {
+   "id": "1082792",
+   "teams": [
+    "HOTU",
+    "The Huns"
+   ],
+   "probabilities": [
+    0.87,
+    0.13
+   ],
+   "pick": "HOTU",
+   "method": "market",
+   "source_url": "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
+   "limitations": [
+    "Single independent source; not a multi-source consensus.",
+    "Margin removed where applicable. Estimate is not a guaranteed outcome."
+   ]
+  },
+  {
+   "id": "1082793",
+   "teams": [
+    "5star",
+    "1WIN"
+   ],
+   "probabilities": [
+    0.17816902,
+    0.82183098
+   ],
+   "pick": "1WIN",
+   "method": "model",
+   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "limitations": [
+    "Hotspawn best-of format is unverified; left blank."
+   ]
+  }
+ ],
+ "how_to_reproduce": [
+  "git fetch origin main && git checkout FETCH_HEAD",
+  "python -m scripts.deea3ec4_verify --root . --inventory data/research/deea3ec4/live-coverage.json --check"
+ ],
+ "later_builds_checked": [
+  {
+   "build": "2026-10-26T02:51:32Z",
+   "main_at_check": "origin/main after the 02:51:32Z collect",
+   "active_rows": 19,
+   "errors": 0,
+   "warnings": [
+    "1082859: the featured model pair (72.8/27.2) was superseded by market (53.5/46.5)",
+    "1079201: the featured model pair (12.3/87.7) was superseded by consensus (26.5/73.5)",
+    "1093218: the featured model pair (70.7/29.3) was superseded by consensus (58.3/41.7)"
+   ],
+   "every_row_has_a_pick": true
+  }
+ ]
+}

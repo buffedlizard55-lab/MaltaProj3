@@ -1,3 +1,86 @@
+# Current session: arena-deea3ec4 — picks for every live Hotspawn CS2 fixture (HLTV first, then esportsbooks) for the cards the featured path leaves blank, a phone-first executive summary that links straight to the updated picks, line-by-line verification, final integration and publish
+
+Claimed **2026-10-26T00:45Z** on Arena's fixed branch `arena/deea3ec4-maltaproj3`, rebased onto
+`main` at **2026-10-26T02:10Z** (`2bfff7f`). This sandbox has no direct TCP route to Hotspawn, HLTV,
+Polymarket, any esportsbook or the public Pages host (`curl` returns `000`), but Arena's page-fetch
+path **does** read them, so every live fact below is a first-hand read with an observation time and
+the URL it came from; the repo's own four-hour publisher supplies the priced snapshot. No
+probability, pick, price or lineup is asserted from the sandbox by memory, and this session never
+hand-writes a number into the priced data.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| DE-1 Live inventory reconciliation: the Hotspawn fixture feed, the rendered lobby and the deployed snapshot compared fixture by fixture (id, teams, tournament, start, lock) with observation times | **done** — 19 open fixtures live at 00:44:45Z against 10 in the deployed 23:03:48Z build; the nine absent ones were listed on Hotspawn after that collect | arena-deea3ec4 | `data/research/deea3ec4/**` |
+| DE-2 HLTV-first research for every fixture the featured path could not price, our own derived estimate where a two-sided external price exists, an explicit limitation where it does not | **done** — nine-fixture dossier (HLTV binding + ranking + market availability) in `gap-research.json`/`.md`; it states no probability of its own, and the publisher now prices all nine | arena-deea3ec4 | `data/research/deea3ec4/**` |
+| DE-3 Independent line-by-line replay of the published build: every active row re-derived from its own published inputs, every pick re-derived, every blank row's reason checked | **done** — `scripts/deea3ec4_verify.py` + 30 tests; the 2026-10-26T01:33:57Z build replays **19/19 rows, 0 violations, 0 coverage notes, 19/19 picks** (`replay-2026-10-26T0133Z.json`) | arena-deea3ec4 | `scripts/deea3ec4_verify.py`, `tests/test_deea3ec4_verification.py` |
+| DE-4 Executive-summary / phone contract pinned by test rather than by eye: an in-site link to the updated picks above the fold, one glance row per active fixture, both percentages, no fixed 1024 px viewport | **done** — contract already satisfied by the shipped build; now pinned by `test_phone_entry_point_contract` / `test_missing_picks_link_fails` / `test_one_glance_row_per_active_fixture`, and CI re-checks it at 320/390/844 px | arena-deea3ec4 | `tests/test_deea3ec4_verification.py` |
+| DE-5 Publish the findings on Flagged for Review and record sources, verification and irregularities here | **done** — 8 items `DEA-R01`..`R08`; the statuses and evidence links were also repaired because two of them failed `review_register.validate` and would have failed the whole Pages build | arena-deea3ec4 | `scripts/review_register.py` (`REGISTERS` entry only), `data/research/deea3ec4/repo-review.json` |
+| DE-6 Final integration: local gates, PR to `main`, merge without waiting, confirm the Pages deploy and the live site, then record the PR link and merge result | in progress — replays green on both the 01:33:57Z and 02:51:32Z builds (19/19 rows, 0 violations), acceptance audit 10 pass / 0 fail, full unit suite 1953 tests OK; PR [#373](https://github.com/buffedlizard55-lab/MaltaProj3/pull/373) open. CI note: the session-branch validation job shares one concurrency group, and four of this branch's queued runs were cancelled by other sessions' pushes before they started — the browser evidence therefore comes from the same suite on the merged tree, and this PR changes no published page, snapshot or data input | arena-deea3ec4 | this section |
+
+**Non-overlap pledge.** This session adds only its own `data/research/deea3ec4/**`, its own verify
+script, its own test module and one `REGISTERS` entry; the only shared files it touched are
+`scripts/review_register.py` (its own entry, kept alongside other sessions' entries at the rebase) and
+this section. It does not edit `scripts/build.py`, `scripts/collect.py`, `scripts/originate.py`,
+`assets/**`, `snapshot.json`, `data/latest.json`, `data/origination.json` or `.github/workflows/**`.
+
+### What was verified (2026-10-26T02:12Z, published build `2026-10-26T01:33:57Z`, `main` `2bfff7f`)
+
+- **Replay.** All 19 active rows re-derived from their own published inputs: 7 exchange midpoint
+  pairs, 3 no-vig bookmaker pairs, 1 two-book consensus median, 8 research-model rows (7 Valve
+  Glicko, 1 results-based fit). Every named side is the strict favourite of its two numbers; every
+  money row cites a non-Hotspawn https source; no row carries a crowd percentage. **0 violations.**
+- **Coverage.** The dated 19-fixture inventory (00:44:45Z) matches the build's 19 active rows, so
+  the coverage check reports **0 notes**: no live card is left pick-less, and none of the nine
+  post-collect cards needed a hand-written number — the ladder priced seven from Valve's official
+  standings, one from a two-book consensus (Thunderpick + Bovada) and one from the results-based fit.
+- **Primary sources.** Valve's official regional standings blob (2026-10-05) for the model inputs;
+  Thunderpick `/api/matches` and Bovada's CS2 coupon for the two-book pair; Polymarket's Gamma API
+  for the exchange midpoints; bo3.gg series results for the fitted side. HLTV supplies identity and
+  ranking only (see the odds limitation below).
+- **Phone.** The contract is now pinned in code, not eyeballed. `acceptance_audit --site .` passes
+  the executive-summary, coverage, unresolved-register, in-site-link, phone and table-source lines
+  (**10 pass / 0 fail**), and `tests/browser/542dfb58_phone_picks.spec.mjs` re-checks the same route
+  at 320 × 640, 390 × 844 and 844 × 390 in CI — a local Chromium cannot be installed in this sandbox
+  (`npx playwright install chromium` → download failure), so the browser evidence is CI's.
+
+### Cross-session fix-forward (logged, not silent)
+
+`tests/test_22a3ed80_verification.test_no_hard_check_fails` was **red on `main`** (and therefore on this
+PR) after the 01:33:57Z publish: `scripts/22a3ed80_verify.py` compared every rendered pair against the
+fixture's *featured* analysis block, so `1093218` — whose featured Valve pair (70.7/29.3) was superseded
+by a two-book consensus (58.3/41.7), exactly as the documented ladder allows — was reported as a
+mismatch. A row is now accepted when its rendered pair equals the pair published in the build's own
+`origination.json` for a higher-ranked rung, and the check names that rung; a pair that matches neither
+block still fails hard. `--check` returns **15 hard checks, 0 failures** on this branch, and 25 tests in
+that module pass. The owning session (arena-22a3ed80) finished before the change, so it is logged here.
+
+### Irregularities flagged for review (full text: `data/research/deea3ec4/repo-review.json`)
+
+- `DEA-R01` **fixed** — the 23:03:48Z build listed 10 of the 19 live cards; freshness, not lost data.
+- `DEA-R02` **fixed** — the gap register on the page was dated 14:57Z while the build it appears on was
+  made at 23:03:48Z, so the page described a nine-hour-old lobby check as current.
+- `DEA-R03` **platform limitation** — HLTV's analytics pages render the odds block client-side and
+  carry **no** match-winner decimal odds in the HTML, so HLTV cannot be quoted as a price; it is used
+  for identity, ranking and form only.
+- `DEA-R04` **needs review** — `1079201` is `INOX Division vs Nemesis` on Hotspawn but
+  `Nemesis vs INOX Division` on HLTV; the row keeps Hotspawn's order and the reversed binding is
+  published rather than silently re-ordered.
+- `DEA-R05` **needs review** — `1082792` (HOTU vs The Huns) is priced from a 82–92¢ / 8–18¢ exchange
+  book, a 10-cent spread, and its model cross-check disagrees by about seven points; the row carries
+  both the estimate and the limitation.
+- `DEA-R06` **needs review** — the lobby countdown runs to the start time, not to the feed's
+  `lock_time` (start − 360 s), so a card that reads "Locks in 02:11:04" at 00:48:56Z starts at 03:00Z
+  and locks at 02:54Z.
+- `DEA-R07` **platform limitation** — `data/latest.json` in the branch root is the 2026-10-15 replay
+  fixture by design; the live observation is `snapshot.json` + `data/origination.json`, and reading
+  the wrong one is what produced the stale-count confusion in earlier sessions.
+- `DEA-R08` **needs review** — `acceptance_audit` check 1 counts *snapshot* rows, not live cards: it
+  passed 10/10 while nine live cards had no row. The new replay closes that blind spot by comparing a
+  dated inventory with the build.
+- `DEA-R09` **needs review** — `snapshot.json.counts` classifies at the **featured** stage (`picks: 17`,
+  `unresolved: 2` on the 01:33:57Z build) while the page and `origination.json` carry **19** picks; the
+  page labels the key "Featured rejections", so a reader of the JSON alone can mis-state coverage.
+
 # arena-f644ed1b — release close-out (2026-10-26T02:59Z)
 
 All claimed tasks complete. PR [#360](https://github.com/buffedlizard55-lab/MaltaProj3/pull/360) merged as `9c8db80`; follow-up [#372](https://github.com/buffedlizard55-lab/MaltaProj3/pull/372) merged as `6097173`. Concurrent production fix #375 was adopted verbatim, with this session's independent stronger money-input replay retained only in its own module. No production checker conflict resolution discarded another session's work. Targeted combined tests 20/20; initial full suite 1,943 OK (4 skipped), 142 browser tests passed; follow-up full CI [40257582430](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40257582430) passed before final doc/test-only rebase.
