@@ -1,6 +1,6 @@
 # Live coverage + gap-source probe — a pick for every Hotspawn CS2 fixture
 
-Observed 2026-10-26T01:23:38Z (live, GitHub Actions runner). Facts only: this file records what each source served. No probability, pick or alias is written here; the publisher's ladder stays the only path to a published number.
+Observed 2026-10-26T01:27:03Z (live, GitHub Actions runner). Facts only: this file records what each source served. No probability, pick or alias is written here; the publisher's ladder stays the only path to a published number.
 
 ## Hotspawn inventory reconciliation
 
@@ -46,7 +46,7 @@ Observed 2026-10-26T01:23:38Z (live, GitHub Actions runner). Facts only: this fi
 | hltv-matches | 200 | ok | 43 | 9 |
 | smarkets-events | 200 | ok | 37 | 3 |
 | pinnacle-matchups | 200 | ok | 13 | 0 |
-| thunderpick-matches | 200 | ok | 48 | 1 |
+| thunderpick-matches | 200 | ok | 49 | 1 |
 | kalshi-events | 200 | ok | 0 | 7 |
 | bovada-cs2 | 200 | ok | 22 | 2 |
 | rivalry-api | 502 | error | 0 | 0 |
@@ -81,7 +81,7 @@ Each row is a price the *source* published, with the project's own margin contra
 - **FlyQuest vs Staqued** (2026-10-27T03:00:00Z, DFRAG Invitational 2026, tier b) — deployed method: market
   - no surface published an exact-name two-team row this hour
 - **Rooster vs Abyssal** (2026-10-27T03:00:00Z, DFRAG Invitational 2026, tier b) — deployed method: model
-  - smarkets-events → ['Rooster', 'Abyssal'] @ None · exact-names-and-start · usable: False (None) · [https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-b/2026/10/27/03-00/rooster-vs-abyssal](https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-b/2026/10/27/03-00/rooster-vs-abyssal) at 2026-10-26T01:23:42Z
+  - smarkets-events → ['Rooster', 'Abyssal'] @ None · exact-names-and-start · usable: False (None) · [https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-b/2026/10/27/03-00/rooster-vs-abyssal](https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-b/2026/10/27/03-00/rooster-vs-abyssal) at 2026-10-26T01:27:07Z
 - **B8 vs K27** (2026-10-27T08:00:00Z, Tesla Cup 2026, tier b) — deployed method: market
   - no surface published an exact-name two-team row this hour
 - **Alliance vs FaZe** (2026-10-27T11:00:00Z, Tesla Cup 2026, tier b) — deployed method: market

@@ -1,6 +1,6 @@
 # Fixtures without a betting line — per-fixture research (542dfb58)
 
-Runner observation at 2026-10-26T03:00:00Z — the sweep ran 2026-10-26T01:24:18Z. Facts only.
+Runner observation at 2026-10-26T03:00:00Z — the sweep ran 2026-10-26T01:27:43Z. Facts only.
 
 ## INOX Division vs Nemesis
 
