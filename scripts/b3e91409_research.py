@@ -63,7 +63,11 @@ def parse_time(value):
     if not value:
         return None
     if isinstance(value, (int, float)):
-        return datetime.fromtimestamp(value / 1000, timezone.utc)
+        # Hotspawn publishes epoch milliseconds; a seconds value is accepted but never rescaled twice.
+        number = float(value)
+        if number > 10**11:
+            number /= 1000
+        return datetime.fromtimestamp(number, timezone.utc)
     text = str(value).strip().replace(' ', 'T')
     if re.fullmatch(r'.*[+-]\d{2}$', text):
         text += ':00'
@@ -169,13 +173,21 @@ def main():
     for raw in evidence['api']:
         if raw.get('sport_alias') != 'cs2':
             continue
-        start = parse_time(int(raw['scheduled_start_time']) / 1000)
+        start = parse_time(int(raw['scheduled_start_time']))
         if not start or start <= reference:
             continue
         fixtures.append({'id': str(raw['id']), 'teams': [raw['participants0_name'], raw['participants1_name']],
                          'competition': raw.get('competition_name'), 'tier': raw.get('tier'),
                          'starts_at': iso(start), 'best_of': raw.get('best_of'), '_start': start})
     fixtures.sort(key=lambda f: (f['starts_at'], f['id']))
+
+    deduped_hltv, seen_ids = [], set()
+    for card in evidence['hltv']:
+        if card.get('match_id') in seen_ids:
+            continue
+        seen_ids.add(card.get('match_id'))
+        deduped_hltv.append(card)
+    evidence['hltv'] = deduped_hltv
 
     ranking_by_name = {}
     for row in evidence['ranking']:

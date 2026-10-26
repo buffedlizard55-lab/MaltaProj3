@@ -319,6 +319,13 @@ def name_in(text, name):
 
 def build_summary(fixtures, hltv_cards, poly_events, tp_rows, valve_rows, permalinks=None, ranking=None):
     permalinks = permalinks or {}
+    seen_cards, unique_cards = set(), []
+    for card in hltv_cards:
+        if card.get('match_id') in seen_cards:
+            continue
+        seen_cards.add(card.get('match_id'))
+        unique_cards.append(card)
+    hltv_cards = unique_cards
     blocks, records = [], []
     for fixture in fixtures:
         if permalinks.get(fixture['id']):
@@ -440,6 +447,8 @@ def main():
             'url', 'observed_at', 'http_status', 'status', 'bytes', 'response_sha256', 'error')}
 
     records, text = build_summary(fixtures, hltv_cards, poly_events, tp_rows, valve_rows, permalinks, ranking)
+    text = ('Source presence only. A listed source names both teams; the strict identity join (exact outcomes,\n'
+            'start within 60 s, full-series market) and every derived probability are in summary.md/analysis.json.\n\n' + text)
     probe.save('open-fixtures.json', records, 'json')
     (OUT / 'summary.txt').write_text(
         f"observed {summary['observed_at']}\nopen Hotspawn CS2 fixtures: {len(fixtures)}\n\n" + text + '\n',
