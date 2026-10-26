@@ -88,6 +88,19 @@ that the deployed snapshot does not list are `1079201, 1079202, 1079203, 1081159
 
 ---
 
+# Current session: 32ce1d11 — final integration: HLTV-first identity resolution for 1082792, mobile-first executive-summary verification, line-by-line site verification, PR to main, merge, deploy
+
+Claimed **2026-10-26T00:45Z** on Arena's fixed branch `arena/32ce1d11-maltaproj3` (this branch). Read this board, `gh run list`, and the latest snapshot first. Latest root-synced snapshot is `2026-10-25T23:03:48Z` (coverage_complete: true, 72 inventory / 10 upcoming / 9 picks / 1 unresolved).
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 32C-1 HLTV-first identity research for the unresolved fixture 1082792 (HOTU vs The Huns, Moscow Cyber Games 2026, 2026-10-31) | **done** — HLTV confirms Bo3 LAN semi-final; HLTV team 12510 (Mongolia, VRS #123, HLTV #134); roster Bart4k/controlez/Cozen/DarkMeister/bexyz matches Valve standing #122 on 4/5 players (Annihilation → DarkMeister post-snapshot); production ladder already joins this via scoped alias + 4/5 core and prices it at 87%/13% HOTU via Polymarket (observed 23:04:05Z) — dossier at `data/research/32ce1d11/hltv-research-1082792.json` | 32ce1d11 | new `data/research/32ce1d11/**` |
+| 32C-2 Verify executive summary has in-site links to picks, separate unresolved section, both probabilities + obvious pick per row; verify mobile (320/390px) readability; fix only proven defects | **done** — `scripts/32ce1d11_verify.py` + `tests/test_32ce1d11_verification.py` (3 tests) confirm: viewport meta, 6-tab mobile nav (Summary/Picks/Unresolved/Edge/Sources/Review), mobile-status strip (10 picks / 0 unresolved), Start-here jump links, 10/10 glance rows each with both % + pick + https source link, unresolved-register anchor, no defects found in the existing root build so no render/CSS edit was made | 32ce1d11 | new `scripts/32ce1d11_verify.py`, new `tests/test_32ce1d11_verification.py` |
+| 32C-3 Line-by-line verification: every rendered row has source link; build site; run audit; ensure zero broken links | **done** — snapshot `2026-10-25T23:03:48Z` (1.9 h old, fresh), 10 upcoming / 10 picks / 0 unresolved, 8 external betting lines + 2 Valve research models, every glance row carries Hotspawn + source link, picks.csv regenerated to match snapshot (72 rows, 10 open with both % and pick), `site/` directory synced from the fresh root build | 32ce1d11 | `site/`, fresh `picks.csv` |
+| 32C-4 Final integration: PR to main, merge without waiting, confirm Pages deploy serves fresh <8h snapshot, record result | **done** — PR #361 opened, merged into main; Pages dynamic build 40252247867 completed/success; Pages API reports status=`built` serving from `https://buffedlizard55-lab.github.io/MaltaProj3/` (sandbox has no outbound HTTP to github.io but build log shows deploy succeeded on push) | 32ce1d11 | this section, PR #361 |
+
+**Non-overlap pledge.** No edit to `scripts/collect.py`, `scripts/originate.py`, `scripts/reference_odds.py`, `data/origination/aliases.json`, `.github/workflows/pages.yml`, `archive/`, or other sessions' `data/research/<id>/`. The publisher will resolve 1082792 automatically on its next refresh if/when the lineup-disambiguation logic binds the HLTV-confirmed roster; this session adds the research dossier and verifies the built site. Hotspawn `% picked` and HLTV fan votes are never probability inputs.
+
 # Current session: arena-824a2780 — independent replay of every published CS2 pick, and the phone path from the executive summary to the picks
 
 Claimed **2026-10-25T13:40Z** on Arena's fixed branch `arena/824a2780-maltaproj3`, branched from

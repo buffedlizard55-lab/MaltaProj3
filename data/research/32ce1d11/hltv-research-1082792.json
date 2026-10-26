@@ -1,0 +1,48 @@
+{
+  "fixture_id": "1082792",
+  "teams": ["HOTU", "The Huns"],
+  "competition": "GLuck Moscow Cyber Games 2026",
+  "starts_at": "2026-10-31T09:00:00Z",
+  "observed_at": "2026-10-26T00:50:00Z",
+  "hltv_match_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+  "hltv_event_url": "https://www.hltv.org/events/9344/gluck-moscow-cyber-games-2026",
+  "hltv_team_huns_url": "https://www.hltv.org/team/12510/the-huns",
+  "hltv_team_hotu_url": "https://www.hltv.org/team/11581/hotu",
+  "findings": {
+    "format": "Best of 3 (LAN), Semi-final",
+    "huns_flag": "Mongolia",
+    "hotu_flag": "Russia",
+    "huns_vrs_rank_hltv": "#123 (Asia #11)",
+    "huns_hltv_world_rank": "#134 (Mongolia #5)",
+    "hotu_vrs_rank_from_valve_snapshot_2026_10_05": 31,
+    "hotu_vrs_points_2026_10_05": 1437,
+    "huns_hltv_current_roster": ["Bart4k", "controlez", "Cozen", "DarkMeister", "bexyz"],
+    "huns_valve_standing_122_roster_2026_10_05": ["Annihilation", "Bart4k", "bexyz", "controlez", "Cozen"],
+    "huns_valve_standing_213_roster_2026_10_05": ["Bart4k", "controlez", "nin9", "sk0R", "xerolte"],
+    "identity_resolution": "Four-of-five (4/5) players on the HLTV current roster match Valve standing #122 (Bart4k, controlez, bexyz, Cozen); Annihilation was replaced by DarkMeister after the Oct 5 VRS snapshot. Standing #213 shares only 2/5 (Bart4k, controlez). Production ladder joins to standing #122 via the 4/5 core and the verified scoped alias 'The Huns Esports → The Huns'.",
+    "hltv_fan_poll_excluded": true,
+    "hltv_betting_block": "Promocode-only; no bookmaker odds shown",
+    "polymarket_resolved": true,
+    "polymarket_event_url": "Bound by production origination ladder via alias registry; see origination match 1082792 source_url"
+  },
+  "published_probability_check": {
+    "production_probabilities": [0.87, 0.13],
+    "production_pick": "HOTU",
+    "production_method": "market (Polymarket)",
+    "model_cross_check_hotu_944_row": "VRS model on HOTU #31 (1437) vs The Huns #122 (944) gives ~94.1% / 5.9% (g=0.9728 at RD=75) — directional agreement, magnitude differs from market because the market is only 5 days out and the VRS snapshot is 3 weeks stale with a post-snapshot roster change on The Huns side",
+    "direction_agrees": true
+  },
+  "limitations": [
+    "Hotspawn best-of field is null; HLTV independently confirms Bo3 LAN semi-final.",
+    "The Oct 5 Valve VRS snapshot pre-dates DarkMeister joining The Huns' starting five; the four-of-five core bind is the documented resolver.",
+    "HLTV betting block on this match page is promotional-only (Stake sweepstakes); no HLTV-displayed odds are cited.",
+    "HLTV logged-in fan vote is excluded by policy and is not used as a probability."
+  ],
+  "sources": [
+    "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+    "https://www.hltv.org/team/12510/the-huns",
+    "https://www.hltv.org/team/11581/hotu",
+    "https://www.hltv.org/events/9344/gluck-moscow-cyber-games-2026",
+    "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+  ]
+}
