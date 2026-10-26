@@ -1,20 +1,20 @@
 # arena-3e64f4fb live research — HLTV first, then esportsbooks
 
-Observed `2026-10-26T01:55:42Z` on a GitHub runner. **Evidence only:** raw observed prices, no derived probability or pick.
+Observed `2026-10-26T02:52:01Z` on a GitHub runner. **Evidence only:** raw observed prices, no derived probability or pick.
 
 - Published snapshot `2026-10-26T01:33:57Z`, origination `2026-10-26T01:34:11Z`
 - Hotspawn API open fixtures: **19**; lobby fixture ids parsed: 19
 - Live-open fixtures missing from the published board: **none**
 - Published fixtures no longer live-open (started/rotated): none
-- HLTV listing rows parsed: 43; ranking rows: 253
+- HLTV listing rows parsed: 42; ranking rows: 253
 
 ## 1082859 — NEXVOID vs Alter Ego (DFRAG Invitational 2026, 2026-10-26T03:00:00Z)
 - Published basis: featured=bookmaker, complete=bookmaker, pick_index=0
-- HLTV exact: https://www.hltv.org/matches/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026 @ 2026-10-26T03:00:00Z (DFRAG Invitational 2026)
-- HLTV match page: `{"starts_at": "2026-10-26T03:00:00Z", "format": "BO3", "teams": ["NEXVOID", "Alter Ego"]}`
+- HLTV exact: not found on /matches
+- HLTV match page: `null`
 - HLTV ranking: {"NEXVOID": {"rank": 77, "points": 11.0, "team_url": "https://www.hltv.org/team/13667/nexvoid"}, "Alter Ego": {"rank": 132, "points": 6.0, "team_url": "https://www.hltv.org/team/9958/alter-ego"}}
 - Polymarket observed: none found
-- Thunderpick observed: ['NEXVOID', 'Alter Ego'] odds [1.56, 2.26] start 2026-10-26T03:00:00+00:00
+- Thunderpick observed: none found
 - Kalshi observed: Alter Ego vs. NEXVOID
 
 ## 1079201 — INOX Division vs Nemesis (NODWIN Clutch Series #13, 2026-10-26T09:00:00Z)
