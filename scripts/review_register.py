@@ -101,6 +101,14 @@ REGISTERS = (
     # 10 non-featured fixtures, 19/19 exact probability replay, and provider
     # start-time / alias-scope flags.
     'research/c333bb27/repo-review.json',
+    # Session 60019704: independent snapshot-independent replay of the
+    # 2026-10-25T23:03:48Z build (197 checks on the archived snapshot, 339 on
+    # the live one) plus a first-hand HLTV-first/esportsbook dossier for every
+    # fixture it leaves unpicked (1082792 and the nine live lobby additions):
+    # the tightened HOTU-vs-The Huns Polymarket book, the NODWIN quarterfinal
+    # start-time conflicts, the LFO 10 identity gap, and the Valve standings
+    # re-read.
+    'research/60019704/repo-review.json',
 )
 STATUS = {
     'fixed': ('Fixed', 'green'),

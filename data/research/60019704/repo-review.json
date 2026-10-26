@@ -1,0 +1,218 @@
+{
+  "session": "arena-60019704",
+  "branch": "arena/60019704-maltaproj3",
+  "review_clock_utc": "2026-10-26T01:45Z",
+  "scope": "Independent replay of the deployed snapshot (generated_at 2026-10-25T23:03:48Z) and its published pages via scripts/60019704_verify (219 checks), plus a first-hand HLTV-first and esportsbook research sweep (read 2026-10-26T00:51-01:05Z, data/research/60019704/) of every fixture that build leaves unpicked: 1082792 HOTU vs The Huns and the nine additional live lobby fixtures 1079201, 1079202, 1079203, 1081159, 1081160, 1081162, 1081163, 1081164, 1093218.",
+  "method": "Every replay number was recomputed offline from the inputs the snapshot itself publishes (bid/ask midpoints, proportional no-vig normalisation, Valve fixed-RD Glicko expectation with RD 75) and compared exactly; every research observation was read first-hand through Arena's page-fetch tool and transcribed verbatim with URL and read time (raw bodies were not byte-archived; only the Valve standings file was fetched in full and SHA-256 hashed). Items that depend on source disagreements or provider behaviour the dashboard cannot control are marked 'needs review' or 'platform limitation' rather than silently guessed.",
+  "items": [
+    {
+      "id": "60A-01",
+      "area": "Deployed snapshot replay (60A-2)",
+      "status": "verified",
+      "finding": "All nine priced rows of the reviewed 2026-10-25T23:03:48Z build (archived verbatim beside this register so the dated claim stays reproducible) re-derive exactly from their published inputs: six Polymarket market rows from their two order-book midpoints (every spread within the 0.15 ceiling), the Thunderpick bookmaker row from proportional no-vig normalisation of odds 1.61/2.18, and the two Valve model rows (Rooster 718 vs Abyssal 734; 5star 1110 vs 1win 1383) from the fixed-RD Glicko expectation with RD 75. Every priced row has a strict favourite; counts, ids, the open/past split and the evidence files are internally consistent; no probability is attributed to Hotspawn and no crowd field leaks into any analysis row.",
+      "handling": "Replayed by scripts/60019704_verify --check: 197 checks / 0 errors on the archived 2026-10-25T23:03:48Z build, 339 checks / 0 errors on the live 2026-10-26T01:33:57Z build (17 priced rows replay from their published inputs). The checker is snapshot-independent by construction so the four-hour publisher can never be frozen by it. Pinned by tests/test_60019704_verification.py (22 tests, including tamper-detection cases).",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/60019704_verify.py",
+          "detail": "Offline replay script: inventory, replay, unresolved, sources, pages and dossier cross-checks."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_60019704_verification.py",
+          "detail": "Regression tests holding the replay math to the production formulas and proving tampering is caught."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+          "detail": "The deployed snapshot under review (generated_at 2026-10-25T23:03:48Z, 10 open rows, 9 picks, 1 unresolved)."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/research/60019704/snapshot-2026-10-25T23-03-48Z.json",
+          "detail": "Verbatim archive of the reviewed build."
+        }
+      ]
+    },
+    {
+      "id": "60A-02",
+      "area": "Coverage gap in the deployed build",
+      "status": "verified",
+      "finding": "The Hotspawn fixture API and rendered lobby listed 19 future fixtures (read 2026-10-26T00:52Z and 01:04Z) while the then-deployed 2026-10-25T23:03:48Z snapshot carried 10 open rows; nine tier-B fixtures were missing (1079201, 1079202, 1079203, 1081159, 1081160, 1081162, 1081163, 1081164, 1093218). The four-hour publisher then re-collected and closed the gap: the 2026-10-26T01:33:57Z publish carries inventory 81, 19 open rows and 17 picks. Eight of the nine additions now carry picks (six from the Valve rating model: 1079201, 1081160, 1093218, 1081162, 1081163, 1081164; two from the bookmaker rung: 1079202 at 0.682/0.318 and 1079203 at 0.615/0.385 - lines that did not exist at this session read window of 00:51-01:05Z). The two remaining unresolved rows are exactly the hard-blocked pair this session documented: 1081159 (60A-05) and 1082792 (60A-04).",
+      "handling": "Gap independently confirmed first-hand at 00:52Z (arena-500519ba first observed it at 00:44Z); closure verified against the 01:33:57Z publish. The dossier of this session supplied the per-fixture external evidence and the prediction of which fixtures would and would not resolve.",
+      "evidence": [
+        {
+          "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+          "detail": "19 future fixtures at 2026-10-26T00:52Z."
+        },
+        {
+          "url": "https://play.hotspawn.com/lobby",
+          "detail": "Rendered lobby: 'This week 19 matches this week', all nine additional fixtures present with View Match links (01:04Z)."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+          "detail": "Deployed snapshot counts: 10 upcoming rows, 9 picks, 1 unresolved (23:03:48Z)."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+          "detail": "The 2026-10-26T01:33:57Z publish: counts upcoming 19, picks 17, unresolved 2 (1081159, 1082792)."
+        }
+      ]
+    },
+    {
+      "id": "60A-03",
+      "area": "Cross-source start-time conflicts (NODWIN quarterfinals)",
+      "status": "needs review",
+      "finding": "Hotspawn lists 1079203 Metizport vs BRUTE at 2026-10-26T15:00Z and 1093218 Nuclear TigeRES vs UNiTY at 18:00Z, while the open Polymarket events and bo3.gg match rows both read 12:00Z and 15:00Z respectively; Hotspawn lists 1079202 FOKUS vs ex-Zero Tenacity at 12:00Z while both other sources read 18:00Z. The HLTV match page for Metizport vs BRUTE sides with Hotspawn (~15:00Z by its countdown). QF1 (1079201) agrees at 09:00Z on all three sources. The collector's strict 60-second identity join therefore fails for QF2-QF4 regardless of team names.",
+      "handling": "Recorded as flag 6001-02 in the dossier. This is a genuine source disagreement, not an obvious Hotspawn error; resolving it (wider tolerance, third-source reconciliation, or accepting missed markets) is a policy decision for the ladder owner.",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events/1255013",
+          "detail": "Polymarket QF2 event: eventStartTime 2026-10-26T12:00:00Z (Hotspawn: 15:00Z)."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/events/1252125",
+          "detail": "Polymarket QF4 event: eventStartTime 2026-10-26T18:00:00Z (Hotspawn: 12:00Z)."
+        },
+        {
+          "url": "https://api.bo3.gg/api/v1/matches?filter[matches.tournament_id][eq]=6149&filter[matches.status][in]=upcoming&sort=start_date&with=teams",
+          "detail": "bo3.gg NODWIN Clutch Series 13 rows: QF2 12:00Z, QF3 15:00Z, QF4 18:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399118/metizport-vs-brute-nodwin-clutch-series-13",
+          "detail": "HLTV match page countdown at ~01:00Z implies a ~15:00Z start for QF2, agreeing with Hotspawn."
+        }
+      ]
+    },
+    {
+      "id": "60A-04",
+      "area": "Tight Polymarket books unreachable by the strict market join",
+      "status": "needs review",
+      "finding": "Open Polymarket series ('Match Winner') markets exist for all four NODWIN quarterfinals and the Moscow Cyber Games semifinal. The Metizport vs Brute book reads bid 0.59 / ask 0.60 (spread 0.01) and the HOTU vs The Huns book bid 0.82 / ask 0.92 (spread 0.10, tightened from the 43-cent book recorded on 2026-10-25; outcome prices 0.87/0.13). None can bind under the exact-name plus 60-second rule: QF2-QF4 fail on start time (60A-03), QF1 on the outcome name 'Team Nemesis', QF3 additionally on 'UNiTY esports', and 1082792 on 'The Huns Esports' - even though a reviewed alias 'The Huns Esports' -> 'The Huns' scoped to Moscow Cyber Games 2026 already exists in the registry, because the market path in scripts/collect.py matches raw outcome names and does not consult it. Update (01:33:57Z publish): the bookmaker rung has since priced 1079202 (0.682/0.318) and 1079203 (0.615/0.385), so the unreachable Polymarket books no longer leave those fixtures pick-less; 1082792 remains unresolved, and the strict-join limitations (outcome-name matching without the alias registry, 60-second start window) remain in place for the record.",
+      "handling": "Recorded as flag 6001-03. For 1082792 the start times agree exactly (2026-10-31T09:00:00Z on Hotspawn, Polymarket and HLTV), so applying the registry alias in the market path (or an equivalent outcome-name normalisation) would let the next collection price the now-tight book without touching the model rung. Implementation belongs to the ladder owner.",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events/1241313",
+          "detail": "HOTU vs The Huns Esports series market 6085308: bestBid 0.82, bestAsk 0.92, spread 0.1, outcomePrices [0.87, 0.13], updatedAt 2026-10-26T00:48:38Z."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/events/1255013",
+          "detail": "Metizport vs Brute series market: bestBid 0.59, bestAsk 0.60 (spread 0.01)."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/collect.py",
+          "detail": "The market join: identity_matches on raw names with a 60-second start window; the alias registry is not consulted on this path."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination/aliases.json",
+          "detail": "Reviewed alias 'The Huns Esports' -> 'The Huns' scoped to Moscow Cyber Games 2026 / GLuck Moscow Cyber Games 2026 (added by arena-dd433e7f, 2026-10-24)."
+        }
+      ]
+    },
+    {
+      "id": "60A-05",
+      "area": "1081159 LFO 10 vs ex-6666 identity",
+      "status": "platform limitation",
+      "finding": "The fixture is identity-blocked on every origination surface except HLTV. Valve's 2026-10-05 standings contain no LFO 10 row (only LFO 7 #285, LFO 8 #279, LFO 9 #297) and no exact-name ex-6666 row ('6666' #127 shares 4/5 players with the current HLTV roster). bo3.gg has no team named LFO 10 (team lookup returns zero results) and its CCT Series 12 row in the same hour is Sokerorg vs ex-6666. No book or prediction market prices it. HLTV alone confirms the pairing (match 2399509, 26 Oct), with LFO 10 ranked #167 and ex-6666 #72.",
+      "handling": "Recorded as flag 6001-04 with HLTV-first qualitative guidance only (never a probability). HLTV's Valve-ranking mirror dated 2026/october/26 already lists LFO 10 at #157 (EU#112), so Valve's next published standings file is expected to unblock the model rung naturally.",
+      "evidence": [
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "Newest Valve file (read 00:54Z): no LFO 10 row; '6666' #127 (amster, dENZY, kL1o, rendysky, skcH)."
+        },
+        {
+          "url": "https://api.bo3.gg/api/v1/teams?filter[teams.name][eq]=LFO%2010",
+          "detail": "bo3.gg team lookup: total count 0."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
+          "detail": "HLTV schedules 'LFO 10 vs. ex-6666 at CCT 2026 Europe Series 12' on 26 Oct; ex-6666 (team 14100) HLTV #72, VRS mirror #118."
+        },
+        {
+          "url": "https://www.hltv.org/team/14084/lfo-10",
+          "detail": "HLTV team 14084 'LFO 10': world rank #167 (2026-10-19 edition), VRS mirror #157 (2026/october/26)."
+        }
+      ]
+    },
+    {
+      "id": "60A-06",
+      "area": "Valve standings freshness and the 1082792 unresolved reason",
+      "status": "verified",
+      "finding": "The live/2026 directory still ends at standings_global_2026_10_05.md (blob 2aa2805, newest of 41 files, read 00:54Z; raw SHA-256 df96e7fc3cd91a2687ec08cac0128e50cc4e4e55346581679572e881d79ae61b). The Huns still carries two complete five-player rows (#122 944 points: Annihilation, Bart4k, bexyz, controlez, Cozen; #213 701 points: Bart4k, controlez, nin9, sk0R, xerolte), which is exactly the identity reason the deployed snapshot publishes for leaving 1082792 unresolved. BRUTE similarly carries #75 1116 and #218 689. Current HLTV rosters share 4/5 players with the higher-rated rows in both cases.",
+      "handling": "The unresolved reason on the deployed build re-verified live against the official Valve file. The 4/5 roster overlap is recorded as identity evidence for the ladder owner (same evidence class as the reviewed ex-6666 alias); it does not by itself justify a pick.",
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/ValveSoftware/counter-strike_regional_standings/contents/live/2026",
+          "detail": "Directory listing: 41 files, newest standings_global_2026_10_05.md (00:54Z)."
+        },
+        {
+          "url": "https://www.hltv.org/team/12510/the-huns",
+          "detail": "HLTV current The Huns roster (Bart4k, controlez, Cozen, DarkMeister, bexyz) shares 4/5 players with the Valve #122 row."
+        },
+        {
+          "url": "https://www.hltv.org/team/9139/brute",
+          "detail": "HLTV current BRUTE lineup (nbqq, aidKiT, ZEDKO, tAk + substitute oontoma) shares 4/5 players with the Valve #75 row."
+        }
+      ]
+    },
+    {
+      "id": "60A-07",
+      "area": "Esportsbook coverage of the ten researched fixtures",
+      "status": "platform limitation",
+      "finding": "No bookmaker line exists for any of the ten fixtures at read time (00:51-01:05Z): Thunderpick's public GET prematch list returns empty (POST-only endpoint), bo3.gg's Thunderpick bet_updates relay is null on every NODWIN Clutch Series 13 and CCT Europe Series 12 target row, Smarkets' complete 20-event upcoming CS2 list contains none of them, and HLTV's rendered betting widget for Metizport vs BRUTE carries no static odds. The only priced markets are the Polymarket events in 60A-04.",
+      "handling": "Recorded as flag 6001-05. The bookmaker rung legitimately finds nothing here; the ladder's model rung and (for five fixtures) the Polymarket rung are the available origins.",
+      "evidence": [
+        {
+          "url": "https://thunderpick.io/api/matches?gameIds=6",
+          "detail": "GET returns {\"matches\": []}; the prematch list requires the POST the production collector uses."
+        },
+        {
+          "url": "https://api.smarkets.com/v3/events/?state=upcoming&type=csgo_match",
+          "detail": "All 20 upcoming csgo_match events read; none of the ten fixtures listed."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399118/metizport-vs-brute-nodwin-clutch-series-13",
+          "detail": "Rendered betting table contains only a Stake promotional row; no static odds."
+        }
+      ]
+    },
+    {
+      "id": "60A-08",
+      "area": "Published pages vs snapshot wiring",
+      "status": "verified",
+      "finding": "The landing page loads ./snapshot.json, the picks page loads ../snapshot.json, both carry the same generated marker as the snapshot they publish, every open fixture id renders on both pages, the unresolved register exists on the landing page, and the declared 4h/8h refresh/stale cadence is present in the snapshot. Verified on the 2026-10-25T23:03:48Z build (archived) and re-verified on the live 2026-10-26T01:33:57Z build with all 19 open ids.",
+      "handling": "Verified offline by the replay pages section (part of the live-build checks) against the deployed root pages; a snapshot newer than the built pages is recorded as a publishing-window note, never an error.",
+      "evidence": [
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+          "detail": "Landing page with the unresolved register (id unresolved-register) naming 'HOTU vs The Huns'."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/picks/",
+          "detail": "Picks page rendering all ten open fixture ids from ../snapshot.json."
+        }
+      ]
+    },
+    {
+      "id": "60A-09",
+      "area": "Pre-existing main defect surfaced by this session's full-suite gate",
+      "status": "needs review",
+      "finding": "While running the full local gate for this PR, tests/test_22a3ed80_verification.py (PublishedSummaryTests.test_no_hard_check_fails) fails on pristine origin/main at 90483962, independently of this session's changes (reproduced in a clean worktree). The committed landing page renders fixture 1093218 Nuclear TigeRES vs UNiTY as 'Nuclear TigeRES 58.3% / UNiTY 41.7% - Researched Consensus, Observed: median of 2 books', while the same tree's snapshot.json carries the featured Valve-model analysis [0.70665667, 0.29334333] (inputs Nuclear TigeRES 1324, UNiTY 1167 - the exact standings rows this session read first-hand). The executive summary's consensus layer and the snapshot's featured analysis layer therefore disagree for this fixture in the 2026-10-26T01:33:57Z publish, and the 22a3ed80 render-equality check (hard) fails. Six sessions have open PRs replaying the 19-row board at this moment; arena-f644ed1b (PR #372, 'Unblock refresh: verify sourced model-to-money consensus upgrades') owns the consensus layer.",
+      "handling": "Recorded so the owning session can see the exact fixture and layers involved; this session's own PR adds no render code and its replay checks (snapshot-internal math, page ids and markers) pass on the same tree. Not fixed here: build.py and the consensus layer are outside this session's pledged scope.",
+      "evidence": [
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+          "detail": "Rendered executive summary row for 1093218: 'Pick Nuclear TigeRES 58.3% UNiTY 41.7% - Researched Consensus - Observed: median of 2 books'."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+          "detail": "Same publish, fixture 1093218: method model, probabilities [0.70665667, 0.29334333], Valve inputs Nuclear TigeRES 1324 / UNiTY 1167."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/tests/test_22a3ed80_verification.py",
+          "detail": "The hard render-equality check that fails on pristine main."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/pull/372",
+          "detail": "Open PR by arena-f644ed1b owning the model-to-money consensus upgrades."
+        }
+      ]
+    }
+  ]
+}

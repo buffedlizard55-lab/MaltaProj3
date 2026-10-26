@@ -1,0 +1,955 @@
+{
+  "session": "arena-60019704",
+  "branch": "arena/60019704-maltaproj3",
+  "claim": "60A-1",
+  "purpose": "First-hand, HLTV-first plus esportsbook research dossier for every fixture the deployed snapshot (generated_at 2026-10-25T23:03:48Z) leaves without a pick: the unresolved 1082792 (HOTU vs The Huns) and the nine additional lobby fixtures first observed live by arena-500519ba at 2026-10-26T00:44Z (1079201, 1079202, 1079203, 1081159, 1081160, 1081162, 1081163, 1081164, 1093218). Input evidence for arena-500519ba's ladder work (500A-2); no pipeline files were modified by this session.",
+  "method": "Every value below was read first-hand through Arena's page-fetch tool between 2026-10-26T00:51Z and 2026-10-26T01:05Z and transcribed verbatim (field names and numbers as returned by each API). Raw response bodies were not byte-archived (tool limitation); per-source URLs and read times are given so every number can be re-fetched manually. Hotspawn is used only as the fixture inventory and never as a probability indicator; its community '% picked' figures are recorded only as explicitly non-probability crowd observations. Where a value could not be confirmed from an official source it is left null and flagged.",
+  "observed_window_utc": [
+    "2026-10-26T00:51Z",
+    "2026-10-26T01:05Z"
+  ],
+  "snapshot_under_review": {
+    "generated_at": "2026-10-25T23:03:48Z",
+    "url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+    "counts": {
+      "inventory": 72,
+      "upcoming": 10,
+      "archived": 62,
+      "market": 6,
+      "bookmaker": 1,
+      "model": 2,
+      "unresolved": 1,
+      "picks": 9
+    },
+    "open_fixtures": [
+      "1082858",
+      "1082859",
+      "1082860",
+      "1082861",
+      "1082897",
+      "1082898",
+      "1082900",
+      "1082901",
+      "1082792",
+      "1082793"
+    ]
+  },
+  "sources": {
+    "hotspawn_fixtures_api": {
+      "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "observed_at": "2026-10-26T00:52Z",
+      "detail": "19 fixtures with future starts at read time: the ten open rows already in the deployed snapshot plus nine additional rows (1079201, 1079202, 1079203, 1081159, 1081160, 1081162, 1081163, 1081164, 1093218). All nine are tier-b fixtures in NODWIN Clutch Series #13 (competition_id 36038) or CCT Europe 2026 Series #12 (competition_id 35814). Scheduled-start epochs (ms) are recorded per fixture below."
+    },
+    "hotspawn_lobby": {
+      "url": "https://play.hotspawn.com/lobby",
+      "observed_at": "2026-10-26T01:04Z",
+      "detail": "Rendered lobby shows 'This week 19 matches this week' and lists every one of the nine additional fixtures with a View Match link (tier B, 3 pts, multiplier x1.25). Competition filter counts include 'CCT Europe 2026 Series #12 (5)', 'NODWIN Clutch Series #13 (5)', 'Moscow Cyber Games 2026 (2)', 'DFRAG Invitational 2026 (4)', 'Tesla Cup 2026 (4)'. Lobby times render in a UTC-4 locale (e.g. Ground Zero vs Off Chops 'Oct 25, 23:00' = 2026-10-26T03:00:00Z), consistent with the fixture API epochs."
+    },
+    "valve_standings": {
+      "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "api_url": "https://api.github.com/repos/ValveSoftware/counter-strike_regional_standings/contents/live/2026/standings_global_2026_10_05.md",
+      "observed_at": "2026-10-26T00:54Z",
+      "detail": "Directory listing (41 files) confirms standings_global_2026_10_05.md (blob 2aa2805) is still the newest global file; no 2026-10-19 or 2026-10-26 file exists yet. Raw content fetched through the GitHub contents API; SHA-256 of the raw markdown as fetched: df96e7fc3cd91a2687ec08cac0128e50cc4e4e55346581679572e881d79ae61b."
+    },
+    "hltv": {
+      "observed_at": "2026-10-26T00:55Z",
+      "detail": "https://www.hltv.org/ranking/teams/2026/october/26 returns 404 (the Monday 2026-10-26 team ranking was not published at read time); the newest team ranking is 2026/october/19. Team pages publish both the HLTV world rank (2026-10-19 ranking) and a Valve-ranking mirror labelled 2026/october/26. Per-team reads are recorded inside each fixture entry."
+    },
+    "bo3gg": {
+      "base": "https://api.bo3.gg/api/v1",
+      "observed_at": "2026-10-26T00:56Z",
+      "detail": "Tournament-scoped match pulls: NODWIN Clutch Series 13 (tournament_id 6149) returned 7 upcoming rows; CCT Europe 2026 Series 12 (tournament_id 5626, slug cct-europe-2026-series-12, 2026-10-20 to 2026-11-01, $25,000, tier b) returned 24 upcoming rows. Every target row carries bet_updates: null (no Thunderpick relay line)."
+    },
+    "polymarket": {
+      "base": "https://gamma-api.polymarket.com",
+      "observed_at": "2026-10-26T00:56Z",
+      "detail": "Open events found for five of the ten researched fixtures (four NODWIN quarterfinals and the Moscow Cyber Games semifinal). Numbers below are transcribed from each event's Gamma record; 'series' marks the sportsMarketType=moneyline 'Match Winner' market and 'map1' marks the Map 1 Winner child market. No market was found for any of the five CCT Series 12 fixtures (searches for 'HAVU', 'LFO', 'INOX Division', 'Saint Sinners', 'Spirit Academy' surfaced only closed or unrelated events)."
+    },
+    "smarkets": {
+      "url": "https://api.smarkets.com/v3/events/?state=upcoming&type=csgo_match",
+      "observed_at": "2026-10-26T01:03Z",
+      "detail": "All 20 upcoming csgo_match events read (both pages). None of the ten researched fixtures is listed; the list covers DFRAG Invitational, Tesla Cup, dust2dk Ligaen, DACH CS Masters, GC Liga and Stake Ranked playoffs events only. Note: Smarkets event 45399742 'Inner Circle Esports vs Team Nemesis' (Stake Ranked playoffs, 2026-10-27T13:30:00Z) is a different fixture from both 1079201 and 1081164."
+    },
+    "thunderpick": {
+      "url": "https://thunderpick.io/api/matches?gameIds=6",
+      "observed_at": "2026-10-26T00:53Z",
+      "detail": "GET returns {\"matches\": []} (the prematch list requires the POST the production collector uses). The bo3.gg bet_updates relay, which republishes Thunderpick decimal odds and direct match links, is null on every NODWIN Clutch Series 13 and CCT Europe Series 12 target row, so no Thunderpick line was observed for any of the ten fixtures."
+    }
+  },
+  "fixtures": [
+    {
+      "hotspawn_id": 1079201,
+      "match": "INOX Division vs Nemesis",
+      "competition": "NODWIN Clutch Series #13",
+      "hotspawn_start_utc": "2026-10-26T09:00:00Z",
+      "hotspawn_epoch_ms": 1793005200000,
+      "findings": {
+        "bo3gg": {
+          "url": "https://api.bo3.gg/api/v1/matches?filter[matches.tournament_id][eq]=6149&filter[matches.status][in]=upcoming&sort=start_date&with=teams",
+          "observed_at": "2026-10-26T00:56Z",
+          "match_id": 131200,
+          "slug": "team-nemesis-cs-vs-inox-division-26-10-2026",
+          "start_date": "2026-10-26T09:00:00.000+00:00",
+          "bo_type": 3,
+          "tier": "b",
+          "ranks": {
+            "Nemesis": 29,
+            "INOX Division": 82
+          },
+          "bet_updates": null
+        },
+        "valve": {
+          "observed_at": "2026-10-26T00:54Z",
+          "Nemesis": {
+            "standing": 29,
+            "points": 1455,
+            "roster": [
+              "mag1k3Y",
+              "r3salt",
+              "Sdaim",
+              "SELLTER",
+              "tex1y"
+            ],
+            "unique_complete_row": true
+          },
+          "INOX Division": {
+            "standing": 82,
+            "points": 1105,
+            "roster": [
+              "FenomeN",
+              "finW",
+              "gooddeph",
+              "k0s",
+              "k1slll"
+            ],
+            "unique_complete_row": true
+          },
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+        },
+        "polymarket": {
+          "url": "https://gamma-api.polymarket.com/events/1252123",
+          "observed_at": "2026-10-26T00:58Z",
+          "event_slug": "cs2-nem-inox-2026-10-26",
+          "title": "Counter-Strike: Team Nemesis vs INOX Division (BO3) - NODWIN Clutch Series Playoffs",
+          "stage": "Quarterfinal 1",
+          "event_start": "2026-10-26T09:00:00Z",
+          "outcomes": [
+            "Team Nemesis",
+            "INOX Division"
+          ],
+          "map1": {
+            "outcome_prices": [
+              0.505,
+              0.495
+            ],
+            "best_bid": 0.12,
+            "best_ask": 0.89,
+            "spread": 0.77,
+            "liquidity": 115.6
+          },
+          "series_market_note": "Series moneyline market exists in the event record; its book was not separately read. The Map 1 book is too wide and thin to quote."
+        }
+      },
+      "join_assessment": "Start times agree across Hotspawn, bo3.gg and Polymarket (09:00Z). The strict market join would fail on names (Polymarket 'Team Nemesis' vs Hotspawn 'Nemesis'). Valve standings rate both teams with unique complete five-player rows, so the model rung can price this fixture once it enters the ladder. No bookmaker line observed."
+    },
+    {
+      "hotspawn_id": 1079202,
+      "match": "FOKUS vs ex-Zero Tenacity",
+      "competition": "NODWIN Clutch Series #13",
+      "hotspawn_start_utc": "2026-10-26T12:00:00Z",
+      "hotspawn_epoch_ms": 1793016000000,
+      "findings": {
+        "bo3gg": {
+          "url": "https://api.bo3.gg/api/v1/matches?filter[matches.tournament_id][eq]=6149&filter[matches.status][in]=upcoming&sort=start_date&with=teams",
+          "observed_at": "2026-10-26T00:56Z",
+          "match_id": 131203,
+          "slug": "fokus-cs-vs-ex-zero-tenacity-26-10-2026",
+          "start_date": "2026-10-26T18:00:00.000+00:00",
+          "bo_type": 3,
+          "tier": "b",
+          "ranks": {
+            "FOKUS": 48,
+            "ex-Zero Tenacity": 93
+          },
+          "bet_updates": null
+        },
+        "valve": {
+          "observed_at": "2026-10-26T00:54Z",
+          "FOKUS": {
+            "standing": 48,
+            "points": 1321,
+            "roster": [
+              "Banjo",
+              "jocab",
+              "Matheos",
+              "podi",
+              "ztr"
+            ],
+            "unique_complete_row": true
+          },
+          "ex-Zero Tenacity": {
+            "standing": 93,
+            "points": 1066,
+            "roster": [
+              "brutmonster",
+              "Cjoffo",
+              "Dragon",
+              "Kind0",
+              "VLDN"
+            ],
+            "unique_complete_row": true
+          },
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+        },
+        "polymarket": {
+          "url": "https://gamma-api.polymarket.com/events/1252125",
+          "observed_at": "2026-10-26T00:58Z",
+          "event_slug": "cs2-fokus-zerote-2026-10-26",
+          "title": "Counter-Strike: FOKUS vs ex-Zero Tenacity (BO3) - NODWIN Clutch Series Playoffs",
+          "stage": "Quarterfinal 4",
+          "event_start": "2026-10-26T18:00:00Z",
+          "outcomes": [
+            "FOKUS",
+            "ex-Zero Tenacity"
+          ],
+          "map1": {
+            "outcome_prices": [
+              0.535,
+              0.465
+            ],
+            "best_bid": 0.46,
+            "best_ask": 0.61,
+            "spread": 0.15,
+            "liquidity": 2028.53
+          },
+          "series_market_note": "Series moneyline market exists in the event record; its book was not separately read."
+        }
+      },
+      "join_assessment": "Start-time conflict: Hotspawn 12:00Z vs Polymarket and bo3.gg 18:00Z (6 hours apart), which alone breaks the strict 60-second join even though both team names match exactly. Valve standings rate both teams with unique complete rows, so the model rung can price this fixture. No bookmaker line observed."
+    },
+    {
+      "hotspawn_id": 1079203,
+      "match": "Metizport vs BRUTE",
+      "competition": "NODWIN Clutch Series #13",
+      "hotspawn_start_utc": "2026-10-26T15:00:00Z",
+      "hotspawn_epoch_ms": 1793026800000,
+      "findings": {
+        "hltv": {
+          "match_page": {
+            "url": "https://www.hltv.org/matches/2399118/metizport-vs-brute-nodwin-clutch-series-13",
+            "observed_at": "2026-10-26T01:00Z",
+            "stage": "Quarter-final, Best of 3 (Online), NODWIN Clutch Series 13 (event 9440)",
+            "countdown_at_read": "14h10m (start ~2026-10-26T15:00Z, agreeing with Hotspawn)",
+            "fan_vote": {
+              "Metizport": 0.636,
+              "BRUTE": 0.364,
+              "note": "HLTV 'Pick a winner' fan poll. Crowd sentiment, NOT a probability; never used as one."
+            },
+            "betting_table_note": "Rendered betting widget contained only a Stake promotional row; no static bookmaker odds."
+          },
+          "metizport": {
+            "url": "https://www.hltv.org/team/11641/metizport",
+            "observed_at": "2026-10-26T00:55Z",
+            "hltv_world_rank": 59,
+            "ranking_edition": "2026-10-19",
+            "vrs_mirror": 64,
+            "vrs_mirror_region": "EU#45",
+            "roster": [
+              "stanislaw",
+              "Plopski",
+              "F1KU",
+              "forsyy",
+              "MaiL09"
+            ]
+          },
+          "brute": {
+            "url": "https://www.hltv.org/team/9139/brute",
+            "observed_at": "2026-10-26T01:00Z",
+            "hltv_world_rank": 109,
+            "ranking_edition": "2026-10-19",
+            "vrs_mirror": 79,
+            "lineup_on_match_page": [
+              "nbqq",
+              "aidKiT",
+              "ZEDKO",
+              "tAk",
+              "oontoma (Substitute)"
+            ]
+          },
+          "url": "https://www.hltv.org/matches/2399118/metizport-vs-brute-nodwin-clutch-series-13",
+          "observed_at": "2026-10-26T01:00Z"
+        },
+        "bo3gg": {
+          "url": "https://api.bo3.gg/api/v1/matches?filter[matches.tournament_id][eq]=6149&filter[matches.status][in]=upcoming&sort=start_date&with=teams",
+          "observed_at": "2026-10-26T00:56Z",
+          "match_id": 131201,
+          "slug": "metizport-vs-brute-26-10-2026",
+          "start_date": "2026-10-26T12:00:00.000+00:00",
+          "bo_type": 3,
+          "tier": "b",
+          "ranks": {
+            "BRUTE": 75,
+            "Metizport": 53
+          },
+          "bet_updates": null
+        },
+        "valve": {
+          "observed_at": "2026-10-26T00:54Z",
+          "Metizport": {
+            "standing": 53,
+            "points": 1290,
+            "roster": [
+              "F1KU",
+              "forsyy",
+              "MaiL09",
+              "Plopski",
+              "stanislaw"
+            ],
+            "unique_complete_row": true,
+            "roster_matches_hltv": "5/5"
+          },
+          "BRUTE": {
+            "rows": [
+              {
+                "standing": 75,
+                "points": 1116,
+                "roster": [
+                  "aidKiT",
+                  "hfah",
+                  "nbqq",
+                  "tAk",
+                  "ZEDKO"
+                ]
+              },
+              {
+                "standing": 218,
+                "points": 689,
+                "roster": [
+                  "hfah",
+                  "KAD1M",
+                  "majky",
+                  "nbqq",
+                  "realzen"
+                ]
+              }
+            ],
+            "unique_complete_row": false,
+            "note": "Two complete five-player rows share the name; the #75 row shares 4/5 players with the current HLTV lineup (hfah absent, oontoma listed as substitute) while the #218 row shares 2/5. Strict exact-name uniqueness therefore rejects the model rung for this fixture."
+          },
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+        },
+        "polymarket": {
+          "url": "https://gamma-api.polymarket.com/events/1255013",
+          "observed_at": "2026-10-26T00:57Z",
+          "event_slug": "cs2-mzp-brute-2026-10-26",
+          "title": "Counter-Strike: Metizport vs Brute (BO3) - NODWIN Clutch Series Playoffs",
+          "stage": "Quarterfinal 2",
+          "created_at": "2026-10-25T20:45:12Z",
+          "event_start": "2026-10-26T12:00:00Z",
+          "outcomes": [
+            "Metizport",
+            "Brute"
+          ],
+          "series": {
+            "question": "Counter-Strike: Metizport vs Brute (BO3) - Moscow Cyber Games Playoffs record title ... NODWIN Clutch Series Playoffs",
+            "outcome_prices": null,
+            "best_bid": 0.59,
+            "best_ask": 0.6,
+            "last_trade_price": 0.6,
+            "spread": 0.01,
+            "note": "sportsMarketType=moneyline 'Match Winner' market; best bid/ask are for outcome 1 (Metizport), giving a 0.595/0.405 midpoint pair. Tightest book observed for any researched fixture."
+          },
+          "map1": {
+            "outcome_prices": [
+              0.545,
+              0.455
+            ],
+            "best_bid": 0.52,
+            "best_ask": 0.57,
+            "spread": 0.05,
+            "liquidity": 2294.25
+          },
+          "event_liquidity": 12760.29
+        }
+      },
+      "join_assessment": "Start-time conflict: Hotspawn 15:00Z (and the HLTV match-page countdown) vs Polymarket eventStartTime and bo3.gg start_date 12:00Z. Both team names match exactly across sources, so the 3-hour gap is the sole strict-join blocker for a currently 0.01-spread Polymarket series book. The Valve model rung is identity-blocked by BRUTE's two complete rows. HLTV-first guidance: Metizport is the higher-rated side on every ranking read (HLTV 59 vs 109; VRS mirror 64 vs 79; bo3.gg 53 vs 75)."
+    },
+    {
+      "hotspawn_id": 1081159,
+      "match": "LFO 10 vs ex-6666",
+      "competition": "CCT Europe 2026 Series #12",
+      "hotspawn_start_utc": "2026-10-26T12:00:00Z",
+      "hotspawn_epoch_ms": 1793016000000,
+      "findings": {
+        "hltv": {
+          "lfo10": {
+            "url": "https://www.hltv.org/team/14084/lfo-10",
+            "observed_at": "2026-10-26T00:59Z",
+            "hltv_world_rank": 167,
+            "ranking_edition": "2026-10-19",
+            "vrs_mirror": 157,
+            "vrs_mirror_region": "EU#112",
+            "roster_listed": [
+              "dottie",
+              "flaw",
+              "Sapec"
+            ],
+            "roster_note": "HLTV lists three starters plus two unnamed slots."
+          },
+          "ex6666": {
+            "url": "https://www.hltv.org/matches/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
+            "observed_at": "2026-10-26T00:59Z",
+            "team_page_url": "https://www.hltv.org/team/14100/ex-6666",
+            "hltv_world_rank": 72,
+            "ranking_edition": "2026-10-19",
+            "vrs_mirror": 118,
+            "roster": [
+              "skcH",
+              "kL1o",
+              "amster",
+              "rendysky",
+              "stefienson"
+            ]
+          },
+          "match_page": {
+            "url": "https://www.hltv.org/matches/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
+            "detail": "HLTV schedules 'LFO 10 vs. ex-6666 at CCT 2026 Europe Series 12' on 26 Oct, confirming the fixture exists on HLTV."
+          },
+          "url": "https://www.hltv.org/matches/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
+          "observed_at": "2026-10-26T00:59Z"
+        },
+        "bo3gg": {
+          "url": "https://api.bo3.gg/api/v1/matches?filter[matches.tournament_id][eq]=5626&filter[matches.status][in]=upcoming&sort=start_date&with=teams",
+          "observed_at": "2026-10-26T00:57Z",
+          "lfo10_team_lookup": {
+            "url": "https://api.bo3.gg/api/v1/teams?filter[teams.name][eq]=LFO%2010",
+            "result": {
+              "count": 0,
+              "detail": "No bo3.gg team named 'LFO 10' exists."
+            }
+          },
+          "slot_observation": {
+            "match_id": 131984,
+            "slug": "sokerorg-vs-ex-6666-26-10-2026",
+            "start_date": "2026-10-26T12:00:00.000+00:00",
+            "detail": "The CCT Series 12 row at the same hour pairs ex-6666 with Sokerorg, not LFO 10; both teams carry null bo3.gg rank."
+          }
+        },
+        "valve": {
+          "observed_at": "2026-10-26T00:54Z",
+          "LFO 10": null,
+          "LFO_10_note": "The 2026-10-05 file lists only LFO 7 (#285), LFO 8 (#279) and LFO 9 (#297); LFO 10 has no row, so the model rung refuses.",
+          "ex-6666": {
+            "standing": null,
+            "note": "The file lists '6666' at #127 (937 points; amster, dENZY, kL1o, rendysky, skcH) and a four-player '6666' row at #368. The exact name 'ex-6666' has no row; the HLTV roster (skcH, kL1o, amster, rendysky, stefienson) shares 4/5 players with the #127 row (dENZY vs stefienson)."
+          },
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+        },
+        "polymarket": null,
+        "polymarket_note": "No CS2 market found (a 'LFO' search returns an unrelated Dota 2 event).",
+        "huns_mirror_note": "HLTV's Valve-ranking mirror dated 2026/october/26 already lists LFO 10 at #157 (EU#112), suggesting Valve's next published file is expected to include LFO 10."
+      },
+      "join_assessment": "Identity-blocked on both model and network paths: Valve has no LFO 10 row and no exact-name ex-6666 row; bo3.gg has no LFO 10 team and schedules Sokerorg vs ex-6666 in the same hour slot. HLTV is the only source confirming the pairing (match 2399509). No bookmaker or prediction-market line exists. HLTV-first guidance (qualitative, not a probability): ex-6666 is the far higher-rated side on HLTV (#72 vs #167) and on the HLTV VRS mirror (#118 vs #157). This fixture will remain unresolved until Valve publishes an LFO 10 row or a book prices it."
+    },
+    {
+      "hotspawn_id": 1081160,
+      "match": "HAVU vs ILLYRIANS",
+      "competition": "CCT Europe 2026 Series #12",
+      "hotspawn_start_utc": "2026-10-26T15:00:00Z",
+      "hotspawn_epoch_ms": 1793026800000,
+      "findings": {
+        "bo3gg": {
+          "url": "https://api.bo3.gg/api/v1/matches?filter[matches.tournament_id][eq]=5626&filter[matches.status][in]=upcoming&sort=start_date&with=teams",
+          "observed_at": "2026-10-26T00:57Z",
+          "match_id": 131986,
+          "slug": "havu-vs-illyrians-26-10-2026",
+          "start_date": "2026-10-26T15:00:00.000+00:00",
+          "bo_type": 3,
+          "tier": "b",
+          "ranks": {
+            "HAVU": 124,
+            "Illyrians": 141
+          },
+          "bet_updates": null
+        },
+        "valve": {
+          "observed_at": "2026-10-26T00:54Z",
+          "HAVU": {
+            "standing": 124,
+            "points": 937,
+            "roster": [
+              "8Juho8",
+              "Alxc",
+              "ottob",
+              "p3kko",
+              "uli"
+            ],
+            "unique_complete_row": true
+          },
+          "Illyrians": {
+            "standing": 141,
+            "points": 862,
+            "roster": [
+              "ammar",
+              "BledarD",
+              "cerber",
+              "vAloN",
+              "xonn1k"
+            ],
+            "unique_complete_row": true
+          },
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+        }
+      },
+      "join_assessment": "Times agree (15:00Z). Valve standings rate both teams with unique complete rows, so the model rung can price this fixture once it enters the ladder. No Polymarket market and no bookmaker line observed. Note: a reviewed alias 'HAVU Gaming' -> 'HAVU' scoped to CCT Europe 2026 Series #12 already exists in the registry for Thunderpick/bo3.gg display names."
+    },
+    {
+      "hotspawn_id": 1081162,
+      "match": "ex-RUSTEC vs Spirit Academy",
+      "competition": "CCT Europe 2026 Series #12",
+      "hotspawn_start_utc": "2026-10-27T12:00:00Z",
+      "hotspawn_epoch_ms": 1793102400000,
+      "findings": {
+        "bo3gg": {
+          "url": "https://api.bo3.gg/api/v1/matches?filter[matches.tournament_id][eq]=5626&filter[matches.status][in]=upcoming&sort=start_date&with=teams",
+          "observed_at": "2026-10-26T00:57Z",
+          "match_id": 131987,
+          "slug": "ex-rustec-vs-spirit-academy-27-10-2026",
+          "start_date": "2026-10-27T12:00:00.000+00:00",
+          "bo_type": 3,
+          "tier": "b",
+          "ranks": {
+            "ex-RUSTEC": 92,
+            "Spirit Academy": 115
+          },
+          "bet_updates": null
+        },
+        "valve": {
+          "observed_at": "2026-10-26T00:54Z",
+          "ex-RUSTEC": {
+            "standing": 92,
+            "points": 1066,
+            "roster": [
+              "Brilliance",
+              "glowiing",
+              "shalfey",
+              "yiksrezo",
+              "youka"
+            ],
+            "unique_complete_row": true,
+            "note": "A second ex-RUSTEC row at #152 (824 points) lists only four players and is excluded by the complete-five-player rule."
+          },
+          "Spirit Academy": {
+            "standing": 115,
+            "points": 981,
+            "roster": [
+              "k0gaSs",
+              "Kiryasoo",
+              "Netrix",
+              "s1nside",
+              "VILBy"
+            ],
+            "unique_complete_row": true
+          },
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+        }
+      },
+      "join_assessment": "Times agree (12:00Z). Valve standings rate both teams with unique complete rows, so the model rung can price this fixture. No Polymarket market and no bookmaker line observed."
+    },
+    {
+      "hotspawn_id": 1081163,
+      "match": "BakS vs Saint Sinners",
+      "competition": "CCT Europe 2026 Series #12",
+      "hotspawn_start_utc": "2026-10-27T15:00:00Z",
+      "hotspawn_epoch_ms": 1793113200000,
+      "findings": {
+        "bo3gg": {
+          "url": "https://api.bo3.gg/api/v1/matches?filter[matches.tournament_id][eq]=5626&filter[matches.status][in]=upcoming&sort=start_date&with=teams",
+          "observed_at": "2026-10-26T00:57Z",
+          "match_id": 131988,
+          "slug": "baks-esports-vs-saint-sinners-27-10-2026",
+          "start_date": "2026-10-27T15:00:00.000+00:00",
+          "bo_type": 3,
+          "tier": "b",
+          "ranks": {
+            "BAKS": 100,
+            "Saint Sinners": 158
+          },
+          "bet_updates": null
+        },
+        "valve": {
+          "observed_at": "2026-10-26T00:54Z",
+          "BAKS": {
+            "standing": 100,
+            "points": 1044,
+            "roster": [
+              "danistzz",
+              "Norwi",
+              "turbo",
+              "whisper",
+              "xdENiSZERA"
+            ],
+            "unique_complete_row": true
+          },
+          "Saint Sinners": {
+            "standing": 158,
+            "points": 810,
+            "roster": [
+              "Caleyy",
+              "deb0",
+              "iRV1NG",
+              "pavlysha666",
+              "ves111"
+            ],
+            "unique_complete_row": true
+          },
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+        }
+      },
+      "join_assessment": "Times agree (15:00Z). Valve standings rate both teams with unique complete rows, so the model rung can price this fixture. No Polymarket market and no bookmaker line observed."
+    },
+    {
+      "hotspawn_id": 1081164,
+      "match": "Inner Circle Academy vs Lavked",
+      "competition": "CCT Europe 2026 Series #12",
+      "hotspawn_start_utc": "2026-10-27T18:00:00Z",
+      "hotspawn_epoch_ms": 1793124000000,
+      "findings": {
+        "bo3gg": {
+          "url": "https://api.bo3.gg/api/v1/matches?filter[matches.tournament_id][eq]=5626&filter[matches.status][in]=upcoming&sort=start_date&with=teams",
+          "observed_at": "2026-10-26T00:57Z",
+          "match_id": 131989,
+          "slug": "inner-circle-academy-vs-lavked-27-10-2026",
+          "start_date": "2026-10-27T18:00:00.000+00:00",
+          "bo_type": 3,
+          "tier": "b",
+          "ranks": {
+            "Inner Circle Academy": 94,
+            "Lavked": 143
+          },
+          "bet_updates": null
+        },
+        "valve": {
+          "observed_at": "2026-10-26T00:54Z",
+          "Inner Circle Academy": {
+            "standing": 94,
+            "points": 1064,
+            "roster": [
+              "3ippoch",
+              "Flierax",
+              "L1seYoung",
+              "NaYz",
+              "Tamefear"
+            ],
+            "unique_complete_row": true,
+            "note": "A separate team 'Inner Circle' sits at #20 (1516 points) with a different roster; names do not collide under exact matching."
+          },
+          "Lavked": {
+            "standing": 143,
+            "points": 862,
+            "roster": [
+              "1NVISIBLEE",
+              "azukay",
+              "k4nfuz",
+              "sol",
+              "xm1nd"
+            ],
+            "unique_complete_row": true
+          },
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+        }
+      },
+      "join_assessment": "Times agree (18:00Z). Valve standings rate both teams with unique complete rows, so the model rung can price this fixture. No Polymarket market and no bookmaker line observed."
+    },
+    {
+      "hotspawn_id": 1093218,
+      "match": "Nuclear TigeRES vs UNiTY",
+      "competition": "NODWIN Clutch Series #13",
+      "hotspawn_start_utc": "2026-10-26T18:00:00Z",
+      "hotspawn_epoch_ms": 1793037600000,
+      "findings": {
+        "bo3gg": {
+          "url": "https://api.bo3.gg/api/v1/matches?filter[matches.tournament_id][eq]=6149&filter[matches.status][in]=upcoming&sort=start_date&with=teams",
+          "observed_at": "2026-10-26T00:56Z",
+          "match_id": 131202,
+          "slug": "nuclear-tigeres-vs-unity-26-10-2026",
+          "start_date": "2026-10-26T15:00:00.000+00:00",
+          "bo_type": 3,
+          "tier": "b",
+          "ranks": {
+            "Nuclear TigeRES": 46,
+            "UNiTY": 69
+          },
+          "bet_updates": null
+        },
+        "valve": {
+          "observed_at": "2026-10-26T00:54Z",
+          "Nuclear TigeRES": {
+            "standing": 46,
+            "points": 1324,
+            "roster": [
+              "ayuki",
+              "Djon8",
+              "flouzer",
+              "senka",
+              "tronic"
+            ],
+            "unique_complete_row": true
+          },
+          "UNiTY": {
+            "standing": 69,
+            "points": 1167,
+            "roster": [
+              "2high",
+              "Dytor",
+              "KWERTZZ",
+              "M1key",
+              "Sn0w"
+            ],
+            "unique_complete_row": true
+          },
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+        },
+        "polymarket": {
+          "url": "https://gamma-api.polymarket.com/events/1252124",
+          "observed_at": "2026-10-26T00:58Z",
+          "event_slug": "cs2-ntr-unity-2026-10-26",
+          "title": "Counter-Strike: Nuclear TigeRES vs UNiTY esports (BO3) - NODWIN Clutch Series Playoffs",
+          "stage": "Quarterfinal 3",
+          "event_start": "2026-10-26T15:00:00Z",
+          "outcomes": [
+            "Nuclear TigeRES",
+            "UNiTY esports"
+          ],
+          "map1": {
+            "outcome_prices": [
+              0.525,
+              0.475
+            ],
+            "best_bid": 0.51,
+            "best_ask": 0.54,
+            "spread": 0.03,
+            "liquidity": 2944.13
+          },
+          "series_market_note": "Series moneyline market exists in the event record; its book was not separately read. Map 1 book is tight (0.03)."
+        }
+      },
+      "join_assessment": "Start-time conflict: Hotspawn 18:00Z vs Polymarket and bo3.gg 15:00Z. Names: 'UNiTY esports' vs Hotspawn 'UNiTY' would also need the existing registry alias (scoped to NODWIN Clutch Series #13) to be applied in the market path. Valve standings rate both teams with unique complete rows, so the model rung can price this fixture. No bookmaker line observed."
+    },
+    {
+      "hotspawn_id": 1082792,
+      "match": "HOTU vs The Huns",
+      "competition": "Moscow Cyber Games 2026",
+      "hotspawn_start_utc": "2026-10-31T09:00:00Z",
+      "hotspawn_epoch_ms": 1793437200000,
+      "findings": {
+        "hltv": {
+          "hotu": {
+            "url": "https://www.hltv.org/team/11581/hotu",
+            "observed_at": "2026-10-26T01:02Z",
+            "hltv_world_rank": 38,
+            "ranking_edition": "2026-10-19",
+            "vrs_mirror": 38,
+            "vrs_mirror_region": "EU#30",
+            "roster": [
+              "n0rb3r7",
+              "kade0",
+              "mizu",
+              "dwushka",
+              "frontales"
+            ]
+          },
+          "the_huns": {
+            "url": "https://www.hltv.org/team/12510/the-huns",
+            "observed_at": "2026-10-26T01:02Z",
+            "hltv_world_rank": 134,
+            "ranking_edition": "2026-10-19",
+            "vrs_mirror": 123,
+            "vrs_mirror_region": "ASIA#11",
+            "roster": [
+              "Bart4k",
+              "controlez",
+              "Cozen",
+              "DarkMeister",
+              "bexyz"
+            ]
+          },
+          "match_page": {
+            "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+            "observed_at": "2026-10-26T01:02Z",
+            "detail": "HLTV lists 'HOTU vs. The Huns at GLuck Moscow Cyber Games 2026' on 31 Oct (both teams' next-match lists link it)."
+          },
+          "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+          "observed_at": "2026-10-26T01:02Z"
+        },
+        "valve": {
+          "observed_at": "2026-10-26T00:54Z",
+          "HOTU": {
+            "standing": 31,
+            "points": 1437,
+            "roster": [
+              "dwushka",
+              "frontales",
+              "kade0",
+              "mizu",
+              "n0rb3r7"
+            ],
+            "unique_complete_row": true,
+            "roster_matches_hltv": "5/5"
+          },
+          "The Huns": {
+            "rows": [
+              {
+                "standing": 122,
+                "points": 944,
+                "roster": [
+                  "Annihilation",
+                  "Bart4k",
+                  "bexyz",
+                  "controlez",
+                  "Cozen"
+                ]
+              },
+              {
+                "standing": 213,
+                "points": 701,
+                "roster": [
+                  "Bart4k",
+                  "controlez",
+                  "nin9",
+                  "sk0R",
+                  "xerolte"
+                ]
+              }
+            ],
+            "unique_complete_row": false,
+            "note": "Two complete five-player rows share the name; the #122 row shares 4/5 players with the current HLTV lineup (Annihilation vs DarkMeister) while the #213 row shares 2/5. This is the identity reason the deployed snapshot leaves 1082792 unresolved, re-verified live against the Valve file on 2026-10-26T00:54Z."
+          },
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+        },
+        "polymarket": {
+          "url": "https://gamma-api.polymarket.com/events/1241313",
+          "observed_at": "2026-10-26T00:56Z",
+          "event_slug": "cs2-hotu-the9-2026-10-31",
+          "title": "Counter-Strike: HOTU vs The Huns Esports (BO3) - Moscow Cyber Games Playoffs",
+          "stage": "Semifinal 1",
+          "created_at": "2026-10-23T16:25:22Z",
+          "event_start": "2026-10-31T09:00:00Z",
+          "outcomes": [
+            "HOTU",
+            "The Huns Esports"
+          ],
+          "series": {
+            "market_id": 6085308,
+            "slug": "cs2-hotu-the9-2026-10-31",
+            "outcome_prices": [
+              0.87,
+              0.13
+            ],
+            "best_bid": 0.82,
+            "best_ask": 0.92,
+            "spread": 0.1,
+            "last_trade_price": 0.58,
+            "one_day_price_change": 0.155,
+            "volume": 792.11,
+            "liquidity": 4197.96,
+            "updated_at": "2026-10-26T00:48:38Z",
+            "note": "sportsMarketType=moneyline 'Match Winner'. The bid/ask pair gives a 0.87/0.13 midpoint. The spread tightened from the 43-cent-wide book recorded by arena-27ac20d6 at 2026-10-25T14:40Z to 0.10 at this read, inside the collector's 0.15 ceiling."
+          },
+          "map1": {
+            "market_id": 6085306,
+            "outcome_prices": [
+              0.81,
+              0.19
+            ],
+            "best_bid": 0.71,
+            "best_ask": 0.91,
+            "spread": 0.2
+          }
+        }
+      },
+      "join_assessment": "Times agree exactly (2026-10-31T09:00:00Z on Hotspawn, Polymarket and HLTV). The remaining strict-join blocker is the outcome name 'The Huns Esports' vs Hotspawn 'The Huns': the market path in scripts/collect.py matches raw outcome names case-insensitively and does not consult the alias registry, even though a reviewed alias 'The Huns Esports' -> 'The Huns' scoped to Moscow Cyber Games 2026 / GLuck Moscow Cyber Games 2026 already exists in data/origination/aliases.json (added by arena-dd433e7f on 2026-10-24). The Valve model rung remains identity-blocked by The Huns' two complete rows (current HLTV roster shares 4/5 players with the #122 row). HLTV-first guidance: HOTU is the higher-rated side on every ranking read (HLTV 38 vs 134; VRS mirror 38 vs 123; Valve #31 1437 points vs the #122 944-point row)."
+    }
+  ],
+  "cross_source_flags": [
+    {
+      "id": "6001-01",
+      "title": "Nine live lobby fixtures absent from the deployed snapshot",
+      "detail": "The Hotspawn fixture API and rendered lobby list 19 future fixtures at 2026-10-26T00:52Z while the deployed snapshot (2026-10-25T23:03:48Z) carries 10. The nine additional fixtures are 1079201, 1079202, 1079203, 1081159, 1081160, 1081162, 1081163, 1081164, 1093218 (NODWIN Clutch Series #13 quarterfinals and CCT Europe 2026 Series #12 group fixtures). Independently confirmed first-hand by this session (arena-500519ba first observed the gap at 00:44Z).",
+      "evidence": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://play.hotspawn.com/lobby",
+        "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json"
+      ]
+    },
+    {
+      "id": "6001-02",
+      "title": "Hotspawn start times for three NODWIN quarterfinals conflict with Polymarket and bo3.gg",
+      "detail": "Hotspawn lists 1079203 Metizport vs BRUTE at 15:00Z and 1093218 Nuclear TigeRES vs UNiTY at 18:00Z, while Polymarket event start times and bo3.gg start_date both read 12:00Z and 15:00Z respectively; Hotspawn lists 1079202 FOKUS vs ex-Zero Tenacity at 12:00Z while both other sources read 18:00Z. The HLTV match page for Metizport vs BRUTE sides with Hotspawn (~15:00Z by countdown). QF1 (1079201) agrees at 09:00Z everywhere. A strict 60-second join therefore fails for QF2/QF3/QF4 regardless of names.",
+      "evidence": [
+        "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+        "https://gamma-api.polymarket.com/events/1255013",
+        "https://gamma-api.polymarket.com/events/1252124",
+        "https://gamma-api.polymarket.com/events/1252125",
+        "https://api.bo3.gg/api/v1/matches?filter[matches.tournament_id][eq]=6149&filter[matches.status][in]=upcoming&sort=start_date&with=teams",
+        "https://www.hltv.org/matches/2399118/metizport-vs-brute-nodwin-clutch-series-13"
+      ]
+    },
+    {
+      "id": "6001-03",
+      "title": "Tight Polymarket books exist that the strict market join cannot reach",
+      "detail": "Polymarket series moneyline markets are open for all four NODWIN quarterfinals and the Moscow Cyber Games semifinal. The Metizport vs Brute series book reads bid 0.59 / ask 0.60 (spread 0.01) and the HOTU vs The Huns series book reads bid 0.82 / ask 0.92 (spread 0.10, tightened from 43 cents on 2026-10-25). None can bind under scripts/collect.py's exact-name plus 60-second rule: QF2/QF3/QF4 fail on start time (see 6001-02), QF1 fails on the name 'Team Nemesis', QF3 additionally on 'UNiTY esports', and 1082792 fails on 'The Huns Esports' despite a reviewed alias existing in the registry (the market path does not consult it).",
+      "evidence": [
+        "https://gamma-api.polymarket.com/events/1255013",
+        "https://gamma-api.polymarket.com/events/1241313",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/collect.py",
+        "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination/aliases.json"
+      ]
+    },
+    {
+      "id": "6001-04",
+      "title": "1081159 (LFO 10 vs ex-6666) is identity-blocked on every origin but HLTV",
+      "detail": "Valve's 2026-10-05 standings have no LFO 10 row (only LFO 7/8/9) and no exact-name ex-6666 row ('6666' #127 shares 4/5 players with the current HLTV roster). bo3.gg has no team named LFO 10 and its CCT Series 12 row in the same hour is Sokerorg vs ex-6666. HLTV alone confirms the fixture (match 2399509). No book or prediction market prices it. HLTV's VRS mirror dated 2026/october/26 already lists LFO 10 at #157, so Valve's next published standings file is expected to unblock the model rung.",
+      "evidence": [
+        "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "https://api.bo3.gg/api/v1/teams?filter[teams.name][eq]=LFO%2010",
+        "https://www.hltv.org/matches/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
+        "https://www.hltv.org/team/14084/lfo-10"
+      ]
+    },
+    {
+      "id": "6001-05",
+      "title": "No bookmaker line observed for any of the ten fixtures",
+      "detail": "Thunderpick's public GET prematch list is empty (POST-only), bo3.gg's Thunderpick bet_updates relay is null on every NODWIN Clutch Series 13 and CCT Europe Series 12 target row, and Smarkets' complete 20-event upcoming CS2 list contains none of the ten fixtures. HLTV's rendered betting widget for Metizport vs BRUTE carries no static odds. The only priced markets are the Polymarket events in 6001-03.",
+      "evidence": [
+        "https://thunderpick.io/api/matches?gameIds=6",
+        "https://api.smarkets.com/v3/events/?state=upcoming&type=csgo_match",
+        "https://www.hltv.org/matches/2399118/metizport-vs-brute-nodwin-clutch-series-13"
+      ]
+    },
+    {
+      "id": "6001-06",
+      "title": "Valve's newest standings file is still 2026-10-05",
+      "detail": "The live/2026 directory (41 files, read 2026-10-26T00:54Z) still ends at standings_global_2026_10_05.md; no 2026-10-19 or 2026-10-26 file has been published. BRUTE and The Huns each still carry two complete five-player rows, keeping the model rung identity-blocked for 1079203 and 1082792 under the strict uniqueness rule. Current HLTV rosters share 4/5 players with the higher-rated row in both cases (BRUTE #75 via aidKiT/hfah/nbqq/tAk/ZEDKO vs HLTV nbqq/aidKiT/ZEDKO/tAk/oontoma-sub; The Huns #122 via Annihilation/Bart4k/bexyz/controlez/Cozen vs HLTV Bart4k/controlez/Cozen/DarkMeister/bexyz).",
+      "evidence": [
+        "https://api.github.com/repos/ValveSoftware/counter-strike_regional_standings/contents/live/2026",
+        "https://www.hltv.org/team/9139/brute",
+        "https://www.hltv.org/team/12510/the-huns"
+      ]
+    }
+  ],
+  "conclusions_for_ladder": [
+    "Seven of the ten researched fixtures are priceable by the Valve model rung the moment they enter the ladder (1079201, 1079202, 1081160, 1081162, 1081163, 1081164, 1093218): every involved team has a unique complete five-player row in the 2026-10-05 standings under the exact Hotspawn name.",
+    "Three fixtures stay model-blocked: 1079203 (BRUTE double row), 1081159 (no LFO 10 row), 1082792 (The Huns double row).",
+    "1082792 now has a bindable Polymarket series book (spread 0.10) whose only strict-join blocker is the outcome name 'The Huns Esports'; a reviewed registry alias already exists but the market path does not consult the registry.",
+    "The 3-6 hour Hotspawn-vs-Polymarket/bo3.gg start-time conflicts on 1079202/1079203/1093218 are a data-quality decision for the ladder owner: either widen the market-path time tolerance, reconcile against bo3.gg/HLTV times, or treat Hotspawn's times as authoritative and accept the missed markets.",
+    "No esportsbook line exists for any of the ten fixtures at read time; HLTV rankings are the only HLTV-first evidence available for the model-blocked ones, and they are recorded as qualitative guidance only, never as probabilities."
+  ],
+  "limitations": [
+    "Raw response bodies were read through Arena's page-fetch tool and transcribed verbatim; they were not byte-archived, so SHA-256 integrity hashes cover only the Valve standings file (fetched in full through the GitHub contents API).",
+    "Polymarket series-level books were read in full for 1079203 and 1082792 only; for 1079201, 1079202 and 1093218 the Map 1 child books are recorded and the series market's existence is noted without its quote.",
+    "The HLTV team ranking edition read is 2026-10-19 (the 2026-10-26 edition returned 404 at 00:55Z); HLTV VRS-mirror numbers are labelled 2026/october/26 on the pages themselves.",
+    "Thunderpick's prematch API could not be queried directly (POST-only endpoint; the fetch tool performs GET only); the bo3.gg bet_updates relay is the observed Thunderpick surface.",
+    "Crowd figures ('% picked' on Hotspawn, HLTV 'Pick a winner' fan votes) are recorded for completeness and are explicitly NOT probabilities; none may be used as probability inputs."
+  ]
+}
