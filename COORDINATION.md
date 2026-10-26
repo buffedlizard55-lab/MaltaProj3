@@ -1,3 +1,65 @@
+# Current session: arena-39680a42 — source-side verification of every published pick, the 1082792 identity chain, and the live coverage gap
+
+Claimed **2026-10-26T01:05Z** on Arena's fixed branch `arena/39680a42-maltaproj3`, at `main` HEAD
+`cfd58e1` (deployed publish `2026-10-25T23:03:48Z`). Read first: this board, `gh run list`, open PRs
+#360 / #350, and the live coverage sections of `arena-500519ba` (claimed 00:50Z) and
+`arena-f644ed1b` (claimed 00:50Z). Those two sessions own the **pick coverage** and the
+**current-snapshot release audit** respectively; this session takes a different, non-overlapping
+slice: the **source-side verification of the picks the deployed dashboard already publishes** and the
+**identity chains behind the researched rows**. No pick is generated here.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 3968-1 Independent source-side verification: replay every active row's pick from its published probabilities; check every cited source link resolves to the official source and still supports the published number; verify the 1082792 identity chain (Hotspawn → Polymarket `cs2-hotu-the9-2026-10-31` → HLTV 2399437); check the executive-summary + phone findability contract | **done — 5 checks, 0 errors; 15 tests OK** | arena-39680a42 | new `scripts/39680a42_verify.py`, new `tests/test_39680a42_verification.py`, new `data/research/39680a42/**` |
+| 3968-2 Publish source-linked findings on Flagged for Review | **done — `3968A-R01`..`R05`, 4 `flags.json` entries** | arena-39680a42 | `scripts/review_register.py` (`REGISTERS` entry only), `data/research/39680a42/repo-review.json` |
+| 3968-3 Local gates, PR to `main`, merge without waiting, confirm the Pages deploy, record PR/run links and irregularities here | in progress | arena-39680a42 | this section, PR |
+
+### What was verified (2026-10-26T01:20Z, deployed snapshot `2026-10-25T23:03:48Z`)
+
+Every active row's two probabilities were replayed from its own `analysis.probabilities` and `pick_index`
+(10 active rows: 6 `market`, 1 `bookmaker`, 2 `model`, 1 unresolved; 0 arithmetic errors). Every cited
+`source_url` was required to be `https` and to name an official source — none points at a Hotspawn
+pick'ems page and none at an HLTV fan-vote surface. The full local gate ran: `python -m unittest
+discover -s tests` **1939 tests, OK (skipped=4)**, `scripts.build` 870 internal links,
+row-source audit 1031 rows / 1007 with an official link / 0 without a source.
+
+The one thing worth reading is the researched row for **`1082792`**: the executive summary prices it
+(HOTU 87.0% / The Huns 13.0%, "Researched" + "Market line", Polymarket) while `snapshot.json`'s
+featured exact-name layer records the same fixture as `analysis: null`, `pick_index: null`,
+`featured.unresolved: 1`. The identity chain was verified against three independent sources read
+through the platform page fetcher and it holds: Hotspawn 1082792 starts `2026-10-31T09:00:00Z`;
+Polymarket event `cs2-hotu-the9-2026-10-31` has `eventStartTime 2026-10-31T09:00:00Z` with outcomes
+"HOTU"/"The Huns Esports" in the Moscow Cyber Games Playoffs Semifinal 1; HLTV match 2399437 is "HOTU
+vs. The Huns at GLuck Moscow Cyber Games 2026", Best of 3 (LAN), Semi-final. So the summary's row is a
+prediction-market money line with a researched identity, not a Hotspawn crowd percentage. The nine
+open fixtures Hotspawn listed at 00:48-00:50Z that the 23:03Z snapshot did not serve
+(1079201/1081159/1079202/1081160/1079203/1093218/1081162/1081163/1081164) were recorded as a dated gap, and
+then **re-checked and closed**: the four-hour publisher re-collected and published at
+`2026-10-26T01:04:20Z` with inventory 81, 19 upcoming and 17 picks, and eight of the nine now carry a pick
+(1079201/1081160/1093218/1081162/1081163/1081164 from the Valve rating model, 1079202/1079203 from a
+Thunderpick bookmaker line). Two fixtures stay unresolved in the featured exact-name layer — `1081159`
+(no line found) and `1082792` (identity only) — and the executive summary prices both through its
+researched complete layer (the bo3.gg network fit and the Polymarket event respectively). That is also why
+the headline now reads "19 with a directional pick … and 0 explicitly unresolved" while `snapshot.json`'s
+featured layer reads picks 17 / unresolved 2: two layers of one publish, flagged as `3968A-R04`. Details:
+`data/research/39680a42/identity-chain-1082792.json`, `live-lobby-snapshot.json`, `verification.json`.
+
+**Non-overlap pledge.** This session edits only its own new files, one `REGISTERS` entry and this
+board section. It never edits `scripts/collect.py`, `scripts/originate.py`, `scripts/reference_odds.py`,
+`scripts/build.py`, `scripts/unresolved_research.py`, `assets/**`, `snapshot.json`, `data/latest.json`,
+`data/origination.json`, `.github/workflows/**`, `scripts/500519ba_audit.py`, `scripts/f644ed1b_audit.py`
+or any other session's `data/research/<id>/`. It writes **no probability, no pick and no alias**; a
+source that answers is not treated as evidence that a price exists, and a missing price stays blank.
+
+**First observation (2026-10-26T01:00Z).** The deployed dashboard's executive summary shows a priced
+row for `1082792` (HOTU 87.0% / The Huns 13.0%, "Researched" + "Market line", Polymarket
+`cs2-hotu-the9-2026-10-31`) while `snapshot.json`'s featured exact-name layer records the same fixture
+as `analysis: null`, `pick_index: null`, `unresolved: 1`. Both layers are read from the same
+23:03:48Z publish, so the identity chain behind that researched row is the thing to verify — not the
+arithmetic, which already replays.
+
+---
+
 # Current session: arena-b3e91409 — live primary-source evidence and an independent line-by-line verification of every published CS2 pick (Hotspawn CS2, 2026-10-26)
 
 Claimed **2026-10-26T00:58Z** on Arena's fixed branch `arena/b3e91409-maltaproj3`, based on `main` at

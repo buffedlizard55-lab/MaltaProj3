@@ -17,6 +17,11 @@ REGISTER = 'research/c07e1b40/repo-review.json'
 REGISTERS = (
     'research/f644ed1b/repo-review.json',
     REGISTER,
+    # Session 39680a42: source-side verification of the picks the deployed
+    # dashboard already publishes - the 1082792 identity chain (Hotspawn ->
+    # Polymarket cs2-hotu-the9-2026-10-31 -> HLTV 2399437), the nine-fixture live
+    # coverage gap, the headline-vs-snapshot count, and the landing-page contract.
+    'research/39680a42/repo-review.json',
     # Session 35e31fef: 17/17 live future Hotspawn CS2 lobby parity (13:37Z),
     # 18/18 active pick replay, <8h EGW match-page refresh in CAPTURE_PATHS
     # (1082858, 1082859, 1086696), 3 post-snapshot Polymarket tight books
