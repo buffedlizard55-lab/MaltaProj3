@@ -33,8 +33,9 @@ class CaptureFileTests(unittest.TestCase):
         data = reference_odds.load(ROOT / 'data')
         self.assertFalse(data['missing'])
         # Nine earlier reviewed captures plus E57 (1), C2A7 (4), arena-0db056f7 (1:
-        # fixture 1086696), and arena-35e31fef (3: 1082858, 1082859, 1086696) captures.
-        self.assertEqual(len(data['entries']), 18)
+        # fixture 1086696), arena-35e31fef (3: 1082858, 1082859, 1086696), and
+        # arena-b2264c65 (4: 1082858, 1082859, 1082860, 1082901) captures.
+        self.assertEqual(len(data['entries']), 22)
         for entry in data['entries']:
             self.assertEqual(reference_odds.problems(entry), [], entry.get('fixture_id'))
             entry_now = datetime.fromisoformat(entry['observed_at'].replace('Z', '+00:00')) + timedelta(minutes=5)
