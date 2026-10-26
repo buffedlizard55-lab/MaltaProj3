@@ -1,0 +1,583 @@
+{
+  "schema_version": 1,
+  "session": "arena-51eab39f",
+  "observed_at": "2026-10-26T01:30:00Z",
+  "environment": "arena-sandbox",
+  "source_priority_enforced": [
+    "1. Official HLTV match, event, lineup, and ranking pages (https://www.hltv.org/matches, https://www.hltv.org/ranking/teams/2026/october/19)",
+    "2. Regulated/public prediction exchanges and esportsbooks (Polymarket CLOB, Kalshi KXCS2GAME, Smarkets v3 csgo_match, Thunderpick, Bovada)",
+    "3. Official Valve Regional Standings (standings_global_2026_10_05.md, SHA-256 df96e7fc3cd91a2687ec08cac0128e50cc4e4e55346581679572e881d79ae61b) and bo3.gg MAP series-form model when no two-sided moneyline <= 0.15 spread exists"
+  ],
+  "hotspawn_crowd_excluded": true,
+  "non_featured_count": 13,
+  "fixtures": [
+    {
+      "id": "1082859",
+      "teams": [
+        "NEXVOID",
+        "Alter Ego"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/matches/1082859",
+      "hltv_match_url": "https://www.hltv.org/matches/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026",
+      "hltv_event_url": "https://www.hltv.org/events/9414/dfrag-invitational-2026",
+      "hltv_observation": "HLTV match 2399889 confirms BO3 Group A Opening Match at 2026-10-26T03:00:00Z (DFRAG Invitational 2026).",
+      "external_lines_checked": [
+        {
+          "provider": "Polymarket CLOB",
+          "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&active=true&closed=false&limit=100",
+          "outcome": "rejected",
+          "detail": "Order book spread exceeded the 0.15 fallback ceiling at snapshot time."
+        },
+        {
+          "provider": "Thunderpick",
+          "url": "https://thunderpick.io/esports/cs2/dfrag-invitational-2026/nexvoid-vs-alter-ego-2870940",
+          "outcome": "accepted_primary",
+          "odds": [
+            1.56,
+            2.26
+          ],
+          "de_vig_probabilities": [
+            0.59162304,
+            0.40837696
+          ],
+          "detail": "Pre-match two-way match-winner decimal odds 1.56 / 2.26 (sum implied 1.0835, within 0.85..1.35)."
+        },
+        {
+          "provider": "Kalshi KXCS2GAME",
+          "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&status=open&with_nested_markets=true&limit=200",
+          "outcome": "corroborating_exchange",
+          "detail": "KXCS2GAME-26OCT252300AENEX quotes Alter Ego NO bid/ask 0.55/0.57 (implied NEXVOID 0.56), directionally matching Thunderpick."
+        }
+      ],
+      "published_resolution": {
+        "method": "bookmaker",
+        "provider": "Thunderpick",
+        "probabilities": [
+          0.59162304,
+          0.40837696
+        ],
+        "pick": "NEXVOID"
+      }
+    },
+    {
+      "id": "1079201",
+      "teams": [
+        "INOX Division",
+        "Nemesis"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-26T09:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/matches/1079201",
+      "hltv_match_url": "https://www.hltv.org/matches/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13",
+      "hltv_event_url": "https://www.hltv.org/events/9440/nodwin-clutch-series-13",
+      "hltv_observation": "HLTV match 2399116 confirms BO3 Quarter-final #1 at 2026-10-26T09:00:00Z (NODWIN Clutch Series 13).",
+      "external_lines_checked": [
+        {
+          "provider": "Smarkets Exchange",
+          "url": "https://api.smarkets.com/v3/markets/173680174/quotes/",
+          "outcome": "corroborating_unjoined_alias",
+          "detail": "Event 45401462 lists Team Nemesis vs INOX Division at 2026-10-26T09:00:00Z; two-sided book 0.6494/0.7752 vs 0.2273/0.3425 (spread 0.1258 <= 0.15) implies 71.43% Team Nemesis / 28.57% INOX Division; unjoined at 01:04:30Z because Team Nemesis -> Nemesis was not yet scoped to NODWIN Clutch Series #13."
+        },
+        {
+          "provider": "Bovada",
+          "url": "https://www.bovada.lv/esports/counter-strike-2/nodwin-clutch-series/team-nemesis-inox-division-202610260500",
+          "outcome": "corroborating_unjoined_alias",
+          "odds": [
+            3.0,
+            1.363636
+          ],
+          "de_vig_probabilities": [
+            0.3125,
+            0.6875
+          ],
+          "detail": "Event 32756569 Moneyline quotes Team Nemesis 1.363636 (-275) vs INOX Division 3.00 (+200), implying 68.75% Nemesis / 31.25% INOX Division."
+        },
+        {
+          "provider": "Valve official standings",
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "outcome": "accepted_primary",
+          "detail": "INOX Division (#82, 1105 pts) vs Nemesis (#29, 1455 pts) on 2026-10-05 global table -> 12.35% / 87.65% Nemesis."
+        }
+      ],
+      "published_resolution": {
+        "method": "model",
+        "provider": "Valve official standings",
+        "probabilities": [
+          0.12346675,
+          0.87653325
+        ],
+        "pick": "Nemesis"
+      }
+    },
+    {
+      "id": "1079202",
+      "teams": [
+        "FOKUS",
+        "ex-Zero Tenacity"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-26T12:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/matches/1079202",
+      "hltv_match_url": "https://www.hltv.org/matches/2399117/fokus-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+      "hltv_event_url": "https://www.hltv.org/events/9440/nodwin-clutch-series-13",
+      "hltv_observation": "HLTV match 2399117 confirms BO3 Quarter-final #2 at 2026-10-26T12:00:00Z (NODWIN Clutch Series 13).",
+      "external_lines_checked": [
+        {
+          "provider": "Smarkets Exchange",
+          "url": "https://smarkets.com/event/45401463/sport/esports/cs-go/nodwin-clutch-series/playoffs/2026/10/26/18-00/fokus-vs-ex-zero-tenacity",
+          "outcome": "rejected_schedule_mismatch",
+          "detail": "Smarkets event 45401463 lists start_datetime 2026-10-26T18:00:00Z (+6h vs HLTV/Hotspawn 12:00:00Z); rejected by 60s start-time tolerance."
+        },
+        {
+          "provider": "Thunderpick",
+          "url": "https://thunderpick.io/esports/cs2/nodwin-clutch-series-13/fokus-vs-ex-zero-tenacity-2888795",
+          "outcome": "accepted_primary",
+          "odds": [
+            1.35,
+            2.9
+          ],
+          "de_vig_probabilities": [
+            0.68235294,
+            0.31764706
+          ],
+          "detail": "Two-way pre-match match-winner odds 1.35 / 2.90 -> 68.24% FOKUS / 31.76% ex-Zero Tenacity."
+        },
+        {
+          "provider": "Bovada",
+          "url": "https://www.bovada.lv/esports/counter-strike-2/nodwin-clutch-series/fokus-esports-ex-zero-tenacity-202610260800",
+          "outcome": "corroborating_bookmaker",
+          "odds": [
+            1.363636,
+            3.0
+          ],
+          "de_vig_probabilities": [
+            0.6875,
+            0.3125
+          ],
+          "detail": "Event 32770566 lists FokuS Esports 1.363636 (-275) vs Ex-Zero Tenacity 3.00 (+200) -> 68.75% FOKUS."
+        }
+      ],
+      "published_resolution": {
+        "method": "bookmaker",
+        "provider": "Thunderpick",
+        "probabilities": [
+          0.68235294,
+          0.31764706
+        ],
+        "pick": "FOKUS"
+      }
+    },
+    {
+      "id": "1081159",
+      "teams": [
+        "LFO 10",
+        "ex-6666"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-26T12:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/matches/1081159",
+      "hltv_match_url": "https://www.hltv.org/matches/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
+      "hltv_event_url": "https://www.hltv.org/events/9457/cct-2026-europe-series-12",
+      "hltv_observation": "HLTV match 2399509 confirms BO3 Swiss Round 4 (1-2) at 2026-10-26T12:00:00Z; LFO 10 (#14084: Sapec, L00m1, dottie, flaw, Mann3n) vs ex-6666 (#14100: skcH, kL1o, amster, rendysky, stefienson — 4/5 core of Valve #126 6666).",
+      "external_lines_checked": [
+        {
+          "provider": "Polymarket CLOB",
+          "url": "https://polymarket.com/event/cs2-skr-6666-2026-10-26",
+          "outcome": "rejected_wide_spread",
+          "detail": "Market #1255951 spread 0.53 > 0.15 fallback ceiling."
+        },
+        {
+          "provider": "Kalshi KXCS2GAME",
+          "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct260800exskr",
+          "outcome": "rejected_wide_spread",
+          "detail": "KXCS2GAME-26OCT260800EXSKR spread 0.56 > 0.15 fallback ceiling."
+        },
+        {
+          "provider": "Own results-based model (bo3.gg series results)",
+          "url": "https://bo3.gg/matches/sokerorg-vs-ex-6666-26-10-2026",
+          "outcome": "accepted_primary_low_confidence",
+          "detail": "LFO 10 (Sokerorg) has no published 5-player Valve row; MAP fit over n=10 anchored BO series yields 825 pts (posterior SD 114.7) vs ex-6666 Valve 923 pts -> 39.04% / 60.96% ex-6666 (1-SD interval [0.2586, 0.5382] crosses 50%)."
+        }
+      ],
+      "published_resolution": {
+        "method": "model",
+        "provider": "Own results-based model (bo3.gg series results)",
+        "probabilities": [
+          0.39044606,
+          0.60955394
+        ],
+        "pick": "ex-6666"
+      }
+    },
+    {
+      "id": "1079203",
+      "teams": [
+        "Metizport",
+        "BRUTE"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-26T15:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/matches/1079203",
+      "hltv_match_url": "https://www.hltv.org/matches/2399118/metizport-vs-brute-nodwin-clutch-series-13",
+      "hltv_event_url": "https://www.hltv.org/events/9440/nodwin-clutch-series-13",
+      "hltv_observation": "HLTV match 2399118 confirms BO3 Quarter-final #3 at 2026-10-26T15:00:00Z (NODWIN Clutch Series 13).",
+      "external_lines_checked": [
+        {
+          "provider": "Smarkets Exchange",
+          "url": "https://smarkets.com/event/45402088/sport/esports/cs-go/nodwin-clutch-series/playoffs/2026/10/26/12-00/metizport-vs-brute",
+          "outcome": "rejected_schedule_mismatch",
+          "detail": "Smarkets event 45402088 lists start_datetime 2026-10-26T12:00:00Z (-3h vs HLTV/Hotspawn 15:00:00Z); rejected by 60s start-time tolerance."
+        },
+        {
+          "provider": "Thunderpick",
+          "url": "https://thunderpick.io/esports/cs2/nodwin-clutch-series-13/metizport-vs-brute-2889134",
+          "outcome": "accepted_primary",
+          "odds": [
+            1.5,
+            2.4
+          ],
+          "de_vig_probabilities": [
+            0.61538462,
+            0.38461538
+          ],
+          "detail": "Two-way pre-match match-winner odds 1.50 / 2.40 -> 61.54% Metizport / 38.46% BRUTE."
+        },
+        {
+          "provider": "Bovada",
+          "url": "https://www.bovada.lv/esports/counter-strike-2/nodwin-clutch-series/metizport-brute-202610261100",
+          "outcome": "corroborating_bookmaker",
+          "odds": [
+            1.571429,
+            2.35
+          ],
+          "de_vig_probabilities": [
+            0.5993884,
+            0.4006116
+          ],
+          "detail": "Event 32773971 Moneyline quotes Metizport 1.571429 (-175) vs Brute 2.350 (+135), opened after 01:04:30Z capture (lastModified 2026-10-26T00:46Z/coupon refresh), corroborating Metizport."
+        }
+      ],
+      "published_resolution": {
+        "method": "bookmaker",
+        "provider": "Thunderpick",
+        "probabilities": [
+          0.61538462,
+          0.38461538
+        ],
+        "pick": "Metizport"
+      }
+    },
+    {
+      "id": "1081160",
+      "teams": [
+        "HAVU",
+        "ILLYRIANS"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-26T15:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/matches/1081160",
+      "hltv_match_url": "https://www.hltv.org/matches/2399510/havu-vs-illyrians-cct-2026-europe-series-12",
+      "hltv_event_url": "https://www.hltv.org/events/9457/cct-2026-europe-series-12",
+      "hltv_observation": "HLTV match 2399510 confirms BO3 Swiss Round 4 (1-2) at 2026-10-26T15:00:00Z (CCT 2026 Europe Series 12).",
+      "external_lines_checked": [
+        {
+          "provider": "Polymarket CLOB",
+          "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&active=true&closed=false&limit=100",
+          "outcome": "rejected_wide_spread",
+          "detail": "Two-sided order-book spread exceeded 0.15 ceiling; Smarkets and Bovada carried no CCT Europe Series #12 moneyline."
+        },
+        {
+          "provider": "Valve official standings",
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "outcome": "accepted_primary",
+          "detail": "HAVU (#124, 937 pts) vs ILLYRIANS (#141, 862 pts) on 2026-10-05 global table -> 60.35% HAVU / 39.65% ILLYRIANS."
+        }
+      ],
+      "published_resolution": {
+        "method": "model",
+        "provider": "Valve official standings",
+        "probabilities": [
+          0.60348339,
+          0.39651661
+        ],
+        "pick": "HAVU"
+      }
+    },
+    {
+      "id": "1093218",
+      "teams": [
+        "Nuclear TigeRES",
+        "UNiTY"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-26T18:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/matches/1093218",
+      "hltv_match_url": "https://www.hltv.org/matches/2399119/nuclear-tigeres-vs-unity-nodwin-clutch-series-13",
+      "hltv_event_url": "https://www.hltv.org/events/9440/nodwin-clutch-series-13",
+      "hltv_observation": "HLTV match 2399119 confirms BO3 Quarter-final #4 at 2026-10-26T18:00:00Z (NODWIN Clutch Series 13).",
+      "external_lines_checked": [
+        {
+          "provider": "Smarkets Exchange",
+          "url": "https://smarkets.com/event/45401619/sport/esports/cs-go/nodwin-clutch-series/playoffs/2026/10/26/15-00/nuclear-tigeres-vs-unity-esports",
+          "outcome": "rejected_schedule_mismatch",
+          "detail": "Smarkets event 45401619 lists start_datetime 2026-10-26T15:00:00Z (-3h vs HLTV/Hotspawn 18:00:00Z); rejected by 60s start-time tolerance."
+        },
+        {
+          "provider": "Thunderpick",
+          "url": "https://thunderpick.io/esports/cs2/nodwin-clutch-series-13/nuclear-tigeres-vs-unity-esports-2888791",
+          "outcome": "accepted_consensus_leg",
+          "odds": [
+            1.58,
+            2.2
+          ],
+          "de_vig_probabilities": [
+            0.58195212,
+            0.41804788
+          ],
+          "detail": "Joined via scoped alias UNiTY esports -> UNiTY."
+        },
+        {
+          "provider": "Bovada",
+          "url": "https://www.bovada.lv/esports/counter-strike-2/nodwin-clutch-series/nuclear-tigeres-unity-esports-202610261400",
+          "outcome": "accepted_consensus_leg",
+          "odds": [
+            1.606061,
+            2.25
+          ],
+          "de_vig_probabilities": [
+            0.58355543,
+            0.41644457
+          ],
+          "detail": "Event 32759181 Moneyline 1.606061 (-165) / 2.250 (+125); median normalized consensus with Thunderpick -> 58.28% Nuclear TigeRES / 41.72% UNiTY."
+        }
+      ],
+      "published_resolution": {
+        "method": "consensus",
+        "provider": "Consensus across Thunderpick, Bovada",
+        "probabilities": [
+          0.58275378,
+          0.41724622
+        ],
+        "pick": "Nuclear TigeRES"
+      }
+    },
+    {
+      "id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/matches/1082861",
+      "hltv_match_url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+      "hltv_event_url": "https://www.hltv.org/events/9414/dfrag-invitational-2026",
+      "hltv_observation": "HLTV match 2399891 confirms BO3 Group B Opening Match at 2026-10-27T03:00:00Z (DFRAG Invitational 2026).",
+      "external_lines_checked": [
+        {
+          "provider": "Smarkets Exchange",
+          "url": "https://api.smarkets.com/v3/markets/173454669/quotes/",
+          "outcome": "rejected_wide_spread",
+          "detail": "Event 45398349 quotes Rooster 0.3546/0.5155 (spread 0.1609 > 0.15) and Abyssal 0.4808/0.6452 (spread 0.1644 > 0.15); normalized midpoint 43.59% / 56.41% Abyssal corroborates direction."
+        },
+        {
+          "provider": "Polymarket CLOB",
+          "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&active=true&closed=false&limit=100",
+          "outcome": "rejected_wide_spread",
+          "detail": "Two-sided spread exceeded 0.15 fallback ceiling."
+        },
+        {
+          "provider": "Valve official standings",
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "outcome": "accepted_primary",
+          "detail": "Rooster (#107, 1020 pts) vs Abyssal (#101, 1036 pts) on 2026-10-05 global table -> 47.76% Rooster / 52.24% Abyssal."
+        }
+      ],
+      "published_resolution": {
+        "method": "model",
+        "provider": "Valve official standings",
+        "probabilities": [
+          0.47761494,
+          0.52238506
+        ],
+        "pick": "Abyssal"
+      }
+    },
+    {
+      "id": "1081162",
+      "teams": [
+        "ex-RUSTEC",
+        "Spirit Academy"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-27T12:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/matches/1081162",
+      "hltv_match_url": "https://www.hltv.org/matches/2399512/ex-rustec-vs-spirit-academy-cct-2026-europe-series-12",
+      "hltv_event_url": "https://www.hltv.org/events/9457/cct-2026-europe-series-12",
+      "hltv_observation": "HLTV match 2399512 confirms BO3 Swiss Round 5 (2-2) at 2026-10-27T12:00:00Z (CCT 2026 Europe Series 12).",
+      "external_lines_checked": [
+        {
+          "provider": "Polymarket CLOB",
+          "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&active=true&closed=false&limit=100",
+          "outcome": "rejected_wide_spread",
+          "detail": "Spread > 0.15; no Bovada or Smarkets CCT Europe Series #12 moneyline."
+        },
+        {
+          "provider": "Valve official standings",
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "outcome": "accepted_primary",
+          "detail": "ex-RUSTEC (#92 complete 5-player row, 1066 pts) vs Spirit Academy (#115, 981 pts) -> 61.68% ex-RUSTEC / 38.32% Spirit Academy."
+        }
+      ],
+      "published_resolution": {
+        "method": "model",
+        "provider": "Valve official standings",
+        "probabilities": [
+          0.61680305,
+          0.38319695
+        ],
+        "pick": "ex-RUSTEC"
+      }
+    },
+    {
+      "id": "1081163",
+      "teams": [
+        "BakS",
+        "Saint Sinners"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-27T15:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/matches/1081163",
+      "hltv_match_url": "https://www.hltv.org/matches/2399513/baks-vs-saint-sinners-cct-2026-europe-series-12",
+      "hltv_event_url": "https://www.hltv.org/events/9457/cct-2026-europe-series-12",
+      "hltv_observation": "HLTV match 2399513 confirms BO3 Swiss Round 5 (2-2) at 2026-10-27T15:00:00Z (CCT 2026 Europe Series 12).",
+      "external_lines_checked": [
+        {
+          "provider": "Smarkets & Bovada",
+          "url": "https://api.smarkets.com/v3/events/?state=new&state=upcoming&type=csgo_match&with_new_type=true&limit=100",
+          "outcome": "not_listed",
+          "detail": "Neither Smarkets nor Bovada listed CCT Europe Series #12 Swiss Round 5 fixtures."
+        },
+        {
+          "provider": "Valve official standings",
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "outcome": "accepted_primary",
+          "detail": "BakS (#100, 1044 pts) vs Saint Sinners (#158, 810 pts) -> 78.76% BakS / 21.24% Saint Sinners."
+        }
+      ],
+      "published_resolution": {
+        "method": "model",
+        "provider": "Valve official standings",
+        "probabilities": [
+          0.78758039,
+          0.21241961
+        ],
+        "pick": "BakS"
+      }
+    },
+    {
+      "id": "1081164",
+      "teams": [
+        "Inner Circle Academy",
+        "Lavked"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-27T18:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/matches/1081164",
+      "hltv_match_url": "https://www.hltv.org/matches/2399514/inner-circle-academy-vs-lavked-cct-2026-europe-series-12",
+      "hltv_event_url": "https://www.hltv.org/events/9457/cct-2026-europe-series-12",
+      "hltv_observation": "HLTV match 2399514 confirms BO3 Swiss Round 5 (2-2) at 2026-10-27T18:00:00Z (CCT 2026 Europe Series 12).",
+      "external_lines_checked": [
+        {
+          "provider": "Smarkets & Bovada",
+          "url": "https://api.smarkets.com/v3/events/?state=new&state=upcoming&type=csgo_match&with_new_type=true&limit=100",
+          "outcome": "not_listed",
+          "detail": "Neither Smarkets nor Bovada listed CCT Europe Series #12 Swiss Round 5 fixtures."
+        },
+        {
+          "provider": "Valve official standings",
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "outcome": "accepted_primary",
+          "detail": "Inner Circle Academy (#94, 1064 pts) vs Lavked (#143, 862 pts) -> 75.61% Inner Circle Academy / 24.39% Lavked."
+        }
+      ],
+      "published_resolution": {
+        "method": "model",
+        "provider": "Valve official standings",
+        "probabilities": [
+          0.75606058,
+          0.24393942
+        ],
+        "pick": "Inner Circle Academy"
+      }
+    },
+    {
+      "id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/matches/1082792",
+      "hltv_match_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+      "hltv_event_url": "https://www.hltv.org/events/9344/gluck-moscow-cyber-games-2026",
+      "hltv_observation": "HLTV match 2399437 confirms BO3 LAN Semi-final at 2026-10-31T09:00:00Z (GLuck Moscow Cyber Games 2026); HOTU (#11581: dwushka, frontales, mizu, n0rb3r7, kade0) vs The Huns (#12510: Bart4k, controlez, bexyz, Cozen, DarkMeister — 4/5 core of Valve #112 The Huns Esports).",
+      "external_lines_checked": [
+        {
+          "provider": "Polymarket CLOB",
+          "url": "https://polymarket.com/event/cs2-hotu-thehun-2026-10-31",
+          "outcome": "accepted_primary",
+          "detail": "Joined via scoped alias The Huns Esports -> The Huns; two-sided CLOB books 0.82/0.92 and 0.08/0.18 (spread 0.10 <= 0.15) -> 87.00% HOTU / 13.00% The Huns."
+        }
+      ],
+      "published_resolution": {
+        "method": "market",
+        "provider": "Polymarket CLOB",
+        "probabilities": [
+          0.87,
+          0.13
+        ],
+        "pick": "HOTU"
+      }
+    },
+    {
+      "id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T13:00:00Z",
+      "hotspawn_url": "https://play.hotspawn.com/matches/1082793",
+      "hltv_match_url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+      "hltv_event_url": "https://www.hltv.org/events/9344/gluck-moscow-cyber-games-2026",
+      "hltv_observation": "HLTV match 2399438 confirms BO3 LAN Semi-final at 2026-10-31T13:00:00Z (GLuck Moscow Cyber Games 2026).",
+      "external_lines_checked": [
+        {
+          "provider": "Polymarket, Smarkets & Bovada",
+          "url": "https://api.smarkets.com/v3/events/?state=new&state=upcoming&type=csgo_match&with_new_type=true&limit=100",
+          "outcome": "not_listed_or_illiquid",
+          "detail": "No two-sided moneyline within the 0.15 spread ceiling across Polymarket, Kalshi, Smarkets, Thunderpick, or Bovada five days ahead of LAN start."
+        },
+        {
+          "provider": "Valve official standings",
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "outcome": "accepted_primary",
+          "detail": "5star (#80, 1110 pts) vs 1WIN (#38, 1383 pts) on 2026-10-05 global table -> 17.82% 5star / 82.18% 1WIN."
+        }
+      ],
+      "published_resolution": {
+        "method": "model",
+        "provider": "Valve official standings",
+        "probabilities": [
+          0.17816902,
+          0.82183098
+        ],
+        "pick": "1WIN"
+      }
+    }
+  ]
+}
