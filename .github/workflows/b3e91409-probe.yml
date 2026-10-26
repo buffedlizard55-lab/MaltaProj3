@@ -1,0 +1,65 @@
+name: b3e91409 live primary-source probe
+
+# Session arena-b3e91409. The authoring sandbox has no route to play.hotspawn.com, hltv.org,
+# Polymarket, Thunderpick, Kalshi, Bovada or the published Pages site, so the live facts that the
+# brief requires ("verify line by line ... provide links for manual review") can only be captured
+# by a network-capable runner. This workflow *observes only*: it archives every response with its
+# URL, UTC observation time, HTTP status, byte count and SHA-256, and records which sources name
+# both teams of each open fixture. It never computes a probability, never writes a pick and never
+# reads Hotspawn's community "% picked" or HLTV fan votes.
+#
+# Only data/research/b3e91409/ is committed and the commit carries [skip ci] so the branch's
+# "Validate dashboard" queue is not consumed by evidence-only commits.
+on:
+  push:
+    branches: ['arena/b3e91409-maltaproj3']
+    paths:
+      - '.github/workflows/b3e91409-probe.yml'
+      - 'scripts/b3e91409_probe.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: b3e91409-probe-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  probe:
+    if: startsWith(github.ref_name, 'arena/b3e91409')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Capture every live source with URLs, UTC times and SHA-256
+        run: python -m scripts.b3e91409_probe
+      - name: Show the dossier even when the probe failed
+        if: always()
+        run: |
+          test -f data/research/b3e91409/live/summary.txt && cat data/research/b3e91409/live/summary.txt || echo 'no summary written'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: b3e91409-live-evidence
+          path: data/research/b3e91409/
+          if-no-files-found: warn
+      - name: Commit the evidence
+        if: always()
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/b3e91409
+          if git diff --cached --quiet; then
+            echo 'no evidence change'
+            exit 0
+          fi
+          git commit -m 'evidence: b3e91409 live primary-source probe [skip ci]'
+          for attempt in 1 2 3; do
+            git pull --rebase origin arena/b3e91409-maltaproj3 && git push origin arena/b3e91409-maltaproj3 && exit 0
+            sleep $((attempt * 5))
+          done
+          exit 1
