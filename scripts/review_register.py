@@ -96,6 +96,11 @@ REGISTERS = (
     # odds-floor bookmaker row, the blocked esportsbooks, and the phone path to
     # the picks.
     'research/824a2780/repo-review.json',
+    # Session c333bb27: 2026-10-26 81-record / 19-open Hotspawn CS2 lobby
+    # reconciliation, HLTV-first + esportsbook/exchange/Valve research for the
+    # 10 non-featured fixtures, 19/19 exact probability replay, and provider
+    # start-time / alias-scope flags.
+    'research/c333bb27/repo-review.json',
 )
 STATUS = {
     'fixed': ('Fixed', 'green'),
