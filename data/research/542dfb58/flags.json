@@ -4,7 +4,7 @@
     "severity": "warning",
     "match_ids": [],
     "title": "6 of 14 probed surfaces refused the runner this hour",
-    "detail": "Reachability of the external surfaces tried for the fixtures no money line can price, observed 2026-10-26T01:00:58Z: rivalry-api (502); ggbet-api (403); betexplorer (404); 1xbet-linefeed (203); betcet (None); egamersworld-matches (403). A refused page is not evidence that no market exists; the ladder retries them every four hours and will take a compliant price the moment one validates.",
+    "detail": "Reachability of the external surfaces tried for the fixtures no money line can price, observed 2026-10-26T01:04:33Z: rivalry-api (502); ggbet-api (403); betexplorer (404); 1xbet-linefeed (203); betcet (None); egamersworld-matches (403). A refused page is not evidence that no market exists; the ladder retries them every four hours and will take a compliant price the moment one validates.",
     "source_urls": [
       "https://api.rivalry.com/sports/v1/events?sportSlug=counter-strike&timezone=UTC&page=1&limit=50",
       "https://api.gg.bet/Sport/GetTopGames?sportId=esports_counter_strike&timezone=UTC&lang=en",
@@ -12,30 +12,6 @@
       "https://1xbet.com/LineFeed/Get1x2_VZip?sports=82&count=200&tf=2200000&mode=4&getEmpty=true",
       "https://www.betcet.com/en/sports/esports/counter-strike",
       "https://egamersworld.com/counterstrike/matches"
-    ]
-  },
-  {
-    "id": "542dfb58-unpicked-1082858",
-    "severity": "critical",
-    "match_ids": [
-      "1082858"
-    ],
-    "title": "No pick published for Ground Zero vs Off Chops",
-    "detail": "Hotspawn lists this DFRAG Invitational 2026 fixture open (starts 2026-10-26T03:00:00Z, tier b) and neither the featured line nor the researched fallback produced a pick. Sources tried this hour are in data/research/542dfb58/probe.json.",
-    "source_urls": [
-      "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json"
-    ]
-  },
-  {
-    "id": "542dfb58-unpicked-1082859",
-    "severity": "critical",
-    "match_ids": [
-      "1082859"
-    ],
-    "title": "No pick published for NEXVOID vs Alter Ego",
-    "detail": "Hotspawn lists this DFRAG Invitational 2026 fixture open (starts 2026-10-26T03:00:00Z, tier b) and neither the featured line nor the researched fallback produced a pick. Sources tried this hour are in data/research/542dfb58/probe.json.",
-    "source_urls": [
-      "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json"
     ]
   },
   {
@@ -111,54 +87,6 @@
     ]
   },
   {
-    "id": "542dfb58-unpicked-1082860",
-    "severity": "critical",
-    "match_ids": [
-      "1082860"
-    ],
-    "title": "No pick published for FlyQuest vs Staqued",
-    "detail": "Hotspawn lists this DFRAG Invitational 2026 fixture open (starts 2026-10-27T03:00:00Z, tier b) and neither the featured line nor the researched fallback produced a pick. Sources tried this hour are in data/research/542dfb58/probe.json.",
-    "source_urls": [
-      "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json"
-    ]
-  },
-  {
-    "id": "542dfb58-unpicked-1082861",
-    "severity": "critical",
-    "match_ids": [
-      "1082861"
-    ],
-    "title": "No pick published for Rooster vs Abyssal",
-    "detail": "Hotspawn lists this DFRAG Invitational 2026 fixture open (starts 2026-10-27T03:00:00Z, tier b) and neither the featured line nor the researched fallback produced a pick. Sources tried this hour are in data/research/542dfb58/probe.json.",
-    "source_urls": [
-      "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json"
-    ]
-  },
-  {
-    "id": "542dfb58-unpicked-1082897",
-    "severity": "critical",
-    "match_ids": [
-      "1082897"
-    ],
-    "title": "No pick published for B8 vs K27",
-    "detail": "Hotspawn lists this Tesla Cup 2026 fixture open (starts 2026-10-27T08:00:00Z, tier b) and neither the featured line nor the researched fallback produced a pick. Sources tried this hour are in data/research/542dfb58/probe.json.",
-    "source_urls": [
-      "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json"
-    ]
-  },
-  {
-    "id": "542dfb58-unpicked-1082898",
-    "severity": "critical",
-    "match_ids": [
-      "1082898"
-    ],
-    "title": "No pick published for Alliance vs FaZe",
-    "detail": "Hotspawn lists this Tesla Cup 2026 fixture open (starts 2026-10-27T11:00:00Z, tier b) and neither the featured line nor the researched fallback produced a pick. Sources tried this hour are in data/research/542dfb58/probe.json.",
-    "source_urls": [
-      "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json"
-    ]
-  },
-  {
     "id": "542dfb58-unpicked-1081162",
     "severity": "critical",
     "match_ids": [
@@ -183,18 +111,6 @@
     ]
   },
   {
-    "id": "542dfb58-unpicked-1082900",
-    "severity": "critical",
-    "match_ids": [
-      "1082900"
-    ],
-    "title": "No pick published for Luminosity vs HOTU",
-    "detail": "Hotspawn lists this Tesla Cup 2026 fixture open (starts 2026-10-27T17:00:00Z, tier b) and neither the featured line nor the researched fallback produced a pick. Sources tried this hour are in data/research/542dfb58/probe.json.",
-    "source_urls": [
-      "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json"
-    ]
-  },
-  {
     "id": "542dfb58-unpicked-1081164",
     "severity": "critical",
     "match_ids": [
@@ -202,18 +118,6 @@
     ],
     "title": "No pick published for Inner Circle Academy vs Lavked",
     "detail": "Hotspawn lists this CCT Europe 2026 Series #12 fixture open (starts 2026-10-27T18:00:00Z, tier b) and neither the featured line nor the researched fallback produced a pick. Sources tried this hour are in data/research/542dfb58/probe.json.",
-    "source_urls": [
-      "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json"
-    ]
-  },
-  {
-    "id": "542dfb58-unpicked-1082901",
-    "severity": "critical",
-    "match_ids": [
-      "1082901"
-    ],
-    "title": "No pick published for Envy vs GamerLegion",
-    "detail": "Hotspawn lists this Tesla Cup 2026 fixture open (starts 2026-10-27T20:00:00Z, tier b) and neither the featured line nor the researched fallback produced a pick. Sources tried this hour are in data/research/542dfb58/probe.json.",
     "source_urls": [
       "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json"
     ]
@@ -227,19 +131,32 @@
     "title": "No pick published for HOTU vs The Huns",
     "detail": "Hotspawn lists this Moscow Cyber Games 2026 fixture open (starts 2026-10-31T09:00:00Z, tier b) and neither the featured line nor the researched fallback produced a pick. Sources tried this hour are in data/research/542dfb58/probe.json.",
     "source_urls": [
-      "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json"
+      "https://polymarket.com/event/cs2-hotu-the9-2026-10-31"
     ]
   },
   {
-    "id": "542dfb58-unpicked-1082793",
-    "severity": "critical",
+    "id": "542dfb58-magnitude-single-source-1082861",
+    "severity": "info",
+    "match_ids": [
+      "1082861"
+    ],
+    "title": "Rooster vs Abyssal rests on a model estimate, not a priced market",
+    "detail": "The published direction comes from the model rung (uncalibrated research model). This hour the probe scanned 14 surfaces and bound 1 row(s) by exact names and start time; 0 carry a two-decimal pair inside the project margin policy. Nothing was written into a pick from this probe — if a book or exchange validates, the four-hour ladder adopts it automatically.",
+    "source_urls": [
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-b/2026/10/27/03-00/rooster-vs-abyssal"
+    ]
+  },
+  {
+    "id": "542dfb58-magnitude-single-source-1082793",
+    "severity": "info",
     "match_ids": [
       "1082793"
     ],
-    "title": "No pick published for 5star vs 1WIN",
-    "detail": "Hotspawn lists this Moscow Cyber Games 2026 fixture open (starts 2026-10-31T13:00:00Z, tier b) and neither the featured line nor the researched fallback produced a pick. Sources tried this hour are in data/research/542dfb58/probe.json.",
+    "title": "5star vs 1WIN rests on a model estimate, not a priced market",
+    "detail": "The published direction comes from the model rung (uncalibrated research model). This hour the probe scanned 14 surfaces and bound 0 row(s) by exact names and start time; 0 carry a two-decimal pair inside the project margin policy. Nothing was written into a pick from this probe — if a book or exchange validates, the four-hour ladder adopts it automatically.",
     "source_urls": [
-      "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json"
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
     ]
   }
 ]

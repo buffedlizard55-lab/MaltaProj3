@@ -1,6 +1,6 @@
 # Live coverage + gap-source probe — a pick for every Hotspawn CS2 fixture
 
-Observed 2026-10-26T01:00:58Z (live, GitHub Actions runner). Facts only: this file records what each source served. No probability, pick or alias is written here; the publisher's ladder stays the only path to a published number.
+Observed 2026-10-26T01:04:33Z (live, GitHub Actions runner). Facts only: this file records what each source served. No probability, pick or alias is written here; the publisher's ladder stays the only path to a published number.
 
 ## Hotspawn inventory reconciliation
 
@@ -9,46 +9,46 @@ Observed 2026-10-26T01:00:58Z (live, GitHub Actions runner). Facts only: this fi
 | fixture-API records | 81 |
 | open CS2 fixtures | 19 |
 | rendered-lobby crosscheck | complete |
-| open ids missing from the deployed site | ['1082858', '1082859', '1079201', '1081159', '1079202', '1081160', '1079203', '1093218', '1082860', '1082861', '1082897', '1082898', '1081162', '1081163', '1082900', '1081164', '1082901', '1082792', '1082793'] |
-| open fixtures with a published pick | 0 of 19 |
-| open fixtures with **no** pick | 19 |
-| picks priced by a real market or book | 0 |
-| picks resting on a research model | 0 |
+| open ids missing from the deployed site | ['1079201', '1081159', '1079202', '1081160', '1079203', '1093218', '1081162', '1081163', '1081164'] |
+| open fixtures with a published pick | 9 of 19 |
+| open fixtures with **no** pick | 10 |
+| picks priced by a real market or book | 8 |
+| picks resting on a research model | 2 |
 
 ## Every open fixture
 
 | Fixture | Starts | Method on the deployed site | Pick | Priced by money? |
 | --- | --- | --- | --- | --- |
-| Ground Zero vs Off Chops | 2026-10-26T03:00:00Z | — | — | no |
-| NEXVOID vs Alter Ego | 2026-10-26T03:00:00Z | — | — | no |
+| Ground Zero vs Off Chops | 2026-10-26T03:00:00Z | market | Off Chops | yes |
+| NEXVOID vs Alter Ego | 2026-10-26T03:00:00Z | bookmaker | NEXVOID | yes |
 | INOX Division vs Nemesis | 2026-10-26T09:00:00Z | — | — | no |
 | LFO 10 vs ex-6666 | 2026-10-26T12:00:00Z | — | — | no |
 | FOKUS vs ex-Zero Tenacity | 2026-10-26T12:00:00Z | — | — | no |
 | HAVU vs ILLYRIANS | 2026-10-26T15:00:00Z | — | — | no |
 | Metizport vs BRUTE | 2026-10-26T15:00:00Z | — | — | no |
 | Nuclear TigeRES vs UNiTY | 2026-10-26T18:00:00Z | — | — | no |
-| FlyQuest vs Staqued | 2026-10-27T03:00:00Z | — | — | no |
-| Rooster vs Abyssal | 2026-10-27T03:00:00Z | — | — | no |
-| B8 vs K27 | 2026-10-27T08:00:00Z | — | — | no |
-| Alliance vs FaZe | 2026-10-27T11:00:00Z | — | — | no |
+| FlyQuest vs Staqued | 2026-10-27T03:00:00Z | market | FlyQuest | yes |
+| Rooster vs Abyssal | 2026-10-27T03:00:00Z | model | Abyssal | no |
+| B8 vs K27 | 2026-10-27T08:00:00Z | market | B8 | yes |
+| Alliance vs FaZe | 2026-10-27T11:00:00Z | market | FaZe | yes |
 | ex-RUSTEC vs Spirit Academy | 2026-10-27T12:00:00Z | — | — | no |
 | BakS vs Saint Sinners | 2026-10-27T15:00:00Z | — | — | no |
-| Luminosity vs HOTU | 2026-10-27T17:00:00Z | — | — | no |
+| Luminosity vs HOTU | 2026-10-27T17:00:00Z | market | Luminosity | yes |
 | Inner Circle Academy vs Lavked | 2026-10-27T18:00:00Z | — | — | no |
-| Envy vs GamerLegion | 2026-10-27T20:00:00Z | — | — | no |
-| HOTU vs The Huns | 2026-10-31T09:00:00Z | — | — | no |
-| 5star vs 1WIN | 2026-10-31T13:00:00Z | — | — | no |
+| Envy vs GamerLegion | 2026-10-27T20:00:00Z | market | GamerLegion | yes |
+| HOTU vs The Huns | 2026-10-31T09:00:00Z | market | — | yes |
+| 5star vs 1WIN | 2026-10-31T13:00:00Z | model | 1WIN | no |
 
 ## Surfaces tried for the fixtures no money line prices
 
 | Surface | HTTP | Status | Rows parsed | Fixtures whose names appear |
 | --- | --- | --- | --- | --- |
-| hltv-matches | 200 | ok | 43 | 19 |
-| smarkets-events | 200 | ok | 36 | 11 |
-| pinnacle-matchups | 200 | ok | 0 | 2 |
-| thunderpick-matches | 200 | ok | 0 | 9 |
-| kalshi-events | 200 | ok | 0 | 16 |
-| bovada-cs2 | 200 | ok | 22 | 8 |
+| hltv-matches | 200 | ok | 43 | 11 |
+| smarkets-events | 200 | ok | 36 | 5 |
+| pinnacle-matchups | 200 | ok | 13 | 0 |
+| thunderpick-matches | 200 | ok | 47 | 3 |
+| kalshi-events | 200 | ok | 0 | 9 |
+| bovada-cs2 | 200 | ok | 0 | 0 |
 | rivalry-api | 502 | error | 0 | 0 |
 | ggbet-api | 403 | error | 0 | 0 |
 | betexplorer | 404 | error | 0 | 0 |
@@ -62,46 +62,43 @@ Observed 2026-10-26T01:00:58Z (live, GitHub Actions runner). Facts only: this fi
 
 Each row is a price the *source* published, with the project's own margin contract applied. A row marked `not bound` means the surface answered but published no price for that fixture.
 
-- **Ground Zero vs Off Chops** (2026-10-26T03:00:00Z, DFRAG Invitational 2026, tier b) — deployed method: unresolved
-  - smarkets-events → ['Ground Zero', 'Off Chops'] @ None · exact-names-and-start · usable: False (None) · [https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-a/2026/10/26/03-00/ground-zero-vs-off-chops](https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-a/2026/10/26/03-00/ground-zero-vs-off-chops) at 2026-10-26T01:01:01Z
-- **NEXVOID vs Alter Ego** (2026-10-26T03:00:00Z, DFRAG Invitational 2026, tier b) — deployed method: unresolved
+- **Ground Zero vs Off Chops** (2026-10-26T03:00:00Z, DFRAG Invitational 2026, tier b) — deployed method: market
+  - no surface published an exact-name two-team row this hour
+- **NEXVOID vs Alter Ego** (2026-10-26T03:00:00Z, DFRAG Invitational 2026, tier b) — deployed method: bookmaker
   - no surface published an exact-name two-team row this hour
 - **INOX Division vs Nemesis** (2026-10-26T09:00:00Z, NODWIN Clutch Series #13, tier b) — deployed method: unresolved
   - no surface published an exact-name two-team row this hour
 - **LFO 10 vs ex-6666** (2026-10-26T12:00:00Z, CCT Europe 2026 Series #12, tier b) — deployed method: unresolved
   - no surface published an exact-name two-team row this hour
 - **FOKUS vs ex-Zero Tenacity** (2026-10-26T12:00:00Z, NODWIN Clutch Series #13, tier b) — deployed method: unresolved
-  - no surface published an exact-name two-team row this hour
+  - thunderpick-matches → ['FOKUS', 'ex-Zero Tenacity'] @ [1.35, 2.9] · exact-names-and-start · usable: True · [https://thunderpick.io/esports/counter-strike](https://thunderpick.io/esports/counter-strike) at 2026-10-26T01:04:37Z
 - **HAVU vs ILLYRIANS** (2026-10-26T15:00:00Z, CCT Europe 2026 Series #12, tier b) — deployed method: unresolved
   - no surface published an exact-name two-team row this hour
 - **Metizport vs BRUTE** (2026-10-26T15:00:00Z, NODWIN Clutch Series #13, tier b) — deployed method: unresolved
-  - bovada-cs2 → ['Metizport', 'Brute'] @ None · name-only-review-only · usable: False (None) · [https://www.bovada.lv/sports/esports/counter-strike](https://www.bovada.lv/sports/esports/counter-strike) at 2026-10-26T01:01:02Z
+  - thunderpick-matches → ['Metizport', 'Brute'] @ [1.5, 2.4] · exact-names-and-start · usable: True · [https://thunderpick.io/esports/counter-strike](https://thunderpick.io/esports/counter-strike) at 2026-10-26T01:04:37Z
 - **Nuclear TigeRES vs UNiTY** (2026-10-26T18:00:00Z, NODWIN Clutch Series #13, tier b) — deployed method: unresolved
   - no surface published an exact-name two-team row this hour
-- **FlyQuest vs Staqued** (2026-10-27T03:00:00Z, DFRAG Invitational 2026, tier b) — deployed method: unresolved
-  - smarkets-events → ['FlyQuest', 'Staqued'] @ None · exact-names-and-start · usable: False (None) · [https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-b/2026/10/27/03-00/flyquest-vs-staqued](https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-b/2026/10/27/03-00/flyquest-vs-staqued) at 2026-10-26T01:01:01Z
-- **Rooster vs Abyssal** (2026-10-27T03:00:00Z, DFRAG Invitational 2026, tier b) — deployed method: unresolved
-  - smarkets-events → ['Rooster', 'Abyssal'] @ None · exact-names-and-start · usable: False (None) · [https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-b/2026/10/27/03-00/rooster-vs-abyssal](https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-b/2026/10/27/03-00/rooster-vs-abyssal) at 2026-10-26T01:01:01Z
-- **B8 vs K27** (2026-10-27T08:00:00Z, Tesla Cup 2026, tier b) — deployed method: unresolved
-  - smarkets-events → ['B8', 'K27'] @ None · exact-names-and-start · usable: False (None) · [https://smarkets.com/sport/esports/cs-go/tesla-cup/group-a/2026/10/27/08-00/b8-vs-k27](https://smarkets.com/sport/esports/cs-go/tesla-cup/group-a/2026/10/27/08-00/b8-vs-k27) at 2026-10-26T01:01:01Z
-  - bovada-cs2 → ['B8', 'K27'] @ None · name-only-review-only · usable: False (None) · [https://www.bovada.lv/sports/esports/counter-strike](https://www.bovada.lv/sports/esports/counter-strike) at 2026-10-26T01:01:02Z
-- **Alliance vs FaZe** (2026-10-27T11:00:00Z, Tesla Cup 2026, tier b) — deployed method: unresolved
-  - smarkets-events → ['Alliance', 'FaZe'] @ None · exact-names-and-start · usable: False (None) · [https://smarkets.com/sport/esports/cs-go/tesla-cup/group-a/2026/10/27/11-00/alliance-vs-faze](https://smarkets.com/sport/esports/cs-go/tesla-cup/group-a/2026/10/27/11-00/alliance-vs-faze) at 2026-10-26T01:01:01Z
+- **FlyQuest vs Staqued** (2026-10-27T03:00:00Z, DFRAG Invitational 2026, tier b) — deployed method: market
+  - no surface published an exact-name two-team row this hour
+- **Rooster vs Abyssal** (2026-10-27T03:00:00Z, DFRAG Invitational 2026, tier b) — deployed method: model
+  - smarkets-events → ['Rooster', 'Abyssal'] @ None · exact-names-and-start · usable: False (None) · [https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-b/2026/10/27/03-00/rooster-vs-abyssal](https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-b/2026/10/27/03-00/rooster-vs-abyssal) at 2026-10-26T01:04:37Z
+- **B8 vs K27** (2026-10-27T08:00:00Z, Tesla Cup 2026, tier b) — deployed method: market
+  - no surface published an exact-name two-team row this hour
+- **Alliance vs FaZe** (2026-10-27T11:00:00Z, Tesla Cup 2026, tier b) — deployed method: market
+  - no surface published an exact-name two-team row this hour
 - **ex-RUSTEC vs Spirit Academy** (2026-10-27T12:00:00Z, CCT Europe 2026 Series #12, tier b) — deployed method: unresolved
   - no surface published an exact-name two-team row this hour
 - **BakS vs Saint Sinners** (2026-10-27T15:00:00Z, CCT Europe 2026 Series #12, tier b) — deployed method: unresolved
   - no surface published an exact-name two-team row this hour
-- **Luminosity vs HOTU** (2026-10-27T17:00:00Z, Tesla Cup 2026, tier b) — deployed method: unresolved
-  - smarkets-events → ['Luminosity', 'HOTU'] @ None · exact-names-and-start · usable: False (None) · [https://smarkets.com/sport/esports/cs-go/tesla-cup/group-b/2026/10/27/17-00/luminosity-vs-hotu](https://smarkets.com/sport/esports/cs-go/tesla-cup/group-b/2026/10/27/17-00/luminosity-vs-hotu) at 2026-10-26T01:01:01Z
-  - bovada-cs2 → ['Luminosity', 'HOTU'] @ None · name-only-review-only · usable: False (None) · [https://www.bovada.lv/sports/esports/counter-strike](https://www.bovada.lv/sports/esports/counter-strike) at 2026-10-26T01:01:02Z
+- **Luminosity vs HOTU** (2026-10-27T17:00:00Z, Tesla Cup 2026, tier b) — deployed method: market
+  - no surface published an exact-name two-team row this hour
 - **Inner Circle Academy vs Lavked** (2026-10-27T18:00:00Z, CCT Europe 2026 Series #12, tier b) — deployed method: unresolved
   - no surface published an exact-name two-team row this hour
-- **Envy vs GamerLegion** (2026-10-27T20:00:00Z, Tesla Cup 2026, tier b) — deployed method: unresolved
-  - smarkets-events → ['Envy', 'GamerLegion'] @ None · exact-names-and-start · usable: False (None) · [https://smarkets.com/sport/esports/cs-go/tesla-cup/group-b/2026/10/27/20-00/envy-vs-gamerlegion](https://smarkets.com/sport/esports/cs-go/tesla-cup/group-b/2026/10/27/20-00/envy-vs-gamerlegion) at 2026-10-26T01:01:01Z
-  - bovada-cs2 → ['Envy', 'GamerLegion'] @ None · name-only-review-only · usable: False (None) · [https://www.bovada.lv/sports/esports/counter-strike](https://www.bovada.lv/sports/esports/counter-strike) at 2026-10-26T01:01:02Z
-- **HOTU vs The Huns** (2026-10-31T09:00:00Z, Moscow Cyber Games 2026, tier b) — deployed method: unresolved
+- **Envy vs GamerLegion** (2026-10-27T20:00:00Z, Tesla Cup 2026, tier b) — deployed method: market
   - no surface published an exact-name two-team row this hour
-- **5star vs 1WIN** (2026-10-31T13:00:00Z, Moscow Cyber Games 2026, tier b) — deployed method: unresolved
+- **HOTU vs The Huns** (2026-10-31T09:00:00Z, Moscow Cyber Games 2026, tier b) — deployed method: market
+  - no surface published an exact-name two-team row this hour
+- **5star vs 1WIN** (2026-10-31T13:00:00Z, Moscow Cyber Games 2026, tier b) — deployed method: model
   - no surface published an exact-name two-team row this hour
 
 ## Limitations of this probe

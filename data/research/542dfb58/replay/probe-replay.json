@@ -1,29 +1,30 @@
 {
-  "observed_at": "2026-10-26T01:01:37Z",
+  "observed_at": "2026-10-26T01:05:11Z",
   "mode": "offline-replay",
   "surfaces": {
     "hltv-matches": {
-      "stored_sha256": "c0b27abd45bb25c745e73e93067af1322b1e4a60d270070a30a3c0a284449f50",
+      "stored_sha256": "95a7a02e7e7f67ab13940d07b39f015ea2d5904daaca0c9a164d6953deb51577",
       "rows_parsed": 43
     },
     "smarkets-events": {
-      "stored_sha256": "2388f28b24fcea186a0fd2ac93f1e13add4b8a68f9386a2b62c7beceb67b89c3",
+      "stored_sha256": "3df3bbc100c2b82cb6e2c33c67feb6d43bfdca804d55ec1e3d0d39192485ac22",
       "rows_parsed": 36
     },
     "pinnacle-matchups": {
       "stored_sha256": "d9472948631e88ae21570ce39cc7152bd7c5a01e7bb68c387047d05001867e10",
-      "parse_error": "AttributeError: 'list' object has no attribute 'get'"
+      "rows_parsed": 13
     },
     "thunderpick-matches": {
-      "stored": false
+      "stored_sha256": "fb8aa8258845058d807bf9e42e4ab172232145bfb118ba6e9aa93aafec16da5f",
+      "rows_parsed": 47
     },
     "kalshi-events": {
-      "stored_sha256": "b88c74d9b484faf44a53ad855468e5bbeb9d16a971cb17c021932c861626250d",
+      "stored_sha256": "40143938077c2a4ff9c0c08bf0ff4ca8853b41c189ea40442dc171b4c2f7e146",
       "rows_parsed": 0
     },
     "bovada-cs2": {
-      "stored_sha256": "3a62c8f077ccaf9903b4676ebb48372f1c04fc82ca600630c8e648f53d8b10ec",
-      "rows_parsed": 22
+      "stored_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "rows_parsed": 0
     },
     "rivalry-api": {
       "stored": false
@@ -41,7 +42,7 @@
       "stored": false
     },
     "esportsbetting": {
-      "stored_sha256": "f15fa353bbc0da260dc1cbd2c5d994863c60fdb742ef814edf895b60575c6aec",
+      "stored_sha256": "eacbfaf733af866e322f786038f5519fef4213dd1f8ed4b33d866c252e53dfbb",
       "rows_parsed": 0
     },
     "bo3gg-matches": {
