@@ -1,0 +1,70 @@
+[
+  {
+    "id": "c333bb27-nodwin-polymarket-start-shift",
+    "severity": "notice",
+    "title": "Polymarket's NODWIN Clutch Series #13 QF2, QF3 and QF4 events publish start times shifted 3-6 hours from Hotspawn and HLTV",
+    "detail": "Polymarket lists NODWIN Clutch Series #13 Quarterfinals 2, 3 and 4 under events 1255013 (cs2-mzp-brute-2026-10-26, eventStartTime 2026-10-26T12:00:00Z), 1252124 (cs2-ntr-unity-2026-10-26, eventStartTime 2026-10-26T15:00:00Z) and 1252125 (cs2-fokus-zerote-2026-10-26, eventStartTime 2026-10-26T18:00:00Z). Both Hotspawn's scheduled-fixtures API and HLTV's official match pages (2399117 FOKUS vs ex-Zero Tenacity at 12:00Z, 2399118 Metizport vs BRUTE at 15:00Z, 2399119 Nuclear TigeRES vs UNiTY at 18:00Z) schedule those three series at 12:00Z, 15:00Z and 18:00Z respectively. Because the pipeline enforces a strict start-time join tolerance, those shifted Polymarket events are not joined; instead, all three fixtures are priced from exact-time prematch esportsbook lines (Thunderpick 1.35/2.90 for 1079202, Thunderpick 1.50/2.40 for 1079203, and Thunderpick 1.58/2.20 + Bovada 1.606061/2.25 consensus for 1093218).",
+    "match_ids": [
+      "1079202",
+      "1079203",
+      "1093218"
+    ],
+    "source_urls": [
+      "https://gamma-api.polymarket.com/events?slug=cs2-fokus-zerote-2026-10-26",
+      "https://gamma-api.polymarket.com/events?slug=cs2-mzp-brute-2026-10-26",
+      "https://gamma-api.polymarket.com/events?slug=cs2-ntr-unity-2026-10-26",
+      "https://www.hltv.org/matches/2399117/fokus-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+      "https://www.hltv.org/matches/2399118/metizport-vs-brute-nodwin-clutch-series-13",
+      "https://www.hltv.org/matches/2399119/nuclear-tigeres-vs-unity-nodwin-clutch-series-13"
+    ]
+  },
+  {
+    "id": "c333bb27-nemesis-alias-scope-nodwin",
+    "severity": "notice",
+    "title": "Fixture 1079201 (INOX Division vs Nemesis) has a live Polymarket moneyline under 'Team Nemesis' outside the current alias scope",
+    "detail": "Hotspawn fixture 1079201 (INOX Division vs Nemesis, NODWIN Clutch Series #13, 2026-10-26T09:00:00Z) is priced on the published build via Valve's 2026-10-05 Regional Standings (#82 INOX Division 1105 pts vs #29 Nemesis 1455 pts -> 12.3% / 87.7%, Pick: Nemesis). Polymarket event 1252123 (cs2-nem-inox-2026-10-26, eventStartTime 2026-10-26T09:00:00Z) prices the same BO3 quarterfinal under the display name 'Team Nemesis' vs 'INOX Division' with a 1-cent CLOB spread (bid/ask 0.72/0.73 vs 0.27/0.28, midpoint 72.5% / 27.5% for Team Nemesis, $1,029 volume, $5,732 liquidity), agreeing on the favourite (Nemesis). Because 'Team Nemesis -> Nemesis' in data/origination/aliases.json is currently scoped only to CIS LAN Championship #9 and PGL Bucharest 2027: Closed Qualifier, the exact-name and scoped-alias collectors keep the verified Valve model estimate rather than silently expanding alias scope across tournaments.",
+    "match_ids": [
+      "1079201"
+    ],
+    "source_urls": [
+      "https://polymarket.com/event/cs2-nem-inox-2026-10-26",
+      "https://gamma-api.polymarket.com/events?slug=cs2-nem-inox-2026-10-26",
+      "https://www.hltv.org/matches/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    ]
+  },
+  {
+    "id": "c333bb27-cct-europe-wide-books",
+    "severity": "notice",
+    "title": "Polymarket and Kalshi order books on CCT Europe Series #12 Round 4 fixtures exceed the 12c/15c spread ceilings at observation time",
+    "detail": "All five CCT Europe 2026 Series #12 Round 4 fixtures on Hotspawn (1081159 LFO 10 vs ex-6666, 1081160 HAVU vs ILLYRIANS, 1081162 ex-RUSTEC vs Spirit Academy, 1081163 BakS vs Saint Sinners, 1081164 Inner Circle Academy vs Lavked) have corresponding Polymarket events (1255951, 1255952, 1256214, 1256215, 1256216), and 1081159 also has Kalshi event KXCS2GAME-26OCT260800EXSKR. At 2026-10-26T01:04Z their CLOB spreads ranged from 0.53 to 0.94 (placeholder 3-5c / 95-97c quotes), exceeding both the 0.12 featured ceiling and the 0.15 origination ceiling. The pipeline rightly rejected all five wide order books and resolved 1081160, 1081162, 1081163 and 1081164 from exact-name five-player Valve Regional Standings rows and 1081159 from the anchored bo3.gg series-results model plus Valve #127 (6666).",
+    "match_ids": [
+      "1081159",
+      "1081160",
+      "1081162",
+      "1081163",
+      "1081164"
+    ],
+    "source_urls": [
+      "https://polymarket.com/event/cs2-skr2-66661-2026-10-26",
+      "https://polymarket.com/event/cs2-havu-ill4-2026-10-26",
+      "https://polymarket.com/event/cs2-rustec-tsa-2026-10-27",
+      "https://polymarket.com/event/cs2-baks-ssins-2026-10-27",
+      "https://polymarket.com/event/cs2-innerc-lavked-2026-10-27"
+    ]
+  },
+  {
+    "id": "c333bb27-lfo10-valve-core-crosscheck",
+    "severity": "notice",
+    "title": "Fixture 1081159 (LFO 10 vs ex-6666): HLTV match 2399509 confirms 3/5 Entropy core for LFO 10 and 4/5 6666 core for ex-6666, agreeing with the published ex-6666 pick",
+    "detail": "Hotspawn fixture 1081159 (LFO 10 vs ex-6666, CCT Europe 2026 Series #12, 2026-10-26T12:00:00Z) is resolved on the origination ladder at 39.0% / 61.0% for ex-6666 using the anchored bo3.gg series-results fit for LFO 10 (825 pts across 10 anchored BO3 series as Sökerorg/Sokerorg, posterior SD 114.7) against Valve #127 '6666' (923 pts). Official HLTV match page 2399509 independently lists LFO 10 (HLTV #167, VRS #157: Sapec, L00m1, dottie, flaw, Mann3n — sharing 3/5 core dottie/flaw/Sapec with Valve #156 'Entropy' at 813 pts) against ex-6666 (HLTV #72, VRS #118: skcH, kL1o, amster, rendysky, stefienson — sharing 4/5 core amster/kL1o/rendysky/skcH with Valve #127 '6666' at 923 pts). All three independent research signals (bo3.gg anchored fit 825 vs 923, HLTV world ranking #167 vs #72, and Valve core 813 vs 923) agree on ex-6666 as the favourite.",
+    "match_ids": [
+      "1081159"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
+      "https://bo3.gg/matches/sokerorg-vs-ex-6666-26-10-2026",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    ]
+  }
+]

@@ -15,7 +15,13 @@ REGISTER = 'research/c07e1b40/repo-review.json'
 # page. Each file is a dated, source-linked register; a register that is not
 # present in the tree is simply not rendered.
 REGISTERS = (
+    'research/f644ed1b/repo-review.json',
     REGISTER,
+    # Session 39680a42: source-side verification of the picks the deployed
+    # dashboard already publishes - the 1082792 identity chain (Hotspawn ->
+    # Polymarket cs2-hotu-the9-2026-10-31 -> HLTV 2399437), the nine-fixture live
+    # coverage gap, the headline-vs-snapshot count, and the landing-page contract.
+    'research/39680a42/repo-review.json',
     # Session 35e31fef: 17/17 live future Hotspawn CS2 lobby parity (13:37Z),
     # 18/18 active pick replay, <8h EGW match-page refresh in CAPTURE_PATHS
     # (1082858, 1082859, 1086696), 3 post-snapshot Polymarket tight books
@@ -56,6 +62,11 @@ REGISTERS = (
     # complete-pick replay, <8h EGW match-page refresh for 1082858 in
     # CAPTURE_PATHS, Polymarket CLOB tightening on 1082996, and HLTV stand-in flags.
     'research/c2a74e33/repo-review.json',
+    # Session arena-b3e91409: independent replay of all 10 published rows (exact
+    # re-derivation from each row's own bid/ask, odds or rating points), the nine
+    # open Hotspawn fixtures absent from the 23:03:48Z publication, and the
+    # identity/clock conflicts that decide which external line may price them.
+    'research/b3e91409/repo-review.json',
     # Session arena-0db056f7: publisher freeze root cause (stale Group A
     # snapshot test), three post-snapshot lobby fixtures, EGW capture for
     # 1086696, and the flagged 98.2% network estimate on 1082792.
@@ -85,6 +96,11 @@ REGISTERS = (
     # odds-floor bookmaker row, the blocked esportsbooks, and the phone path to
     # the picks.
     'research/824a2780/repo-review.json',
+    # Session c333bb27: 2026-10-26 81-record / 19-open Hotspawn CS2 lobby
+    # reconciliation, HLTV-first + esportsbook/exchange/Valve research for the
+    # 10 non-featured fixtures, 19/19 exact probability replay, and provider
+    # start-time / alias-scope flags.
+    'research/c333bb27/repo-review.json',
 )
 STATUS = {
     'fixed': ('Fixed', 'green'),
