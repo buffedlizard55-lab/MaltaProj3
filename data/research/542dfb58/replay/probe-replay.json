@@ -1,24 +1,29 @@
 {
-  "observed_at": "2026-10-26T00:56:46Z",
+  "observed_at": "2026-10-26T01:01:37Z",
   "mode": "offline-replay",
   "surfaces": {
     "hltv-matches": {
-      "stored": false
+      "stored_sha256": "c0b27abd45bb25c745e73e93067af1322b1e4a60d270070a30a3c0a284449f50",
+      "rows_parsed": 43
     },
     "smarkets-events": {
-      "stored": false
+      "stored_sha256": "2388f28b24fcea186a0fd2ac93f1e13add4b8a68f9386a2b62c7beceb67b89c3",
+      "rows_parsed": 36
     },
     "pinnacle-matchups": {
-      "stored": false
+      "stored_sha256": "d9472948631e88ae21570ce39cc7152bd7c5a01e7bb68c387047d05001867e10",
+      "parse_error": "AttributeError: 'list' object has no attribute 'get'"
     },
     "thunderpick-matches": {
       "stored": false
     },
     "kalshi-events": {
-      "stored": false
+      "stored_sha256": "b88c74d9b484faf44a53ad855468e5bbeb9d16a971cb17c021932c861626250d",
+      "rows_parsed": 0
     },
     "bovada-cs2": {
-      "stored": false
+      "stored_sha256": "3a62c8f077ccaf9903b4676ebb48372f1c04fc82ca600630c8e648f53d8b10ec",
+      "rows_parsed": 22
     },
     "rivalry-api": {
       "stored": false
@@ -36,10 +41,12 @@
       "stored": false
     },
     "esportsbetting": {
-      "stored": false
+      "stored_sha256": "f15fa353bbc0da260dc1cbd2c5d994863c60fdb742ef814edf895b60575c6aec",
+      "rows_parsed": 0
     },
     "bo3gg-matches": {
-      "stored": false
+      "stored_sha256": "ed918ceec359c157dc30fa4176529d36058881b8ef2d19fe5523aa458c97ce5f",
+      "rows_parsed": 0
     },
     "egamersworld-matches": {
       "stored": false
