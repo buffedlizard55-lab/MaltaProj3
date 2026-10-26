@@ -1,4 +1,4 @@
-# Live line dossier — 2026-10-26T01:01:19Z
+# Live line dossier — 2026-10-26T01:29:20Z
 
 Open Hotspawn CS2 fixtures: **19** · with an observed betting line: **9** (Polymarket 6, esportsbook 3) · published-rating model only: **10** · unresolved: **0**
 
