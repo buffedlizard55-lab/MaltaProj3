@@ -123,6 +123,14 @@ def usable_pair(odds) -> dict:
     return {'usable': True, 'margin': round(margin, 4), 'no_vig': no_vig(list(odds))}
 
 
+def team_keys(fixture: dict) -> list:
+    """Normalised team names of a fixture; an empty list when the card is incomplete."""
+    names = [t.get('name') if isinstance(t, dict) else None for t in fixture.get('teams') or []]
+    if len(names) != 2 or not all(isinstance(n, str) and n.strip() for n in names):
+        return []
+    return [name_key(n) for n in names]
+
+
 def presence_scan(body, fixtures: list, window: int = 400) -> dict:
     """How many of the target fixtures a surface mentions at all.
 
@@ -135,8 +143,8 @@ def presence_scan(body, fixtures: list, window: int = 400) -> dict:
     text = re.sub(r'\s+', ' ', unescape(text)).lower()
     hits = []
     for fixture in fixtures:
-        keys = [name_key(t['name']) for t in fixture['teams']]
-        if len(keys) != 2 or not all(keys):
+        keys = team_keys(fixture)
+        if len(keys) != 2:
             continue
         a, b = keys[0], keys[1]
         near = False
@@ -166,8 +174,9 @@ def bind(rows: list, fixtures: list) -> list:
             if strict:
                 joined.append({**row, 'fixture_id': fixture['id'], 'join': 'exact-names-and-start'})
                 continue
-            wanted = {name_key(t['name']) for t in fixture['teams']}
-            if len({name_key(n) for n in names}) == 2 and {name_key(n) for n in names} == wanted and not start:
+            wanted = set(team_keys(fixture))
+            if (wanted and len({name_key(n) for n in names if isinstance(n, str)}) == 2
+                    and {name_key(n) for n in names if isinstance(n, str)} == wanted and not start):
                 joined.append({**row, 'fixture_id': fixture['id'], 'join': 'name-only-review-only'})
     return joined
 
@@ -262,24 +271,24 @@ def reconcile(inventory: dict, deployed: dict) -> dict:
 
 # --------------------------------------------------------------------- hltv
 
-HLTV_ANCHOR = re.compile(r'<a\s+href="/matches/(?P<id>\d+)/(?P<slug>[a-z0-9\-]+)"[^>]*>(?P<title>[^<]+)</a>',
-                         re.I)
+def hltv_listing(text) -> list:
+    """HLTV's own match listing, parsed by the publisher's own reader.
 
-
-def hltv_listing(text: str) -> list:
-    """HLTV match-listing anchors: id, slug and the two team names it labels."""
+    `scripts.sources.parse_hltv_matches` is the exact function the four-hour
+    pipeline uses, including its duplicate-wrapper and repeat-safeguard rules, so
+    this probe can never report a different HLTV row than the ladder would accept.
+    """
+    if not isinstance(text, str):
+        return []
+    from scripts.sources import parse_hltv_matches
     rows = []
-    seen = set()
-    for match in HLTV_ANCHOR.finditer(text or ''):
-        hid, slug, title = match['id'], match['slug'], unescape(match['title'])
-        if hid in seen or ' vs. ' not in title and ' vs ' not in title:
+    for card in parse_hltv_matches(text) or []:
+        url = str(card.get('source_url') or '')
+        found = re.search(r'/matches/(\d+)/([a-z0-9\-]+)', url)
+        if not found or len(card.get('teams') or []) != 2:
             continue
-        seen.add(hid)
-        left = re.split(r'\s+vs\.?\s+', title, maxsplit=1)
-        if len(left) != 2:
-            continue
-        rows.append({'hltv_id': hid, 'slug': slug, 'names': [left[0].strip(), left[1].strip()],
-                     'url': f'https://www.hltv.org/matches/{hid}/{slug}'})
+        rows.append({'hltv_id': found.group(1), 'slug': found.group(2), 'names': list(card['teams']),
+                     'start': card.get('starts_at'), 'best_of': card.get('best_of'), 'url': url})
     return rows
 
 
@@ -346,32 +355,38 @@ def pinnacle_rows(body) -> list:
 
 
 def thunderpick_rows(body) -> list:
+    """Thunderpick's public board: the two-way "Match Winner" market per event.
+
+    Shape verified against the 2026-10-25T16:10:27Z capture archived at
+    data/research/93c7475a/raw/thunderpick-matches.json: data.upcoming[] events each
+    carry preferredMarkets[] whose Match Winner market holds exactly two selections
+    with `name` and decimal `odds`.
+    """
     rows = []
     data = (body or {}).get('data') or {}
-    for event in (data.get('upcoming') or data.get('matches') or []):
-        if not isinstance(event, dict):
-            continue
-        names = []
-        for side in ('home', 'away'):
-            participant = event.get(side) or {}
-            if isinstance(participant, dict) and participant.get('name'):
-                names.append(participant['name'])
-        if len(names) != 2:
-            for participant in event.get('participants') or event.get('teams') or []:
-                if isinstance(participant, dict) and participant.get('name'):
-                    names.append(participant['name'])
-        if len(names) != 2:
-            continue
-        odds = event.get('odds') or {}
-        prices = None
-        if isinstance(odds, dict):
-            home = odds.get('1') or odds.get('home') or odds.get('homeOdds')
-            away = odds.get('2') or odds.get('away') or odds.get('awayOdds')
-            if home is not None and away is not None:
-                prices = [home, away]
-        rows.append({'names': names, 'start': event.get('startTime') or event.get('start_time'),
-                     'prices': prices, 'book': 'Thunderpick',
-                     'url': 'https://thunderpick.io/esports/counter-strike'})
+    buckets = []
+    if isinstance(data, dict):
+        buckets = [data.get('upcoming') or [], data.get('live') or []]
+    for events in buckets:
+        for event in events:
+            if not isinstance(event, dict):
+                continue
+            for market in event.get('preferredMarkets') or []:
+                if not isinstance(market, dict):
+                    continue
+                if str(market.get('nickName') or '').lower() not in {'winner', 'match winner'}:
+                    continue
+                selections = [s for s in (market.get('selections') or []) if isinstance(s, dict)]
+                if len(selections) != 2:
+                    continue
+                names = [s.get('name') for s in selections]
+                prices = [s.get('odds') for s in selections]
+                if not all(isinstance(n, str) and n.strip() for n in names):
+                    continue
+                rows.append({'names': names, 'start': event.get('startTime'),
+                             'prices': prices if all(isinstance(x, (int, float)) for x in prices) else None,
+                             'book': 'Thunderpick', 'best_of': event.get('bestOfMaps'),
+                             'url': 'https://thunderpick.io/esports/counter-strike'})
     return rows
 
 
@@ -422,7 +437,7 @@ RIVALRY_GAME = re.compile(r'"awayTeam"\s*:\s*\{\s*"name"\s*:\s*"(?P<away>[^"]+)"
                           r'"homeTeam"\s*:\s*\{\s*"name"\s*:\s*"(?P<home>[^"]+)".*?'
                           r'"commenceTime"\s*:\s*"(?P<start>[^"]+)"', re.S)
 RIVALRY_ODDS = re.compile(r'"decimalOdds"\s*:\s*\[\s*\{[^}]*?"oddsValue"\s*:\s*(?P<a>[0-9.]+).*?'
-                          r'"oddsValue"\s*:\s*(?P<b>[0-9.]+)', re.S)
+                         r'"oddsValue"\s*:\s*(?P<b>[0-9.]+)', re.S)
 
 
 def rivalry_rows(body) -> list:
@@ -695,7 +710,7 @@ def main(argv=None) -> int:
             data = json.loads(body) if suffix == '.json' else body
             replay['surfaces'][label] = {'stored_sha256': hashlib.sha256(raw).hexdigest()}
             try:
-                rows = parser_fn(data) or []
+                rows = parser_fn(data if isinstance(data, str) or isinstance(data, (dict, list)) else None) or []
             except Exception as exc:
                 replay['surfaces'][label].update({'parse_error': f'{type(exc).__name__}: {exc}'[:200]})
                 continue
@@ -703,7 +718,11 @@ def main(argv=None) -> int:
         replay_dir = out_dir / 'replay'
         replay_dir.mkdir(parents=True, exist_ok=True)
         (replay_dir / 'probe-replay.json').write_text(json.dumps(replay, indent=2, ensure_ascii=False) + '\n')
-        stored = json.loads((out_dir / 'probe.json').read_text())
+        try:
+            stored = json.loads((out_dir / 'probe.json').read_text())
+        except (OSError, ValueError):
+            print('no probe.json to compare against — replay recorded alone')
+            return 0
         drift = []
         for label, record in replay['surfaces'].items():
             if not record.get('stored'):
@@ -720,9 +739,19 @@ def main(argv=None) -> int:
 
     out_dir.mkdir(parents=True, exist_ok=True)
     client = Client(out_dir)
-    inventory = live_inventory(client, out_dir, now)
-    deployed = deployed_state(client, out_dir)
-    coverage = reconcile(inventory, deployed)
+    try:
+        inventory = live_inventory(client, out_dir, now)
+        deployed = deployed_state(client, out_dir)
+        coverage = reconcile(inventory, deployed)
+    except Exception as exc:  # a partial, dated dossier beats a run with no evidence at all
+        import traceback
+        (out_dir / 'probe-error.txt').write_text(traceback.format_exc())
+        (out_dir / 'inventory-failure.json').write_text(json.dumps(
+            {'observed_at': now_iso(), 'error': f'{type(exc).__name__}: {exc}'[:400],
+             'requests': client.manifest}, indent=2) + '\n')
+        print('::error title=542dfb58 probe could not complete::'
+              f'{type(exc).__name__}: {exc} — partial evidence committed, traceback in probe-error.txt')
+        return 1
     for layer in ('snapshot', 'origination'):
         # Keep the published report compact and free of copied numbers: the layers
         # are cited by their own URL and generation timestamp, never reproduced.
@@ -736,8 +765,20 @@ def main(argv=None) -> int:
     targets = [row for row in coverage['rows'] if not row['priced_by_money']] or [
         row for row in coverage['rows']]
     target_fixtures = [f for f in fixtures if str(f['id']) in {row['fixture_id'] for row in targets}]
-    surfaces = probe_surfaces(client, out_dir, target_fixtures)
-    hltv_details = probe_hltv_pages(client, out_dir, target_fixtures, surfaces.get('hltv_rows') or [])
+    try:
+        surfaces = probe_surfaces(client, out_dir, target_fixtures)
+    except Exception as exc:
+        import traceback
+        (out_dir / 'surface-probe-error.txt').write_text(traceback.format_exc())
+        print(f'::warning title=surface scan incomplete::{type(exc).__name__}: {exc}')
+        surfaces = {'surfaces': {}, 'joins': {}, 'hltv_rows': []}
+    try:
+        hltv_details = probe_hltv_pages(client, out_dir, target_fixtures, surfaces.get('hltv_rows') or [])
+    except Exception as exc:
+        import traceback
+        (out_dir / 'hltv-probe-error.txt').write_text(traceback.format_exc())
+        print(f'::warning title=HLTV page scan incomplete::{type(exc).__name__}: {exc}')
+        hltv_details = {}
     flags = build_flags(inventory, coverage, surfaces['surfaces'], surfaces['joins'])
 
     payload = {
