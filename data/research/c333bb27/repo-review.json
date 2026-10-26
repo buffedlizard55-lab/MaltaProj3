@@ -1,0 +1,155 @@
+{
+  "session": "arena-c333bb27",
+  "scope": "Line-by-line verification of the 2026-10-26T01:04:20Z Hotspawn CS2 snapshot (81 inventory records, 19 open future matches, 62 archived past matches), HLTV-first + esportsbook/exchange/Valve research ONLY for matches unresolved by featured exact-name picks, exact mathematical replay of all 19 published probability pairs and picks, and executive-summary & phone readability audit.",
+  "review_clock_utc": "2026-10-26T01:18:00Z",
+  "method": "First-party Hotspawn scheduled-fixtures API (all 8 chunks, 81 records) and live rendered Pick'ems Lobby (https://play.hotspawn.com/lobby) fetched and reconciled ID-by-ID against snapshot.json and origination.json; official HLTV match pages (2399888..2399438) and Polymarket Gamma API events inspected for non-featured fixtures; all 19 published probability pairs re-derived from stored quotes and Valve's 2026-10-05 global standings; site built and audited via scripts.audit_rows --strict, scripts.acceptance_audit, and Playwright mobile/WCAG tests.",
+  "items": [
+    {
+      "id": "C333-R01",
+      "area": "Hotspawn 81-record / 19-open lobby reconciliation",
+      "status": "verified",
+      "finding": "At 2026-10-26T00:44Z the live Hotspawn CS2 scheduled-fixtures feed (tenantId=1, sport_alias=cs2, status=scheduled) returned 81 total records: 62 past-start records (including 1079200 Aurora Young Blud vs Betclic at 2026-10-25T18:00:00Z) and 19 open future matches across five tournaments (DFRAG Invitational 2026: 4; NODWIN Clutch Series #13: 4; CCT Europe 2026 Series #12: 5; Tesla Cup 2026: 4; Moscow Cyber Games 2026: 2). The rendered lobby at https://play.hotspawn.com/lobby simultaneously displayed '19 matches this week' and 'All tiers (81) B (37) C (44)'. Scheduled publisher run 40250748384 refreshed the root-synced snapshot at 2026-10-26T01:04:20Z to the exact same 81 inventory / 19 upcoming / 62 archived counts.",
+      "handling": "Verified ID-by-ID across snapshot.json, origination.json, picks.csv and index.html#picks-at-a-glance: all 19 open Hotspawn fixtures are present with zero missing or invented rows. Full ID-by-ID reconciliation is stored in data/research/c333bb27/verification-2026-10-26.json.",
+      "evidence": [
+        {
+          "url": "https://play.hotspawn.com/lobby",
+          "detail": "Live rendered Pick'ems Lobby showing '19 matches this week' and 'All tiers (81) B (37) C (44)' across all 19 open CS2 cards."
+        },
+        {
+          "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+          "detail": "First-party Hotspawn CS2 scheduled fixtures API returning 81 records (19 open future matches 1082858..1082793, 62 past-start records)."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+          "detail": "Root-synced snapshot generated_at 2026-10-26T01:04:20Z with counts inventory=81, upcoming=19, archived=62."
+        }
+      ]
+    },
+    {
+      "id": "C333-R02",
+      "area": "HLTV-first and external-line research for non-featured fixtures",
+      "status": "verified",
+      "finding": "Following the constraint to research HLTV first and then esportsbooks/betting lines ONLY for matches that cannot be resolved in the same way as featured picks, all 10 active fixtures that did not resolve via exact-name featured money lines (1081159 LFO 10 vs ex-6666, 1082792 HOTU vs The Huns, 1093218 Nuclear TigeRES vs UNiTY, 1079201 INOX Division vs Nemesis, 1081160 HAVU vs ILLYRIANS, 1082861 Rooster vs Abyssal, 1081162 ex-RUSTEC vs Spirit Academy, 1081163 BakS vs Saint Sinners, 1081164 Inner Circle Academy vs Lavked, 1082793 5star vs 1WIN) were verified on HLTV first and then across external betting and rating sources. Two upgraded to money-backed lines on the origination ladder (1082792 HOTU vs The Huns -> 87.0%/13.0% HOTU on Polymarket event 1241313 via The Huns Esports -> The Huns; 1093218 Nuclear TigeRES vs UNiTY -> 58.3%/41.7% Nuclear TigeRES via Thunderpick 1.58/2.20 + Bovada 1.606061/2.25 consensus), seven resolved via exact-name five-player Valve Regional Standings rows, and 1081159 resolved via the anchored bo3.gg series-results model (39.0%/61.0% ex-6666).",
+      "handling": "All 9 featured money-line picks (6 Polymarket: 1082858, 1082860, 1082897, 1082898, 1082900, 1082901; 3 Thunderpick: 1082859, 1079202, 1079203) are preserved unchanged by resolve_match(), and all 10 non-featured fixtures carry verified origination picks with explicit method labels and limitations.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
+          "detail": "HLTV match 2399509 confirming BO3 at 2026-10-26T12:00:00Z, LFO 10 (#167, VRS #157) vs ex-6666 (#72, VRS #118)."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399119/nuclear-tigeres-vs-unity-nodwin-clutch-series-13",
+          "detail": "HLTV match 2399119 confirming BO3 at 2026-10-26T18:00:00Z for Nuclear TigeRES vs UNiTY."
+        },
+        {
+          "url": "https://www.bovada.lv/sports/esports/counter-strike-2/nodwin-clutch-series/nuclear-tigeres-unity-esports-202610261400",
+          "detail": "Bovada event 32759181 Moneyline 1.606061 / 2.25 joined with Thunderpick 1.58 / 2.20 for 1093218 consensus."
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
+          "detail": "Polymarket event 1241313 pricing HOTU vs The Huns Esports at 0.82/0.92 vs 0.08/0.18 (87.0% / 13.0% HOTU)."
+        }
+      ]
+    },
+    {
+      "id": "C333-R03",
+      "area": "Mathematical replay of all 19 published probability pairs and picks",
+      "status": "verified",
+      "finding": "Every active fixture's two published win probabilities in origination.json and index.html#picks-at-a-glance were independently recomputed from its stored first-party inputs: 7 Polymarket midpoint pairs (1082858 20.5/79.5, 1082860 92.5/7.5, 1082897 59.5/40.5, 1082898 34.0/66.0, 1082900 52.5/47.5, 1082901 45.5/54.5, 1082792 87.0/13.0), 3 Thunderpick no-vig pairs (1082859 59.2/40.8 from 1.56/2.26, 1079202 68.2/31.8 from 1.35/2.90, 1079203 61.5/38.5 from 1.50/2.40), 1 two-book consensus median (1093218 58.3/41.7 from Thunderpick 1.58/2.20 and Bovada 1.606061/2.25), 7 Valve fit.js Glicko pairs with RD=75 (1079201 12.3/87.7, 1081160 60.3/39.7, 1082861 47.8/52.2, 1081162 61.7/38.3, 1081163 78.8/21.2, 1081164 75.6/24.4, 1082793 17.8/82.2), and 1 bo3.gg anchored series-results fit (1081159 39.0/61.0 from 825 vs 923 with RD=244.87). Maximum absolute discrepancy across all 19 fixtures is 0.00e+00, and all 19 picks equal the strict argmax.",
+      "handling": "Pinned in scripts/c333bb27_verify.py and tests/test_c333bb27_verification.py. No Hotspawn '% picked' or HLTV fan-vote value is stored or used anywhere in the repository.",
+      "evidence": [
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+          "detail": "Official 2026-10-05 Valve Regional Standings table used to verify all 7 exact-name Valve rows and the #127 6666 anchor."
+        },
+        {
+          "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js",
+          "detail": "Valve's published Glicko expectation formula with RD=75 (g=0.97282112)."
+        },
+        {
+          "url": "https://bo3.gg/matches/sokerorg-vs-ex-6666-26-10-2026",
+          "detail": "bo3.gg match and 10-series history anchoring LFO 10 (Sökerorg) at 825 points against Valve #127 6666 (923 points)."
+        }
+      ]
+    },
+    {
+      "id": "C333-R04",
+      "area": "Fixture 1081159 (LFO 10 vs ex-6666) multi-source cross-check",
+      "status": "verified",
+      "finding": "Fixture 1081159 (LFO 10 vs ex-6666, CCT Europe 2026 Series #12, 2026-10-26T12:00:00Z) is unresolved on the exact-name collector because Valve's 2026-10-05 table has no exact-name row for 'LFO 10' or 'ex-6666' and Polymarket (event 1255951, spread 0.53) and Kalshi (event KXCS2GAME-26OCT260800EXSKR, spread 0.56) both exceed the 0.15 spread ceiling. Official HLTV match page 2399509 confirms LFO 10 (#167, VRS #157: Sapec, L00m1, dottie, flaw, Mann3n — sharing 3/5 core dottie/flaw/Sapec with Valve #156 Entropy at 813 pts) against ex-6666 (#72, VRS #118: skcH, kL1o, amster, rendysky, stefienson — sharing 4/5 core amster/kL1o/rendysky/skcH with Valve #127 6666 at 923 pts). All three independent research signals (bo3.gg anchored fit 825 vs 923 -> 39.0%/61.0%, HLTV world ranking #167 vs #72 -> 18.7%/81.3%, and Valve core 813 vs 923 -> 35.2%/64.8%) agree on ex-6666 as the pick.",
+      "handling": "The published row uses the anchored bo3.gg series-results fit (39.0% / 61.0%, Pick: ex-6666) and carries the low-confidence interval [0.1842, 0.645] and HLTV world-ranking cross-check on its audit card.",
+      "evidence": [
+        {
+          "url": "https://www.hltv.org/matches/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
+          "detail": "HLTV match 2399509 lineups, HLTV ranks (#167 vs #72) and VRS ranks (#157 vs #118)."
+        },
+        {
+          "url": "https://polymarket.com/event/cs2-skr2-66661-2026-10-26",
+          "detail": "Polymarket event 1255951 (Sökerorg vs ex-6666) rejected for 0.53 spread (0.05/0.58 vs 0.42/0.95)."
+        },
+        {
+          "url": "https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct260800exskr",
+          "detail": "Kalshi event KXCS2GAME-26OCT260800EXSKR rejected for 0.56 spread (0.37/0.93 vs 0.07/0.61)."
+        }
+      ]
+    },
+    {
+      "id": "C333-R05",
+      "area": "Provider start-time shifts and alias-scope boundaries on NODWIN Clutch Series #13",
+      "status": "needs review",
+      "finding": "Two provider-side irregularities on NODWIN Clutch Series #13 were identified and documented on Flagged for Review: (1) Polymarket events 1255013 (Metizport vs Brute, 12:00Z), 1252124 (Nuclear TigeRES vs UNiTY esports, 15:00Z) and 1252125 (FOKUS vs ex-Zero Tenacity, 18:00Z) publish start times shifted 3-6 hours from Hotspawn and HLTV (2399117 at 12:00Z, 2399118 at 15:00Z, 2399119 at 18:00Z); the pipeline's strict start-time gate rejects those shifted Polymarket markets and instead resolves all three from exact-time prematch esportsbook lines (Thunderpick 1.35/2.90 for 1079202, Thunderpick 1.50/2.40 for 1079203, and Thunderpick + Bovada consensus for 1093218). (2) Polymarket event 1252123 (cs2-nem-inox-2026-10-26, 09:00Z) prices Team Nemesis vs INOX Division at 72.5% / 27.5% (1c spread), agreeing with the published Valve standings pick (Nemesis, 87.7% / 12.3%), while 'Team Nemesis -> Nemesis' in data/origination/aliases.json is currently scoped only to CIS LAN Championship #9 and PGL Bucharest 2027: Closed Qualifier.",
+      "handling": "Both observations are recorded in data/research/c333bb27/flags.json with official links so reviewers can compare the Polymarket, Thunderpick, Bovada, HLTV and Valve observations directly.",
+      "evidence": [
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-nem-inox-2026-10-26",
+          "detail": "Polymarket event 1252123 (Team Nemesis vs INOX Division) at 2026-10-26T09:00:00Z, bid/ask 0.72/0.73 vs 0.27/0.28."
+        },
+        {
+          "url": "https://gamma-api.polymarket.com/events?slug=cs2-mzp-brute-2026-10-26",
+          "detail": "Polymarket event 1255013 listing eventStartTime 2026-10-26T12:00:00Z versus Hotspawn/HLTV 15:00:00Z."
+        },
+        {
+          "url": "https://www.hltv.org/matches/2399118/metizport-vs-brute-nodwin-clutch-series-13",
+          "detail": "HLTV match 2399118 confirming 2026-10-26T15:00:00Z start time and lineups for Metizport vs BRUTE."
+        }
+      ]
+    },
+    {
+      "id": "C333-R06",
+      "area": "Executive summary, separated unresolved section, and phone readability",
+      "status": "verified",
+      "finding": "The root-synced executive summary (index.html) declares a responsive viewport, renders the 6-tab mobile navigation bar (Summary, Picks, Unresolved, Edge, Sources, Review), the mobile-status strip (19 picks ready / 0 unresolved), and #start-here in-site jump links to ./#picks-at-a-glance, ./origination/#picks, ./#unresolved-register and ./origination/#unresolved. All 19 active matches render in #picks-at-a-glance with both win percentages summing to 100.0%, an obvious pick badge, observed betting-line chips on all 11 money-backed rows, and https:// source links. The separated #unresolved-register section inside the executive summary and the dedicated /unresolved/ page document the 2 featured-pipeline gaps (1081159 and 1082792) and all 4 method limitations.",
+      "handling": "Verified via scripts.acceptance_audit --site . (10 pass, 0 fail), scripts.audit_rows --site site --strict (0 violations), scripts.c333bb27_verify --check, and Playwright browser tests across 320px, 375px and 390px viewports.",
+      "evidence": [
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/#picks-at-a-glance",
+          "detail": "Phone-first executive summary glance list with 19/19 directional picks and both teams' win probabilities."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/#unresolved-register",
+          "detail": "Separated Unresolved picks & limitations section inside the executive summary."
+        },
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/",
+          "detail": "Dedicated Unresolved picks & limitations page with per-fixture research ladder."
+        }
+      ]
+    },
+    {
+      "id": "C333-R07",
+      "area": "Row-source audit and anti-hallucination gate",
+      "status": "verified",
+      "finding": "Across the built site, scripts.audit_rows --site site --strict audited 1,022+ table and list rows with 0 sourceless violations: every published row links an official/primary https:// source or carries an explicit Flagged-for-Review unverified badge. No placeholder 50/50 probabilities, no unverified team aliases, and no Hotspawn crowd-pick percentages are used.",
+      "handling": "Enforced by scripts/audit_rows.py, scripts/acceptance_audit.py, scripts/c333bb27_verify.py and tests/test_c333bb27_verification.py.",
+      "evidence": [
+        {
+          "url": "https://buffedlizard55-lab.github.io/MaltaProj3/review/",
+          "detail": "Flagged for Review page rendering all session review registers and unverified flags with source links."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/audit_rows.py",
+          "detail": "Strict row-level source link auditor."
+        }
+      ]
+    }
+  ]
+}
