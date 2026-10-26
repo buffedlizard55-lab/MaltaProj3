@@ -1,0 +1,101 @@
+[
+  {
+    "id": "b2264c65-001",
+    "severity": "notice",
+    "title": "1079201 (INOX Division vs Nemesis) upgraded from uncalibrated Valve model to first-party Bovada moneyline (32756569), with two HLTV stand-ins on INOX Division",
+    "detail": "In the 2026-10-26T01:04:30Z snapshot, fixture 1079201 (INOX Division vs Nemesis, 2026-10-26T09:00:00Z, NODWIN Clutch Series #13) fell back to the 2026-10-05 Valve Glicko model (12.3% / 87.7%) because Team Nemesis -> Nemesis lacked NODWIN Clutch Series #13 in data/origination/aliases.json. Extending Team Nemesis -> Nemesis to NODWIN Clutch Series #13 binds first-party Bovada prematch event 32756569 (Team Nemesis 1.363636 / INOX Division 3.00 -> 31.25% / 68.75% Nemesis). HLTV 2399116 also confirms INOX Division fields two substitutes (m1QUSE, gooddeph alongside FenomeN, finW, k0s).",
+    "match_ids": [
+      "1079201"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13",
+      "https://www.bovada.lv/sports/esports/counter-strike-2/nodwin-clutch-series/team-nemesis-inox-division-202610260500",
+      "https://www.hotspawn.com/matches/inox-division-vs-nemesis-nodwin-clutch-series-13-1079201"
+    ]
+  },
+  {
+    "id": "b2264c65-002",
+    "severity": "warning",
+    "title": "HLTV stand-ins and post-Oct-5 roster drift across model-backed fixtures (1081159, 1081164, 1082861, 1082793)",
+    "detail": "Line-by-line HLTV lineup audit across the 8 model-backed fixtures in the 2026-10-26T01:04:30Z build flags four lineup limitations: (1) on 1081159 (LFO 10 vs ex-6666), HLTV team 14084 and match 2399509 list only 3 starters (dottie, flaw, Sapec = 3/5 of Valve #156 Entropy) plus 2 TBA silhouettes, so Entropy -> LFO 10 is intentionally withheld and the own bo3.gg results fit (39.0% / 61.0% ex-6666) prices the fixture; (2) on 1081164 (Inner Circle Academy vs Lavked), HLTV 2399514 lists two substitutes on Lavked (takanashi, FREXEMP); (3) on 1082861 (Rooster vs Abyssal), HLTV 2399891 lists substitutes TjP and foggers on Rooster while Valve Oct 5 credits foggers to Abyssal; (4) on 1082793 (5star vs 1WIN), HLTV 2399438 lineups have 0/5 player overlap with Valve Oct 5.",
+    "match_ids": [
+      "1081159",
+      "1081164",
+      "1082861",
+      "1082793"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/matches/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
+      "https://www.hltv.org/team/14084/lfo-10",
+      "https://www.hltv.org/matches/2399514/inner-circle-academy-vs-lavked-cct-2026-europe-series-12",
+      "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+      "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    ]
+  },
+  {
+    "id": "b2264c65-003",
+    "severity": "warning",
+    "title": "Hotspawn /cs2-pickems SSR body lag (72 vs 81 records on /lobby & API) and null best_of across all 81 scheduled CS2 fixtures",
+    "detail": "At 2026-10-26T00:54Z-01:09Z, Cloudways API (?sport_alias=cs2&status=scheduled&tenantId=1) and play.hotspawn.com/lobby both serve 81 CS2 records (62 past + 19 open), whereas play.hotspawn.com/cs2-pickems displays header text 19 matches this week over a cached SSR body listing All tiers (72) / 10 cards. Additionally, best_of and series_format remain null on all 81 Hotspawn API records while HLTV confirms BO3 on all 19 open fixtures; Hotspawn series format is kept blank and flagged unverified rather than inferred.",
+    "match_ids": [
+      "1079201",
+      "1081159",
+      "1079202",
+      "1079203",
+      "1081160",
+      "1093218",
+      "1081162",
+      "1081163",
+      "1081164"
+    ],
+    "source_urls": [
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://play.hotspawn.com/lobby",
+      "https://play.hotspawn.com/cs2-pickems",
+      "https://www.hltv.org/matches"
+    ]
+  },
+  {
+    "id": "b2264c65-004",
+    "severity": "warning",
+    "title": "EGamersWorld 1.8/1.8 placeholders, missing team names, and omitted prose rejected across 15 open fixtures; 4 fresh <8h captures hash-verified",
+    "detail": "Direct inspection of all 19 open match pages on egamersworld.com at 2026-10-26T01:06Z-01:08Z found 8 identical 1.8/1.8 placeholders (1082861, 1081159 where LFO 10 is blank in slug vs-6666-KmXWxVkdr, 1081160, 1081162, 1081163 where Saint Sinners is printed as 5x noName, 1081164, 1082792, 1082793) and 7 prose-less pages (all 4 NODWIN #13 pages and 3 Tesla Cup pages). All 15 are logged in rejected[], while 4 verbatim EGWxxxBOT average-odds captures (1082858 3.44/1.24, 1082859 1.576/2.19, 1082860 1.013/11.948, 1082901 1.924/1.781) are SHA-256-verified in CAPTURE_PATHS inside the 8h freshness gate.",
+    "match_ids": [
+      "1082858",
+      "1082859",
+      "1082860",
+      "1082861",
+      "1081159",
+      "1081163",
+      "1082901"
+    ],
+    "source_urls": [
+      "https://egamersworld.com/counterstrike/match/dfrag-invitational-2026/ground-zero-vs-off-chops-5mfkMFe7d",
+      "https://egamersworld.com/counterstrike/match/dfrag-invitational-2026/nexvoid-vs-alter-ego-HfdcJeXmT",
+      "https://egamersworld.com/counterstrike/match/dfrag-invitational-2026/flyquest-vs-staqued-zawJ-Q52S3",
+      "https://egamersworld.com/counterstrike/match/rlg-tesla-cup-2026/envyus-vs-team-gamerlegion-juJIhPpNK5",
+      "https://egamersworld.com/counterstrike/match/cct-season-3-europe-series-12/vs-6666-KmXWxVkdr",
+      "https://egamersworld.com/counterstrike/match/cct-season-3-europe-series-12/baks-esports-vs-5x-noname-EXM8MvTDwW"
+    ]
+  },
+  {
+    "id": "b2264c65-005",
+    "severity": "notice",
+    "title": "Scoped first-party rename/expansion aliases (Off Chops / THUNDERdOWNUNDER, Luminosity Gaming, Team Envy) and Thunderpick 1.001 clip guard on 1082860",
+    "detail": "HLTV team 14095 transfer logs (Oct 10th 2026: dexter, Gratisfaction, Liazz, coach viridian from THUNDER dOWNUNDER team 13486 to Off Chops) corroborate Thunderpick 2872334 (Ground Zero vs THUNDERdOWNUNDER, 3.50/1.25) and Valve #119 (THUNDER dOWNUNDER, 971 pts) for 1082858; Thunderpick 2865384 (Luminosity Gaming vs HOTU, 1.75/1.95) and 2865385 (Team Envy vs GamerLegion, 1.92/1.78) corroborate Tesla Cup 2026 display names for 1082900 and 1082901. On 1082860 (FlyQuest vs Staqued), Thunderpick 2872333 prints a clipped 1.001 / 12.00 line (< MIN_ODDS 1.01), whereas Polymarket (92.5% / 7.5%) and EGW (1.013 / 11.948 -> 92.2% / 7.8%) price cleanly.",
+    "match_ids": [
+      "1082858",
+      "1082860",
+      "1082900",
+      "1082901"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/team/14095/off-chops",
+      "https://www.hltv.org/matches/2399888/ground-zero-vs-off-chops-dfrag-invitational-2026",
+      "https://www.hltv.org/matches/2399869/luminosity-vs-hotu-rlg-tesla-cup-2026",
+      "https://www.hltv.org/matches/2399870/envy-vs-gamerlegion-rlg-tesla-cup-2026",
+      "https://thunderpick.io/api/matches"
+    ]
+  }
+]
