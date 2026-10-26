@@ -1,0 +1,90 @@
+{
+  "session": "arena-39680a42",
+  "what": "The identity chain behind the deployed dashboard's researched row for Hotspawn fixture 1082792 (HOTU vs The Huns).",
+  "fixture_id": "1082792",
+  "observed_at": "2026-10-26T01:01:00Z",
+  "hotspawn_fixture": {
+    "id": "1082792",
+    "teams": ["HOTU", "The Huns"],
+    "competition": "Moscow Cyber Games 2026",
+    "competition_id": "35873",
+    "starts_at": "2026-10-31T09:00:00Z",
+    "locks_at": "2026-10-31T08:54:00Z",
+    "tier": "b",
+    "best_of": null,
+    "source_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+    "lobby_url": "https://play.hotspawn.com/cs2-pickems#fixture-1082792"
+  },
+  "polymarket_event": {
+    "slug": "cs2-hotu-the9-2026-10-31",
+    "event_id": "1241313",
+    "title": "Counter-Strike: HOTU vs The Huns Esports (BO3) - Moscow Cyber Games Playoffs",
+    "description_extract": "This market refers to the Counter-Strike Semifinal 1 match between HOTU and The Huns Esports in the Moscow Cyber Games Playoffs, initially scheduled for October 31, 2026 at 5:00 AM ET. This market will resolve to \"HOTU\" if HOTU win the match against The Huns Esports. This market will resolve to \"The Huns Esports\" if The Huns Esports win the match against HOTU.",
+    "outcomes": ["HOTU", "The Huns Esports"],
+    "eventStartTime": "2026-10-31T09:00:00Z",
+    "endDate": "2026-10-31T15:00:00Z",
+    "created_at": "2026-10-23T16:25:22.793607Z",
+    "updated_at": "2026-10-26T01:00:49.029449Z",
+    "liquidity": 14630.4297,
+    "volume": 1236.016239,
+    "map1_market": {
+      "question": "Counter-Strike: HOTU vs The Huns Esports - Map 1 Winner",
+      "outcome_prices": ["0.79", "0.21"],
+      "last_trade_price": 0.42,
+      "best_bid": 0.71,
+      "best_ask": 0.87,
+      "spread": 0.16,
+      "one_day_price_change": 0.305,
+      "end_date": "2026-10-31T13:00:00Z"
+    },
+    "url": "https://gamma-api.polymarket.com/events?slug=cs2-hotu-the9-2026-10-31"
+  },
+  "hltv_match": {
+    "match_id": "2399437",
+    "title": "HOTU vs. The Huns at GLuck Moscow Cyber Games 2026",
+    "event": "GLuck Moscow Cyber Games 2026",
+    "format": "Best of 3 (LAN)",
+    "stage": "Semi-final",
+    "start": "31 Oct 05:00 (UTC)",
+    "start_iso": "2026-10-31T09:00:00Z",
+    "hos_team_id": 11581,
+    "the_huns_team_id": 12510,
+    "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026"
+  },
+  "deployed_executive_summary_row": {
+    "glance_id": "1082792",
+    "pick": "HOTU",
+    "probabilities": ["87.0%", "13.0%"],
+    "method": "market",
+    "badges": ["Researched", "Market line"],
+    "observed": "82-92 / 8-18",
+    "source_link": "https://polymarket.com/event/cs2-hotu-the9-2026-10-31"
+  },
+  "deployed_snapshot_featured_layer": {
+    "analysis": null,
+    "pick_index": null,
+    "limitations": [
+      "Hotspawn best-of format is unverified; left blank.",
+      "The Huns: multiple Valve rosters share this name; identity is unresolved"
+    ],
+    "featured_unresolved_count": 1
+  },
+  "identity_chain_verified": true,
+  "verification": [
+    "Start time agrees across all three sources: Hotspawn 1082792 starts 2026-10-31T09:00:00Z; Polymarket eventStartTime 2026-10-31T09:00:00Z; HLTV lists 31 Oct 05:00 UTC.",
+    "The two team names agree once Polymarket's own naming is read: the market's outcome is 'The Huns Esports' and its description names 'HOTU' and 'The Huns Esports' in the Moscow Cyber Games Playoffs. Polymarket's slug abbreviates the opponent to 'the9'.",
+    "HLTV confirms the competition, the stage (Semi-final) and the format (Best of 3, LAN) for the same pair, so the two independent sources corroborate the fixture rather than one source alone.",
+    "The snapshot's featured exact-name layer records the fixture as unresolved because its exact-name matcher does not silently alias sponsor/abbreviated names ('The Huns' != 'The Huns Esports', slug 'the9'). The deployed executive summary carries the researched row instead, and names Polymarket as its source.",
+    "Consequence for the brief: the row is a prediction-market money line with a researched identity, not a Hotspawn crowd percentage and not an HLTV fan vote. The number itself is not re-derived here; it is recorded from the deployed row and its cited source."
+  ],
+  "open_questions": [
+    "The snapshot's own limitation text 'Hotspawn best-of format is unverified' is now superseded by two external sources that publish BO3 for this fixture. The limitation was true of Hotspawn's payload (best_of: null) but not of the fixture. It is a limitation of the Hotspawn record, not of the pick.",
+    "The exec summary headline counts 10 directional picks and 0 explicitly unresolved while snapshot.json's featured layer records featured.unresolved=1. The two layers answer different questions (complete/researched coverage vs the featured exact-name method); the mismatch is visible to a reader who opens both."
+  ],
+  "source_urls": [
+    "https://play.hotspawn.com/cs2-pickems#fixture-1082792",
+    "https://gamma-api.polymarket.com/events?slug=cs2-hotu-the9-2026-10-31",
+    "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
+    "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026"
+  ]
+}
