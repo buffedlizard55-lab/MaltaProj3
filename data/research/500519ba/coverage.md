@@ -1,6 +1,6 @@
 # Live coverage audit — session arena-500519ba
 
-Observed **2026-10-26T02:39:04Z** (UTC) on a GitHub Actions runner.
+Observed **2026-10-26T03:47:43Z** (UTC) on a GitHub Actions runner.
 
 Read-only audit. No probability, pick or alias is written here; scripts/originate.py remains the only path to a published number. A refused source is a limitation of this runner, never proof that a market does not exist. Hotspawn "% picked" and HLTV fan votes are never read as inputs.
 
@@ -8,51 +8,49 @@ Read-only audit. No probability, pick or alias is written here; scripts/originat
 
 | Measure | Value |
 | --- | --- |
-| `api_records` | 81 |
+| `api_records` | 80 |
 | `api_records_cache_busted` | 0 |
 | `api_read_used` | cache_buster_refused |
 | `api_cache_buster_status` | 400 |
-| `lobby_linked_fixtures` | 19 |
-| `cs2_lobby_linked_fixtures` | 19 |
-| `live_open` | 19 |
-| `fresh_ladder_picked` | 19 |
+| `lobby_linked_fixtures` | 17 |
+| `cs2_lobby_linked_fixtures` | 17 |
+| `live_open` | 17 |
+| `fresh_ladder_picked` | 17 |
 | `fresh_ladder_unpicked` | 0 |
-| `deployed_snapshot_present` | 19 |
+| `deployed_snapshot_present` | 17 |
 | `deployed_snapshot_missing` | 0 |
 | `deployed_snapshot_unpicked` | 2 |
 | note | the cache-buster parameter was refused by the fixture API (HTTP 400); the unmodified array was used and reconciled against both rendered lobbies |
 
-Deployed snapshot `2026-10-26T01:33:57Z`; fresh run `2026-10-26T02:37:55Z` / origination `2026-10-26T02:38:08Z`.
+Deployed snapshot `2026-10-26T03:14:52Z`; fresh run `2026-10-26T03:46:53Z` / origination `2026-10-26T03:47:06Z`.
 
 ## Sources read
 
 | Source | Status | Bytes | SHA-256 | Cache |
 | --- | --- | --- | --- | --- |
-| `fixtures_api` | 200 | 63330 | `b399725e4c237f6a` | {'date': 'Mon, 26 Oct 2026 02:39:05 GMT'} |
-| `fixtures_api_cache_busted` | 400 | 83 | `20aebe9d2aadb376` | {'date': 'Mon, 26 Oct 2026 02:39:05 GMT'} |
-| `lobby` | 200 | 308402 | `e10140d3f027c7ec` | {'age': '0', 'x-cache': 'MISS', 'date': 'Mon, 26 Oct 2026 02:39:06 GMT'} |
-| `cs2_lobby` | 200 | 307448 | `0bdb29495b5e5209` | {'age': '0', 'x-cache': 'MISS', 'date': 'Mon, 26 Oct 2026 02:39:07 GMT'} |
-| `deployed_snapshot` | 200 | 219290 | `f8dcd4d7b1b2ad32` | {'cache-control': 'max-age=600', 'age': '0', 'x-cache': 'MISS', 'date': 'Mon, 26 Oct 2026 02:39:07 GMT'} |
-| `hltv_matches` | 403 | 5626 | `326fbbd3c719c0f2` | {'date': 'Mon, 26 Oct 2026 02:39:07 GMT'} |
-| `hltv_ranking` | 403 | 5665 | `ca8c27453e7417cf` | {'date': 'Mon, 26 Oct 2026 02:39:07 GMT'} |
-| `polymarket_events` | 200 | 530661 | `1f8365cd3726fc93` | {'cache-control': 'public, max-age=300', 'x-cache': 'Miss from cloudfront', 'date': 'Mon, 26 Oct 2026 02:39:07 GMT'} |
-| `thunderpick` | 200 | 50 | `2e3108e9a0e96f2d` | {'cache-control': 'no-cache, no-store, max-age=0, must-revalidate', 'cf-cache-status': 'DYNAMIC', 'date': 'Mon, 26 Oct 2026 02:39:09 GMT'} |
-| `bo3` | 200 | 12827 | `4397d447bdea88d1` | {'cf-cache-status': 'DYNAMIC', 'date': 'Mon, 26 Oct 2026 02:39:10 GMT'} |
-| `egamersworld` | 403 | 5776 | `0aecda5ff6932e2d` | {'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0', 'date': 'Mon, 26 Oct 2026 02:39:10 GMT'} |
+| `fixtures_api` | 200 | 62563 | `12d142bd5e37b967` | {'date': 'Mon, 26 Oct 2026 03:47:44 GMT'} |
+| `fixtures_api_cache_busted` | 400 | 83 | `20aebe9d2aadb376` | {'date': 'Mon, 26 Oct 2026 03:47:44 GMT'} |
+| `lobby` | 200 | 292055 | `6a1f85f849d8d6c4` | {'age': '0', 'x-cache': 'MISS', 'date': 'Mon, 26 Oct 2026 03:47:45 GMT'} |
+| `cs2_lobby` | 200 | 291160 | `06f60d439056b6dc` | {'age': '0', 'x-cache': 'MISS', 'date': 'Mon, 26 Oct 2026 03:47:46 GMT'} |
+| `deployed_snapshot` | 200 | 217573 | `dabc63b525421b92` | {'cache-control': 'max-age=600', 'age': '0', 'x-cache': 'MISS', 'date': 'Mon, 26 Oct 2026 03:47:47 GMT'} |
+| `hltv_matches` | 403 | 5626 | `97025eed8df43b03` | {'date': 'Mon, 26 Oct 2026 03:47:47 GMT'} |
+| `hltv_ranking` | 403 | 5644 | `7fa5b0f099dcc641` | {'date': 'Mon, 26 Oct 2026 03:47:47 GMT'} |
+| `polymarket_events` | 200 | 530649 | `177095c1b2b07cb0` | {'cache-control': 'public, max-age=300', 'x-cache': 'Miss from cloudfront', 'date': 'Mon, 26 Oct 2026 03:47:47 GMT'} |
+| `thunderpick` | 200 | 50 | `2e3108e9a0e96f2d` | {'cache-control': 'no-cache, no-store, max-age=0, must-revalidate', 'cf-cache-status': 'DYNAMIC', 'date': 'Mon, 26 Oct 2026 03:47:47 GMT'} |
+| `bo3` | 200 | 12827 | `4397d447bdea88d1` | {'cf-cache-status': 'DYNAMIC', 'date': 'Mon, 26 Oct 2026 03:47:48 GMT'} |
+| `egamersworld` | 403 | 5774 | `4aa78dafbb5e2615` | {'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0', 'date': 'Mon, 26 Oct 2026 03:47:48 GMT'} |
 
 ## Every open Hotspawn CS2 fixture
 
 | Fixture | Teams | Starts (UTC) | Tier | Pick | Probabilities | Method | Source | In deployed snapshot |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| [1082858](https://www.hotspawn.com/matches/x-1082858) | Ground Zero vs Off Chops | 2026-10-26T03:00:00Z | b | Off Chops | 20.0% / 80.0% | market | https://polymarket.com/event/cs2-gz1-offcho-2026-10-25 | yes — Off Chops |
-| [1082859](https://www.hotspawn.com/matches/x-1082859) | NEXVOID vs Alter Ego | 2026-10-26T03:00:00Z | b | NEXVOID | 52.7% / 47.3% | market | https://kalshi.com/markets/kxcs2game/counterstrike-2-game/kxcs2game-26oct252300aenex | yes — NEXVOID |
-| [1079201](https://www.hotspawn.com/matches/x-1079201) | INOX Division vs Nemesis | 2026-10-26T09:00:00Z | b | Nemesis | 26.6% / 73.4% | consensus | https://polymarket.com/event/cs2-nem-inox-2026-10-26 | yes — Nemesis |
-| [1079202](https://www.hotspawn.com/matches/x-1079202) | FOKUS vs ex-Zero Tenacity | 2026-10-26T12:00:00Z | b | FOKUS | 63.5% / 36.5% | market | https://polymarket.com/event/cs2-fokus-zerote-2026-10-26 | yes — FOKUS |
+| [1079201](https://www.hotspawn.com/matches/x-1079201) | INOX Division vs Nemesis | 2026-10-26T09:00:00Z | b | Nemesis | 25.4% / 74.6% | consensus | https://polymarket.com/event/cs2-nem-inox-2026-10-26 | yes — Nemesis |
+| [1079202](https://www.hotspawn.com/matches/x-1079202) | FOKUS vs ex-Zero Tenacity | 2026-10-26T12:00:00Z | b | FOKUS | 62.0% / 38.0% | market | https://polymarket.com/event/cs2-fokus-zerote-2026-10-26 | yes — FOKUS |
 | [1081159](https://www.hotspawn.com/matches/x-1081159) | LFO 10 vs ex-6666 | 2026-10-26T12:00:00Z | b | ex-6666 | 39.0% / 61.0% | model | https://bo3.gg/matches/sokerorg-vs-ex-6666-26-10-2026 | yes — no pick |
 | [1079203](https://www.hotspawn.com/matches/x-1079203) | Metizport vs BRUTE | 2026-10-26T15:00:00Z | b | Metizport | 59.0% / 41.0% | market | https://polymarket.com/event/cs2-mzp-brute-2026-10-26 | yes — Metizport |
-| [1081160](https://www.hotspawn.com/matches/x-1081160) | HAVU vs ILLYRIANS | 2026-10-26T15:00:00Z | b | HAVU | 60.3% / 39.7% | model | https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md | yes — HAVU |
+| [1081160](https://www.hotspawn.com/matches/x-1081160) | HAVU vs ILLYRIANS | 2026-10-26T15:00:00Z | b | HAVU | 53.5% / 46.5% | market | https://polymarket.com/event/cs2-havu-ill4-2026-10-26 | yes — HAVU |
 | [1093218](https://www.hotspawn.com/matches/x-1093218) | Nuclear TigeRES vs UNiTY | 2026-10-26T18:00:00Z | b | Nuclear TigeRES | 58.3% / 41.7% | consensus | https://polymarket.com/event/cs2-ntr-unity-2026-10-26 | yes — Nuclear TigeRES |
-| [1082860](https://www.hotspawn.com/matches/x-1082860) | FlyQuest vs Staqued | 2026-10-27T03:00:00Z | b | FlyQuest | 93.0% / 7.0% | market | https://polymarket.com/event/cs2-fly-staque-2026-10-26 | yes — FlyQuest |
+| [1082860](https://www.hotspawn.com/matches/x-1082860) | FlyQuest vs Staqued | 2026-10-27T03:00:00Z | b | FlyQuest | 92.0% / 8.0% | market | https://polymarket.com/event/cs2-fly-staque-2026-10-26 | yes — FlyQuest |
 | [1082861](https://www.hotspawn.com/matches/x-1082861) | Rooster vs Abyssal | 2026-10-27T03:00:00Z | b | Abyssal | 47.8% / 52.2% | model | https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md | yes — Abyssal |
 | [1082897](https://www.hotspawn.com/matches/x-1082897) | B8 vs K27 | 2026-10-27T08:00:00Z | b | B8 | 59.5% / 40.5% | market | https://polymarket.com/event/cs2-b8-k271-2026-10-27 | yes — B8 |
 | [1082898](https://www.hotspawn.com/matches/x-1082898) | Alliance vs FaZe | 2026-10-27T11:00:00Z | b | FaZe | 34.0% / 66.0% | market | https://polymarket.com/event/cs2-all-faze-2026-10-27 | yes — FaZe |

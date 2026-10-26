@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "session": "arena-500519ba",
-  "observed_at": "2026-10-26T02:39:04Z",
+  "observed_at": "2026-10-26T03:47:43Z",
   "environment": "github-actions-runner",
   "role": "Dated comparison of the live Hotspawn CS2 lobby with the build this run produced. Evidence only: no probability, pick or alias.",
   "source_urls": [
@@ -10,42 +10,12 @@
     "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
   ],
   "counts": {
-    "live_fixtures": 19,
-    "carried_in_build": 19,
+    "live_fixtures": 17,
+    "carried_in_build": 17,
     "missing_from_build": 0,
-    "picked_in_build": 19
+    "picked_in_build": 17
   },
   "live_fixtures": [
-    {
-      "id": "1082858",
-      "teams": [
-        "Ground Zero",
-        "Off Chops"
-      ],
-      "competition": "DFRAG Invitational 2026",
-      "starts_at": "2026-10-26T03:00:00Z",
-      "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
-      "hltv_url": null,
-      "in_published_snapshot": true,
-      "in_featured_resolved": true,
-      "published_method": "Market-implied estimate",
-      "note": "In this build with a pick (Market-implied estimate)."
-    },
-    {
-      "id": "1082859",
-      "teams": [
-        "NEXVOID",
-        "Alter Ego"
-      ],
-      "competition": "DFRAG Invitational 2026",
-      "starts_at": "2026-10-26T03:00:00Z",
-      "hotspawn_url": "https://www.hotspawn.com/matches/nexvoid-vs-alter-ego-dfrag-invitational-2026-1082859",
-      "hltv_url": null,
-      "in_published_snapshot": true,
-      "in_featured_resolved": true,
-      "published_method": "Originated market line (Kalshi)",
-      "note": "In this build with a pick (Originated market line (Kalshi))."
-    },
     {
       "id": "1079201",
       "teams": [
@@ -118,8 +88,8 @@
       "hltv_url": null,
       "in_published_snapshot": true,
       "in_featured_resolved": true,
-      "published_method": "Valve-rating research estimate",
-      "note": "In this build with a pick (Valve-rating research estimate)."
+      "published_method": "Market-implied estimate",
+      "note": "In this build with a pick (Market-implied estimate)."
     },
     {
       "id": "1093218",
