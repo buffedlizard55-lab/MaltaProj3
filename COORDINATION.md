@@ -1,3 +1,194 @@
+# arena-f644ed1b — release close-out (2026-10-26T02:59Z)
+
+All claimed tasks complete. PR [#360](https://github.com/buffedlizard55-lab/MaltaProj3/pull/360) merged as `9c8db80`; follow-up [#372](https://github.com/buffedlizard55-lab/MaltaProj3/pull/372) merged as `6097173`. Concurrent production fix #375 was adopted verbatim, with this session's independent stronger money-input replay retained only in its own module. No production checker conflict resolution discarded another session's work. Targeted combined tests 20/20; initial full suite 1,943 OK (4 skipped), 142 browser tests passed; follow-up full CI [40257582430](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40257582430) passed before final doc/test-only rebase.
+
+**Deployment confirmed:** initial #360 legacy Pages [40254473560](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40254473560) and #372 Pages [40260464885](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40260464885) succeeded. Fresh publisher [40258548232](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40258548232) subsequently succeeded including `Verify the public site, its complete data and category pages`, root publication and final post-root-sync public-site verification. Pages API reports `built`. Read-back from main `31d6a6a`: snapshot `2026-10-26T02:51:32Z`; 81 inventory / 19 active; complete originated list **19 resolved / 19 picks / 0 unresolved** (10 market, 2 consensus, 7 labelled model). Featured snapshot alone still reports 17 picks / 2 unresolved; the researched layer closes those gaps, not hidden invented featured values. F644-R01..R03 are present in the published root review page. F644-R04 (upstream gate fix) joins the next build checking out #372; the successful current build predates that merge. Sandbox itself cannot HTTP-fetch Pages or books, so the fresh public verification is explicitly runner-side, not a sandbox live read. No remaining task needs user input.
+
+---
+
+# Current session: arena-24e4d653 — picks for *every* live Hotspawn CS2 fixture: first-hand live-API coverage read, a sourced pick or an explicit limitation for each, the unresolved/limitations register inside the executive summary, the phone path, publish
+
+Claimed **2026-10-26T00:45Z** on Arena's fixed branch `arena/24e4d653-maltaproj3`, branched from
+`main` at `cfd58e1` (the 2026-10-25T23:03:48Z root-synced verified build). Board, open PRs and
+`gh run list` read first. This sandbox reaches only `github.com`, `api.github.com`,
+`codeload.github.com`, `registry.npmjs.org`, `pypi.org`, `files.pythonhosted.org` for direct HTTP,
+so first-party Hotspawn/HLTV/Polymarket reads are made through the session's own page reader and
+recorded verbatim, with URLs and the time each was read, in this session's dossier. Fresh collection
+still runs only through `pages.yml`.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 24E-1 Claim scope and record the state read first-hand at 00:45Z | **done** (`e79423e`) | arena-24e4d653 | `COORDINATION.md` (this section) |
+| 24E-2 First-hand live Hotspawn CS2 inventory read and a row-by-row diff against the published snapshot | **done — 19 live future-start fixtures; 9 absent at 00:49Z against the 23:03:48Z snapshot; all 9 present with a published probability pair in the 01:04:20Z publish** | arena-24e4d653 | `data/research/24e4d653/live-coverage.{json,md}` |
+| 24E-3 Line-by-line verification of every published pick against the captured official payloads **and** a live re-read of the primary source | **done — 19/19 active rows replay exactly; 4 first-hand source re-reads, all matching** | arena-24e4d653 | `scripts/24e4d653_verify.py`, `tests/test_24e4d653_verify.py`, `data/research/24e4d653/pick-verification.{json,md}` |
+| 24E-4 Executive summary: in-site links to the picks, the separate unresolved/limitations register with a per-fixture limitation and source, both probabilities and an obvious pick per row, and a real phone path | **done — 9/9 contract checks pass on the 19-row build by automation, not by eye** | arena-24e4d653 | same as 24E-3 |
+| 24E-5 The structural gap this session measured: a four-hour publisher is blind to cards Hotspawn lists between publishes, and `freshness-watchdog.yml` keys on snapshot age only, so a two-hour-old snapshot with nine holes looks fresh | **done — `scripts/24e4d653_coverage_watch.py` (pure `decide()`, 21 tests) dispatches `pages.yml` on an id-set diff, and `.github/workflows/coverage-watchdog.yml` runs it at `13,43 * * * *`, silent while any publish is queued or running** | arena-24e4d653 | new `scripts/24e4d653_coverage_watch.py`, new `tests/test_24e4d653_coverage_watch.py`, new `.github/workflows/coverage-watchdog.yml` |
+| 24E-6 PR to `main`, merge without waiting, confirm the publisher and the Pages deploy, record ids here | in progress | arena-24e4d653 | this section, PR |
+| 24E-7 Cross-session finding: the first pull-request run (`40254426815`) was red on `test_no_hard_check_fails` | **done — not this session's defect, and no longer a defect at all.** It reproduced with this session's research directory moved aside, i.e. it was already on `main`: fixture `1093218` renders the originated consensus line while the snapshot's featured `analysis` still records the model line. `main` now reconciles the two layers for a row marked `upgraded_from_featured_model`; this session wrote an equivalent patch, then **dropped it** rather than duplicate `main`'s mechanism, and kept four tests that pin the invariant | arena-24e4d653 | `tests/test_24e4d653_verify.py` (4 tests) |
+
+**Non-overlap pledge.** This session adds only its own new files plus this board section. It does
+**not** edit `scripts/collect.py`, `scripts/originate.py`, `scripts/build.py`, `scripts/build_origination.py`,
+`scripts/reference_odds.py`, `scripts/review_register.py`, `assets/**`, `snapshot.json`,
+`data/latest.json`, `data/origination.json`, any existing workflow, or any other session's
+`data/research/<id>/`. Hotspawn "% picked" and HLTV fan votes are never probability inputs. A
+probability that cannot be recomputed from a captured official payload stays blank and is flagged
+for review.
+
+## 24E results
+
+**Coverage, measured and then re-measured.**
+
+* At **2026-10-26T00:49Z** the official fixture feed carried **19** CS2 fixtures with a future start
+  (`https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1`)
+  and the then-public **2026-10-25T23:03:48Z** snapshot carried **10** of them. The nine with no row,
+  no probability and no pick were: `1079201` INOX Division vs Nemesis, `1081159` LFO 10 vs ex-6666,
+  `1079202` FOKUS vs ex-Zero Tenacity, `1081160` HAVU vs ILLYRIANS, `1079203` Metizport vs BRUTE,
+  `1093218` Nuclear TigeRES vs UNiTY, `1081162` ex-RUSTEC vs Spirit Academy, `1081163` BakS vs Saint
+  Sinners, `1081164` Inner Circle Academy vs Lavked. Each absent card was confirmed a second time on
+  its own Hotspawn tournament page, and every one of their links is recorded in the dossier.
+* At the same moment the rendered `/lobby` exposed **81** CS2 cards in the All tier (CCT Europe 2026
+  Series #12 ×5, NODWIN Clutch Series #13 ×5) while `/cs2-pickems` still rendered **72** — the
+  collector's own two-page cross-check, and why a publish inside that window can be deferred.
+* Those nine cards were **not** a missing pick: the publisher run already in flight (`40250748384`,
+  started 00:43:45Z) published them. The **2026-10-26T01:04:20Z** snapshot carries **81** inventory
+  records and **19** upcoming fixtures, `coverage_complete: true`, `inventory_crosscheck: complete`,
+  and origination.json has a probability pair for **19 of 19**. Verified by id, not by eye, and the
+  earlier state is preserved in `earlier_observation` rather than overwritten.
+* The risk is structural, not a one-off: nothing in the repo dispatched a publish when the *set* of
+  cards grew while the snapshot was still fresh. `freshness-watchdog.yml` fires on age alone (6 h),
+  so a 2-hour-old snapshot with nine holes passes it. That is what 24E-5 adds.
+
+**Verification, line by line.** `python -m scripts.24e4d653_verify --data <build> --html <page>` replayed
+all **19/19** active rows from the inputs each row publishes — order-book midpoints with the 0.15
+spread ceiling, no-vig bookmaker odds, the median of independent consensus quotes, Valve's published
+Glicko transform (RD 75), and the project's own results-fit deviation rule
+(`150 + 300/sqrt(n)`, capped at 400) — and every one reproduced its published pair and pick
+**exactly** (0 mismatched, 0 unreplayable, 0 rows without a pick, 0 rows without a stated
+limitation). Four first-hand re-reads confirmed the primary sources still say what the rows claim:
+
+* Polymarket `cs2-envy-gl1-2026-10-27` → `0.455 / 0.545`, start `2026-10-27T20:00Z`, volume $9,832.88.
+* Polymarket `cs2-lg6-hotu-2026-10-27` → `0.525 / 0.475`, start `2026-10-27T17:00Z`.
+* Polymarket `cs2-hotu-the9-2026-10-31` → `0.87 / 0.13`; the CLOB book behind the published
+  `82–92¢ / 8–18¢` reads best bid **0.82** (size 5) and best ask **0.92** (size 117), i.e. a real
+  0.10-wide top of book inside the project's ceiling, not a synthesised band.
+* Valve standings blob `2aa2805394fb…` → Rooster #205 718, Abyssal #195 734, 5star #80 1110,
+  1win #38 1383, INOX #82 1105, Nemesis #29 1455, HAVU #124 937, Illyrians #141 862, ex-RUSTEC #92 1066,
+  Spirit Academy #115 981, BAKS #100 1044, Saint Sinners #158 810, Inner Circle Academy #94 1064,
+  Lavked #143 862, Nuclear TigeRES #46 1324, UNiTY #69 1167. Every published points pair on the board
+  is one of these rows, character for character.
+
+**Executive-summary contract, read off the built page** (9 checks, 0 failures, 19 glance rows):
+phone viewport present; `start-here` links to `./#picks-at-a-glance`, `./origination/#picks`,
+`./strategy/`, `./origination/#unresolved`, `./#unresolved-register`; a separate
+`#unresolved-register` that states each row's blocker and carries an external source; both teams'
+probability and a pick marker on every one of the 19 rows; `data-method` on every row; bottom mobile
+navigation.
+
+## 24E irregularities (flagged, not silently fixed)
+
+* **`1082900` Luminosity vs HOTU is a maker quote.** The published 52.5/47.5 replays exactly and the
+  book holds $15,977, but the market has traded **$7.25** lifetime (gamma, read 00:52Z). Read it as one
+  market maker's two-sided quote, not as a crowd price. Left as published; the spread rule is about
+  depth, not traded interest, and the page does not claim a traded price.
+* **Stale review text (change request, cross-scope).** `data/research/27ac20d6/flags.json`
+  (`27ac20d6-1082792-magnitude`) still tells a reader the fixture is *"published at HOTU 98.2%"* and that
+  *"the Polymarket book … is 43 cents wide (rejected by the project's own 0.15 ceiling)"*. Both sentences
+  describe the 2026-10-25 build. The current build publishes **HOTU 87.0%** from a **0.10**-wide book,
+  verified first-hand above, and the flag's own prediction ("the 4-hour ladder will replace it
+  automatically if a usable market line appears") has come true. The record belongs to `arena-27ac20d6`,
+  which has finished, so this session logs the correction instead of editing that file.
+* **`1081159` is the widest-uncertainty row on the board**, and it is labelled as such: 10 anchored
+  series, posterior SD 114.7 points, fitted RD 244.87 rather than 75, one-sigma interval 18.4–64.5%,
+  `low_confidence: true`, and the 0.53-wide Polymarket book recorded as refused rather than averaged.
+* **`data/origination.json` in the worktree is an eleven-day-old replay fallback** (2026-10-15, 17 rows)
+  while the live board is the root `origination.json` (2026-10-26T01:04:30Z, 19 rows), copied to
+  `/data/origination.json` on deploy. Documented `root_publish` behaviour, but it is the first file an
+  auditor of the repository opens.
+
+## 24E fix-forward finding: the supersession that one row checker called a defect
+
+The first pull-request run (`40254426815`) failed one step with
+`FAIL: test_no_hard_check_fails (test_22a3ed80_verification...)`. The cause was **not** this
+session's files: it reproduces with this session's research directory moved aside, so it was
+already on `main`.
+
+`1093218` Nuclear TigeRES vs UNiTY renders the **originated consensus line** (Nuclear TigeRES 58.3% /
+UNiTY 41.7%, the median of Thunderpick 1.58/2.20 and Bovada 1.606061/2.25) while the snapshot's own
+`analysis` block still records the featured **model** line (70.7% / 29.3%, Valve 1324 vs 1167). That is
+the ladder working as designed — a two-sided money line replaces an uncalibrated rating model — but the
+checker re-derived every priced row from the featured analysis alone, so the publisher's own build could
+not pass its own gate.
+
+This session patched `scripts/22a3ed80_verify.py` to accept a supersession only when the rendered pair
+equals the published `origination.json` entry's own pair **and** that entry carries an `https` source,
+and verified it (`77 passed`). While the branch was being rebased for the merge, `main` turned out to
+carry the same reconciliation under `upgraded_from_featured_model`, so the patch was **dropped** rather
+than duplicated: one mechanism is better than two. What remains from this session is the invariant,
+pinned in four tests — the shipped build clears, a tampered origination pair fails, and a dropped
+upgrade marker fails.
+
+## 24E change requests logged for other scopes
+
+* `arena-27ac20d6` (finished): refresh the `27ac20d6-1082792-magnitude` wording to the current build, or
+  mark it superseded — see the irregularity above. Not edited here.
+* Publisher scope: consider surfacing `1082900`'s traded volume next to its price, so a reader can tell a
+  maker quote from a traded line. Not edited here.
+
+# f644ed1b fix-forward — regression gate prevents fresh publication
+
+Claimed 2026-10-26T02:10Z, after PR #360 merged. Scope extension: `scripts/22a3ed80_verify.py` selected-analysis branch only; regression tests in own `tests/test_f644ed1b_audit.py`. Original owner 22a3ed80 closed all tasks on 25 October. No active scope overlap found. Publisher run 40254593296 fails `test_no_hard_check_fails`: 1093218 displays a verified 58.3% two-book consensus while checker incorrectly compares to the superseded 70.7% featured Valve model. Reproduced against origin/main 2bfff7f, not caused by #360. Preserve raw snapshot and probabilities. During CI, PR #375 independently fixed the same production verifier; adopted main’s complete verifier unchanged on rebase, moving this session’s stronger replay helper into its own audit module instead. No duplicate production edit. Board conflict resolved by preserving both entire sections. PR #372 is now independent replay tests, findings and close-out only; #360 production register changes are already merged. PR #360 merged 2026-10-26T01:29:31Z as 9c8db80; Pages deployment 40254473560 succeeded. Concurrent pushes cancelled its pending fresh-publisher run; later publisher exposed this pre-existing gate failure. Main and all board text preserved at rebase.
+
+---
+
+# Current session: arena-51eab39f — live 81-record / 19-open Hotspawn CS2 reconciliation, HLTV-first + esportsbook research for non-featured fixtures, line-by-line audit, mobile executive-summary check, and Pages verification
+
+Claimed **2026-10-26T01:18Z** on Arena's fixed branch `arena/51eab39f-maltaproj3` (Arena binds this session to `arena/51eab39f-maltaproj3`, so we do not rename or create a separate `session/51eab39f` branch), rebased onto `main` at [`42bb9aa`](https://github.com/buffedlizard55-lab/MaltaProj3/commit/42bb9aa9). Read first: `COORDINATION.md`, `gh pr list`, `gh run list`, and active parallel branches so zero live (<60m) claimed files overlap.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 51EA-1 First-hand live Hotspawn CS2 reconciliation (`/lobby`, `/cs2-pickems`, and `/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1`: 81 scheduled rows, 19 open future fixtures, 62 past-start scheduled rows) against root-synced `snapshot.json` + `origination.json`, superseding the stale `2026-10-25T13:57:50Z` `#live-coverage-gaps` count via auto-discovered `live-coverage.json` | **done — 19/19 open BO3 parity (`0` missing, zero `%` signs)** | arena-51eab39f | new `data/research/51eab39f/live-coverage.json`, new `data/research/51eab39f/live-coverage.md` |
+| 51EA-2 HLTV-first, then esportsbook / exchange / official-Valve research ONLY for the 13 active fixtures not resolved by the featured exact-name Polymarket path (`1082859`, `1079201`, `1079202`, `1081159`, `1079203`, `1081160`, `1093218`, `1082861`, `1081162`, `1081163`, `1081164`, `1082792`, `1082793`), with dated official URLs, roster/ranking/line observations, and explicit limitations | **done — 13/13 HLTV-first + Smarkets/Kalshi/Bovada/Thunderpick/Polymarket/Valve/bo3.gg verified** | arena-51eab39f | new `data/research/51eab39f/non-featured-research.json`, new `data/research/51eab39f/non-featured-research.md` |
+| 51EA-3 Line-by-line repo & site verification: recompute every published probability and pick across all 19 open fixtures from primary inputs, audit official `https://` source links on every rendered row, verify executive-summary in-site navigation + separated unresolved/limitations section + 320/375/390 px phone layout, publish `51eab39f-001..006` via auto-discovered `flags.json` on `/review/`, and verify `scripts/22a3ed80_verify.py` (`model -> consensus/bookmaker` upgrade check) | **done — 19/19 exact math replay (`0.0` error), 6 flags on `/review/`, `test_22a3ed80_verification.py` green** | arena-51eab39f | new `scripts/51eab39f_verify.py`, new `tests/test_51eab39f_verification.py`, new `data/research/51eab39f/repo-audit.{json,md}`, new `data/research/51eab39f/flags.json` |
+| 51EA-4 Full verification gates (`unittest`/`pytest`, `scripts.build`, `scripts.audit_rows --strict`, `scripts.acceptance_audit --strict`, 142/142 Playwright specs, 106/106 `pick-safety-browser`), PR [#374](https://github.com/buffedlizard55-lab/MaltaProj3/pull/374) from `arena/51eab39f-maltaproj3` to `main` (CI run [`40258155419`](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40258155419) & origination audit [`40258152486`](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40258152486) green), merge without waiting, confirm `pages.yml` deploys fresh verified 19-match picks to GitHub Pages, and record PR + deploy outcome here | **done — PR [#374](https://github.com/buffedlizard55-lab/MaltaProj3/pull/374) merged as [`880bcf8`](https://github.com/buffedlizard55-lab/MaltaProj3/commit/880bcf8fa5ad29a5f9010e077a547766475cc07d); Pages deployment [`40260300099`](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40260300099) `built`/`success` verified live at `https://buffedlizard55-lab.github.io/MaltaProj3/` (`19/19` open picks, `<1.2h` fresh), with `pages.yml` refresh [`40260301000`](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40260301000) queued for next root sync** | arena-51eab39f | this section of `COORDINATION.md`, PR [#374](https://github.com/buffedlizard55-lab/MaltaProj3/pull/374) |
+
+**Conflict & convergence log (2026-10-26T02:38Z).**
+1. **Rebase onto `origin/main` (`9048396`, `2bfff7f`, then `42bb9aa`)**: resolved top-of-file conflicts in `COORDINATION.md` by preserving the newly merged sections of `arena-b2264c65` (PR #375 / #376), `arena-c333bb27` (PR #370), `arena-542dfb58` (PR #366), `arena-39680a42` (PR #368), `arena-b3e91409` (PR #365), and `arena-f644ed1b` verbatim immediately below this section.
+2. **Convergent fix on `scripts/22a3ed80_verify.py`**: both `arena-b2264c65` (`06fa339f`) and this session fixed the `upgraded_from_featured_model` reconciliation against `origination.json` (>60m stale/completed scope from `arena-22a3ed80`). Preserved `main`'s landed implementation (`06fa339f`) cleanly on rebase after verifying `test_22a3ed80_verification.py` + `test_51eab39f_verification.py` pass together.
+
+**Non-overlap pledge.** This session touches ONLY `data/research/51eab39f/**`, `scripts/51eab39f_verify.py`, `tests/test_51eab39f_verification.py`, and this section of `COORDINATION.md`. Hotspawn `% picked` and HLTV fan votes are never used as probability inputs; unconfirmed values remain blank and flagged.
+
+### Summary of verified sources, findings, and live Pages confirmation (2026-10-26T02:44Z, PR [#374](https://github.com/buffedlizard55-lab/MaltaProj3/pull/374) -> [`880bcf8`](https://github.com/buffedlizard55-lab/MaltaProj3/commit/880bcf8fa5ad29a5f9010e077a547766475cc07d))
+
+- **Live Hotspawn CS2 reconciliation (`data/research/51eab39f/live-coverage.{json,md}`):** Verified `https://play.hotspawn.com/lobby` (`19` open Tier B cards), `https://play.hotspawn.com/cs2-pickems`, and `https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1` (`81` scheduled records: `19` open `2026-10-26T03:00Z`–`2026-10-31T13:00Z` + `62` past-start archived records) 1:1 against the published dashboard (`0` missing open fixtures, zero `%` characters in coverage notes).
+- **HLTV-first + external betting-line & official-Valve research (`data/research/51eab39f/non-featured-research.{json,md}`):** Researched ONLY the 13 fixtures not resolved by the featured exact-name Polymarket path (`1082859, 1079201, 1079202, 1081159, 1079203, 1081160, 1093218, 1082861, 1081162, 1081163, 1081164, 1082792, 1082793`), checking HLTV (`2399888`..`2399438` and `ranking/teams/2026/october/19`) first, then Polymarket Gamma API, Kalshi `KXCS2GAME`, Smarkets `csgo_match` (`/v3/events/`, `/markets/`, `/quotes/`), Bovada CS2 coupon JSON, Thunderpick, Valve `standings_global_2026_10_05.md` (`sha256: df96e7fc3cd91a2687ec08cac0128e50cc4e4e55346581679572e881d79ae61b`), and `bo3.gg` series results.
+- **Line-by-line audit & review flags (`scripts/51eab39f_verify.py`, `data/research/51eab39f/flags.json`, `data/research/51eab39f/repo-audit.{json,md}`):** Replayed all `19/19` active published probabilities and picks at `max_diff = 0.0`; published `51eab39f-001` (Smarkets NODWIN #13 start-time permutation across `45401463`/`45402088`/`45401619` rejected by 60s gate), `51eab39f-002` (`1079201` `"Team Nemesis"` Smarkets `173680174` & Bovada `32756569` lines), `51eab39f-003` (`1081159` `LFO 10 vs ex-6666` wide `0.53`/`0.56` spreads rejected + `bo3.gg` 1-SD interval crossing `50%`), `51eab39f-004` (`1082792` `HOTU vs The Huns` `4/5` HLTV core alias join on Polymarket `#1241313`), `51eab39f-005` (`1082861` Smarkets `173454669` spread `0.1644 > 0.15` rejected), and `51eab39f-006` (`#live-coverage-gaps` refreshed to `0 missing`).
+- **CI, merge, and live GitHub Pages verification:** Local gates (`scripts.51eab39f_verify --check`, `unittest` suites, `scripts.build`, `scripts.audit_rows --site site --strict` `1,078` rows / `0` violations, `scripts.acceptance_audit --site site --strict` `9 pass / 1 info / 0 fail`, `142/142` Playwright browser specs, `106/106` `pick-safety-browser`), GitHub Actions CI (`Validate dashboard` [`40258155419`](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40258155419) + `Origination source audit` [`40258152486`](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40258152486)), PR [#374](https://github.com/buffedlizard55-lab/MaltaProj3/pull/374) merged as [`880bcf8`](https://github.com/buffedlizard55-lab/MaltaProj3/commit/880bcf8fa5ad29a5f9010e077a547766475cc07d), and GitHub Pages build [`40260300099`](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40260300099) (`status=built`) verified first-hand via `fetch_page` across `/`, `/origination/`, `/unresolved/`, and `/review/`.
+
+---
+
+# Current session: arena-b2264c65 — live 81-record Hotspawn CS2 reconciliation, HLTV-first + esportsbook research & fresh bookmaker-average captures for low-tier/unpriced fixtures, line-by-line replay, phone/executive-summary audit, and publish
+
+Claimed **2026-10-26T00:52Z** on Arena's fixed branch `arena/b2264c65-maltaproj3`, branched from `main` at [`cfd58e1`](https://github.com/buffedlizard55-lab/MaltaProj3/commit/cfd58e113c76dc82e6482aec17d1b57a9491cadf) and rebased onto [`2bfff7f`](https://github.com/buffedlizard55-lab/MaltaProj3/commit/2bfff7f). Read first: this board, `gh pr list --state open`, `gh run list`, and active parallel branches. None of the active sessions claimed `data/origination/aliases.json`, `scripts/reference_odds.py`, `tests/test_reference_odds.py`, `scripts/22a3ed80_verify.py` (closed scope from `arena-22a3ed80` PR #344, >6.7h inactive), or any `b2264c65` file.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| B226-1 Live first-hand Hotspawn CS2 scheduled-API (`81` records, `19` open) + rendered-lobby reconciliation against the root-synced `2026-10-26` snapshot (`81` records, `19` open) and `origination.json` (`19/19` resolved), plus line-by-line arithmetic replay of every published probability, pick and Valve Glicko input | **done** — reconciled all `81` scheduled API records (`62` past + `19` open) and `/lobby` (`All tiers (81)`) vs `/cs2-pickems` SSR lag (`72`/`10` under `19 matches this week` banner), `missing_from_published: 0`; replayed all `81` `snapshot.json` rows and `19/19` `origination.json` rows to `1e-8` in `scripts/b2264c65_verify.py` | arena-b2264c65 | `data/research/b2264c65/**`, `scripts/b2264c65_verify.py` |
+| B226-2 HLTV-first, then esportsbook / betting-line research ONLY for matches the featured exact-name Polymarket path cannot resolve (`1079201, 1081159, 1081160, 1093218, 1082861, 1081162, 1081163, 1081164, 1082792, 1082793`) plus first-party consensus/Valve disambiguation joins (`THUNDERdOWNUNDER` / `THUNDER dOWNUNDER -> Off Chops` in `DFRAG Invitational 2026`, `Luminosity Gaming -> Luminosity` & `Team Envy -> Envy` in `Tesla Cup 2026`, `Team Nemesis -> Nemesis` extended to `NODWIN Clutch Series #13`); wire fresh (<8h), SHA-256-verified EGamersWorld bookmaker-average captures into `reference_odds.CAPTURE_PATHS` | **done** — `1079201` (`INOX Division vs Nemesis`) promoted from featured Valve model (`12.3% / 87.7%`) to live Bovada moneyline `32756569` (`31.2% / 68.8%` Nemesis); `Off Chops`, `Luminosity`, and `Envy` scoped aliases added; 4 `<8h` `EGWxxxBOT` captures + 15 fail-closed rejections registered (`22` total entries) | arena-b2264c65 | `data/research/b2264c65/**`, `data/origination/aliases.json`, `scripts/reference_odds.py`, `tests/test_reference_odds.py` |
+| B226-3 Executive-summary & phone verification: verify one-tap in-site links to updated picks, the separate unresolved-picks & limitations section inside the executive summary, both probabilities + obvious pick per row, row-source strict audit, and 320/390 px phone checks; fix-forward `scripts/22a3ed80_verify.py` so `upgraded_from_featured_model` rows (`1093218` and `1079201`) reconcile against `origination.json` instead of blocking `checks.yml` / `pages.yml`; publish source-linked findings via auto-discovered `data/research/b2264c65/flags.json` on Flagged for Review | **done** — fixed `scripts/22a3ed80_verify.py` (`test_22a3ed80_verification` + `test_b2264c65_verification` `20/20 OK`), full build (`1072` rows, `1047` official, `15` flagged, `10` site-map, `0` violations, `873` links OK), root `acceptance_audit` `10 pass / 0 fail`, and `b2264c65-001..005` published on `/review/` | arena-b2264c65 | `data/research/b2264c65/flags.json`, `scripts/22a3ed80_verify.py`, `tests/test_b2264c65_verification.py` |
+| B226-4 Final integration: full regression/build/row-source/acceptance/link checks, PR from `arena/b2264c65-maltaproj3` to `main`, merge without waiting for approval, confirm GitHub Pages deploys a fresh (<8h) verified build, and record PR + deploy result here | **done** — PR [#375](https://github.com/buffedlizard55-lab/MaltaProj3/pull/375) merged into `main` as [`d4712f2`](https://github.com/buffedlizard55-lab/MaltaProj3/commit/d4712f2f691e21ac3ca16a4968c37213d34b566f) at `2026-10-26T02:19:40Z`; GitHub Pages deployment [`40258547858`](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40258547858) completed (`success`, `status=built`) serving fresh `2026-10-26T01:33:57Z` (`0.7h` old, `19/19` picks) at `https://buffedlizard55-lab.github.io/MaltaProj3/`, with `pages.yml` refresh [`40258548232`](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40258548232) queued to publish the `1079201` Bovada moneyline upgrade and `/review/` flags on next root sync | arena-b2264c65 | this section, PR [#375](https://github.com/buffedlizard55-lab/MaltaProj3/pull/375) |
+
+**Non-overlap pledge.** This session touched only `data/research/b2264c65/**`, `scripts/b2264c65_verify.py`, `tests/test_b2264c65_verification.py`, `data/origination/aliases.json` (unclaimed across all active sessions; >10h inactive since `c6b8d58b`), `scripts/reference_odds.py` (`CAPTURE_PATHS` registration only), `tests/test_reference_odds.py` (entry count only), `scripts/22a3ed80_verify.py` (closed scope from `arena-22a3ed80` PR #344, >6.7h inactive — unblocking `1093218` / `1079201` `upgraded_from_featured_model` rows), and this section of `COORDINATION.md`. Hotspawn `% picked` and HLTV fan votes were never used as probability inputs; unconfirmed values remain blank and flagged.
+
+### What was verified & shipped (2026-10-26T02:20Z, PR [#375](https://github.com/buffedlizard55-lab/MaltaProj3/pull/375) -> `d4712f2`)
+
+- **Live 81-record / 19-open Hotspawn reconciliation (`data/research/b2264c65/live-coverage.json`):** Reconciled `https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1` (`81` records: `62` past through `1079200` + `19` open `2026-10-26T03:00Z`–`2026-10-31T13:00Z`) and `https://play.hotspawn.com/lobby` (`All tiers (81)`, `19` open cards) against the live dashboard (`missing_from_published: 0`), and documented `/cs2-pickems` SSR body lag (`72`/`10` under `19 matches this week` banner).
+- **Scoped aliases & Bovada moneyline upgrade (`data/origination/aliases.json`):** Extended `Team Nemesis -> Nemesis` to `NODWIN Clutch Series #13` (`0s` delta + HLTV `2399888` lineup verification), promoting `1079201` (`INOX Division vs Nemesis`) from featured Valve model (`12.3% / 87.7%`) to live Bovada moneyline `32756569` (`1.363636 / 3.00` -> `31.2% / 68.8%` Nemesis, `upgraded_from_featured_model: true`), plus scoped `THUNDERdOWNUNDER` / `THUNDER dOWNUNDER -> Off Chops` (`DFRAG Invitational 2026`), `Luminosity Gaming -> Luminosity`, and `Team Envy -> Envy` (`Tesla Cup 2026`).
+- **Fresh `<8h` reference-odds rescue & fail-closed rejections (`data/research/b2264c65/reference-odds.json`):** Registered 4 SHA-256-verified `<8h` `EGWxxxBOT` captures (`1082858, 1082859, 1082860, 1082901`) and 15 documented rejections (`1.8/1.8` placeholders, missing `EGWxxxBOT` prose, `KmXWxVkdr` blank `LFO 10`, `EXM8MvTDwW` `Saint Sinners` as `5x noName`).
+- **Publisher regression unblocked (`scripts/22a3ed80_verify.py`):** Updated `22a3ed80_verify.py` to reconcile `upgraded_from_featured_model` rows (`1093218` and `1079201`) against `origination.json` instead of failing `checks.yml` / `pages.yml` step 5 (`Regression tests`) against superseded `snapshot.json` model numbers.
+- **Review register (`b2264c65-001..005` on `/review/`):** Published 5 source-linked review items covering `1079201` Bovada upgrade + `INOX Division` substitutes, model-row lineup caveats (`1081159, 1081164, 1082861, 1082793`), `/cs2-pickems` SSR lag + `best_of: null`, 15 EGW rejections, and cross-provider branding divergences + Thunderpick `1.001 < 1.01` clip on `1082860`.
+
+---
+
 ## 542A-3 / 542A-4 / 542A-5 closed — PR #366 merged, deploy retried, one pre-existing gate (02:30Z)
 
 - **Merged**: `arena/542dfb58-maltaproj3` → `main` as **PR #366**, merge commit `2bfff7f1` at 01:59:42Z (no approval waited on, per the brief). 33 files, additive: the probe, its workflow, `data/research/542dfb58/**` runner evidence, `tests/test_542dfb58_probe.py` (9), `tests/browser/542dfb58_phone_picks.spec.mjs` (7). `pages.yml` run 40256889404 started on that SHA.
@@ -184,7 +375,7 @@ Claimed 2026-10-26 UTC on fixed branch `arena/f644ed1b-maltaproj3`.
 | Task | Status | Owner | Scope |
 | --- | --- | --- | --- |
 | Independent current-snapshot safety audit, source-linked findings and regression tests | done | arena-f644ed1b | new `scripts/f644ed1b_audit.py`, `tests/test_f644ed1b_audit.py`, `data/research/f644ed1b/`, one entry in `scripts/review_register.py`, this board |
-| Integration gates, PR merge and Pages verification | in progress | arena-f644ed1b | same scope |
+| Integration gates, PR merge and Pages verification | done — #360 merged; deployment successful; follow-up #372 records upstream gate fix | arena-f644ed1b | same scope |
 
 **Results:** snapshot `2026-10-25T23:03:48Z`: 10 active rows, safety audit 0 errors; existing independent arithmetic replay 9/9 priced rows, 0 errors. Four new mutation/contract tests pass. Official Valve file fetched directly via GitHub API: all four model point inputs match; two The Huns rosters confirmed. Three source-linked findings registered on Flagged for Review. Default replay-fixture build: 1,025 rows, 0 without sources, 870 links checked; 8/8 selected phone/navigation tests pass. Newer snapshot raw rebuild was refused because matched evidence is unavailable here; artifact download redirected to a blocked host. No timestamps rewritten. Full pre-rebase suite: 1,943 unit tests OK (4 skipped); 142 browser tests pass; PR #360 CI run 40251253236 and originate green. Concurrent PRs #361/#362 landed during the run, so the initial merge correctly refused a board conflict. Rebased onto main bcfdcda; preserved both sessions’ complete board sections. New session tests plus the other session’s 3 tests pass on combined tree; combined build has zero missing-source rows and zero broken links. Findings above describe the explicitly dated capture, not a claim that the moving snapshot is unchanged. Initial pull of the not-yet-created branch returned remote-ref missing; pulled main and pushed the fixed branch successfully instead. Details: `data/research/f644ed1b/verification.md`.
 

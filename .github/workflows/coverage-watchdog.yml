@@ -1,0 +1,71 @@
+name: Coverage watchdog
+# Session arena-24e4d653.
+#
+# Why this exists: the four-hour publisher is right about *age* but blind to
+# *coverage*. Hotspawn adds pick'em cards in batches, and the freshness watchdog
+# only reacts once the deployed snapshot is six hours old -- so a fresh snapshot
+# can still be missing cards that are already playable. Measured first-hand at
+# 2026-10-26T00:48Z-01:05Z: the live lobby exposed 81 CS2 cards (All tiers (81),
+# CCT Europe 2026 Series #12 (5), NODWIN Clutch Series #13 (5)) while the
+# 2026-10-25T23:03:48Z snapshot carried 72; nine cards with future starts had no
+# row, no probability and no pick on the site. Dossier:
+# data/research/24e4d653/live-coverage.{json,md}.
+#
+# This job compares the official Hotspawn CS2 scheduled-fixture feed with the
+# deployed snapshot and dispatches the existing, fully verified publisher
+# (pages.yml -> collect, originate, build, audits, deploy) as soon as one live,
+# still-upcoming fixture has no row. It publishes nothing itself, writes no data,
+# and stays silent while any publish is queued or running -- plus for
+# MIN_RUN_AGE_MINUTES after a publish started -- so it can never starve the
+# real publisher or fight the freshness watchdog.
+on:
+  schedule:
+    # Twice an hour at an offset that does not share a slot with the freshness
+    # watchdog (*/30) or the publisher (17 */4).
+    - cron: '13,43 * * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Report the decision without dispatching the publisher'
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: read
+  actions: write      # only to read pages.yml runs and to ask pages.yml to run
+
+concurrency:
+  group: coverage-watchdog
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      # The script is stdlib-only, but `python -m scripts.<name>` needs the
+      # package present. Check out just scripts/ so this job stays cheap.
+      - uses: actions/checkout@v7
+        with:
+          sparse-checkout: scripts
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Compare the live Hotspawn CS2 feed with the deployed snapshot
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          DRY_RUN: ${{ inputs.dry_run || 'false' }}
+        run: |
+          set -u
+          FLAGS=""
+          if [ "${DRY_RUN}" = "true" ]; then FLAGS="--dry-run"; fi
+          # shellcheck disable=SC2086
+          python3 -m scripts.24e4d653_coverage_watch $FLAGS | tee coverage-watch.log
+          {
+            echo '### Coverage watchdog'
+            echo '```json'
+            cat coverage-watch.log
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

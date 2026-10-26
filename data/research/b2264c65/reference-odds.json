@@ -1,0 +1,279 @@
+{
+  "schema_version": 1,
+  "session": "arena-b2264c65",
+  "observed_at": "2026-10-26T01:08:15Z",
+  "provider": "EGamersWorld (published bookmaker average)",
+  "policy": "First-hand inspection of all 19 open Hotspawn CS2 fixture match pages on egamersworld.com. Only pages publishing a verbatim EGWxxxBOT leading-bookmakers average-odds sentence with non-identical decimal odds in (1.01, 100.0] and paired margin inside [0.85, 1.35] enter entries[]; all 15 placeholder (1.8/1.8) or prose-less pages enter rejected[]. Never overrides a first-party market or esportsbook quote.",
+  "entries": [
+    {
+      "fixture_id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "starts_at": "2026-10-26T03:00:00Z",
+      "competition": "DFRAG Invitational 2026",
+      "odds": [
+        3.44,
+        1.24
+      ],
+      "source_url": "https://egamersworld.com/counterstrike/match/dfrag-invitational-2026/ground-zero-vs-off-chops-5mfkMFe7d",
+      "observed_at": "2026-10-26T01:06:30Z",
+      "excerpt": "According to leading bookmakers predictions, the team Off Chops are the favorite with average odds 1.24 at the moment. Respectively, bookmakers consider Ground Zero to be the outsider of the match with odds on a victory in the sum of about 3.44.",
+      "excerpt_sha256": "080a558f7ff9cb974f6715f33faca5f7b9b7796263e47ab959f234cdcfebc902",
+      "provider_teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "note": "First-hand EGW match-page capture (EGWxxxBOT bookmaker-average prose). Never overrides first-party Polymarket or Thunderpick quotes; serves as <8h money-backed fallback if first-party books widen or drop."
+    },
+    {
+      "fixture_id": "1082859",
+      "teams": [
+        "NEXVOID",
+        "Alter Ego"
+      ],
+      "starts_at": "2026-10-26T03:00:00Z",
+      "competition": "DFRAG Invitational 2026",
+      "odds": [
+        1.576,
+        2.19
+      ],
+      "source_url": "https://egamersworld.com/counterstrike/match/dfrag-invitational-2026/nexvoid-vs-alter-ego-HfdcJeXmT",
+      "observed_at": "2026-10-26T01:06:45Z",
+      "excerpt": "At the moment, the majority of bookmakers unanimously see the team NEXVOID as the favorite of the game with average odds on a victory in the sum of 1.576. Alter Ego chances to prevail are evaluated with average odds 2.19 by bookmakers.",
+      "excerpt_sha256": "e1d217116e8553867e843b374648558fc141031c7fe0e311b6a1de401908090d",
+      "provider_teams": [
+        "NEXVOID",
+        "Alter Ego"
+      ],
+      "note": "First-hand EGW match-page capture (EGWxxxBOT bookmaker-average prose). Refreshes expired >11h 2026-10-25T13:41Z capture; never overrides first-party Thunderpick 1.56/2.26."
+    },
+    {
+      "fixture_id": "1082860",
+      "teams": [
+        "FlyQuest",
+        "Staqued"
+      ],
+      "starts_at": "2026-10-27T03:00:00Z",
+      "competition": "DFRAG Invitational 2026",
+      "odds": [
+        1.013,
+        11.948
+      ],
+      "source_url": "https://egamersworld.com/counterstrike/match/dfrag-invitational-2026/flyquest-vs-staqued-zawJ-Q52S3",
+      "observed_at": "2026-10-26T01:07:00Z",
+      "excerpt": "All bookmakers have agreed that FlyQuest is the favorite. This can be noticed because odds on them are 1.013. This number in the favor of Staqued amounts 11.948. Respectively, the last ones are the underdogs of the upcoming match.",
+      "excerpt_sha256": "4e3ffa185de9011459fbd92953ca48e036eb6ba6bc493100ef02b767570c86ef",
+      "provider_teams": [
+        "FlyQuest",
+        "Staqued"
+      ],
+      "note": "First-hand EGW match-page capture (EGWxxxBOT bookmaker-average prose; 1.013 > MIN_ODDS=1.01, whereas Thunderpick 1.001/12.0 is clipped below 1.01). Never overrides first-party Polymarket 0.925/0.075."
+    },
+    {
+      "fixture_id": "1082901",
+      "teams": [
+        "Envy",
+        "GamerLegion"
+      ],
+      "starts_at": "2026-10-27T20:00:00Z",
+      "competition": "Tesla Cup 2026",
+      "odds": [
+        1.924,
+        1.781
+      ],
+      "source_url": "https://egamersworld.com/counterstrike/match/rlg-tesla-cup-2026/envyus-vs-team-gamerlegion-juJIhPpNK5",
+      "observed_at": "2026-10-26T01:08:00Z",
+      "excerpt": "All bookmakers have agreed that GamerLegion is the favorite. This can be noticed because odds on them are 1.781. This number in the favor of Team Envy amounts 1.924. Respectively, the last ones are the underdogs of the upcoming match.",
+      "excerpt_sha256": "6f8e0ccdb649c8d47ce5ce1ffdf1e2ac47c8481b5e31fc4a50501a7694a3c494",
+      "provider_teams": [
+        "Team Envy",
+        "GamerLegion"
+      ],
+      "note": "First-hand EGW match-page capture (EGWxxxBOT bookmaker-average prose; aligned to Hotspawn team order Envy vs GamerLegion). Never overrides first-party Polymarket or Thunderpick."
+    }
+  ],
+  "rejected": [
+    {
+      "fixture_id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "starts_at": "2026-10-27T03:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/dfrag-invitational-2026/rooster-vs-team-abyssal-P1tTp3RAg8",
+      "observed_at": "2026-10-26T01:07:10Z",
+      "rejected": true,
+      "reason": "EGamersWorld match page P1tTp3RAg8 displays identical 1.8 / 1.8 placeholder odds and publishes no EGWxxxBOT bookmaker-average prose sentence."
+    },
+    {
+      "fixture_id": "1079201",
+      "teams": [
+        "INOX Division",
+        "Nemesis"
+      ],
+      "starts_at": "2026-10-26T09:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/NODWIN-Clutch-Series-13/team-nemesis-vs-inox-division-YBEqdQgeA",
+      "observed_at": "2026-10-26T01:06:00Z",
+      "rejected": true,
+      "reason": "EGamersWorld match page YBEqdQgeA displays Vave widget 1.33 / 2.96 but omits the required EGWxxxBOT bookmaker-average prose sentence; resolved via first-party Bovada event 32756569 (1.363636 / 3.00) instead."
+    },
+    {
+      "fixture_id": "1079202",
+      "teams": [
+        "FOKUS",
+        "ex-Zero Tenacity"
+      ],
+      "starts_at": "2026-10-26T12:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/NODWIN-Clutch-Series-13/fokus-vs-ex-zero-tenacity-vJfLENXKbF",
+      "observed_at": "2026-10-26T01:06:05Z",
+      "rejected": true,
+      "reason": "EGamersWorld match page vJfLENXKbF omits the required EGWxxxBOT bookmaker-average prose sentence; resolved via first-party Thunderpick event 2888795 (1.35 / 2.90)."
+    },
+    {
+      "fixture_id": "1079203",
+      "teams": [
+        "Metizport",
+        "BRUTE"
+      ],
+      "starts_at": "2026-10-26T15:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/NODWIN-Clutch-Series-13/metizport-vs-brute-W0B9jtlpRP",
+      "observed_at": "2026-10-26T01:06:10Z",
+      "rejected": true,
+      "reason": "EGamersWorld match page W0B9jtlpRP omits the required EGWxxxBOT bookmaker-average prose sentence; resolved via first-party Thunderpick event 2889134 (1.50 / 2.40)."
+    },
+    {
+      "fixture_id": "1093218",
+      "teams": [
+        "Nuclear TigeRES",
+        "UNiTY"
+      ],
+      "starts_at": "2026-10-26T18:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/NODWIN-Clutch-Series-13/nuclear-tigeres-vs-unity-esports-hjhNR8HG_",
+      "observed_at": "2026-10-26T01:06:15Z",
+      "rejected": true,
+      "reason": "EGamersWorld match page hjhNR8HG_ omits the required EGWxxxBOT bookmaker-average prose sentence; resolved via first-party Thunderpick 2888791 + Bovada 32759181 consensus."
+    },
+    {
+      "fixture_id": "1081159",
+      "teams": [
+        "LFO 10",
+        "ex-6666"
+      ],
+      "starts_at": "2026-10-26T12:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/cct-season-3-europe-series-12/vs-6666-KmXWxVkdr",
+      "observed_at": "2026-10-26T01:07:30Z",
+      "rejected": true,
+      "reason": "EGamersWorld match page KmXWxVkdr displays identical 1.8 / 1.8 placeholder odds, leaves LFO 10 blank in the slug/header, and carries no bookmaker-average prose sentence."
+    },
+    {
+      "fixture_id": "1081160",
+      "teams": [
+        "HAVU",
+        "ILLYRIANS"
+      ],
+      "starts_at": "2026-10-26T15:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/cct-season-3-europe-series-12/havu-gaming-vs-illyrians-7VBYmMdiw",
+      "observed_at": "2026-10-26T01:07:35Z",
+      "rejected": true,
+      "reason": "EGamersWorld match page 7VBYmMdiw displays identical 1.8 / 1.8 placeholder odds and publishes no EGWxxxBOT bookmaker-average prose sentence."
+    },
+    {
+      "fixture_id": "1081162",
+      "teams": [
+        "ex-RUSTEC",
+        "Spirit Academy"
+      ],
+      "starts_at": "2026-10-27T12:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/cct-season-3-europe-series-12/rustec-vs-spirit-academy-x-XIGxRpk",
+      "observed_at": "2026-10-26T01:07:40Z",
+      "rejected": true,
+      "reason": "EGamersWorld match page x-XIGxRpk displays identical 1.8 / 1.8 placeholder odds and publishes no EGWxxxBOT bookmaker-average prose sentence."
+    },
+    {
+      "fixture_id": "1081163",
+      "teams": [
+        "BakS",
+        "Saint Sinners"
+      ],
+      "starts_at": "2026-10-27T15:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/cct-season-3-europe-series-12/baks-esports-vs-5x-noname-EXM8MvTDwW",
+      "observed_at": "2026-10-26T01:07:45Z",
+      "rejected": true,
+      "reason": "EGamersWorld match page EXM8MvTDwW displays identical 1.8 / 1.8 placeholder odds, prints Saint Sinners as unverified former tag 5x noName, and carries no bookmaker-average prose sentence."
+    },
+    {
+      "fixture_id": "1081164",
+      "teams": [
+        "Inner Circle Academy",
+        "Lavked"
+      ],
+      "starts_at": "2026-10-27T18:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/cct-season-3-europe-series-12/inner-circle-academy-vs-lavked-LokE-EvKOn",
+      "observed_at": "2026-10-26T01:07:50Z",
+      "rejected": true,
+      "reason": "EGamersWorld match page LokE-EvKOn displays identical 1.8 / 1.8 placeholder odds and publishes no EGWxxxBOT bookmaker-average prose sentence."
+    },
+    {
+      "fixture_id": "1082897",
+      "teams": [
+        "B8",
+        "K27"
+      ],
+      "starts_at": "2026-10-27T08:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/rlg-tesla-cup-2026/b8-vs-k27-E3NJgD4-j",
+      "observed_at": "2026-10-26T01:07:55Z",
+      "rejected": true,
+      "reason": "EGamersWorld match page E3NJgD4-j omits the required EGWxxxBOT bookmaker-average prose sentence; resolved via first-party Polymarket event 1231333."
+    },
+    {
+      "fixture_id": "1082898",
+      "teams": [
+        "Alliance",
+        "FaZe"
+      ],
+      "starts_at": "2026-10-27T11:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/rlg-tesla-cup-2026/the-alliance-vs-faze-clan-7XXo-1LxFJ",
+      "observed_at": "2026-10-26T01:07:58Z",
+      "rejected": true,
+      "reason": "EGamersWorld match page 7XXo-1LxFJ omits the required EGWxxxBOT bookmaker-average prose sentence; resolved via first-party Polymarket event 1231334."
+    },
+    {
+      "fixture_id": "1082900",
+      "teams": [
+        "Luminosity",
+        "HOTU"
+      ],
+      "starts_at": "2026-10-27T17:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/rlg-tesla-cup-2026/luminosity-gaming-vs-hotu-zWIZjx0nC",
+      "observed_at": "2026-10-26T01:08:02Z",
+      "rejected": true,
+      "reason": "EGamersWorld match page zWIZjx0nC omits the required EGWxxxBOT bookmaker-average prose sentence; resolved via first-party Polymarket event 1231335."
+    },
+    {
+      "fixture_id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "starts_at": "2026-10-31T09:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/moscow-cyber-games-2026/hotu-vs-the-huns-esports-SfdtzDhiK",
+      "observed_at": "2026-10-26T01:08:10Z",
+      "rejected": true,
+      "reason": "EGamersWorld match page SfdtzDhiK displays identical 1.8 / 1.8 placeholder odds and publishes no EGWxxxBOT bookmaker-average prose sentence; resolved via first-party Polymarket event 1241313."
+    },
+    {
+      "fixture_id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "starts_at": "2026-10-31T13:00:00Z",
+      "source_url": "https://egamersworld.com/counterstrike/match/moscow-cyber-games-2026/5star-gaming-vs-1win-4hTvdd1uN",
+      "observed_at": "2026-10-26T01:08:15Z",
+      "rejected": true,
+      "reason": "EGamersWorld match page 4hTvdd1uN displays identical 1.8 / 1.8 placeholder odds and publishes no EGWxxxBOT bookmaker-average prose sentence."
+    }
+  ]
+}
