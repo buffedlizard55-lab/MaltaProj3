@@ -9696,3 +9696,16 @@ changed; noted on PR #343 for session 0962d605.
 - All 27AC tasks are **done**. Open items handed over, in the dossier's change requests:
   bo3.gg team-link route in `originate.py`; majority-core lineup disambiguation rung;
   `27ac20d6-1082792-magnitude` stays flagged for the owner's review (figure untouched).
+
+---
+
+# Current session: arena-e3bc19d6 — live inventory read, picks for every open fixture (HLTV → esportsbooks → official ratings), executive-summary/phone verification, publish (claim 2026-10-26T00:50Z)
+
+Claimed on Arena's fixed branch `arena/e3bc19d6-maltaproj3`, branched from `main` at `cfd58e1` (the 2026-10-25T23:03Z published build). Board read first: ten prior PRs are still **open** (#350 `arena/93c7475a` is the most recent, opened 2026-10-25T15:27Z and touching the shared publishers); every other board row that says *in progress* is older than 60 minutes with merged dossiers, so it is stale, not live. This session therefore keeps a **new-file-only** scope: `data/research/e3bc19d6/**`, `scripts/e3bc19d6_verify.py`, `tests/test_e3bc19d6_*.py` and this section. No shared renderer, workflow, alias registry or other session's dossier is edited. Requests that need a shared file are logged here instead of applied.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| E3B-1 Read the official Hotspawn CS2 scheduled-fixture API directly and record the exact set of fixtures that are open at the read time, with ids, teams, competition, start and lock times and the observation clock | in progress → this session | arena-e3bc19d6 | new `data/research/e3bc19d6/**` |
+| E3B-2 For every open fixture the featured Polymarket line cannot price, check official HLTV first, then esportsbooks/exchanges, then the published official-rating inputs (Valve VRS, HLTV world ranking); publish one dated verdict + limitations per fixture. No probability, price or alias is written by hand | in progress → this session | arena-e3bc19d6 | new `data/research/e3bc19d6/**` |
+| E3B-3 Verify the executive summary's in-site picks links, the separate unresolved register and phone rendering on the committed build; fix only a defect proven by a failing check, in a new test file | in progress → this session | arena-e3bc19d6 | new `tests/test_e3bc19d6_*.py`, new `scripts/e3bc19d6_verify.py` |
+| E3B-4 PR to `main`, merge without waiting for approval once green, let the push trigger the four-hour publisher, then verify the live snapshot covers every open fixture with a pick or an explicit unresolved entry; record PR, run ids, sources and irregularities here | unclaimed → this session | arena-e3bc19d6 | this section, PR |
