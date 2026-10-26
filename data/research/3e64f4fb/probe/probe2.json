@@ -1,11 +1,19 @@
 {
  "session": "arena-3e64f4fb",
- "observed_at": "2026-10-26T01:39:36Z",
+ "observed_at": "2026-10-26T01:55:42Z",
  "policy": "Evidence only. Observed prices recorded raw; no probability, pick or alias is produced here. Origination remains the only path to a published number.",
  "published": {
-  "snapshot_generated_at": "2026-10-25T23:03:48Z",
-  "origination_generated_at": "2026-10-25T23:04:02Z",
+  "snapshot_generated_at": "2026-10-26T01:33:57Z",
+  "origination_generated_at": "2026-10-26T01:34:11Z",
   "active_ids": [
+   "1079201",
+   "1079202",
+   "1079203",
+   "1081159",
+   "1081160",
+   "1081162",
+   "1081163",
+   "1081164",
    "1082792",
    "1082793",
    "1082858",
@@ -15,7 +23,8 @@
    "1082897",
    "1082898",
    "1082900",
-   "1082901"
+   "1082901",
+   "1093218"
   ]
  },
  "inventory": {
@@ -42,17 +51,7 @@
    "1082901",
    "1093218"
   ],
-  "live_open_missing_from_published": [
-   "1079201",
-   "1079202",
-   "1079203",
-   "1081159",
-   "1081160",
-   "1081162",
-   "1081163",
-   "1081164",
-   "1093218"
-  ],
+  "live_open_missing_from_published": [],
   "published_no_longer_live_open": [],
   "live_open": [
    {
@@ -351,6 +350,470 @@
    ]
   },
   {
+   "id": "1079201",
+   "teams": [
+    "INOX Division",
+    "Nemesis"
+   ],
+   "starts_at": "2026-10-26T09:00:00Z",
+   "competition": "NODWIN Clutch Series #13",
+   "published_featured_method": "model",
+   "published_complete_method": "model",
+   "published_pick_index": 1,
+   "hltv_exact": [
+    {
+     "match_id": "2399116",
+     "url": "https://www.hltv.org/matches/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13",
+     "teams": [
+      "Nemesis",
+      "INOX Division"
+     ],
+     "starts_at": "2026-10-26T09:00:00Z",
+     "event": "NODWIN Clutch Series 13",
+     "meta": "bo3",
+     "live": false
+    }
+   ],
+   "hltv_shares_one_name": [
+    {
+     "match_id": "2399706",
+     "url": "https://www.hltv.org/matches/2399706/inner-circle-vs-nemesis-stake-ranked-episode-5",
+     "teams": [
+      "Inner Circle",
+      "Nemesis"
+     ],
+     "starts_at": "2026-10-27T13:30:00Z",
+     "event": "Stake Ranked Episode 5",
+     "meta": "bo3",
+     "live": false
+    }
+   ],
+   "hltv_match_page": {
+    "starts_at": "2026-10-26T09:00:00Z",
+    "format": "BO3",
+    "teams": [
+     "Nemesis",
+     "INOX Division"
+    ]
+   },
+   "hltv_ranking": {
+    "INOX Division": {
+     "rank": 84,
+     "points": 10.0,
+     "team_url": "https://www.hltv.org/team/13814/inox-division"
+    },
+    "Nemesis": {
+     "rank": 47,
+     "points": 32.0,
+     "team_url": "https://www.hltv.org/team/13355/nemesis"
+    }
+   },
+   "polymarket_observed": [],
+   "thunderpick_observed": [],
+   "kalshi_observed": [
+    {
+     "event_ticker": "KXCS2GAME-26OCT260500INOXNEM",
+     "title": "INOX Division vs. Team Nemesis",
+     "markets": [
+      {
+       "ticker": "KXCS2GAME-26OCT260500INOXNEM-INOX",
+       "yes_sub_title": "INOX Division",
+       "yes_bid": null,
+       "yes_ask": null,
+       "no_bid": null,
+       "no_ask": null
+      },
+      {
+       "ticker": "KXCS2GAME-26OCT260500INOXNEM-NEM",
+       "yes_sub_title": "Team Nemesis",
+       "yes_bid": null,
+       "yes_ask": null,
+       "no_bid": null,
+       "no_ask": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1079202",
+   "teams": [
+    "FOKUS",
+    "ex-Zero Tenacity"
+   ],
+   "starts_at": "2026-10-26T12:00:00Z",
+   "competition": "NODWIN Clutch Series #13",
+   "published_featured_method": "bookmaker",
+   "published_complete_method": "bookmaker",
+   "published_pick_index": 0,
+   "hltv_exact": [
+    {
+     "match_id": "2399117",
+     "url": "https://www.hltv.org/matches/2399117/fokus-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+     "teams": [
+      "FOKUS",
+      "ex-Zero Tenacity"
+     ],
+     "starts_at": "2026-10-26T12:00:00Z",
+     "event": "NODWIN Clutch Series 13",
+     "meta": "bo3",
+     "live": false
+    }
+   ],
+   "hltv_shares_one_name": [],
+   "hltv_match_page": {
+    "starts_at": "2026-10-26T12:00:00Z",
+    "format": "BO3",
+    "teams": [
+     "FOKUS",
+     "ex-Zero Tenacity"
+    ]
+   },
+   "hltv_ranking": {
+    "FOKUS": {
+     "rank": 49,
+     "points": 27.0,
+     "team_url": "https://www.hltv.org/team/13679/fokus"
+    },
+    "ex-Zero Tenacity": {
+     "rank": 67,
+     "points": 13.0,
+     "team_url": "https://www.hltv.org/team/13573/ex-zero-tenacity"
+    }
+   },
+   "polymarket_observed": [],
+   "thunderpick_observed": [
+    {
+     "match_id": 2888795,
+     "teams_home_away": [
+      "FOKUS",
+      "ex-Zero Tenacity"
+     ],
+     "start": "2026-10-26T12:00:00+00:00",
+     "is_live": false,
+     "tournament": null,
+     "paired_odds": {
+      "market": "Match Winner",
+      "odds_home_away": [
+       1.35,
+       2.9
+      ]
+     }
+    }
+   ],
+   "kalshi_observed": [
+    {
+     "event_ticker": "KXCS2GAME-26OCT261400EXZFOK",
+     "title": "ex-Zero Tenacity vs. FOKUS",
+     "markets": [
+      {
+       "ticker": "KXCS2GAME-26OCT261400EXZFOK-EXZ",
+       "yes_sub_title": "ex-Zero Tenacity",
+       "yes_bid": null,
+       "yes_ask": null,
+       "no_bid": null,
+       "no_ask": null
+      },
+      {
+       "ticker": "KXCS2GAME-26OCT261400EXZFOK-FOK",
+       "yes_sub_title": "FOKUS",
+       "yes_bid": null,
+       "yes_ask": null,
+       "no_bid": null,
+       "no_ask": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1081159",
+   "teams": [
+    "LFO 10",
+    "ex-6666"
+   ],
+   "starts_at": "2026-10-26T12:00:00Z",
+   "competition": "CCT Europe 2026 Series #12",
+   "published_featured_method": null,
+   "published_complete_method": "model",
+   "published_pick_index": 1,
+   "hltv_exact": [
+    {
+     "match_id": "2399509",
+     "url": "https://www.hltv.org/matches/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
+     "teams": [
+      "LFO 10",
+      "ex-6666"
+     ],
+     "starts_at": "2026-10-26T12:00:00Z",
+     "event": "CCT 2026 Europe Series 12",
+     "meta": "bo3",
+     "live": false
+    }
+   ],
+   "hltv_shares_one_name": [],
+   "hltv_match_page": {
+    "starts_at": "2026-10-26T12:00:00Z",
+    "format": "BO3",
+    "teams": [
+     "LFO 10",
+     "ex-6666"
+    ]
+   },
+   "hltv_ranking": {
+    "LFO 10": {
+     "rank": 167,
+     "points": 4.0,
+     "team_url": "https://www.hltv.org/team/14084/lfo-10"
+    },
+    "ex-6666": {
+     "rank": 72,
+     "points": 12.0,
+     "team_url": "https://www.hltv.org/team/14100/ex-6666"
+    }
+   },
+   "polymarket_observed": [],
+   "thunderpick_observed": [],
+   "kalshi_observed": []
+  },
+  {
+   "id": "1079203",
+   "teams": [
+    "Metizport",
+    "BRUTE"
+   ],
+   "starts_at": "2026-10-26T15:00:00Z",
+   "competition": "NODWIN Clutch Series #13",
+   "published_featured_method": "bookmaker",
+   "published_complete_method": "bookmaker",
+   "published_pick_index": 0,
+   "hltv_exact": [
+    {
+     "match_id": "2399118",
+     "url": "https://www.hltv.org/matches/2399118/metizport-vs-brute-nodwin-clutch-series-13",
+     "teams": [
+      "Metizport",
+      "BRUTE"
+     ],
+     "starts_at": "2026-10-26T15:00:00Z",
+     "event": "NODWIN Clutch Series 13",
+     "meta": "bo3",
+     "live": false
+    }
+   ],
+   "hltv_shares_one_name": [],
+   "hltv_match_page": {
+    "starts_at": "2026-10-26T15:00:00Z",
+    "format": "BO3",
+    "teams": [
+     "Metizport",
+     "BRUTE"
+    ]
+   },
+   "hltv_ranking": {
+    "Metizport": {
+     "rank": 59,
+     "points": 16.0,
+     "team_url": "https://www.hltv.org/team/11641/metizport"
+    },
+    "BRUTE": {
+     "rank": 109,
+     "points": 8.0,
+     "team_url": "https://www.hltv.org/team/9139/brute"
+    }
+   },
+   "polymarket_observed": [],
+   "thunderpick_observed": [
+    {
+     "match_id": 2889134,
+     "teams_home_away": [
+      "Metizport",
+      "Brute"
+     ],
+     "start": "2026-10-26T15:00:00+00:00",
+     "is_live": false,
+     "tournament": null,
+     "paired_odds": {
+      "market": "Match Winner",
+      "odds_home_away": [
+       1.5,
+       2.4
+      ]
+     }
+    }
+   ],
+   "kalshi_observed": [
+    {
+     "event_ticker": "KXCS2GAME-26OCT260800BRUTEMZP",
+     "title": "Brute vs. Metizport",
+     "markets": [
+      {
+       "ticker": "KXCS2GAME-26OCT260800BRUTEMZP-BRUTE",
+       "yes_sub_title": "Brute",
+       "yes_bid": null,
+       "yes_ask": null,
+       "no_bid": null,
+       "no_ask": null
+      },
+      {
+       "ticker": "KXCS2GAME-26OCT260800BRUTEMZP-MZP",
+       "yes_sub_title": "Metizport",
+       "yes_bid": null,
+       "yes_ask": null,
+       "no_bid": null,
+       "no_ask": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1081160",
+   "teams": [
+    "HAVU",
+    "ILLYRIANS"
+   ],
+   "starts_at": "2026-10-26T15:00:00Z",
+   "competition": "CCT Europe 2026 Series #12",
+   "published_featured_method": "model",
+   "published_complete_method": "model",
+   "published_pick_index": 0,
+   "hltv_exact": [
+    {
+     "match_id": "2399510",
+     "url": "https://www.hltv.org/matches/2399510/havu-vs-illyrians-cct-2026-europe-series-12",
+     "teams": [
+      "HAVU",
+      "Illyrians"
+     ],
+     "starts_at": "2026-10-26T15:00:00Z",
+     "event": "CCT 2026 Europe Series 12",
+     "meta": "bo3",
+     "live": false
+    }
+   ],
+   "hltv_shares_one_name": [],
+   "hltv_match_page": {
+    "starts_at": "2026-10-26T15:00:00Z",
+    "format": "BO3",
+    "teams": [
+     "HAVU",
+     "Illyrians"
+    ]
+   },
+   "hltv_ranking": {
+    "HAVU": {
+     "rank": 108,
+     "points": 8.0,
+     "team_url": "https://www.hltv.org/team/7865/havu"
+    },
+    "ILLYRIANS": {
+     "rank": 124,
+     "points": 6.0,
+     "team_url": "https://www.hltv.org/team/11719/illyrians"
+    }
+   },
+   "polymarket_observed": [],
+   "thunderpick_observed": [],
+   "kalshi_observed": [
+    {
+     "event_ticker": "KXCS2GAME-26OCT261100ILLHAVU",
+     "title": "ILLYRIANS vs. HAVU",
+     "markets": [
+      {
+       "ticker": "KXCS2GAME-26OCT261100ILLHAVU-ILL",
+       "yes_sub_title": "ILLYRIANS",
+       "yes_bid": null,
+       "yes_ask": null,
+       "no_bid": null,
+       "no_ask": null
+      },
+      {
+       "ticker": "KXCS2GAME-26OCT261100ILLHAVU-HAVU",
+       "yes_sub_title": "HAVU",
+       "yes_bid": null,
+       "yes_ask": null,
+       "no_bid": null,
+       "no_ask": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1093218",
+   "teams": [
+    "Nuclear TigeRES",
+    "UNiTY"
+   ],
+   "starts_at": "2026-10-26T18:00:00Z",
+   "competition": "NODWIN Clutch Series #13",
+   "published_featured_method": "model",
+   "published_complete_method": "consensus",
+   "published_pick_index": 0,
+   "hltv_exact": [
+    {
+     "match_id": "2399119",
+     "url": "https://www.hltv.org/matches/2399119/nuclear-tigeres-vs-unity-nodwin-clutch-series-13",
+     "teams": [
+      "Nuclear TigeRES",
+      "UNiTY"
+     ],
+     "starts_at": "2026-10-26T18:00:00Z",
+     "event": "NODWIN Clutch Series 13",
+     "meta": "bo3",
+     "live": false
+    }
+   ],
+   "hltv_shares_one_name": [],
+   "hltv_match_page": {
+    "starts_at": "2026-10-26T18:00:00Z",
+    "format": "BO3",
+    "teams": [
+     "Nuclear TigeRES",
+     "UNiTY"
+    ]
+   },
+   "hltv_ranking": {
+    "Nuclear TigeRES": {
+     "rank": 50,
+     "points": 27.0,
+     "team_url": "https://www.hltv.org/team/13027/nuclear-tigeres"
+    },
+    "UNiTY": {
+     "rank": 86,
+     "points": 10.0,
+     "team_url": "https://www.hltv.org/team/12267/unity"
+    }
+   },
+   "polymarket_observed": [],
+   "thunderpick_observed": [],
+   "kalshi_observed": [
+    {
+     "event_ticker": "KXCS2GAME-26OCT261100UNITYNTR",
+     "title": "UNiTY esports vs. Nuclear TigeRES",
+     "markets": [
+      {
+       "ticker": "KXCS2GAME-26OCT261100UNITYNTR-UNITY",
+       "yes_sub_title": "UNiTY esports",
+       "yes_bid": null,
+       "yes_ask": null,
+       "no_bid": null,
+       "no_ask": null
+      },
+      {
+       "ticker": "KXCS2GAME-26OCT261100UNITYNTR-NTR",
+       "yes_sub_title": "Nuclear TigeRES",
+       "yes_bid": null,
+       "yes_ask": null,
+       "no_bid": null,
+       "no_ask": null
+      }
+     ]
+    }
+   ]
+  },
+  {
    "id": "1082861",
    "teams": [
     "Rooster",
@@ -414,6 +877,225 @@
       {
        "ticker": "KXCS2GAME-26OCT262300ABYRSTR-RSTR",
        "yes_sub_title": "Rooster",
+       "yes_bid": null,
+       "yes_ask": null,
+       "no_bid": null,
+       "no_ask": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1081162",
+   "teams": [
+    "ex-RUSTEC",
+    "Spirit Academy"
+   ],
+   "starts_at": "2026-10-27T12:00:00Z",
+   "competition": "CCT Europe 2026 Series #12",
+   "published_featured_method": "model",
+   "published_complete_method": "model",
+   "published_pick_index": 0,
+   "hltv_exact": [
+    {
+     "match_id": "2399512",
+     "url": "https://www.hltv.org/matches/2399512/ex-rustec-vs-spirit-academy-cct-2026-europe-series-12",
+     "teams": [
+      "ex-RUSTEC",
+      "Spirit Academy"
+     ],
+     "starts_at": "2026-10-27T12:00:00Z",
+     "event": "CCT 2026 Europe Series 12",
+     "meta": "bo3",
+     "live": false
+    }
+   ],
+   "hltv_shares_one_name": [],
+   "hltv_match_page": {
+    "starts_at": "2026-10-27T12:00:00Z",
+    "format": "BO3",
+    "teams": [
+     "ex-RUSTEC",
+     "Spirit Academy"
+    ]
+   },
+   "hltv_ranking": {
+    "ex-RUSTEC": {
+     "rank": 70,
+     "points": 13.0,
+     "team_url": "https://www.hltv.org/team/13901/ex-rustec"
+    },
+    "Spirit Academy": {
+     "rank": 111,
+     "points": 8.0,
+     "team_url": "https://www.hltv.org/team/7900/spirit-academy"
+    }
+   },
+   "polymarket_observed": [],
+   "thunderpick_observed": [],
+   "kalshi_observed": [
+    {
+     "event_ticker": "KXCS2GAME-26OCT270800TSAEXR",
+     "title": "Spirit Academy vs. ex-RUSTEC",
+     "markets": [
+      {
+       "ticker": "KXCS2GAME-26OCT270800TSAEXR-TSA",
+       "yes_sub_title": "Spirit Academy",
+       "yes_bid": null,
+       "yes_ask": null,
+       "no_bid": null,
+       "no_ask": null
+      },
+      {
+       "ticker": "KXCS2GAME-26OCT270800TSAEXR-EXR",
+       "yes_sub_title": "ex-RUSTEC",
+       "yes_bid": null,
+       "yes_ask": null,
+       "no_bid": null,
+       "no_ask": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1081163",
+   "teams": [
+    "BakS",
+    "Saint Sinners"
+   ],
+   "starts_at": "2026-10-27T15:00:00Z",
+   "competition": "CCT Europe 2026 Series #12",
+   "published_featured_method": "model",
+   "published_complete_method": "model",
+   "published_pick_index": 0,
+   "hltv_exact": [
+    {
+     "match_id": "2399513",
+     "url": "https://www.hltv.org/matches/2399513/baks-vs-saint-sinners-cct-2026-europe-series-12",
+     "teams": [
+      "BAKS",
+      "Saint Sinners"
+     ],
+     "starts_at": "2026-10-27T15:00:00Z",
+     "event": "CCT 2026 Europe Series 12",
+     "meta": "bo3",
+     "live": false
+    }
+   ],
+   "hltv_shares_one_name": [],
+   "hltv_match_page": {
+    "starts_at": "2026-10-27T15:00:00Z",
+    "format": "BO3",
+    "teams": [
+     "BAKS",
+     "Saint Sinners"
+    ]
+   },
+   "hltv_ranking": {
+    "BakS": {
+     "rank": 99,
+     "points": 9.0,
+     "team_url": "https://www.hltv.org/team/11699/baks"
+    },
+    "Saint Sinners": {
+     "rank": 123,
+     "points": 6.0,
+     "team_url": "https://www.hltv.org/team/13998/saint-sinners"
+    }
+   },
+   "polymarket_observed": [],
+   "thunderpick_observed": [],
+   "kalshi_observed": [
+    {
+     "event_ticker": "KXCS2GAME-26OCT271100SSINSBAKS",
+     "title": "Saint Sinners vs. BakS eSports",
+     "markets": [
+      {
+       "ticker": "KXCS2GAME-26OCT271100SSINSBAKS-SSINS",
+       "yes_sub_title": "Saint Sinners",
+       "yes_bid": null,
+       "yes_ask": null,
+       "no_bid": null,
+       "no_ask": null
+      },
+      {
+       "ticker": "KXCS2GAME-26OCT271100SSINSBAKS-BAKS",
+       "yes_sub_title": "BakS eSports",
+       "yes_bid": null,
+       "yes_ask": null,
+       "no_bid": null,
+       "no_ask": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "1081164",
+   "teams": [
+    "Inner Circle Academy",
+    "Lavked"
+   ],
+   "starts_at": "2026-10-27T18:00:00Z",
+   "competition": "CCT Europe 2026 Series #12",
+   "published_featured_method": "model",
+   "published_complete_method": "model",
+   "published_pick_index": 0,
+   "hltv_exact": [
+    {
+     "match_id": "2399514",
+     "url": "https://www.hltv.org/matches/2399514/inner-circle-academy-vs-lavked-cct-2026-europe-series-12",
+     "teams": [
+      "Inner Circle Academy",
+      "Lavked"
+     ],
+     "starts_at": "2026-10-27T18:00:00Z",
+     "event": "CCT 2026 Europe Series 12",
+     "meta": "bo3",
+     "live": false
+    }
+   ],
+   "hltv_shares_one_name": [],
+   "hltv_match_page": {
+    "starts_at": "2026-10-27T18:00:00Z",
+    "format": "BO3",
+    "teams": [
+     "Inner Circle Academy",
+     "Lavked"
+    ]
+   },
+   "hltv_ranking": {
+    "Inner Circle Academy": {
+     "rank": 87,
+     "points": 10.0,
+     "team_url": "https://www.hltv.org/team/13681/inner-circle-academy"
+    },
+    "Lavked": {
+     "rank": 135,
+     "points": 5.0,
+     "team_url": "https://www.hltv.org/team/12609/lavked"
+    }
+   },
+   "polymarket_observed": [],
+   "thunderpick_observed": [],
+   "kalshi_observed": [
+    {
+     "event_ticker": "KXCS2GAME-26OCT271400LAVINN",
+     "title": "Lavked vs. Inner Circle Academy",
+     "markets": [
+      {
+       "ticker": "KXCS2GAME-26OCT271400LAVINN-LAV",
+       "yes_sub_title": "Lavked",
+       "yes_bid": null,
+       "yes_ask": null,
+       "no_bid": null,
+       "no_ask": null
+      },
+      {
+       "ticker": "KXCS2GAME-26OCT271400LAVINN-INN",
+       "yes_sub_title": "Inner Circle Academy",
        "yes_bid": null,
        "yes_ask": null,
        "no_bid": null,
@@ -551,715 +1233,23 @@
    "polymarket_observed": [],
    "thunderpick_observed": [],
    "kalshi_observed": []
-  },
-  {
-   "id": "1079201",
-   "teams": [
-    "INOX Division",
-    "Nemesis"
-   ],
-   "starts_at": "2026-10-26T09:00:00Z",
-   "competition": "NODWIN Clutch Series #13",
-   "published_featured_method": null,
-   "published_complete_method": null,
-   "published_pick_index": null,
-   "coverage_gap": true,
-   "hltv_exact": [
-    {
-     "match_id": "2399116",
-     "url": "https://www.hltv.org/matches/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13",
-     "teams": [
-      "Nemesis",
-      "INOX Division"
-     ],
-     "starts_at": "2026-10-26T09:00:00Z",
-     "event": "NODWIN Clutch Series 13",
-     "meta": "bo3",
-     "live": false
-    }
-   ],
-   "hltv_shares_one_name": [
-    {
-     "match_id": "2399706",
-     "url": "https://www.hltv.org/matches/2399706/inner-circle-vs-nemesis-stake-ranked-episode-5",
-     "teams": [
-      "Inner Circle",
-      "Nemesis"
-     ],
-     "starts_at": "2026-10-27T13:30:00Z",
-     "event": "Stake Ranked Episode 5",
-     "meta": "bo3",
-     "live": false
-    }
-   ],
-   "hltv_match_page": {
-    "starts_at": "2026-10-26T09:00:00Z",
-    "format": "BO3",
-    "teams": [
-     "Nemesis",
-     "INOX Division"
-    ]
-   },
-   "hltv_ranking": {
-    "INOX Division": {
-     "rank": 84,
-     "points": 10.0,
-     "team_url": "https://www.hltv.org/team/13814/inox-division"
-    },
-    "Nemesis": {
-     "rank": 47,
-     "points": 32.0,
-     "team_url": "https://www.hltv.org/team/13355/nemesis"
-    }
-   },
-   "polymarket_observed": [],
-   "thunderpick_observed": [],
-   "kalshi_observed": [
-    {
-     "event_ticker": "KXCS2GAME-26OCT260500INOXNEM",
-     "title": "INOX Division vs. Team Nemesis",
-     "markets": [
-      {
-       "ticker": "KXCS2GAME-26OCT260500INOXNEM-INOX",
-       "yes_sub_title": "INOX Division",
-       "yes_bid": null,
-       "yes_ask": null,
-       "no_bid": null,
-       "no_ask": null
-      },
-      {
-       "ticker": "KXCS2GAME-26OCT260500INOXNEM-NEM",
-       "yes_sub_title": "Team Nemesis",
-       "yes_bid": null,
-       "yes_ask": null,
-       "no_bid": null,
-       "no_ask": null
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "1081159",
-   "teams": [
-    "LFO 10",
-    "ex-6666"
-   ],
-   "starts_at": "2026-10-26T12:00:00Z",
-   "competition": "CCT Europe 2026 Series #12",
-   "published_featured_method": null,
-   "published_complete_method": null,
-   "published_pick_index": null,
-   "coverage_gap": true,
-   "hltv_exact": [
-    {
-     "match_id": "2399509",
-     "url": "https://www.hltv.org/matches/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
-     "teams": [
-      "LFO 10",
-      "ex-6666"
-     ],
-     "starts_at": "2026-10-26T12:00:00Z",
-     "event": "CCT 2026 Europe Series 12",
-     "meta": "bo3",
-     "live": false
-    }
-   ],
-   "hltv_shares_one_name": [],
-   "hltv_match_page": {
-    "starts_at": "2026-10-26T12:00:00Z",
-    "format": "BO3",
-    "teams": [
-     "LFO 10",
-     "ex-6666"
-    ]
-   },
-   "hltv_ranking": {
-    "LFO 10": {
-     "rank": 167,
-     "points": 4.0,
-     "team_url": "https://www.hltv.org/team/14084/lfo-10"
-    },
-    "ex-6666": {
-     "rank": 72,
-     "points": 12.0,
-     "team_url": "https://www.hltv.org/team/14100/ex-6666"
-    }
-   },
-   "polymarket_observed": [],
-   "thunderpick_observed": [],
-   "kalshi_observed": []
-  },
-  {
-   "id": "1079202",
-   "teams": [
-    "FOKUS",
-    "ex-Zero Tenacity"
-   ],
-   "starts_at": "2026-10-26T12:00:00Z",
-   "competition": "NODWIN Clutch Series #13",
-   "published_featured_method": null,
-   "published_complete_method": null,
-   "published_pick_index": null,
-   "coverage_gap": true,
-   "hltv_exact": [
-    {
-     "match_id": "2399117",
-     "url": "https://www.hltv.org/matches/2399117/fokus-vs-ex-zero-tenacity-nodwin-clutch-series-13",
-     "teams": [
-      "FOKUS",
-      "ex-Zero Tenacity"
-     ],
-     "starts_at": "2026-10-26T12:00:00Z",
-     "event": "NODWIN Clutch Series 13",
-     "meta": "bo3",
-     "live": false
-    }
-   ],
-   "hltv_shares_one_name": [],
-   "hltv_match_page": {
-    "starts_at": "2026-10-26T12:00:00Z",
-    "format": "BO3",
-    "teams": [
-     "FOKUS",
-     "ex-Zero Tenacity"
-    ]
-   },
-   "hltv_ranking": {
-    "FOKUS": {
-     "rank": 49,
-     "points": 27.0,
-     "team_url": "https://www.hltv.org/team/13679/fokus"
-    },
-    "ex-Zero Tenacity": {
-     "rank": 67,
-     "points": 13.0,
-     "team_url": "https://www.hltv.org/team/13573/ex-zero-tenacity"
-    }
-   },
-   "polymarket_observed": [],
-   "thunderpick_observed": [
-    {
-     "match_id": 2888795,
-     "teams_home_away": [
-      "FOKUS",
-      "ex-Zero Tenacity"
-     ],
-     "start": "2026-10-26T12:00:00+00:00",
-     "is_live": false,
-     "tournament": null,
-     "paired_odds": {
-      "market": "Match Winner",
-      "odds_home_away": [
-       1.35,
-       2.9
-      ]
-     }
-    }
-   ],
-   "kalshi_observed": [
-    {
-     "event_ticker": "KXCS2GAME-26OCT261400EXZFOK",
-     "title": "ex-Zero Tenacity vs. FOKUS",
-     "markets": [
-      {
-       "ticker": "KXCS2GAME-26OCT261400EXZFOK-EXZ",
-       "yes_sub_title": "ex-Zero Tenacity",
-       "yes_bid": null,
-       "yes_ask": null,
-       "no_bid": null,
-       "no_ask": null
-      },
-      {
-       "ticker": "KXCS2GAME-26OCT261400EXZFOK-FOK",
-       "yes_sub_title": "FOKUS",
-       "yes_bid": null,
-       "yes_ask": null,
-       "no_bid": null,
-       "no_ask": null
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "1081160",
-   "teams": [
-    "HAVU",
-    "ILLYRIANS"
-   ],
-   "starts_at": "2026-10-26T15:00:00Z",
-   "competition": "CCT Europe 2026 Series #12",
-   "published_featured_method": null,
-   "published_complete_method": null,
-   "published_pick_index": null,
-   "coverage_gap": true,
-   "hltv_exact": [
-    {
-     "match_id": "2399510",
-     "url": "https://www.hltv.org/matches/2399510/havu-vs-illyrians-cct-2026-europe-series-12",
-     "teams": [
-      "HAVU",
-      "Illyrians"
-     ],
-     "starts_at": "2026-10-26T15:00:00Z",
-     "event": "CCT 2026 Europe Series 12",
-     "meta": "bo3",
-     "live": false
-    }
-   ],
-   "hltv_shares_one_name": [],
-   "hltv_match_page": {
-    "starts_at": "2026-10-26T15:00:00Z",
-    "format": "BO3",
-    "teams": [
-     "HAVU",
-     "Illyrians"
-    ]
-   },
-   "hltv_ranking": {
-    "HAVU": {
-     "rank": 108,
-     "points": 8.0,
-     "team_url": "https://www.hltv.org/team/7865/havu"
-    },
-    "ILLYRIANS": {
-     "rank": 124,
-     "points": 6.0,
-     "team_url": "https://www.hltv.org/team/11719/illyrians"
-    }
-   },
-   "polymarket_observed": [],
-   "thunderpick_observed": [],
-   "kalshi_observed": [
-    {
-     "event_ticker": "KXCS2GAME-26OCT261100ILLHAVU",
-     "title": "ILLYRIANS vs. HAVU",
-     "markets": [
-      {
-       "ticker": "KXCS2GAME-26OCT261100ILLHAVU-ILL",
-       "yes_sub_title": "ILLYRIANS",
-       "yes_bid": null,
-       "yes_ask": null,
-       "no_bid": null,
-       "no_ask": null
-      },
-      {
-       "ticker": "KXCS2GAME-26OCT261100ILLHAVU-HAVU",
-       "yes_sub_title": "HAVU",
-       "yes_bid": null,
-       "yes_ask": null,
-       "no_bid": null,
-       "no_ask": null
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "1079203",
-   "teams": [
-    "Metizport",
-    "BRUTE"
-   ],
-   "starts_at": "2026-10-26T15:00:00Z",
-   "competition": "NODWIN Clutch Series #13",
-   "published_featured_method": null,
-   "published_complete_method": null,
-   "published_pick_index": null,
-   "coverage_gap": true,
-   "hltv_exact": [
-    {
-     "match_id": "2399118",
-     "url": "https://www.hltv.org/matches/2399118/metizport-vs-brute-nodwin-clutch-series-13",
-     "teams": [
-      "Metizport",
-      "BRUTE"
-     ],
-     "starts_at": "2026-10-26T15:00:00Z",
-     "event": "NODWIN Clutch Series 13",
-     "meta": "bo3",
-     "live": false
-    }
-   ],
-   "hltv_shares_one_name": [],
-   "hltv_match_page": {
-    "starts_at": "2026-10-26T15:00:00Z",
-    "format": "BO3",
-    "teams": [
-     "Metizport",
-     "BRUTE"
-    ]
-   },
-   "hltv_ranking": {
-    "Metizport": {
-     "rank": 59,
-     "points": 16.0,
-     "team_url": "https://www.hltv.org/team/11641/metizport"
-    },
-    "BRUTE": {
-     "rank": 109,
-     "points": 8.0,
-     "team_url": "https://www.hltv.org/team/9139/brute"
-    }
-   },
-   "polymarket_observed": [],
-   "thunderpick_observed": [
-    {
-     "match_id": 2889134,
-     "teams_home_away": [
-      "Metizport",
-      "Brute"
-     ],
-     "start": "2026-10-26T15:00:00+00:00",
-     "is_live": false,
-     "tournament": null,
-     "paired_odds": {
-      "market": "Match Winner",
-      "odds_home_away": [
-       1.5,
-       2.4
-      ]
-     }
-    }
-   ],
-   "kalshi_observed": [
-    {
-     "event_ticker": "KXCS2GAME-26OCT260800BRUTEMZP",
-     "title": "Brute vs. Metizport",
-     "markets": [
-      {
-       "ticker": "KXCS2GAME-26OCT260800BRUTEMZP-BRUTE",
-       "yes_sub_title": "Brute",
-       "yes_bid": null,
-       "yes_ask": null,
-       "no_bid": null,
-       "no_ask": null
-      },
-      {
-       "ticker": "KXCS2GAME-26OCT260800BRUTEMZP-MZP",
-       "yes_sub_title": "Metizport",
-       "yes_bid": null,
-       "yes_ask": null,
-       "no_bid": null,
-       "no_ask": null
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "1093218",
-   "teams": [
-    "Nuclear TigeRES",
-    "UNiTY"
-   ],
-   "starts_at": "2026-10-26T18:00:00Z",
-   "competition": "NODWIN Clutch Series #13",
-   "published_featured_method": null,
-   "published_complete_method": null,
-   "published_pick_index": null,
-   "coverage_gap": true,
-   "hltv_exact": [
-    {
-     "match_id": "2399119",
-     "url": "https://www.hltv.org/matches/2399119/nuclear-tigeres-vs-unity-nodwin-clutch-series-13",
-     "teams": [
-      "Nuclear TigeRES",
-      "UNiTY"
-     ],
-     "starts_at": "2026-10-26T18:00:00Z",
-     "event": "NODWIN Clutch Series 13",
-     "meta": "bo3",
-     "live": false
-    }
-   ],
-   "hltv_shares_one_name": [],
-   "hltv_match_page": {
-    "starts_at": "2026-10-26T18:00:00Z",
-    "format": "BO3",
-    "teams": [
-     "Nuclear TigeRES",
-     "UNiTY"
-    ]
-   },
-   "hltv_ranking": {
-    "Nuclear TigeRES": {
-     "rank": 50,
-     "points": 27.0,
-     "team_url": "https://www.hltv.org/team/13027/nuclear-tigeres"
-    },
-    "UNiTY": {
-     "rank": 86,
-     "points": 10.0,
-     "team_url": "https://www.hltv.org/team/12267/unity"
-    }
-   },
-   "polymarket_observed": [],
-   "thunderpick_observed": [],
-   "kalshi_observed": [
-    {
-     "event_ticker": "KXCS2GAME-26OCT261100UNITYNTR",
-     "title": "UNiTY esports vs. Nuclear TigeRES",
-     "markets": [
-      {
-       "ticker": "KXCS2GAME-26OCT261100UNITYNTR-UNITY",
-       "yes_sub_title": "UNiTY esports",
-       "yes_bid": null,
-       "yes_ask": null,
-       "no_bid": null,
-       "no_ask": null
-      },
-      {
-       "ticker": "KXCS2GAME-26OCT261100UNITYNTR-NTR",
-       "yes_sub_title": "Nuclear TigeRES",
-       "yes_bid": null,
-       "yes_ask": null,
-       "no_bid": null,
-       "no_ask": null
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "1081162",
-   "teams": [
-    "ex-RUSTEC",
-    "Spirit Academy"
-   ],
-   "starts_at": "2026-10-27T12:00:00Z",
-   "competition": "CCT Europe 2026 Series #12",
-   "published_featured_method": null,
-   "published_complete_method": null,
-   "published_pick_index": null,
-   "coverage_gap": true,
-   "hltv_exact": [
-    {
-     "match_id": "2399512",
-     "url": "https://www.hltv.org/matches/2399512/ex-rustec-vs-spirit-academy-cct-2026-europe-series-12",
-     "teams": [
-      "ex-RUSTEC",
-      "Spirit Academy"
-     ],
-     "starts_at": "2026-10-27T12:00:00Z",
-     "event": "CCT 2026 Europe Series 12",
-     "meta": "bo3",
-     "live": false
-    }
-   ],
-   "hltv_shares_one_name": [],
-   "hltv_match_page": {
-    "starts_at": "2026-10-27T12:00:00Z",
-    "format": "BO3",
-    "teams": [
-     "ex-RUSTEC",
-     "Spirit Academy"
-    ]
-   },
-   "hltv_ranking": {
-    "ex-RUSTEC": {
-     "rank": 70,
-     "points": 13.0,
-     "team_url": "https://www.hltv.org/team/13901/ex-rustec"
-    },
-    "Spirit Academy": {
-     "rank": 111,
-     "points": 8.0,
-     "team_url": "https://www.hltv.org/team/7900/spirit-academy"
-    }
-   },
-   "polymarket_observed": [],
-   "thunderpick_observed": [],
-   "kalshi_observed": [
-    {
-     "event_ticker": "KXCS2GAME-26OCT270800TSAEXR",
-     "title": "Spirit Academy vs. ex-RUSTEC",
-     "markets": [
-      {
-       "ticker": "KXCS2GAME-26OCT270800TSAEXR-TSA",
-       "yes_sub_title": "Spirit Academy",
-       "yes_bid": null,
-       "yes_ask": null,
-       "no_bid": null,
-       "no_ask": null
-      },
-      {
-       "ticker": "KXCS2GAME-26OCT270800TSAEXR-EXR",
-       "yes_sub_title": "ex-RUSTEC",
-       "yes_bid": null,
-       "yes_ask": null,
-       "no_bid": null,
-       "no_ask": null
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "1081163",
-   "teams": [
-    "BakS",
-    "Saint Sinners"
-   ],
-   "starts_at": "2026-10-27T15:00:00Z",
-   "competition": "CCT Europe 2026 Series #12",
-   "published_featured_method": null,
-   "published_complete_method": null,
-   "published_pick_index": null,
-   "coverage_gap": true,
-   "hltv_exact": [
-    {
-     "match_id": "2399513",
-     "url": "https://www.hltv.org/matches/2399513/baks-vs-saint-sinners-cct-2026-europe-series-12",
-     "teams": [
-      "BAKS",
-      "Saint Sinners"
-     ],
-     "starts_at": "2026-10-27T15:00:00Z",
-     "event": "CCT 2026 Europe Series 12",
-     "meta": "bo3",
-     "live": false
-    }
-   ],
-   "hltv_shares_one_name": [],
-   "hltv_match_page": {
-    "starts_at": "2026-10-27T15:00:00Z",
-    "format": "BO3",
-    "teams": [
-     "BAKS",
-     "Saint Sinners"
-    ]
-   },
-   "hltv_ranking": {
-    "BakS": {
-     "rank": 99,
-     "points": 9.0,
-     "team_url": "https://www.hltv.org/team/11699/baks"
-    },
-    "Saint Sinners": {
-     "rank": 123,
-     "points": 6.0,
-     "team_url": "https://www.hltv.org/team/13998/saint-sinners"
-    }
-   },
-   "polymarket_observed": [],
-   "thunderpick_observed": [],
-   "kalshi_observed": [
-    {
-     "event_ticker": "KXCS2GAME-26OCT271100SSINSBAKS",
-     "title": "Saint Sinners vs. BakS eSports",
-     "markets": [
-      {
-       "ticker": "KXCS2GAME-26OCT271100SSINSBAKS-SSINS",
-       "yes_sub_title": "Saint Sinners",
-       "yes_bid": null,
-       "yes_ask": null,
-       "no_bid": null,
-       "no_ask": null
-      },
-      {
-       "ticker": "KXCS2GAME-26OCT271100SSINSBAKS-BAKS",
-       "yes_sub_title": "BakS eSports",
-       "yes_bid": null,
-       "yes_ask": null,
-       "no_bid": null,
-       "no_ask": null
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "1081164",
-   "teams": [
-    "Inner Circle Academy",
-    "Lavked"
-   ],
-   "starts_at": "2026-10-27T18:00:00Z",
-   "competition": "CCT Europe 2026 Series #12",
-   "published_featured_method": null,
-   "published_complete_method": null,
-   "published_pick_index": null,
-   "coverage_gap": true,
-   "hltv_exact": [
-    {
-     "match_id": "2399514",
-     "url": "https://www.hltv.org/matches/2399514/inner-circle-academy-vs-lavked-cct-2026-europe-series-12",
-     "teams": [
-      "Inner Circle Academy",
-      "Lavked"
-     ],
-     "starts_at": "2026-10-27T18:00:00Z",
-     "event": "CCT 2026 Europe Series 12",
-     "meta": "bo3",
-     "live": false
-    }
-   ],
-   "hltv_shares_one_name": [],
-   "hltv_match_page": {
-    "starts_at": "2026-10-27T18:00:00Z",
-    "format": "BO3",
-    "teams": [
-     "Inner Circle Academy",
-     "Lavked"
-    ]
-   },
-   "hltv_ranking": {
-    "Inner Circle Academy": {
-     "rank": 87,
-     "points": 10.0,
-     "team_url": "https://www.hltv.org/team/13681/inner-circle-academy"
-    },
-    "Lavked": {
-     "rank": 135,
-     "points": 5.0,
-     "team_url": "https://www.hltv.org/team/12609/lavked"
-    }
-   },
-   "polymarket_observed": [],
-   "thunderpick_observed": [],
-   "kalshi_observed": [
-    {
-     "event_ticker": "KXCS2GAME-26OCT271400LAVINN",
-     "title": "Lavked vs. Inner Circle Academy",
-     "markets": [
-      {
-       "ticker": "KXCS2GAME-26OCT271400LAVINN-LAV",
-       "yes_sub_title": "Lavked",
-       "yes_bid": null,
-       "yes_ask": null,
-       "no_bid": null,
-       "no_ask": null
-      },
-      {
-       "ticker": "KXCS2GAME-26OCT271400LAVINN-INN",
-       "yes_sub_title": "Inner Circle Academy",
-       "yes_bid": null,
-       "yes_ask": null,
-       "no_bid": null,
-       "no_ask": null
-      }
-     ]
-    }
-   ]
   }
  ],
  "observations": [
   {
    "label": "hotspawn fixtures api",
    "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-   "observed_at": "2026-10-26T01:39:36Z",
+   "observed_at": "2026-10-26T01:55:42Z",
    "status": 200,
    "final_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
    "bytes": 63331,
-   "sha256": "eed344e76986a2800f1a87038cde88931eb0a009a5a9562d4d5090dcbd4901f2",
+   "sha256": "86c69a5535b1999baa67e5c4db0c5e3383bdcb2538fb95f9fe1fa9fd233c210d",
    "raw_file": "data/research/3e64f4fb/probe/raw/hotspawn-fixtures-api.json"
   },
   {
    "label": "hotspawn lobby",
    "url": "https://play.hotspawn.com/lobby",
-   "observed_at": "2026-10-26T01:39:37Z",
+   "observed_at": "2026-10-26T01:55:42Z",
    "status": 200,
    "final_url": "https://play.hotspawn.com/lobby",
    "bytes": 309875,
@@ -1268,68 +1258,68 @@
   },
   {
    "label": "hotspawn cs2 lobby",
-   "url": "https://play.hotspawn.com/cs2-pickems?cb=1792978776",
-   "observed_at": "2026-10-26T01:39:38Z",
+   "url": "https://play.hotspawn.com/cs2-pickems?cb=1792979742",
+   "observed_at": "2026-10-26T01:55:43Z",
    "status": 200,
-   "final_url": "https://play.hotspawn.com/cs2-pickems?cb=1792978776",
-   "bytes": 309010,
-   "sha256": "8b1eb29da5fba534f7a7b519f4c253cfd179bc920c086de64d5d73144ac3ce30",
+   "final_url": "https://play.hotspawn.com/cs2-pickems?cb=1792979742",
+   "bytes": 309009,
+   "sha256": "d75c9602191fe1314b47bdbdc62ba6727ea55489bf06cc33331bd4e47d9ad576",
    "raw_file": "data/research/3e64f4fb/probe/raw/hotspawn-cs2-lobby.html.gz"
   },
   {
    "label": "hltv matches",
    "url": "https://www.hltv.org/matches",
-   "observed_at": "2026-10-26T01:39:38Z",
+   "observed_at": "2026-10-26T01:55:44Z",
    "status": 200,
    "final_url": "https://www.hltv.org/matches",
-   "bytes": 455637,
-   "sha256": "4440da24a74fec71d63d25c56e8b57f75a2f68ad17c6892ae623a4feb285e338",
+   "bytes": 454505,
+   "sha256": "42b5e8cad6416e40f95dff4801c7fac5a0f9a56dd1a439ed27b095f64ac54058",
    "raw_file": "data/research/3e64f4fb/probe/raw/hltv-matches.html.gz"
   },
   {
    "label": "hltv ranking",
    "url": "https://www.hltv.org/ranking/teams",
-   "observed_at": "2026-10-26T01:39:39Z",
+   "observed_at": "2026-10-26T01:55:45Z",
    "status": 200,
    "final_url": "https://www.hltv.org/ranking/teams/2026/october/19",
-   "bytes": 1057784,
-   "sha256": "8773e90f281452370ecac158ca3c16690d88444d22cdcfc74ddf495dc12ad185",
+   "bytes": 1057486,
+   "sha256": "53f7a23baacc262e1382fbbb9e07414c7f8ddc0a7cc3d627f085e4662ad16a42",
    "raw_file": "data/research/3e64f4fb/probe/raw/hltv-ranking.html.gz"
   },
   {
    "label": "polymarket cs2 tag",
    "url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100&order=startDate&ascending=true",
-   "observed_at": "2026-10-26T01:39:40Z",
+   "observed_at": "2026-10-26T01:55:46Z",
    "status": 200,
    "final_url": "https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100&order=startDate&ascending=true",
-   "bytes": 530286,
-   "sha256": "4bb0218881d98e5eaeb18a50bb0ef50478e234e09e83f458ba36f5fa5f6529e2",
+   "bytes": 530651,
+   "sha256": "c566cbc85173760be2ac2182dfdf0bac403adec94ac235eb799e127276255da6",
    "raw_file": "data/research/3e64f4fb/probe/raw/polymarket-cs2-tag.json"
   },
   {
    "label": "thunderpick matches",
    "url": "https://thunderpick.io/api/matches",
-   "observed_at": "2026-10-26T01:39:41Z",
+   "observed_at": "2026-10-26T01:55:46Z",
    "status": 200,
    "final_url": "https://thunderpick.io/api/matches",
-   "bytes": 163033,
-   "sha256": "9c855cb6310266fb1b8df5dba74953b7ba93316bab6dd7179a45190bbd46066a",
+   "bytes": 164213,
+   "sha256": "700209d4d70c47df99a6659275ed7f0bde0427678af4a314b8c77aceb87894c2",
    "raw_file": "data/research/3e64f4fb/probe/raw/thunderpick-matches.json"
   },
   {
    "label": "kalshi esports events",
    "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&status=open&with_nested_markets=true&limit=200",
-   "observed_at": "2026-10-26T01:39:41Z",
+   "observed_at": "2026-10-26T01:55:46Z",
    "status": 200,
    "final_url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&status=open&with_nested_markets=true&limit=200",
-   "bytes": 316789,
-   "sha256": "7cc74b549202ca74e09521fad80d1412bb409469e3d4994ee37e25f547e5f1b9",
+   "bytes": 311158,
+   "sha256": "6c8db3c298edcd7a678ea7670b12c61748a1ff2a7145fbe486f43ad8453f924f",
    "raw_file": "data/research/3e64f4fb/probe/raw/kalshi-esports-events.json"
   },
   {
    "label": "book page gg.bet",
    "url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
-   "observed_at": "2026-10-26T01:39:41Z",
+   "observed_at": "2026-10-26T01:55:46Z",
    "status": 403,
    "final_url": "https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike",
    "bytes": 126,
@@ -1339,7 +1329,7 @@
   {
    "label": "book page pinnacle",
    "url": "https://www.pinnacle.com/en/esports-hub/cs2",
-   "observed_at": "2026-10-26T01:39:41Z",
+   "observed_at": "2026-10-26T01:55:47Z",
    "status": 200,
    "final_url": "https://www.pinnacle.com/en/",
    "bytes": 6394,
@@ -1349,162 +1339,162 @@
   {
    "label": "book page rivalry",
    "url": "https://www.rivalry.com/esports/counter-strike-betting",
-   "observed_at": "2026-10-26T01:39:42Z",
+   "observed_at": "2026-10-26T01:55:47Z",
    "status": 200,
    "final_url": "https://www.rivalry.com/",
    "bytes": 61219,
-   "sha256": "993b641277facb9d0b2c775b8f4088b26359bee76cc0f294de7e75bcbf297fba",
+   "sha256": "fde2f952b02c1b3371bcc49f5efe6412b93edff2d3b1002b9446b091335cf36d",
    "raw_file": "data/research/3e64f4fb/probe/raw/book-page-rivalry.html.gz"
   },
   {
    "label": "book page stake",
    "url": "https://stake.com/sports/esports/counter-strike",
-   "observed_at": "2026-10-26T01:39:42Z",
+   "observed_at": "2026-10-26T01:55:47Z",
    "status": 403,
    "final_url": "https://stake.com/sports/esports/counter-strike",
    "bytes": 5689,
-   "sha256": "4da73b7501f91c6268835ee4cbfe5fcc7069e621d6d1b43b71c3ff8fbed2a4fb",
+   "sha256": "a538d82de052dec00170ecff948fb634972316cec2478ee993c3e5e9c774e59b",
    "raw_file": "data/research/3e64f4fb/probe/raw/book-page-stake.html.gz"
   },
   {
    "label": "hltv match 1082859",
    "url": "https://www.hltv.org/matches/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026",
-   "observed_at": "2026-10-26T01:39:42Z",
+   "observed_at": "2026-10-26T01:55:47Z",
    "status": 200,
    "final_url": "https://www.hltv.org/matches/2399889/nexvoid-vs-alter-ego-dfrag-invitational-2026",
-   "bytes": 311161,
-   "sha256": "613a5b863c44729869cf3359d21c3387233795a08b3753e30c4ef876ad930527",
+   "bytes": 309466,
+   "sha256": "5148051060e5f63e398d3e1b492121c09a22865c39e41c849c679d5e037c5e45",
    "raw_file": "data/research/3e64f4fb/probe/raw/hltv-match-1082859.html.gz"
-  },
-  {
-   "label": "hltv match 1082861",
-   "url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
-   "observed_at": "2026-10-26T01:39:43Z",
-   "status": 200,
-   "final_url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
-   "bytes": 289358,
-   "sha256": "310122a58431423ca7324d8441f098d1ff4ba949b05909c2c974b9420d509787",
-   "raw_file": "data/research/3e64f4fb/probe/raw/hltv-match-1082861.html.gz"
-  },
-  {
-   "label": "hltv match 1082792",
-   "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
-   "observed_at": "2026-10-26T01:39:44Z",
-   "status": 200,
-   "final_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
-   "bytes": 334310,
-   "sha256": "b3bfb8daf65c4abb6cfa4dad97d3fe3783f65f2b9eaf3bfe2619eb682ac4e685",
-   "raw_file": "data/research/3e64f4fb/probe/raw/hltv-match-1082792.html.gz"
-  },
-  {
-   "label": "polymarket event 1082792",
-   "url": "https://gamma-api.polymarket.com/events/1241313",
-   "observed_at": "2026-10-26T01:39:44Z",
-   "status": 200,
-   "final_url": "https://gamma-api.polymarket.com/events/1241313",
-   "bytes": 29353,
-   "sha256": "849fad34cc8cb544fb8defc72e8385bf3e6f5caaa721fcce646978ccdf033cfb",
-   "raw_file": "data/research/3e64f4fb/probe/raw/polymarket-event-1082792.json"
-  },
-  {
-   "label": "hltv match 1082793",
-   "url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
-   "observed_at": "2026-10-26T01:39:44Z",
-   "status": 200,
-   "final_url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
-   "bytes": 342444,
-   "sha256": "149acfa06a61662aa1fcdf4798b875dda600b09dc416f8aa52bfa8d99d7a2a0f",
-   "raw_file": "data/research/3e64f4fb/probe/raw/hltv-match-1082793.html.gz"
   },
   {
    "label": "hltv match 1079201",
    "url": "https://www.hltv.org/matches/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13",
-   "observed_at": "2026-10-26T01:39:45Z",
+   "observed_at": "2026-10-26T01:55:48Z",
    "status": 200,
    "final_url": "https://www.hltv.org/matches/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13",
-   "bytes": 354053,
-   "sha256": "1fe906257fa9c02714f7771fd85ac78548734fc71513889b0afaad452de68ebc",
+   "bytes": 352971,
+   "sha256": "ff503103a6bb5d6edf6d9c1917c0f8b91df0b8063ac6fefab5bd90dc0ed7bc3c",
    "raw_file": "data/research/3e64f4fb/probe/raw/hltv-match-1079201.html.gz"
-  },
-  {
-   "label": "hltv match 1081159",
-   "url": "https://www.hltv.org/matches/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
-   "observed_at": "2026-10-26T01:39:46Z",
-   "status": 200,
-   "final_url": "https://www.hltv.org/matches/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
-   "bytes": 280852,
-   "sha256": "ec910c5c3938b217e8272a17c6bceaca37a978471614660bf42307cf9a6d1ac2",
-   "raw_file": "data/research/3e64f4fb/probe/raw/hltv-match-1081159.html.gz"
   },
   {
    "label": "hltv match 1079202",
    "url": "https://www.hltv.org/matches/2399117/fokus-vs-ex-zero-tenacity-nodwin-clutch-series-13",
-   "observed_at": "2026-10-26T01:39:46Z",
+   "observed_at": "2026-10-26T01:55:48Z",
    "status": 200,
    "final_url": "https://www.hltv.org/matches/2399117/fokus-vs-ex-zero-tenacity-nodwin-clutch-series-13",
-   "bytes": 365821,
-   "sha256": "58cf9480b17580e3fa0ce103f096d7256dc0deb310276eb29ffedb0883d863da",
+   "bytes": 364717,
+   "sha256": "69fccc9a149a3b6040f1857e18a8546d9f3b46c4131b99428619c53e62b71a19",
    "raw_file": "data/research/3e64f4fb/probe/raw/hltv-match-1079202.html.gz"
   },
   {
-   "label": "hltv match 1081160",
-   "url": "https://www.hltv.org/matches/2399510/havu-vs-illyrians-cct-2026-europe-series-12",
-   "observed_at": "2026-10-26T01:39:47Z",
+   "label": "hltv match 1081159",
+   "url": "https://www.hltv.org/matches/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
+   "observed_at": "2026-10-26T01:55:49Z",
    "status": 200,
-   "final_url": "https://www.hltv.org/matches/2399510/havu-vs-illyrians-cct-2026-europe-series-12",
-   "bytes": 333514,
-   "sha256": "241da199f2c854de4bc32b9fe10352b5193ce76f74b46f3bad1fa7a3a3ee3d63",
-   "raw_file": "data/research/3e64f4fb/probe/raw/hltv-match-1081160.html.gz"
+   "final_url": "https://www.hltv.org/matches/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
+   "bytes": 279752,
+   "sha256": "b96eb83a5420e175315fbbb61c5415300bcefaf1b758d00a5a8e3e5ee739620a",
+   "raw_file": "data/research/3e64f4fb/probe/raw/hltv-match-1081159.html.gz"
   },
   {
    "label": "hltv match 1079203",
    "url": "https://www.hltv.org/matches/2399118/metizport-vs-brute-nodwin-clutch-series-13",
-   "observed_at": "2026-10-26T01:39:48Z",
+   "observed_at": "2026-10-26T01:55:49Z",
    "status": 200,
    "final_url": "https://www.hltv.org/matches/2399118/metizport-vs-brute-nodwin-clutch-series-13",
-   "bytes": 317096,
-   "sha256": "b7b5478ed5a0e844753272d76a62adcfc1200221935c15aabe649962b77e7794",
+   "bytes": 315992,
+   "sha256": "1b4b7a29ab06538801bfcc25b6e3d114015271b437006aac33d0b755f8326bd4",
    "raw_file": "data/research/3e64f4fb/probe/raw/hltv-match-1079203.html.gz"
+  },
+  {
+   "label": "hltv match 1081160",
+   "url": "https://www.hltv.org/matches/2399510/havu-vs-illyrians-cct-2026-europe-series-12",
+   "observed_at": "2026-10-26T01:55:50Z",
+   "status": 200,
+   "final_url": "https://www.hltv.org/matches/2399510/havu-vs-illyrians-cct-2026-europe-series-12",
+   "bytes": 332411,
+   "sha256": "b882ce5b32be9a8f665ed3e59ada3276f2f216a07b2d54d0ca45933784e81ff0",
+   "raw_file": "data/research/3e64f4fb/probe/raw/hltv-match-1081160.html.gz"
   },
   {
    "label": "hltv match 1093218",
    "url": "https://www.hltv.org/matches/2399119/nuclear-tigeres-vs-unity-nodwin-clutch-series-13",
-   "observed_at": "2026-10-26T01:39:49Z",
+   "observed_at": "2026-10-26T01:55:51Z",
    "status": 200,
    "final_url": "https://www.hltv.org/matches/2399119/nuclear-tigeres-vs-unity-nodwin-clutch-series-13",
-   "bytes": 362615,
-   "sha256": "da08a4070c8f37e5e7f5c3bb26fabee22ee55b92d0eaebd81f3ddc5f83ab08ea",
+   "bytes": 361514,
+   "sha256": "20b2dbc553f9959cbdc7c21e70c3dca310e9367f6adc68b70f4f6ad62c7a8a81",
    "raw_file": "data/research/3e64f4fb/probe/raw/hltv-match-1093218.html.gz"
+  },
+  {
+   "label": "hltv match 1082861",
+   "url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+   "observed_at": "2026-10-26T01:55:52Z",
+   "status": 200,
+   "final_url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+   "bytes": 288255,
+   "sha256": "9d82909ed21e60f6098cdaf83b2035d9ae8867d5e30ea2f125f03e139a86d209",
+   "raw_file": "data/research/3e64f4fb/probe/raw/hltv-match-1082861.html.gz"
   },
   {
    "label": "hltv match 1081162",
    "url": "https://www.hltv.org/matches/2399512/ex-rustec-vs-spirit-academy-cct-2026-europe-series-12",
-   "observed_at": "2026-10-26T01:39:49Z",
+   "observed_at": "2026-10-26T01:55:52Z",
    "status": 200,
    "final_url": "https://www.hltv.org/matches/2399512/ex-rustec-vs-spirit-academy-cct-2026-europe-series-12",
-   "bytes": 392290,
-   "sha256": "741f01680a34d6482c00de5b7593e9dc95bf71c45f91aa20b349bfc3585fca05",
+   "bytes": 391189,
+   "sha256": "864977829f69fbc0d0be2fda8b22580e2c0025ef0691bc5a278191067e691767",
    "raw_file": "data/research/3e64f4fb/probe/raw/hltv-match-1081162.html.gz"
   },
   {
    "label": "hltv match 1081163",
    "url": "https://www.hltv.org/matches/2399513/baks-vs-saint-sinners-cct-2026-europe-series-12",
-   "observed_at": "2026-10-26T01:39:50Z",
+   "observed_at": "2026-10-26T01:55:53Z",
    "status": 200,
    "final_url": "https://www.hltv.org/matches/2399513/baks-vs-saint-sinners-cct-2026-europe-series-12",
-   "bytes": 318872,
-   "sha256": "adbda8da87f5f40092d2e9b75fa652b32ec7436581703c13bc97d0bb0c0d564b",
+   "bytes": 317768,
+   "sha256": "6d244ecf27bb50d20adcbca9cb55c1bba7b7e1be884b5d085deb4963ed87b535",
    "raw_file": "data/research/3e64f4fb/probe/raw/hltv-match-1081163.html.gz"
   },
   {
    "label": "hltv match 1081164",
    "url": "https://www.hltv.org/matches/2399514/inner-circle-academy-vs-lavked-cct-2026-europe-series-12",
-   "observed_at": "2026-10-26T01:39:51Z",
+   "observed_at": "2026-10-26T01:55:54Z",
    "status": 200,
    "final_url": "https://www.hltv.org/matches/2399514/inner-circle-academy-vs-lavked-cct-2026-europe-series-12",
-   "bytes": 358456,
-   "sha256": "54a94a63d177eac82089d5129ad9db1e692270565cdaa9f1a3ba57323746fe53",
+   "bytes": 357356,
+   "sha256": "d764caf8928e7cfde9f6d3a68972d467b3a5bf5d4572b15acf5c3a6ab17617a9",
    "raw_file": "data/research/3e64f4fb/probe/raw/hltv-match-1081164.html.gz"
+  },
+  {
+   "label": "hltv match 1082792",
+   "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+   "observed_at": "2026-10-26T01:55:55Z",
+   "status": 200,
+   "final_url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+   "bytes": 333209,
+   "sha256": "3389010c6f25e83c26d94ae7631a142d79265b0435a04a7168bce973bccb3776",
+   "raw_file": "data/research/3e64f4fb/probe/raw/hltv-match-1082792.html.gz"
+  },
+  {
+   "label": "polymarket event 1082792",
+   "url": "https://gamma-api.polymarket.com/events/1241313",
+   "observed_at": "2026-10-26T01:55:55Z",
+   "status": 200,
+   "final_url": "https://gamma-api.polymarket.com/events/1241313",
+   "bytes": 29329,
+   "sha256": "43e84329335a4420691e63447a5e0c84a07374ac12633b49565c7b5e11cb77b6",
+   "raw_file": "data/research/3e64f4fb/probe/raw/polymarket-event-1082792.json"
+  },
+  {
+   "label": "hltv match 1082793",
+   "url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+   "observed_at": "2026-10-26T01:55:55Z",
+   "status": 200,
+   "final_url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
+   "bytes": 341345,
+   "sha256": "3cd038fd754e165365cb0371252aaacd298caa7c085180c497daa7c4e4d7b040",
+   "raw_file": "data/research/3e64f4fb/probe/raw/hltv-match-1082793.html.gz"
   }
  ]
 }
