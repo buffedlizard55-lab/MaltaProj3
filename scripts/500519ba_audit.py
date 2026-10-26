@@ -270,8 +270,15 @@ def audit(data_dir: Path, out_dir: Path, *, live: bool = True, timeout: int = 25
 
     api_rows = cs2_rows(payloads.get('fixtures_api'))
     api_fresh_rows = cs2_rows(payloads.get('fixtures_api_cache_busted'))
-    chosen = api_fresh_rows if len(api_fresh_rows) >= len(api_rows) else api_rows
-    choice = 'cache_busted' if chosen is api_fresh_rows else 'cached'
+    # The documented cache-buster is accepted by the rendered lobby pages but the
+    # fixture API rejects the extra query parameter (HTTP 400 observed 2026-10-26),
+    # so "the cache-busted read was larger" is not the test for trusting the read.
+    # The unmodified API array is used and its completeness rests on the rendered
+    # lobby cross-check, which `scripts.collect` already fails closed on.
+    chosen = api_fresh_rows if len(api_fresh_rows) > len(api_rows) else api_rows
+    choice = ('cache_busted' if chosen is api_fresh_rows
+              else ('cache_buster_refused' if records.get('fixtures_api_cache_busted', {}).get('status')
+                    else 'api_only'))
     live_open = open_rows(chosen, now)
     open_ids = [str(row['id']) for row in live_open]
 
@@ -338,6 +345,7 @@ def audit(data_dir: Path, out_dir: Path, *, live: bool = True, timeout: int = 25
         'api_records': len(api_rows),
         'api_records_cache_busted': len(api_fresh_rows),
         'api_read_used': choice,
+        'api_cache_buster_status': records.get('fixtures_api_cache_busted', {}).get('status'),
         'lobby_linked_fixtures': len(set(lobby_page_ids)),
         'cs2_lobby_linked_fixtures': len(set(cs2_page_ids)),
         'live_open': len(fixtures),
@@ -516,6 +524,10 @@ def render_markdown(report: dict) -> str:
     ]
     for key, value in counts.items():
         lines.append(f'| `{key}` | {value} |')
+    status = counts.get('api_cache_buster_status')
+    if status:
+        lines.append(f"| note | the cache-buster parameter was refused by the fixture API (HTTP {status}); "
+                     'the unmodified array was used and reconciled against both rendered lobbies |')
     lines += ['', f"Deployed snapshot `{report['deployed_snapshot_generated_at']}`; fresh run "
                   f"`{report['fresh_snapshot_generated_at']}` / origination `{report['fresh_origination_generated_at']}`.", '',
               '## Sources read', '', '| Source | Status | Bytes | SHA-256 | Cache |', '| --- | --- | --- | --- | --- |']
