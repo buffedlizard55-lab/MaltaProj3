@@ -15,6 +15,7 @@ REGISTER = 'research/c07e1b40/repo-review.json'
 # page. Each file is a dated, source-linked register; a register that is not
 # present in the tree is simply not rendered.
 REGISTERS = (
+    'research/f644ed1b/repo-review.json',
     REGISTER,
     # Session 35e31fef: 17/17 live future Hotspawn CS2 lobby parity (13:37Z),
     # 18/18 active pick replay, <8h EGW match-page refresh in CAPTURE_PATHS

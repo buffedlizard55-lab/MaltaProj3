@@ -86,6 +86,19 @@ HTTP 400 `property limit should not exist`), the deployed site and the deployed 
 that the deployed snapshot does not list are `1079201, 1079202, 1079203, 1081159, 1081160, 1081162,
 1081163, 1081164, 1093218`; their picks, prices and limitations are what B3-1/B3-2 have to measure.
 
+# Session arena-f644ed1b — current-snapshot release audit
+
+Claimed 2026-10-26 UTC on fixed branch `arena/f644ed1b-maltaproj3`.
+
+| Task | Status | Owner | Scope |
+| --- | --- | --- | --- |
+| Independent current-snapshot safety audit, source-linked findings and regression tests | done | arena-f644ed1b | new `scripts/f644ed1b_audit.py`, `tests/test_f644ed1b_audit.py`, `data/research/f644ed1b/`, one entry in `scripts/review_register.py`, this board |
+| Integration gates, PR merge and Pages verification | in progress | arena-f644ed1b | same scope |
+
+**Results:** snapshot `2026-10-25T23:03:48Z`: 10 active rows, safety audit 0 errors; existing independent arithmetic replay 9/9 priced rows, 0 errors. Four new mutation/contract tests pass. Official Valve file fetched directly via GitHub API: all four model point inputs match; two The Huns rosters confirmed. Three source-linked findings registered on Flagged for Review. Default replay-fixture build: 1,025 rows, 0 without sources, 870 links checked; 8/8 selected phone/navigation tests pass. Newer snapshot raw rebuild was refused because matched evidence is unavailable here; artifact download redirected to a blocked host. No timestamps rewritten. Full pre-rebase suite: 1,943 unit tests OK (4 skipped); 142 browser tests pass; PR #360 CI run 40251253236 and originate green. Concurrent PRs #361/#362 landed during the run, so the initial merge correctly refused a board conflict. Rebased onto main bcfdcda; preserved both sessions’ complete board sections. New session tests plus the other session’s 3 tests pass on combined tree; combined build has zero missing-source rows and zero broken links. Findings above describe the explicitly dated capture, not a claim that the moving snapshot is unchanged. Initial pull of the not-yet-created branch returned remote-ref missing; pulled main and pushed the fixed branch successfully instead. Details: `data/research/f644ed1b/verification.md`.
+
+No existing collector, renderer, workflow or probability inputs will be edited. Existing live claims and open PR scopes were read; no overlap claimed. Sandbox outbound access excludes Hotspawn and books; captured-source replay is not a fresh live verification. Primary GitHub run evidence will be linked. Branch remains Arena's fixed branch rather than creating the requested session branch.
+
 ---
 
 # Current session: 32ce1d11 — final integration: HLTV-first identity resolution for 1082792, mobile-first executive-summary verification, line-by-line site verification, PR to main, merge, deploy
