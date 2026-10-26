@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "session": "arena-542dfb58",
-  "observed_at": "2026-10-26T01:04:33Z",
+  "observed_at": "2026-10-26T01:23:38Z",
   "environment": "github-actions-runner",
   "policy": "Read-only research, HLTV first, then esportsbooks and esports betting-line services. Nothing in this file is a probability or a pick; every row keeps the URL and minute it was read.",
   "target_source": {
@@ -19,9 +19,9 @@
       "competition": "NODWIN Clutch Series #13",
       "starts_at": "2026-10-26T09:00:00Z",
       "tier": "b",
-      "current_method": "unresolved",
-      "current_label": "no published estimate",
-      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079201",
+      "current_method": "model",
+      "current_label": "model",
+      "hotspawn_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "surfaces_answered": [
         "bo3gg-matches",
         "bovada-cs2",
@@ -58,9 +58,9 @@
       "competition": "CCT Europe 2026 Series #12",
       "starts_at": "2026-10-26T12:00:00Z",
       "tier": "b",
-      "current_method": "unresolved",
-      "current_label": "no published estimate",
-      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081159",
+      "current_method": "model",
+      "current_label": "model",
+      "hotspawn_url": "https://bo3.gg/matches/sokerorg-vs-ex-6666-26-10-2026",
       "surfaces_answered": [
         "bo3gg-matches",
         "bovada-cs2",
@@ -87,47 +87,6 @@
       "smarkets_evidence": null,
       "hltv_pages": [],
       "verdict": "No probed surface published a two-team row for this pairing this hour. No probability is derived here; the four-hour ladder replays its own sources and will adopt a compliant price automatically."
-    },
-    {
-      "id": "1079202",
-      "teams": [
-        "FOKUS",
-        "ex-Zero Tenacity"
-      ],
-      "competition": "NODWIN Clutch Series #13",
-      "starts_at": "2026-10-26T12:00:00Z",
-      "tier": "b",
-      "current_method": "unresolved",
-      "current_label": "no published estimate",
-      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079202",
-      "surfaces_answered": [
-        "bo3gg-matches",
-        "bovada-cs2",
-        "esportsbetting",
-        "hltv-matches",
-        "kalshi-events",
-        "pinnacle-matchups",
-        "smarkets-events",
-        "thunderpick-matches"
-      ],
-      "surfaces_refused": {
-        "rivalry-api": 502,
-        "ggbet-api": 403,
-        "betexplorer": 404,
-        "1xbet-linefeed": 203,
-        "betcet": null,
-        "egamersworld-matches": 403
-      },
-      "books_with_a_row": [
-        "Thunderpick"
-      ],
-      "money_line_lead": false,
-      "lead_rows": [],
-      "bo3_bound_url": null,
-      "bo3_bet": null,
-      "smarkets_evidence": null,
-      "hltv_pages": [],
-      "verdict": "1 surface(s) published an exact-name, exact-start row for this pairing; 0 of them outside the ladder's own sources. No probability is derived here; the four-hour ladder replays its own sources and will adopt a compliant price automatically."
     },
     {
       "id": "1081160",
@@ -138,9 +97,9 @@
       "competition": "CCT Europe 2026 Series #12",
       "starts_at": "2026-10-26T15:00:00Z",
       "tier": "b",
-      "current_method": "unresolved",
-      "current_label": "no published estimate",
-      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081160",
+      "current_method": "model",
+      "current_label": "model",
+      "hotspawn_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "surfaces_answered": [
         "bo3gg-matches",
         "bovada-cs2",
@@ -169,47 +128,6 @@
       "verdict": "No probed surface published a two-team row for this pairing this hour. No probability is derived here; the four-hour ladder replays its own sources and will adopt a compliant price automatically."
     },
     {
-      "id": "1079203",
-      "teams": [
-        "Metizport",
-        "BRUTE"
-      ],
-      "competition": "NODWIN Clutch Series #13",
-      "starts_at": "2026-10-26T15:00:00Z",
-      "tier": "b",
-      "current_method": "unresolved",
-      "current_label": "no published estimate",
-      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079203",
-      "surfaces_answered": [
-        "bo3gg-matches",
-        "bovada-cs2",
-        "esportsbetting",
-        "hltv-matches",
-        "kalshi-events",
-        "pinnacle-matchups",
-        "smarkets-events",
-        "thunderpick-matches"
-      ],
-      "surfaces_refused": {
-        "rivalry-api": 502,
-        "ggbet-api": 403,
-        "betexplorer": 404,
-        "1xbet-linefeed": 203,
-        "betcet": null,
-        "egamersworld-matches": 403
-      },
-      "books_with_a_row": [
-        "Thunderpick"
-      ],
-      "money_line_lead": false,
-      "lead_rows": [],
-      "bo3_bound_url": null,
-      "bo3_bet": null,
-      "smarkets_evidence": null,
-      "hltv_pages": [],
-      "verdict": "1 surface(s) published an exact-name, exact-start row for this pairing; 0 of them outside the ladder's own sources. No probability is derived here; the four-hour ladder replays its own sources and will adopt a compliant price automatically."
-    },
-    {
       "id": "1093218",
       "teams": [
         "Nuclear TigeRES",
@@ -218,9 +136,9 @@
       "competition": "NODWIN Clutch Series #13",
       "starts_at": "2026-10-26T18:00:00Z",
       "tier": "b",
-      "current_method": "unresolved",
-      "current_label": "no published estimate",
-      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1093218",
+      "current_method": "model",
+      "current_label": "model",
+      "hotspawn_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "surfaces_answered": [
         "bo3gg-matches",
         "bovada-cs2",
@@ -303,9 +221,9 @@
       "competition": "CCT Europe 2026 Series #12",
       "starts_at": "2026-10-27T12:00:00Z",
       "tier": "b",
-      "current_method": "unresolved",
-      "current_label": "no published estimate",
-      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081162",
+      "current_method": "model",
+      "current_label": "model",
+      "hotspawn_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "surfaces_answered": [
         "bo3gg-matches",
         "bovada-cs2",
@@ -342,9 +260,9 @@
       "competition": "CCT Europe 2026 Series #12",
       "starts_at": "2026-10-27T15:00:00Z",
       "tier": "b",
-      "current_method": "unresolved",
-      "current_label": "no published estimate",
-      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081163",
+      "current_method": "model",
+      "current_label": "model",
+      "hotspawn_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "surfaces_answered": [
         "bo3gg-matches",
         "bovada-cs2",
@@ -381,9 +299,9 @@
       "competition": "CCT Europe 2026 Series #12",
       "starts_at": "2026-10-27T18:00:00Z",
       "tier": "b",
-      "current_method": "unresolved",
-      "current_label": "no published estimate",
-      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081164",
+      "current_method": "model",
+      "current_label": "model",
+      "hotspawn_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
       "surfaces_answered": [
         "bo3gg-matches",
         "bovada-cs2",
@@ -456,47 +374,47 @@
       "url": "https://www.hltv.org/matches",
       "status": "ok",
       "http_status": 200,
-      "observed_at": "2026-10-26T01:04:36Z",
+      "observed_at": "2026-10-26T01:23:41Z",
       "rows_parsed": 43,
       "final_url": "https://www.hltv.org/matches",
-      "response_sha256": "95a7a02e7e7f67ab13940d07b39f015ea2d5904daaca0c9a164d6953deb51577",
+      "response_sha256": "79151fddcf2f11e44d0a583b8bce5084fda2a3a88a39b8d181edfdbc0c95669e",
       "error": null
     },
     "smarkets-events": {
       "url": "https://api.smarkets.com/v3/events/?type=csgo_match&states=upcoming&limit=200&sort=start_datetime,id",
       "status": "ok",
       "http_status": 200,
-      "observed_at": "2026-10-26T01:04:37Z",
-      "rows_parsed": 36,
+      "observed_at": "2026-10-26T01:23:42Z",
+      "rows_parsed": 37,
       "final_url": "https://api.smarkets.com/v3/events/?type=csgo_match&states=upcoming&limit=200&sort=start_datetime,id",
-      "response_sha256": "3df3bbc100c2b82cb6e2c33c67feb6d43bfdca804d55ec1e3d0d39192485ac22",
+      "response_sha256": "c7148b863bc731ce62bda085087f557e117c5732788cc880b8e3fc3de82b2b37",
       "error": null
     },
     "pinnacle-matchups": {
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
       "status": "ok",
       "http_status": 200,
-      "observed_at": "2026-10-26T01:04:37Z",
+      "observed_at": "2026-10-26T01:23:43Z",
       "rows_parsed": 13,
       "final_url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
-      "response_sha256": "8b1182a42f4d9ed86ac0b297332d47c14c3750f076c537b9a7778dc2af0b9605",
+      "response_sha256": "f9fc3c4df85352172ce0ac74ac61ec0781fc3dd0702e2e2fb5972f165aff3637",
       "error": null
     },
     "thunderpick-matches": {
       "url": "https://thunderpick.io/api/matches",
       "status": "ok",
       "http_status": 200,
-      "observed_at": "2026-10-26T01:04:37Z",
-      "rows_parsed": 47,
+      "observed_at": "2026-10-26T01:23:43Z",
+      "rows_parsed": 48,
       "final_url": "https://thunderpick.io/api/matches",
-      "response_sha256": "0fc49f9cafa34f88a44f2e6fdd4683459bf9b4c7134bf18c45baebf4e731c5bc",
+      "response_sha256": "ec4def131949b9e257ce1d58c14e9a56406d4ab281667d8efa2139409e79ff12",
       "error": null
     },
     "kalshi-events": {
       "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&status=open&limit=200",
       "status": "ok",
       "http_status": 200,
-      "observed_at": "2026-10-26T01:04:37Z",
+      "observed_at": "2026-10-26T01:23:43Z",
       "rows_parsed": 0,
       "final_url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&status=open&limit=200",
       "response_sha256": "7ea1a2340d081fab5780de36e1ccf82d8d299deda3ca99f61a691eceb6f2c484",
@@ -506,17 +424,17 @@
       "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?lang=en",
       "status": "ok",
       "http_status": 200,
-      "observed_at": "2026-10-26T01:04:37Z",
-      "rows_parsed": 0,
+      "observed_at": "2026-10-26T01:23:43Z",
+      "rows_parsed": 22,
       "final_url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?lang=en",
-      "response_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "response_sha256": "757fe07ab96921efab6c3b748ab1591f9b7af2744b3a61e5f1d8ec00450e054f",
       "error": null
     },
     "rivalry-api": {
       "url": "https://api.rivalry.com/sports/v1/events?sportSlug=counter-strike&timezone=UTC&page=1&limit=50",
       "status": "error",
       "http_status": 502,
-      "observed_at": "2026-10-26T01:04:38Z",
+      "observed_at": "2026-10-26T01:23:44Z",
       "rows_parsed": 0,
       "final_url": null,
       "response_sha256": null,
@@ -526,7 +444,7 @@
       "url": "https://api.gg.bet/Sport/GetTopGames?sportId=esports_counter_strike&timezone=UTC&lang=en",
       "status": "error",
       "http_status": 403,
-      "observed_at": "2026-10-26T01:04:38Z",
+      "observed_at": "2026-10-26T01:23:44Z",
       "rows_parsed": 0,
       "final_url": null,
       "response_sha256": null,
@@ -536,7 +454,7 @@
       "url": "https://www.betexplorer.com/counter-strike/",
       "status": "error",
       "http_status": 404,
-      "observed_at": "2026-10-26T01:04:39Z",
+      "observed_at": "2026-10-26T01:23:45Z",
       "rows_parsed": 0,
       "final_url": null,
       "response_sha256": null,
@@ -546,7 +464,7 @@
       "url": "https://1xbet.com/LineFeed/Get1x2_VZip?sports=82&count=200&tf=2200000&mode=4&getEmpty=true",
       "status": "error",
       "http_status": 203,
-      "observed_at": "2026-10-26T01:04:39Z",
+      "observed_at": "2026-10-26T01:23:46Z",
       "rows_parsed": 0,
       "final_url": null,
       "response_sha256": null,
@@ -556,27 +474,27 @@
       "url": "https://www.betcet.com/en/sports/esports/counter-strike",
       "status": "error",
       "http_status": null,
-      "observed_at": "2026-10-26T01:04:40Z",
+      "observed_at": "2026-10-26T01:23:46Z",
       "rows_parsed": 0,
       "final_url": null,
       "response_sha256": null,
-      "error": "betcet: HTTPSConnectionPool(host='www.betcet.com', port=443): Max retries exceeded with url: /en/sports/esports/counter-strike (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.betcet.com', port=443) at 0x7eff2396fb00>, 'Connection "
+      "error": "betcet: HTTPSConnectionPool(host='www.betcet.com', port=443): Max retries exceeded with url: /en/sports/esports/counter-strike (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.betcet.com', port=443) at 0x7f449f931790>, 'Connection "
     },
     "esportsbetting": {
       "url": "https://www.esportsbetting.com/odds/cs2",
       "status": "ok",
       "http_status": 200,
-      "observed_at": "2026-10-26T01:05:10Z",
+      "observed_at": "2026-10-26T01:24:16Z",
       "rows_parsed": 0,
       "final_url": "https://esportsbetting.com/cs2-callouts-for-mirage-explained-with-images/",
-      "response_sha256": "eacbfaf733af866e322f786038f5519fef4213dd1f8ed4b33d866c252e53dfbb",
+      "response_sha256": "7a1363d9dcef5bf5dbf89966205ad22a1239ae040fbff96b4b36d7f35298fe14",
       "error": null
     },
     "bo3gg-matches": {
       "url": "https://bo3.gg/matches",
       "status": "ok",
       "http_status": 200,
-      "observed_at": "2026-10-26T01:05:11Z",
+      "observed_at": "2026-10-26T01:24:17Z",
       "rows_parsed": 0,
       "final_url": "https://bo3.gg/matches",
       "response_sha256": "ed918ceec359c157dc30fa4176529d36058881b8ef2d19fe5523aa458c97ce5f",
@@ -586,12 +504,12 @@
       "url": "https://egamersworld.com/counterstrike/matches",
       "status": "error",
       "http_status": 403,
-      "observed_at": "2026-10-26T01:05:11Z",
+      "observed_at": "2026-10-26T01:24:17Z",
       "rows_parsed": 0,
       "final_url": null,
       "response_sha256": null,
       "error": "egamersworld-matches: 403 Client Error: Forbidden for url: https://egamersworld.com/counterstrike/matches"
     }
   },
-  "written_at": "2026-10-26T01:05:11Z"
+  "written_at": "2026-10-26T01:24:18Z"
 }

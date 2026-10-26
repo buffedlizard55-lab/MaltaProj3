@@ -146,7 +146,7 @@
                 "id": 599217239,
                 "name": "Ground Zero",
                 "status": 1,
-                "odds": 3.5,
+                "odds": 3.8,
                 "handicap": null,
                 "total": null,
                 "type": "home"
@@ -155,7 +155,7 @@
                 "id": 599217238,
                 "name": "THUNDERdOWNUNDER",
                 "status": 1,
-                "odds": 1.25,
+                "odds": 1.22,
                 "handicap": null,
                 "total": null,
                 "type": "away"
@@ -235,14 +235,14 @@
           "home": {
             "id": 599217239,
             "name": "Ground Zero",
-            "odds": 3.5,
+            "odds": 3.8,
             "status": 1
           },
           "draw": null,
           "away": {
             "id": 599217238,
             "name": "THUNDERdOWNUNDER",
-            "odds": 1.25,
+            "odds": 1.22,
             "status": 1
           },
           "hasCombo": true,
@@ -9267,27 +9267,27 @@
         "preferredMarkets": [
           {
             "nickName": "Winner",
-            "eventId": 2890328,
-            "id": 243122523,
+            "eventId": 2880182,
+            "id": 241318651,
             "name": "Match Winner",
             "status": 1,
             "type": 1,
             "category": 1,
             "selections": [
               {
-                "id": 606309962,
-                "name": "Imotion",
+                "id": 602020663,
+                "name": "OMEN Esports",
                 "status": 1,
-                "odds": 1.32,
+                "odds": 5.3,
                 "handicap": null,
                 "total": null,
                 "type": "home"
               },
               {
-                "id": 606309963,
-                "name": "Patapim",
+                "id": 602020664,
+                "name": "Villainous",
                 "status": 1,
-                "odds": 3.1,
+                "odds": 1.12,
                 "handicap": null,
                 "total": null,
                 "type": "away"
@@ -9313,29 +9313,29 @@
           },
           {
             "nickName": "Round Handicap",
-            "eventId": 2890328,
-            "id": 243122503,
+            "eventId": 2880182,
+            "id": 243129315,
             "name": "Round Handicap (Incl. Overtime) - Map 1",
             "status": 1,
             "type": 1,
             "category": 2,
             "selections": [
               {
-                "id": 606309919,
-                "name": "Imotion",
+                "id": 606327634,
+                "name": "OMEN Esports",
                 "status": 1,
-                "odds": 1.82,
-                "handicap": -3.5,
-                "total": "-3.5",
+                "odds": 1.91,
+                "handicap": 5.5,
+                "total": "5.5",
                 "type": "home"
               },
               {
-                "id": 606309918,
-                "name": "Patapim",
+                "id": 606327635,
+                "name": "Villainous",
                 "status": 1,
-                "odds": 1.88,
-                "handicap": 3.5,
-                "total": "3.5",
+                "odds": 1.78,
+                "handicap": -5.5,
+                "total": "-5.5",
                 "type": "away"
               }
             ],
@@ -9344,8 +9344,263 @@
             "hasInPlay": true,
             "isVisible": true,
             "overrideMainOrder": false,
-            "handicap": 3.5,
-            "baseLine": "3.5",
+            "handicap": 5.5,
+            "baseLine": "5.5",
+            "isMainLine": true,
+            "lineMarketColumnNames": {
+              "homeColumn": "OMEN Esports",
+              "awayColumn": "Villainous"
+            },
+            "customColumnNames": null,
+            "subCategory": 2,
+            "isFeatured": false,
+            "period": {
+              "type": "map",
+              "number": 1
+            },
+            "prematchSgcEnabled": false,
+            "inPlaySgcEnabled": false,
+            "note": null,
+            "groupIds": []
+          },
+          {
+            "nickName": "Total Rounds",
+            "eventId": 2880182,
+            "id": 243127865,
+            "name": "Total Rounds - Map 1",
+            "status": 1,
+            "type": 1,
+            "category": 3,
+            "selections": [
+              {
+                "id": 606323817,
+                "name": "Over",
+                "status": 1,
+                "odds": 1.93,
+                "handicap": null,
+                "total": "20.5",
+                "type": "other"
+              },
+              {
+                "id": 606323818,
+                "name": "Under",
+                "status": 1,
+                "odds": 1.76,
+                "handicap": null,
+                "total": "20.5",
+                "type": "other"
+              }
+            ],
+            "order": 999,
+            "hasCombo": true,
+            "hasInPlay": true,
+            "isVisible": true,
+            "overrideMainOrder": false,
+            "handicap": null,
+            "baseLine": "20.5",
+            "isMainLine": true,
+            "lineMarketColumnNames": {
+              "homeColumn": "Under",
+              "awayColumn": "Over"
+            },
+            "customColumnNames": null,
+            "subCategory": 4,
+            "isFeatured": false,
+            "period": {
+              "type": "map",
+              "number": 1
+            },
+            "prematchSgcEnabled": false,
+            "inPlaySgcEnabled": false,
+            "note": null,
+            "groupIds": []
+          }
+        ],
+        "id": 2880182,
+        "gameId": 6,
+        "startTime": "2026-10-26T01:08:24+00:00",
+        "hasInPlayMarkets": true,
+        "isHighlighted": false,
+        "isLiveModeOverridden": true,
+        "totalOpenMarkets": 16,
+        "totalAvailableMarkets": 17,
+        "bestOfMaps": 1,
+        "pin": {
+          "isPinned": false,
+          "order": 0
+        },
+        "streams": [
+          {
+            "language": "en",
+            "streamOrder": 1,
+            "url": "https://player.twitch.tv/?channel=bonamant"
+          }
+        ],
+        "plainStreamLinks": null,
+        "note": "",
+        "isNoteVisible": false,
+        "score": {
+          "id": 2880182,
+          "score": {
+            "homeScore": "0",
+            "awayScore": "0"
+          },
+          "currentPeriod": 1,
+          "periodScores": [
+            {
+              "score": {
+                "homeScore": "1",
+                "awayScore": "5"
+              },
+              "periodNumber": 1
+            }
+          ],
+          "additionalScore": null
+        },
+        "hasMainMarket": true,
+        "prematchSgcEnabled": false,
+        "inPlaySgcEnabled": false,
+        "isBetBuilderEnabled": false,
+        "name": "OMEN Esports vs Villainous",
+        "isLive": true,
+        "bestOf": 1,
+        "teams": {
+          "home": {
+            "id": 52957,
+            "name": "OMEN Esports",
+            "hasImage": false,
+            "shortName": "OE"
+          },
+          "away": {
+            "id": 13496,
+            "name": "Villainous",
+            "hasImage": false,
+            "shortName": "VIL"
+          }
+        },
+        "competition": {
+          "id": 11441,
+          "name": "ESEA Advanced Season 59 North America",
+          "shortName": "ESEA Adv S59 NA",
+          "countryCode": null,
+          "defaultStream": null,
+          "parentTournament": null
+        },
+        "market": {
+          "id": 241318651,
+          "name": "Match Winner",
+          "type": 1,
+          "status": 1,
+          "home": {
+            "id": 602020663,
+            "name": "OMEN Esports",
+            "odds": 5.3,
+            "status": 1
+          },
+          "draw": null,
+          "away": {
+            "id": 602020664,
+            "name": "Villainous",
+            "odds": 1.12,
+            "status": 1
+          },
+          "hasCombo": true,
+          "hasInPlay": true,
+          "order": 99999,
+          "overrideMainOrder": false,
+          "isSgc": false,
+          "note": null
+        },
+        "widgetUrl": null,
+        "liveScoreMatchWidgetUrl": null,
+        "live3dVisualizationUrl": null,
+        "databetWidgetJwt": null,
+        "databetWidgetAvailable": true,
+        "freeBetEligible": false
+      },
+      {
+        "preferredMarkets": [
+          {
+            "nickName": "Winner",
+            "eventId": 2890396,
+            "id": 243130728,
+            "name": "Match Winner",
+            "status": 1,
+            "type": 1,
+            "category": 1,
+            "selections": [
+              {
+                "id": 606331240,
+                "name": "Imotion",
+                "status": 1,
+                "odds": 2.35,
+                "handicap": null,
+                "total": null,
+                "type": "home"
+              },
+              {
+                "id": 606331239,
+                "name": "Patapim",
+                "status": 1,
+                "odds": 1.52,
+                "handicap": null,
+                "total": null,
+                "type": "away"
+              }
+            ],
+            "order": 99999,
+            "hasCombo": true,
+            "hasInPlay": true,
+            "isVisible": true,
+            "overrideMainOrder": false,
+            "handicap": null,
+            "baseLine": null,
+            "isMainLine": false,
+            "lineMarketColumnNames": null,
+            "customColumnNames": null,
+            "subCategory": 1,
+            "isFeatured": true,
+            "period": null,
+            "prematchSgcEnabled": false,
+            "inPlaySgcEnabled": false,
+            "note": null,
+            "groupIds": []
+          },
+          {
+            "nickName": "Round Handicap",
+            "eventId": 2890396,
+            "id": 243130684,
+            "name": "Round Handicap (Incl. Overtime) - Map 1",
+            "status": 1,
+            "type": 1,
+            "category": 2,
+            "selections": [
+              {
+                "id": 606331139,
+                "name": "Imotion",
+                "status": 1,
+                "odds": 1.78,
+                "handicap": 2.5,
+                "total": "2.5",
+                "type": "home"
+              },
+              {
+                "id": 606331138,
+                "name": "Patapim",
+                "status": 1,
+                "odds": 1.92,
+                "handicap": -2.5,
+                "total": "-2.5",
+                "type": "away"
+              }
+            ],
+            "order": 1200,
+            "hasCombo": true,
+            "hasInPlay": true,
+            "isVisible": true,
+            "overrideMainOrder": false,
+            "handicap": -2.5,
+            "baseLine": "-2.5",
             "isMainLine": true,
             "lineMarketColumnNames": {
               "homeColumn": "Imotion",
@@ -9365,29 +9620,29 @@
           },
           {
             "nickName": "Total Rounds",
-            "eventId": 2890328,
-            "id": 243122479,
+            "eventId": 2890396,
+            "id": 243130711,
             "name": "Total Rounds - Map 1",
             "status": 1,
             "type": 1,
             "category": 3,
             "selections": [
               {
-                "id": 606309861,
-                "name": "Over",
+                "id": 606331200,
+                "name": "Under",
                 "status": 1,
-                "odds": 1.78,
+                "odds": 1.95,
                 "handicap": null,
-                "total": "21.5",
+                "total": "22.5",
                 "type": "other"
               },
               {
-                "id": 606309862,
-                "name": "Under",
+                "id": 606331199,
+                "name": "Over",
                 "status": 1,
-                "odds": 1.92,
+                "odds": 1.75,
                 "handicap": null,
-                "total": "21.5",
+                "total": "22.5",
                 "type": "other"
               }
             ],
@@ -9397,7 +9652,7 @@
             "isVisible": true,
             "overrideMainOrder": false,
             "handicap": null,
-            "baseLine": "21.5",
+            "baseLine": "22.5",
             "isMainLine": true,
             "lineMarketColumnNames": {
               "homeColumn": "Under",
@@ -9416,14 +9671,14 @@
             "groupIds": []
           }
         ],
-        "id": 2890328,
+        "id": 2890396,
         "gameId": 6,
-        "startTime": "2026-10-26T01:04:00+00:00",
+        "startTime": "2026-10-26T01:22:00+00:00",
         "hasInPlayMarkets": true,
         "isHighlighted": false,
         "isLiveModeOverridden": true,
-        "totalOpenMarkets": 64,
-        "totalAvailableMarkets": 101,
+        "totalOpenMarkets": 47,
+        "totalAvailableMarkets": 72,
         "bestOfMaps": 1,
         "pin": {
           "isPinned": false,
@@ -9445,7 +9700,7 @@
         "note": "",
         "isNoteVisible": false,
         "score": {
-          "id": 2890328,
+          "id": 2890396,
           "score": {
             "homeScore": "0",
             "awayScore": "0"
@@ -9454,8 +9709,8 @@
           "periodScores": [
             {
               "score": {
-                "homeScore": "3",
-                "awayScore": "0"
+                "homeScore": "4",
+                "awayScore": "5"
               },
               "periodNumber": 1
             }
@@ -9492,21 +9747,21 @@
           "parentTournament": null
         },
         "market": {
-          "id": 243122523,
+          "id": 243130728,
           "name": "Match Winner",
           "type": 1,
           "status": 1,
           "home": {
-            "id": 606309962,
+            "id": 606331240,
             "name": "Imotion",
-            "odds": 1.32,
+            "odds": 2.35,
             "status": 1
           },
           "draw": null,
           "away": {
-            "id": 606309963,
+            "id": 606331239,
             "name": "Patapim",
-            "odds": 3.1,
+            "odds": 1.52,
             "status": 1
           },
           "hasCombo": true,

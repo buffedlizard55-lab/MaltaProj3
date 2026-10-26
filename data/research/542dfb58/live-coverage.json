@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "session": "arena-542dfb58",
-  "observed_at": "2026-10-26T01:04:33Z",
+  "observed_at": "2026-10-26T01:23:38Z",
   "observer": "GitHub Actions runner on arena/542dfb58-maltaproj3: Hotspawn scheduled-fixture API plus both rendered lobby pages, cross-checked against the deployed snapshot.json and origination.json in the same pass",
   "role": "Dated inventory observation only. Nothing in this file is a probability input; no probability, pick or alias is written by this record.",
   "hotspawn": {
@@ -13,76 +13,62 @@
     "records": 81,
     "open_cs2_fixtures": 19,
     "rendered_lobby_crosscheck": "complete",
-    "observed_at": "2026-10-26T01:04:33Z"
+    "observed_at": "2026-10-26T01:23:38Z"
   },
   "published_site": {
     "snapshot": {
-      "generated_at": "2026-10-25T23:03:48Z",
+      "generated_at": "2026-10-26T01:04:20Z",
       "counts": {
-        "inventory": 72,
-        "upcoming": 10,
+        "inventory": 81,
+        "upcoming": 19,
         "archived": 62,
         "unknown_schedule": 0,
         "market": 6,
-        "bookmaker": 1,
-        "model": 2,
-        "unresolved": 1,
-        "picks": 9,
+        "bookmaker": 3,
+        "model": 8,
+        "unresolved": 2,
+        "picks": 17,
         "no_edge": 0
       },
       "status": "ok"
     },
     "origination": {
-      "generated_at": "2026-10-25T23:04:02Z",
+      "generated_at": "2026-10-26T01:04:30Z",
       "counts": {
-        "active": 10,
-        "resolved": 10,
+        "active": 19,
+        "resolved": 19,
         "unresolved": 0,
-        "with_pick": 10,
-        "consensus": 0,
+        "with_pick": 19,
+        "consensus": 1,
         "market": 7,
-        "bookmaker": 1,
+        "bookmaker": 3,
         "reference": 0,
-        "model": 2,
+        "model": 8,
         "network": 0,
         "relay": 0,
         "guidance": 0,
-        "alias_joined": 1
+        "alias_joined": 3
       },
       "status": "ok"
     }
   },
   "comparison": {
     "active_fixtures_compared": 19,
-    "with_a_published_pick": 9,
-    "unpicked_ids": [
+    "with_a_published_pick": 19,
+    "unpicked_ids": [],
+    "missing_from_both_deployed_layers": [],
+    "model_or_guidance_only_ids": [
       "1079201",
       "1081159",
-      "1079202",
       "1081160",
-      "1079203",
       "1093218",
+      "1082861",
       "1081162",
       "1081163",
       "1081164",
-      "1082792"
-    ],
-    "missing_from_both_deployed_layers": [
-      "1079201",
-      "1081159",
-      "1079202",
-      "1081160",
-      "1079203",
-      "1093218",
-      "1081162",
-      "1081163",
-      "1081164"
-    ],
-    "model_or_guidance_only_ids": [
-      "1082861",
       "1082793"
     ],
-    "new_ids_this_observation": 9
+    "new_ids_this_observation": 0
   },
   "live_fixtures": [
     {
@@ -123,12 +109,12 @@
         "INOX Division",
         "Nemesis"
       ],
-      "published_pick": null,
-      "published_method": "none",
+      "published_pick": "Nemesis",
+      "published_method": "model",
       "priced_by_money": false,
-      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079201",
-      "in_published_snapshot": false,
-      "in_published_origination": false,
+      "hotspawn_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
       "competition": "NODWIN Clutch Series #13",
       "starts_at_utc": "2026-10-26T09:00:00Z",
       "starts_at_basis": "hotspawn_api_snapshot"
@@ -139,12 +125,12 @@
         "LFO 10",
         "ex-6666"
       ],
-      "published_pick": null,
-      "published_method": "none",
+      "published_pick": "ex-6666",
+      "published_method": "model",
       "priced_by_money": false,
-      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081159",
-      "in_published_snapshot": false,
-      "in_published_origination": false,
+      "hotspawn_url": "https://bo3.gg/matches/sokerorg-vs-ex-6666-26-10-2026",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
       "competition": "CCT Europe 2026 Series #12",
       "starts_at_utc": "2026-10-26T12:00:00Z",
       "starts_at_basis": "hotspawn_api_snapshot"
@@ -155,12 +141,12 @@
         "FOKUS",
         "ex-Zero Tenacity"
       ],
-      "published_pick": null,
-      "published_method": "none",
-      "priced_by_money": false,
-      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079202",
-      "in_published_snapshot": false,
-      "in_published_origination": false,
+      "published_pick": "FOKUS",
+      "published_method": "bookmaker",
+      "priced_by_money": true,
+      "hotspawn_url": "https://thunderpick.io/api/matches",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
       "competition": "NODWIN Clutch Series #13",
       "starts_at_utc": "2026-10-26T12:00:00Z",
       "starts_at_basis": "hotspawn_api_snapshot"
@@ -171,12 +157,12 @@
         "HAVU",
         "ILLYRIANS"
       ],
-      "published_pick": null,
-      "published_method": "none",
+      "published_pick": "HAVU",
+      "published_method": "model",
       "priced_by_money": false,
-      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081160",
-      "in_published_snapshot": false,
-      "in_published_origination": false,
+      "hotspawn_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
       "competition": "CCT Europe 2026 Series #12",
       "starts_at_utc": "2026-10-26T15:00:00Z",
       "starts_at_basis": "hotspawn_api_snapshot"
@@ -187,12 +173,12 @@
         "Metizport",
         "BRUTE"
       ],
-      "published_pick": null,
-      "published_method": "none",
-      "priced_by_money": false,
-      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079203",
-      "in_published_snapshot": false,
-      "in_published_origination": false,
+      "published_pick": "Metizport",
+      "published_method": "bookmaker",
+      "priced_by_money": true,
+      "hotspawn_url": "https://thunderpick.io/api/matches",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
       "competition": "NODWIN Clutch Series #13",
       "starts_at_utc": "2026-10-26T15:00:00Z",
       "starts_at_basis": "hotspawn_api_snapshot"
@@ -203,12 +189,12 @@
         "Nuclear TigeRES",
         "UNiTY"
       ],
-      "published_pick": null,
-      "published_method": "none",
+      "published_pick": "Nuclear TigeRES",
+      "published_method": "model",
       "priced_by_money": false,
-      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1093218",
-      "in_published_snapshot": false,
-      "in_published_origination": false,
+      "hotspawn_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
       "competition": "NODWIN Clutch Series #13",
       "starts_at_utc": "2026-10-26T18:00:00Z",
       "starts_at_basis": "hotspawn_api_snapshot"
@@ -283,12 +269,12 @@
         "ex-RUSTEC",
         "Spirit Academy"
       ],
-      "published_pick": null,
-      "published_method": "none",
+      "published_pick": "ex-RUSTEC",
+      "published_method": "model",
       "priced_by_money": false,
-      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081162",
-      "in_published_snapshot": false,
-      "in_published_origination": false,
+      "hotspawn_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
       "competition": "CCT Europe 2026 Series #12",
       "starts_at_utc": "2026-10-27T12:00:00Z",
       "starts_at_basis": "hotspawn_api_snapshot"
@@ -299,12 +285,12 @@
         "BakS",
         "Saint Sinners"
       ],
-      "published_pick": null,
-      "published_method": "none",
+      "published_pick": "BakS",
+      "published_method": "model",
       "priced_by_money": false,
-      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081163",
-      "in_published_snapshot": false,
-      "in_published_origination": false,
+      "hotspawn_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
       "competition": "CCT Europe 2026 Series #12",
       "starts_at_utc": "2026-10-27T15:00:00Z",
       "starts_at_basis": "hotspawn_api_snapshot"
@@ -331,12 +317,12 @@
         "Inner Circle Academy",
         "Lavked"
       ],
-      "published_pick": null,
-      "published_method": "none",
+      "published_pick": "Inner Circle Academy",
+      "published_method": "model",
       "priced_by_money": false,
-      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081164",
-      "in_published_snapshot": false,
-      "in_published_origination": false,
+      "hotspawn_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
       "competition": "CCT Europe 2026 Series #12",
       "starts_at_utc": "2026-10-27T18:00:00Z",
       "starts_at_basis": "hotspawn_api_snapshot"
@@ -363,7 +349,7 @@
         "HOTU",
         "The Huns"
       ],
-      "published_pick": null,
+      "published_pick": "HOTU",
       "published_method": "market",
       "priced_by_money": true,
       "hotspawn_url": "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
@@ -403,5 +389,5 @@
     "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
     "https://buffedlizard55-lab.github.io/MaltaProj3/origination.json"
   ],
-  "written_at": "2026-10-26T01:05:11Z"
+  "written_at": "2026-10-26T01:24:18Z"
 }
