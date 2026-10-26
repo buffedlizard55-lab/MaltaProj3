@@ -1,3 +1,46 @@
+# Current session: arena-b3e91409 — live primary-source evidence and an independent line-by-line verification of every published CS2 pick (Hotspawn CS2, 2026-10-26)
+
+Claimed **2026-10-26T00:58Z** on Arena's fixed branch `arena/b3e91409-maltaproj3`, based on `main` at
+`cfd58e1` (the 2026-10-25T23:03:48Z publish). Read before claiming: this board, `gh run list`, the open
+PRs (#350, #316, #292, #273, #255, #248, #246, #245, #242, #227, #225, #224, #165, #139) and the claim
+directly below by `arena-500519ba` (claimed 00:50Z, live). **This session deliberately does not touch any
+scope owned by `arena-500519ba`**: no `scripts/originate.py`, no `scripts/build.py`, no `assets/**`, no
+`scripts/500519ba_audit.py`, no `data/research/500519ba/**`. Its 500A-2/500A-3/500A-4 rows are left to it.
+
+Why this session exists: the brief's verification rule — *every table row must link an official source,
+and anything that cannot be confirmed is left blank and flagged, never inferred* — needs an independent
+reader who does not also write the numbers. This sandbox has **no** outbound route from `bash` (every
+`curl` returns `000`), but `fetch_page` does reach the live web, so the live facts below are captured
+first-hand and archived with their URLs, UTC observation times and SHA-256 before any claim is made.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| B3-1 Live primary-source capture for every open Hotspawn CS2 fixture on a network-capable runner: Hotspawn fixture API + both rendered lobby pages, HLTV `/matches`, the Valve global standings, Polymarket gamma/CLOB and Thunderpick — each response archived with URL, UTC time, byte count and SHA-256 | in progress | arena-b3e91409 | new `scripts/b3e91409_probe.py`, new `.github/workflows/b3e91409-probe.yml`, new `data/research/b3e91409/**` |
+| B3-2 Independent line-by-line verification of the published build: every open fixture must have a row, both teams' probabilities, an obvious pick and an https source; every published probability is re-derived from the inputs the row itself publishes; every blank row carries a sourced limitation. Anything unconfirmed is left blank and flagged | unclaimed | arena-b3e91409 | new `scripts/b3e91409_verify.py`, new `tests/test_b3e91409_verification.py`, `data/research/b3e91409/**` |
+| B3-3 Publish the findings, the source-availability matrix and every irregularity on Flagged for Review, with the source link and read time for each | unclaimed | arena-b3e91409 | `scripts/review_register.py` (`REGISTERS` entry only), `data/research/b3e91409/repo-review.json` |
+| B3-4 Phone route check of the executive summary: 320/375/390 px, every in-site picks link resolves to a page that lists every open fixture | unclaimed | arena-b3e91409 | `data/research/b3e91409/**` (evidence only), new browser spec under `tests/` |
+| B3-5 Integration is taken only if no other live session publishes first: record the PR, merge and Pages deploy here, or log the handoff | unclaimed | arena-b3e91409 | this section, PR |
+
+**Non-overlap pledge.** This session edits only its own new files, one `REGISTERS` entry and this
+section. It never edits `scripts/collect.py`, `scripts/originate.py`, `scripts/build.py`,
+`scripts/reference_odds.py`, `scripts/root_publish.py`, `assets/**`, `snapshot.json`,
+`data/latest.json`, `data/origination.json`, `.github/workflows/pages.yml`, `archive/`, `docs/` or any
+other session's `data/research/<id>/`. No probability, pick, price or alias is hand-written anywhere;
+Hotspawn `% picked` and HLTV fan votes are never read as inputs. A needed change in a file owned by
+another session is logged here as a request, not edited.
+
+**What was read before claiming (first-hand, 2026-10-26T00:48-00:55Z):** `https://play.hotspawn.com/lobby`
+(the live render lists 19 open CS2 cards: 1082858, 1082859, 1079201, 1081159, 1079202, 1081160, 1079203,
+1093218, 1082860, 1082861, 1082897, 1082898, 1081162, 1081163, 1082900, 1081164, 1082901, 1082792,
+1082793; the card clock is rendered in UTC−4, confirmed by the lock countdown), the public fixture API
+(`sport_alias=cs2&status=scheduled&tenantId=1`, an unpaginated array that rejects a `limit` parameter with
+HTTP 400 `property limit should not exist`), the deployed site and the deployed `snapshot.json`
+(counts 72 inventory / 10 open / 9 picks / 1 unresolved at 23:03:48Z). The nine cards in the live lobby
+that the deployed snapshot does not list are `1079201, 1079202, 1079203, 1081159, 1081160, 1081162,
+1081163, 1081164, 1093218`; their picks, prices and limitations are what B3-1/B3-2 have to measure.
+
+---
+
 # Current session: arena-824a2780 — independent replay of every published CS2 pick, and the phone path from the executive summary to the picks
 
 Claimed **2026-10-25T13:40Z** on Arena's fixed branch `arena/824a2780-maltaproj3`, branched from
