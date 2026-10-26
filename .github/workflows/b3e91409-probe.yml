@@ -16,6 +16,7 @@ on:
     paths:
       - '.github/workflows/b3e91409-probe.yml'
       - 'scripts/b3e91409_probe.py'
+      - 'scripts/b3e91409_research.py'
   workflow_dispatch:
 permissions:
   contents: write
@@ -36,10 +37,13 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Capture every live source with URLs, UTC times and SHA-256
         run: python -m scripts.b3e91409_probe
-      - name: Show the dossier even when the probe failed
+      - name: Resolve one documented line per open fixture (books, books, ratings)
+        run: python -m scripts.b3e91409_research
+      - name: Show the dossier even when a step failed
         if: always()
         run: |
-          test -f data/research/b3e91409/live/summary.txt && cat data/research/b3e91409/live/summary.txt || echo 'no summary written'
+          test -f data/research/b3e91409/live/summary.md && cat data/research/b3e91409/live/summary.md || echo 'no line dossier written'
+          test -f data/research/b3e91409/live/summary.txt && cat data/research/b3e91409/live/summary.txt || echo 'no source inventory written'
       - uses: actions/upload-artifact@v4
         if: always()
         with:

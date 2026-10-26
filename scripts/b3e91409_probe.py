@@ -46,6 +46,7 @@ HOTSPAWN_API = 'https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtur
 LOBBY = 'https://play.hotspawn.com/lobby'
 CS2_LOBBY = 'https://play.hotspawn.com/cs2-pickems'
 HLTV = 'https://www.hltv.org/matches'
+HLTV_RANKING = 'https://www.hltv.org/ranking/teams'
 VALVE_REPO = 'https://api.github.com/repos/ValveSoftware/counter-strike_regional_standings'
 GAMMA = 'https://gamma-api.polymarket.com/events'
 THUNDERPICK = 'https://thunderpick.io/api/matches'
@@ -162,31 +163,44 @@ def open_fixtures(api_rows, reference):
 
 # ---------------------------------------------------------------- HLTV
 
+def hltv_unix(value):
+    """HLTV ships data-unix in seconds on old markup and milliseconds on the 2026-10-26 render."""
+    try:
+        number = int(value)
+    except (TypeError, ValueError):
+        return None
+    if number > 10**11:
+        number //= 1000
+    try:
+        return datetime.fromtimestamp(number, timezone.utc)
+    except (OverflowError, OSError, ValueError):
+        return None
+
+
 def parse_hltv(html):
+    """Parse one card per `div.match-wrapper`, keyed by HLTV's own data-match-id.
+
+    The 2026-10-26 render moved the time to `div.match-time[data-unix]` in milliseconds and the
+    names to `.match-teamname`; both shapes are handled. A card with a missing/duplicate time or
+    team pair is skipped and counted, never guessed.
+    """
     from bs4 import BeautifulSoup
     soup = BeautifulSoup(html or '', 'html.parser')
-    grouped = {}
-    for anchor in soup.select('a[href^="/matches/"]'):
-        href = anchor['href']
-        if not re.fullmatch(r'/matches/\d+/[^/?#]+', href):
+    cards, ambiguous = [], 0
+    for wrapper in soup.select('[data-match-wrapper]'):
+        hrefs = {a['href'] for a in wrapper.select('a[href^="/matches/"]')}
+        times = {hltv_unix(n.get('data-unix')) for n in wrapper.select('[data-unix]')}
+        times.discard(None)
+        names = [n.get_text(' ', strip=True) for n in wrapper.select('.match-teamname')]
+        meta = [n.get_text(' ', strip=True).lower() for n in wrapper.select('.match-meta')]
+        match_id = wrapper.get('data-match-id')
+        if len(hrefs) != 1 or len(times) != 1 or len(names) != 2 or not all(names) or not match_id:
+            ambiguous += 1
             continue
-        group = grouped.setdefault(href, {'times': set(), 'teams': set()})
-        for node in ([anchor] if anchor.has_attr('data-unix') else anchor.select('[data-unix]')):
-            try:
-                group['times'].add(iso(datetime.fromtimestamp(int(node['data-unix']), timezone.utc)))
-            except (TypeError, ValueError, KeyError):
-                pass
-        names = tuple(n.get_text(' ', strip=True) for n in anchor.select('.matchTeamName, .match-teamname'))
-        if len(names) == 2 and all(names):
-            group['teams'].add(names)
-    out = []
-    for href, group in grouped.items():
-        if len(group['times']) != 1 or len(group['teams']) != 1:
-            continue  # ambiguous card: record nothing rather than guess
-        teams = list(next(iter(group['teams'])))
-        out.append({'teams': teams, 'starts_at': next(iter(group['times'])),
-                    'url': 'https://www.hltv.org' + href})
-    return out
+        best_of = next((int(m[2:]) for m in meta if re.fullmatch(r'bo[1357]', m)), None)
+        cards.append({'match_id': match_id, 'teams': names, 'starts_at': iso(next(iter(times))),
+                      'best_of': best_of, 'url': 'https://www.hltv.org' + next(iter(hrefs))})
+    return cards, ambiguous
 
 
 # ---------------------------------------------------------------- Polymarket
@@ -267,13 +281,43 @@ def valve(probe, reference):
     return rows
 
 
+# ---------------------------------------------------------------- HLTV ranking
+
+def parse_hltv_ranking(html):
+    """Official HLTV world ranking rows: rank, team name and published points.
+
+    Two shapes are accepted (`.ranking-header` list rows and the 2026 table rows); anything that
+    does not carry a rank, a name and a points cell is skipped rather than guessed.
+    """
+    from bs4 import BeautifulSoup
+    soup = BeautifulSoup(html or '', 'html.parser')
+    rows, seen = [], set()
+    for node in soup.select('.ranked-team, .ranking-header'):
+        rank_node = node.select_one('.position, .ranking-header .position')
+        name_node = node.select_one('.name, .team-name, .ranking-header .name')
+        points_node = node.select_one('.points, .js-points')
+        if not (rank_node and name_node and points_node):
+            continue
+        rank = re.search(r'\d+', rank_node.get_text(' ', strip=True))
+        points = re.search(r'\d+', points_node.get_text(' ', strip=True))
+        name = name_node.get_text(' ', strip=True)
+        if not (rank and points and name):
+            continue
+        item = {'rank': int(rank.group()), 'team': name, 'points': int(points.group())}
+        if item['team'].casefold() in seen:
+            continue
+        seen.add(item['team'].casefold())
+        rows.append(item)
+    return rows
+
+
 # ---------------------------------------------------------------- summary
 
 def name_in(text, name):
     return key(name) and key(name) in key(text)
 
 
-def build_summary(fixtures, hltv_cards, poly_events, tp_rows, valve_rows, permalinks=None):
+def build_summary(fixtures, hltv_cards, poly_events, tp_rows, valve_rows, permalinks=None, ranking=None):
     permalinks = permalinks or {}
     blocks, records = [], []
     for fixture in fixtures:
@@ -302,6 +346,12 @@ def build_summary(fixtures, hltv_cards, poly_events, tp_rows, valve_rows, permal
             if name_in(blob, a) and name_in(blob, b):
                 found.append({'source': 'Thunderpick', 'url': 'https://thunderpick.io/esports/counter-strike',
                               'row_keys': sorted(row)[:40], 'match': True, 'row': row})
+        # HLTV world ranking: each team's published rank/points, separately (never a probability).
+        for row in ranking or []:
+            for team in (a, b):
+                if key(row['team']) == key(team):
+                    found.append({'source': 'HLTV world ranking', 'team': team, 'rank': row['rank'],
+                                  'points': row['points'], 'url': HLTV_RANKING, 'match': True})
         # Valve: each team's official standing row, separately (never a probability).
         for team in (a, b):
             for row in valve_rows:
@@ -354,12 +404,20 @@ def main():
             summary['sources'][label]['dom_ids'] = ids
 
     hltv_html, entry = probe.get(HLTV, 'hltv-matches', want='text', save='hltv-matches.html.gz')
-    hltv_cards = parse_hltv(hltv_html) if hltv_html else []
+    hltv_cards, hltv_ambiguous = parse_hltv(hltv_html) if hltv_html else ([], 0)
     if hltv_cards:
         probe.save('hltv-cards.json', hltv_cards, 'json')
     summary['sources']['hltv'] = {k: entry.get(k) for k in (
         'url', 'observed_at', 'http_status', 'status', 'bytes', 'response_sha256', 'error')}
     summary['sources']['hltv']['cards'] = len(hltv_cards)
+    summary['sources']['hltv']['ambiguous_cards_skipped'] = hltv_ambiguous
+    ranking_html, rank_entry = probe.get(HLTV_RANKING, 'hltv-ranking', want='text', save='hltv-ranking.html.gz')
+    ranking = parse_hltv_ranking(ranking_html) if ranking_html else []
+    if ranking:
+        probe.save('hltv-ranking.json', ranking, 'json')
+    summary['sources']['hltv_ranking'] = {k: rank_entry.get(k) for k in (
+        'url', 'observed_at', 'http_status', 'status', 'bytes', 'response_sha256', 'error')}
+    summary['sources']['hltv_ranking']['rows'] = len(ranking)
 
     poly_events, poly_pages = gamma_events(probe)
     summary['sources']['polymarket'] = {'pages': poly_pages, 'events': len(poly_events),
@@ -381,7 +439,7 @@ def main():
         summary['sources'][label] = {k: entry.get(k) for k in (
             'url', 'observed_at', 'http_status', 'status', 'bytes', 'response_sha256', 'error')}
 
-    records, text = build_summary(fixtures, hltv_cards, poly_events, tp_rows, valve_rows, permalinks)
+    records, text = build_summary(fixtures, hltv_cards, poly_events, tp_rows, valve_rows, permalinks, ranking)
     probe.save('open-fixtures.json', records, 'json')
     (OUT / 'summary.txt').write_text(
         f"observed {summary['observed_at']}\nopen Hotspawn CS2 fixtures: {len(fixtures)}\n\n" + text + '\n',
