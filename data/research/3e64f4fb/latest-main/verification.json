@@ -1,26 +1,26 @@
 {
  "session": "arena-3e64f4fb",
- "snapshot_generated_at": "2026-10-26T01:33:57Z",
- "snapshot_inventory_observed_at": "2026-10-26T01:33:42Z",
- "origination_generated_at": "2026-10-26T01:34:11Z",
- "active_fixtures": 19,
+ "snapshot_generated_at": "2026-10-26T03:46:08Z",
+ "snapshot_inventory_observed_at": "2026-10-26T03:45:53Z",
+ "origination_generated_at": "2026-10-26T03:46:21Z",
+ "active_fixtures": 17,
  "checks": {
   "inventory": {
    "errors": 0,
    "detail": {
-    "inventory": 81,
-    "upcoming": 19,
-    "archived": 62,
-    "market": 6,
-    "bookmaker": 3,
-    "model": 8,
+    "inventory": 80,
+    "upcoming": 17,
+    "archived": 63,
+    "market": 8,
+    "bookmaker": 0,
+    "model": 7,
     "unresolved": 2,
-    "picks": 17
+    "picks": 15
    }
   },
   "featured": {
    "errors": 0,
-   "priced": 17,
+   "priced": 15,
    "blank": [
     "1081159",
     "1082792"
@@ -28,7 +28,7 @@
   },
   "complete": {
    "errors": 0,
-   "priced": 19,
+   "priced": 17,
    "blank": []
   },
   "cross_layer": {
@@ -49,52 +49,20 @@
    "percentages_missing_verbatim": [],
    "broken_links": [],
    "missing_downloads": [
-    "./data/evidence/polymarket-book-1237427-0.json",
-    "./data/evidence/polymarket-book-1237427-1.json",
-    "./data/evidence/polymarket-event-1237427.json"
+    "./data/evidence/polymarket-book-1252125-0.json",
+    "./data/evidence/polymarket-book-1252125-1.json",
+    "./data/evidence/polymarket-book-1255013-0.json",
+    "./data/evidence/polymarket-book-1255013-1.json",
+    "./data/evidence/polymarket-book-1255952-0.json",
+    "./data/evidence/polymarket-book-1255952-1.json",
+    "./data/evidence/polymarket-event-1252125.json",
+    "./data/evidence/polymarket-event-1255013.json",
+    "./data/evidence/polymarket-event-1255952.json"
    ],
    "viewport_ok": true
   }
  },
  "rows": [
-  {
-   "id": "1082858",
-   "teams": [
-    "Ground Zero",
-    "Off Chops"
-   ],
-   "competition": "DFRAG Invitational 2026",
-   "starts_at": "2026-10-26T03:00:00Z",
-   "featured_basis": "market-midpoint",
-   "complete_basis": "market-midpoint",
-   "complete_method": "market",
-   "probabilities": [
-    0.205,
-    0.795
-   ],
-   "pick": "Off Chops",
-   "source_url": "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25",
-   "researched_resolution": false
-  },
-  {
-   "id": "1082859",
-   "teams": [
-    "NEXVOID",
-    "Alter Ego"
-   ],
-   "competition": "DFRAG Invitational 2026",
-   "starts_at": "2026-10-26T03:00:00Z",
-   "featured_basis": "bookmaker-no-vig",
-   "complete_basis": "bookmaker-no-vig",
-   "complete_method": "bookmaker",
-   "probabilities": [
-    0.59162304,
-    0.40837696
-   ],
-   "pick": "NEXVOID",
-   "source_url": "https://thunderpick.io/api/matches",
-   "researched_resolution": false
-  },
   {
    "id": "1079201",
    "teams": [
@@ -104,14 +72,14 @@
    "competition": "NODWIN Clutch Series #13",
    "starts_at": "2026-10-26T09:00:00Z",
    "featured_basis": "valve-glicko",
-   "complete_basis": "valve-glicko",
-   "complete_method": "model",
+   "complete_basis": "bookmaker-no-vig",
+   "complete_method": "consensus",
    "probabilities": [
-    0.12346675,
-    0.87653325
+    0.25381253,
+    0.74618747
    ],
    "pick": "Nemesis",
-   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "source_url": "https://polymarket.com/event/cs2-nem-inox-2026-10-26",
    "researched_resolution": false
   },
   {
@@ -122,15 +90,15 @@
    ],
    "competition": "NODWIN Clutch Series #13",
    "starts_at": "2026-10-26T12:00:00Z",
-   "featured_basis": "bookmaker-no-vig",
-   "complete_basis": "bookmaker-no-vig",
-   "complete_method": "bookmaker",
+   "featured_basis": "market-midpoint",
+   "complete_basis": "market-midpoint",
+   "complete_method": "market",
    "probabilities": [
-    0.68235294,
-    0.31764706
+    0.62,
+    0.38
    ],
    "pick": "FOKUS",
-   "source_url": "https://thunderpick.io/api/matches",
+   "source_url": "https://polymarket.com/event/cs2-fokus-zerote-2026-10-26",
    "researched_resolution": false
   },
   {
@@ -160,15 +128,15 @@
    ],
    "competition": "NODWIN Clutch Series #13",
    "starts_at": "2026-10-26T15:00:00Z",
-   "featured_basis": "bookmaker-no-vig",
-   "complete_basis": "bookmaker-no-vig",
-   "complete_method": "bookmaker",
+   "featured_basis": "market-midpoint",
+   "complete_basis": "market-midpoint",
+   "complete_method": "market",
    "probabilities": [
-    0.61538462,
-    0.38461538
+    0.59,
+    0.41
    ],
    "pick": "Metizport",
-   "source_url": "https://thunderpick.io/api/matches",
+   "source_url": "https://polymarket.com/event/cs2-mzp-brute-2026-10-26",
    "researched_resolution": false
   },
   {
@@ -179,15 +147,15 @@
    ],
    "competition": "CCT Europe 2026 Series #12",
    "starts_at": "2026-10-26T15:00:00Z",
-   "featured_basis": "valve-glicko",
-   "complete_basis": "valve-glicko",
-   "complete_method": "model",
+   "featured_basis": "market-midpoint",
+   "complete_basis": "market-midpoint",
+   "complete_method": "market",
    "probabilities": [
-    0.60348339,
-    0.39651661
+    0.535,
+    0.465
    ],
    "pick": "HAVU",
-   "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+   "source_url": "https://polymarket.com/event/cs2-havu-ill4-2026-10-26",
    "researched_resolution": false
   },
   {
@@ -202,11 +170,11 @@
    "complete_basis": "bookmaker-no-vig",
    "complete_method": "consensus",
    "probabilities": [
-    0.58275378,
-    0.41724622
+    0.58349699,
+    0.41650301
    ],
    "pick": "Nuclear TigeRES",
-   "source_url": "https://thunderpick.io/esports/counter-strike",
+   "source_url": "https://polymarket.com/event/cs2-ntr-unity-2026-10-26",
    "researched_resolution": false
   },
   {
@@ -221,8 +189,8 @@
    "complete_basis": "market-midpoint",
    "complete_method": "market",
    "probabilities": [
-    0.925,
-    0.075
+    0.92,
+    0.08
    ],
    "pick": "FlyQuest",
    "source_url": "https://polymarket.com/event/cs2-fly-staque-2026-10-26",
@@ -423,6 +391,6 @@
  "warnings": [
   "1081159: form estimate carries no limitations",
   "1081159: complete-list model row carries no limitations",
-  "summary: evidence downloads linked from the executive summary are absent from the checked-in root (served by the artifact deployment, would 404 from a branch-root serve): ./data/evidence/polymarket-book-1237427-0.json, ./data/evidence/polymarket-book-1237427-1.json, ./data/evidence/polymarket-event-1237427.json"
+  "summary: evidence downloads linked from the executive summary are absent from the checked-in root (served by the artifact deployment, would 404 from a branch-root serve): ./data/evidence/polymarket-book-1252125-0.json, ./data/evidence/polymarket-book-1252125-1.json, ./data/evidence/polymarket-book-1255013-0.json, ./data/evidence/polymarket-book-1255013-1.json, ./data/evidence/polymarket-book-1255952-0.json, ./data/evidence/polymarket-book-1255952-1.json, ./data/evidence/polymarket-event-1252125.json, ./data/evidence/polymarket-event-1255013.json, ./data/evidence/polymarket-event-1255952.json"
  ]
 }
