@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "session": "arena-542dfb58",
-  "observed_at": "2026-10-26T01:27:03Z",
+  "observed_at": "2026-10-26T02:34:40Z",
   "environment": "github-actions-runner",
   "policy": "Read-only research, HLTV first, then esportsbooks and esports betting-line services. Nothing in this file is a probability or a pick; every row keeps the URL and minute it was read.",
   "target_source": {
@@ -33,7 +33,7 @@
         "thunderpick-matches"
       ],
       "surfaces_refused": {
-        "rivalry-api": 502,
+        "rivalry-api": 530,
         "ggbet-api": 403,
         "betexplorer": 404,
         "1xbet-linefeed": 203,
@@ -72,7 +72,7 @@
         "thunderpick-matches"
       ],
       "surfaces_refused": {
-        "rivalry-api": 502,
+        "rivalry-api": 530,
         "ggbet-api": 403,
         "betexplorer": 404,
         "1xbet-linefeed": 203,
@@ -111,7 +111,7 @@
         "thunderpick-matches"
       ],
       "surfaces_refused": {
-        "rivalry-api": 502,
+        "rivalry-api": 530,
         "ggbet-api": 403,
         "betexplorer": 404,
         "1xbet-linefeed": 203,
@@ -150,7 +150,7 @@
         "thunderpick-matches"
       ],
       "surfaces_refused": {
-        "rivalry-api": 502,
+        "rivalry-api": 530,
         "ggbet-api": 403,
         "betexplorer": 404,
         "1xbet-linefeed": 203,
@@ -189,7 +189,7 @@
         "thunderpick-matches"
       ],
       "surfaces_refused": {
-        "rivalry-api": 502,
+        "rivalry-api": 530,
         "ggbet-api": 403,
         "betexplorer": 404,
         "1xbet-linefeed": 203,
@@ -235,7 +235,7 @@
         "thunderpick-matches"
       ],
       "surfaces_refused": {
-        "rivalry-api": 502,
+        "rivalry-api": 530,
         "ggbet-api": 403,
         "betexplorer": 404,
         "1xbet-linefeed": 203,
@@ -274,7 +274,7 @@
         "thunderpick-matches"
       ],
       "surfaces_refused": {
-        "rivalry-api": 502,
+        "rivalry-api": 530,
         "ggbet-api": 403,
         "betexplorer": 404,
         "1xbet-linefeed": 203,
@@ -313,7 +313,7 @@
         "thunderpick-matches"
       ],
       "surfaces_refused": {
-        "rivalry-api": 502,
+        "rivalry-api": 530,
         "ggbet-api": 403,
         "betexplorer": 404,
         "1xbet-linefeed": 203,
@@ -352,7 +352,7 @@
         "thunderpick-matches"
       ],
       "surfaces_refused": {
-        "rivalry-api": 502,
+        "rivalry-api": 530,
         "ggbet-api": 403,
         "betexplorer": 404,
         "1xbet-linefeed": 203,
@@ -374,77 +374,77 @@
       "url": "https://www.hltv.org/matches",
       "status": "ok",
       "http_status": 200,
-      "observed_at": "2026-10-26T01:27:06Z",
+      "observed_at": "2026-10-26T02:34:43Z",
       "rows_parsed": 43,
       "final_url": "https://www.hltv.org/matches",
-      "response_sha256": "ab20aa4888a4d844d6592bf30984ff013492a6a840b0e771ed466456266e8c94",
+      "response_sha256": "f098d3338a4e93cf7d1be5ca5e7e9f11c90e3189c0aebcd1f67a0d9d5eb2d8de",
       "error": null
     },
     "smarkets-events": {
       "url": "https://api.smarkets.com/v3/events/?type=csgo_match&states=upcoming&limit=200&sort=start_datetime,id",
       "status": "ok",
       "http_status": 200,
-      "observed_at": "2026-10-26T01:27:07Z",
-      "rows_parsed": 37,
+      "observed_at": "2026-10-26T02:34:44Z",
+      "rows_parsed": 38,
       "final_url": "https://api.smarkets.com/v3/events/?type=csgo_match&states=upcoming&limit=200&sort=start_datetime,id",
-      "response_sha256": "c7148b863bc731ce62bda085087f557e117c5732788cc880b8e3fc3de82b2b37",
+      "response_sha256": "6168900ae5fa754357240b015fd493e520b64696425f6b63527e98328c2fe72c",
       "error": null
     },
     "pinnacle-matchups": {
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
       "status": "ok",
       "http_status": 200,
-      "observed_at": "2026-10-26T01:27:07Z",
+      "observed_at": "2026-10-26T02:34:44Z",
       "rows_parsed": 13,
       "final_url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
-      "response_sha256": "7e543ee5d4b8e1bcd303cead5079e865dd89f095b364807d34f549d9d5f89593",
+      "response_sha256": "895dc2d86424590a07e2b6a215180dd65736f741317e2d20c78230937b32f0d9",
       "error": null
     },
     "thunderpick-matches": {
       "url": "https://thunderpick.io/api/matches",
       "status": "ok",
       "http_status": 200,
-      "observed_at": "2026-10-26T01:27:07Z",
-      "rows_parsed": 49,
+      "observed_at": "2026-10-26T02:34:45Z",
+      "rows_parsed": 46,
       "final_url": "https://thunderpick.io/api/matches",
-      "response_sha256": "cd30288294e8879a4ce36b72e65e253f81e539937e4e5d38956b1ded758a54d2",
+      "response_sha256": "450f2f4c78ff1fd24d63b44e7480cb15933c769ed82dc02dbc3a3066e7ae7ca4",
       "error": null
     },
     "kalshi-events": {
       "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&status=open&limit=200",
       "status": "ok",
       "http_status": 200,
-      "observed_at": "2026-10-26T01:27:08Z",
+      "observed_at": "2026-10-26T02:34:45Z",
       "rows_parsed": 0,
       "final_url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&status=open&limit=200",
-      "response_sha256": "7ea1a2340d081fab5780de36e1ccf82d8d299deda3ca99f61a691eceb6f2c484",
+      "response_sha256": "969235a0c6fe97ac378b6ea91dd9b9802bb2593a18edcecaf518f241487c19e3",
       "error": null
     },
     "bovada-cs2": {
       "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?lang=en",
       "status": "ok",
       "http_status": 200,
-      "observed_at": "2026-10-26T01:27:08Z",
+      "observed_at": "2026-10-26T02:34:45Z",
       "rows_parsed": 22,
       "final_url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?lang=en",
-      "response_sha256": "2ed1564b0193dcf2c64d1d1b4998e2ae84f11c6559ab7fc92ce9b0939c11d503",
+      "response_sha256": "d60841e2414102c0f4be45ee0ff6df7b1aa0b8b34f5b6ec4edd2a5aedd6dc15c",
       "error": null
     },
     "rivalry-api": {
       "url": "https://api.rivalry.com/sports/v1/events?sportSlug=counter-strike&timezone=UTC&page=1&limit=50",
       "status": "error",
-      "http_status": 502,
-      "observed_at": "2026-10-26T01:27:09Z",
+      "http_status": 530,
+      "observed_at": "2026-10-26T02:34:46Z",
       "rows_parsed": 0,
       "final_url": null,
       "response_sha256": null,
-      "error": "rivalry-api: 502 Server Error: Bad Gateway for url: https://api.rivalry.com/sports/v1/events?sportSlug=counter-strike&timezone=UTC&page=1&limit=50"
+      "error": "rivalry-api: 530 Server Error: <none> for url: https://api.rivalry.com/sports/v1/events?sportSlug=counter-strike&timezone=UTC&page=1&limit=50"
     },
     "ggbet-api": {
       "url": "https://api.gg.bet/Sport/GetTopGames?sportId=esports_counter_strike&timezone=UTC&lang=en",
       "status": "error",
       "http_status": 403,
-      "observed_at": "2026-10-26T01:27:09Z",
+      "observed_at": "2026-10-26T02:34:46Z",
       "rows_parsed": 0,
       "final_url": null,
       "response_sha256": null,
@@ -454,7 +454,7 @@
       "url": "https://www.betexplorer.com/counter-strike/",
       "status": "error",
       "http_status": 404,
-      "observed_at": "2026-10-26T01:27:09Z",
+      "observed_at": "2026-10-26T02:34:47Z",
       "rows_parsed": 0,
       "final_url": null,
       "response_sha256": null,
@@ -464,7 +464,7 @@
       "url": "https://1xbet.com/LineFeed/Get1x2_VZip?sports=82&count=200&tf=2200000&mode=4&getEmpty=true",
       "status": "error",
       "http_status": 203,
-      "observed_at": "2026-10-26T01:27:11Z",
+      "observed_at": "2026-10-26T02:34:48Z",
       "rows_parsed": 0,
       "final_url": null,
       "response_sha256": null,
@@ -474,27 +474,27 @@
       "url": "https://www.betcet.com/en/sports/esports/counter-strike",
       "status": "error",
       "http_status": null,
-      "observed_at": "2026-10-26T01:27:11Z",
+      "observed_at": "2026-10-26T02:34:49Z",
       "rows_parsed": 0,
       "final_url": null,
       "response_sha256": null,
-      "error": "betcet: HTTPSConnectionPool(host='www.betcet.com', port=443): Max retries exceeded with url: /en/sports/esports/counter-strike (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.betcet.com', port=443) at 0x7f03ed72cb00>, 'Connection "
+      "error": "betcet: HTTPSConnectionPool(host='www.betcet.com', port=443): Max retries exceeded with url: /en/sports/esports/counter-strike (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.betcet.com', port=443) at 0x7f6f36b09670>, 'Connection "
     },
     "esportsbetting": {
       "url": "https://www.esportsbetting.com/odds/cs2",
       "status": "ok",
       "http_status": 200,
-      "observed_at": "2026-10-26T01:27:41Z",
+      "observed_at": "2026-10-26T02:35:19Z",
       "rows_parsed": 0,
       "final_url": "https://esportsbetting.com/cs2-callouts-for-mirage-explained-with-images/",
-      "response_sha256": "c29b02fde796faaea4e53bb9519ae788889cda6ea4a95683a2f7a1c67752a2cf",
+      "response_sha256": "51ebc8d8c0fe9575eb5abc3cb4eeda63f47b1fed12f9d2aac0f840d74b874286",
       "error": null
     },
     "bo3gg-matches": {
       "url": "https://bo3.gg/matches",
       "status": "ok",
       "http_status": 200,
-      "observed_at": "2026-10-26T01:27:42Z",
+      "observed_at": "2026-10-26T02:35:20Z",
       "rows_parsed": 0,
       "final_url": "https://bo3.gg/matches",
       "response_sha256": "ed918ceec359c157dc30fa4176529d36058881b8ef2d19fe5523aa458c97ce5f",
@@ -504,12 +504,12 @@
       "url": "https://egamersworld.com/counterstrike/matches",
       "status": "error",
       "http_status": 403,
-      "observed_at": "2026-10-26T01:27:43Z",
+      "observed_at": "2026-10-26T02:35:21Z",
       "rows_parsed": 0,
       "final_url": null,
       "response_sha256": null,
       "error": "egamersworld-matches: 403 Client Error: Forbidden for url: https://egamersworld.com/counterstrike/matches"
     }
   },
-  "written_at": "2026-10-26T01:27:43Z"
+  "written_at": "2026-10-26T02:35:21Z"
 }
