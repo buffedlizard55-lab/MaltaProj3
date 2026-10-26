@@ -133,3 +133,16 @@ The verifier also compares the transcribed inventory with the collector's own `d
 - **info** · `e3bc19d6-hotu-the-huns-book-is-now-tight` — The HOTU vs The Huns exchange book is now 0.82/0.92 and 0.08/0.18, so the fixture is priced from a real line
 - **info** · `e3bc19d6-valve-input-vintage` — The committed Valve rating input is dated 2026-10-05, 21 days old, because it is the replay fixture
 - **info** · `e3bc19d6-hotspawn-best-of-is-null` — All 19 open fixtures carry a null Hotspawn best-of while HLTV lists best-of-3 for the nine checked
+
+## 10. Second pass — what the deployed build and the official directory check changed (2026-10-26T01:45Z)
+
+A second read of the live build, this time against the official repositories' own listings rather than the retained evidence, produced three further findings. All three now sit on the **Flagged for Review** page; none changes a published probability.
+
+**1. The machine-readable snapshot and the page disagree about coverage.** `/snapshot.json` in the deployed build reports `counts.picks 17` and `counts.unresolved 2` and leaves `pick_index` null on `1081159` and `1082792`, while `/origination.json` from the same run reports `with_pick 19` / `unresolved 0`, and the rendered page prints *19 picks ready of 19 · 0 unresolved*. The two extra picks come from the last-resort rungs that run after the collector snapshot. The page is right and the JSON is stale-by-stage: flag `e3bc19d6-snapshot-json-counts-lag-the-page`.
+
+**2. `ex-RUSTEC` has two complete official rows.** The published row uses `details/2026_10_05/0092--ex-rustec--brilliance-glowiing-shalfey-yiksrezo-youka.md` (1066 points, standing 92), which does exist in the official file with five players and matching points; what was not re-checked is the lineup binding. If the other row is the right one, the published 61.7% for `1081162` moves: flag `e3bc19d6-ex-rustec-selected-between-two-official-rows`.
+
+**3. The Valve input is the newest file Valve has published.** The `live/2026` directory listing ends at `standings_global_2026_10_05.md` — the global series is monthly — so the 21-day-old input is the source's cadence, not a stale read, and the publisher's 35-day gate is satisfied by the newest available publication.
+
+HLTV's own event pages also confirm all nine fixtures the previous build did not carry, and confirm them twice over: the pairing and the best-of-3 format, and the start time — printed four hours behind UTC, and exact after `+4h` on every one of the nine.
+- **notice** · `e3bc19d6-hltv-match-pages-print-utc-minus-four` — HLTV event pages print every start four hours behind UTC; all nine checked fixtures agree exactly after +4h

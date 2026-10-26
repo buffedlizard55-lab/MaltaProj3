@@ -91,5 +91,55 @@
       "https://www.hltv.org/events/9440/matches",
       "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
     ]
+  },
+  {
+    "id": "e3bc19d6-snapshot-json-counts-lag-the-page",
+    "severity": "warning",
+    "title": "The deployed snapshot.json reports 17 picks and 2 unresolved while the page and origination.json report 19 and 0",
+    "detail": "Two machine-readable files in the same published build disagree about coverage. /snapshot.json (generated 2026-10-26T01:04:20Z) reports counts.picks 17 and counts.unresolved 2, and leaves pick_index null on 1081159 (LFO 10 vs ex-6666) and 1082792 (HOTU vs The Huns). /origination.json (01:04:30Z, source_snapshot_at 01:04:03Z) reports with_pick 19 and unresolved 0, and the rendered /index.html prints \"19 picks ready of 19 \u00b7 0 unresolved\". The two extra picks come from the last-resort rungs that run after the collector snapshot: an own results-based fit for 1081159 and a prediction-market line for 1082792. No probability is wrong and no pick is missing from the page, but anyone who opens the linked machine-readable snapshot sees a different coverage number from the page. Fix belongs to the publisher: recompute snapshot.counts after origination, or label snapshot.json explicitly as the collector stage.",
+    "match_ids": [
+      "1081159",
+      "1082792"
+    ],
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/snapshot.json",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/origination.json",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/index.html"
+    ]
+  },
+  {
+    "id": "e3bc19d6-ex-rustec-selected-between-two-official-rows",
+    "severity": "warning",
+    "title": "Two complete five-player official rows carry the name ex-RUSTEC; the published model used one of them",
+    "detail": "The 2026-10-05 global standings carry two complete five-player rows whose name normalises to ex-RUSTEC. The published row uses details/2026_10_05/0092--ex-rustec--brilliance-glowiing-shalfey-yiksrezo-youka.md (1066 points, standing 92), and that row does exist in the official file with matching points, standing and five players. What was not re-checked here is the lineup binding itself - whether those five players are the five who played 1081162 (ex-RUSTEC vs Spirit Academy, HLTV 2399512, best-of-3, 12:00Z on 27 October). If the other ex-RUSTEC row is the right one, the published 61.7% moves.",
+    "match_ids": [
+      "1081162"
+    ],
+    "source_urls": [
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://www.hltv.org/matches/2399512/ex-rustec-vs-spirit-academy-cct-2026-europe-series-12"
+    ]
+  },
+  {
+    "id": "e3bc19d6-hltv-match-pages-print-utc-minus-four",
+    "severity": "notice",
+    "title": "HLTV event pages print every start four hours behind UTC; all nine checked fixtures agree exactly after +4h",
+    "detail": "The NODWIN Clutch Series 13 and CCT 2026 Europe Series 12 match lists render local clocks as UTC-4. Adding four hours reproduces the Hotspawn start exactly for all nine fixtures checked (NODWIN 05:00/08:00/11:00/14:00 -> 09:00/12:00/15:00/18:00Z; CCT 08:00/11:00/14:00 -> 12:00/15:00/18:00Z across 26-27 October), and both events list every one of them as best-of-3. Any identity comparison that treats the printed clock as UTC is wrong by four hours and would fail a 60-second window.",
+    "match_ids": [
+      "1079201",
+      "1079202",
+      "1079203",
+      "1093218",
+      "1081159",
+      "1081160",
+      "1081162",
+      "1081163",
+      "1081164"
+    ],
+    "source_urls": [
+      "https://www.hltv.org/events/9440/matches",
+      "https://www.hltv.org/events/9457/matches"
+    ]
   }
 ]
