@@ -1,0 +1,1272 @@
+{
+  "schema_version": 1,
+  "session": "arena-542dfb58",
+  "observed_at": "2026-10-26T01:27:03Z",
+  "collected_at": "2026-10-26T01:27:43Z",
+  "policy": "facts only — this probe never writes a probability, pick or alias",
+  "deployed": {
+    "snapshot": {
+      "status": "ok",
+      "generated_at": "2026-10-26T01:04:20Z",
+      "counts": {
+        "inventory": 81,
+        "upcoming": 19,
+        "archived": 62,
+        "unknown_schedule": 0,
+        "market": 6,
+        "bookmaker": 3,
+        "model": 8,
+        "unresolved": 2,
+        "picks": 17,
+        "no_edge": 0
+      }
+    },
+    "origination": {
+      "status": "ok",
+      "generated_at": "2026-10-26T01:04:30Z",
+      "counts": {
+        "active": 19,
+        "resolved": 19,
+        "unresolved": 0,
+        "with_pick": 19,
+        "consensus": 1,
+        "market": 7,
+        "bookmaker": 3,
+        "reference": 0,
+        "model": 8,
+        "network": 0,
+        "relay": 0,
+        "guidance": 0,
+        "alias_joined": 3
+      }
+    }
+  },
+  "inventory": {
+    "observed_at": "2026-10-26T01:27:03Z",
+    "records": 81,
+    "records_including_past_and_other_sports": 81,
+    "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "lobby_pages": [
+      "https://play.hotspawn.com/lobby",
+      "https://play.hotspawn.com/cs2-pickems"
+    ],
+    "visible_cards": 0,
+    "crosscheck": "complete",
+    "open_fixture_ids": [
+      "1079201",
+      "1079202",
+      "1079203",
+      "1081159",
+      "1081160",
+      "1081162",
+      "1081163",
+      "1081164",
+      "1082792",
+      "1082793",
+      "1082858",
+      "1082859",
+      "1082860",
+      "1082861",
+      "1082897",
+      "1082898",
+      "1082900",
+      "1082901",
+      "1093218"
+    ],
+    "detail": "All CS2 fixture IDs reconciled across the lobby, CS2 lobby and public fixture array. No client-side pagination is used by the inspected public client."
+  },
+  "coverage": {
+    "open_fixtures": 19,
+    "with_a_published_pick": 19,
+    "unpicked": [],
+    "missing_from_both_layers": [],
+    "model_or_guidance_only": [
+      {
+        "fixture_id": "1079201",
+        "teams": [
+          "INOX Division",
+          "Nemesis"
+        ],
+        "competition": "NODWIN Clutch Series #13",
+        "starts_at": "2026-10-26T09:00:00Z",
+        "tier": "b",
+        "on_deployed_snapshot": true,
+        "on_deployed_origination": true,
+        "featured_method": "model",
+        "researched_method": "model",
+        "effective_method": "model",
+        "priced_by_money": false,
+        "model_only": true,
+        "pick": "Nemesis",
+        "estimate_published": true,
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "limitation_count": 1
+      },
+      {
+        "fixture_id": "1081159",
+        "teams": [
+          "LFO 10",
+          "ex-6666"
+        ],
+        "competition": "CCT Europe 2026 Series #12",
+        "starts_at": "2026-10-26T12:00:00Z",
+        "tier": "b",
+        "on_deployed_snapshot": true,
+        "on_deployed_origination": true,
+        "featured_method": null,
+        "researched_method": "model",
+        "effective_method": "model",
+        "priced_by_money": false,
+        "model_only": true,
+        "pick": "ex-6666",
+        "estimate_published": true,
+        "source_url": "https://bo3.gg/matches/sokerorg-vs-ex-6666-26-10-2026",
+        "limitation_count": 2
+      },
+      {
+        "fixture_id": "1081160",
+        "teams": [
+          "HAVU",
+          "ILLYRIANS"
+        ],
+        "competition": "CCT Europe 2026 Series #12",
+        "starts_at": "2026-10-26T15:00:00Z",
+        "tier": "b",
+        "on_deployed_snapshot": true,
+        "on_deployed_origination": true,
+        "featured_method": "model",
+        "researched_method": "model",
+        "effective_method": "model",
+        "priced_by_money": false,
+        "model_only": true,
+        "pick": "HAVU",
+        "estimate_published": true,
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "limitation_count": 1
+      },
+      {
+        "fixture_id": "1093218",
+        "teams": [
+          "Nuclear TigeRES",
+          "UNiTY"
+        ],
+        "competition": "NODWIN Clutch Series #13",
+        "starts_at": "2026-10-26T18:00:00Z",
+        "tier": "b",
+        "on_deployed_snapshot": true,
+        "on_deployed_origination": true,
+        "featured_method": "model",
+        "researched_method": "consensus",
+        "effective_method": "model",
+        "priced_by_money": false,
+        "model_only": true,
+        "pick": "Nuclear TigeRES",
+        "estimate_published": true,
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "limitation_count": 1
+      },
+      {
+        "fixture_id": "1082861",
+        "teams": [
+          "Rooster",
+          "Abyssal"
+        ],
+        "competition": "DFRAG Invitational 2026",
+        "starts_at": "2026-10-27T03:00:00Z",
+        "tier": "b",
+        "on_deployed_snapshot": true,
+        "on_deployed_origination": true,
+        "featured_method": "model",
+        "researched_method": "model",
+        "effective_method": "model",
+        "priced_by_money": false,
+        "model_only": true,
+        "pick": "Abyssal",
+        "estimate_published": true,
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "limitation_count": 1
+      },
+      {
+        "fixture_id": "1081162",
+        "teams": [
+          "ex-RUSTEC",
+          "Spirit Academy"
+        ],
+        "competition": "CCT Europe 2026 Series #12",
+        "starts_at": "2026-10-27T12:00:00Z",
+        "tier": "b",
+        "on_deployed_snapshot": true,
+        "on_deployed_origination": true,
+        "featured_method": "model",
+        "researched_method": "model",
+        "effective_method": "model",
+        "priced_by_money": false,
+        "model_only": true,
+        "pick": "ex-RUSTEC",
+        "estimate_published": true,
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "limitation_count": 1
+      },
+      {
+        "fixture_id": "1081163",
+        "teams": [
+          "BakS",
+          "Saint Sinners"
+        ],
+        "competition": "CCT Europe 2026 Series #12",
+        "starts_at": "2026-10-27T15:00:00Z",
+        "tier": "b",
+        "on_deployed_snapshot": true,
+        "on_deployed_origination": true,
+        "featured_method": "model",
+        "researched_method": "model",
+        "effective_method": "model",
+        "priced_by_money": false,
+        "model_only": true,
+        "pick": "BakS",
+        "estimate_published": true,
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "limitation_count": 1
+      },
+      {
+        "fixture_id": "1081164",
+        "teams": [
+          "Inner Circle Academy",
+          "Lavked"
+        ],
+        "competition": "CCT Europe 2026 Series #12",
+        "starts_at": "2026-10-27T18:00:00Z",
+        "tier": "b",
+        "on_deployed_snapshot": true,
+        "on_deployed_origination": true,
+        "featured_method": "model",
+        "researched_method": "model",
+        "effective_method": "model",
+        "priced_by_money": false,
+        "model_only": true,
+        "pick": "Inner Circle Academy",
+        "estimate_published": true,
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "limitation_count": 1
+      },
+      {
+        "fixture_id": "1082793",
+        "teams": [
+          "5star",
+          "1WIN"
+        ],
+        "competition": "Moscow Cyber Games 2026",
+        "starts_at": "2026-10-31T13:00:00Z",
+        "tier": "b",
+        "on_deployed_snapshot": true,
+        "on_deployed_origination": true,
+        "featured_method": "model",
+        "researched_method": "model",
+        "effective_method": "model",
+        "priced_by_money": false,
+        "model_only": true,
+        "pick": "1WIN",
+        "estimate_published": true,
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "limitation_count": 1
+      }
+    ]
+  },
+  "coverage_rows": [
+    {
+      "fixture_id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "tier": "b",
+      "on_deployed_snapshot": true,
+      "on_deployed_origination": true,
+      "featured_method": "market",
+      "researched_method": "market",
+      "effective_method": "market",
+      "priced_by_money": true,
+      "model_only": false,
+      "pick": "Off Chops",
+      "estimate_published": true,
+      "source_url": "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25",
+      "limitation_count": 1
+    },
+    {
+      "fixture_id": "1082859",
+      "teams": [
+        "NEXVOID",
+        "Alter Ego"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "tier": "b",
+      "on_deployed_snapshot": true,
+      "on_deployed_origination": true,
+      "featured_method": "bookmaker",
+      "researched_method": "bookmaker",
+      "effective_method": "bookmaker",
+      "priced_by_money": true,
+      "model_only": false,
+      "pick": "NEXVOID",
+      "estimate_published": true,
+      "source_url": "https://thunderpick.io/api/matches",
+      "limitation_count": 1
+    },
+    {
+      "fixture_id": "1079201",
+      "teams": [
+        "INOX Division",
+        "Nemesis"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-26T09:00:00Z",
+      "tier": "b",
+      "on_deployed_snapshot": true,
+      "on_deployed_origination": true,
+      "featured_method": "model",
+      "researched_method": "model",
+      "effective_method": "model",
+      "priced_by_money": false,
+      "model_only": true,
+      "pick": "Nemesis",
+      "estimate_published": true,
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "limitation_count": 1
+    },
+    {
+      "fixture_id": "1081159",
+      "teams": [
+        "LFO 10",
+        "ex-6666"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-26T12:00:00Z",
+      "tier": "b",
+      "on_deployed_snapshot": true,
+      "on_deployed_origination": true,
+      "featured_method": null,
+      "researched_method": "model",
+      "effective_method": "model",
+      "priced_by_money": false,
+      "model_only": true,
+      "pick": "ex-6666",
+      "estimate_published": true,
+      "source_url": "https://bo3.gg/matches/sokerorg-vs-ex-6666-26-10-2026",
+      "limitation_count": 2
+    },
+    {
+      "fixture_id": "1079202",
+      "teams": [
+        "FOKUS",
+        "ex-Zero Tenacity"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-26T12:00:00Z",
+      "tier": "b",
+      "on_deployed_snapshot": true,
+      "on_deployed_origination": true,
+      "featured_method": "bookmaker",
+      "researched_method": "bookmaker",
+      "effective_method": "bookmaker",
+      "priced_by_money": true,
+      "model_only": false,
+      "pick": "FOKUS",
+      "estimate_published": true,
+      "source_url": "https://thunderpick.io/api/matches",
+      "limitation_count": 1
+    },
+    {
+      "fixture_id": "1081160",
+      "teams": [
+        "HAVU",
+        "ILLYRIANS"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-26T15:00:00Z",
+      "tier": "b",
+      "on_deployed_snapshot": true,
+      "on_deployed_origination": true,
+      "featured_method": "model",
+      "researched_method": "model",
+      "effective_method": "model",
+      "priced_by_money": false,
+      "model_only": true,
+      "pick": "HAVU",
+      "estimate_published": true,
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "limitation_count": 1
+    },
+    {
+      "fixture_id": "1079203",
+      "teams": [
+        "Metizport",
+        "BRUTE"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-26T15:00:00Z",
+      "tier": "b",
+      "on_deployed_snapshot": true,
+      "on_deployed_origination": true,
+      "featured_method": "bookmaker",
+      "researched_method": "bookmaker",
+      "effective_method": "bookmaker",
+      "priced_by_money": true,
+      "model_only": false,
+      "pick": "Metizport",
+      "estimate_published": true,
+      "source_url": "https://thunderpick.io/api/matches",
+      "limitation_count": 1
+    },
+    {
+      "fixture_id": "1093218",
+      "teams": [
+        "Nuclear TigeRES",
+        "UNiTY"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-26T18:00:00Z",
+      "tier": "b",
+      "on_deployed_snapshot": true,
+      "on_deployed_origination": true,
+      "featured_method": "model",
+      "researched_method": "consensus",
+      "effective_method": "model",
+      "priced_by_money": false,
+      "model_only": true,
+      "pick": "Nuclear TigeRES",
+      "estimate_published": true,
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "limitation_count": 1
+    },
+    {
+      "fixture_id": "1082860",
+      "teams": [
+        "FlyQuest",
+        "Staqued"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "tier": "b",
+      "on_deployed_snapshot": true,
+      "on_deployed_origination": true,
+      "featured_method": "market",
+      "researched_method": "market",
+      "effective_method": "market",
+      "priced_by_money": true,
+      "model_only": false,
+      "pick": "FlyQuest",
+      "estimate_published": true,
+      "source_url": "https://polymarket.com/event/cs2-fly-staque-2026-10-26",
+      "limitation_count": 1
+    },
+    {
+      "fixture_id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "tier": "b",
+      "on_deployed_snapshot": true,
+      "on_deployed_origination": true,
+      "featured_method": "model",
+      "researched_method": "model",
+      "effective_method": "model",
+      "priced_by_money": false,
+      "model_only": true,
+      "pick": "Abyssal",
+      "estimate_published": true,
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "limitation_count": 1
+    },
+    {
+      "fixture_id": "1082897",
+      "teams": [
+        "B8",
+        "K27"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T08:00:00Z",
+      "tier": "b",
+      "on_deployed_snapshot": true,
+      "on_deployed_origination": true,
+      "featured_method": "market",
+      "researched_method": "market",
+      "effective_method": "market",
+      "priced_by_money": true,
+      "model_only": false,
+      "pick": "B8",
+      "estimate_published": true,
+      "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
+      "limitation_count": 1
+    },
+    {
+      "fixture_id": "1082898",
+      "teams": [
+        "Alliance",
+        "FaZe"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T11:00:00Z",
+      "tier": "b",
+      "on_deployed_snapshot": true,
+      "on_deployed_origination": true,
+      "featured_method": "market",
+      "researched_method": "market",
+      "effective_method": "market",
+      "priced_by_money": true,
+      "model_only": false,
+      "pick": "FaZe",
+      "estimate_published": true,
+      "source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
+      "limitation_count": 1
+    },
+    {
+      "fixture_id": "1081162",
+      "teams": [
+        "ex-RUSTEC",
+        "Spirit Academy"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-27T12:00:00Z",
+      "tier": "b",
+      "on_deployed_snapshot": true,
+      "on_deployed_origination": true,
+      "featured_method": "model",
+      "researched_method": "model",
+      "effective_method": "model",
+      "priced_by_money": false,
+      "model_only": true,
+      "pick": "ex-RUSTEC",
+      "estimate_published": true,
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "limitation_count": 1
+    },
+    {
+      "fixture_id": "1081163",
+      "teams": [
+        "BakS",
+        "Saint Sinners"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-27T15:00:00Z",
+      "tier": "b",
+      "on_deployed_snapshot": true,
+      "on_deployed_origination": true,
+      "featured_method": "model",
+      "researched_method": "model",
+      "effective_method": "model",
+      "priced_by_money": false,
+      "model_only": true,
+      "pick": "BakS",
+      "estimate_published": true,
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "limitation_count": 1
+    },
+    {
+      "fixture_id": "1082900",
+      "teams": [
+        "Luminosity",
+        "HOTU"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T17:00:00Z",
+      "tier": "b",
+      "on_deployed_snapshot": true,
+      "on_deployed_origination": true,
+      "featured_method": "market",
+      "researched_method": "market",
+      "effective_method": "market",
+      "priced_by_money": true,
+      "model_only": false,
+      "pick": "Luminosity",
+      "estimate_published": true,
+      "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
+      "limitation_count": 1
+    },
+    {
+      "fixture_id": "1081164",
+      "teams": [
+        "Inner Circle Academy",
+        "Lavked"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-27T18:00:00Z",
+      "tier": "b",
+      "on_deployed_snapshot": true,
+      "on_deployed_origination": true,
+      "featured_method": "model",
+      "researched_method": "model",
+      "effective_method": "model",
+      "priced_by_money": false,
+      "model_only": true,
+      "pick": "Inner Circle Academy",
+      "estimate_published": true,
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "limitation_count": 1
+    },
+    {
+      "fixture_id": "1082901",
+      "teams": [
+        "Envy",
+        "GamerLegion"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T20:00:00Z",
+      "tier": "b",
+      "on_deployed_snapshot": true,
+      "on_deployed_origination": true,
+      "featured_method": "market",
+      "researched_method": "market",
+      "effective_method": "market",
+      "priced_by_money": true,
+      "model_only": false,
+      "pick": "GamerLegion",
+      "estimate_published": true,
+      "source_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
+      "limitation_count": 1
+    },
+    {
+      "fixture_id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "tier": "b",
+      "on_deployed_snapshot": true,
+      "on_deployed_origination": true,
+      "featured_method": null,
+      "researched_method": "market",
+      "effective_method": "market",
+      "priced_by_money": true,
+      "model_only": false,
+      "pick": "HOTU",
+      "estimate_published": true,
+      "source_url": "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
+      "limitation_count": 2
+    },
+    {
+      "fixture_id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T13:00:00Z",
+      "tier": "b",
+      "on_deployed_snapshot": true,
+      "on_deployed_origination": true,
+      "featured_method": "model",
+      "researched_method": "model",
+      "effective_method": "model",
+      "priced_by_money": false,
+      "model_only": true,
+      "pick": "1WIN",
+      "estimate_published": true,
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "limitation_count": 1
+    }
+  ],
+  "surfaces": {
+    "surfaces": {
+      "hltv-matches": {
+        "label": "hltv-matches",
+        "url": "https://www.hltv.org/matches",
+        "method": "GET",
+        "observed_at": "2026-10-26T01:27:06Z",
+        "status": "ok",
+        "http_status": 200,
+        "final_url": "https://www.hltv.org/matches",
+        "content_type": "text/html; charset=UTF-8",
+        "response_date": "Mon, 26 Oct 2026 01:27:06 GMT",
+        "response_sha256": "ab20aa4888a4d844d6592bf30984ff013492a6a840b0e771ed466456266e8c94",
+        "rows_parsed": 43,
+        "raw_file": "data/research/542dfb58/raw/hltv-matches.html.gz",
+        "stored_bytes": 456230,
+        "stored_sha256": "ab20aa4888a4d844d6592bf30984ff013492a6a840b0e771ed466456266e8c94",
+        "note": "HLTV first: the official live match listing",
+        "presence": {
+          "fixtures_mentioned": 9,
+          "fixture_ids": [
+            "1079201",
+            "1081159",
+            "1081160",
+            "1093218",
+            "1082861",
+            "1081162",
+            "1081163",
+            "1081164",
+            "1082793"
+          ]
+        },
+        "fixture_ids_visible": 9,
+        "presence_fixture_ids": [
+          "1079201",
+          "1081159",
+          "1081160",
+          "1093218",
+          "1082861",
+          "1081162",
+          "1081163",
+          "1081164",
+          "1082793"
+        ]
+      },
+      "smarkets-events": {
+        "label": "smarkets-events",
+        "url": "https://api.smarkets.com/v3/events/?type=csgo_match&states=upcoming&limit=200&sort=start_datetime,id",
+        "method": "GET",
+        "observed_at": "2026-10-26T01:27:07Z",
+        "status": "ok",
+        "http_status": 200,
+        "final_url": "https://api.smarkets.com/v3/events/?type=csgo_match&states=upcoming&limit=200&sort=start_datetime,id",
+        "content_type": "application/json",
+        "response_date": "Mon, 26 Oct 2026 01:27:07 GMT",
+        "response_sha256": "c7148b863bc731ce62bda085087f557e117c5732788cc880b8e3fc3de82b2b37",
+        "rows_parsed": 37,
+        "raw_file": "data/research/542dfb58/raw/smarkets-events.json.gz",
+        "stored_bytes": 25666,
+        "stored_sha256": "c7148b863bc731ce62bda085087f557e117c5732788cc880b8e3fc3de82b2b37",
+        "note": "regulated exchange, already a ladder rung",
+        "presence": {
+          "fixtures_mentioned": 3,
+          "fixture_ids": [
+            "1079201",
+            "1093218",
+            "1082861"
+          ]
+        },
+        "fixture_ids_visible": 3,
+        "presence_fixture_ids": [
+          "1079201",
+          "1093218",
+          "1082861"
+        ]
+      },
+      "pinnacle-matchups": {
+        "label": "pinnacle-matchups",
+        "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
+        "method": "GET",
+        "observed_at": "2026-10-26T01:27:07Z",
+        "status": "ok",
+        "http_status": 200,
+        "final_url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
+        "content_type": "application/json",
+        "response_date": "Mon, 26 Oct 2026 01:27:07 GMT",
+        "response_sha256": "7e543ee5d4b8e1bcd303cead5079e865dd89f095b364807d34f549d9d5f89593",
+        "rows_parsed": 13,
+        "raw_file": "data/research/542dfb58/raw/pinnacle-matchups.json.gz",
+        "stored_bytes": 417573,
+        "stored_sha256": "f5ef899ebd541b8884fc4a75e8c044c01237b8e8009ad024fc9dfd787c324a61",
+        "note": "Pinnacle guest esports API used by the ladder",
+        "presence": {
+          "fixtures_mentioned": 0,
+          "fixture_ids": []
+        },
+        "fixture_ids_visible": 0,
+        "presence_fixture_ids": []
+      },
+      "thunderpick-matches": {
+        "label": "thunderpick-matches",
+        "url": "https://thunderpick.io/api/matches",
+        "method": "POST",
+        "observed_at": "2026-10-26T01:27:07Z",
+        "status": "ok",
+        "http_status": 200,
+        "final_url": "https://thunderpick.io/api/matches",
+        "content_type": "application/json; charset=utf-8",
+        "response_date": "Mon, 26 Oct 2026 01:27:08 GMT",
+        "response_sha256": "cd30288294e8879a4ce36b72e65e253f81e539937e4e5d38956b1ded758a54d2",
+        "rows_parsed": 49,
+        "raw_file": "data/research/542dfb58/raw/thunderpick-matches.json.gz",
+        "stored_bytes": 178297,
+        "stored_sha256": "eb6959f0187462d0abd9b97658c062f3fa6a84b276b5bb3807a091c8e693d4be",
+        "note": "esportsbook with a public match endpoint, already a ladder rung",
+        "presence": {
+          "fixtures_mentioned": 1,
+          "fixture_ids": [
+            "1093218"
+          ]
+        },
+        "fixture_ids_visible": 1,
+        "presence_fixture_ids": [
+          "1093218"
+        ]
+      },
+      "kalshi-events": {
+        "label": "kalshi-events",
+        "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&status=open&limit=200",
+        "method": "GET",
+        "observed_at": "2026-10-26T01:27:08Z",
+        "status": "ok",
+        "http_status": 200,
+        "final_url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&status=open&limit=200",
+        "content_type": "application/json",
+        "response_date": "Mon, 26 Oct 2026 01:27:08 GMT",
+        "response_sha256": "7ea1a2340d081fab5780de36e1ccf82d8d299deda3ca99f61a691eceb6f2c484",
+        "rows_parsed": 0,
+        "raw_file": "data/research/542dfb58/raw/kalshi-events.json.gz",
+        "stored_bytes": 34580,
+        "stored_sha256": "40143938077c2a4ff9c0c08bf0ff4ca8853b41c189ea40442dc171b4c2f7e146",
+        "note": "exchange, already a ladder rung",
+        "presence": {
+          "fixtures_mentioned": 7,
+          "fixture_ids": [
+            "1079201",
+            "1081160",
+            "1093218",
+            "1082861",
+            "1081162",
+            "1081163",
+            "1081164"
+          ]
+        },
+        "fixture_ids_visible": 7,
+        "presence_fixture_ids": [
+          "1079201",
+          "1081160",
+          "1093218",
+          "1082861",
+          "1081162",
+          "1081163",
+          "1081164"
+        ]
+      },
+      "bovada-cs2": {
+        "label": "bovada-cs2",
+        "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?lang=en",
+        "method": "GET",
+        "observed_at": "2026-10-26T01:27:08Z",
+        "status": "ok",
+        "http_status": 200,
+        "final_url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?lang=en",
+        "content_type": "application/json",
+        "response_date": "Mon, 26 Oct 2026 01:27:09 GMT",
+        "response_sha256": "2ed1564b0193dcf2c64d1d1b4998e2ae84f11c6559ab7fc92ce9b0939c11d503",
+        "rows_parsed": 22,
+        "raw_file": "data/research/542dfb58/raw/bovada-cs2.json.gz",
+        "stored_bytes": 378797,
+        "stored_sha256": "feadd67a6f4f17a7ec073ec221274b6c445264f22c17a7310fb8c7fbb2f2e632",
+        "note": "sportsbook coupon, already a ladder rung",
+        "presence": {
+          "fixtures_mentioned": 2,
+          "fixture_ids": [
+            "1079201",
+            "1093218"
+          ]
+        },
+        "fixture_ids_visible": 2,
+        "presence_fixture_ids": [
+          "1079201",
+          "1093218"
+        ]
+      },
+      "rivalry-api": {
+        "label": "rivalry-api",
+        "url": "https://api.rivalry.com/sports/v1/events?sportSlug=counter-strike&timezone=UTC&page=1&limit=50",
+        "method": "GET",
+        "observed_at": "2026-10-26T01:27:09Z",
+        "status": "error",
+        "http_status": 502,
+        "error": "rivalry-api: 502 Server Error: Bad Gateway for url: https://api.rivalry.com/sports/v1/events?sportSlug=counter-strike&timezone=UTC&page=1&limit=50",
+        "rows_parsed": 0,
+        "note": "esportsbook surface the ladder does not read",
+        "fixture_ids_visible": 0,
+        "presence_fixture_ids": []
+      },
+      "ggbet-api": {
+        "label": "ggbet-api",
+        "url": "https://api.gg.bet/Sport/GetTopGames?sportId=esports_counter_strike&timezone=UTC&lang=en",
+        "method": "GET",
+        "observed_at": "2026-10-26T01:27:09Z",
+        "status": "error",
+        "http_status": 403,
+        "error": "ggbet-api: 403 Client Error: Forbidden for url: https://api.gg.bet/Sport/GetTopGames?sportId=esports_counter_strike&timezone=UTC&lang=en",
+        "rows_parsed": 0,
+        "note": "esportsbook surface the ladder does not read",
+        "fixture_ids_visible": 0,
+        "presence_fixture_ids": []
+      },
+      "betexplorer": {
+        "label": "betexplorer",
+        "url": "https://www.betexplorer.com/counter-strike/",
+        "method": "GET",
+        "observed_at": "2026-10-26T01:27:09Z",
+        "status": "error",
+        "http_status": 404,
+        "error": "betexplorer: 404 Client Error: Not Found for url: https://www.betexplorer.com/counter-strike/",
+        "rows_parsed": 0,
+        "note": "odds-aggregator index for Counter-Strike",
+        "fixture_ids_visible": 0,
+        "presence_fixture_ids": []
+      },
+      "1xbet-linefeed": {
+        "label": "1xbet-linefeed",
+        "url": "https://1xbet.com/LineFeed/Get1x2_VZip?sports=82&count=200&tf=2200000&mode=4&getEmpty=true",
+        "method": "GET",
+        "observed_at": "2026-10-26T01:27:11Z",
+        "status": "error",
+        "http_status": 203,
+        "error": "1xbet-linefeed: Expecting value: line 1 column 1 (char 0)",
+        "rows_parsed": 0,
+        "note": "public pre-match line feed for low-tier esports",
+        "fixture_ids_visible": 0,
+        "presence_fixture_ids": []
+      },
+      "betcet": {
+        "label": "betcet",
+        "url": "https://www.betcet.com/en/sports/esports/counter-strike",
+        "method": "GET",
+        "observed_at": "2026-10-26T01:27:11Z",
+        "status": "error",
+        "http_status": null,
+        "error": "betcet: HTTPSConnectionPool(host='www.betcet.com', port=443): Max retries exceeded with url: /en/sports/esports/counter-strike (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.betcet.com', port=443) at 0x7f03ed72cb00>, 'Connection ",
+        "rows_parsed": 0,
+        "note": "esportsbook page probe (reachability only)",
+        "fixture_ids_visible": 0,
+        "presence_fixture_ids": []
+      },
+      "esportsbetting": {
+        "label": "esportsbetting",
+        "url": "https://www.esportsbetting.com/odds/cs2",
+        "method": "GET",
+        "observed_at": "2026-10-26T01:27:41Z",
+        "status": "ok",
+        "http_status": 200,
+        "final_url": "https://esportsbetting.com/cs2-callouts-for-mirage-explained-with-images/",
+        "content_type": "text/html; charset=UTF-8",
+        "response_date": "Mon, 26 Oct 2026 01:27:42 GMT",
+        "response_sha256": "c29b02fde796faaea4e53bb9519ae788889cda6ea4a95683a2f7a1c67752a2cf",
+        "rows_parsed": 0,
+        "raw_file": "data/research/542dfb58/raw/esportsbetting.html.gz",
+        "stored_bytes": 135046,
+        "stored_sha256": "c29b02fde796faaea4e53bb9519ae788889cda6ea4a95683a2f7a1c67752a2cf",
+        "redirected": true,
+        "note": "odds comparison page probe (reachability only)",
+        "presence": {
+          "fixtures_mentioned": 0,
+          "fixture_ids": []
+        },
+        "fixture_ids_visible": 0,
+        "presence_fixture_ids": []
+      },
+      "bo3gg-matches": {
+        "label": "bo3gg-matches",
+        "url": "https://bo3.gg/matches",
+        "method": "GET",
+        "observed_at": "2026-10-26T01:27:42Z",
+        "status": "ok",
+        "http_status": 200,
+        "final_url": "https://bo3.gg/matches",
+        "content_type": "text/html;charset=utf-8",
+        "response_date": "Mon, 26 Oct 2026 01:27:42 GMT",
+        "response_sha256": "ed918ceec359c157dc30fa4176529d36058881b8ef2d19fe5523aa458c97ce5f",
+        "rows_parsed": 0,
+        "raw_file": "data/research/542dfb58/raw/bo3gg-matches.html.gz",
+        "stored_bytes": 13188,
+        "stored_sha256": "ed918ceec359c157dc30fa4176529d36058881b8ef2d19fe5523aa458c97ce5f",
+        "note": "results/odds site the ladder already relays",
+        "presence": {
+          "fixtures_mentioned": 0,
+          "fixture_ids": []
+        },
+        "fixture_ids_visible": 0,
+        "presence_fixture_ids": []
+      },
+      "egamersworld-matches": {
+        "label": "egamersworld-matches",
+        "url": "https://egamersworld.com/counterstrike/matches",
+        "method": "GET",
+        "observed_at": "2026-10-26T01:27:43Z",
+        "status": "error",
+        "http_status": 403,
+        "error": "egamersworld-matches: 403 Client Error: Forbidden for url: https://egamersworld.com/counterstrike/matches",
+        "rows_parsed": 0,
+        "note": "aggregated average-odds reference page",
+        "fixture_ids_visible": 0,
+        "presence_fixture_ids": []
+      }
+    },
+    "joins": {
+      "1082861": [
+        {
+          "surface": "smarkets-events",
+          "book": "Smarkets",
+          "names": [
+            "Rooster",
+            "Abyssal"
+          ],
+          "start": "2026-10-27T03:00:00Z",
+          "prices": null,
+          "price_check": null,
+          "join": "exact-names-and-start",
+          "url": "https://smarkets.com/sport/esports/cs-go/dfrag-invitational/group-b/2026/10/27/03-00/rooster-vs-abyssal",
+          "observed_at": "2026-10-26T01:27:07Z",
+          "evidence_sha256": "c7148b863bc731ce62bda085087f557e117c5732788cc880b8e3fc3de82b2b37"
+        }
+      ]
+    },
+    "hltv_rows": []
+  },
+  "hltv_details": {},
+  "requests": [
+    {
+      "id": "hotspawn-fixtures",
+      "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "method": "GET",
+      "observed_at": "2026-10-26T01:27:03Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "content_type": "application/json; charset=utf-8",
+      "response_date": "Mon, 26 Oct 2026 01:27:03 GMT",
+      "response_sha256": "886d9eb63fa9a430891fd04bdc640c712ebce05d6a21cc1b4ed1e612d0ad5b5f",
+      "evidence": "data/evidence/hotspawn-fixtures.json"
+    },
+    {
+      "id": "hotspawn-lobby",
+      "url": "https://play.hotspawn.com/lobby?cb=1792978023",
+      "method": "GET",
+      "observed_at": "2026-10-26T01:27:03Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://play.hotspawn.com/lobby?cb=1792978023",
+      "content_type": "text/html;charset=UTF-8",
+      "response_date": "Mon, 26 Oct 2026 01:27:04 GMT",
+      "response_sha256": "a93f57f94c48f155e3c958352081553926f136786ad73e73d68517669a6df9c5",
+      "cache_age_sec": "0",
+      "cache_status": "MISS"
+    },
+    {
+      "id": "hotspawn-cs2",
+      "url": "https://play.hotspawn.com/cs2-pickems?cb=1792978025",
+      "method": "GET",
+      "observed_at": "2026-10-26T01:27:05Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://play.hotspawn.com/cs2-pickems?cb=1792978025",
+      "content_type": "text/html;charset=UTF-8",
+      "response_date": "Mon, 26 Oct 2026 01:27:05 GMT",
+      "response_sha256": "f3ae08517952cef0602a4ac41c846443ea8702628f21667635605e754774705f",
+      "cache_age_sec": "0",
+      "cache_status": "MISS"
+    },
+    {
+      "id": "deployed-snapshot",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+      "method": "GET",
+      "observed_at": "2026-10-26T01:27:05Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+      "content_type": "application/json; charset=utf-8",
+      "response_date": "Mon, 26 Oct 2026 01:27:05 GMT",
+      "response_sha256": "6ec8e288ed36ab1580c2ac569ec9ba2f8c5ec91ccdc4ad594e1dc893e482f99c",
+      "cache_age_sec": "0",
+      "cache_status": "MISS"
+    },
+    {
+      "id": "deployed-origination",
+      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination.json",
+      "method": "GET",
+      "observed_at": "2026-10-26T01:27:06Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination.json",
+      "content_type": "application/json; charset=utf-8",
+      "response_date": "Mon, 26 Oct 2026 01:27:06 GMT",
+      "response_sha256": "6c14cb1e7c9ac7fd1becb62aa05108b3db0a3d9fce3be1ae9ad1104a909ef9e8",
+      "cache_age_sec": "0",
+      "cache_status": "MISS"
+    },
+    {
+      "id": "hltv-matches",
+      "url": "https://www.hltv.org/matches",
+      "method": "GET",
+      "observed_at": "2026-10-26T01:27:06Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://www.hltv.org/matches",
+      "content_type": "text/html; charset=UTF-8",
+      "response_date": "Mon, 26 Oct 2026 01:27:06 GMT",
+      "response_sha256": "ab20aa4888a4d844d6592bf30984ff013492a6a840b0e771ed466456266e8c94"
+    },
+    {
+      "id": "smarkets-events",
+      "url": "https://api.smarkets.com/v3/events/?type=csgo_match&states=upcoming&limit=200&sort=start_datetime,id",
+      "method": "GET",
+      "observed_at": "2026-10-26T01:27:07Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://api.smarkets.com/v3/events/?type=csgo_match&states=upcoming&limit=200&sort=start_datetime,id",
+      "content_type": "application/json",
+      "response_date": "Mon, 26 Oct 2026 01:27:07 GMT",
+      "response_sha256": "c7148b863bc731ce62bda085087f557e117c5732788cc880b8e3fc3de82b2b37",
+      "evidence": "data/evidence/smarkets-events.json"
+    },
+    {
+      "id": "pinnacle-matchups",
+      "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
+      "method": "GET",
+      "observed_at": "2026-10-26T01:27:07Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
+      "content_type": "application/json",
+      "response_date": "Mon, 26 Oct 2026 01:27:07 GMT",
+      "response_sha256": "7e543ee5d4b8e1bcd303cead5079e865dd89f095b364807d34f549d9d5f89593",
+      "cache_age_sec": "173",
+      "evidence": "data/evidence/pinnacle-matchups.json"
+    },
+    {
+      "id": "thunderpick-matches",
+      "url": "https://thunderpick.io/api/matches",
+      "method": "POST",
+      "observed_at": "2026-10-26T01:27:07Z",
+      "http_status": 200,
+      "status": "ok",
+      "request_body": {
+        "gameIds": [
+          6
+        ]
+      },
+      "final_url": "https://thunderpick.io/api/matches",
+      "content_type": "application/json; charset=utf-8",
+      "response_date": "Mon, 26 Oct 2026 01:27:08 GMT",
+      "response_sha256": "cd30288294e8879a4ce36b72e65e253f81e539937e4e5d38956b1ded758a54d2",
+      "evidence": "data/evidence/thunderpick-matches.json"
+    },
+    {
+      "id": "kalshi-events",
+      "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&status=open&limit=200",
+      "method": "GET",
+      "observed_at": "2026-10-26T01:27:08Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&status=open&limit=200",
+      "content_type": "application/json",
+      "response_date": "Mon, 26 Oct 2026 01:27:08 GMT",
+      "response_sha256": "7ea1a2340d081fab5780de36e1ccf82d8d299deda3ca99f61a691eceb6f2c484",
+      "cache_status": "Miss from cloudfront",
+      "evidence": "data/evidence/kalshi-events.json"
+    },
+    {
+      "id": "bovada-cs2",
+      "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?lang=en",
+      "method": "GET",
+      "observed_at": "2026-10-26T01:27:08Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?lang=en",
+      "content_type": "application/json",
+      "response_date": "Mon, 26 Oct 2026 01:27:09 GMT",
+      "response_sha256": "2ed1564b0193dcf2c64d1d1b4998e2ae84f11c6559ab7fc92ce9b0939c11d503",
+      "cache_age_sec": "205",
+      "evidence": "data/evidence/bovada-cs2.json"
+    },
+    {
+      "id": "rivalry-api",
+      "url": "https://api.rivalry.com/sports/v1/events?sportSlug=counter-strike&timezone=UTC&page=1&limit=50",
+      "method": "GET",
+      "observed_at": "2026-10-26T01:27:09Z",
+      "http_status": 502,
+      "status": "error",
+      "final_url": "https://api.rivalry.com/sports/v1/events?sportSlug=counter-strike&timezone=UTC&page=1&limit=50",
+      "content_type": "application/json; charset=utf-8",
+      "response_date": "Mon, 26 Oct 2026 01:27:09 GMT",
+      "response_sha256": "58a9ee8d5ae12a53474f3a2ef3ed75c92d189ee74b92b41af4247abc03b323c1",
+      "error": "502 Server Error: Bad Gateway for url: https://api.rivalry.com/sports/v1/events?sportSlug=counter-strike&timezone=UTC&page=1&limit=50"
+    },
+    {
+      "id": "ggbet-api",
+      "url": "https://api.gg.bet/Sport/GetTopGames?sportId=esports_counter_strike&timezone=UTC&lang=en",
+      "method": "GET",
+      "observed_at": "2026-10-26T01:27:09Z",
+      "http_status": 403,
+      "status": "error",
+      "final_url": "https://api.gg.bet/Sport/GetTopGames?sportId=esports_counter_strike&timezone=UTC&lang=en",
+      "content_type": "text/plain",
+      "response_date": "Mon, 26 Oct 2026 01:27:09 GMT",
+      "response_sha256": "7583d10fb1a03d33887157aee047f499dfe10cfbfcf0aeee800d7121df60e519",
+      "error": "403 Client Error: Forbidden for url: https://api.gg.bet/Sport/GetTopGames?sportId=esports_counter_strike&timezone=UTC&lang=en"
+    },
+    {
+      "id": "betexplorer",
+      "url": "https://www.betexplorer.com/counter-strike/",
+      "method": "GET",
+      "observed_at": "2026-10-26T01:27:09Z",
+      "http_status": 404,
+      "status": "error",
+      "final_url": "https://www.betexplorer.com/counter-strike/",
+      "content_type": null,
+      "response_date": "Mon, 26 Oct 2026 01:27:11 GMT",
+      "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "error": "404 Client Error: Not Found for url: https://www.betexplorer.com/counter-strike/"
+    },
+    {
+      "id": "1xbet-linefeed",
+      "url": "https://1xbet.com/LineFeed/Get1x2_VZip?sports=82&count=200&tf=2200000&mode=4&getEmpty=true",
+      "method": "GET",
+      "observed_at": "2026-10-26T01:27:11Z",
+      "http_status": 203,
+      "status": "error",
+      "final_url": "https://1xbet.com/en/block?sports=82&count=200&tf=2200000&mode=4&getEmpty=true",
+      "content_type": "text/html;charset=utf-8",
+      "response_date": "Mon, 26 Oct 2026 01:27:11 GMT",
+      "response_sha256": "5bf2a9cda6a6951cbbe4e6d4b7f85fbedfb75c017be13ed9cb40d76aa1bf2af0",
+      "error": "Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "id": "betcet",
+      "url": "https://www.betcet.com/en/sports/esports/counter-strike",
+      "method": "GET",
+      "observed_at": "2026-10-26T01:27:11Z",
+      "http_status": null,
+      "status": "error",
+      "error": "HTTPSConnectionPool(host='www.betcet.com', port=443): Max retries exceeded with url: /en/sports/esports/counter-strike (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.betcet.com', port=443) at 0x7f03ed72cb00>, 'Connection to www.betcet.com timed out. (connect timeout=15)'))"
+    },
+    {
+      "id": "esportsbetting",
+      "url": "https://www.esportsbetting.com/odds/cs2",
+      "method": "GET",
+      "observed_at": "2026-10-26T01:27:41Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://esportsbetting.com/cs2-callouts-for-mirage-explained-with-images/",
+      "content_type": "text/html; charset=UTF-8",
+      "response_date": "Mon, 26 Oct 2026 01:27:42 GMT",
+      "response_sha256": "c29b02fde796faaea4e53bb9519ae788889cda6ea4a95683a2f7a1c67752a2cf"
+    },
+    {
+      "id": "bo3gg-matches",
+      "url": "https://bo3.gg/matches",
+      "method": "GET",
+      "observed_at": "2026-10-26T01:27:42Z",
+      "http_status": 200,
+      "status": "ok",
+      "final_url": "https://bo3.gg/matches",
+      "content_type": "text/html;charset=utf-8",
+      "response_date": "Mon, 26 Oct 2026 01:27:42 GMT",
+      "response_sha256": "ed918ceec359c157dc30fa4176529d36058881b8ef2d19fe5523aa458c97ce5f"
+    },
+    {
+      "id": "egamersworld-matches",
+      "url": "https://egamersworld.com/counterstrike/matches",
+      "method": "GET",
+      "observed_at": "2026-10-26T01:27:43Z",
+      "http_status": 403,
+      "status": "error",
+      "final_url": "https://egamersworld.com/counterstrike/matches",
+      "content_type": "text/html; charset=UTF-8",
+      "response_date": "Mon, 26 Oct 2026 01:27:43 GMT",
+      "response_sha256": "84863a7c32d2a43ca0fca18145a10f799a9f919deae4be1a4e588a6713e1376e",
+      "error": "403 Client Error: Forbidden for url: https://egamersworld.com/counterstrike/matches"
+    }
+  ]
+}
