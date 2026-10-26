@@ -1,0 +1,137 @@
+{
+  "session": "arena-e3bc19d6",
+  "what": "Independent HLTV identity for every Hotspawn fixture that was added after the published 2026-10-25T23:03:48Z snapshot (nine records). Identity only: no HLTV forecast is adopted as a probability.",
+  "method": "Read HLTV's own event match lists (events/9457/matches and events/9440/matches) at 2026-10-26T00:57Z-01:02Z. HLTV renders times in the fetcher's timezone (UTC-04:00); the -04:00 conversion is proven by two independent overlaps: CCT HAVU vs Illyrians renders 11:00 and Hotspawn 1081160 starts 15:00Z, and NODWIN Metizport vs BRUTE renders 11:00 and Hotspawn 1079203 starts 15:00Z; every one of the nine converts to exactly the Hotspawn start.",
+  "rows": [
+    {
+      "fixture_id": "1081159",
+      "hltv_match_id": "2399509",
+      "hltv_url": "https://www.hltv.org/matches/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
+      "event": "CCT 2026 Europe Series 12",
+      "event_url": "https://www.hltv.org/events/9457/cct-2026-europe-series-12",
+      "best_of": 3,
+      "hltv_rendered_start": "2026-10-26 08:00 (HLTV pages render in UTC-04:00 for this fetcher)",
+      "hltv_start_utc": "2026-10-26T12:00:00Z",
+      "identity_verdict": "exact: both team names and the start time match the Hotspawn record (0 s delta after the -04:00 conversion); HLTV lists the series as best-of-3, which Hotspawn leaves null",
+      "checked_at": "2026-10-26T01:00:00Z"
+    },
+    {
+      "fixture_id": "1081160",
+      "hltv_match_id": "2399510",
+      "hltv_url": "https://www.hltv.org/matches/2399510/havu-vs-illyrians-cct-2026-europe-series-12",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399510/havu-vs-illyrians-cct-2026-europe-series-12",
+      "event": "CCT 2026 Europe Series 12",
+      "event_url": "https://www.hltv.org/events/9457/cct-2026-europe-series-12",
+      "best_of": 3,
+      "hltv_rendered_start": "2026-10-26 11:00 (HLTV pages render in UTC-04:00 for this fetcher)",
+      "hltv_start_utc": "2026-10-26T15:00:00Z",
+      "identity_verdict": "exact: both team names and the start time match the Hotspawn record (0 s delta after the -04:00 conversion); HLTV lists the series as best-of-3, which Hotspawn leaves null",
+      "checked_at": "2026-10-26T01:00:00Z"
+    },
+    {
+      "fixture_id": "1081162",
+      "hltv_match_id": "2399512",
+      "hltv_url": "https://www.hltv.org/matches/2399512/ex-rustec-vs-spirit-academy-cct-2026-europe-series-12",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399512/ex-rustec-vs-spirit-academy-cct-2026-europe-series-12",
+      "event": "CCT 2026 Europe Series 12",
+      "event_url": "https://www.hltv.org/events/9457/cct-2026-europe-series-12",
+      "best_of": 3,
+      "hltv_rendered_start": "2026-10-27 08:00 (HLTV pages render in UTC-04:00 for this fetcher)",
+      "hltv_start_utc": "2026-10-27T12:00:00Z",
+      "identity_verdict": "exact: both team names and the start time match the Hotspawn record (0 s delta after the -04:00 conversion); HLTV lists the series as best-of-3, which Hotspawn leaves null",
+      "checked_at": "2026-10-26T01:00:00Z"
+    },
+    {
+      "fixture_id": "1081163",
+      "hltv_match_id": "2399513",
+      "hltv_url": "https://www.hltv.org/matches/2399513/baks-vs-saint-sinners-cct-2026-europe-series-12",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399513/baks-vs-saint-sinners-cct-2026-europe-series-12",
+      "event": "CCT 2026 Europe Series 12",
+      "event_url": "https://www.hltv.org/events/9457/cct-2026-europe-series-12",
+      "best_of": 3,
+      "hltv_rendered_start": "2026-10-27 11:00 (HLTV pages render in UTC-04:00 for this fetcher)",
+      "hltv_start_utc": "2026-10-27T15:00:00Z",
+      "identity_verdict": "exact: both team names and the start time match the Hotspawn record (0 s delta after the -04:00 conversion); HLTV lists the series as best-of-3, which Hotspawn leaves null",
+      "checked_at": "2026-10-26T01:00:00Z"
+    },
+    {
+      "fixture_id": "1081164",
+      "hltv_match_id": "2399514",
+      "hltv_url": "https://www.hltv.org/matches/2399514/inner-circle-academy-vs-lavked-cct-2026-europe-series-12",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399514/inner-circle-academy-vs-lavked-cct-2026-europe-series-12",
+      "event": "CCT 2026 Europe Series 12",
+      "event_url": "https://www.hltv.org/events/9457/cct-2026-europe-series-12",
+      "best_of": 3,
+      "hltv_rendered_start": "2026-10-27 14:00 (HLTV pages render in UTC-04:00 for this fetcher)",
+      "hltv_start_utc": "2026-10-27T18:00:00Z",
+      "identity_verdict": "exact: both team names and the start time match the Hotspawn record (0 s delta after the -04:00 conversion); HLTV lists the series as best-of-3, which Hotspawn leaves null",
+      "checked_at": "2026-10-26T01:00:00Z"
+    },
+    {
+      "fixture_id": "1079201",
+      "hltv_match_id": "2399116",
+      "hltv_url": "https://www.hltv.org/matches/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13",
+      "event": "NODWIN Clutch Series 13",
+      "event_url": "https://www.hltv.org/events/9440/nodwin-clutch-series-13",
+      "best_of": 3,
+      "hltv_rendered_start": "2026-10-26 05:00 (HLTV pages render in UTC-04:00 for this fetcher)",
+      "hltv_start_utc": "2026-10-26T09:00:00Z",
+      "identity_verdict": "exact: both team names and the start time match the Hotspawn record (0 s delta after the -04:00 conversion); HLTV lists the series as best-of-3, which Hotspawn leaves null",
+      "checked_at": "2026-10-26T01:00:00Z"
+    },
+    {
+      "fixture_id": "1079202",
+      "hltv_match_id": "2399117",
+      "hltv_url": "https://www.hltv.org/matches/2399117/fokus-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399117/fokus-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+      "event": "NODWIN Clutch Series 13",
+      "event_url": "https://www.hltv.org/events/9440/nodwin-clutch-series-13",
+      "best_of": 3,
+      "hltv_rendered_start": "2026-10-26 08:00 (HLTV pages render in UTC-04:00 for this fetcher)",
+      "hltv_start_utc": "2026-10-26T12:00:00Z",
+      "identity_verdict": "exact: both team names and the start time match the Hotspawn record (0 s delta after the -04:00 conversion); HLTV lists the series as best-of-3, which Hotspawn leaves null",
+      "checked_at": "2026-10-26T01:00:00Z"
+    },
+    {
+      "fixture_id": "1079203",
+      "hltv_match_id": "2399118",
+      "hltv_url": "https://www.hltv.org/matches/2399118/metizport-vs-brute-nodwin-clutch-series-13",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399118/metizport-vs-brute-nodwin-clutch-series-13",
+      "event": "NODWIN Clutch Series 13",
+      "event_url": "https://www.hltv.org/events/9440/nodwin-clutch-series-13",
+      "best_of": 3,
+      "hltv_rendered_start": "2026-10-26 11:00 (HLTV pages render in UTC-04:00 for this fetcher)",
+      "hltv_start_utc": "2026-10-26T15:00:00Z",
+      "identity_verdict": "exact: both team names and the start time match the Hotspawn record (0 s delta after the -04:00 conversion); HLTV lists the series as best-of-3, which Hotspawn leaves null",
+      "checked_at": "2026-10-26T01:00:00Z"
+    },
+    {
+      "fixture_id": "1093218",
+      "hltv_match_id": "2399119",
+      "hltv_url": "https://www.hltv.org/matches/2399119/nuclear-tigeres-vs-unity-nodwin-clutch-series-13",
+      "hltv_analytics_url": "https://www.hltv.org/betting/analytics/2399119/nuclear-tigeres-vs-unity-nodwin-clutch-series-13",
+      "event": "NODWIN Clutch Series 13",
+      "event_url": "https://www.hltv.org/events/9440/nodwin-clutch-series-13",
+      "best_of": 3,
+      "hltv_rendered_start": "2026-10-26 14:00 (HLTV pages render in UTC-04:00 for this fetcher)",
+      "hltv_start_utc": "2026-10-26T18:00:00Z",
+      "identity_verdict": "exact: both team names and the start time match the Hotspawn record (0 s delta after the -04:00 conversion); HLTV lists the series as best-of-3, which Hotspawn leaves null",
+      "checked_at": "2026-10-26T01:00:00Z"
+    }
+  ],
+  "additional_findings": [
+    {
+      "fixture_id": "1081159",
+      "finding": "HLTV's odds-and-prediction page for 2399509 is reachable and states the ranking of both sides (LFO 10 #167, ex-6666 #72) plus per-map records, but the bookmaker odds block is rendered client-side: the fetched document contains no numeric price, so no line can be quoted from it. That is a source limitation, not proof that no bookmaker prices the match.",
+      "source_urls": [
+        "https://www.hltv.org/betting/analytics/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12"
+      ]
+    }
+  ],
+  "limitations": [
+    "HLTV's page order is by its own rendering timezone; the UTC value above is derived from the -04:00 offset proven by the overlapping fixtures, not from a UTC timestamp printed on the page.",
+    "No HLTV win forecast, fan vote or 'insight' is used as an input anywhere in this dossier."
+  ]
+}

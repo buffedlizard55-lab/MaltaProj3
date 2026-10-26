@@ -1,0 +1,1391 @@
+{
+  "session": "arena-e3bc19d6",
+  "what": "One row per open Hotspawn CS2 fixture: what the site published for it, which audited rung can price it when nothing is published yet, and the blocker when no rung can.",
+  "checked_at": "2026-10-26T01:05:00Z",
+  "sources": {
+    "hotspawn_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "valve": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+    "hltv_event_pages": [
+      "https://www.hltv.org/events/9457/matches",
+      "https://www.hltv.org/events/9440/matches"
+    ],
+    "published_origination": "origination.json",
+    "published_snapshot": "snapshot.json"
+  },
+  "rows": [
+    {
+      "fixture_id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "locks_at": "2026-10-26T02:54:00Z",
+      "in_published_snapshot": true,
+      "published": {
+        "method": "market",
+        "label": "Market-implied estimate",
+        "probabilities": [
+          0.2,
+          0.8
+        ],
+        "pick": "Off Chops",
+        "pick_probability": 0.8,
+        "source": "Polymarket",
+        "source_url": "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25",
+        "observed_at": "2026-10-25T23:03:40Z",
+        "replay_verdict": "pass",
+        "replay_rule": "probability = midpoint_i / sum(midpoints); midpoint = (bid+ask)/2, then normalised to sum to 1"
+      },
+      "valve": {
+        "priceable": false,
+        "names": [
+          "Ground Zero",
+          null
+        ],
+        "points": [
+          878,
+          null
+        ],
+        "standing": [
+          136,
+          null
+        ],
+        "names_absent": [
+          "Off Chops"
+        ],
+        "names_ambiguous": [],
+        "detail_links": [
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0136--ground_zero--apocdud-hazr-omichella-sliimey-vision.md",
+          null
+        ],
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "snapshot_date": "2026-10-05"
+      },
+      "hltv": null,
+      "verdict": "published pick from Polymarket (market); replayed exactly from the row's own evidence",
+      "resolution_path": "already published",
+      "blocker": null,
+      "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
+      "hotspawn_url_kind": "canonical Hotspawn match page, as published",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "market",
+        "source": "Polymarket",
+        "probabilities": [
+          0.205,
+          0.795
+        ],
+        "pick": "Off Chops",
+        "pick_probability": 0.795,
+        "source_url": "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25",
+        "observed_at": "2026-10-26T01:04:08Z",
+        "replay_verdict": "pass",
+        "delta": 0.0
+      }
+    },
+    {
+      "fixture_id": "1082859",
+      "teams": [
+        "NEXVOID",
+        "Alter Ego"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "locks_at": "2026-10-26T02:54:00Z",
+      "in_published_snapshot": true,
+      "published": {
+        "method": "bookmaker",
+        "label": "No-vig bookmaker estimate",
+        "probabilities": [
+          0.57519789,
+          0.42480211
+        ],
+        "pick": "NEXVOID",
+        "pick_probability": 0.57519789,
+        "source": "Thunderpick",
+        "source_url": "https://thunderpick.io/api/matches",
+        "observed_at": "2026-10-25T23:03:45Z",
+        "replay_verdict": "pass",
+        "replay_rule": "proportional margin removal: probability = (1/odds_i) normalised; fair_decimal = 1/probability"
+      },
+      "valve": {
+        "priceable": true,
+        "names": [
+          "NEXVOID",
+          "Alter Ego"
+        ],
+        "points": [
+          995,
+          819
+        ],
+        "standing": [
+          113,
+          155
+        ],
+        "names_absent": [],
+        "names_ambiguous": [],
+        "detail_links": [
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0113--nexvoid--accuracytg-erkast-miq-xerolte-zesta.md",
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0155--alter_ego--adex-bntet-gratisfaction-laxiee-pokemon.md"
+        ],
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "snapshot_date": "2026-10-05"
+      },
+      "hltv": null,
+      "verdict": "published pick from Thunderpick (bookmaker); replayed exactly from the row's own evidence",
+      "resolution_path": "already published",
+      "blocker": null,
+      "hotspawn_url": "https://www.hotspawn.com/matches/nexvoid-vs-alter-ego-dfrag-invitational-2026-1082859",
+      "hotspawn_url_kind": "canonical Hotspawn match page, as published",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "bookmaker",
+        "source": "Thunderpick",
+        "probabilities": [
+          0.59162304,
+          0.40837696
+        ],
+        "pick": "NEXVOID",
+        "pick_probability": 0.59162304,
+        "source_url": "https://thunderpick.io/api/matches",
+        "observed_at": "2026-10-26T01:04:17Z",
+        "replay_verdict": "pass",
+        "delta": 3.351e-09
+      }
+    },
+    {
+      "fixture_id": "1079201",
+      "teams": [
+        "INOX Division",
+        "Nemesis"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-26T09:00:00Z",
+      "locks_at": "2026-10-26T08:54:00Z",
+      "in_published_snapshot": false,
+      "published": null,
+      "valve": {
+        "priceable": true,
+        "names": [
+          "INOX Division",
+          "Nemesis"
+        ],
+        "points": [
+          1105,
+          1455
+        ],
+        "standing": [
+          82,
+          29
+        ],
+        "names_absent": [],
+        "names_ambiguous": [],
+        "detail_links": [
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0082--inox_division--fenomen-finw-gooddeph-k0s-k1slll.md",
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0029--nemesis--mag1k3y-r3salt-sdaim-sellter-tex1y.md"
+        ],
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "snapshot_date": "2026-10-05"
+      },
+      "hltv": {
+        "match_url": "https://www.hltv.org/matches/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13",
+        "analytics_url": "https://www.hltv.org/betting/analytics/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13",
+        "best_of": 3,
+        "start_utc": "2026-10-26T09:00:00Z",
+        "identity_verdict": "exact: both team names and the start time match the Hotspawn record (0 s delta after the -04:00 conversion); HLTV lists the series as best-of-3, which Hotspawn leaves null"
+      },
+      "verdict": "no published row yet (added to the lobby after the 23:03:48Z snapshot); both sides carry exactly one complete five-player official Valve row, so the Valve-rating rung can price it on the next refresh",
+      "resolution_path": "Valve official-rating model rung",
+      "blocker": null,
+      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079201",
+      "hotspawn_url_kind": "official lobby anchor for the fixture id",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "model",
+        "source": "Valve official standings",
+        "probabilities": [
+          0.12346675,
+          0.87653325
+        ],
+        "pick": "Nemesis",
+        "pick_probability": 0.87653325,
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "observed_at": "2026-10-26T01:04:19Z",
+        "replay_verdict": "pass",
+        "delta": 2.861e-09
+      }
+    },
+    {
+      "fixture_id": "1081159",
+      "teams": [
+        "LFO 10",
+        "ex-6666"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-26T12:00:00Z",
+      "locks_at": "2026-10-26T11:54:00Z",
+      "in_published_snapshot": false,
+      "published": null,
+      "valve": {
+        "priceable": false,
+        "names": [
+          null,
+          null
+        ],
+        "points": [
+          null,
+          null
+        ],
+        "standing": [
+          null,
+          null
+        ],
+        "names_absent": [
+          "LFO 10",
+          "ex-6666"
+        ],
+        "names_ambiguous": [],
+        "detail_links": [
+          null,
+          null
+        ],
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "snapshot_date": "2026-10-05"
+      },
+      "hltv": {
+        "match_url": "https://www.hltv.org/matches/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
+        "analytics_url": "https://www.hltv.org/betting/analytics/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
+        "best_of": 3,
+        "start_utc": "2026-10-26T12:00:00Z",
+        "identity_verdict": "exact: both team names and the start time match the Hotspawn record (0 s delta after the -04:00 conversion); HLTV lists the series as best-of-3, which Hotspawn leaves null"
+      },
+      "verdict": "no published row yet; no complete official Valve row exists for LFO 10 or ex-6666, so the HLTV world-ranking rung is the ladder's last pricing step (HLTV ranks the sides but publishes no two-way price for the fixture)",
+      "resolution_path": "HLTV world-ranking rung",
+      "blocker": "No verified two-way bookmaker price was readable for this fixture (HLTV's odds block is client-side) and at least one side has no official Valve rating row.",
+      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081159",
+      "hotspawn_url_kind": "official lobby anchor for the fixture id",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "model",
+        "source": "Own results-based model (bo3.gg series results)",
+        "probabilities": [
+          0.39044605815543665,
+          0.6095539418445634
+        ],
+        "pick": "ex-6666",
+        "pick_probability": 0.6095539418445634,
+        "source_url": "https://bo3.gg/matches/sokerorg-vs-ex-6666-26-10-2026",
+        "observed_at": "2026-10-26T01:05:21Z",
+        "replay_verdict": "pass",
+        "delta": 0.0
+      }
+    },
+    {
+      "fixture_id": "1079202",
+      "teams": [
+        "FOKUS",
+        "ex-Zero Tenacity"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-26T12:00:00Z",
+      "locks_at": "2026-10-26T11:54:00Z",
+      "in_published_snapshot": false,
+      "published": null,
+      "valve": {
+        "priceable": true,
+        "names": [
+          "FOKUS",
+          "ex-Zero Tenacity"
+        ],
+        "points": [
+          1321,
+          1066
+        ],
+        "standing": [
+          48,
+          93
+        ],
+        "names_absent": [],
+        "names_ambiguous": [],
+        "detail_links": [
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0048--fokus--banjo-jocab-matheos-podi-ztr.md",
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0093--ex-zero_tenacity--brutmonster-cjoffo-dragon-kind0-vldn.md"
+        ],
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "snapshot_date": "2026-10-05"
+      },
+      "hltv": {
+        "match_url": "https://www.hltv.org/matches/2399117/fokus-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+        "analytics_url": "https://www.hltv.org/betting/analytics/2399117/fokus-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+        "best_of": 3,
+        "start_utc": "2026-10-26T12:00:00Z",
+        "identity_verdict": "exact: both team names and the start time match the Hotspawn record (0 s delta after the -04:00 conversion); HLTV lists the series as best-of-3, which Hotspawn leaves null"
+      },
+      "verdict": "no published row yet (added to the lobby after the 23:03:48Z snapshot); both sides carry exactly one complete five-player official Valve row, so the Valve-rating rung can price it on the next refresh",
+      "resolution_path": "Valve official-rating model rung",
+      "blocker": null,
+      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079202",
+      "hotspawn_url_kind": "official lobby anchor for the fixture id",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "bookmaker",
+        "source": "Thunderpick",
+        "probabilities": [
+          0.68235294,
+          0.31764706
+        ],
+        "pick": "FOKUS",
+        "pick_probability": 0.68235294,
+        "source_url": "https://thunderpick.io/api/matches",
+        "observed_at": "2026-10-26T01:04:17Z",
+        "replay_verdict": "pass",
+        "delta": 1.176e-09
+      }
+    },
+    {
+      "fixture_id": "1081160",
+      "teams": [
+        "HAVU",
+        "ILLYRIANS"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-26T15:00:00Z",
+      "locks_at": "2026-10-26T14:54:00Z",
+      "in_published_snapshot": false,
+      "published": null,
+      "valve": {
+        "priceable": true,
+        "names": [
+          "HAVU",
+          "Illyrians"
+        ],
+        "points": [
+          937,
+          862
+        ],
+        "standing": [
+          124,
+          141
+        ],
+        "names_absent": [],
+        "names_ambiguous": [],
+        "detail_links": [
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0124--havu--8juho8-alxc-ottob-p3kko-uli.md",
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0141--illyrians--ammar-bledard-cerber-valon-xonn1k.md"
+        ],
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "snapshot_date": "2026-10-05"
+      },
+      "hltv": {
+        "match_url": "https://www.hltv.org/matches/2399510/havu-vs-illyrians-cct-2026-europe-series-12",
+        "analytics_url": "https://www.hltv.org/betting/analytics/2399510/havu-vs-illyrians-cct-2026-europe-series-12",
+        "best_of": 3,
+        "start_utc": "2026-10-26T15:00:00Z",
+        "identity_verdict": "exact: both team names and the start time match the Hotspawn record (0 s delta after the -04:00 conversion); HLTV lists the series as best-of-3, which Hotspawn leaves null"
+      },
+      "verdict": "no published row yet (added to the lobby after the 23:03:48Z snapshot); both sides carry exactly one complete five-player official Valve row, so the Valve-rating rung can price it on the next refresh",
+      "resolution_path": "Valve official-rating model rung",
+      "blocker": null,
+      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081160",
+      "hotspawn_url_kind": "official lobby anchor for the fixture id",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "model",
+        "source": "Valve official standings",
+        "probabilities": [
+          0.60348339,
+          0.39651661
+        ],
+        "pick": "HAVU",
+        "pick_probability": 0.60348339,
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "observed_at": "2026-10-26T01:04:19Z",
+        "replay_verdict": "pass",
+        "delta": 5.03e-10
+      }
+    },
+    {
+      "fixture_id": "1079203",
+      "teams": [
+        "Metizport",
+        "BRUTE"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-26T15:00:00Z",
+      "locks_at": "2026-10-26T14:54:00Z",
+      "in_published_snapshot": false,
+      "published": null,
+      "valve": {
+        "priceable": false,
+        "names": [
+          "Metizport",
+          null
+        ],
+        "points": [
+          1290,
+          null
+        ],
+        "standing": [
+          53,
+          null
+        ],
+        "names_absent": [
+          "BRUTE"
+        ],
+        "names_ambiguous": [
+          "BRUTE"
+        ],
+        "detail_links": [
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0053--metizport--f1ku-forsyy-mail09-plopski-stanislaw.md",
+          null
+        ],
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "snapshot_date": "2026-10-05"
+      },
+      "hltv": {
+        "match_url": "https://www.hltv.org/matches/2399118/metizport-vs-brute-nodwin-clutch-series-13",
+        "analytics_url": "https://www.hltv.org/betting/analytics/2399118/metizport-vs-brute-nodwin-clutch-series-13",
+        "best_of": 3,
+        "start_utc": "2026-10-26T15:00:00Z",
+        "identity_verdict": "exact: both team names and the start time match the Hotspawn record (0 s delta after the -04:00 conversion); HLTV lists the series as best-of-3, which Hotspawn leaves null"
+      },
+      "verdict": "no published row yet; the Valve rung fails closed because BRUTE has more than one complete five-player row under that name, but HLTV lists the fixture, so the ladder's HLTV lineup-proof disambiguation and then the HLTV world-ranking rung can price it",
+      "resolution_path": "HLTV lineup-proof disambiguation, then HLTV world-ranking rung",
+      "blocker": "Two complete official Valve rows share the name; which lineup plays is only provable from a freshly observed HLTV lineup, so no Valve figure is published without that proof.",
+      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079203",
+      "hotspawn_url_kind": "official lobby anchor for the fixture id",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "bookmaker",
+        "source": "Thunderpick",
+        "probabilities": [
+          0.61538462,
+          0.38461538
+        ],
+        "pick": "Metizport",
+        "pick_probability": 0.61538462,
+        "source_url": "https://thunderpick.io/api/matches",
+        "observed_at": "2026-10-26T01:04:17Z",
+        "replay_verdict": "pass",
+        "delta": 4.615e-09
+      }
+    },
+    {
+      "fixture_id": "1093218",
+      "teams": [
+        "Nuclear TigeRES",
+        "UNiTY"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-26T18:00:00Z",
+      "locks_at": "2026-10-26T17:54:00Z",
+      "in_published_snapshot": false,
+      "published": null,
+      "valve": {
+        "priceable": true,
+        "names": [
+          "Nuclear TigeRES",
+          "UNiTY"
+        ],
+        "points": [
+          1324,
+          1167
+        ],
+        "standing": [
+          46,
+          69
+        ],
+        "names_absent": [],
+        "names_ambiguous": [],
+        "detail_links": [
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0046--nuclear_tigeres--ayuki-djon8-flouzer-senka-tronic.md",
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0069--unity--2high-dytor-kwertzz-m1key-sn0w.md"
+        ],
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "snapshot_date": "2026-10-05"
+      },
+      "hltv": {
+        "match_url": "https://www.hltv.org/matches/2399119/nuclear-tigeres-vs-unity-nodwin-clutch-series-13",
+        "analytics_url": "https://www.hltv.org/betting/analytics/2399119/nuclear-tigeres-vs-unity-nodwin-clutch-series-13",
+        "best_of": 3,
+        "start_utc": "2026-10-26T18:00:00Z",
+        "identity_verdict": "exact: both team names and the start time match the Hotspawn record (0 s delta after the -04:00 conversion); HLTV lists the series as best-of-3, which Hotspawn leaves null"
+      },
+      "verdict": "no published row yet (added to the lobby after the 23:03:48Z snapshot); both sides carry exactly one complete five-player official Valve row, so the Valve-rating rung can price it on the next refresh",
+      "resolution_path": "Valve official-rating model rung",
+      "blocker": null,
+      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1093218",
+      "hotspawn_url_kind": "official lobby anchor for the fixture id",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "consensus",
+        "source": "Thunderpick + Bovada",
+        "probabilities": [
+          0.58275378,
+          0.41724622
+        ],
+        "pick": "Nuclear TigeRES",
+        "pick_probability": 0.58275378,
+        "source_url": "https://thunderpick.io/esports/counter-strike",
+        "observed_at": "2026-10-26T01:04:31Z",
+        "replay_verdict": "pass",
+        "delta": 7.723e-09
+      }
+    },
+    {
+      "fixture_id": "1082860",
+      "teams": [
+        "FlyQuest",
+        "Staqued"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "locks_at": "2026-10-27T02:54:00Z",
+      "in_published_snapshot": true,
+      "published": {
+        "method": "market",
+        "label": "Market-implied estimate",
+        "probabilities": [
+          0.925,
+          0.075
+        ],
+        "pick": "FlyQuest",
+        "pick_probability": 0.925,
+        "source": "Polymarket",
+        "source_url": "https://polymarket.com/event/cs2-fly-staque-2026-10-26",
+        "observed_at": "2026-10-25T23:03:40Z",
+        "replay_verdict": "pass",
+        "replay_rule": "probability = midpoint_i / sum(midpoints); midpoint = (bid+ask)/2, then normalised to sum to 1"
+      },
+      "valve": {
+        "priceable": false,
+        "names": [
+          "FlyQuest",
+          null
+        ],
+        "points": [
+          1093,
+          null
+        ],
+        "standing": [
+          86,
+          null
+        ],
+        "names_absent": [
+          "Staqued"
+        ],
+        "names_ambiguous": [],
+        "detail_links": [
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0086--flyquest--alistair-ins-jks-nettik-vexite.md",
+          null
+        ],
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "snapshot_date": "2026-10-05"
+      },
+      "hltv": null,
+      "verdict": "published pick from Polymarket (market); replayed exactly from the row's own evidence",
+      "resolution_path": "already published",
+      "blocker": null,
+      "hotspawn_url": "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
+      "hotspawn_url_kind": "canonical Hotspawn match page, as published",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "market",
+        "source": "Polymarket",
+        "probabilities": [
+          0.925,
+          0.075
+        ],
+        "pick": "FlyQuest",
+        "pick_probability": 0.925,
+        "source_url": "https://polymarket.com/event/cs2-fly-staque-2026-10-26",
+        "observed_at": "2026-10-26T01:04:10Z",
+        "replay_verdict": "pass",
+        "delta": 0.0
+      }
+    },
+    {
+      "fixture_id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "locks_at": "2026-10-27T02:54:00Z",
+      "in_published_snapshot": true,
+      "published": {
+        "method": "model",
+        "label": "Valve-rating research estimate",
+        "probabilities": [
+          0.47761494,
+          0.52238506
+        ],
+        "pick": "Abyssal",
+        "pick_probability": 0.52238506,
+        "source": "Valve official standings",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "observed_at": "2026-10-25T23:03:48Z",
+        "replay_verdict": "pass",
+        "replay_rule": "p = 1/(1+10**(g*(points_b-points_a)/400)), g = 1/sqrt(1+3*(ln10/400)**2*RD**2/pi**2), RD=75"
+      },
+      "valve": {
+        "priceable": true,
+        "names": [
+          "Rooster",
+          "Abyssal"
+        ],
+        "points": [
+          718,
+          734
+        ],
+        "standing": [
+          205,
+          195
+        ],
+        "names_absent": [],
+        "names_ambiguous": [],
+        "detail_links": [
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0205--rooster--adk-chelleos-damyo-rekonz-skull.md",
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0195--abyssal--blood-danger-foggers-gump-vinhy.md"
+        ],
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "snapshot_date": "2026-10-05"
+      },
+      "hltv": null,
+      "verdict": "published pick from Valve official standings (model); replayed exactly from the row's own evidence",
+      "resolution_path": "already published",
+      "blocker": null,
+      "hotspawn_url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
+      "hotspawn_url_kind": "canonical Hotspawn match page, as published",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "model",
+        "source": "Valve official standings",
+        "probabilities": [
+          0.47761494,
+          0.52238506
+        ],
+        "pick": "Abyssal",
+        "pick_probability": 0.52238506,
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "observed_at": "2026-10-26T01:04:19Z",
+        "replay_verdict": "pass",
+        "delta": 2.818e-09
+      }
+    },
+    {
+      "fixture_id": "1082897",
+      "teams": [
+        "B8",
+        "K27"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T08:00:00Z",
+      "locks_at": "2026-10-27T07:54:00Z",
+      "in_published_snapshot": true,
+      "published": {
+        "method": "market",
+        "label": "Market-implied estimate",
+        "probabilities": [
+          0.595,
+          0.405
+        ],
+        "pick": "B8",
+        "pick_probability": 0.595,
+        "source": "Polymarket",
+        "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
+        "observed_at": "2026-10-25T23:03:42Z",
+        "replay_verdict": "pass",
+        "replay_rule": "probability = midpoint_i / sum(midpoints); midpoint = (bid+ask)/2, then normalised to sum to 1"
+      },
+      "valve": {
+        "priceable": true,
+        "names": [
+          "B8",
+          "K27"
+        ],
+        "points": [
+          1555,
+          1435
+        ],
+        "standing": [
+          13,
+          32
+        ],
+        "names_absent": [],
+        "names_ambiguous": [],
+        "detail_links": [
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0013--b8--alex666-esenthial-kensizor-npl-s1zzi.md",
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0032--k27--clax-kashl1d-qw1nk1-x5g7v-xeedo.md"
+        ],
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "snapshot_date": "2026-10-05"
+      },
+      "hltv": null,
+      "verdict": "published pick from Polymarket (market); replayed exactly from the row's own evidence",
+      "resolution_path": "already published",
+      "blocker": null,
+      "hotspawn_url": "https://www.hotspawn.com/matches/b8-vs-k27-tesla-cup-2026-1082897",
+      "hotspawn_url_kind": "canonical Hotspawn match page, as published",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "market",
+        "source": "Polymarket",
+        "probabilities": [
+          0.595,
+          0.405
+        ],
+        "pick": "B8",
+        "pick_probability": 0.595,
+        "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
+        "observed_at": "2026-10-26T01:04:11Z",
+        "replay_verdict": "pass",
+        "delta": 0.0
+      }
+    },
+    {
+      "fixture_id": "1082898",
+      "teams": [
+        "Alliance",
+        "FaZe"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T11:00:00Z",
+      "locks_at": "2026-10-27T10:54:00Z",
+      "in_published_snapshot": true,
+      "published": {
+        "method": "market",
+        "label": "Market-implied estimate",
+        "probabilities": [
+          0.375,
+          0.625
+        ],
+        "pick": "FaZe",
+        "pick_probability": 0.625,
+        "source": "Polymarket",
+        "source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
+        "observed_at": "2026-10-25T23:03:42Z",
+        "replay_verdict": "pass",
+        "replay_rule": "probability = midpoint_i / sum(midpoints); midpoint = (bid+ask)/2, then normalised to sum to 1"
+      },
+      "valve": {
+        "priceable": true,
+        "names": [
+          "Alliance",
+          "FaZe"
+        ],
+        "points": [
+          1483,
+          1482
+        ],
+        "standing": [
+          24,
+          26
+        ],
+        "names_absent": [],
+        "names_ambiguous": [],
+        "detail_links": [
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0024--alliance--avid-bobeksde-eraa-twist-upe.md",
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0026--faze--frozen-jboen-jcobbb-neityu-twistzz.md"
+        ],
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "snapshot_date": "2026-10-05"
+      },
+      "hltv": null,
+      "verdict": "published pick from Polymarket (market); replayed exactly from the row's own evidence",
+      "resolution_path": "already published",
+      "blocker": null,
+      "hotspawn_url": "https://www.hotspawn.com/matches/alliance-vs-faze-tesla-cup-2026-1082898",
+      "hotspawn_url_kind": "canonical Hotspawn match page, as published",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "market",
+        "source": "Polymarket",
+        "probabilities": [
+          0.34,
+          0.66
+        ],
+        "pick": "FaZe",
+        "pick_probability": 0.66,
+        "source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
+        "observed_at": "2026-10-26T01:04:12Z",
+        "replay_verdict": "pass",
+        "delta": 0.0
+      }
+    },
+    {
+      "fixture_id": "1081162",
+      "teams": [
+        "ex-RUSTEC",
+        "Spirit Academy"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-27T12:00:00Z",
+      "locks_at": "2026-10-27T11:54:00Z",
+      "in_published_snapshot": false,
+      "published": null,
+      "valve": {
+        "priceable": true,
+        "names": [
+          "ex-RUSTEC",
+          "Spirit Academy"
+        ],
+        "points": [
+          1066,
+          981
+        ],
+        "standing": [
+          92,
+          115
+        ],
+        "names_absent": [],
+        "names_ambiguous": [],
+        "detail_links": [
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0092--ex-rustec--brilliance-glowiing-shalfey-yiksrezo-youka.md",
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0115--spirit_academy--k0gass-kiryasoo-netrix-s1nside-vilby.md"
+        ],
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "snapshot_date": "2026-10-05"
+      },
+      "hltv": {
+        "match_url": "https://www.hltv.org/matches/2399512/ex-rustec-vs-spirit-academy-cct-2026-europe-series-12",
+        "analytics_url": "https://www.hltv.org/betting/analytics/2399512/ex-rustec-vs-spirit-academy-cct-2026-europe-series-12",
+        "best_of": 3,
+        "start_utc": "2026-10-27T12:00:00Z",
+        "identity_verdict": "exact: both team names and the start time match the Hotspawn record (0 s delta after the -04:00 conversion); HLTV lists the series as best-of-3, which Hotspawn leaves null"
+      },
+      "verdict": "no published row yet (added to the lobby after the 23:03:48Z snapshot); both sides carry exactly one complete five-player official Valve row, so the Valve-rating rung can price it on the next refresh",
+      "resolution_path": "Valve official-rating model rung",
+      "blocker": null,
+      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081162",
+      "hotspawn_url_kind": "official lobby anchor for the fixture id",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "model",
+        "source": "Valve official standings",
+        "probabilities": [
+          0.61680305,
+          0.38319695
+        ],
+        "pick": "ex-RUSTEC",
+        "pick_probability": 0.61680305,
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "observed_at": "2026-10-26T01:04:19Z",
+        "replay_verdict": "pass",
+        "delta": 4.493e-09
+      }
+    },
+    {
+      "fixture_id": "1081163",
+      "teams": [
+        "BakS",
+        "Saint Sinners"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-27T15:00:00Z",
+      "locks_at": "2026-10-27T14:54:00Z",
+      "in_published_snapshot": false,
+      "published": null,
+      "valve": {
+        "priceable": true,
+        "names": [
+          "BAKS",
+          "Saint Sinners"
+        ],
+        "points": [
+          1044,
+          810
+        ],
+        "standing": [
+          100,
+          158
+        ],
+        "names_absent": [],
+        "names_ambiguous": [],
+        "detail_links": [
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0100--baks--danistzz-norwi-turbo-whisper-xdeniszera.md",
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0158--saint_sinners--caleyy-deb0-irv1ng-pavlysha666-ves111.md"
+        ],
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "snapshot_date": "2026-10-05"
+      },
+      "hltv": {
+        "match_url": "https://www.hltv.org/matches/2399513/baks-vs-saint-sinners-cct-2026-europe-series-12",
+        "analytics_url": "https://www.hltv.org/betting/analytics/2399513/baks-vs-saint-sinners-cct-2026-europe-series-12",
+        "best_of": 3,
+        "start_utc": "2026-10-27T15:00:00Z",
+        "identity_verdict": "exact: both team names and the start time match the Hotspawn record (0 s delta after the -04:00 conversion); HLTV lists the series as best-of-3, which Hotspawn leaves null"
+      },
+      "verdict": "no published row yet (added to the lobby after the 23:03:48Z snapshot); both sides carry exactly one complete five-player official Valve row, so the Valve-rating rung can price it on the next refresh",
+      "resolution_path": "Valve official-rating model rung",
+      "blocker": null,
+      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081163",
+      "hotspawn_url_kind": "official lobby anchor for the fixture id",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "model",
+        "source": "Valve official standings",
+        "probabilities": [
+          0.78758039,
+          0.21241961
+        ],
+        "pick": "BakS",
+        "pick_probability": 0.78758039,
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "observed_at": "2026-10-26T01:04:19Z",
+        "replay_verdict": "pass",
+        "delta": 2.764e-09
+      }
+    },
+    {
+      "fixture_id": "1082900",
+      "teams": [
+        "Luminosity",
+        "HOTU"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T17:00:00Z",
+      "locks_at": "2026-10-27T16:54:00Z",
+      "in_published_snapshot": true,
+      "published": {
+        "method": "market",
+        "label": "Market-implied estimate",
+        "probabilities": [
+          0.525,
+          0.475
+        ],
+        "pick": "Luminosity",
+        "pick_probability": 0.525,
+        "source": "Polymarket",
+        "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
+        "observed_at": "2026-10-25T23:03:43Z",
+        "replay_verdict": "pass",
+        "replay_rule": "probability = midpoint_i / sum(midpoints); midpoint = (bid+ask)/2, then normalised to sum to 1"
+      },
+      "valve": {
+        "priceable": true,
+        "names": [
+          "Luminosity",
+          "HOTU"
+        ],
+        "points": [
+          1547,
+          1437
+        ],
+        "standing": [
+          16,
+          31
+        ],
+        "names_absent": [],
+        "names_ambiguous": [],
+        "detail_links": [
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0016--luminosity--afro-azuwu-lux-rainwaker-yxngstxr.md",
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0031--hotu--dwushka-frontales-kade0-mizu-n0rb3r7.md"
+        ],
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "snapshot_date": "2026-10-05"
+      },
+      "hltv": null,
+      "verdict": "published pick from Polymarket (market); replayed exactly from the row's own evidence",
+      "resolution_path": "already published",
+      "blocker": null,
+      "hotspawn_url": "https://www.hotspawn.com/matches/luminosity-vs-hotu-tesla-cup-2026-1082900",
+      "hotspawn_url_kind": "canonical Hotspawn match page, as published",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "market",
+        "source": "Polymarket",
+        "probabilities": [
+          0.525,
+          0.475
+        ],
+        "pick": "Luminosity",
+        "pick_probability": 0.525,
+        "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
+        "observed_at": "2026-10-26T01:04:14Z",
+        "replay_verdict": "pass",
+        "delta": 0.0
+      }
+    },
+    {
+      "fixture_id": "1081164",
+      "teams": [
+        "Inner Circle Academy",
+        "Lavked"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-27T18:00:00Z",
+      "locks_at": "2026-10-27T17:54:00Z",
+      "in_published_snapshot": false,
+      "published": null,
+      "valve": {
+        "priceable": true,
+        "names": [
+          "Inner Circle Academy",
+          "Lavked"
+        ],
+        "points": [
+          1064,
+          862
+        ],
+        "standing": [
+          94,
+          143
+        ],
+        "names_absent": [],
+        "names_ambiguous": [],
+        "detail_links": [
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0094--inner_circle_academy--3ippoch-flierax-l1seyoung-nayz-tamefear.md",
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0143--lavked--1nvisiblee-azukay-k4nfuz-sol-xm1nd.md"
+        ],
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "snapshot_date": "2026-10-05"
+      },
+      "hltv": {
+        "match_url": "https://www.hltv.org/matches/2399514/inner-circle-academy-vs-lavked-cct-2026-europe-series-12",
+        "analytics_url": "https://www.hltv.org/betting/analytics/2399514/inner-circle-academy-vs-lavked-cct-2026-europe-series-12",
+        "best_of": 3,
+        "start_utc": "2026-10-27T18:00:00Z",
+        "identity_verdict": "exact: both team names and the start time match the Hotspawn record (0 s delta after the -04:00 conversion); HLTV lists the series as best-of-3, which Hotspawn leaves null"
+      },
+      "verdict": "no published row yet (added to the lobby after the 23:03:48Z snapshot); both sides carry exactly one complete five-player official Valve row, so the Valve-rating rung can price it on the next refresh",
+      "resolution_path": "Valve official-rating model rung",
+      "blocker": null,
+      "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081164",
+      "hotspawn_url_kind": "official lobby anchor for the fixture id",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "model",
+        "source": "Valve official standings",
+        "probabilities": [
+          0.75606058,
+          0.24393942
+        ],
+        "pick": "Inner Circle Academy",
+        "pick_probability": 0.75606058,
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "observed_at": "2026-10-26T01:04:19Z",
+        "replay_verdict": "pass",
+        "delta": 3.289e-09
+      }
+    },
+    {
+      "fixture_id": "1082901",
+      "teams": [
+        "Envy",
+        "GamerLegion"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T20:00:00Z",
+      "locks_at": "2026-10-27T19:54:00Z",
+      "in_published_snapshot": true,
+      "published": {
+        "method": "market",
+        "label": "Market-implied estimate",
+        "probabilities": [
+          0.455,
+          0.545
+        ],
+        "pick": "GamerLegion",
+        "pick_probability": 0.545,
+        "source": "Polymarket",
+        "source_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
+        "observed_at": "2026-10-25T23:03:43Z",
+        "replay_verdict": "pass",
+        "replay_rule": "probability = midpoint_i / sum(midpoints); midpoint = (bid+ask)/2, then normalised to sum to 1"
+      },
+      "valve": {
+        "priceable": false,
+        "names": [
+          null,
+          "GamerLegion"
+        ],
+        "points": [
+          null,
+          1479
+        ],
+        "standing": [
+          null,
+          27
+        ],
+        "names_absent": [
+          "Envy"
+        ],
+        "names_ambiguous": [],
+        "detail_links": [
+          null,
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0027--gamerlegion--fl4mus-hypex-rez-snax-tauson.md"
+        ],
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "snapshot_date": "2026-10-05"
+      },
+      "hltv": null,
+      "verdict": "published pick from Polymarket (market); replayed exactly from the row's own evidence",
+      "resolution_path": "already published",
+      "blocker": null,
+      "hotspawn_url": "https://www.hotspawn.com/matches/envy-vs-gamerlegion-tesla-cup-2026-1082901",
+      "hotspawn_url_kind": "canonical Hotspawn match page, as published",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "market",
+        "source": "Polymarket",
+        "probabilities": [
+          0.455,
+          0.545
+        ],
+        "pick": "GamerLegion",
+        "pick_probability": 0.545,
+        "source_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
+        "observed_at": "2026-10-26T01:04:16Z",
+        "replay_verdict": "pass",
+        "delta": 0.0
+      }
+    },
+    {
+      "fixture_id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "locks_at": "2026-10-31T08:54:00Z",
+      "in_published_snapshot": true,
+      "published": {
+        "method": "market",
+        "label": "Originated market line (Polymarket)",
+        "probabilities": [
+          0.87,
+          0.13
+        ],
+        "pick": "HOTU",
+        "pick_probability": 0.87,
+        "source": "Polymarket",
+        "source_url": "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
+        "observed_at": "2026-10-25T23:04:05Z",
+        "replay_verdict": "pass",
+        "replay_rule": "probability = midpoint_i / sum(midpoints); midpoint = (bid+ask)/2, then normalised to sum to 1"
+      },
+      "valve": {
+        "priceable": false,
+        "names": [
+          "HOTU",
+          null
+        ],
+        "points": [
+          1437,
+          null
+        ],
+        "standing": [
+          31,
+          null
+        ],
+        "names_absent": [
+          "The Huns"
+        ],
+        "names_ambiguous": [
+          "The Huns"
+        ],
+        "detail_links": [
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0031--hotu--dwushka-frontales-kade0-mizu-n0rb3r7.md",
+          null
+        ],
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "snapshot_date": "2026-10-05"
+      },
+      "hltv": null,
+      "verdict": "published pick from Polymarket (market); replayed exactly from the row's own evidence",
+      "resolution_path": "already published",
+      "blocker": null,
+      "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+      "hotspawn_url_kind": "canonical Hotspawn match page, as published",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "market",
+        "source": "Polymarket",
+        "probabilities": [
+          0.87,
+          0.13
+        ],
+        "pick": "HOTU",
+        "pick_probability": 0.87,
+        "source_url": "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
+        "observed_at": "2026-10-26T01:04:38Z",
+        "replay_verdict": "pass",
+        "delta": 0.0
+      }
+    },
+    {
+      "fixture_id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T13:00:00Z",
+      "locks_at": "2026-10-31T12:54:00Z",
+      "in_published_snapshot": true,
+      "published": {
+        "method": "model",
+        "label": "Valve-rating research estimate",
+        "probabilities": [
+          0.17816902,
+          0.82183098
+        ],
+        "pick": "1WIN",
+        "pick_probability": 0.82183098,
+        "source": "Valve official standings",
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "observed_at": "2026-10-25T23:03:48Z",
+        "replay_verdict": "pass",
+        "replay_rule": "p = 1/(1+10**(g*(points_b-points_a)/400)), g = 1/sqrt(1+3*(ln10/400)**2*RD**2/pi**2), RD=75"
+      },
+      "valve": {
+        "priceable": true,
+        "names": [
+          "5star",
+          "1win"
+        ],
+        "points": [
+          1110,
+          1383
+        ],
+        "standing": [
+          80,
+          38
+        ],
+        "names_absent": [],
+        "names_ambiguous": [],
+        "detail_links": [
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0080--5star--ariucle-clouden-hoolig4n-neuz-rate.md",
+          "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0038--1win--artfr0st-ax1le-belchonokk-fame-nafany.md"
+        ],
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "snapshot_date": "2026-10-05"
+      },
+      "hltv": null,
+      "verdict": "published pick from Valve official standings (model); replayed exactly from the row's own evidence",
+      "resolution_path": "already published",
+      "blocker": null,
+      "hotspawn_url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
+      "hotspawn_url_kind": "canonical Hotspawn match page, as published",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "model",
+        "source": "Valve official standings",
+        "probabilities": [
+          0.17816902,
+          0.82183098
+        ],
+        "pick": "1WIN",
+        "pick_probability": 0.82183098,
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "observed_at": "2026-10-26T01:04:19Z",
+        "replay_verdict": "pass",
+        "delta": 3.057e-09
+      }
+    }
+  ],
+  "summary": {
+    "open_fixtures": 19,
+    "published_pick": 10,
+    "not_in_published_snapshot": 9,
+    "priceable_by_valve_rung": 13,
+    "priceable_by_hltv_ranking_rung_only": 2,
+    "new_fixtures_priceable_by_valve_rung": 7,
+    "with_no_pricing_rung": [],
+    "published_picks_replayed_ok": 10,
+    "published_picks_total": 10,
+    "published_build_verified_at": "2026-10-26T01:04:30Z",
+    "published_build_fixtures": 19,
+    "published_build_with_pick": 19,
+    "published_build_replay_pass": 19
+  },
+  "prediction_vs_outcome": [
+    {
+      "fixture_id": "1079201",
+      "predicted_path": "Valve official-rating model rung",
+      "actual_method": "model",
+      "actual_source": "Valve official standings",
+      "predicted_rung_used": true,
+      "resolved_at_a_stronger_evidence_class": false,
+      "resolved_at_a_weaker_evidence_class": false
+    },
+    {
+      "fixture_id": "1081159",
+      "predicted_path": "HLTV world-ranking rung",
+      "actual_method": "model",
+      "actual_source": "Own results-based model (bo3.gg series results)",
+      "predicted_rung_used": false,
+      "resolved_at_a_stronger_evidence_class": false,
+      "resolved_at_a_weaker_evidence_class": false
+    },
+    {
+      "fixture_id": "1079202",
+      "predicted_path": "Valve official-rating model rung",
+      "actual_method": "bookmaker",
+      "actual_source": "Thunderpick",
+      "predicted_rung_used": false,
+      "resolved_at_a_stronger_evidence_class": true,
+      "resolved_at_a_weaker_evidence_class": false
+    },
+    {
+      "fixture_id": "1081160",
+      "predicted_path": "Valve official-rating model rung",
+      "actual_method": "model",
+      "actual_source": "Valve official standings",
+      "predicted_rung_used": true,
+      "resolved_at_a_stronger_evidence_class": false,
+      "resolved_at_a_weaker_evidence_class": false
+    },
+    {
+      "fixture_id": "1079203",
+      "predicted_path": "HLTV lineup-proof disambiguation, then HLTV world-ranking rung",
+      "actual_method": "bookmaker",
+      "actual_source": "Thunderpick",
+      "predicted_rung_used": false,
+      "resolved_at_a_stronger_evidence_class": false,
+      "resolved_at_a_weaker_evidence_class": false
+    },
+    {
+      "fixture_id": "1093218",
+      "predicted_path": "Valve official-rating model rung",
+      "actual_method": "consensus",
+      "actual_source": "Thunderpick + Bovada",
+      "predicted_rung_used": false,
+      "resolved_at_a_stronger_evidence_class": true,
+      "resolved_at_a_weaker_evidence_class": false
+    },
+    {
+      "fixture_id": "1081162",
+      "predicted_path": "Valve official-rating model rung",
+      "actual_method": "model",
+      "actual_source": "Valve official standings",
+      "predicted_rung_used": true,
+      "resolved_at_a_stronger_evidence_class": false,
+      "resolved_at_a_weaker_evidence_class": false
+    },
+    {
+      "fixture_id": "1081163",
+      "predicted_path": "Valve official-rating model rung",
+      "actual_method": "model",
+      "actual_source": "Valve official standings",
+      "predicted_rung_used": true,
+      "resolved_at_a_stronger_evidence_class": false,
+      "resolved_at_a_weaker_evidence_class": false
+    },
+    {
+      "fixture_id": "1081164",
+      "predicted_path": "Valve official-rating model rung",
+      "actual_method": "model",
+      "actual_source": "Valve official standings",
+      "predicted_rung_used": true,
+      "resolved_at_a_stronger_evidence_class": false,
+      "resolved_at_a_weaker_evidence_class": false
+    }
+  ],
+  "outcome_note": "The first build published after this read (2026-10-26T01:04:30Z, main 179f519a) carries all 19 open fixtures with a pick, and all 19 replay from their own evidence (published-verification.json). Seven of the nine new fixtures took exactly the predicted Valve-rating path. Two did not, and both resolved at a STRONGER evidence class than predicted: 1079203 Metizport vs BRUTE was priced by a verified Thunderpick two-way line (1.50/2.40 -> 61.5%/38.5%) instead of needing HLTV lineup disambiguation, and 1093218 Nuclear TigeRES vs UNiTY was priced by a two-book consensus (Thunderpick 1.58/2.20 + Bovada 1.606/2.25 -> 58.3%/41.7%) instead of the Valve model. 1081159 LFO 10 vs ex-6666 was priced by the project's own results-based fit over 10 anchored bo3.gg series (LFO 10 fitted 825 points, 90% interval 18.4%-64.5%, flagged low-confidence) rather than the HLTV ranking rung. No prediction was retro-fitted; both files are kept."
+}

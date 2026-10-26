@@ -9696,3 +9696,49 @@ changed; noted on PR #343 for session 0962d605.
 - All 27AC tasks are **done**. Open items handed over, in the dossier's change requests:
   bo3.gg team-link route in `originate.py`; majority-core lineup disambiguation rung;
   `27ac20d6-1082792-magnitude` stays flagged for the owner's review (figure untouched).
+
+---
+
+# Current session: arena-e3bc19d6 — live inventory read, picks for every open fixture (HLTV → esportsbooks → official ratings), executive-summary/phone verification, publish (claim 2026-10-26T00:50Z)
+
+Claimed on Arena's fixed branch `arena/e3bc19d6-maltaproj3`, branched from `main` at `cfd58e1` (the 2026-10-25T23:03Z published build). Board read first: ten prior PRs are still **open** (#350 `arena/93c7475a` is the most recent, opened 2026-10-25T15:27Z and touching the shared publishers); every other board row that says *in progress* is older than 60 minutes with merged dossiers, so it is stale, not live. This session therefore keeps a **new-file-only** scope: `data/research/e3bc19d6/**`, `scripts/e3bc19d6_verify.py`, `tests/test_e3bc19d6_*.py` and this section. No shared renderer, workflow, alias registry or other session's dossier is edited. Requests that need a shared file are logged here instead of applied.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| E3B-1 Read the official Hotspawn CS2 scheduled-fixture API directly and record the exact set of fixtures that are open at the read time, with ids, teams, competition, start and lock times and the observation clock | in progress → this session | arena-e3bc19d6 | new `data/research/e3bc19d6/**` |
+| E3B-2 For every open fixture the featured Polymarket line cannot price, check official HLTV first, then esportsbooks/exchanges, then the published official-rating inputs (Valve VRS, HLTV world ranking); publish one dated verdict + limitations per fixture. No probability, price or alias is written by hand | in progress → this session | arena-e3bc19d6 | new `data/research/e3bc19d6/**` |
+| E3B-3 Verify the executive summary's in-site picks links, the separate unresolved register and phone rendering on the committed build; fix only a defect proven by a failing check, in a new test file | in progress → this session | arena-e3bc19d6 | new `tests/test_e3bc19d6_*.py`, new `scripts/e3bc19d6_verify.py` |
+| E3B-4 PR to `main`, merge without waiting for approval once green, let the push trigger the four-hour publisher, then verify the live snapshot covers every open fixture with a pick or an explicit unresolved entry; record PR, run ids, sources and irregularities here | unclaimed → this session | arena-e3bc19d6 | this section, PR |
+
+## E3B progress log (2026-10-26T01:20Z)
+
+| Task | Status | Owner | Note |
+| --- | --- | --- | --- |
+| E3B-1 Read the official Hotspawn CS2 scheduled-fixture API directly | **done** — 2026-10-26T00:44Z–00:55Z: **19 future-start CS2 records**, ids/teams/competition/start/lock recorded in `data/research/e3bc19d6/live-inventory.json`; the published 23:03:48Z build carries 10 of them | arena-e3bc19d6 | `data/research/e3bc19d6/live-inventory.json` |
+| E3B-2 HLTV → esportsbook → official-rating research for every fixture the featured line cannot price | **done** — all nine fixtures added after the snapshot identified on HLTV with a 0 s start delta after the −04:00 conversion and bo3 on both event pages; HLTV's odds page for 2399509 read (ranks #167/#72, **no readable two-way price**); official Valve rows checked for all 38 team slots under the rung's own uniqueness rule | arena-e3bc19d6 | `hltv-identities.json`, `valve-coverage.json`, `coverage.json` |
+| E3B-3 Verify the exec summary's in-site picks links, the unresolved register and phone rendering | **done (no defect found)** — the built landing page carries the `mobile-status` picks shortcut, the `start-here` "where the picks are" nav, the `picks-at-a-glance` list, `#unresolved-register`, `#no-line-register` and `#fallback-register`; `scripts.build` link audit **869 links/anchors PASS** and the acceptance audit is 9 pass / 1 info / 0 fail | arena-e3bc19d6 | new `tests/test_e3bc19d6_verification.py` (30 tests), `scripts/e3bc19d6_verify.py` |
+| E3B-4 PR, merge, publisher run, verify live coverage of every open fixture | in progress → this session | arena-e3bc19d6 | PR |
+
+**Research result, stated exactly.** 19 fixtures were open. 10 are already published and **10/10 replay to better than 1e-8** from their own evidence (7 normalised order-book midpoints, 1 proportional margin removal on Thunderpick's raw 1.61/2.18, 2 Valve `fit.js` logistic rows). Of the 9 fixtures created after the snapshot, **7 have exactly one complete five-player official Valve row for both sides**, 1 (`1081159` LFO 10 vs ex-6666) has **no** Valve row for either side and depends on the HLTV world-ranking rung (HLTV ranks them #167 and #72), and 1 (`1079203` Metizport vs BRUTE) sits inside the Valve rung's fail-closed ambiguity for the name BRUTE and depends on the HLTV lineup-proof disambiguation rung. **No open fixture is left without a pricing rung.** No probability, price, alias or fixture identity was invented, and no Hotspawn community vote was read as an input.
+
+**Verification performed.** `python -m scripts.e3bc19d6_verify` → **PASS** (10/10 replays exact, 31 Valve team rows matched against the committed official file, 9 HLTV identities time-matched, coverage join complete, 6 flags schema-valid); `python -m unittest tests.test_e3bc19d6_verification` → **30 tests OK**, including hand-edited value, crossed book, out-of-range price, edited Valve points/roster and swapped-team mutations; `python -m unittest tests.test_review_flags tests.test_review_register` → OK (43 tests with the new module); `python -m scripts.build` → 9 views, 1028 row-source rows with **0 without a source**, acceptance 9/1/0, 869 links PASS.
+
+**Irregularities published on `/review/` (none blocks a merge):** E3B-R01 nine fixtures created after the published snapshot with the exact ids and the rung each needs; E3B-R02 HLTV's odds block for 1081159 renders client-side so no price is readable (limitation, not proof of no market); E3B-R03 the HOTU vs The Huns book is now 0.82/0.92 & 0.08/0.18, so the 87/13 market figure supersedes the earlier 98.2% network estimate recorded by 0962d605/27ac20d6 — those flags stay published as history; E3B-R04 the committed Valve input is the dated 2026-10-05 replay fixture (the live run re-reads the current file); E3B-R05 Hotspawn `best_of` is null on all 19 while HLTV lists bo3 for all nine checked.
+
+**Non-overlap pledge:** only new files (`data/research/e3bc19d6/**`, `scripts/e3bc19d6_verify.py`, `tests/test_e3bc19d6_verification.py`) and this board were touched. No shared renderer, workflow, alias registry, test, or another session's dossier was edited.
+
+### E3B-4 PUBLISHED BUILD VERIFIED — 19/19 open fixtures carry a pick (2026-10-26T01:30Z)
+
+The push that merged PR #362 into `main` started the four-hour publisher, which completed at **2026-10-26T01:04:20Z** (inventory 81 records, **19 open**) and root-synced `origination.json` at **01:04:30Z** on `main` `179f519a`. That build is the proof this session owed:
+
+| Verified | Result |
+| --- | --- |
+| Open fixtures in the published build | **19** |
+| Fixtures with a pick | **19** (`unresolved_ids: []`, `counts.with_pick 19`, `counts.unresolved 0`) |
+| Picks whose both probabilities re-derive from their own evidence | **19/19 exact** (max delta 7.7e-9) |
+| Methods used | 7 prediction-market books, 3 single-bookmaker no-vig lines, 1 two-book consensus (Thunderpick + Bovada), 8 labelled research models (7 official Valve rating rows + 1 own results-based fit) |
+| `python -m scripts.e3bc19d6_verify --published .` | **19 open fixtures, 19 with a pick, 0 unresolved** |
+
+The two fixtures this session had flagged as depending on the HLTV rungs both resolved at a **stronger** evidence class than predicted: `1079203` Metizport vs BRUTE by a verified Thunderpick two-way line (1.50/2.40 → 61.5%/38.5%), and — the fixture with no official rating for either side — `1081159` LFO 10 vs ex-6666 by the project's **own results-based fit** over 10 anchored bo3.gg series (LFO 10 fitted 825 points, 90% interval 18.4%–64.5%, flagged low-confidence, published as a labelled model). Seven of the nine new fixtures took exactly the predicted Valve-rating path. Both files are kept: `coverage.json` holds the read-time prediction and the observed outcome side by side.
+
+**Where to review it:** [`data/research/e3bc19d6/README.md`](data/research/e3bc19d6/README.md) (dossier), `published-verification.json` (19-row replay), `coverage.json` (prediction vs outcome), `replay.json` (the 23:03Z build's 10 rows), and the six flags on `/review/`.

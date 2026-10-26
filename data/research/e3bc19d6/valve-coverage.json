@@ -1,0 +1,722 @@
+{
+  "session": "arena-e3bc19d6",
+  "what": "Does the published official Valve Regional Standings input carry a unique exact-name five-player row for both sides of each open fixture?",
+  "source_file": "data/evidence/valve-ratings.json",
+  "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+  "snapshot_date": "2026-10-05",
+  "rows_in_source": 380,
+  "checked_at": "2026-10-26T00:58:00Z",
+  "identity_rule": "A name matches only when exactly one row with that name carries a complete five-player roster; incomplete remnants are excluded before the uniqueness test, and two complete rows stay ambiguous. This is the rule scripts/originate.py applies, so a 'priceable' verdict here means the rung can really price the fixture.",
+  "fixtures": [
+    {
+      "fixture_id": "1082858",
+      "teams": [
+        {
+          "hotspawn_name": "Ground Zero",
+          "valve_name": "Ground Zero",
+          "valve_points": 878,
+          "valve_standing": 136,
+          "roster": [
+            "apocdud",
+            "hazr",
+            "Omichella",
+            "sliimey",
+            "vision"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0136--ground_zero--apocdud-hazr-omichella-sliimey-vision.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        },
+        {
+          "hotspawn_name": "Off Chops",
+          "valve_name": null,
+          "valve_points": null,
+          "valve_standing": null,
+          "roster": null,
+          "detail_path": null,
+          "rows_with_this_name": 0,
+          "complete_five_player_rows": 0
+        }
+      ],
+      "valve_model_priceable": false
+    },
+    {
+      "fixture_id": "1082859",
+      "teams": [
+        {
+          "hotspawn_name": "NEXVOID",
+          "valve_name": "NEXVOID",
+          "valve_points": 995,
+          "valve_standing": 113,
+          "roster": [
+            "AccuracyTG",
+            "erkaSt",
+            "MiQ",
+            "xerolte",
+            "Zesta"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0113--nexvoid--accuracytg-erkast-miq-xerolte-zesta.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        },
+        {
+          "hotspawn_name": "Alter Ego",
+          "valve_name": "Alter Ego",
+          "valve_points": 819,
+          "valve_standing": 155,
+          "roster": [
+            "adeX",
+            "BnTeT",
+            "Gratisfaction",
+            "laxiee",
+            "PokemoN"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0155--alter_ego--adex-bntet-gratisfaction-laxiee-pokemon.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        }
+      ],
+      "valve_model_priceable": true
+    },
+    {
+      "fixture_id": "1079201",
+      "teams": [
+        {
+          "hotspawn_name": "INOX Division",
+          "valve_name": "INOX Division",
+          "valve_points": 1105,
+          "valve_standing": 82,
+          "roster": [
+            "FenomeN",
+            "finW",
+            "gooddeph",
+            "k0s",
+            "k1slll"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0082--inox_division--fenomen-finw-gooddeph-k0s-k1slll.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        },
+        {
+          "hotspawn_name": "Nemesis",
+          "valve_name": "Nemesis",
+          "valve_points": 1455,
+          "valve_standing": 29,
+          "roster": [
+            "mag1k3Y",
+            "r3salt",
+            "Sdaim",
+            "SELLTER",
+            "tex1y"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0029--nemesis--mag1k3y-r3salt-sdaim-sellter-tex1y.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        }
+      ],
+      "valve_model_priceable": true
+    },
+    {
+      "fixture_id": "1081159",
+      "teams": [
+        {
+          "hotspawn_name": "LFO 10",
+          "valve_name": null,
+          "valve_points": null,
+          "valve_standing": null,
+          "roster": null,
+          "detail_path": null,
+          "rows_with_this_name": 0,
+          "complete_five_player_rows": 0
+        },
+        {
+          "hotspawn_name": "ex-6666",
+          "valve_name": null,
+          "valve_points": null,
+          "valve_standing": null,
+          "roster": null,
+          "detail_path": null,
+          "rows_with_this_name": 0,
+          "complete_five_player_rows": 0
+        }
+      ],
+      "valve_model_priceable": false
+    },
+    {
+      "fixture_id": "1079202",
+      "teams": [
+        {
+          "hotspawn_name": "FOKUS",
+          "valve_name": "FOKUS",
+          "valve_points": 1321,
+          "valve_standing": 48,
+          "roster": [
+            "Banjo",
+            "jocab",
+            "Matheos",
+            "podi",
+            "ztr"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0048--fokus--banjo-jocab-matheos-podi-ztr.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        },
+        {
+          "hotspawn_name": "ex-Zero Tenacity",
+          "valve_name": "ex-Zero Tenacity",
+          "valve_points": 1066,
+          "valve_standing": 93,
+          "roster": [
+            "brutmonster",
+            "Cjoffo",
+            "Dragon",
+            "Kind0",
+            "VLDN"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0093--ex-zero_tenacity--brutmonster-cjoffo-dragon-kind0-vldn.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        }
+      ],
+      "valve_model_priceable": true
+    },
+    {
+      "fixture_id": "1081160",
+      "teams": [
+        {
+          "hotspawn_name": "HAVU",
+          "valve_name": "HAVU",
+          "valve_points": 937,
+          "valve_standing": 124,
+          "roster": [
+            "8Juho8",
+            "Alxc",
+            "ottob",
+            "p3kko",
+            "uli"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0124--havu--8juho8-alxc-ottob-p3kko-uli.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        },
+        {
+          "hotspawn_name": "ILLYRIANS",
+          "valve_name": "Illyrians",
+          "valve_points": 862,
+          "valve_standing": 141,
+          "roster": [
+            "ammar",
+            "BledarD",
+            "cerber",
+            "vAloN",
+            "xonn1k"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0141--illyrians--ammar-bledard-cerber-valon-xonn1k.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        }
+      ],
+      "valve_model_priceable": true
+    },
+    {
+      "fixture_id": "1079203",
+      "teams": [
+        {
+          "hotspawn_name": "Metizport",
+          "valve_name": "Metizport",
+          "valve_points": 1290,
+          "valve_standing": 53,
+          "roster": [
+            "F1KU",
+            "forsyy",
+            "MaiL09",
+            "Plopski",
+            "stanislaw"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0053--metizport--f1ku-forsyy-mail09-plopski-stanislaw.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        },
+        {
+          "hotspawn_name": "BRUTE",
+          "valve_name": null,
+          "valve_points": null,
+          "valve_standing": null,
+          "roster": null,
+          "detail_path": null,
+          "rows_with_this_name": 2,
+          "complete_five_player_rows": 2
+        }
+      ],
+      "valve_model_priceable": false
+    },
+    {
+      "fixture_id": "1093218",
+      "teams": [
+        {
+          "hotspawn_name": "Nuclear TigeRES",
+          "valve_name": "Nuclear TigeRES",
+          "valve_points": 1324,
+          "valve_standing": 46,
+          "roster": [
+            "ayuki",
+            "Djon8",
+            "flouzer",
+            "senka",
+            "tronic"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0046--nuclear_tigeres--ayuki-djon8-flouzer-senka-tronic.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        },
+        {
+          "hotspawn_name": "UNiTY",
+          "valve_name": "UNiTY",
+          "valve_points": 1167,
+          "valve_standing": 69,
+          "roster": [
+            "2high",
+            "Dytor",
+            "KWERTZZ",
+            "M1key",
+            "Sn0w"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0069--unity--2high-dytor-kwertzz-m1key-sn0w.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        }
+      ],
+      "valve_model_priceable": true
+    },
+    {
+      "fixture_id": "1082860",
+      "teams": [
+        {
+          "hotspawn_name": "FlyQuest",
+          "valve_name": "FlyQuest",
+          "valve_points": 1093,
+          "valve_standing": 86,
+          "roster": [
+            "aliStair",
+            "INS",
+            "jks",
+            "nettik",
+            "Vexite"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0086--flyquest--alistair-ins-jks-nettik-vexite.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        },
+        {
+          "hotspawn_name": "Staqued",
+          "valve_name": null,
+          "valve_points": null,
+          "valve_standing": null,
+          "roster": null,
+          "detail_path": null,
+          "rows_with_this_name": 0,
+          "complete_five_player_rows": 0
+        }
+      ],
+      "valve_model_priceable": false
+    },
+    {
+      "fixture_id": "1082861",
+      "teams": [
+        {
+          "hotspawn_name": "Rooster",
+          "valve_name": "Rooster",
+          "valve_points": 718,
+          "valve_standing": 205,
+          "roster": [
+            "ADK",
+            "chelleos",
+            "damyo",
+            "rekonz",
+            "SkulL"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0205--rooster--adk-chelleos-damyo-rekonz-skull.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        },
+        {
+          "hotspawn_name": "Abyssal",
+          "valve_name": "Abyssal",
+          "valve_points": 734,
+          "valve_standing": 195,
+          "roster": [
+            "blood",
+            "dangeR",
+            "foggers",
+            "gump",
+            "vinhy"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0195--abyssal--blood-danger-foggers-gump-vinhy.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        }
+      ],
+      "valve_model_priceable": true
+    },
+    {
+      "fixture_id": "1082897",
+      "teams": [
+        {
+          "hotspawn_name": "B8",
+          "valve_name": "B8",
+          "valve_points": 1555,
+          "valve_standing": 13,
+          "roster": [
+            "alex666",
+            "esenthial",
+            "kensizor",
+            "npl",
+            "s1zzi"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0013--b8--alex666-esenthial-kensizor-npl-s1zzi.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        },
+        {
+          "hotspawn_name": "K27",
+          "valve_name": "K27",
+          "valve_points": 1435,
+          "valve_standing": 32,
+          "roster": [
+            "clax",
+            "kashl1d",
+            "qw1nk1",
+            "X5G7V",
+            "xeedo"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0032--k27--clax-kashl1d-qw1nk1-x5g7v-xeedo.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        }
+      ],
+      "valve_model_priceable": true
+    },
+    {
+      "fixture_id": "1082898",
+      "teams": [
+        {
+          "hotspawn_name": "Alliance",
+          "valve_name": "Alliance",
+          "valve_points": 1483,
+          "valve_standing": 24,
+          "roster": [
+            "avid",
+            "bobeksde",
+            "eraa",
+            "twist",
+            "upE"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0024--alliance--avid-bobeksde-eraa-twist-upe.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        },
+        {
+          "hotspawn_name": "FaZe",
+          "valve_name": "FaZe",
+          "valve_points": 1482,
+          "valve_standing": 26,
+          "roster": [
+            "frozen",
+            "JBOEN",
+            "jcobbb",
+            "Neityu",
+            "Twistzz"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0026--faze--frozen-jboen-jcobbb-neityu-twistzz.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        }
+      ],
+      "valve_model_priceable": true
+    },
+    {
+      "fixture_id": "1081162",
+      "teams": [
+        {
+          "hotspawn_name": "ex-RUSTEC",
+          "valve_name": "ex-RUSTEC",
+          "valve_points": 1066,
+          "valve_standing": 92,
+          "roster": [
+            "Brilliance",
+            "glowiing",
+            "shalfey",
+            "yiksrezo",
+            "youka"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0092--ex-rustec--brilliance-glowiing-shalfey-yiksrezo-youka.md",
+          "rows_with_this_name": 2,
+          "complete_five_player_rows": 1
+        },
+        {
+          "hotspawn_name": "Spirit Academy",
+          "valve_name": "Spirit Academy",
+          "valve_points": 981,
+          "valve_standing": 115,
+          "roster": [
+            "k0gaSs",
+            "Kiryasoo",
+            "Netrix",
+            "s1nside",
+            "VILBy"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0115--spirit_academy--k0gass-kiryasoo-netrix-s1nside-vilby.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        }
+      ],
+      "valve_model_priceable": true
+    },
+    {
+      "fixture_id": "1081163",
+      "teams": [
+        {
+          "hotspawn_name": "BakS",
+          "valve_name": "BAKS",
+          "valve_points": 1044,
+          "valve_standing": 100,
+          "roster": [
+            "danistzz",
+            "Norwi",
+            "turbo",
+            "whisper",
+            "xdENiSZERA"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0100--baks--danistzz-norwi-turbo-whisper-xdeniszera.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        },
+        {
+          "hotspawn_name": "Saint Sinners",
+          "valve_name": "Saint Sinners",
+          "valve_points": 810,
+          "valve_standing": 158,
+          "roster": [
+            "Caleyy",
+            "deb0",
+            "iRV1NG",
+            "pavlysha666",
+            "ves111"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0158--saint_sinners--caleyy-deb0-irv1ng-pavlysha666-ves111.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        }
+      ],
+      "valve_model_priceable": true
+    },
+    {
+      "fixture_id": "1082900",
+      "teams": [
+        {
+          "hotspawn_name": "Luminosity",
+          "valve_name": "Luminosity",
+          "valve_points": 1547,
+          "valve_standing": 16,
+          "roster": [
+            "afro",
+            "AZUWU",
+            "lux",
+            "Rainwaker",
+            "yxngstxr"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0016--luminosity--afro-azuwu-lux-rainwaker-yxngstxr.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        },
+        {
+          "hotspawn_name": "HOTU",
+          "valve_name": "HOTU",
+          "valve_points": 1437,
+          "valve_standing": 31,
+          "roster": [
+            "dwushka",
+            "frontales",
+            "kade0",
+            "mizu",
+            "n0rb3r7"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0031--hotu--dwushka-frontales-kade0-mizu-n0rb3r7.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        }
+      ],
+      "valve_model_priceable": true
+    },
+    {
+      "fixture_id": "1081164",
+      "teams": [
+        {
+          "hotspawn_name": "Inner Circle Academy",
+          "valve_name": "Inner Circle Academy",
+          "valve_points": 1064,
+          "valve_standing": 94,
+          "roster": [
+            "3ippoch",
+            "Flierax",
+            "L1seYoung",
+            "NaYz",
+            "Tamefear"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0094--inner_circle_academy--3ippoch-flierax-l1seyoung-nayz-tamefear.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        },
+        {
+          "hotspawn_name": "Lavked",
+          "valve_name": "Lavked",
+          "valve_points": 862,
+          "valve_standing": 143,
+          "roster": [
+            "1NVISIBLEE",
+            "azukay",
+            "k4nfuz",
+            "sol",
+            "xm1nd"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0143--lavked--1nvisiblee-azukay-k4nfuz-sol-xm1nd.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        }
+      ],
+      "valve_model_priceable": true
+    },
+    {
+      "fixture_id": "1082901",
+      "teams": [
+        {
+          "hotspawn_name": "Envy",
+          "valve_name": null,
+          "valve_points": null,
+          "valve_standing": null,
+          "roster": null,
+          "detail_path": null,
+          "rows_with_this_name": 0,
+          "complete_five_player_rows": 0
+        },
+        {
+          "hotspawn_name": "GamerLegion",
+          "valve_name": "GamerLegion",
+          "valve_points": 1479,
+          "valve_standing": 27,
+          "roster": [
+            "FL4MUS",
+            "hypex",
+            "REZ",
+            "Snax",
+            "Tauson"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0027--gamerlegion--fl4mus-hypex-rez-snax-tauson.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        }
+      ],
+      "valve_model_priceable": false
+    },
+    {
+      "fixture_id": "1082792",
+      "teams": [
+        {
+          "hotspawn_name": "HOTU",
+          "valve_name": "HOTU",
+          "valve_points": 1437,
+          "valve_standing": 31,
+          "roster": [
+            "dwushka",
+            "frontales",
+            "kade0",
+            "mizu",
+            "n0rb3r7"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0031--hotu--dwushka-frontales-kade0-mizu-n0rb3r7.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        },
+        {
+          "hotspawn_name": "The Huns",
+          "valve_name": null,
+          "valve_points": null,
+          "valve_standing": null,
+          "roster": null,
+          "detail_path": null,
+          "rows_with_this_name": 2,
+          "complete_five_player_rows": 2
+        }
+      ],
+      "valve_model_priceable": false
+    },
+    {
+      "fixture_id": "1082793",
+      "teams": [
+        {
+          "hotspawn_name": "5star",
+          "valve_name": "5star",
+          "valve_points": 1110,
+          "valve_standing": 80,
+          "roster": [
+            "ariucle",
+            "clouden",
+            "hoolig4n",
+            "NEUZ",
+            "rate"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0080--5star--ariucle-clouden-hoolig4n-neuz-rate.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        },
+        {
+          "hotspawn_name": "1WIN",
+          "valve_name": "1win",
+          "valve_points": 1383,
+          "valve_standing": 38,
+          "roster": [
+            "ArtFr0st",
+            "Ax1Le",
+            "BELCHONOKK",
+            "fame",
+            "nafany"
+          ],
+          "detail_path": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0038--1win--artfr0st-ax1le-belchonokk-fame-nafany.md",
+          "rows_with_this_name": 1,
+          "complete_five_player_rows": 1
+        }
+      ],
+      "valve_model_priceable": true
+    }
+  ],
+  "exclusions": [
+    {
+      "fixture_id": "1079203",
+      "team": "BRUTE",
+      "reason": "more than one complete five-player row; the rung fails closed"
+    },
+    {
+      "fixture_id": "1081162",
+      "team": "ex-RUSTEC",
+      "reason": "1 incomplete roster remnant(s) excluded before the uniqueness test, exactly as scripts/originate.py does"
+    },
+    {
+      "fixture_id": "1082792",
+      "team": "The Huns",
+      "reason": "more than one complete five-player row; the rung fails closed"
+    }
+  ],
+  "summary": {
+    "fixtures": 19,
+    "priceable": 13,
+    "not_priceable": [
+      "1082858",
+      "1081159",
+      "1079203",
+      "1082860",
+      "1082901",
+      "1082792"
+    ]
+  },
+  "note": "The Valve table is a weekly official publication; the version committed in data/evidence is dated 2026-10-05 because the tracked fixture is a replay fixture. The live publisher re-reads the current official file from ValveSoftware/counter-strike_regional_standings on every run, so the rung reads today's table, not this dated copy."
+}
