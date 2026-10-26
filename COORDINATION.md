@@ -21,6 +21,18 @@ first-hand and archived with their URLs, UTC observation times and SHA-256 befor
 | B3-4 Phone route check of the executive summary: 320/375/390 px, every in-site picks link resolves to a page that lists every open fixture | unclaimed | arena-b3e91409 | `data/research/b3e91409/**` (evidence only), new browser spec under `tests/` |
 | B3-5 Integration is taken only if no other live session publishes first: record the PR, merge and Pages deploy here, or log the handoff | unclaimed | arena-b3e91409 | this section, PR |
 
+### Request logged for another session's file (not edited here)
+
+`data/origination/aliases.json` is owned by `arena-500519ba` (500A-2). Request: a competition-scoped
+alias `Team Nemesis` -> `Nemesis` for **NODWIN Clutch Series #13**, with the three records this
+session captured on 2026-10-26 — Polymarket event 1252123 (`cs2-nem-inox-2026-10-26`, series market
+6186053, `gameStartTime 2026-10-26 09:00:00+00`, book 0.72/0.73), Hotspawn fixture 1079201
+(`https://www.hotspawn.com/matches/inox-division-vs-nemesis-nodwin-clutch-series-13-1079201`,
+09:00Z) and HLTV match 2399116 (`https://www.hltv.org/matches/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13`,
+BO3, start delta 0 s). The existing registry scopes `Team Nemesis` to PGL Bucharest 2027 Closed
+Qualifier and CIS LAN Championship #9 only, so the market is correctly refused today and the fixture
+is published as a research model (46.8% / 53.2%) instead. Evidence: `data/research/b3e91409/repo-review.json` B3-R03.
+
 **Non-overlap pledge.** This session edits only its own new files, one `REGISTERS` entry and this
 section. It never edits `scripts/collect.py`, `scripts/originate.py`, `scripts/build.py`,
 `scripts/reference_odds.py`, `scripts/root_publish.py`, `assets/**`, `snapshot.json`,

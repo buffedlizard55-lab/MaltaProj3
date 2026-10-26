@@ -56,6 +56,11 @@ REGISTERS = (
     # complete-pick replay, <8h EGW match-page refresh for 1082858 in
     # CAPTURE_PATHS, Polymarket CLOB tightening on 1082996, and HLTV stand-in flags.
     'research/c2a74e33/repo-review.json',
+    # Session arena-b3e91409: independent replay of all 10 published rows (exact
+    # re-derivation from each row's own bid/ask, odds or rating points), the nine
+    # open Hotspawn fixtures absent from the 23:03:48Z publication, and the
+    # identity/clock conflicts that decide which external line may price them.
+    'research/b3e91409/repo-review.json',
     # Session arena-0db056f7: publisher freeze root cause (stale Group A
     # snapshot test), three post-snapshot lobby fixtures, EGW capture for
     # 1086696, and the flagged 98.2% network estimate on 1082792.
