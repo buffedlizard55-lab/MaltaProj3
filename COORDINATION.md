@@ -16,6 +16,30 @@ status bar), so this session does **not** re-do it; it builds on it.
 | 542A-4 Executive summary + phone: the picks route, the unresolved/limitations register, deep links, tap targets and WCAG verified in Chromium at 320/390/768 px on a locally built site | unclaimed | arena-542dfb58 | `scripts/build.py`/`assets/**` only for a verified defect (none claimed yet), new `tests/browser/542dfb58*.spec.mjs` |
 | 542A-5 PR to `main`, merge without waiting, confirm Pages serves a fresh verified build, record sources/verification/irregularities here | unclaimed | arena-542dfb58 | this section, PR |
 
+## 542A-1 / 542A-2 results — first clean end-to-end runner sweep (recorded 01:35Z)
+
+`542dfb58-probe.yml` run 40252384945 exited 0; all evidence below is in `data/research/542dfb58/` (probe.md/json, live-coverage.json/md, line-source-research.json/md, flags.json, `raw/*.gz` first-party captures, `evidence/*`).
+
+| Row | Official source link | Status | Note |
+| --- | --- | --- | --- |
+| Hotspawn scheduled fixture API (81 records, 19 open CS2) | <https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1> | verified-raw | Rendered-lobby crosscheck `complete`; the detail URL is the API's own `slug`. Never read as probability — ids, names, kickoff only |
+| Coverage vs the deployed layers at 01:04Z | <https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json> | verified-raw | 9/19 open fixtures carried a pick (8 priced, 2 model-resting); **9 lobby-only ids in neither layer**: 1079201, 1081159, 1079202, 1081160, 1079203, 1093218, 1081162, 1081163, 1081164 |
+| Thunderpick board carries prices for two of those gaps | <https://thunderpick.io/api/matches> | verified-raw | FOKUS 1.35 / ex-Zero Tenacity 2.90 (margin 1.806); Metizport 1.50 / BRUTE 2.40 (margin 1.083); both exact-names-and-start. Facts only — the probe publishes no probability, the ladder owns the number |
+| Smarkets upcoming CS2 events | <https://api.smarkets.com/v3/events/?type=csgo_match&states=upcoming&limit=200&sort=start_datetime,id> | verified-raw | 36 rows, 5 gap-name mentions, one event-level row (Rooster–Abyssal) |
+| Pinnacle guest matchups | <https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups> | verified-raw | 13 CS2 two-team rows after the shape fix (bare array, `participants` + `startTime`) |
+| HLTV match page | <https://www.hltv.org/matches> | verified-raw | 43 cards, 11 gap fixtures mentioned by name; no price published on that page |
+| Kalshi CS2 events | <https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXCS2GAME&status=open&limit=200> | verified-raw | 9 name mentions, 0 market rows on `/events` — presence only |
+| Rivalry / ggbet / betexplorer / 1xbet / betcet / eGamersWorld | see probe.json `fetches[]` | source-refused | 502 / 403 / 404 / 203-block / DNS timeout / 403 from a GitHub runner |
+
+**Read of the finding.** The 9 unpicked ids are freshness lag between the 4-hourly publishes (cadence `17 */4` + catch-up `47 2-22/4`, worst-case lag ≈2.5 h — inside the requested 4–8 h window), not a ladder defect: the cards appeared after the 23:03Z publish and the 04:17Z run reads the same Thunderpick/Smarkets surfaces the probe just read, so the two priced gaps resolve themselves. No rung was added to `scripts/originate.py`; the probe's job is to publish the reconciliation and the per-gap verdicts into the site's own dated-record slots.
+
+**Probe defects found and fixed with evidence (both pinned by `tests/test_542dfb58_probe.py`, 9 tests).** (1) `reconcile()` ran twice and the second pass saw an emptied published layer — it reported 0/19 with a pick on the runner; (2) a pick was read only from `snapshot.json`, which would have flagged HOTU vs The Huns — priced 87/13 off Polymarket in `origination.json` — as a *critical* gap; an estimate with no named side is now a separate warning, not a gap. `usable_pair` also now rejects a one-price market (it read `odds[1]` before checking length) and drops `no_vig` from its output so no probability rides into a published artifact.
+
+**Change requests (files outside my scope — deliberately not edited).** (1) `scripts/originate.py::live_collect` dies with `TypeError: unhashable type: 'dict'` (~line 243) because its inline `load_data_dir` copy passes dicts where the comprehension wants strings, so the live-collect rung can never bind; `scripts/coverage_audit.py` crashes identically and `scripts/model_recheck.py` calls `load_data_dir(data_dir, today=today)` with an unexpected keyword. (2) All three read root `data/latest.json`, which `scripts/root_publish.py` only copies from `data/<date>/` — it is stale by design; readers of live coverage should go through `data/<date>/` or the published root JSONs.
+
+**Verification commands.** `.venv/bin/python scripts/542dfb58_gap_probe.py`; `... --parse-raw --out-dir <dir>` for the offline replay; `.venv/bin/python -m unittest tests.test_542dfb58_probe`; `npx playwright test tests/browser/542dfb58_phone_picks.spec.mjs --config tests/browser/playwright.config.mjs` (7 passed against the fresh build and 7 against the Oct-15 baseline build).
+
+
 **Non-overlap pledge.** This session edits only its own new files, `data/research/542dfb58/**`
 and this board section. It will not touch `snapshot.json`, `data/latest.json`,
 `data/origination.json`, `.github/workflows/pages.yml`, `assets/scout.css`, any other session's
