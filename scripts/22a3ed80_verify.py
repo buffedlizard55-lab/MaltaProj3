@@ -103,6 +103,22 @@ def verify(site: Path) -> dict:
 
     snapshot = json.loads(snapshot_path.read_text())
     html = index_path.read_text()
+    # The publisher writes two artefacts into the branch root: the collected
+    # snapshot (`snapshot.json`) and the complete-picks layer
+    # (`origination.json`). The page renders the complete-picks layer whenever a
+    # fixture has one, so a row must be compared with that layer first and only
+    # fall back to the snapshot's own analysis block when it is absent. Before
+    # 2026-10-26 this module compared every priced row with `snapshot.json` alone,
+    # which reported a false mismatch for a fixture the origination ladder had
+    # re-priced (1093218: consensus 58.3%/41.7% rendered, model 70.7%/29.3% in
+    # the older snapshot block) and blocked the deploy at run 40254593296.
+    origination_path = site / 'origination.json'
+    origination = {}
+    if origination_path.is_file():
+        try:
+            origination = {str(m.get('id')): m for m in json.loads(origination_path.read_text()).get('matches') or []}
+        except (ValueError, AttributeError):
+            origination = {}
     generated = snapshot.get('generated_at')
     result['generated_at'] = generated
     result['counts'] = snapshot.get('counts') or {}
@@ -132,6 +148,16 @@ def verify(site: Path) -> dict:
         analysis = match.get('analysis') or {}
         probs = analysis.get('probabilities') or []
         pick_index = match.get('pick_index')
+        # The complete-picks layer wins when it has a priced row, because that is
+        # what the page renders.
+        complete = (origination.get(identifier) or {}).get('origination') or {}
+        if complete.get('probabilities') and (origination.get(identifier) or {}).get('pick_index') is not None:
+            analysis = complete
+            probs = complete.get('probabilities') or []
+            pick_index = origination[identifier].get('pick_index')
+            record_source = 'origination.json'
+        else:
+            record_source = 'snapshot.json'
         record = {
             'id': identifier,
             'teams': teams,
@@ -142,6 +168,7 @@ def verify(site: Path) -> dict:
             'source_links': len(row['links']),
             'verification': None,
             'note': None,
+            'expectation_source': record_source,
         }
         if not row['links']:
             problems.append(f'{identifier}: no https source link on the row')

@@ -238,6 +238,52 @@ class LimitationTests(unittest.TestCase):
         findings, _ = verify.check_row(row)
         self.assertTrue([f for f in findings if 'limitation' in f[2]], 'expected a limitation note')
 
+
+class CompletePicksLayerTests(unittest.TestCase):
+    """A page row must be compared with the layer the page actually renders.
+
+    `scripts/22a3ed80_verify.py` compared every priced row with `snapshot.json`.
+    When the origination ladder re-prices a fixture (here 1093218: the collected
+    snapshot still carries the model 70.7%/29.3% while the published
+    complete-picks layer carries a two-book consensus 58.3%/41.7%), the page
+    renders the consensus and the old check reported a false mismatch that
+    blocked the 2026-10-26T01:30Z deploy (run 40254593296). The verifier now
+    reads `origination.json` first and falls back to the snapshot block.
+    """
+
+    HTML = (
+        '<html><body><data data-snapshot-generated="2026-12-01T09:00:00Z">'
+        '<ol><li class="glance-row" data-glance-id="900001" data-method="consensus">'
+        '<span class="glance-pick-label">Pick</span><strong>Alpha</strong>'
+        '<span class="glance-prob">58.3%</span><span class="glance-other">41.7%</span>'
+        '<a href="https://example.com/book">book</a></li></ol>'
+        '<section id="picks-at-a-glance">1 fixture, 1 with a pick, 0 unresolved</section>'
+        '</body></html>'
+    )
+
+    def test_rendered_row_is_checked_against_the_complete_picks_layer(self):
+        verify = __import__('importlib').import_module('scripts.22a3ed80_verify')
+        with tempfile.TemporaryDirectory() as raw:
+            site = Path(raw)
+            (site / 'index.html').write_text(self.HTML, encoding='utf-8')
+            (site / 'snapshot.json').write_text(json.dumps({
+                'generated_at': '2026-12-01T09:00:00Z',
+                'counts': {'upcoming': 1, 'picks': 1, 'unresolved': 0, 'market': 0, 'bookmaker': 0, 'model': 1},
+                'matches': [{'id': '900001', 'teams': [{'name': 'Alpha'}, {'name': 'Beta'}],
+                             'availability': 'open', 'pick_index': 0,
+                             'analysis': {'method': 'model', 'probabilities': [0.7067, 0.2933]}}],
+            }), encoding='utf-8')
+            (site / 'origination.json').write_text(json.dumps({
+                'generated_at': '2026-12-01T09:00:05Z',
+                'matches': [{'id': '900001', 'pick_index': 0, 'origination': {
+                    'method': 'consensus', 'probabilities': [0.583, 0.417]}}],
+            }), encoding='utf-8')
+            result = verify.verify(site)
+        record = result['rows'][0]
+        self.assertEqual(record['expectation_source'], 'origination.json')
+        self.assertFalse([c for c in result['checks'] if 'analysis gives' in str(c.get('detail'))],
+                         [c for c in result['checks'] if not c['ok']])
+
 class CoverageTests(unittest.TestCase):
     def test_live_fixture_without_a_row_is_a_coverage_gap_and_fails_check(self):
         with tempfile.TemporaryDirectory() as raw:

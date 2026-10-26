@@ -210,15 +210,15 @@
    "evidence": [
     {
      "url": "https://play.hotspawn.com/lobby",
-     "detail": "Read 2026-10-26T01:22Z from the live capture: 19 open cards, including 1086696, 1082697 and 1086697. The lobby DOM ids for the observation are in data/research/b3e91409/live/sources.json."
-    },
-    {
-     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/bf1f9ce5/live-coverage.json",
-     "detail": "The dated 2026-10-25T13:57:50Z observation the block is rendered from."
+     "detail": "Live lobby read 2026-10-26T01:22Z: 19 open CS2 cards, including 1086696, 1082697 and 1086697. The card ids for the observation are in data/research/b3e91409/live/sources.json."
     },
     {
      "url": "https://play.hotspawn.com/cs2-pickems#fixture-1086696",
-     "detail": "The Hotspawn pick-em card for one of the three ids the dated block lists; it is part of the live inventory and was collected before the 01:04Z publication."
+     "detail": "The pick-em card for one of the three ids the dated block lists; it is in the live inventory and was published by the 01:04:30Z build."
+    },
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/bf1f9ce5/live-coverage.json",
+     "detail": "The dated 2026-10-25T13:57:50Z observation the block is rendered from: it lists exactly these three ids as missing at that time."
     }
    ]
   }
