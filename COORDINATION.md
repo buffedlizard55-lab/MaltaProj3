@@ -197,7 +197,6 @@ Claimed **2026-10-26T00:45Z** on Arena's fixed branch `arena/32ce1d11-maltaproj3
 
 **Non-overlap pledge.** No edit to `scripts/collect.py`, `scripts/originate.py`, `scripts/reference_odds.py`, `data/origination/aliases.json`, `.github/workflows/pages.yml`, `archive/`, or other sessions' `data/research/<id>/`. The publisher will resolve 1082792 automatically on its next refresh if/when the lineup-disambiguation logic binds the HLTV-confirmed roster; this session adds the research dossier and verifies the built site. Hotspawn `% picked` and HLTV fan votes are never probability inputs.
 
-<<<<<<< HEAD
 # Current session: arena-542dfb58 — a pick for **every** live Hotspawn CS2 fixture: live lobby↔API↔deployed reconciliation from a network-capable runner, HLTV-first then esportsbook/esports-betting-line research for every fixture the featured ladder cannot price, new source rungs proven by dated first-hand evidence, phone-first executive summary, publish
 
 Claimed **2026-10-26T00:55Z** on Arena's fixed branch `arena/542dfb58-maltaproj3`, branched from
@@ -256,8 +255,6 @@ exits 35 `SSL_ERROR_SYSCALL` with no status line; only `github.com`, `api.github
 So every live fact in this session is produced by a GitHub Actions runner on this branch
 (`542A-1`/`542A-2`) and archived as dated evidence, never asserted from the sandbox.
 
-=======
->>>>>>> origin/main
 ---
 
 # Current session: arena-824a2780 — independent replay of every published CS2 pick, and the phone path from the executive summary to the picks
