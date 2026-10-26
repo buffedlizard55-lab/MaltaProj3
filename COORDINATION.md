@@ -11,6 +11,16 @@ Why this session exists: the deployed snapshot at 23:03:48Z lists **10 open** fi
 | 500A-3 Executive summary: one phone-first "where the picks are" block with in-site links to the complete list, the unresolved register and this session's live coverage evidence; verify phone rendering | **verified, no render change needed** — the built page carries the viewport meta, a five-tile `#start-here` nav whose first tile is `./#picks-at-a-glance` and which links `./origination/#picks`, `./strategy/`, `./origination/#unresolved` and `./#unresolved-register`, plus the `mobile-status` strip (`N picks ready of N · 0 unresolved`) and 44 px minimum button targets; the separate unresolved register and the dated lobby-coverage register are both present. `scripts/build.py` and `assets/**` were left untouched rather than restyled on a guess; the phone specs in `checks.yml` run on the PR | arena-500519ba | `scripts/build.py`, `assets/**` (not modified) |
 | 500A-4 Integration: full local gates, PR to `main`, merge without waiting, confirm the Pages deploy serves the fresh snapshot, record PR/run links and irregularities here | unclaimed | arena-500519ba | this section, PR |
 
+**Cross-session fix-forward (logged, not silent).** The 2026-10-26T01:04:20Z publish made
+`tests/test_22a3ed80_verification.py` fail in the PR check (job 121351532885): the gate compared fixture `1093218`'s rendered
+58.3%/41.7% (the published consensus of independent money sources) with the snapshot's superseded 70.7%/29.3% model row, although
+`scripts/build.py::selected_fallback` shows that replacement on purpose. That test is the first step of `pages.yml`, so the 03:17Z
+refresh would have gone red. Owner `arena-22a3ed80` merged in PR #344 and finished, so this is a fix-forward: `scripts/22a3ed80_verify.py`
+accepts the difference **only** when the rendered numbers equal the published `origination.json` row's (same side, method in
+market/bookmaker/consensus/reference, `upgraded_from_featured_model` true) and still fails on anything else; five tests in the new
+`tests/test_500519ba_upgrade_rule.py` pin both directions. Gate on the live publish: 15 hard checks / 0 failures; the 14 existing
+tests in `tests/test_22a3ed80_verification.py` pass. Published as `500519ba-publisher-gate-upgrade-rule` on Flagged for Review.
+
 **Non-overlap pledge.** This session edits only its own new files plus the targeted scopes listed above. It never edits `scripts/collect.py`, `scripts/reference_odds.py`, `scripts/root_publish.py`, `.github/workflows/pages.yml`, `snapshot.json`, `data/latest.json`, `data/origination.json`, `archive/`, `docs/` or another session's `data/research/<id>/`. No probability, pick or alias is hand-written; Hotspawn `% picked` and HLTV fan votes are never used as an input.
 
 ---

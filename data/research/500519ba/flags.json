@@ -82,5 +82,20 @@
       "1082792"
     ],
     "severity": "notice"
+  },
+  {
+    "id": "500519ba-publisher-gate-upgrade-rule",
+    "title": "The 01:04:20Z publish would have frozen the next four-hour refresh: the publisher's own regression gate read a documented money-backed upgrade as a hard failure",
+    "detail": "scripts/build.py::selected_fallback deliberately shows a labelled money-backed researched estimate in place of a lowest-rung model row. On the 2026-10-26T01:04:20Z publish that applies to fixture 1093218 (Nuclear TigeRES vs UNiTY): the snapshot's featured model gives 70.7%/29.3% while the page shows the published consensus of independent money sources at 58.3%/41.7% on the same side. scripts/22a3ed80_verify.py compared every rendered row with the snapshot's own analysis block only, so tests/test_22a3ed80_verification.py failed in the Validate-dashboard run (job 121351532885, step 'Test strict identity, pricing, fallback and failure handling'). That test is the first step of .github/workflows/pages.yml, which runs it before every collect, so the 03:17Z refresh would have gone red and the site would have stopped updating - the same failure class as the 824A-5 and 824A-6 fix-forwards. Fixed forward here: the verifier now requires the rendered numbers to be exactly the published origination row's (same side, same two percentages, method in market/bookmaker/consensus/reference, upgraded_from_featured_model true) before treating the difference as documented, and still fails on any other divergence. Five new tests pin both directions (tests/test_500519ba_upgrade_rule.py); the gate on the live publish now reports 15 hard checks, 0 failures, and tests/test_22a3ed80_verification.py passes 14/14.",
+    "source_urls": [
+      "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40253855802/job/121351532885",
+      "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/scripts/22a3ed80_verify.py",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/origination/#match-1093218",
+      "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json"
+    ],
+    "match_ids": [
+      "1093218"
+    ],
+    "severity": "review"
   }
 ]
