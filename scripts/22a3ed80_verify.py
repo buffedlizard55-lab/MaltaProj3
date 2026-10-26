@@ -132,9 +132,14 @@ def verify(site: Path) -> dict:
             origin = entry.get('origination') or {}
             if origin.get('method') and isinstance(origin.get('probabilities'), list) \
                     and len(origin['probabilities']) == 2:
+                # The publisher marks a row it moved off the featured line. Only a
+                # marked row may differ from its featured analysis; an unmarked
+                # contradiction is still a defect, which is what the escalation
+                # flag exists for.
                 superseding[str(entry.get('id'))] = (
                     origin['method'], round(origin['probabilities'][0] * 100, 1),
-                    round(origin['probabilities'][1] * 100, 1))
+                    round(origin['probabilities'][1] * 100, 1),
+                    bool(entry.get('upgraded_from_featured_model')))
 
     featured = fallback = unresolved = superseded = 0
     problems = []
@@ -180,7 +185,7 @@ def verify(site: Path) -> dict:
                     elif row['pick'] == teams[1]:
                         by_team[teams[1]], by_team[teams[0]] = row['prob'], row['other']
                 aligned = (by_team[teams[0]], by_team[teams[1]]) if len(teams) == 2 else (None, None)
-                if published and aligned[0] is not None and aligned[1] is not None \
+                if published and published[3] and aligned[0] is not None and aligned[1] is not None \
                         and abs(published[1] - aligned[0]) <= 0.051 \
                         and abs(published[2] - aligned[1]) <= 0.051:
                     superseded += 1
@@ -190,9 +195,13 @@ def verify(site: Path) -> dict:
                     record['note'] = (f'featured {expected}%/{expected_other}% was superseded by '
                                       f'{published[0]} {published[1]}%/{published[2]}%')
                 else:
+                    hint = ''
+                    if published and not published[3]:
+                        hint = (' (the origination layer carries a different pair but does not mark the '
+                                'row as upgraded)')
                     problems.append(
                         f'{identifier}: rendered {row["pick"]} {row["prob"]}%/{row["other"]}% but the '
-                        f'fixture\'s own analysis gives {expected_pick} {expected}%/{expected_other}%')
+                        f'fixture\'s own analysis gives {expected_pick} {expected}%/{expected_other}%' + hint)
         elif row['prob'] is None:
             # An explicitly unresolved row is a published limitation, not a
             # defect: the brief allows a blank only when the reason is stated.
