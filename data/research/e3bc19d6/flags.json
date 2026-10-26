@@ -1,0 +1,95 @@
+[
+  {
+    "id": "e3bc19d6-nine-fixtures-added-after-the-published-snapshot",
+    "severity": "warning",
+    "match_ids": [
+      "1079201",
+      "1081159",
+      "1079202",
+      "1081160",
+      "1079203",
+      "1093218",
+      "1081162",
+      "1081163",
+      "1081164"
+    ],
+    "title": "Nine open fixtures exist on Hotspawn that the published 23:03:48Z snapshot does not carry yet",
+    "detail": "The official fixture API returned 19 future-start CS2 records when read at 2026-10-26T00:44Z-00:55Z; the published snapshot (generated 2026-10-25T23:03:48Z) carries 10. The nine missing records are five CCT Europe 2026 Series #12 fixtures (1081159, 1081160, 1081162, 1081163, 1081164) and four NODWIN Clutch Series 13 quarter-finals (1079201, 1079202, 1079203, 1093218), all created after that refresh. This is the documented four-hour cadence, not a collector defect: the collector takes every record the endpoint returns. Every one of the nine is verifiable on HLTV at the same UTC start. Seven of the nine carry exactly one complete five-player official Valve row for both sides, so the Valve-rating rung can price them on the next refresh. The other two need the HLTV rungs: 1081159 (LFO 10 vs ex-6666) has no Valve row for either side, and 1079203 (Metizport vs BRUTE) is inside the rung's fail-closed path because two complete Valve rows share the name BRUTE. The site therefore shows an incomplete card for up to four hours after a new bracket is published; nothing is invented to fill the gap.",
+    "source_urls": [
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+      "https://www.hltv.org/events/9457/cct-2026-europe-series-12",
+      "https://www.hltv.org/events/9440/nodwin-clutch-series-13"
+    ]
+  },
+  {
+    "id": "e3bc19d6-brute-ambiguous-valve-rows",
+    "severity": "warning",
+    "match_ids": [
+      "1079203"
+    ],
+    "title": "1079203 Metizport vs BRUTE: two complete official Valve rows share the name BRUTE, so the Valve rung fails closed",
+    "detail": "The committed official 2026-10-05 Valve standings carry more than one complete five-player row named BRUTE, and nothing in the table says which lineup plays on 2026-10-26T15:00Z. scripts/originate.py therefore refuses to pick one and the fixtures falls to the HLTV lineup-proof disambiguation rung (exact or four-of-five roster match against a freshly observed HLTV lineup) and then the HLTV world-ranking rung. The same ambiguity applies to 'The Huns' on 1082792, which is already published from a Polymarket line rather than from a Valve figure. No Valve probability is published for either fixture without the lineup proof.",
+    "source_urls": [
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "https://www.hltv.org/matches/2399118/metizport-vs-brute-nodwin-clutch-series-13"
+    ]
+  },
+  {
+    "id": "e3bc19d6-hltv-odds-block-has-no-readable-price",
+    "severity": "warning",
+    "match_ids": [
+      "1081159"
+    ],
+    "title": "HLTV's odds-and-prediction page for 1081159 carries ranks but no readable two-way price",
+    "detail": "The HLTV odds page for LFO 10 vs ex-6666 (match 2399509) is reachable (HTTP 200) and states both teams' rankings and per-map records, but the bookmaker odds block is rendered client-side: the fetched document contains no numeric price, and no bookmaker name. The page's own copy still says the overview 'includes odds from bookmakers'. A missing price in the document is a source/rendering limitation and is NOT evidence that no bookmaker prices the match; no odds value is quoted or inferred from it.",
+    "source_urls": [
+      "https://www.hltv.org/betting/analytics/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12",
+      "https://www.hltv.org/matches/2399509/lfo-10-vs-ex-6666-cct-2026-europe-series-12"
+    ]
+  },
+  {
+    "id": "e3bc19d6-hotu-the-huns-book-is-now-tight",
+    "severity": "info",
+    "match_ids": [
+      "1082792"
+    ],
+    "title": "The HOTU vs The Huns exchange book is now 0.82/0.92 and 0.08/0.18, so the fixture is priced from a real line",
+    "detail": "Flags 0962d605 and 27ac20d6 recorded a 0.54-wide Match Winner book on 2026-10-25 and published a 98.2% results-network figure instead. The 2026-10-25T23:03:48Z build carries a Polymarket book for event 1241313 with bids 0.82/0.08 and asks 0.92/0.18 (0.10 spread, inside the project's 0.12 acceptance), yielding 87.0% / 13.0% by normalised midpoints. Replaying the published row from those four prices reproduces 0.87/0.13 exactly (data/research/e3bc19d6/replay.json). The earlier flags stay published as history; the 98.2% figure is superseded by a market line, not by another model.",
+    "source_urls": [
+      "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
+      "https://gamma-api.polymarket.com/events/1241313"
+    ]
+  },
+  {
+    "id": "e3bc19d6-valve-input-vintage",
+    "severity": "info",
+    "match_ids": [],
+    "title": "The committed Valve rating input is dated 2026-10-05, 21 days old, because it is the replay fixture",
+    "detail": "data/evidence/valve-ratings.json carries the 2026-10-05 official standings so the checked-in replay stays deterministic; the code rejects an input older than 35 days and the live publisher re-reads the current file from ValveSoftware/counter-strike_regional_standings on every run. Eight of the nine fixtures added since the last refresh depend on this rung, so the live refresh - not this dossier - is what proves their inputs are current. No value here was refreshed by hand.",
+    "source_urls": [
+      "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    ]
+  },
+  {
+    "id": "e3bc19d6-hotspawn-best-of-is-null",
+    "severity": "info",
+    "match_ids": [
+      "1081159",
+      "1081160",
+      "1081162",
+      "1081163",
+      "1081164",
+      "1079201",
+      "1079202",
+      "1079203",
+      "1093218"
+    ],
+    "title": "All 19 open fixtures carry a null Hotspawn best-of while HLTV lists best-of-3 for the nine checked",
+    "detail": "The Hotspawn fixture API returns best_of null and series_format null for every CS2 record, so the site keeps the format blank. HLTV's own match list states bo3 for all nine fixtures that were checked on the two event pages. The format is therefore verified externally per fixture and never inferred for the Hotspawn record itself.",
+    "source_urls": [
+      "https://www.hltv.org/events/9457/matches",
+      "https://www.hltv.org/events/9440/matches",
+      "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1"
+    ]
+  }
+]
