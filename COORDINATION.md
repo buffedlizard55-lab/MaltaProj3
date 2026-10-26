@@ -1,3 +1,19 @@
+# Current session: arena-500519ba — a pick for every open Hotspawn CS2 fixture, live-verified on a runner; the phone route from the executive summary to the picks; publish
+
+Claimed **2026-10-26T00:50Z** on Arena's fixed branch `arena/500519ba-maltaproj3`, based on `main` at `cfd58e1` (the 2026-10-25T23:03:48Z publish). Read first: this board, `gh run list`, the merged PR train #344–#359 and open PR #350. Every other `in progress` row on this board is older than 60 minutes with no commit, so under the board's handoff rule this session takes over **only** the scopes below and edits nothing owned by another live session.
+
+Why this session exists: the deployed snapshot at 23:03:48Z lists **10 open** fixtures while the live Hotspawn lobby read at 00:44Z lists **19 upcoming** cards. The nine not in the snapshot (1079201, 1079202, 1079203, 1081159, 1081160, 1081162, 1081163, 1081164, 1093218) are exactly the kind of low-tier NODWIN/CCT fixtures the brief says must still get a pick. A pick for every one of them, or an explicit sourced limitation, is the first task.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 500A-1 Live coverage audit on a runner: force a fresh collection and origination, then measure every currently-open Hotspawn CS2 fixture against the fresh ladder **and** against the deployed snapshot, with the exact blocker per blank (HLTV first, then Polymarket/Kalshi/Thunderpick/Bovada/Pinnacle/bo3.gg/EGamersWorld), cache headers on the fixture API, and SHA-256 of every response | in progress | arena-500519ba | new `scripts/500519ba_audit.py`, new `.github/workflows/500519ba-audit.yml`, new `data/research/500519ba/**` |
+| 500A-2 Close every gap the audit proves is closable, with the source that closes it and a test that pins the rule; anything genuinely unpriceable stays blank and is published as a limitation, never a default 50/50 | unclaimed | arena-500519ba | `scripts/originate.py` (targeted rung/summary only), `data/origination/aliases.json` (reviewed, competition-scoped aliases only), new `tests/test_500519ba_*.py` |
+| 500A-3 Executive summary: one phone-first "where the picks are" block with in-site links to the complete list, the unresolved register and this session's live coverage evidence; verify 320/375/390 px rendering | unclaimed | arena-500519ba | `scripts/build.py` (exec-summary nav/register rendering only), `assets/*.css` if required, new browser spec |
+| 500A-4 Integration: full local gates, PR to `main`, merge without waiting, confirm the Pages deploy serves the fresh snapshot, record PR/run links and irregularities here | unclaimed | arena-500519ba | this section, PR |
+
+**Non-overlap pledge.** This session edits only its own new files plus the targeted scopes listed above. It never edits `scripts/collect.py`, `scripts/reference_odds.py`, `scripts/root_publish.py`, `.github/workflows/pages.yml`, `snapshot.json`, `data/latest.json`, `data/origination.json`, `archive/`, `docs/` or another session's `data/research/<id>/`. No probability, pick or alias is hand-written; Hotspawn `% picked` and HLTV fan votes are never used as an input.
+
+---
 # arena-f644ed1b — release close-out (2026-10-26T02:59Z)
 
 All claimed tasks complete. PR [#360](https://github.com/buffedlizard55-lab/MaltaProj3/pull/360) merged as `9c8db80`; follow-up [#372](https://github.com/buffedlizard55-lab/MaltaProj3/pull/372) merged as `6097173`. Concurrent production fix #375 was adopted verbatim, with this session's independent stronger money-input replay retained only in its own module. No production checker conflict resolution discarded another session's work. Targeted combined tests 20/20; initial full suite 1,943 OK (4 skipped), 142 browser tests passed; follow-up full CI [40257582430](https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40257582430) passed before final doc/test-only rebase.
