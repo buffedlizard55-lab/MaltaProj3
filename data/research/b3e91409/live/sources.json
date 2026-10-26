@@ -1,25 +1,25 @@
 {
  "schema_version": 1,
- "observed_at": "2026-10-26T01:01:07Z",
+ "observed_at": "2026-10-26T01:29:11Z",
  "sources": {
   "hotspawn_api": {
    "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
-   "observed_at": "2026-10-26T01:01:07Z",
+   "observed_at": "2026-10-26T01:29:11Z",
    "http_status": 200,
    "status": "ok",
-   "bytes": 63325,
-   "response_sha256": "c9ce902567e0806100b710ec31a18d76ad1ebaf60e4cc888596a3f83f5a4239b",
+   "bytes": 63331,
+   "response_sha256": "2640296f71a3f4d2a38720fcf066d56c44db8da07500fbea2fbfecfeaa22a0fc",
    "error": null,
    "records": 81,
    "open_records": 19
   },
   "hotspawn-lobby": {
-   "url": "https://play.hotspawn.com/lobby?cb=1792976468",
-   "observed_at": "2026-10-26T01:01:08Z",
+   "url": "https://play.hotspawn.com/lobby?cb=1792978151",
+   "observed_at": "2026-10-26T01:29:11Z",
    "http_status": 200,
    "status": "ok",
-   "bytes": 309942,
-   "response_sha256": "097a35909c5397839fc5d01aac2a2711c4b4674383e875ac3a9a88d3797687b4",
+   "bytes": 309949,
+   "response_sha256": "9f9446ec06e6fc700125a9911d53b0020efa5a7b641fb9be1ae88e2107ba628f",
    "cache_status": "MISS",
    "cache_age_sec": "0",
    "error": null,
@@ -48,12 +48,12 @@
    ]
   },
   "hotspawn-cs2": {
-   "url": "https://play.hotspawn.com/cs2-pickems?cb=1792976468",
-   "observed_at": "2026-10-26T01:01:09Z",
+   "url": "https://play.hotspawn.com/cs2-pickems?cb=1792978151",
+   "observed_at": "2026-10-26T01:29:12Z",
    "http_status": 200,
    "status": "ok",
-   "bytes": 309003,
-   "response_sha256": "04c265f88652daf196358c9e19f26bdd2a3a873e8ded26bb2ea3e2ff6f1ec8d9",
+   "bytes": 309010,
+   "response_sha256": "d4ead7a48e3717d5e84cf48d2330f42df8ea213ddde12a3900089fa268fe4af1",
    "cache_status": "MISS",
    "cache_age_sec": "0",
    "error": null,
@@ -63,22 +63,22 @@
   },
   "hltv": {
    "url": "https://www.hltv.org/matches",
-   "observed_at": "2026-10-26T01:01:10Z",
+   "observed_at": "2026-10-26T01:29:13Z",
    "http_status": 200,
    "status": "ok",
-   "bytes": 457575,
-   "response_sha256": "c6fcb991c69e82a108f18e7ef8703dd824ff5b4f40cc8e1f915ab72f11c4c899",
+   "bytes": 456602,
+   "response_sha256": "985834e18e5a20ba29b96f5f07cf5f39d718217f99a7561b565bc220a9f63157",
    "error": null,
    "cards": 59,
    "ambiguous_cards_skipped": 74
   },
   "hltv_ranking": {
    "url": "https://www.hltv.org/ranking/teams",
-   "observed_at": "2026-10-26T01:01:11Z",
+   "observed_at": "2026-10-26T01:29:14Z",
    "http_status": 200,
    "status": "ok",
-   "bytes": 1059731,
-   "response_sha256": "aa971aa5f8b628357afeae3c13067f158e63ea961cc43d3b10067aaea504d8e8",
+   "bytes": 1058762,
+   "response_sha256": "c611d8fb4f3fc0ea46025870248ecc3791688db8cf074a0de3760224140e50ff",
    "error": null,
    "rows": 253
   },
@@ -88,40 +88,40 @@
      "offset": 0,
      "records": 100,
      "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=0",
-     "observed_at": "2026-10-26T01:01:12Z",
-     "sha256": "510b0e860a615f2002cde4ad8fa40c5a078adf835e95af7f340988163e3da61c",
+     "observed_at": "2026-10-26T01:29:16Z",
+     "sha256": "9af7dc482b8af1a96810e2825ca9300b97e94d08a90a319a0de57cf1817b27d3",
      "http_status": 200
     },
     {
      "offset": 100,
      "records": 100,
      "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=100",
-     "observed_at": "2026-10-26T01:01:13Z",
-     "sha256": "1e88818843ab9996e31036214d488255fe6d33b1e45b41b26a400dada23ca012",
+     "observed_at": "2026-10-26T01:29:16Z",
+     "sha256": "77db49c438765b2213930ce90f285ee2227fd2c82b51d2e113fffb0be3f7fbe8",
      "http_status": 200
     },
     {
      "offset": 200,
      "records": 100,
      "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=200",
-     "observed_at": "2026-10-26T01:01:13Z",
-     "sha256": "fd5f048bbb4f0b5d75431bf7569df9e4aa2fe30ddaef3e87d69bbe0d349f4e4b",
+     "observed_at": "2026-10-26T01:29:16Z",
+     "sha256": "9bb9d3cfe991076ff078d8806a300a4b8453f7bc724346125d310f23564778b1",
      "http_status": 200
     },
     {
      "offset": 300,
      "records": 100,
      "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=300",
-     "observed_at": "2026-10-26T01:01:14Z",
-     "sha256": "fdb85c4d4ce29501a6437c221816ee596a6c160b1954c20672fa068cced0cc41",
+     "observed_at": "2026-10-26T01:29:16Z",
+     "sha256": "e6145171622addc104aeca89c07fa401650adcc7dbe58680932a28d3916fb3b6",
      "http_status": 200
     },
     {
      "offset": 400,
      "records": 28,
      "url": "https://gamma-api.polymarket.com/events?tag_slug=counter-strike-2&active=true&closed=false&limit=100&offset=400",
-     "observed_at": "2026-10-26T01:01:15Z",
-     "sha256": "326433f15df5efc57b6cc5255aed28c88cc9bd7ff103506c368a584ce065ee67",
+     "observed_at": "2026-10-26T01:29:17Z",
+     "sha256": "43da731eba21dad5f602f79150d4adcd18d96940657270d90254372df08a20a4",
      "http_status": 200
     }
    ],
@@ -130,13 +130,13 @@
   },
   "thunderpick": {
    "url": "https://thunderpick.io/api/matches",
-   "observed_at": "2026-10-26T01:01:15Z",
+   "observed_at": "2026-10-26T01:29:17Z",
    "http_status": 200,
    "status": "ok",
-   "bytes": 161024,
-   "response_sha256": "65e3af20f60af358ab27d46465dce56ff02b7881dc04e7599e44a8524dc9fbca",
+   "bytes": 164522,
+   "response_sha256": "a82769fb35295b9fdacb6ab03e832d86c3282c81976db5338c8f00815147ce19",
    "error": null,
-   "rows": 47
+   "rows": 48
   },
   "valve": {
    "rows": 380,
@@ -144,7 +144,7 @@
   },
   "kalshi-events": {
    "url": "https://api.elections.kalshi.com/trade-api/v2/events",
-   "observed_at": "2026-10-26T01:01:16Z",
+   "observed_at": "2026-10-26T01:29:18Z",
    "http_status": 200,
    "status": "ok",
    "bytes": 150100,
@@ -153,11 +153,11 @@
   },
   "bovada-cs2": {
    "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/counter-strike-2?marketFilterId=def&preMatchOnly=true&lang=en",
-   "observed_at": "2026-10-26T01:01:17Z",
+   "observed_at": "2026-10-26T01:29:18Z",
    "http_status": 200,
    "status": "ok",
-   "bytes": 57921,
-   "response_sha256": "eedb09ce2bb11d8a16cd37f55c1ce76376c02cd3ec8b3bd0a0aef9487294c425",
+   "bytes": 57922,
+   "response_sha256": "0b447e45377344c5dd486909f1c71313d2dd7d42f4c7791fc17ff8a59810db54",
    "error": null
   }
  },

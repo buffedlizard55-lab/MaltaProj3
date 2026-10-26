@@ -146,7 +146,7 @@
         "id": 599217239,
         "name": "Ground Zero",
         "status": 1,
-        "odds": 3.5,
+        "odds": 3.8,
         "handicap": null,
         "total": null,
         "type": "home"
@@ -155,7 +155,7 @@
         "id": 599217238,
         "name": "THUNDERdOWNUNDER",
         "status": 1,
-        "odds": 1.25,
+        "odds": 1.22,
         "handicap": null,
         "total": null,
         "type": "away"
@@ -235,14 +235,14 @@
      "home": {
       "id": 599217239,
       "name": "Ground Zero",
-      "odds": 3.5,
+      "odds": 3.8,
       "status": 1
      },
      "draw": null,
      "away": {
       "id": 599217238,
       "name": "THUNDERdOWNUNDER",
-      "odds": 1.25,
+      "odds": 1.22,
       "status": 1
      },
      "hasCombo": true,
@@ -3770,27 +3770,27 @@
     "preferredMarkets": [
      {
       "nickName": "Winner",
-      "eventId": 2890328,
-      "id": 243122523,
+      "eventId": 2890426,
+      "id": 243134065,
       "name": "Match Winner",
       "status": 1,
       "type": 0,
       "category": 1,
       "selections": [
        {
-        "id": 606309962,
-        "name": "Imotion",
+        "id": 606340097,
+        "name": "Sahur",
         "status": 1,
-        "odds": 1.95,
+        "odds": 2.6,
         "handicap": null,
         "total": null,
         "type": "home"
        },
        {
-        "id": 606309963,
-        "name": "Patapim",
+        "id": 606340098,
+        "name": "Imotion",
         "status": 1,
-        "odds": 1.75,
+        "odds": 1.45,
         "handicap": null,
         "total": null,
         "type": "away"
@@ -3816,27 +3816,27 @@
      },
      {
       "nickName": "Round Handicap",
-      "eventId": 2890328,
-      "id": 243122567,
+      "eventId": 2890426,
+      "id": 243134024,
       "name": "Round Handicap (Incl. Overtime) - Map 1",
       "status": 1,
       "type": 0,
       "category": 2,
       "selections": [
        {
-        "id": 606310085,
-        "name": "Imotion",
+        "id": 606340004,
+        "name": "Sahur",
         "status": 1,
-        "odds": 1.62,
+        "odds": 2,
         "handicap": 2.5,
         "total": "2.5",
         "type": "home"
        },
        {
-        "id": 606310084,
-        "name": "Patapim",
+        "id": 606340003,
+        "name": "Imotion",
         "status": 1,
-        "odds": 2.15,
+        "odds": 1.72,
         "handicap": -2.5,
         "total": "-2.5",
         "type": "away"
@@ -3851,8 +3851,8 @@
       "baseLine": "-2.5",
       "isMainLine": true,
       "lineMarketColumnNames": {
-       "homeColumn": "Imotion",
-       "awayColumn": "Patapim"
+       "homeColumn": "Sahur",
+       "awayColumn": "Imotion"
       },
       "customColumnNames": null,
       "subCategory": 2,
@@ -3868,29 +3868,29 @@
      },
      {
       "nickName": "Total Rounds",
-      "eventId": 2890328,
-      "id": 243122516,
+      "eventId": 2890426,
+      "id": 243134015,
       "name": "Total Rounds - Map 1",
       "status": 1,
       "type": 0,
       "category": 3,
       "selections": [
        {
-        "id": 606309954,
-        "name": "Under",
+        "id": 606339987,
+        "name": "Over",
         "status": 1,
-        "odds": 1.65,
+        "odds": 1.68,
         "handicap": null,
-        "total": "22.5",
+        "total": "21.5",
         "type": "other"
        },
        {
-        "id": 606309955,
-        "name": "Over",
+        "id": 606339986,
+        "name": "Under",
         "status": 1,
-        "odds": 2.1,
+        "odds": 2.05,
         "handicap": null,
-        "total": "22.5",
+        "total": "21.5",
         "type": "other"
        }
       ],
@@ -3900,7 +3900,7 @@
       "isVisible": true,
       "overrideMainOrder": false,
       "handicap": null,
-      "baseLine": "22.5",
+      "baseLine": "21.5",
       "isMainLine": true,
       "lineMarketColumnNames": {
        "homeColumn": "Under",
@@ -3919,13 +3919,262 @@
       "groupIds": []
      }
     ],
-    "id": 2890328,
+    "id": 2890426,
     "gameId": 6,
-    "startTime": "2026-10-26T01:11:00+00:00",
+    "startTime": "2026-10-26T01:56:00+00:00",
     "hasInPlayMarkets": true,
     "isHighlighted": false,
     "isLiveModeOverridden": true,
-    "totalOpenMarkets": 65,
+    "totalOpenMarkets": 63,
+    "totalAvailableMarkets": 100,
+    "bestOfMaps": 1,
+    "pin": {
+     "isPinned": false,
+     "order": 0
+    },
+    "streams": [],
+    "plainStreamLinks": [],
+    "note": "",
+    "isNoteVisible": false,
+    "score": {
+     "id": 2890426,
+     "score": {
+      "homeScore": "0",
+      "awayScore": "0"
+     },
+     "currentPeriod": null,
+     "periodScores": [
+      {
+       "score": {
+        "homeScore": "0",
+        "awayScore": "0"
+       },
+       "periodNumber": 1
+      }
+     ],
+     "additionalScore": null
+    },
+    "hasMainMarket": true,
+    "prematchSgcEnabled": false,
+    "inPlaySgcEnabled": false,
+    "isBetBuilderEnabled": false,
+    "name": "Sahur vs Imotion",
+    "isLive": false,
+    "bestOf": 1,
+    "teams": {
+     "home": {
+      "id": 76365,
+      "name": "Sahur",
+      "hasImage": true,
+      "shortName": "SAH"
+     },
+     "away": {
+      "id": 75389,
+      "name": "Imotion",
+      "hasImage": true,
+      "shortName": "IMO"
+     }
+    },
+    "competition": {
+     "id": 11732,
+     "name": "Berserk CS2 League 2 2026 Week #44",
+     "shortName": "Berserk CS2 ",
+     "countryCode": null,
+     "defaultStream": null,
+     "parentTournament": null
+    },
+    "market": {
+     "id": 243134065,
+     "name": "Match Winner",
+     "type": 0,
+     "status": 1,
+     "home": {
+      "id": 606340097,
+      "name": "Sahur",
+      "odds": 2.6,
+      "status": 1
+     },
+     "draw": null,
+     "away": {
+      "id": 606340098,
+      "name": "Imotion",
+      "odds": 1.45,
+      "status": 1
+     },
+     "hasCombo": true,
+     "hasInPlay": true,
+     "order": 99999,
+     "overrideMainOrder": false,
+     "isSgc": false,
+     "note": null
+    },
+    "widgetUrl": null,
+    "liveScoreMatchWidgetUrl": null,
+    "live3dVisualizationUrl": null,
+    "databetWidgetJwt": null,
+    "databetWidgetAvailable": false,
+    "freeBetEligible": true
+   },
+   {
+    "preferredMarkets": [
+     {
+      "nickName": "Winner",
+      "eventId": 2890427,
+      "id": 243134193,
+      "name": "Match Winner",
+      "status": 1,
+      "type": 0,
+      "category": 1,
+      "selections": [
+       {
+        "id": 606340392,
+        "name": "Sahur",
+        "status": 1,
+        "odds": 2.2,
+        "handicap": null,
+        "total": null,
+        "type": "home"
+       },
+       {
+        "id": 606340391,
+        "name": "Patapim",
+        "status": 1,
+        "odds": 1.58,
+        "handicap": null,
+        "total": null,
+        "type": "away"
+       }
+      ],
+      "order": 99999,
+      "hasCombo": true,
+      "hasInPlay": true,
+      "isVisible": true,
+      "overrideMainOrder": false,
+      "handicap": null,
+      "baseLine": null,
+      "isMainLine": false,
+      "lineMarketColumnNames": null,
+      "customColumnNames": null,
+      "subCategory": 1,
+      "isFeatured": true,
+      "period": null,
+      "prematchSgcEnabled": false,
+      "inPlaySgcEnabled": false,
+      "note": null,
+      "groupIds": []
+     },
+     {
+      "nickName": "Round Handicap",
+      "eventId": 2890427,
+      "id": 243134201,
+      "name": "Round Handicap (Incl. Overtime) - Map 1",
+      "status": 1,
+      "type": 0,
+      "category": 2,
+      "selections": [
+       {
+        "id": 606340415,
+        "name": "Sahur",
+        "status": 1,
+        "odds": 1.78,
+        "handicap": 2.5,
+        "total": "2.5",
+        "type": "home"
+       },
+       {
+        "id": 606340414,
+        "name": "Patapim",
+        "status": 1,
+        "odds": 1.92,
+        "handicap": -2.5,
+        "total": "-2.5",
+        "type": "away"
+       }
+      ],
+      "order": 1200,
+      "hasCombo": true,
+      "hasInPlay": true,
+      "isVisible": true,
+      "overrideMainOrder": false,
+      "handicap": -2.5,
+      "baseLine": "-2.5",
+      "isMainLine": true,
+      "lineMarketColumnNames": {
+       "homeColumn": "Sahur",
+       "awayColumn": "Patapim"
+      },
+      "customColumnNames": null,
+      "subCategory": 2,
+      "isFeatured": false,
+      "period": {
+       "type": "map",
+       "number": 1
+      },
+      "prematchSgcEnabled": false,
+      "inPlaySgcEnabled": false,
+      "note": null,
+      "groupIds": []
+     },
+     {
+      "nickName": "Total Rounds",
+      "eventId": 2890427,
+      "id": 243134177,
+      "name": "Total Rounds - Map 1",
+      "status": 1,
+      "type": 0,
+      "category": 3,
+      "selections": [
+       {
+        "id": 606340348,
+        "name": "Over",
+        "status": 1,
+        "odds": 1.65,
+        "handicap": null,
+        "total": "21.5",
+        "type": "other"
+       },
+       {
+        "id": 606340349,
+        "name": "Under",
+        "status": 1,
+        "odds": 2.1,
+        "handicap": null,
+        "total": "21.5",
+        "type": "other"
+       }
+      ],
+      "order": 999,
+      "hasCombo": true,
+      "hasInPlay": true,
+      "isVisible": true,
+      "overrideMainOrder": false,
+      "handicap": null,
+      "baseLine": "21.5",
+      "isMainLine": true,
+      "lineMarketColumnNames": {
+       "homeColumn": "Under",
+       "awayColumn": "Over"
+      },
+      "customColumnNames": null,
+      "subCategory": 4,
+      "isFeatured": false,
+      "period": {
+       "type": "map",
+       "number": 1
+      },
+      "prematchSgcEnabled": false,
+      "inPlaySgcEnabled": false,
+      "note": null,
+      "groupIds": []
+     }
+    ],
+    "id": 2890427,
+    "gameId": 6,
+    "startTime": "2026-10-26T02:26:00+00:00",
+    "hasInPlayMarkets": true,
+    "isHighlighted": false,
+    "isLiveModeOverridden": true,
+    "totalOpenMarkets": 63,
     "totalAvailableMarkets": 100,
     "bestOfMaps": 1,
     "pin": {
@@ -3941,15 +4190,15 @@
     "prematchSgcEnabled": false,
     "inPlaySgcEnabled": false,
     "isBetBuilderEnabled": false,
-    "name": "Imotion vs Patapim",
+    "name": "Sahur vs Patapim",
     "isLive": false,
     "bestOf": 1,
     "teams": {
      "home": {
-      "id": 75389,
-      "name": "Imotion",
+      "id": 76365,
+      "name": "Sahur",
       "hasImage": true,
-      "shortName": "IMO"
+      "shortName": "SAH"
      },
      "away": {
       "id": 76367,
@@ -3967,21 +4216,21 @@
      "parentTournament": null
     },
     "market": {
-     "id": 243122523,
+     "id": 243134193,
      "name": "Match Winner",
      "type": 0,
      "status": 1,
      "home": {
-      "id": 606309962,
-      "name": "Imotion",
-      "odds": 1.95,
+      "id": 606340392,
+      "name": "Sahur",
+      "odds": 2.2,
       "status": 1
      },
      "draw": null,
      "away": {
-      "id": 606309963,
+      "id": 606340391,
       "name": "Patapim",
-      "odds": 1.75,
+      "odds": 1.58,
       "status": 1
      },
      "hasCombo": true,
@@ -9499,25 +9748,25 @@
     "preferredMarkets": [
      {
       "nickName": "Winner",
-      "eventId": 2890324,
-      "id": 243122341,
+      "eventId": 2880182,
+      "id": 241318651,
       "name": "Match Winner",
       "status": 1,
       "type": 1,
       "category": 1,
       "selections": [
        {
-        "id": 606309379,
-        "name": "Sahur",
+        "id": 602020663,
+        "name": "OMEN Esports",
         "status": 1,
-        "odds": 10,
+        "odds": 11,
         "handicap": null,
         "total": null,
         "type": "home"
        },
        {
-        "id": 606309377,
-        "name": "Patapim",
+        "id": 602020664,
+        "name": "Villainous",
         "status": 1,
         "odds": 1.02,
         "handicap": null,
@@ -9545,29 +9794,29 @@
      },
      {
       "nickName": "Round Handicap",
-      "eventId": 2890324,
-      "id": 243122404,
+      "eventId": 2880182,
+      "id": 243131649,
       "name": "Round Handicap (Incl. Overtime) - Map 1",
       "status": 1,
       "type": 1,
       "category": 2,
       "selections": [
        {
-        "id": 606309538,
-        "name": "Sahur",
+        "id": 606333693,
+        "name": "OMEN Esports",
         "status": 1,
-        "odds": 1.58,
-        "handicap": 5.5,
-        "total": "5.5",
+        "odds": 1.74,
+        "handicap": 8.5,
+        "total": "8.5",
         "type": "home"
        },
        {
-        "id": 606309537,
-        "name": "Patapim",
+        "id": 606333694,
+        "name": "Villainous",
         "status": 1,
-        "odds": 2.2,
-        "handicap": -5.5,
-        "total": "-5.5",
+        "odds": 1.97,
+        "handicap": -8.5,
+        "total": "-8.5",
         "type": "away"
        }
       ],
@@ -9576,12 +9825,12 @@
       "hasInPlay": true,
       "isVisible": true,
       "overrideMainOrder": false,
-      "handicap": -5.5,
-      "baseLine": "-5.5",
+      "handicap": 8.5,
+      "baseLine": "8.5",
       "isMainLine": true,
       "lineMarketColumnNames": {
-       "homeColumn": "Sahur",
-       "awayColumn": "Patapim"
+       "homeColumn": "OMEN Esports",
+       "awayColumn": "Villainous"
       },
       "customColumnNames": null,
       "subCategory": 2,
@@ -9597,29 +9846,29 @@
      },
      {
       "nickName": "Total Rounds",
-      "eventId": 2890324,
-      "id": 243122368,
+      "eventId": 2880182,
+      "id": 243131651,
       "name": "Total Rounds - Map 1",
       "status": 1,
       "type": 1,
       "category": 3,
       "selections": [
        {
-        "id": 606309469,
-        "name": "Under",
+        "id": 606333695,
+        "name": "Over",
         "status": 1,
-        "odds": 2.2,
+        "odds": 1.68,
         "handicap": null,
-        "total": "20.5",
+        "total": "17.5",
         "type": "other"
        },
        {
-        "id": 606309470,
-        "name": "Over",
+        "id": 606333696,
+        "name": "Under",
         "status": 1,
-        "odds": 1.58,
+        "odds": 2.05,
         "handicap": null,
-        "total": "20.5",
+        "total": "17.5",
         "type": "other"
        }
       ],
@@ -9629,7 +9878,7 @@
       "isVisible": true,
       "overrideMainOrder": false,
       "handicap": null,
-      "baseLine": "20.5",
+      "baseLine": "17.5",
       "isMainLine": true,
       "lineMarketColumnNames": {
        "homeColumn": "Under",
@@ -9648,14 +9897,14 @@
       "groupIds": []
      }
     ],
-    "id": 2890324,
+    "id": 2880182,
     "gameId": 6,
-    "startTime": "2026-10-26T00:58:00+00:00",
+    "startTime": "2026-10-26T01:08:24+00:00",
     "hasInPlayMarkets": true,
     "isHighlighted": false,
     "isLiveModeOverridden": true,
-    "totalOpenMarkets": 23,
-    "totalAvailableMarkets": 36,
+    "totalOpenMarkets": 12,
+    "totalAvailableMarkets": 15,
     "bestOfMaps": 1,
     "pin": {
      "isPinned": false,
@@ -9665,19 +9914,14 @@
      {
       "language": "en",
       "streamOrder": 1,
-      "url": "https://player.kick.com/berserk-cs2-league-2"
-     },
-     {
-      "language": "en",
-      "streamOrder": 2,
-      "url": "https://player.twitch.tv/?channel=berserk_cs2_league2"
+      "url": "https://player.twitch.tv/?channel=bonamant"
      }
     ],
     "plainStreamLinks": null,
     "note": "",
     "isNoteVisible": false,
     "score": {
-     "id": 2890324,
+     "id": 2880182,
      "score": {
       "homeScore": "0",
       "awayScore": "0"
@@ -9686,8 +9930,8 @@
      "periodScores": [
       {
        "score": {
-        "homeScore": "6",
-        "awayScore": "10"
+        "homeScore": "1",
+        "awayScore": "7"
        },
        "periodNumber": 1
       }
@@ -9698,46 +9942,46 @@
     "prematchSgcEnabled": false,
     "inPlaySgcEnabled": false,
     "isBetBuilderEnabled": false,
-    "name": "Sahur vs Patapim",
+    "name": "OMEN Esports vs Villainous",
     "isLive": true,
     "bestOf": 1,
     "teams": {
      "home": {
-      "id": 76365,
-      "name": "Sahur",
-      "hasImage": true,
-      "shortName": "SAH"
+      "id": 52957,
+      "name": "OMEN Esports",
+      "hasImage": false,
+      "shortName": "OE"
      },
      "away": {
-      "id": 76367,
-      "name": "Patapim",
-      "hasImage": true,
-      "shortName": "PAT"
+      "id": 13496,
+      "name": "Villainous",
+      "hasImage": false,
+      "shortName": "VIL"
      }
     },
     "competition": {
-     "id": 11732,
-     "name": "Berserk CS2 League 2 2026 Week #44",
-     "shortName": "Berserk CS2 ",
+     "id": 11441,
+     "name": "ESEA Advanced Season 59 North America",
+     "shortName": "ESEA Adv S59 NA",
      "countryCode": null,
      "defaultStream": null,
      "parentTournament": null
     },
     "market": {
-     "id": 243122341,
+     "id": 241318651,
      "name": "Match Winner",
      "type": 1,
      "status": 1,
      "home": {
-      "id": 606309379,
-      "name": "Sahur",
-      "odds": 10,
+      "id": 602020663,
+      "name": "OMEN Esports",
+      "odds": 11,
       "status": 1
      },
      "draw": null,
      "away": {
-      "id": 606309377,
-      "name": "Patapim",
+      "id": 602020664,
+      "name": "Villainous",
       "odds": 1.02,
       "status": 1
      },
@@ -9752,8 +9996,8 @@
     "liveScoreMatchWidgetUrl": null,
     "live3dVisualizationUrl": null,
     "databetWidgetJwt": null,
-    "databetWidgetAvailable": false,
-    "freeBetEligible": true
+    "databetWidgetAvailable": true,
+    "freeBetEligible": false
    }
   ],
   "outrights": [
