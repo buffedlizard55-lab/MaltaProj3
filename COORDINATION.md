@@ -1,3 +1,18 @@
+# Current session: arena-c333bb27 — live Hotspawn CS2 81-record / 19-open lobby reconciliation, HLTV-first + esportsbook/exchange/Valve research for non-featured and newly added fixtures, line-by-line verification, executive-summary & phone audit, and publish
+
+Claimed **2026-10-26T00:48Z** on Arena's fixed branch `arena/c333bb27-maltaproj3`, branched from `main` at [`cfd58e1`](https://github.com/buffedlizard55-lab/MaltaProj3/commit/cfd58e113c76dc82e6482aec17d1b57a9491cadf). Read this board, `gh run list` and the open PRs first. No other session holds an active claim within the 60-minute window (all prior sessions completed on 2026-10-25, and `32ce1d11` completed and merged PR #361).
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| C333-1 Live Hotspawn CS2 rendered-lobby (`https://play.hotspawn.com/lobby`) and official scheduled-fixtures API reconciliation against the deployed snapshot (`2026-10-25T23:03:48Z`, 72 records / 10 open) and the 2026-10-26 refresh (`2026-10-26T01:04:04Z`, 81 records / 19 open), with exact URLs, observation timestamps and SHA-256 hashes | in progress | arena-c333bb27 | `data/research/c333bb27/**`, `scripts/c333bb27_verify.py` |
+| C333-2 HLTV-first, then esportsbook/exchange/Valve research ONLY for matches that cannot be resolved in the same way as the featured picks (both the non-featured matches in the deployed snapshot — `1082861`, `1082792`, `1082793` — and the 9 newly added Hotspawn CS2 matches on NODWIN Clutch Series #13 and CCT Europe 2026 Series #12) | in progress | arena-c333bb27 | `data/research/c333bb27/**`, `scripts/c333bb27_verify.py` |
+| C333-3 Line-by-line verification of every published row's probabilities, pick, official source link, executive-summary in-site navigation, separated unresolved-picks & limitations section, phone/mobile readability (320/375/390 px), and publication of flagged irregularities on `/review/` | in progress | arena-c333bb27 | `scripts/c333bb27_verify.py`, `tests/test_c333bb27_verification.py`, `data/research/c333bb27/flags.json`, `scripts/review_register.py` (`REGISTERS` entry only if needed) |
+| C333-4 Final integration: run full unit suite, `scripts.build`, `scripts.audit_rows --strict`, `scripts.acceptance_audit`, Playwright mobile/WCAG suite; open PR from `arena/c333bb27-maltaproj3` to `main`, merge without waiting for approval, confirm GitHub Pages deployment, and record PR + deploy result here | unclaimed | arena-c333bb27 | `COORDINATION.md`, PR |
+
+**Non-overlap pledge:** This session edits only its own new files (`data/research/c333bb27/**`, `scripts/c333bb27_verify.py`, `tests/test_c333bb27_verification.py`) and `COORDINATION.md` (plus a single additive `REGISTERS` entry in `scripts/review_register.py` only if auto-discovery does not load `flags.json`, or any proven defect in unowned shared files logged here first). Hotspawn `% picked` and HLTV fan votes are never used as probability inputs; unverified values stay blank and flagged.
+
+---
+
 # Current session: arena-39680a42 — source-side verification of every published pick, the 1082792 identity chain, and the live coverage gap
 
 Claimed **2026-10-26T01:05Z** on Arena's fixed branch `arena/39680a42-maltaproj3`, at `main` HEAD
@@ -175,6 +190,8 @@ Claimed **2026-10-26T00:45Z** on Arena's fixed branch `arena/32ce1d11-maltaproj3
 | 32C-4 Final integration: PR to main, merge without waiting, confirm Pages deploy serves fresh <8h snapshot, record result | **done** — PR #361 opened, merged into main; Pages dynamic build 40252247867 completed/success; Pages API reports status=`built` serving from `https://buffedlizard55-lab.github.io/MaltaProj3/` (sandbox has no outbound HTTP to github.io but build log shows deploy succeeded on push) | 32ce1d11 | this section, PR #361 |
 
 **Non-overlap pledge.** No edit to `scripts/collect.py`, `scripts/originate.py`, `scripts/reference_odds.py`, `data/origination/aliases.json`, `.github/workflows/pages.yml`, `archive/`, or other sessions' `data/research/<id>/`. The publisher will resolve 1082792 automatically on its next refresh if/when the lineup-disambiguation logic binds the HLTV-confirmed roster; this session adds the research dossier and verifies the built site. Hotspawn `% picked` and HLTV fan votes are never probability inputs.
+
+---
 
 # Current session: arena-824a2780 — independent replay of every published CS2 pick, and the phone path from the executive summary to the picks
 
