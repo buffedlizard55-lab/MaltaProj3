@@ -68,7 +68,22 @@
       "resolution_path": "already published",
       "blocker": null,
       "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
-      "hotspawn_url_kind": "canonical Hotspawn match page, as published"
+      "hotspawn_url_kind": "canonical Hotspawn match page, as published",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "market",
+        "source": "Polymarket",
+        "probabilities": [
+          0.205,
+          0.795
+        ],
+        "pick": "Off Chops",
+        "pick_probability": 0.795,
+        "source_url": "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25",
+        "observed_at": "2026-10-26T01:04:08Z",
+        "replay_verdict": "pass",
+        "delta": 0.0
+      }
     },
     {
       "fixture_id": "1082859",
@@ -123,7 +138,22 @@
       "resolution_path": "already published",
       "blocker": null,
       "hotspawn_url": "https://www.hotspawn.com/matches/nexvoid-vs-alter-ego-dfrag-invitational-2026-1082859",
-      "hotspawn_url_kind": "canonical Hotspawn match page, as published"
+      "hotspawn_url_kind": "canonical Hotspawn match page, as published",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "bookmaker",
+        "source": "Thunderpick",
+        "probabilities": [
+          0.59162304,
+          0.40837696
+        ],
+        "pick": "NEXVOID",
+        "pick_probability": 0.59162304,
+        "source_url": "https://thunderpick.io/api/matches",
+        "observed_at": "2026-10-26T01:04:17Z",
+        "replay_verdict": "pass",
+        "delta": 3.351e-09
+      }
     },
     {
       "fixture_id": "1079201",
@@ -170,7 +200,22 @@
       "resolution_path": "Valve official-rating model rung",
       "blocker": null,
       "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079201",
-      "hotspawn_url_kind": "official lobby anchor for the fixture id"
+      "hotspawn_url_kind": "official lobby anchor for the fixture id",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "model",
+        "source": "Valve official standings",
+        "probabilities": [
+          0.12346675,
+          0.87653325
+        ],
+        "pick": "Nemesis",
+        "pick_probability": 0.87653325,
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "observed_at": "2026-10-26T01:04:19Z",
+        "replay_verdict": "pass",
+        "delta": 2.861e-09
+      }
     },
     {
       "fixture_id": "1081159",
@@ -220,7 +265,22 @@
       "resolution_path": "HLTV world-ranking rung",
       "blocker": "No verified two-way bookmaker price was readable for this fixture (HLTV's odds block is client-side) and at least one side has no official Valve rating row.",
       "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081159",
-      "hotspawn_url_kind": "official lobby anchor for the fixture id"
+      "hotspawn_url_kind": "official lobby anchor for the fixture id",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "model",
+        "source": "Own results-based model (bo3.gg series results)",
+        "probabilities": [
+          0.39044605815543665,
+          0.6095539418445634
+        ],
+        "pick": "ex-6666",
+        "pick_probability": 0.6095539418445634,
+        "source_url": "https://bo3.gg/matches/sokerorg-vs-ex-6666-26-10-2026",
+        "observed_at": "2026-10-26T01:05:21Z",
+        "replay_verdict": "pass",
+        "delta": 0.0
+      }
     },
     {
       "fixture_id": "1079202",
@@ -267,7 +327,22 @@
       "resolution_path": "Valve official-rating model rung",
       "blocker": null,
       "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079202",
-      "hotspawn_url_kind": "official lobby anchor for the fixture id"
+      "hotspawn_url_kind": "official lobby anchor for the fixture id",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "bookmaker",
+        "source": "Thunderpick",
+        "probabilities": [
+          0.68235294,
+          0.31764706
+        ],
+        "pick": "FOKUS",
+        "pick_probability": 0.68235294,
+        "source_url": "https://thunderpick.io/api/matches",
+        "observed_at": "2026-10-26T01:04:17Z",
+        "replay_verdict": "pass",
+        "delta": 1.176e-09
+      }
     },
     {
       "fixture_id": "1081160",
@@ -314,7 +389,22 @@
       "resolution_path": "Valve official-rating model rung",
       "blocker": null,
       "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081160",
-      "hotspawn_url_kind": "official lobby anchor for the fixture id"
+      "hotspawn_url_kind": "official lobby anchor for the fixture id",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "model",
+        "source": "Valve official standings",
+        "probabilities": [
+          0.60348339,
+          0.39651661
+        ],
+        "pick": "HAVU",
+        "pick_probability": 0.60348339,
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "observed_at": "2026-10-26T01:04:19Z",
+        "replay_verdict": "pass",
+        "delta": 5.03e-10
+      }
     },
     {
       "fixture_id": "1079203",
@@ -365,7 +455,22 @@
       "resolution_path": "HLTV lineup-proof disambiguation, then HLTV world-ranking rung",
       "blocker": "Two complete official Valve rows share the name; which lineup plays is only provable from a freshly observed HLTV lineup, so no Valve figure is published without that proof.",
       "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1079203",
-      "hotspawn_url_kind": "official lobby anchor for the fixture id"
+      "hotspawn_url_kind": "official lobby anchor for the fixture id",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "bookmaker",
+        "source": "Thunderpick",
+        "probabilities": [
+          0.61538462,
+          0.38461538
+        ],
+        "pick": "Metizport",
+        "pick_probability": 0.61538462,
+        "source_url": "https://thunderpick.io/api/matches",
+        "observed_at": "2026-10-26T01:04:17Z",
+        "replay_verdict": "pass",
+        "delta": 4.615e-09
+      }
     },
     {
       "fixture_id": "1093218",
@@ -412,7 +517,22 @@
       "resolution_path": "Valve official-rating model rung",
       "blocker": null,
       "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1093218",
-      "hotspawn_url_kind": "official lobby anchor for the fixture id"
+      "hotspawn_url_kind": "official lobby anchor for the fixture id",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "consensus",
+        "source": "Thunderpick + Bovada",
+        "probabilities": [
+          0.58275378,
+          0.41724622
+        ],
+        "pick": "Nuclear TigeRES",
+        "pick_probability": 0.58275378,
+        "source_url": "https://thunderpick.io/esports/counter-strike",
+        "observed_at": "2026-10-26T01:04:31Z",
+        "replay_verdict": "pass",
+        "delta": 7.723e-09
+      }
     },
     {
       "fixture_id": "1082860",
@@ -469,7 +589,22 @@
       "resolution_path": "already published",
       "blocker": null,
       "hotspawn_url": "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
-      "hotspawn_url_kind": "canonical Hotspawn match page, as published"
+      "hotspawn_url_kind": "canonical Hotspawn match page, as published",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "market",
+        "source": "Polymarket",
+        "probabilities": [
+          0.925,
+          0.075
+        ],
+        "pick": "FlyQuest",
+        "pick_probability": 0.925,
+        "source_url": "https://polymarket.com/event/cs2-fly-staque-2026-10-26",
+        "observed_at": "2026-10-26T01:04:10Z",
+        "replay_verdict": "pass",
+        "delta": 0.0
+      }
     },
     {
       "fixture_id": "1082861",
@@ -524,7 +659,22 @@
       "resolution_path": "already published",
       "blocker": null,
       "hotspawn_url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
-      "hotspawn_url_kind": "canonical Hotspawn match page, as published"
+      "hotspawn_url_kind": "canonical Hotspawn match page, as published",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "model",
+        "source": "Valve official standings",
+        "probabilities": [
+          0.47761494,
+          0.52238506
+        ],
+        "pick": "Abyssal",
+        "pick_probability": 0.52238506,
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "observed_at": "2026-10-26T01:04:19Z",
+        "replay_verdict": "pass",
+        "delta": 2.818e-09
+      }
     },
     {
       "fixture_id": "1082897",
@@ -579,7 +729,22 @@
       "resolution_path": "already published",
       "blocker": null,
       "hotspawn_url": "https://www.hotspawn.com/matches/b8-vs-k27-tesla-cup-2026-1082897",
-      "hotspawn_url_kind": "canonical Hotspawn match page, as published"
+      "hotspawn_url_kind": "canonical Hotspawn match page, as published",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "market",
+        "source": "Polymarket",
+        "probabilities": [
+          0.595,
+          0.405
+        ],
+        "pick": "B8",
+        "pick_probability": 0.595,
+        "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
+        "observed_at": "2026-10-26T01:04:11Z",
+        "replay_verdict": "pass",
+        "delta": 0.0
+      }
     },
     {
       "fixture_id": "1082898",
@@ -634,7 +799,22 @@
       "resolution_path": "already published",
       "blocker": null,
       "hotspawn_url": "https://www.hotspawn.com/matches/alliance-vs-faze-tesla-cup-2026-1082898",
-      "hotspawn_url_kind": "canonical Hotspawn match page, as published"
+      "hotspawn_url_kind": "canonical Hotspawn match page, as published",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "market",
+        "source": "Polymarket",
+        "probabilities": [
+          0.34,
+          0.66
+        ],
+        "pick": "FaZe",
+        "pick_probability": 0.66,
+        "source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
+        "observed_at": "2026-10-26T01:04:12Z",
+        "replay_verdict": "pass",
+        "delta": 0.0
+      }
     },
     {
       "fixture_id": "1081162",
@@ -681,7 +861,22 @@
       "resolution_path": "Valve official-rating model rung",
       "blocker": null,
       "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081162",
-      "hotspawn_url_kind": "official lobby anchor for the fixture id"
+      "hotspawn_url_kind": "official lobby anchor for the fixture id",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "model",
+        "source": "Valve official standings",
+        "probabilities": [
+          0.61680305,
+          0.38319695
+        ],
+        "pick": "ex-RUSTEC",
+        "pick_probability": 0.61680305,
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "observed_at": "2026-10-26T01:04:19Z",
+        "replay_verdict": "pass",
+        "delta": 4.493e-09
+      }
     },
     {
       "fixture_id": "1081163",
@@ -728,7 +923,22 @@
       "resolution_path": "Valve official-rating model rung",
       "blocker": null,
       "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081163",
-      "hotspawn_url_kind": "official lobby anchor for the fixture id"
+      "hotspawn_url_kind": "official lobby anchor for the fixture id",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "model",
+        "source": "Valve official standings",
+        "probabilities": [
+          0.78758039,
+          0.21241961
+        ],
+        "pick": "BakS",
+        "pick_probability": 0.78758039,
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "observed_at": "2026-10-26T01:04:19Z",
+        "replay_verdict": "pass",
+        "delta": 2.764e-09
+      }
     },
     {
       "fixture_id": "1082900",
@@ -783,7 +993,22 @@
       "resolution_path": "already published",
       "blocker": null,
       "hotspawn_url": "https://www.hotspawn.com/matches/luminosity-vs-hotu-tesla-cup-2026-1082900",
-      "hotspawn_url_kind": "canonical Hotspawn match page, as published"
+      "hotspawn_url_kind": "canonical Hotspawn match page, as published",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "market",
+        "source": "Polymarket",
+        "probabilities": [
+          0.525,
+          0.475
+        ],
+        "pick": "Luminosity",
+        "pick_probability": 0.525,
+        "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
+        "observed_at": "2026-10-26T01:04:14Z",
+        "replay_verdict": "pass",
+        "delta": 0.0
+      }
     },
     {
       "fixture_id": "1081164",
@@ -830,7 +1055,22 @@
       "resolution_path": "Valve official-rating model rung",
       "blocker": null,
       "hotspawn_url": "https://play.hotspawn.com/cs2-pickems#fixture-1081164",
-      "hotspawn_url_kind": "official lobby anchor for the fixture id"
+      "hotspawn_url_kind": "official lobby anchor for the fixture id",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "model",
+        "source": "Valve official standings",
+        "probabilities": [
+          0.75606058,
+          0.24393942
+        ],
+        "pick": "Inner Circle Academy",
+        "pick_probability": 0.75606058,
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "observed_at": "2026-10-26T01:04:19Z",
+        "replay_verdict": "pass",
+        "delta": 3.289e-09
+      }
     },
     {
       "fixture_id": "1082901",
@@ -887,7 +1127,22 @@
       "resolution_path": "already published",
       "blocker": null,
       "hotspawn_url": "https://www.hotspawn.com/matches/envy-vs-gamerlegion-tesla-cup-2026-1082901",
-      "hotspawn_url_kind": "canonical Hotspawn match page, as published"
+      "hotspawn_url_kind": "canonical Hotspawn match page, as published",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "market",
+        "source": "Polymarket",
+        "probabilities": [
+          0.455,
+          0.545
+        ],
+        "pick": "GamerLegion",
+        "pick_probability": 0.545,
+        "source_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
+        "observed_at": "2026-10-26T01:04:16Z",
+        "replay_verdict": "pass",
+        "delta": 0.0
+      }
     },
     {
       "fixture_id": "1082792",
@@ -946,7 +1201,22 @@
       "resolution_path": "already published",
       "blocker": null,
       "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
-      "hotspawn_url_kind": "canonical Hotspawn match page, as published"
+      "hotspawn_url_kind": "canonical Hotspawn match page, as published",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "market",
+        "source": "Polymarket",
+        "probabilities": [
+          0.87,
+          0.13
+        ],
+        "pick": "HOTU",
+        "pick_probability": 0.87,
+        "source_url": "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
+        "observed_at": "2026-10-26T01:04:38Z",
+        "replay_verdict": "pass",
+        "delta": 0.0
+      }
     },
     {
       "fixture_id": "1082793",
@@ -1001,7 +1271,22 @@
       "resolution_path": "already published",
       "blocker": null,
       "hotspawn_url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
-      "hotspawn_url_kind": "canonical Hotspawn match page, as published"
+      "hotspawn_url_kind": "canonical Hotspawn match page, as published",
+      "observed_outcome": {
+        "built_at": "2026-10-26T01:04:30Z",
+        "method": "model",
+        "source": "Valve official standings",
+        "probabilities": [
+          0.17816902,
+          0.82183098
+        ],
+        "pick": "1WIN",
+        "pick_probability": 0.82183098,
+        "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+        "observed_at": "2026-10-26T01:04:19Z",
+        "replay_verdict": "pass",
+        "delta": 3.057e-09
+      }
     }
   ],
   "summary": {
@@ -1013,6 +1298,94 @@
     "new_fixtures_priceable_by_valve_rung": 7,
     "with_no_pricing_rung": [],
     "published_picks_replayed_ok": 10,
-    "published_picks_total": 10
-  }
+    "published_picks_total": 10,
+    "published_build_verified_at": "2026-10-26T01:04:30Z",
+    "published_build_fixtures": 19,
+    "published_build_with_pick": 19,
+    "published_build_replay_pass": 19
+  },
+  "prediction_vs_outcome": [
+    {
+      "fixture_id": "1079201",
+      "predicted_path": "Valve official-rating model rung",
+      "actual_method": "model",
+      "actual_source": "Valve official standings",
+      "predicted_rung_used": true,
+      "resolved_at_a_stronger_evidence_class": false,
+      "resolved_at_a_weaker_evidence_class": false
+    },
+    {
+      "fixture_id": "1081159",
+      "predicted_path": "HLTV world-ranking rung",
+      "actual_method": "model",
+      "actual_source": "Own results-based model (bo3.gg series results)",
+      "predicted_rung_used": false,
+      "resolved_at_a_stronger_evidence_class": false,
+      "resolved_at_a_weaker_evidence_class": false
+    },
+    {
+      "fixture_id": "1079202",
+      "predicted_path": "Valve official-rating model rung",
+      "actual_method": "bookmaker",
+      "actual_source": "Thunderpick",
+      "predicted_rung_used": false,
+      "resolved_at_a_stronger_evidence_class": true,
+      "resolved_at_a_weaker_evidence_class": false
+    },
+    {
+      "fixture_id": "1081160",
+      "predicted_path": "Valve official-rating model rung",
+      "actual_method": "model",
+      "actual_source": "Valve official standings",
+      "predicted_rung_used": true,
+      "resolved_at_a_stronger_evidence_class": false,
+      "resolved_at_a_weaker_evidence_class": false
+    },
+    {
+      "fixture_id": "1079203",
+      "predicted_path": "HLTV lineup-proof disambiguation, then HLTV world-ranking rung",
+      "actual_method": "bookmaker",
+      "actual_source": "Thunderpick",
+      "predicted_rung_used": false,
+      "resolved_at_a_stronger_evidence_class": false,
+      "resolved_at_a_weaker_evidence_class": false
+    },
+    {
+      "fixture_id": "1093218",
+      "predicted_path": "Valve official-rating model rung",
+      "actual_method": "consensus",
+      "actual_source": "Thunderpick + Bovada",
+      "predicted_rung_used": false,
+      "resolved_at_a_stronger_evidence_class": true,
+      "resolved_at_a_weaker_evidence_class": false
+    },
+    {
+      "fixture_id": "1081162",
+      "predicted_path": "Valve official-rating model rung",
+      "actual_method": "model",
+      "actual_source": "Valve official standings",
+      "predicted_rung_used": true,
+      "resolved_at_a_stronger_evidence_class": false,
+      "resolved_at_a_weaker_evidence_class": false
+    },
+    {
+      "fixture_id": "1081163",
+      "predicted_path": "Valve official-rating model rung",
+      "actual_method": "model",
+      "actual_source": "Valve official standings",
+      "predicted_rung_used": true,
+      "resolved_at_a_stronger_evidence_class": false,
+      "resolved_at_a_weaker_evidence_class": false
+    },
+    {
+      "fixture_id": "1081164",
+      "predicted_path": "Valve official-rating model rung",
+      "actual_method": "model",
+      "actual_source": "Valve official standings",
+      "predicted_rung_used": true,
+      "resolved_at_a_stronger_evidence_class": false,
+      "resolved_at_a_weaker_evidence_class": false
+    }
+  ],
+  "outcome_note": "The first build published after this read (2026-10-26T01:04:30Z, main 179f519a) carries all 19 open fixtures with a pick, and all 19 replay from their own evidence (published-verification.json). Seven of the nine new fixtures took exactly the predicted Valve-rating path. Two did not, and both resolved at a STRONGER evidence class than predicted: 1079203 Metizport vs BRUTE was priced by a verified Thunderpick two-way line (1.50/2.40 -> 61.5%/38.5%) instead of needing HLTV lineup disambiguation, and 1093218 Nuclear TigeRES vs UNiTY was priced by a two-book consensus (Thunderpick 1.58/2.20 + Bovada 1.606/2.25 -> 58.3%/41.7%) instead of the Valve model. 1081159 LFO 10 vs ex-6666 was priced by the project's own results-based fit over 10 anchored bo3.gg series (LFO 10 fitted 825 points, 90% interval 18.4%-64.5%, flagged low-confidence) rather than the HLTV ranking rung. No prediction was retro-fitted; both files are kept."
 }

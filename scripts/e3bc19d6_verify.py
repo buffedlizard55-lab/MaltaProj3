@@ -463,12 +463,115 @@ def published_coverage(build: Path, open_only: bool = True) -> tuple[list[str], 
     return errors, table
 
 
+def replay_published_row(row: dict) -> tuple[list[float] | None, str]:
+    """Recompute one row of the live published build from its own evidence.
+
+    Handles the five shapes the ladder produces: a prediction-market book
+    (normalised midpoints), a single bookmaker (proportional margin removal),
+    a consensus of independent money sources (median of the per-source no-vig
+    probabilities), the Valve official-rating model (fit.js logistic, RD 75) and
+    the project's own results-based fit (same logistic, with the rating
+    deviation derived from the number of anchored series).
+    """
+    method = row.get('method')
+    evidence = row.get('evidence') or {}
+    if method == 'market':
+        bids, asks = evidence.get('bid'), evidence.get('ask')
+        if not (isinstance(bids, list) and isinstance(asks, list) and len(bids) == len(asks) == 2):
+            raise ValueError('order book needs two bid and two ask prices')
+        for bid, ask in zip(bids, asks):
+            if float(bid) > float(ask):
+                raise ValueError(f'crossed book: bid {bid} above ask {ask}')
+        midpoints = [(float(b) + float(a)) / 2 for b, a in zip(bids, asks)]
+        return normalise(midpoints[0], midpoints[1]), 'midpoint of the two-sided book, normalised'
+    if method == 'bookmaker':
+        odds = evidence.get('raw_decimal_odds')
+        if not (isinstance(odds, list) and len(odds) == 2 and min(float(o) for o in odds) > 1):
+            raise ValueError('a bookmaker row needs two decimal odds above 1')
+        return normalise(1 / float(odds[0]), 1 / float(odds[1])), 'proportional margin removal on the raw odds'
+    if method == 'consensus':
+        sources = evidence.get('sources') or []
+        pairs = []
+        for source in sources:
+            odds = source.get('odds')
+            if not (isinstance(odds, list) and len(odds) == 2 and min(float(o) for o in odds) > 1):
+                raise ValueError('every consensus source needs two decimal odds above 1')
+            pairs.append(normalise(1 / float(odds[0]), 1 / float(odds[1])))
+        if len(pairs) < 2:
+            raise ValueError('a consensus needs at least two money sources')
+
+        def median(values: list[float]) -> float:
+            ordered = sorted(values)
+            middle = len(ordered) // 2
+            return ordered[middle] if len(ordered) % 2 else (ordered[middle - 1] + ordered[middle]) / 2
+
+        return (normalise(median([p[0] for p in pairs]), median([p[1] for p in pairs])),
+                f'median of {len(pairs)} source no-vig probabilities')
+    if method == 'model':
+        points = evidence.get('points')
+        if not (isinstance(points, list) and len(points) == 2):
+            raise ValueError('a model row needs two rating values')
+        if evidence.get('n_series'):
+            n = max(1, int(evidence['n_series']))
+            rd = min(400.0, 150.0 + 300.0 / math.sqrt(n))
+            p = 1 / (1 + 10 ** (g_factor(rd) * (float(points[1]) - float(points[0])) / 400))
+            return [p, 1 - p], f'own results-based fit (rd {rd:.4f} from {n} anchored series)'
+        rd = float(evidence.get('rd_assumption', VALVE_RD))
+        p = 1 / (1 + 10 ** (g_factor(rd) * (float(points[1]) - float(points[0])) / 400))
+        return [p, 1 - p], f'Valve fit.js logistic with RD {rd:g}'
+    raise ValueError(f'unknown method {method!r}')
+
+
+def check_published_verification(report: dict) -> list[str]:
+    """Recompute every row of the first published build after this live read."""
+    errors = []
+    path = SESSION / 'published-verification.json'
+    if not path.exists():
+        return []
+    document = _load(path)
+    rows = document.get('rows') or []
+    if not rows:
+        return ['published-verification.json carries no rows']
+    for row in rows:
+        fixture = row.get('fixture_id')
+        try:
+            recomputed, rule = replay_published_row(row)
+        except ValueError as exc:
+            errors.append(f'{fixture}: {exc}')
+            continue
+        if recomputed is None:
+            continue
+        published = row.get('probabilities') or []
+        if len(published) != 2:
+            errors.append(f'{fixture}: published pair is not two values')
+            continue
+        delta = max(abs(recomputed[0] - float(published[0])), abs(recomputed[1] - float(published[1])))
+        if delta > TOLERANCE:
+            errors.append(f'{fixture}: published {published} but {rule} gives '
+                          f'{[round(v, 8) for v in recomputed]}')
+        if row.get('pick_index') not in (0, 1):
+            errors.append(f'{fixture}: the published build carries no pick')
+        elif row.get('pick') != (row.get('teams') or [None, None])[row['pick_index']]:
+            errors.append(f'{fixture}: pick {row.get("pick")!r} is not the side at that index')
+        report['published_rows'].append({'fixture_id': fixture, 'method': row.get('method'),
+                                         'rule': rule, 'delta': round(delta, 12)})
+    summary = document.get('summary') or {}
+    if int(summary.get('fixtures', -1)) != len(rows):
+        errors.append('published-verification.json summary.fixtures does not equal its rows')
+    if int(summary.get('with_pick', -1)) != sum(1 for r in rows if r.get('pick_index') in (0, 1)):
+        errors.append('published-verification.json summary.with_pick does not equal its rows')
+    if int(summary.get('replay_pass', -1)) != sum(1 for r in rows if r.get('replay_verdict') == 'pass'):
+        errors.append('published-verification.json summary.replay_pass does not equal its rows')
+    return errors
+
+
 def verify() -> tuple[list[str], dict]:
     report = {'checks': [], 'replay': [], 'valve_rows': [], 'inventory': [],
-              'identities': [], 'coverage': {}, 'flags': 0}
+              'identities': [], 'coverage': {}, 'published_rows': [], 'flags': 0}
     errors: list[str] = []
     for name, fn in (('replay', check_replay), ('valve', check_valve_rows), ('inventory', check_inventory),
                      ('identities', check_identities), ('coverage', check_coverage),
+                     ('published', check_published_verification),
                      ('flags', check_flags), ('no-votes', check_no_votes)):
         found = fn(report)
         report['checks'].append({'check': name, 'errors': found, 'ok': not found})
@@ -513,6 +616,9 @@ def main(argv: list[str] | None = None) -> int:
     print('Inventory transcription: ' + ', '.join(f'{k} {v}' for k, v in sorted(states.items())))
     print(f'HLTV identities: {len(report["identities"])}')
     print('Coverage: ' + json.dumps(report['coverage']))
+    print(f'Published build (2026-10-26T01:04:30Z): {len(report["published_rows"])} rows re-derived '
+          f'({sum(1 for r in report["published_rows"] if r["delta"] <= TOLERANCE)} exact), '
+          f'{len({r["method"] for r in report["published_rows"]})} methods')
     print(f'Review flags: {report["flags"]}')
     if errors:
         print('\nFAIL')

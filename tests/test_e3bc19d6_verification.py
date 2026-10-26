@@ -307,6 +307,71 @@ class PublishedBuildCoverage(unittest.TestCase):
     # `python -m scripts.e3bc19d6_verify --published <build>`.
 
 
+class PublishedBuildReplay(unittest.TestCase):
+    """The first build published after this session's read must replay exactly."""
+
+    def setUp(self):
+        self.rows = {row['fixture_id']: row
+                     for row in json.loads((SESSION / 'published-verification.json').read_text())['rows']}
+
+    def test_nineteen_open_fixtures_all_carry_a_pick(self):
+        self.assertEqual(len(self.rows), 19)
+        for fixture, row in self.rows.items():
+            self.assertIn(row['pick_index'], (0, 1), f'{fixture} has no pick')
+            self.assertEqual(row['pick'], row['teams'][row['pick_index']])
+            self.assertEqual(row['replay_verdict'], 'pass')
+
+    def test_every_row_rederives_from_its_own_evidence(self):
+        # Published values are rounded to 8 decimals, so compare at 1e-6.
+        for fixture, row in self.rows.items():
+            recomputed, _ = v.replay_published_row(row)
+            self.assertLessEqual(abs(recomputed[0] - row['probabilities'][0]), v.TOLERANCE, fixture)
+            self.assertLessEqual(abs(recomputed[1] - row['probabilities'][1]), v.TOLERANCE, fixture)
+
+    def test_the_results_model_row_is_reproducible(self):
+        row = self.rows['1081159']
+        self.assertEqual(row['method'], 'model')
+        self.assertIn('results-based', row['source'])
+        recomputed, rule = v.replay_published_row(row)
+        self.assertIn('anchored series', rule)
+        self.assertLessEqual(abs(recomputed[0] - row['probabilities'][0]), v.TOLERANCE)
+        # rd = min(400, 150 + 300/sqrt(10)) = 244.8685...
+        n = row['evidence']['n_series']
+        self.assertEqual(n, 10)
+        expected_rd = 150 + 300 / math.sqrt(10)
+        self.assertAlmostEqual(expected_rd, 244.8683, places=3)
+
+    def test_a_consensus_row_is_the_median_of_its_sources(self):
+        row = self.rows['1093218']
+        self.assertEqual(row['method'], 'consensus')
+        self.assertEqual(len(row['evidence']['sources']), 2)
+        recomputed, rule = v.replay_published_row(row)
+        self.assertIn('median of 2', rule)
+        self.assertLessEqual(abs(recomputed[0] - row['probabilities'][0]), v.TOLERANCE)
+
+    def test_three_sources_use_the_true_median(self):
+        row = {'method': 'consensus', 'evidence': {'sources': [
+            {'provider': 'A', 'odds': [1.5, 3.0]},   # 2/3, 1/3
+            {'provider': 'B', 'odds': [1.8, 2.2]},   # 0.55, 0.45
+            {'provider': 'C', 'odds': [1.2, 5.0]},   # 0.806..., 0.19...
+        ]}}
+        recomputed, rule = v.replay_published_row(row)
+        self.assertIn('median of 3', rule)
+        # first-side no-vig probabilities are 2/3 (A), 0.55 (B) and 0.806 (C);
+        # the median is 2/3, and the pair already sums to one.
+        self.assertAlmostEqual(recomputed[0], 2 / 3, places=6)
+
+    def test_an_edited_probability_is_caught(self):
+        row = copy.deepcopy(self.rows['1082858'])
+        row['probabilities'] = [0.4, 0.6]
+        recomputed, _ = v.replay_published_row(row)
+        self.assertGreater(abs(recomputed[0] - row['probabilities'][0]), v.TOLERANCE)
+
+    def test_a_consensus_with_one_source_is_rejected(self):
+        with self.assertRaises(ValueError):
+            v.replay_published_row({'method': 'consensus', 'evidence': {'sources': [{'odds': [1.5, 2.5]}]}})
+
+
 class NoCommunityVoteInputs(unittest.TestCase):
     def test_no_vote_value_is_carried(self):
         self.assertEqual(v.check_no_votes({}), [])
