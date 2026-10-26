@@ -52,6 +52,27 @@
           "detail": "Primary cron 17 */4 * * *; catch-up 47 2-22/4 * * *."
         }
       ]
+    },
+    {
+      "id": "F644-R04",
+      "area": "Automatic refresh regression gate: model-to-money upgrade",
+      "status": "fixed",
+      "finding": "Publisher run 40254593296 failed because the summary verifier compared a final two-book consensus (Nuclear TigeRES 58.3%) against the superseded featured Valve model (70.7%). Reproduced independently on main before editing.",
+      "handling": "Verifier now replays the matched originated money inputs when a same-fixture, same-snapshot model-to-money upgrade is explicitly recorded. It still rejects tampered probabilities, absent money inputs, wrong fixture time, wrong pick or missing displayed source. Raw snapshots and final picks unchanged.",
+      "evidence": [
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40254593296",
+          "detail": "Failed regression gate; GitHub annotations identify test_22a3ed80_verification.test_no_hard_check_fails."
+        },
+        {
+          "url": "https://thunderpick.io/esports/counter-strike",
+          "detail": "First bookmaker source published on the consensus row."
+        },
+        {
+          "url": "https://www.bovada.lv/sports/esports/counter-strike-2/nodwin-clutch-series/nuclear-tigeres-unity-esports-202610261400",
+          "detail": "Second bookmaker source in matched originated evidence."
+        }
+      ]
     }
   ],
   "review_clock_utc": "2026-10-26T00:49:00Z",
