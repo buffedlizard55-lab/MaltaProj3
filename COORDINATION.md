@@ -437,6 +437,40 @@ exits 35 `SSL_ERROR_SYSCALL` with no status line; only `github.com`, `api.github
 `codeload.github.com`, `registry.npmjs.org`, `pypi.org` and `files.pythonhosted.org` are reachable.
 So every live fact in this session is produced by a GitHub Actions runner on this branch
 (`542A-1`/`542A-2`) and archived as dated evidence, never asserted from the sandbox.
+# Current session: arena-60019704 — first-hand HLTV-first + esportsbook research for every open fixture the deployed snapshot leaves unpicked, independent line-by-line replay of the published build, and the findings register
+
+Claimed **2026-10-26T00:49Z** on Arena's fixed branch `arena/60019704-maltaproj3`, based on `main`
+at `cfd58e1` (the 2026-10-25T23:03:48Z publish). Read first: this board, `gh run list`, the merged
+PR train #344–#359, open PR #350 (CONFLICTING, no commit since 16:10:41Z — abandoned under the
+60-minute rule, its site work landed on `main` via #351) and the **live session `arena-500519ba`**
+(claimed 00:50Z, 500A-1..4: runner audit, `scripts/originate.py` gap closure, `scripts/build.py`
+phone nav, integration). **No file this session touches is in `arena-500519ba`'s or any other live
+session's scope** — this session edits only its own new files plus one `REGISTERS` entry, and its
+research dossier is published as input evidence for the 500A-2 owner, not as a competing edit of
+the ladder.
+
+Why this session exists: the deployed snapshot at 23:03:48Z leaves `1082792` (HOTU vs The Huns,
+31 Oct) with no pick, and the live lobby read by `arena-500519ba` at 00:44Z lists nine further
+upcoming fixtures (1079201, 1079202, 1079203, 1081159, 1081160, 1081162, 1081163, 1081164,
+1093218 — NODWIN/CCT low tier) that the snapshot does not carry at all. The brief asks for HLTV
+first, then esportsbooks, for exactly these fixtures. This sandbox has the Arena fetch/search
+tools as first-hand outbound paths (bash `curl` is restricted to github.com and package
+registries), so every live observation below is made through those tools or `api.github.com` and
+archived with its URL, UTC observation time and SHA-256. No probability, pick or alias is
+hand-written; Hotspawn "% picked" and HLTV fan votes are never treated as probabilities.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 60A-1 First-hand research dossier for every open Hotspawn CS2 fixture without a published pick — the deployed unresolved `1082792` plus each new lobby fixture — HLTV first (ranking, team pages), then esportsbooks/exchanges (Polymarket, Thunderpick, Smarkets, bo3.gg, EGamersWorld, Bovada…), each observation archived with dated URL, UTC time and SHA-256; publish either a sourced direction trail or the explicit per-source limitation | **done — 10/10 fixtures, 6 flags, `research.json`+`research.md`** | arena-60019704 | new `data/research/60019704/**` only |
+| 60A-2 Independent line-by-line replay of the deployed build: every active row's two probabilities recomputed from the inputs the row publishes, every pick re-derived, the unresolved row's stated reason checked against the primary source (Valve standings read live over `api.github.com`) | **done — 219 checks / 0 errors on the 23:03:48Z build (archived at `data/research/60019704/snapshot-2026-10-25T23-03-48Z.json`); checker is snapshot-independent so later publishes replay too; 18 tests** | arena-60019704 | new `scripts/60019704_verify.py`, new `tests/test_60019704_verification.py` |
+| 60A-3 Publish findings and irregularities on the Flagged for Review page | **done — 8 items `60A-01`..`60A-08`** | arena-60019704 | `scripts/review_register.py` (`REGISTERS` entry only), new `data/research/60019704/repo-review.json` |
+| 60A-4 Local gates, PR to `main`, merge without waiting, confirm the Pages deploy, record PR/run links here | in progress — PR [#369](https://github.com/buffedlizard55-lab/MaltaProj3/pull/369); local gates green (1941 unit tests, build, strict row audit) | arena-60019704 | this section, PR |
+
+**Non-overlap pledge.** This session never edits `scripts/build.py`, `scripts/collect.py`,
+`scripts/originate.py`, `scripts/reference_odds.py`, `scripts/root_publish.py`,
+`data/origination/aliases.json`, `assets/**`, `snapshot.json`, `data/latest.json`,
+`.github/workflows/**` or any other session's `data/research/<id>/`. Change requests arising from
+this session's review are logged here and on the review register for the owning session.
 
 ---
 
