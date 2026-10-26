@@ -29,8 +29,8 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install -r requirements.txt
-      - name: Live inventory, HLTV first, then esportsbooks (read-only)
-        run: python -m scripts.3e64f4fb_probe
+      - name: Live inventory, HLTV first, then esportsbooks (read-only, sweep 2 contracts)
+        run: python -m scripts.3e64f4fb_probe --tag probe2
       - name: Re-parse archived bodies to prove the parsers replay offline
         run: python -m scripts.3e64f4fb_probe --parse-raw
       - name: Commit the dated evidence to this session branch

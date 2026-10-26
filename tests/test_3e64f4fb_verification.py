@@ -227,15 +227,16 @@ class ProbeParsersTest(unittest.TestCase):
         self.assertTrue(rows[0]['starts_at'].endswith('Z'))
 
     def test_thunderpick_records_raw_pair_only_for_exact_names(self):
-        payload = [{'id': 5, 'teams': {'home': {'name': 'Alpha'}, 'away': {'name': 'Bravo'}},
-                    'markets': [{'name': 'Match Winner',
-                                 'selections': [{'name': 'Alpha', 'odds': 1.61},
-                                                {'name': 'Bravo', 'odds': 2.18}]}]},
-                   {'id': 6, 'teams': {'home': {'name': 'Alpha Academy'}, 'away': {'name': 'Bravo'}},
-                    'markets': []}]
+        payload = {'data': {'upcoming': [
+            {'id': 5, 'teams': {'home': {'name': 'Alpha'}, 'away': {'name': 'Bravo'}},
+             'market': {'name': 'Match Winner',
+                        'home': {'odds': 1.61}, 'away': {'odds': 2.18}}},
+            {'id': 6, 'teams': {'home': {'name': 'Alpha Academy'}, 'away': {'name': 'Bravo'}},
+             'market': {'name': 'Match Winner',
+                        'home': {'odds': 3.0}, 'away': {'odds': 1.3}}}]}}
         hits = probe.thunderpick_candidates(payload, ['Alpha', 'Bravo'])
         self.assertEqual(len(hits), 1)
-        self.assertEqual(hits[0]['paired_odds']['odds_in_page_order'], [1.61, 2.18])
+        self.assertEqual(hits[0]['paired_odds']['odds_home_away'], [1.61, 2.18])
 
     def test_polymarket_series_view_skips_map_markets(self):
         event = {'id': '42', 'slug': 'cs2-test', 'title': 'Alpha vs Bravo',

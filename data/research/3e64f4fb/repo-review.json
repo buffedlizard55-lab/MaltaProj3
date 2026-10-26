@@ -11,9 +11,18 @@
    "finding": "All 10 active Hotspawn CS2 fixtures carry a directional pick on the published board: 7 from an external betting line (6 Polymarket market midpoints in the featured layer, 1 Thunderpick no-vig pair), 1 researched Polymarket line in the complete list (1082792, where the featured layer stays blank), and 2 labelled Valve research-model estimates (1082861, 1082793). The independent two-layer replay found 0 errors: every probability recomputes from its own published quotes/odds/rating points, every pick is the strict favourite of its pair, counts recompute (inventory 72, upcoming 10, archived 62), no row attributes a probability to Hotspawn, and no crowd field appears in any estimate.",
    "handling": "Published as verified. The replay is fixture-agnostic (a blank row graduating to a sourced pick passes), so it cannot repeat the 2026-10-25 publisher-freeze class where a closing coverage gap failed the gate.",
    "evidence": [
-    {"url": "https://buffedlizard55-lab.github.io/MaltaProj3/", "detail": "Executive summary of the verified build: 10 picks ready of 10, 0 unresolved, every fixture card shows both win probabilities and the pick."},
-    {"url": "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25", "detail": "Example featured market source: 1082858 published 20.0%/80.0% from bid/ask 0.18-0.22 and 0.78-0.82; replayed exactly."},
-    {"url": "https://thunderpick.io/api/matches", "detail": "Bookmaker endpoint for 1082859: stored pair 1.61/2.18 replays to the published 57.5%/42.5% after proportional margin removal."}
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/",
+     "detail": "Executive summary of the verified build: 10 picks ready of 10, 0 unresolved, every fixture card shows both win probabilities and the pick."
+    },
+    {
+     "url": "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25",
+     "detail": "Example featured market source: 1082858 published 20.0%/80.0% from bid/ask 0.18-0.22 and 0.78-0.82; replayed exactly."
+    },
+    {
+     "url": "https://thunderpick.io/api/matches",
+     "detail": "Bookmaker endpoint for 1082859: stored pair 1.61/2.18 replays to the published 57.5%/42.5% after proportional margin removal."
+    }
    ]
   },
   {
@@ -23,9 +32,18 @@
    "finding": "The featured layer leaves 1082792 blank because Valve publishes two different rosters named The Huns. Verified live against Valve's official standings_global_2026_10_05.md (blob 2aa2805, still the newest file on 2026-10-26): The Huns appears at #122 with 944 points and again at #213 with 701 points, so the identity refusal is correct. The complete list resolves the fixture as HOTU 87.0% / The Huns 13.0% from a Polymarket book (bid/ask 0.82-0.92 and 0.08-0.18) joined via the competition-scoped alias 'The Huns Esports', which carries three https evidence links (HLTV match 2399437, the Polymarket market page, the Hotspawn fixture page) plus an HLTV 4-of-5 roster disambiguation to standing #122. The 0.10 spread is within the 0.12 policy cap but is the widest quoted spread on the board, so the midpoint is correspondingly less precise than the 0.01-0.04 spreads of the other market rows.",
    "handling": "Published as verified with the spread limitation stated here and in the verification dossier. No value was changed: the featured blank, the researched resolution and the model cross-check (94.1%/5.9% from HOTU 1437 vs The Huns 944, replayed exactly) are all shown with their own sources.",
    "evidence": [
-    {"url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md", "detail": "Official Valve table fetched live: The Huns at #122 (944 pts) and #213 (701 pts); all six published model/cross-check inputs matched standing, points and roster exactly."},
-    {"url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026", "detail": "HLTV match page used for the alias evidence and the 4-of-5 roster disambiguation to Valve standing #122."},
-    {"url": "https://polymarket.com/event/cs2-hotu-the9-2026-10-31", "detail": "Researched market line behind the complete-list pick: observed 82-92c / 8-18c at 2026-10-25T23:04:05Z."}
+    {
+     "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail": "Official Valve table fetched live: The Huns at #122 (944 pts) and #213 (701 pts); all six published model/cross-check inputs matched standing, points and roster exactly."
+    },
+    {
+     "url": "https://www.hltv.org/matches/2399437/hotu-vs-the-huns-gluck-moscow-cyber-games-2026",
+     "detail": "HLTV match page used for the alias evidence and the 4-of-5 roster disambiguation to Valve standing #122."
+    },
+    {
+     "url": "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
+     "detail": "Researched market line behind the complete-list pick: observed 82-92c / 8-18c at 2026-10-25T23:04:05Z."
+    }
    ]
   },
   {
@@ -35,7 +53,10 @@
    "finding": "1082900 is published at 52.5%/47.5% (pick Luminosity) from a Polymarket book with total traded volume of $7.25 at observation time. The midpoint arithmetic replays exactly, but a book that has traded seven dollars cannot carry the same evidential weight as the $9,822 book behind 1082901, and the row's limitation does not mention volume. A 52.5% favourite from a near-untraded market is materially weaker information than the summary card's bare 'Pick Luminosity 52.5%' suggests.",
    "handling": "Changed nothing: the published number is what the book showed and its source is linked. Flagged for the owner of scripts/collect.py to consider a minimum-volume label (or threshold) so a near-untraded book is shown as thin the way a wide spread already can be. Does not block the merge.",
    "evidence": [
-    {"url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27", "detail": "The market behind the row: stored snapshot records volume 7.25 and liquidity 14796.52 at 2026-10-25T23:03:43Z, quotes 0.51/0.54 and 0.46/0.49."}
+    {
+     "url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
+     "detail": "The market behind the row: stored snapshot records volume 7.25 and liquidity 14796.52 at 2026-10-25T23:03:43Z, quotes 0.51/0.54 and 0.46/0.49."
+    }
    ]
   },
   {
@@ -45,8 +66,14 @@
    "finding": "1082861 has no betting line and is priced by the Valve research model: Rooster 718 points (#205) vs Abyssal 734 (#195), a 16-point gap that produces 47.8%/52.2% and a pick of Abyssal. The arithmetic replays exactly from Valve's official file, but a 16-point gap at rank ~200 - from a standings file dated 2026-10-05 (verified still Valve's newest on 2026-10-26) in an explicitly uncalibrated model - is inside any reasonable noise band. The methodology limitations are published, yet the phone summary card presents 'Pick Abyssal 52.2%' with the same visual weight as a sourced market line.",
    "handling": "Changed nothing: the model row is labelled as a research estimate, sits in the separated 'picks without a betting line' register, and its limitations are linked. Flagged for the build/origination owners to consider a near-coin-flip marker (for example under 55%) on summary cards so phone readers can tell a coin-flip model lean from a priced favourite at a glance. Does not block the merge.",
    "evidence": [
-    {"url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md", "detail": "Official inputs verified live: Rooster #205 718 pts, Abyssal #195 734 pts, rosters exactly as published."},
-    {"url": "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/", "detail": "The separated no-line register where this fixture is listed with its limitations and research trail."}
+    {
+     "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail": "Official inputs verified live: Rooster #205 718 pts, Abyssal #195 734 pts, rosters exactly as published."
+    },
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/",
+     "detail": "The separated no-line register where this fixture is listed with its limitations and research trail."
+    }
    ]
   },
   {
@@ -56,8 +83,14 @@
    "finding": "The executive summary links nine current-snapshot Polymarket evidence files (event/book JSON for events 1231333, 1237427, 1237429) that do not exist in the checked-in repository root under data/evidence/. The workflow-artifact deployment serves them - polymarket-event-1231333.json was read successfully from the live site on 2026-10-26 - but GitHub Pages is configured in legacy mode with source main:/, so a branch-root serve would return 404 for exactly the saved-evidence links a reader taps to audit the three affected picks. No navigation link is affected: every page and anchor link from the summary resolves.",
    "handling": "Changed nothing in the publisher (out of this session's scope). Flagged for the owner of scripts/root_publish.py: either sync the evidence downloads the rendered pages link, or stop the rendered summary from linking files the root sync drops. Logged as a request in COORDINATION.md; does not block the merge because the live artifact deployment serves the files today.",
    "evidence": [
-    {"url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-event-1231333.json", "detail": "Read live on 2026-10-26: the artifact deployment serves the file (gamma Event 1231333, B8 vs K27) even though it is absent from the checked-in main root."},
-    {"url": "https://github.com/buffedlizard55-lab/MaltaProj3", "detail": "Repository root (branch main) data/evidence/ contains no 1231333/1237427/1237429 files at the verified commit; the nine hrefs are listed machine-readably in this session's verification dossier under missing_downloads."}
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/evidence/polymarket-event-1231333.json",
+     "detail": "Read live on 2026-10-26: the artifact deployment serves the file (gamma Event 1231333, B8 vs K27) even though it is absent from the checked-in main root."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3",
+     "detail": "Repository root (branch main) data/evidence/ contains no 1231333/1237427/1237429 files at the verified commit; the nine hrefs are listed machine-readably in this session's verification dossier under missing_downloads."
+    }
    ]
   },
   {
@@ -67,8 +100,14 @@
    "finding": "The executive summary (index.html) carries the separated sections the brief requires as first-class anchors - #picks-at-a-glance (every pick one tap away, all 10 active fixtures, both percentages and the obvious pick), #fallback-register (the single-bookmaker row 1082859 with its limitation), #unresolved-register (including the researched resolution 1082792) and #no-line-register (model-only 1082861 and 1082793 with limitations) - plus the standalone Unresolved page. Every in-site navigation link and anchor from the summary resolves to an existing page/section, both published percentages of every priced row appear verbatim on the summary and picks pages, and the phone-critical pages serve a device-width viewport. The existing Playwright phone/WCAG suite covers rendering at phone widths; results for this session's local build are recorded in COORDINATION.md.",
    "handling": "Published as verified. No site-source change was needed from this session; the checks are now encoded in scripts/3e64f4fb_verify.py so a future build that drops a register, a fixture or a percentage fails loudly.",
    "evidence": [
-    {"url": "https://buffedlizard55-lab.github.io/MaltaProj3/#unresolved-register", "detail": "Separated unresolved-and-limitations section inside the executive summary."},
-    {"url": "https://buffedlizard55-lab.github.io/MaltaProj3/picks/", "detail": "Full audited pick list reachable in one tap from the summary cards."}
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/#unresolved-register",
+     "detail": "Separated unresolved-and-limitations section inside the executive summary."
+    },
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/picks/",
+     "detail": "Full audited pick list reachable in one tap from the summary cards."
+    }
    ]
   },
   {
@@ -78,8 +117,52 @@
    "finding": "The authoring sandbox cannot open a connection to play.hotspawn.com, hltv.org, Polymarket or any esportsbook (every request failed before a status line on 2026-10-26T00:43Z). The only first-party live fetch available here is Valve's official repository over api.github.com. All other live facts in this session (current Hotspawn inventory, HLTV identity/ranking, current exchange/book prices for the non-featured fixtures) therefore come from the dated GitHub Actions probe on this branch, and price-level verification of the published board replays the stored first-party captures the publisher saved. No price, probability, alias or lineup was invented or inferred in the sandbox.",
    "handling": "Stated so a reviewer can weight the evidence correctly: replay results are exact arithmetic on stored observations; freshness claims rest on the runner probe's own timestamps, which are committed with raw response bodies for offline re-parse.",
    "evidence": [
-    {"url": "https://github.com/ValveSoftware/counter-strike_regional_standings", "detail": "The one live source readable from the sandbox (via api.github.com); used to verify all Valve model inputs and the The Huns duplication."},
-    {"url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions", "detail": "Runner evidence for this session is produced by the 3e64f4fb probe workflow on the session branch."}
+    {
+     "url": "https://github.com/ValveSoftware/counter-strike_regional_standings",
+     "detail": "The one live source readable from the sandbox (via api.github.com); used to verify all Valve model inputs and the The Huns duplication."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions",
+     "detail": "Runner evidence for this session is produced by the 3e64f4fb probe workflow on the session branch."
+    }
+   ]
+  },
+  {
+   "id": "3E64-R08",
+   "area": "Nine live Hotspawn fixtures had no row on the published board at 2026-10-26T00:50Z (inventory rotation between refreshes)",
+   "status": "needs review",
+   "finding": "The runner probe read Hotspawn's official fixtures API live at 2026-10-26T00:50:54Z: 19 open CS2 fixtures, of which 9 were not present in the published 2026-10-25T23:03:48Z snapshot - 1079201 INOX Division vs Nemesis, 1079202 FOKUS vs ex-Zero Tenacity, 1079203 Metizport vs BRUTE and 1093218 Nuclear TigeRES vs UNiTY (NODWIN Clutch Series #13), plus 1081159 LFO 10 vs ex-6666, 1081160 HAVU vs ILLYRIANS, 1081162 ex-RUSTEC vs Spirit Academy, 1081163 BakS vs Saint Sinners and 1081164 Inner Circle Academy vs Lavked (CCT Europe 2026 Series #12). The first of these starts 2026-10-26T09:00Z. All nine were confirmed on HLTV with exact team names and start times in the same sweep; none appeared in Polymarket's CS2 tag listing, so they are exactly the low-tier population that depends on the esportsbook/model ladder at the next refresh. Hotspawn added them after the last successful four-hour collection, so this is a between-refreshes rotation gap, not a collector defect - but until the next publish lands, a phone visitor sees no row at all for nine open matches.",
+   "handling": "Recorded with first-party evidence (archived API body + HLTV listing) for the publisher owners; this session originates no pick for them. The four-hour publisher is the mechanism that must absorb them, and the second probe sweep re-checks whether they have appeared on the board. If they remain absent after a full refresh cycle, treat that as a publisher defect rather than rotation. Does not block the merge; listed here so the gap is visible on Flagged for Review instead of silent.",
+   "evidence": [
+    {
+     "url": "https://play.hotspawn.com/cs2-pickems",
+     "detail": "Hotspawn's CS2 pick'ems lobby; the probe parsed 19 lobby fixture ids at 2026-10-26T00:50:54Z, nine more than the published snapshot's 10 active rows."
+    },
+    {
+     "url": "https://www.hltv.org/matches",
+     "detail": "HLTV upcoming-matches listing in the same sweep carried all nine fixtures with exact names/times (for example HAVU vs ILLYRIANS, CCT Europe 2026 Series #12), archived in this session's probe raw bodies for offline re-parse."
+    }
+   ]
+  },
+  {
+   "id": "3E64-R09",
+   "area": "HLTV-first corroboration of the four non-featured rows, and sweep-1 probe parser defects (fixed in this session)",
+   "status": "fixed",
+   "finding": "HLTV, read first as the brief requires, confirms identity and schedule exactly (teams, event, BO3, start time) for all four fixtures that are not featured-market rows: 1082859 (HLTV 2399889), 1082861 (2399891), 1082792 (2399437) and 1082793 (2399438). HLTV's weekly ranking in the same sweep points the same qualitative direction as each published pick - NEXVOID #77 over Alter Ego #132, Abyssal #128 over Rooster #181, HOTU #38 over The Huns #134, 1WIN #14 over 5star #36 - without being used as a number. For 1082792 the live Polymarket book was unchanged since publication (bid/ask 0.82/0.92 at 00:50Z) and its outcome names 'HOTU' / 'The Huns Esports' corroborate the alias join live. The first probe sweep also contained four defects of its own: Hotspawn's flat participants*_name fields were unread (gap fixtures showed no teams), Thunderpick was queried with a GET instead of the production POST contract ('gameIds': [6]) and returned an empty board, Kalshi was queried without the KXCS2GAME series ticker (200 unrelated events), and HLTV ranking lookups used a 'name' key the parser does not emit (all read null). Book pages answered GG.BET 403, Stake 403, Pinnacle 200 redirected to the site root and Rivalry 200 redirected to the site root.",
+   "handling": "All four probe defects are fixed in scripts/3e64f4fb_probe.py with the production contracts copied from scripts/originate.py, sweep 1 was re-parsed offline from its archived bodies (probe-reparse.json) so the gap fixtures recovered their HLTV identities, and a second sweep re-ran live with the corrected contracts. Nothing in the published picks changed: these were evidence-tool defects, recorded here so 'none found' in sweep 1 is never mistaken for 'no market exists'.",
+   "evidence": [
+    {
+     "url": "https://www.hltv.org/matches/2399891/rooster-vs-abyssal-dfrag-invitational-2026",
+     "detail": "HLTV match page confirming the model-only fixture 1082861 (BO3, 2026-10-27T03:00Z) - a low-tier DFRAG fixture with no exchange listing in either sweep."
+    },
+    {
+     "url": "https://www.hltv.org/ranking/teams",
+     "detail": "HLTV weekly world ranking parsed in both sweeps (253 rows); ranks cited above are page positions at 2026-10-26T00:50Z."
+    },
+    {
+     "url": "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
+     "detail": "Live re-read at 00:50Z: best bid 0.82 / ask 0.92, outcomes HOTU and The Huns Esports - unchanged from the published 23:04Z observation."
+    }
    ]
   }
  ]

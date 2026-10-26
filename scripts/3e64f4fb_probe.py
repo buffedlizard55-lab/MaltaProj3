@@ -46,7 +46,8 @@ HLTV_RANKING = hltv_ranking.RANKING_URL
 POLY_TAG = 'https://gamma-api.polymarket.com/events?tag_slug=cs2&closed=false&limit=100&order=startDate&ascending=true'
 POLY_EVENT = 'https://gamma-api.polymarket.com/events/{event_id}'
 THUNDERPICK = 'https://thunderpick.io/api/matches'
-KALSHI_EVENTS = 'https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=200&category=Esports'
+KALSHI_EVENTS = ('https://api.elections.kalshi.com/trade-api/v2/events'
+                 '?series_ticker=KXCS2GAME&status=open&with_nested_markets=true&limit=200')
 BOOK_PAGES = {
     'gg.bet': 'https://gg.bet/en-is/next-to-go?hoursAhead=168&sportId=esports_counter_strike',
     'pinnacle': 'https://www.pinnacle.com/en/esports-hub/cs2',
@@ -184,10 +185,21 @@ def parse_lobby_fixture_ids(text: str) -> list[str]:
 
 
 def thunderpick_candidates(payload, team_names: list[str]) -> list[dict]:
-    """Raw paired series odds for an exact two-name match. No conversion."""
+    """Raw paired series odds for an exact two-name match. No conversion.
+
+    Contract mirrors production (`scripts/originate.py::thunderpick_rows`):
+    POST /api/matches with ``{'gameIds': [6]}``, rows under
+    ``data.upcoming``/``data.matches``, one *Match Winner* market with
+    ``home``/``away`` sides carrying decimal odds.
+    """
     wanted = {name_key(t) for t in team_names}
     rows = []
-    items = payload if isinstance(payload, list) else (payload or {}).get('data') or []
+    items = []
+    if isinstance(payload, list):
+        items = payload
+    elif isinstance(payload, dict):
+        inner = payload.get('data') or {}
+        items = (inner.get('upcoming') or inner.get('matches') or []) if isinstance(inner, dict) else []
     for item in items if isinstance(items, list) else []:
         if not isinstance(item, dict):
             continue
@@ -195,22 +207,27 @@ def thunderpick_candidates(payload, team_names: list[str]) -> list[dict]:
         pair = []
         for side in ('home', 'away'):
             team = teams.get(side) if isinstance(teams, dict) else None
-            if isinstance(team, dict):
-                pair.append(team.get('name') or '')
+            pair.append((team or {}).get('name') or '' if isinstance(team, dict) else '')
         if len(pair) != 2 or {name_key(p) for p in pair} != wanted:
             continue
-        markets = item.get('markets') or []
         odds_pair = None
-        for market in markets if isinstance(markets, list) else []:
-            selections = market.get('selections') or []
-            if len(selections) == 2 and all(isinstance(s, dict) for s in selections):
-                values = [s.get('odds') for s in selections]
-                if all(isinstance(v, (int, float)) and v > 1 for v in values):
-                    odds_pair = {'market': market.get('name'), 'odds_in_page_order': values,
-                                 'selections': [s.get('name') for s in selections]}
-                    break
+        markets = []
+        single = item.get('market')
+        if isinstance(single, dict):
+            markets.append(single)
+        markets += [m for m in (item.get('markets') or []) if isinstance(m, dict)]
+        for market in markets:
+            if name_key(str(market.get('name') or '')) not in {
+                    'match winner', 'match winner incl. overtime', 'match winner inc. overtime'}:
+                continue
+            sides = [market.get('home') or {}, market.get('away') or {}]
+            values = [s.get('odds') for s in sides if isinstance(s, dict)]
+            if len(values) == 2 and all(isinstance(v, (int, float)) and v > 1 for v in values):
+                odds_pair = {'market': market.get('name'), 'odds_home_away': values}
+                break
         rows.append({'match_id': item.get('id') or item.get('matchId'),
-                     'teams_in_page_order': pair, 'start': item.get('startTime') or item.get('startsAt'),
+                     'teams_home_away': pair, 'start': item.get('startTime') or item.get('startsAt'),
+                     'is_live': item.get('isLive'),
                      'tournament': (item.get('tournament') or {}).get('name')
                      if isinstance(item.get('tournament'), dict) else None,
                      'paired_odds': odds_pair})
@@ -250,6 +267,8 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument('--parse-raw', action='store_true',
                         help='re-run the pure parsers over archived bodies (offline proof)')
+    parser.add_argument('--tag', default='probe',
+                        help='output basename; a second sweep must not overwrite the first')
     args = parser.parse_args(argv)
     OUT.mkdir(parents=True, exist_ok=True)
 
@@ -303,19 +322,24 @@ def main(argv: list[str] | None = None) -> int:
                 starts = timestamp(item[key])
                 break
         fid = str(item.get('id') or item.get('fixture_id') or '')
-        teams = []
-        for side in ('home_team', 'away_team'):
-            team = item.get(side)
-            if isinstance(team, dict):
-                teams.append(team.get('name'))
-        if not teams and isinstance(item.get('teams'), list):
-            teams = [(t or {}).get('name') for t in item['teams']]
+        # The fixtures API publishes flat participant fields; the picked
+        # percentages are community votes and are deliberately NOT read.
+        teams = [item.get('participants0_name'), item.get('participants1_name')]
+        if not all(teams):
+            teams = []
+            for side in ('home_team', 'away_team'):
+                team = item.get(side)
+                if isinstance(team, dict):
+                    teams.append(team.get('name'))
+            if not teams and isinstance(item.get('teams'), list):
+                teams = [(t or {}).get('name') for t in item['teams']]
+        competition = item.get('competition_name')
+        if not competition and isinstance(item.get('competition'), dict):
+            competition = item['competition'].get('name')
         if fid and starts and starts > observed:
             live_open.append({'id': fid, 'teams': [t for t in teams if t],
                               'starts_at': starts.isoformat().replace('+00:00', 'Z'),
-                              'competition': ((item.get('competition') or {}).get('name')
-                                              if isinstance(item.get('competition'), dict)
-                                              else item.get('competition'))})
+                              'competition': competition})
     _, lobby_html = get('hotspawn lobby', LOBBY)
     _, cs2_html = get('hotspawn cs2 lobby', CS2_LOBBY + f'?cb={int(observed.timestamp())}')
     lobby_ids = sorted(set(parse_lobby_fixture_ids(lobby_html or '')
@@ -359,7 +383,14 @@ def main(argv: list[str] | None = None) -> int:
     # 4. Exchanges/books second ------------------------------------------------------
     _, poly_tag = get('polymarket cs2 tag', POLY_TAG, expect_json=True)
     poly_events = poly_tag if isinstance(poly_tag, list) else (poly_tag or {}).get('events') or []
-    _, tp_payload = get('thunderpick matches', THUNDERPICK, expect_json=True)
+    try:
+        tp_response = requests.post(THUNDERPICK, headers=HEADERS, json={'gameIds': [6]},
+                                    timeout=TIMEOUT)
+        record('thunderpick matches', THUNDERPICK, tp_response)
+        tp_payload = tp_response.json() if tp_response.status_code == 200 else None
+    except (requests.RequestException, ValueError) as exc:
+        record('thunderpick matches', THUNDERPICK, error=f'{type(exc).__name__}: {exc}')
+        tp_payload = None
     _, kalshi_payload = get('kalshi esports events', KALSHI_EVENTS, expect_json=True)
     kalshi_events = (kalshi_payload or {}).get('events') if isinstance(kalshi_payload, dict) else None
     book_status = {}
@@ -384,8 +415,10 @@ def main(argv: list[str] | None = None) -> int:
                 target['hltv_match_page'] = parse_hltv_match_page(page)
         target['hltv_ranking'] = {}
         for name in names:
-            hit = next((r for r in ranking_rows if name_key(str(r.get('name', ''))) == name_key(name)), None)
-            target['hltv_ranking'][name] = (({'rank': hit.get('rank'), 'points': hit.get('points')})
+            hit = next(((index, r) for index, r in enumerate(ranking_rows)
+                        if name_key(str(r.get('team', ''))) == name_key(name)), None)
+            target['hltv_ranking'][name] = (({'rank': hit[0] + 1, 'points': hit[1].get('points'),
+                                              'team_url': hit[1].get('team_url')})
                                             if hit else None)
         poly_hits = []
         for event in poly_events if isinstance(poly_events, list) else []:
@@ -396,6 +429,8 @@ def main(argv: list[str] | None = None) -> int:
                     poly_hits.append(view)
         row = org_by_id.get(target['id']) or {}
         for quote in ((row.get('origination') or {}).get('quotes') or []):
+            if not str(quote.get('provider', '')).startswith('Polymarket'):
+                continue
             event_id = quote.get('event_id')
             if event_id and str(event_id) not in {h['event_id'] for h in poly_hits}:
                 _, event = get(f"polymarket event {target['id']}", POLY_EVENT.format(event_id=event_id),
@@ -409,14 +444,18 @@ def main(argv: list[str] | None = None) -> int:
         for event in kalshi_events or []:
             title = name_key(str((event or {}).get('title') or ''))
             if names and all(name_key(n) in title for n in names if n):
+                markets = [{'ticker': m.get('ticker'), 'yes_sub_title': m.get('yes_sub_title'),
+                            'yes_bid': m.get('yes_bid'), 'yes_ask': m.get('yes_ask'),
+                            'no_bid': m.get('no_bid'), 'no_ask': m.get('no_ask')}
+                           for m in (event.get('markets') or [])]
                 kalshi_hits.append({'event_ticker': event.get('event_ticker'),
-                                    'title': event.get('title')})
+                                    'title': event.get('title'), 'markets': markets})
         target['kalshi_observed'] = kalshi_hits
 
     dossier['targets'] = targets
     dossier['observations'] = _observations
-    (OUT / 'probe.json').write_text(json.dumps(dossier, indent=1) + '\n')
-    (OUT / 'probe.md').write_text(render_markdown(dossier))
+    (OUT / f'{args.tag}.json').write_text(json.dumps(dossier, indent=1) + '\n')
+    (OUT / f'{args.tag}.md').write_text(render_markdown(dossier))
     print(f"targets={len(targets)} live_open={len(live_open)} "
           f"missing_from_published={dossier['inventory']['live_open_missing_from_published']}")
     return 0
@@ -449,7 +488,8 @@ def render_markdown(d: dict) -> str:
                       f"{h['url']} bid {h['best_bid']} / ask {h['best_ask']} ({h['outcomes']})"
                       for h in t['polymarket_observed']) or 'none found'),
                   '- Thunderpick observed: ' + ('; '.join(
-                      f"{h['teams_in_page_order']} odds {((h.get('paired_odds') or {}).get('odds_in_page_order'))}"
+                      f"{h['teams_home_away']} odds {((h.get('paired_odds') or {}).get('odds_home_away'))} "
+                      f"start {h.get('start')}"
                       for h in t['thunderpick_observed']) or 'none found'),
                   '- Kalshi observed: ' + ('; '.join(h['title'] or h['event_ticker'] or ''
                                                      for h in t['kalshi_observed']) or 'none found'),
