@@ -88,19 +88,24 @@ jobs:
             exit 0
           fi
           git commit -m 'evidence: 500519ba live coverage audit [skip ci]'
+          # `scripts.collect` and `scripts.originate` leave the live snapshot,
+          # the origination output and the refreshed evidence files modified in
+          # the working tree. They are deliberately NOT committed here (the
+          # publisher owns them), but an unstaged change makes `git rebase`
+          # refuse to run — which is exactly how this workflow's first two runs
+          # failed to save the dossier. Reset the tree to the commit just made.
+          git reset --hard HEAD
           for attempt in 1 2 3; do
-            git fetch origin arena/500519ba-maltaproj3
-            if git rebase origin/arena/500519ba-maltaproj3; then
-              if git push origin HEAD:arena/500519ba-maltaproj3; then
-                echo "pushed on attempt ${attempt}"
-                exit 0
-              fi
-            else
-              git rebase --abort || true
-              echo "rebase attempt ${attempt} failed" >&2
+            if git fetch origin arena/500519ba-maltaproj3 \
+               && git rebase origin/arena/500519ba-maltaproj3 \
+               && git push origin HEAD:arena/500519ba-maltaproj3 2>&1 | tail -5; then
+              echo "evidence pushed on attempt ${attempt}"
+              exit 0
             fi
+            git rebase --abort || true
+            echo "attempt ${attempt} failed" >&2
             sleep 5
           done
-          echo '::error title=500519ba evidence::could not push the evidence commit'
-          git status --short
+          detail=$(git push origin HEAD:arena/500519ba-maltaproj3 2>&1 | tail -3 | tr '\n' ' ' || true)
+          echo "::error title=500519ba evidence::could not push the evidence commit: ${detail}"
           exit 1

@@ -305,19 +305,20 @@ def audit(data_dir: Path, out_dir: Path, *, live: bool = True, timeout: int = 25
         # Independent, source-by-source availability for fixtures the ladder left blank.
         if summary['pick'] is None:
             summary['independent_sources'] = {
-                'hltv_matches_answered': bool(hltv_text) and records['hltv_matches']['ok'],
+                'hltv_matches_answered': bool(hltv_text) and records.get('hltv_matches', {}).get('ok', False),
                 'hltv_page_mentions_team_0': name_in(one, hltv_text),
                 'hltv_page_mentions_team_1': name_in(two, hltv_text),
-                'hltv_ranking_answered': bool(hltv_ranking_text) and records['hltv_ranking']['ok'],
+                'hltv_ranking_answered': (bool(hltv_ranking_text)
+                                          and records.get('hltv_ranking', {}).get('ok', False)),
                 'polymarket_index_mentions_team_0': name_in(one, poly_text),
                 'polymarket_index_mentions_team_1': name_in(two, poly_text),
-                'thunderpick_answered': records['thunderpick']['ok'],
+                'thunderpick_answered': records.get('thunderpick', {}).get('ok', False),
                 'thunderpick_feed_mentions_team_0': name_in(one, thunder_text),
                 'thunderpick_feed_mentions_team_1': name_in(two, thunder_text),
-                'bo3_answered': records['bo3']['ok'],
+                'bo3_answered': records.get('bo3', {}).get('ok', False),
                 'bo3_listing_mentions_team_0': name_in(one, bo3_text),
                 'bo3_listing_mentions_team_1': name_in(two, bo3_text),
-                'egamersworld_answered': records['egamersworld']['ok'],
+                'egamersworld_answered': records.get('egamersworld', {}).get('ok', False),
             }
         fixtures.append({
             **record,
