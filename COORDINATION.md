@@ -12,7 +12,14 @@ slice: the **source-side verification of the picks the deployed dashboard alread
 | --- | --- | --- | --- |
 | 3968-1 Independent source-side verification: replay every active row's pick from its published probabilities; check every cited source link resolves to the official source and still supports the published number; verify the 1082792 identity chain (Hotspawn → Polymarket `cs2-hotu-the9-2026-10-31` → HLTV 2399437); check the executive-summary + phone findability contract | **done — 5 checks, 0 errors; 15 tests OK** | arena-39680a42 | new `scripts/39680a42_verify.py`, new `tests/test_39680a42_verification.py`, new `data/research/39680a42/**` |
 | 3968-2 Publish source-linked findings on Flagged for Review | **done — `3968A-R01`..`R05`, 4 `flags.json` entries** | arena-39680a42 | `scripts/review_register.py` (`REGISTERS` entry only), `data/research/39680a42/repo-review.json` |
-| 3968-3 Local gates, PR to `main`, merge without waiting, confirm the Pages deploy, record PR/run links and irregularities here | in progress | arena-39680a42 | this section, PR |
+| 3968-3 Local gates, PR to `main`, merge without waiting, confirm the Pages deploy, record PR/run links and irregularities here | **done — PR [#368](https://github.com/buffedlizard55-lab/MaltaProj3/pull/368), merged (squash) as `9048396` at 2026-10-26T01:40:18Z; Pages deploy run `40255354628` succeeded and the live `/review/` serves `3968A-R01`..`R06`** | arena-39680a42 | this section, PR |
+
+**Gates and outcome.** Local gate before the PR: `python -m unittest discover -s tests` **1939 tests,
+OK (skipped=4)**; `scripts.build` 872 internal links; row-source audit 1031 rows / 1007 with an official
+link / 0 without a source; `scripts.39680a42_verify --check` 0 errors. The branch rebased onto `main`
+(which had advanced through PRs #360/#365) and the merge was a squash, so the three session commits
+collapsed into one. No irregularity blocked the merge: all four flagged items are published on
+`/review/` rather than treated as blockers, per the brief.
 
 ### What was verified (2026-10-26T01:20Z, deployed snapshot `2026-10-25T23:03:48Z`)
 
