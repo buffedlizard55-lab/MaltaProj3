@@ -1,7 +1,7 @@
 {
  "schema_version": 1,
  "session": "arena-b3e91409",
- "verified_at": "2026-10-26T01:20:14Z",
+ "verified_at": "2026-10-26T01:27:25Z",
  "inputs": [
   {
    "path": "data/research/b3e91409/published/origination.json",
@@ -65,48 +65,15 @@
   },
   "source": "data/research/b3e91409/live/analysis.json"
  },
- "site": {
-  "index": "site/index.html",
-  "routes_present": [
-   "origination/#picks",
-   "picks/",
-   "unresolved/",
-   "coverage/",
-   "methodology/",
-   "#picks-at-a-glance",
-   "#unresolved-register"
-  ],
-  "deep_links_missing": [
-   "1082858",
-   "1082859",
-   "1079201",
-   "1079202",
-   "1081159",
-   "1079203",
-   "1081160",
-   "1093218",
-   "1082860",
-   "1082861",
-   "1082897",
-   "1082898",
-   "1081162",
-   "1081163",
-   "1082900",
-   "1081164",
-   "1082901",
-   "1082792",
-   "1082793"
-  ],
-  "rows": 19
- },
+ "site": null,
  "summary": {
   "rows": 19,
   "verified": 18,
   "blank": 0,
-  "errors": 20,
+  "errors": 1,
   "coverage_gaps": 0,
   "site_errors": 0,
-  "notes": 3
+  "notes": 0
  },
  "rows": [
   {
@@ -618,119 +585,9 @@
  ],
  "findings": [
   {
-   "severity": "note",
-   "id": "1081159",
-   "detail": "the analysis publishes no limitation text"
-  },
-  {
    "severity": "error",
    "id": "1081159",
    "detail": "cannot replay the published numbers: a fitted results model does not publish the predictive formula that turns its posterior means [825.0, 923.0] into a probability; a standard 400-point Elo on the same points gives 0.362592"
-  },
-  {
-   "severity": "note",
-   "id": "1093218",
-   "detail": "the analysis publishes no limitation text"
-  },
-  {
-   "severity": "note",
-   "id": "1082792",
-   "detail": "the analysis publishes no limitation text"
-  },
-  {
-   "severity": "error",
-   "id": "1082858",
-   "detail": "the executive summary has no in-site deep link to this published row"
-  },
-  {
-   "severity": "error",
-   "id": "1082859",
-   "detail": "the executive summary has no in-site deep link to this published row"
-  },
-  {
-   "severity": "error",
-   "id": "1079201",
-   "detail": "the executive summary has no in-site deep link to this published row"
-  },
-  {
-   "severity": "error",
-   "id": "1079202",
-   "detail": "the executive summary has no in-site deep link to this published row"
-  },
-  {
-   "severity": "error",
-   "id": "1081159",
-   "detail": "the executive summary has no in-site deep link to this published row"
-  },
-  {
-   "severity": "error",
-   "id": "1079203",
-   "detail": "the executive summary has no in-site deep link to this published row"
-  },
-  {
-   "severity": "error",
-   "id": "1081160",
-   "detail": "the executive summary has no in-site deep link to this published row"
-  },
-  {
-   "severity": "error",
-   "id": "1093218",
-   "detail": "the executive summary has no in-site deep link to this published row"
-  },
-  {
-   "severity": "error",
-   "id": "1082860",
-   "detail": "the executive summary has no in-site deep link to this published row"
-  },
-  {
-   "severity": "error",
-   "id": "1082861",
-   "detail": "the executive summary has no in-site deep link to this published row"
-  },
-  {
-   "severity": "error",
-   "id": "1082897",
-   "detail": "the executive summary has no in-site deep link to this published row"
-  },
-  {
-   "severity": "error",
-   "id": "1082898",
-   "detail": "the executive summary has no in-site deep link to this published row"
-  },
-  {
-   "severity": "error",
-   "id": "1081162",
-   "detail": "the executive summary has no in-site deep link to this published row"
-  },
-  {
-   "severity": "error",
-   "id": "1081163",
-   "detail": "the executive summary has no in-site deep link to this published row"
-  },
-  {
-   "severity": "error",
-   "id": "1082900",
-   "detail": "the executive summary has no in-site deep link to this published row"
-  },
-  {
-   "severity": "error",
-   "id": "1081164",
-   "detail": "the executive summary has no in-site deep link to this published row"
-  },
-  {
-   "severity": "error",
-   "id": "1082901",
-   "detail": "the executive summary has no in-site deep link to this published row"
-  },
-  {
-   "severity": "error",
-   "id": "1082792",
-   "detail": "the executive summary has no in-site deep link to this published row"
-  },
-  {
-   "severity": "error",
-   "id": "1082793",
-   "detail": "the executive summary has no in-site deep link to this published row"
   }
  ],
  "coverage_gaps": [],

@@ -256,8 +256,14 @@ def check_row(row):
         findings.append(('error', row.get('id'), f"observation time {analysis.get('observed_at')} is in the future"))
     elif (now() - observed).total_seconds() > 48 * 3600:
         findings.append(('note', row.get('id'), f"price observed {(now() - observed).total_seconds() / 3600:.1f} h ago"))
-    if not analysis.get('limitations'):
-        findings.append(('note', row.get('id'), 'the analysis publishes no limitation text'))
+    # The limitation can live on the nested analysis or on the row itself. The
+    # published origination file uses `row['limitations']` (a list) for every
+    # researched estimate, so only report a note when neither carries text.
+    limitation_text = analysis.get('limitations') or analysis.get('limitation')
+    if not limitation_text:
+        limitation_text = row.get('limitations') or row.get('limitation')
+    if not limitation_text:
+        findings.append(('note', row.get('id'), 'the row publishes no limitation text'))
 
     replayed, detail = replay(analysis)
     record['replay'] = {'values': [round(v, 9) for v in replayed] if replayed else None, 'detail': detail}

@@ -215,6 +215,29 @@ class FailClosedTests(unittest.TestCase):
         self.assertTrue(hits, 'the crowd-field scanner found nothing')
 
 
+
+class LimitationTests(unittest.TestCase):
+    """A limitation published on the row counts the same as one on the analysis.
+
+    The published origination file carries `row['limitations']` (a list) for every
+    researched estimate, while older rows nested the text under the analysis. The
+    checker must not report a false "no limitation text" note when either place
+    carries the text, and must report it when neither does.
+    """
+
+    def test_row_level_limitation_suppresses_the_note(self):
+        row = market_row()
+        row['limitations'] = ['Single exchange; midpoint, not an execution price.']
+        findings, _ = verify.check_row(row)
+        self.assertEqual([f for f in findings if 'limitation' in f[2]], [], row['id'])
+
+    def test_a_row_with_no_limitation_anywhere_is_noted(self):
+        row = market_row()
+        row['origination'] = dict(row['origination'])
+        row['origination'].pop('limitations')
+        findings, _ = verify.check_row(row)
+        self.assertTrue([f for f in findings if 'limitation' in f[2]], 'expected a limitation note')
+
 class CoverageTests(unittest.TestCase):
     def test_live_fixture_without_a_row_is_a_coverage_gap_and_fails_check(self):
         with tempfile.TemporaryDirectory() as raw:

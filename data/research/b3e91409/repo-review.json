@@ -116,9 +116,9 @@
   {
    "id": "B3-R06",
    "area": "Three verified rows publish no limitation text beside a wide or modelled number",
-   "status": "needs review",
-   "finding": "Rows 1082792 (HOTU vs The Huns), 1093218 (Nuclear TigeRES vs UNiTY) and 1081159 (LFO 10 vs ex-6666) carry no limitations array in their origination object. For 1082792 that hides that 87.0% / 13.0% is a single-venue midpoint from a 0.10-wide book (bid 0.82-0.92 / 0.08-0.18); for 1093218 it hides that 58.3% is a median of two books; for 1081159 it hides that 39.0% is a fitted model with an 18.4%-64.5% interval. Every other published row carries its limitation text. The arithmetic in all three replays exactly, so this is a disclosure gap, not a data error.",
-   "handling": "Reported, not edited: the row belongs to the publisher's ladder. scripts/b3e91409_verify.py records it as a note and still verifies the arithmetic.",
+   "status": "fixed",
+   "finding": "Re-checked against the 2026-10-26T01:04:30Z build (2026-10-26T01:26Z): the limitation text IS published, on the row itself (`matches[].limitations`) rather than inside the nested `origination` object, and `/unresolved/` renders it under \"Why there is no line\" / \"Why not the featured line\". The original note was therefore a checker defect, not a disclosure gap: the checker read only the nested object. Rows 1082792 (HOTU vs The Huns), 1093218 (Nuclear TigeRES vs UNiTY) and 1081159 (LFO 10 vs ex-6666) carry no limitations array in their origination object. For 1082792 that hides that 87.0% / 13.0% is a single-venue midpoint from a 0.10-wide book (bid 0.82-0.92 / 0.08-0.18); for 1093218 it hides that 58.3% is a median of two books; for 1081159 it hides that 39.0% is a fitted model with an 18.4%-64.5% interval. Every other published row carries its limitation text. The arithmetic in all three replays exactly, so this is a disclosure gap, not a data error.",
+   "handling": "Fixed in this session's checker: `scripts/b3e91409_verify.py` now reads `analysis['limitations']`, then the row-level `limitations` list, and only notes a missing disclosure when neither carries text; `tests/test_b3e91409_verification.py::LimitationTests` pins both directions. The published rows were never edited.",
    "evidence": [
     {
      "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination.json",
@@ -127,6 +127,14 @@
     {
      "url": "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
      "detail": "Event 1241313 read 2026-10-26T00:51:26Z: market 6085308 moneyline, outcomes ['HOTU', 'The Huns Esports'], gameStartTime 2026-10-31 09:00:00+00, bestBid 0.82, bestAsk 0.92."
+    },
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination.json",
+     "detail": "Re-read 2026-10-26T01:26Z: matches[].limitations for 1082792 = [\"Single independent source; not a multi-source consensus.\", \"Margin removed where applicable. Estimate is not a guaranteed outcome.\"]; 1093218 and 1081159 also carry non-empty lists (1081159 states the 10-series fit, posterior SD 114.7 and the 0.184-0.645 one-sigma interval)."
+    },
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/unresolved/#main",
+     "detail": "Rendered page read 2026-10-26T01:24Z shows both rows in \"Picks without a betting line · limitations\" with the same text. The page states 19 active / 19 with a pick / 0 with no pick and explains why snapshot.json counts 17 featured-line picks while the board resolves 19."
     }
    ]
   },

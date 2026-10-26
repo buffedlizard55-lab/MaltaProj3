@@ -37,3 +37,30 @@ figure is either an observed source value or a value re-derived by the scripts b
 2. **01:04–01:22Z (after the 00:43Z refresh):** 19 published rows, 19 picks, 0 unresolved. 18 of 19
    probabilities re-derive exactly from the row's own inputs; one fitted form model does not publish
    its formula (B3-R08). All 19 published picks agree with this session's independent side.
+
+## Limitations of the checks themselves (found and fixed in this session)
+
+- **The limitation text lives on the row, not in the nested analysis.** Rows publish
+  `matches[].limitations` (a list) while the replay used to look only inside the nested `origination`
+  object, so it reported three false "publishes no limitation text" notes on an artefact that discloses
+  all three. The checker now reads both places and `tests/test_b3e91409_verification.py::LimitationTests`
+  pins the behaviour in each direction. B3-R06 is closed as a checker defect, not a data gap.
+- **A no-JS read of the HTML includes text from `hidden` nodes.** `#stale-warning` ("Do not treat these
+  as current picks") and `#new-snapshot` are rendered with `hidden` unless the build is actually stale,
+  and a text extractor that ignores HTML attributes shows both on a fresh page. They are not live
+  defects; confirm against the element's `hidden` attribute or `site/assets/scout.js` (which toggles it)
+  before filing a finding.
+- **The committed `site/` directory is a build of the 2026-10-15 data** (`site/data/latest.json`). The
+  four-hourly workflow collects, rebuilds and root-syncs the fresh site; a local `python -m scripts.build`
+  reproduces the *committed* artefacts, not the deployed ones. Verify the deployed numbers against
+  `https://buffedlizard55-lab.github.io/MaltaProj3/origination.json` and a freshly fetched `index.html`,
+  which is what the probe workflow's served-site gate does.
+
+## The served-site gate (`.github/workflows/b3e91409-probe.yml`)
+
+Every probe run now also fetches `index.html`, `origination.json` and `snapshot.json` from the deployed
+site, replays every published probability from its own inputs, checks the executive summary's phone
+route (`origination/#picks`, `picks/`, `unresolved/`, `coverage/`, `methodology/`, `#picks-at-a-glance`,
+`#unresolved-register`) and one `#match-<id>` deep link per published row, and commits the report to
+`data/research/b3e91409/served/`. The gate step exits non-zero when a served number does not replay;
+the evidence commit still runs (`if: always()`).
