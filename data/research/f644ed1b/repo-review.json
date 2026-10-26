@@ -58,7 +58,7 @@
       "area": "Automatic refresh regression gate: model-to-money upgrade",
       "status": "fixed",
       "finding": "Publisher run 40254593296 failed because the summary verifier compared a final two-book consensus (Nuclear TigeRES 58.3%) against the superseded featured Valve model (70.7%). Reproduced independently on main before editing.",
-      "handling": "Verifier now replays the matched originated money inputs when a same-fixture, same-snapshot model-to-money upgrade is explicitly recorded. It still rejects tampered probabilities, absent money inputs, wrong fixture time, wrong pick or missing displayed source. Raw snapshots and final picks unchanged.",
+      "handling": "Concurrent main PR #375 fixed the same gate while this branch was in CI. Adopted main\u2019s production verifier verbatim rather than merging a duplicate fix. This session retains its stronger independent same-fixture money-input replay and mutation tests in its own audit module; the production fix is owned by PR #375. No raw snapshots or final picks changed.",
       "evidence": [
         {
           "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40254593296",
@@ -71,6 +71,10 @@
         {
           "url": "https://www.bovada.lv/sports/esports/counter-strike-2/nodwin-clutch-series/nuclear-tigeres-unity-esports-202610261400",
           "detail": "Second bookmaker source in matched originated evidence."
+        },
+        {
+          "url": "https://github.com/buffedlizard55-lab/MaltaProj3/pull/375",
+          "detail": "Upstream production verifier fix adopted unchanged during rebase."
         }
       ]
     }
