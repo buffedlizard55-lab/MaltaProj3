@@ -1,3 +1,131 @@
+# Current session: arena-24e4d653 — picks for *every* live Hotspawn CS2 fixture: first-hand live-API coverage read, a sourced pick or an explicit limitation for each, the unresolved/limitations register inside the executive summary, the phone path, publish
+
+Claimed **2026-10-26T00:45Z** on Arena's fixed branch `arena/24e4d653-maltaproj3`, branched from
+`main` at `cfd58e1` (the 2026-10-25T23:03:48Z root-synced verified build). Board, open PRs and
+`gh run list` read first. This sandbox reaches only `github.com`, `api.github.com`,
+`codeload.github.com`, `registry.npmjs.org`, `pypi.org`, `files.pythonhosted.org` for direct HTTP,
+so first-party Hotspawn/HLTV/Polymarket reads are made through the session's own page reader and
+recorded verbatim, with URLs and the time each was read, in this session's dossier. Fresh collection
+still runs only through `pages.yml`.
+
+| Task | Status | Owner | File scope |
+| --- | --- | --- | --- |
+| 24E-1 Claim scope and record the state read first-hand at 00:45Z | **done** (`e79423e`) | arena-24e4d653 | `COORDINATION.md` (this section) |
+| 24E-2 First-hand live Hotspawn CS2 inventory read and a row-by-row diff against the published snapshot | **done — 19 live future-start fixtures; 9 absent at 00:49Z against the 23:03:48Z snapshot; all 9 present with a published probability pair in the 01:04:20Z publish** | arena-24e4d653 | `data/research/24e4d653/live-coverage.{json,md}` |
+| 24E-3 Line-by-line verification of every published pick against the captured official payloads **and** a live re-read of the primary source | **done — 19/19 active rows replay exactly; 4 first-hand source re-reads, all matching** | arena-24e4d653 | `scripts/24e4d653_verify.py`, `tests/test_24e4d653_verify.py`, `data/research/24e4d653/pick-verification.{json,md}` |
+| 24E-4 Executive summary: in-site links to the picks, the separate unresolved/limitations register with a per-fixture limitation and source, both probabilities and an obvious pick per row, and a real phone path | **done — 9/9 contract checks pass on the 19-row build by automation, not by eye** | arena-24e4d653 | same as 24E-3 |
+| 24E-5 The structural gap this session measured: a four-hour publisher is blind to cards Hotspawn lists between publishes, and `freshness-watchdog.yml` keys on snapshot age only, so a two-hour-old snapshot with nine holes looks fresh | **done — `scripts/24e4d653_coverage_watch.py` (pure `decide()`, 21 tests) dispatches `pages.yml` on an id-set diff, and `.github/workflows/coverage-watchdog.yml` runs it at `13,43 * * * *`, silent while any publish is queued or running** | arena-24e4d653 | new `scripts/24e4d653_coverage_watch.py`, new `tests/test_24e4d653_coverage_watch.py`, new `.github/workflows/coverage-watchdog.yml` |
+| 24E-6 PR to `main`, merge without waiting, confirm the publisher and the Pages deploy, record ids here | in progress | arena-24e4d653 | this section, PR |
+| 24E-7 Cross-session finding: the first pull-request run (`40254426815`) was red on `test_no_hard_check_fails` | **done — not this session's defect, and no longer a defect at all.** It reproduced with this session's research directory moved aside, i.e. it was already on `main`: fixture `1093218` renders the originated consensus line while the snapshot's featured `analysis` still records the model line. `main` now reconciles the two layers for a row marked `upgraded_from_featured_model`; this session wrote an equivalent patch, then **dropped it** rather than duplicate `main`'s mechanism, and kept four tests that pin the invariant | arena-24e4d653 | `tests/test_24e4d653_verify.py` (4 tests) |
+
+**Non-overlap pledge.** This session adds only its own new files plus this board section. It does
+**not** edit `scripts/collect.py`, `scripts/originate.py`, `scripts/build.py`, `scripts/build_origination.py`,
+`scripts/reference_odds.py`, `scripts/review_register.py`, `assets/**`, `snapshot.json`,
+`data/latest.json`, `data/origination.json`, any existing workflow, or any other session's
+`data/research/<id>/`. Hotspawn "% picked" and HLTV fan votes are never probability inputs. A
+probability that cannot be recomputed from a captured official payload stays blank and is flagged
+for review.
+
+## 24E results
+
+**Coverage, measured and then re-measured.**
+
+* At **2026-10-26T00:49Z** the official fixture feed carried **19** CS2 fixtures with a future start
+  (`https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1`)
+  and the then-public **2026-10-25T23:03:48Z** snapshot carried **10** of them. The nine with no row,
+  no probability and no pick were: `1079201` INOX Division vs Nemesis, `1081159` LFO 10 vs ex-6666,
+  `1079202` FOKUS vs ex-Zero Tenacity, `1081160` HAVU vs ILLYRIANS, `1079203` Metizport vs BRUTE,
+  `1093218` Nuclear TigeRES vs UNiTY, `1081162` ex-RUSTEC vs Spirit Academy, `1081163` BakS vs Saint
+  Sinners, `1081164` Inner Circle Academy vs Lavked. Each absent card was confirmed a second time on
+  its own Hotspawn tournament page, and every one of their links is recorded in the dossier.
+* At the same moment the rendered `/lobby` exposed **81** CS2 cards in the All tier (CCT Europe 2026
+  Series #12 ×5, NODWIN Clutch Series #13 ×5) while `/cs2-pickems` still rendered **72** — the
+  collector's own two-page cross-check, and why a publish inside that window can be deferred.
+* Those nine cards were **not** a missing pick: the publisher run already in flight (`40250748384`,
+  started 00:43:45Z) published them. The **2026-10-26T01:04:20Z** snapshot carries **81** inventory
+  records and **19** upcoming fixtures, `coverage_complete: true`, `inventory_crosscheck: complete`,
+  and origination.json has a probability pair for **19 of 19**. Verified by id, not by eye, and the
+  earlier state is preserved in `earlier_observation` rather than overwritten.
+* The risk is structural, not a one-off: nothing in the repo dispatched a publish when the *set* of
+  cards grew while the snapshot was still fresh. `freshness-watchdog.yml` fires on age alone (6 h),
+  so a 2-hour-old snapshot with nine holes passes it. That is what 24E-5 adds.
+
+**Verification, line by line.** `python -m scripts.24e4d653_verify --data <build> --html <page>` replayed
+all **19/19** active rows from the inputs each row publishes — order-book midpoints with the 0.15
+spread ceiling, no-vig bookmaker odds, the median of independent consensus quotes, Valve's published
+Glicko transform (RD 75), and the project's own results-fit deviation rule
+(`150 + 300/sqrt(n)`, capped at 400) — and every one reproduced its published pair and pick
+**exactly** (0 mismatched, 0 unreplayable, 0 rows without a pick, 0 rows without a stated
+limitation). Four first-hand re-reads confirmed the primary sources still say what the rows claim:
+
+* Polymarket `cs2-envy-gl1-2026-10-27` → `0.455 / 0.545`, start `2026-10-27T20:00Z`, volume $9,832.88.
+* Polymarket `cs2-lg6-hotu-2026-10-27` → `0.525 / 0.475`, start `2026-10-27T17:00Z`.
+* Polymarket `cs2-hotu-the9-2026-10-31` → `0.87 / 0.13`; the CLOB book behind the published
+  `82–92¢ / 8–18¢` reads best bid **0.82** (size 5) and best ask **0.92** (size 117), i.e. a real
+  0.10-wide top of book inside the project's ceiling, not a synthesised band.
+* Valve standings blob `2aa2805394fb…` → Rooster #205 718, Abyssal #195 734, 5star #80 1110,
+  1win #38 1383, INOX #82 1105, Nemesis #29 1455, HAVU #124 937, Illyrians #141 862, ex-RUSTEC #92 1066,
+  Spirit Academy #115 981, BAKS #100 1044, Saint Sinners #158 810, Inner Circle Academy #94 1064,
+  Lavked #143 862, Nuclear TigeRES #46 1324, UNiTY #69 1167. Every published points pair on the board
+  is one of these rows, character for character.
+
+**Executive-summary contract, read off the built page** (9 checks, 0 failures, 19 glance rows):
+phone viewport present; `start-here` links to `./#picks-at-a-glance`, `./origination/#picks`,
+`./strategy/`, `./origination/#unresolved`, `./#unresolved-register`; a separate
+`#unresolved-register` that states each row's blocker and carries an external source; both teams'
+probability and a pick marker on every one of the 19 rows; `data-method` on every row; bottom mobile
+navigation.
+
+## 24E irregularities (flagged, not silently fixed)
+
+* **`1082900` Luminosity vs HOTU is a maker quote.** The published 52.5/47.5 replays exactly and the
+  book holds $15,977, but the market has traded **$7.25** lifetime (gamma, read 00:52Z). Read it as one
+  market maker's two-sided quote, not as a crowd price. Left as published; the spread rule is about
+  depth, not traded interest, and the page does not claim a traded price.
+* **Stale review text (change request, cross-scope).** `data/research/27ac20d6/flags.json`
+  (`27ac20d6-1082792-magnitude`) still tells a reader the fixture is *"published at HOTU 98.2%"* and that
+  *"the Polymarket book … is 43 cents wide (rejected by the project's own 0.15 ceiling)"*. Both sentences
+  describe the 2026-10-25 build. The current build publishes **HOTU 87.0%** from a **0.10**-wide book,
+  verified first-hand above, and the flag's own prediction ("the 4-hour ladder will replace it
+  automatically if a usable market line appears") has come true. The record belongs to `arena-27ac20d6`,
+  which has finished, so this session logs the correction instead of editing that file.
+* **`1081159` is the widest-uncertainty row on the board**, and it is labelled as such: 10 anchored
+  series, posterior SD 114.7 points, fitted RD 244.87 rather than 75, one-sigma interval 18.4–64.5%,
+  `low_confidence: true`, and the 0.53-wide Polymarket book recorded as refused rather than averaged.
+* **`data/origination.json` in the worktree is an eleven-day-old replay fallback** (2026-10-15, 17 rows)
+  while the live board is the root `origination.json` (2026-10-26T01:04:30Z, 19 rows), copied to
+  `/data/origination.json` on deploy. Documented `root_publish` behaviour, but it is the first file an
+  auditor of the repository opens.
+
+## 24E fix-forward finding: the supersession that one row checker called a defect
+
+The first pull-request run (`40254426815`) failed one step with
+`FAIL: test_no_hard_check_fails (test_22a3ed80_verification...)`. The cause was **not** this
+session's files: it reproduces with this session's research directory moved aside, so it was
+already on `main`.
+
+`1093218` Nuclear TigeRES vs UNiTY renders the **originated consensus line** (Nuclear TigeRES 58.3% /
+UNiTY 41.7%, the median of Thunderpick 1.58/2.20 and Bovada 1.606061/2.25) while the snapshot's own
+`analysis` block still records the featured **model** line (70.7% / 29.3%, Valve 1324 vs 1167). That is
+the ladder working as designed — a two-sided money line replaces an uncalibrated rating model — but the
+checker re-derived every priced row from the featured analysis alone, so the publisher's own build could
+not pass its own gate.
+
+This session patched `scripts/22a3ed80_verify.py` to accept a supersession only when the rendered pair
+equals the published `origination.json` entry's own pair **and** that entry carries an `https` source,
+and verified it (`77 passed`). While the branch was being rebased for the merge, `main` turned out to
+carry the same reconciliation under `upgraded_from_featured_model`, so the patch was **dropped** rather
+than duplicated: one mechanism is better than two. What remains from this session is the invariant,
+pinned in four tests — the shipped build clears, a tampered origination pair fails, and a dropped
+upgrade marker fails.
+
+## 24E change requests logged for other scopes
+
+* `arena-27ac20d6` (finished): refresh the `27ac20d6-1082792-magnitude` wording to the current build, or
+  mark it superseded — see the irregularity above. Not edited here.
+* Publisher scope: consider surfacing `1082900`'s traded volume next to its price, so a reader can tell a
+  maker quote from a traded line. Not edited here.
+
 # f644ed1b fix-forward — regression gate prevents fresh publication
 
 Claimed 2026-10-26T02:10Z, after PR #360 merged. Scope extension: `scripts/22a3ed80_verify.py` selected-analysis branch only; regression tests in own `tests/test_f644ed1b_audit.py`. Original owner 22a3ed80 closed all tasks on 25 October. No active scope overlap found. Publisher run 40254593296 fails `test_no_hard_check_fails`: 1093218 displays a verified 58.3% two-book consensus while checker incorrectly compares to the superseded 70.7% featured Valve model. Reproduced against origin/main 2bfff7f, not caused by #360. Preserve raw snapshot and probabilities. During CI, PR #375 independently fixed the same production verifier; adopted main’s complete verifier unchanged on rebase, moving this session’s stronger replay helper into its own audit module instead. No duplicate production edit. Board conflict resolved by preserving both entire sections. PR #372 is now independent replay tests, findings and close-out only; #360 production register changes are already merged. PR #360 merged 2026-10-26T01:29:31Z as 9c8db80; Pages deployment 40254473560 succeeded. Concurrent pushes cancelled its pending fresh-publisher run; later publisher exposed this pre-existing gate failure. Main and all board text preserved at rebase.

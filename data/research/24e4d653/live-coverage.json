@@ -1,0 +1,688 @@
+{
+  "schema_version": 1,
+  "session": "arena-24e4d653",
+  "observed_at": "2026-10-26T01:16:00Z",
+  "environment": "arena-sandbox page reader (direct HTTPS is limited to GitHub/PyPI hosts; Hotspawn, HLTV and Polymarket were read through the session page reader and the returned text is reproduced in this dossier)",
+  "role": "Dated reconciliation of the live Hotspawn CS2 scheduled-fixture API against the deployed snapshot 2026-10-25T23:03:48Z. The future-start window of the API response (records from 2026-10-25T16:00Z to 2026-10-31T13:00Z) was enumerated fixture by fixture; each of the nine absent fixtures was then confirmed a second time on its own Hotspawn tournament page. Zero Hotspawn crowd percentages and zero HLTV fan votes were used. No probability, pick or alias is written by this session.",
+  "published_site": {
+    "snapshot_generated_at": "2026-10-26T01:33:57Z",
+    "snapshot_commit": "bcfdcdaa",
+    "snapshot_url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/latest.json",
+    "origination_url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination.json",
+    "snapshot_inventory_records": 81,
+    "snapshot_upcoming": 19,
+    "published_active_fixtures": 19,
+    "snapshot_unresolved_featured": 2,
+    "origination_rows": 19,
+    "origination_with_pick": 19,
+    "inventory_crosscheck": "complete",
+    "coverage_complete": true,
+    "run_status": "partial-picks",
+    "re_read_at": "2026-10-26T02:20Z"
+  },
+  "hotspawn": {
+    "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "tournament_pages_read": [
+      "https://www.hotspawn.com/counter-strike/tournament/nodwin-clutch-series-13",
+      "https://www.hotspawn.com/counter-strike/tournament/cct-europe-2026-series-12"
+    ],
+    "future_start_fixtures_seen": 19,
+    "in_published_snapshot": 10,
+    "absent_from_published_snapshot": 9,
+    "absent_ids": [
+      "1079201",
+      "1081159",
+      "1079202",
+      "1081160",
+      "1079203",
+      "1093218",
+      "1081162",
+      "1081163",
+      "1081164"
+    ],
+    "read_window_utc": "2026-10-26T00:48:00Z–2026-10-26T01:05:00Z",
+    "lobby_url": "https://play.hotspawn.com/lobby",
+    "lobby_cards_total": 81,
+    "lobby_tournament_counts": {
+      "CCT Europe 2026 Series #12": 5,
+      "NODWIN Clutch Series #13": 5
+    },
+    "lobby_pages_read": [
+      {
+        "url": "https://play.hotspawn.com/lobby",
+        "what_it_showed": "81 CS2 cards in the Tier/Tournament/Team filters (B 37 / C 44); the nine fixtures absent from the published snapshot were listed as playable cards with lock countdowns — 1079201, 1081159, 1079202, 1081160, 1079203 and 1093218 under Closing Soon, and 1081162, 1081163, 1081164 under Upcoming — alongside the ten cards the snapshot already carries."
+      },
+      {
+        "url": "https://play.hotspawn.com/cs2-pickems",
+        "what_it_showed": "the same week rendered from a 72-card state (no CCT Europe 2026 Series #12 filter entry and only the ten carried cards in Closing Soon + Upcoming) at the same moment, i.e. the two lobby surfaces were briefly out of step after the nine new cards were added."
+      }
+    ],
+    "lobby_disagreement_observed": "At the observation /lobby exposed 81 CS2 cards and the nine new fixtures, while /cs2-pickems still rendered a 72-card state. The fixtures feed and /lobby agreed on 81. This is recorded, not resolved: it is exactly the condition the collector treats as an unconfirmed cross-check, so a publish taken inside this window can be deferred even though no data is invented."
+  },
+  "counts": {
+    "live_future_fixtures": 19,
+    "carried_by_snapshot": 19,
+    "missing_from_snapshot": 0
+  },
+  "limitations": [
+    "The coverage comparison was re-read against the newer 2026-10-26T01:33:57Z publish after the branch was rebased onto main; the fixture set is unchanged (19 ids, 19 carried).",
+    "This record now describes the 2026-10-26T01:04:20Z snapshot, in which all nine previously absent cards are carried. The 2026-10-25T23:03:48Z state (nine absent) is preserved in earlier_observation rather than deleted, so the gap can still be audited as it was measured.",
+    "The pick'em lobby itself exposed 81 CS2 cards at the observation — 72 carried by the published snapshot plus the nine listed here — and the fixtures feed agreed. The second lobby surface (/cs2-pickems) was momentarily still on a 72-card state, so the two rendered surfaces did not agree with each other when read.",
+    "A dated observation, not a live feed: the inventory is republished every four hours, and fixtures Hotspawn adds between two publishes are absent until the next one.",
+    "The nine absent fixtures carry no probability here by design — this record names the gap, it does not price it. HLTV identity and esportsbook lines for them are collected by the next publish run.",
+    "The past-start block of the Hotspawn API response (records that already started) was not re-enumerated; only the future-start window was compared, because only future fixtures can carry a prematch pick.",
+    "Hotspawn best-of format is not published in the fixture feed; the field stays blank.",
+    "Hotspawn match URLs for the ten carried fixtures are the published rows' own source_url values, reused verbatim; the nine absent fixtures' URLs were read directly off their Hotspawn tournament pages rather than rebuilt from a slug rule."
+  ],
+  "source_urls": [
+    "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "https://play.hotspawn.com/cs2-pickems",
+    "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+    "https://www.hotspawn.com/counter-strike/tournament/nodwin-clutch-series-13",
+    "https://www.hotspawn.com/counter-strike/tournament/cct-europe-2026-series-12"
+  ],
+  "live_fixtures": [
+    {
+      "id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "tier": "b",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858",
+      "hltv_url": null,
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "market",
+      "published_probabilities": [
+        0.205,
+        0.795
+      ],
+      "published_pick": "Off Chops",
+      "observed_url_evidence": "tournament card observed on the DFRAG fixture list; URL is the one the published row already carries",
+      "note": "Carried by the published snapshot 2026-10-25T23:03:48Z and priced by the Market-implied estimate; listed here only to show which live cards this snapshot already covers. Hotspawn crowd percentages and HLTV fan votes excluded.",
+      "hotspawn_url_source": "published row",
+      "pick_note": "Pick direction is the larger of the two published probabilities for that fixture in origination.json; both teams' probabilities are published.",
+      "source_url": "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25"
+    },
+    {
+      "id": "1082859",
+      "teams": [
+        "NEXVOID",
+        "Alter Ego"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-26T03:00:00Z",
+      "tier": "b",
+      "hotspawn_url": "https://www.hotspawn.com/matches/nexvoid-vs-alter-ego-dfrag-invitational-2026-1082859",
+      "hltv_url": null,
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "bookmaker",
+      "published_probabilities": [
+        0.59162304,
+        0.40837696
+      ],
+      "published_pick": "NEXVOID",
+      "observed_url_evidence": "tournament card observed on the DFRAG fixture list; URL is the one the published row already carries",
+      "note": "Carried by the published snapshot 2026-10-25T23:03:48Z and priced by the No-vig bookmaker estimate; listed here only to show which live cards this snapshot already covers. Hotspawn crowd percentages and HLTV fan votes excluded.",
+      "hotspawn_url_source": "published row",
+      "pick_note": "Pick direction is the larger of the two published probabilities for that fixture in origination.json; both teams' probabilities are published.",
+      "source_url": "https://thunderpick.io/api/matches"
+    },
+    {
+      "id": "1079201",
+      "teams": [
+        "INOX Division",
+        "Nemesis"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-26T09:00:00Z",
+      "tier": "b",
+      "hotspawn_url": "https://www.hotspawn.com/matches/inox-division-vs-nemesis-nodwin-clutch-series-13-1079201",
+      "hltv_url": null,
+      "in_published_snapshot": true,
+      "in_featured_resolved": false,
+      "published_method": "model",
+      "published_probabilities": [
+        0.12346675,
+        0.87653325
+      ],
+      "published_pick": "Nemesis",
+      "observed_url_evidence": "read first-hand on the NODWIN Clutch Series #13 Hotspawn tournament page (Today, 26 Oct 2026, 09:00 UTC)",
+      "note": "Live on Hotspawn for 2026-10-26T09:00:00Z and absent from the published snapshot 2026-10-25T23:03:48Z. No row, no probability and no pick exist for it yet; the next collect+originate publish resolves it from the same ladder as every other row (Polymarket/Kalshi/Smarkets books, then esportsbook prices, then the research models). Nothing is invented here.",
+      "hotspawn_url_source": "read first-hand on the tournament page at the observation",
+      "pick_note": "Pick direction is the larger of the two published probabilities for that fixture in origination.json; both teams' probabilities are published.",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    },
+    {
+      "id": "1081159",
+      "teams": [
+        "LFO 10",
+        "ex-6666"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-26T12:00:00Z",
+      "tier": "b",
+      "hotspawn_url": "https://www.hotspawn.com/matches/lfo-10-vs-ex-6666-cct-europe-2026-series-12-1081159",
+      "hltv_url": null,
+      "in_published_snapshot": true,
+      "in_featured_resolved": false,
+      "published_method": "model",
+      "published_probabilities": [
+        0.39044605815543665,
+        0.6095539418445634
+      ],
+      "published_pick": "ex-6666",
+      "observed_url_evidence": "read first-hand on the CCT Europe 2026 Series #12 Hotspawn tournament page (Today, 26 Oct 2026, 12:00 UTC)",
+      "note": "Live on Hotspawn for 2026-10-26T12:00:00Z and absent from the published snapshot 2026-10-25T23:03:48Z. No row, no probability and no pick exist for it yet; the next collect+originate publish resolves it from the same ladder as every other row (Polymarket/Kalshi/Smarkets books, then esportsbook prices, then the research models). Nothing is invented here.",
+      "hotspawn_url_source": "read first-hand on the tournament page at the observation",
+      "pick_note": "Pick direction is the larger of the two published probabilities for that fixture in origination.json; both teams' probabilities are published.",
+      "source_url": "https://bo3.gg/matches/sokerorg-vs-ex-6666-26-10-2026"
+    },
+    {
+      "id": "1079202",
+      "teams": [
+        "FOKUS",
+        "ex-Zero Tenacity"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-26T12:00:00Z",
+      "tier": "b",
+      "hotspawn_url": "https://www.hotspawn.com/matches/fokus-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079202",
+      "hltv_url": null,
+      "in_published_snapshot": true,
+      "in_featured_resolved": false,
+      "published_method": "bookmaker",
+      "published_probabilities": [
+        0.68235294,
+        0.31764706
+      ],
+      "published_pick": "FOKUS",
+      "observed_url_evidence": "read first-hand on the NODWIN Clutch Series #13 Hotspawn tournament page (12:00 UTC)",
+      "note": "Live on Hotspawn for 2026-10-26T12:00:00Z and absent from the published snapshot 2026-10-25T23:03:48Z. No row, no probability and no pick exist for it yet; the next collect+originate publish resolves it from the same ladder as every other row (Polymarket/Kalshi/Smarkets books, then esportsbook prices, then the research models). Nothing is invented here.",
+      "hotspawn_url_source": "read first-hand on the tournament page at the observation",
+      "pick_note": "Pick direction is the larger of the two published probabilities for that fixture in origination.json; both teams' probabilities are published.",
+      "source_url": "https://thunderpick.io/api/matches"
+    },
+    {
+      "id": "1081160",
+      "teams": [
+        "HAVU",
+        "ILLYRIANS"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-26T15:00:00Z",
+      "tier": "b",
+      "hotspawn_url": "https://www.hotspawn.com/matches/havu-vs-illyrians-cct-europe-2026-series-12-1081160",
+      "hltv_url": null,
+      "in_published_snapshot": true,
+      "in_featured_resolved": false,
+      "published_method": "model",
+      "published_probabilities": [
+        0.60348339,
+        0.39651661
+      ],
+      "published_pick": "HAVU",
+      "observed_url_evidence": "read first-hand on the CCT Europe 2026 Series #12 Hotspawn tournament page (15:00 UTC)",
+      "note": "Live on Hotspawn for 2026-10-26T15:00:00Z and absent from the published snapshot 2026-10-25T23:03:48Z. No row, no probability and no pick exist for it yet; the next collect+originate publish resolves it from the same ladder as every other row (Polymarket/Kalshi/Smarkets books, then esportsbook prices, then the research models). Nothing is invented here.",
+      "hotspawn_url_source": "read first-hand on the tournament page at the observation",
+      "pick_note": "Pick direction is the larger of the two published probabilities for that fixture in origination.json; both teams' probabilities are published.",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    },
+    {
+      "id": "1079203",
+      "teams": [
+        "Metizport",
+        "BRUTE"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-26T15:00:00Z",
+      "tier": "b",
+      "hotspawn_url": "https://www.hotspawn.com/matches/metizport-vs-brute-nodwin-clutch-series-13-1079203",
+      "hltv_url": null,
+      "in_published_snapshot": true,
+      "in_featured_resolved": false,
+      "published_method": "bookmaker",
+      "published_probabilities": [
+        0.61538462,
+        0.38461538
+      ],
+      "published_pick": "Metizport",
+      "observed_url_evidence": "read first-hand on the NODWIN Clutch Series #13 Hotspawn tournament page (15:00 UTC)",
+      "note": "Live on Hotspawn for 2026-10-26T15:00:00Z and absent from the published snapshot 2026-10-25T23:03:48Z. No row, no probability and no pick exist for it yet; the next collect+originate publish resolves it from the same ladder as every other row (Polymarket/Kalshi/Smarkets books, then esportsbook prices, then the research models). Nothing is invented here.",
+      "hotspawn_url_source": "read first-hand on the tournament page at the observation",
+      "pick_note": "Pick direction is the larger of the two published probabilities for that fixture in origination.json; both teams' probabilities are published.",
+      "source_url": "https://thunderpick.io/api/matches"
+    },
+    {
+      "id": "1093218",
+      "teams": [
+        "Nuclear TigeRES",
+        "UNiTY"
+      ],
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at": "2026-10-26T18:00:00Z",
+      "tier": "b",
+      "hotspawn_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-unity-nodwin-clutch-series-13-1093218",
+      "hltv_url": null,
+      "in_published_snapshot": true,
+      "in_featured_resolved": false,
+      "published_method": "consensus",
+      "published_probabilities": [
+        0.58275378,
+        0.41724622
+      ],
+      "published_pick": "Nuclear TigeRES",
+      "observed_url_evidence": "read first-hand on the NODWIN Clutch Series #13 Hotspawn tournament page (18:00 UTC)",
+      "note": "Live on Hotspawn for 2026-10-26T18:00:00Z and absent from the published snapshot 2026-10-25T23:03:48Z. No row, no probability and no pick exist for it yet; the next collect+originate publish resolves it from the same ladder as every other row (Polymarket/Kalshi/Smarkets books, then esportsbook prices, then the research models). Nothing is invented here.",
+      "hotspawn_url_source": "read first-hand on the tournament page at the observation",
+      "pick_note": "Pick direction is the larger of the two published probabilities for that fixture in origination.json; both teams' probabilities are published.",
+      "source_url": "https://thunderpick.io/esports/counter-strike"
+    },
+    {
+      "id": "1082860",
+      "teams": [
+        "FlyQuest",
+        "Staqued"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "tier": "b",
+      "hotspawn_url": "https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860",
+      "hltv_url": null,
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "market",
+      "published_probabilities": [
+        0.925,
+        0.075
+      ],
+      "published_pick": "FlyQuest",
+      "observed_url_evidence": "published row URL, unchanged",
+      "note": "Carried by the published snapshot 2026-10-25T23:03:48Z and priced by the Market-implied estimate; listed here only to show which live cards this snapshot already covers. Hotspawn crowd percentages and HLTV fan votes excluded.",
+      "hotspawn_url_source": "published row",
+      "pick_note": "Pick direction is the larger of the two published probabilities for that fixture in origination.json; both teams' probabilities are published.",
+      "source_url": "https://polymarket.com/event/cs2-fly-staque-2026-10-26"
+    },
+    {
+      "id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "competition": "DFRAG Invitational 2026",
+      "starts_at": "2026-10-27T03:00:00Z",
+      "tier": "b",
+      "hotspawn_url": "https://www.hotspawn.com/matches/rooster-vs-abyssal-dfrag-invitational-2026-1082861",
+      "hltv_url": null,
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "model",
+      "published_probabilities": [
+        0.47761494,
+        0.52238506
+      ],
+      "published_pick": "Abyssal",
+      "observed_url_evidence": "published row URL, unchanged",
+      "note": "Carried by the published snapshot 2026-10-25T23:03:48Z and priced by the Valve-rating research estimate; listed here only to show which live cards this snapshot already covers. Hotspawn crowd percentages and HLTV fan votes excluded.",
+      "hotspawn_url_source": "published row",
+      "pick_note": "Pick direction is the larger of the two published probabilities for that fixture in origination.json; both teams' probabilities are published.",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    },
+    {
+      "id": "1082897",
+      "teams": [
+        "B8",
+        "K27"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T08:00:00Z",
+      "tier": "b",
+      "hotspawn_url": "https://www.hotspawn.com/matches/b8-vs-k27-tesla-cup-2026-1082897",
+      "hltv_url": null,
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "market",
+      "published_probabilities": [
+        0.595,
+        0.405
+      ],
+      "published_pick": "B8",
+      "observed_url_evidence": "published row URL, unchanged",
+      "note": "Carried by the published snapshot 2026-10-25T23:03:48Z and priced by the Market-implied estimate; listed here only to show which live cards this snapshot already covers. Hotspawn crowd percentages and HLTV fan votes excluded.",
+      "hotspawn_url_source": "published row",
+      "pick_note": "Pick direction is the larger of the two published probabilities for that fixture in origination.json; both teams' probabilities are published.",
+      "source_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27"
+    },
+    {
+      "id": "1082898",
+      "teams": [
+        "Alliance",
+        "FaZe"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T11:00:00Z",
+      "tier": "b",
+      "hotspawn_url": "https://www.hotspawn.com/matches/alliance-vs-faze-tesla-cup-2026-1082898",
+      "hltv_url": null,
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "market",
+      "published_probabilities": [
+        0.34,
+        0.66
+      ],
+      "published_pick": "FaZe",
+      "observed_url_evidence": "published row URL, unchanged",
+      "note": "Carried by the published snapshot 2026-10-25T23:03:48Z and priced by the Market-implied estimate; listed here only to show which live cards this snapshot already covers. Hotspawn crowd percentages and HLTV fan votes excluded.",
+      "hotspawn_url_source": "published row",
+      "pick_note": "Pick direction is the larger of the two published probabilities for that fixture in origination.json; both teams' probabilities are published.",
+      "source_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27"
+    },
+    {
+      "id": "1081162",
+      "teams": [
+        "ex-RUSTEC",
+        "Spirit Academy"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-27T12:00:00Z",
+      "tier": "b",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ex-rustec-vs-spirit-academy-cct-europe-2026-series-12-1081162",
+      "hltv_url": null,
+      "in_published_snapshot": true,
+      "in_featured_resolved": false,
+      "published_method": "model",
+      "published_probabilities": [
+        0.61680305,
+        0.38319695
+      ],
+      "published_pick": "ex-RUSTEC",
+      "observed_url_evidence": "read first-hand on the CCT Europe 2026 Series #12 Hotspawn tournament page (27 Oct, 12:00 UTC)",
+      "note": "Live on Hotspawn for 2026-10-27T12:00:00Z and absent from the published snapshot 2026-10-25T23:03:48Z. No row, no probability and no pick exist for it yet; the next collect+originate publish resolves it from the same ladder as every other row (Polymarket/Kalshi/Smarkets books, then esportsbook prices, then the research models). Nothing is invented here.",
+      "hotspawn_url_source": "read first-hand on the tournament page at the observation",
+      "pick_note": "Pick direction is the larger of the two published probabilities for that fixture in origination.json; both teams' probabilities are published.",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    },
+    {
+      "id": "1081163",
+      "teams": [
+        "BakS",
+        "Saint Sinners"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-27T15:00:00Z",
+      "tier": "b",
+      "hotspawn_url": "https://www.hotspawn.com/matches/baks-vs-saint-sinners-cct-europe-2026-series-12-1081163",
+      "hltv_url": null,
+      "in_published_snapshot": true,
+      "in_featured_resolved": false,
+      "published_method": "model",
+      "published_probabilities": [
+        0.78758039,
+        0.21241961
+      ],
+      "published_pick": "BakS",
+      "observed_url_evidence": "read first-hand on the CCT Europe 2026 Series #12 Hotspawn tournament page (27 Oct, 15:00 UTC)",
+      "note": "Live on Hotspawn for 2026-10-27T15:00:00Z and absent from the published snapshot 2026-10-25T23:03:48Z. No row, no probability and no pick exist for it yet; the next collect+originate publish resolves it from the same ladder as every other row (Polymarket/Kalshi/Smarkets books, then esportsbook prices, then the research models). Nothing is invented here.",
+      "hotspawn_url_source": "read first-hand on the tournament page at the observation",
+      "pick_note": "Pick direction is the larger of the two published probabilities for that fixture in origination.json; both teams' probabilities are published.",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    },
+    {
+      "id": "1082900",
+      "teams": [
+        "Luminosity",
+        "HOTU"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T17:00:00Z",
+      "tier": "b",
+      "hotspawn_url": "https://www.hotspawn.com/matches/luminosity-vs-hotu-tesla-cup-2026-1082900",
+      "hltv_url": null,
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "market",
+      "published_probabilities": [
+        0.525,
+        0.475
+      ],
+      "published_pick": "Luminosity",
+      "observed_url_evidence": "published row URL, unchanged",
+      "note": "Carried by the published snapshot 2026-10-25T23:03:48Z and priced by the Market-implied estimate; listed here only to show which live cards this snapshot already covers. Hotspawn crowd percentages and HLTV fan votes excluded.",
+      "hotspawn_url_source": "published row",
+      "pick_note": "Pick direction is the larger of the two published probabilities for that fixture in origination.json; both teams' probabilities are published.",
+      "source_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27"
+    },
+    {
+      "id": "1081164",
+      "teams": [
+        "Inner Circle Academy",
+        "Lavked"
+      ],
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at": "2026-10-27T18:00:00Z",
+      "tier": "b",
+      "hotspawn_url": "https://www.hotspawn.com/matches/inner-circle-academy-vs-lavked-cct-europe-2026-series-12-1081164",
+      "hltv_url": null,
+      "in_published_snapshot": true,
+      "in_featured_resolved": false,
+      "published_method": "model",
+      "published_probabilities": [
+        0.75606058,
+        0.24393942
+      ],
+      "published_pick": "Inner Circle Academy",
+      "observed_url_evidence": "read first-hand on the CCT Europe 2026 Series #12 Hotspawn tournament page (27 Oct, 18:00 UTC)",
+      "note": "Live on Hotspawn for 2026-10-27T18:00:00Z and absent from the published snapshot 2026-10-25T23:03:48Z. No row, no probability and no pick exist for it yet; the next collect+originate publish resolves it from the same ladder as every other row (Polymarket/Kalshi/Smarkets books, then esportsbook prices, then the research models). Nothing is invented here.",
+      "hotspawn_url_source": "read first-hand on the tournament page at the observation",
+      "pick_note": "Pick direction is the larger of the two published probabilities for that fixture in origination.json; both teams' probabilities are published.",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    },
+    {
+      "id": "1082901",
+      "teams": [
+        "Envy",
+        "GamerLegion"
+      ],
+      "competition": "Tesla Cup 2026",
+      "starts_at": "2026-10-27T20:00:00Z",
+      "tier": "b",
+      "hotspawn_url": "https://www.hotspawn.com/matches/envy-vs-gamerlegion-tesla-cup-2026-1082901",
+      "hltv_url": null,
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "market",
+      "published_probabilities": [
+        0.455,
+        0.545
+      ],
+      "published_pick": "GamerLegion",
+      "observed_url_evidence": "published row URL, unchanged",
+      "note": "Carried by the published snapshot 2026-10-25T23:03:48Z and priced by the Market-implied estimate; listed here only to show which live cards this snapshot already covers. Hotspawn crowd percentages and HLTV fan votes excluded.",
+      "hotspawn_url_source": "published row",
+      "pick_note": "Pick direction is the larger of the two published probabilities for that fixture in origination.json; both teams' probabilities are published.",
+      "source_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27"
+    },
+    {
+      "id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T09:00:00Z",
+      "tier": "b",
+      "hotspawn_url": "https://www.hotspawn.com/matches/hotu-vs-the-huns-moscow-cyber-games-2026-1082792",
+      "hltv_url": null,
+      "in_published_snapshot": true,
+      "in_featured_resolved": false,
+      "published_method": "market",
+      "published_probabilities": [
+        0.87,
+        0.13
+      ],
+      "published_pick": "HOTU",
+      "observed_url_evidence": "published row source_url, used verbatim (the slug is Hotspawn's own; this session did not rebuild it)",
+      "note": "Carried by the published snapshot 2026-10-25T23:03:48Z and priced by the Market-implied estimate; listed here only to show which live cards this snapshot already covers. Hotspawn crowd percentages and HLTV fan votes excluded.",
+      "hotspawn_url_source": "published row",
+      "pick_note": "Pick direction is the larger of the two published probabilities for that fixture in origination.json; both teams' probabilities are published.",
+      "source_url": "https://polymarket.com/event/cs2-hotu-the9-2026-10-31"
+    },
+    {
+      "id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at": "2026-10-31T13:00:00Z",
+      "tier": "b",
+      "hotspawn_url": "https://www.hotspawn.com/matches/5star-vs-1win-moscow-cyber-games-2026-1082793",
+      "hltv_url": null,
+      "in_published_snapshot": true,
+      "in_featured_resolved": true,
+      "published_method": "model",
+      "published_probabilities": [
+        0.17816902,
+        0.82183098
+      ],
+      "published_pick": "1WIN",
+      "observed_url_evidence": "published row source_url, used verbatim (the slug is Hotspawn's own; this session did not rebuild it)",
+      "note": "Carried by the published snapshot 2026-10-25T23:03:48Z and priced by the Valve-rating research estimate; listed here only to show which live cards this snapshot already covers. Hotspawn crowd percentages and HLTV fan votes excluded.",
+      "hotspawn_url_source": "published row",
+      "pick_note": "Pick direction is the larger of the two published probabilities for that fixture in origination.json; both teams' probabilities are published.",
+      "source_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md"
+    }
+  ],
+  "read_window_utc": [
+    "2026-10-26T01:02:00Z",
+    "2026-10-26T01:16:00Z"
+  ],
+  "observed_at_note": "observed_at is when this record was last assembled. The 19 live fixtures were read from the official Hotspawn CS2 scheduled-fixture feed during 2026-10-26T00:45Z-00:49Z (see the lobby, tournament and match reads below); the coverage comparison below is against the snapshot generated 2026-10-26T01:04:20Z and published to the branch root at 2026-10-26T01:13:17Z (main commit bcfdcdaa, \"publish: sync the verified build into the branch root\"), read back from that commit. The earlier state of this record (2026-10-25T23:03:48Z snapshot, nine cards absent) is preserved verbatim in earlier_observation; it is not overwritten by this update.",
+  "publisher_in_flight": {
+    "run_id": 40250748384,
+    "workflow": "pages.yml",
+    "event": "schedule",
+    "created_at": "2026-10-26T00:43:45Z",
+    "status": "in_progress at 2026-10-26T00:54:00Z",
+    "note": "A publisher run was already in flight while this record was written, so the nine absent cards may be covered by the next public snapshot; the gap is dated to the snapshot named above, not asserted to be live."
+  },
+  "previous_observed_at": "2026-10-26T00:49:00Z",
+  "earlier_observation": {
+    "observed_at": "2026-10-26T00:49:00Z",
+    "snapshot_generated_at": "2026-10-25T23:03:48Z",
+    "missing_from_snapshot": 9,
+    "missing": [
+      {
+        "id": "1079201",
+        "teams": [
+          "INOX Division",
+          "Nemesis"
+        ],
+        "starts_at": "2026-10-26T09:00:00Z",
+        "competition": "NODWIN Clutch Series #13",
+        "hotspawn_url": "https://www.hotspawn.com/matches/inox-division-vs-nemesis-nodwin-clutch-series-13-1079201",
+        "in_snapshot_2026_10_25T23:03:48Z": false
+      },
+      {
+        "id": "1081159",
+        "teams": [
+          "LFO 10",
+          "ex-6666"
+        ],
+        "starts_at": "2026-10-26T12:00:00Z",
+        "competition": "CCT Europe 2026 Series #12",
+        "hotspawn_url": "https://www.hotspawn.com/matches/lfo-10-vs-ex-6666-cct-europe-2026-series-12-1081159",
+        "in_snapshot_2026_10_25T23:03:48Z": false
+      },
+      {
+        "id": "1079202",
+        "teams": [
+          "FOKUS",
+          "ex-Zero Tenacity"
+        ],
+        "starts_at": "2026-10-26T12:00:00Z",
+        "competition": "NODWIN Clutch Series #13",
+        "hotspawn_url": "https://www.hotspawn.com/matches/fokus-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079202",
+        "in_snapshot_2026_10_25T23:03:48Z": false
+      },
+      {
+        "id": "1081160",
+        "teams": [
+          "HAVU",
+          "ILLYRIANS"
+        ],
+        "starts_at": "2026-10-26T15:00:00Z",
+        "competition": "CCT Europe 2026 Series #12",
+        "hotspawn_url": "https://www.hotspawn.com/matches/havu-vs-illyrians-cct-europe-2026-series-12-1081160",
+        "in_snapshot_2026_10_25T23:03:48Z": false
+      },
+      {
+        "id": "1079203",
+        "teams": [
+          "Metizport",
+          "BRUTE"
+        ],
+        "starts_at": "2026-10-26T15:00:00Z",
+        "competition": "NODWIN Clutch Series #13",
+        "hotspawn_url": "https://www.hotspawn.com/matches/metizport-vs-brute-nodwin-clutch-series-13-1079203",
+        "in_snapshot_2026_10_25T23:03:48Z": false
+      },
+      {
+        "id": "1093218",
+        "teams": [
+          "Nuclear TigeRES",
+          "UNiTY"
+        ],
+        "starts_at": "2026-10-26T18:00:00Z",
+        "competition": "NODWIN Clutch Series #13",
+        "hotspawn_url": "https://www.hotspawn.com/matches/nuclear-tigeres-vs-unity-nodwin-clutch-series-13-1093218",
+        "in_snapshot_2026_10_25T23:03:48Z": false
+      },
+      {
+        "id": "1081162",
+        "teams": [
+          "ex-RUSTEC",
+          "Spirit Academy"
+        ],
+        "starts_at": "2026-10-27T12:00:00Z",
+        "competition": "CCT Europe 2026 Series #12",
+        "hotspawn_url": "https://www.hotspawn.com/matches/ex-rustec-vs-spirit-academy-cct-europe-2026-series-12-1081162",
+        "in_snapshot_2026_10_25T23:03:48Z": false
+      },
+      {
+        "id": "1081163",
+        "teams": [
+          "BakS",
+          "Saint Sinners"
+        ],
+        "starts_at": "2026-10-27T15:00:00Z",
+        "competition": "CCT Europe 2026 Series #12",
+        "hotspawn_url": "https://www.hotspawn.com/matches/baks-vs-saint-sinners-cct-europe-2026-series-12-1081163",
+        "in_snapshot_2026_10_25T23:03:48Z": false
+      },
+      {
+        "id": "1081164",
+        "teams": [
+          "Inner Circle Academy",
+          "Lavked"
+        ],
+        "starts_at": "2026-10-27T18:00:00Z",
+        "competition": "CCT Europe 2026 Series #12",
+        "hotspawn_url": "https://www.hotspawn.com/matches/inner-circle-academy-vs-lavked-cct-europe-2026-series-12-1081164",
+        "in_snapshot_2026_10_25T23:03:48Z": false
+      }
+    ],
+    "closed_by": {
+      "run_id": 40250748384,
+      "event": "schedule",
+      "started_at": "2026-10-26T00:43:45Z",
+      "snapshot_generated_at": "2026-10-26T01:04:20Z",
+      "note": "The publisher run that was already in flight when the gap was measured published every one of the nine cards: each of the nine ids is present in the 2026-10-26T01:04:20Z snapshot and carries a published probability pair in origination.json. The gap was real, dated and transient; it was not a missing pick, and nothing had to be invented to close it."
+    }
+  }
+}
