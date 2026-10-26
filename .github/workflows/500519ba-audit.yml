@@ -1,0 +1,74 @@
+name: 500519ba live coverage audit
+
+# Session arena-500519ba. The authoring sandbox has no route to play.hotspawn.com,
+# hltv.org, the exchanges/books or the published Pages site (every request dies
+# with SSL_ERROR_SYSCALL before a status line), so "does every open Hotspawn CS2
+# fixture carry a pick, and which fixtures is the deployed page missing" can only
+# be answered with first-hand bytes on a runner.
+#
+# This workflow writes evidence only. It runs the publisher's own two stages
+# (`scripts.collect` then `scripts.originate --live`) so the audit describes the
+# ladder that actually publishes, then measures the result against the live
+# inventory and the deployed snapshot. No probability, pick or alias is produced
+# here, and only `data/research/500519ba/` is committed (with `[skip ci]`), so the
+# branch's `Validate dashboard` queue is never consumed by the audit.
+on:
+  push:
+    branches: ['arena/500519ba-maltaproj3']
+    paths:
+      - '.github/workflows/500519ba-audit.yml'
+      - 'scripts/500519ba_audit.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: 500519ba-audit-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  audit:
+    if: startsWith(github.ref_name, 'arena/500519ba')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Refresh every Hotspawn CS2 record and the featured external lines
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.collect
+      - name: Research only the fixtures the featured path left blank
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m scripts.originate --live
+      - name: Build the site from this run's data so rendering regressions surface here
+        run: python -m scripts.build
+      - name: Measure live inventory vs fresh ladder vs deployed snapshot
+        run: python -m scripts.500519ba_audit
+      - name: Show the dossier even when the audit itself failed
+        if: always()
+        run: |
+          test -f data/research/500519ba/summary.txt && cat data/research/500519ba/summary.txt || echo 'no summary written'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: 500519ba-coverage
+          path: data/research/500519ba/
+          if-no-files-found: warn
+      - name: Commit the evidence
+        if: always()
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/500519ba
+          if git diff --cached --quiet; then
+            echo 'no evidence change'
+            exit 0
+          fi
+          git commit -m 'evidence: 500519ba live coverage audit [skip ci]'
+          git pull --rebase origin arena/500519ba-maltaproj3
+          git push origin arena/500519ba-maltaproj3
