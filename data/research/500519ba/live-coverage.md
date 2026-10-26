@@ -1,17 +1,17 @@
 # Live Hotspawn CS2 lobby vs this build — session arena-500519ba
 
-Observed **2026-10-26T01:07:00Z** (UTC) on a GitHub Actions runner.
+Observed **2026-10-26T02:20:24Z** (UTC) on a GitHub Actions runner.
 
 Dated comparison of the live Hotspawn CS2 lobby with the build this run produced. Evidence only: no probability, pick or alias.
 
 | Fixture | Teams | Starts (UTC) | In this build | Pick | Note |
 | --- | --- | --- | --- | --- | --- |
 | 1082858 | [Ground Zero vs Off Chops](https://www.hotspawn.com/matches/ground-zero-vs-off-chops-dfrag-invitational-2026-1082858) | 2026-10-26T03:00:00Z | yes | yes | In this build with a pick (Market-implied estimate). |
-| 1082859 | [NEXVOID vs Alter Ego](https://www.hotspawn.com/matches/nexvoid-vs-alter-ego-dfrag-invitational-2026-1082859) | 2026-10-26T03:00:00Z | yes | yes | In this build with a pick (No-vig bookmaker estimate). |
+| 1082859 | [NEXVOID vs Alter Ego](https://www.hotspawn.com/matches/nexvoid-vs-alter-ego-dfrag-invitational-2026-1082859) | 2026-10-26T03:00:00Z | yes | yes | In this build with a pick (Originated market line (Kalshi)). |
 | 1079201 | [INOX Division vs Nemesis](https://www.hotspawn.com/matches/inox-division-vs-nemesis-nodwin-clutch-series-13-1079201) | 2026-10-26T09:00:00Z | yes | yes | In this build with a pick (Valve-rating research estimate). |
-| 1079202 | [FOKUS vs ex-Zero Tenacity](https://www.hotspawn.com/matches/fokus-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079202) | 2026-10-26T12:00:00Z | yes | yes | In this build with a pick (No-vig bookmaker estimate). |
+| 1079202 | [FOKUS vs ex-Zero Tenacity](https://www.hotspawn.com/matches/fokus-vs-ex-zero-tenacity-nodwin-clutch-series-13-1079202) | 2026-10-26T12:00:00Z | yes | yes | In this build with a pick (Market-implied estimate). |
 | 1081159 | [LFO 10 vs ex-6666](https://www.hotspawn.com/matches/lfo-10-vs-ex-6666-cct-europe-2026-series-12-1081159) | 2026-10-26T12:00:00Z | yes | yes | In this build with a pick (Own results-based estimate (bo3.gg series results)). |
-| 1079203 | [Metizport vs BRUTE](https://www.hotspawn.com/matches/metizport-vs-brute-nodwin-clutch-series-13-1079203) | 2026-10-26T15:00:00Z | yes | yes | In this build with a pick (No-vig bookmaker estimate). |
+| 1079203 | [Metizport vs BRUTE](https://www.hotspawn.com/matches/metizport-vs-brute-nodwin-clutch-series-13-1079203) | 2026-10-26T15:00:00Z | yes | yes | In this build with a pick (Market-implied estimate). |
 | 1081160 | [HAVU vs ILLYRIANS](https://www.hotspawn.com/matches/havu-vs-illyrians-cct-europe-2026-series-12-1081160) | 2026-10-26T15:00:00Z | yes | yes | In this build with a pick (Valve-rating research estimate). |
 | 1093218 | [Nuclear TigeRES vs UNiTY](https://www.hotspawn.com/matches/nuclear-tigeres-vs-unity-nodwin-clutch-series-13-1093218) | 2026-10-26T18:00:00Z | yes | yes | In this build with a pick (Originated consensus line (median of independent money sources)). |
 | 1082860 | [FlyQuest vs Staqued](https://www.hotspawn.com/matches/flyquest-vs-staqued-dfrag-invitational-2026-1082860) | 2026-10-27T03:00:00Z | yes | yes | In this build with a pick (Market-implied estimate). |
