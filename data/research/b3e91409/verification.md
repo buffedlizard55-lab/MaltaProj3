@@ -1,11 +1,11 @@
-# Independent verification — 2026-10-26T01:15:51Z
+# Independent verification — 2026-10-26T01:20:14Z
 
-Rows checked: **19** · verified: **18** · blank (explained): **0** · errors: **1** · live coverage gaps: **0** · notes: **3**
+Rows checked: **19** · verified: **18** · blank (explained): **0** · errors: **20** · live coverage gaps: **0** · notes: **3**
 
 ## Inputs
 
-- `/tmp/mainart/origination.json` · generated 2026-10-26T01:04:30Z · sha256 `6c14cb1e7c9ac7fd…`
-- `/tmp/mainart/snapshot.json` · generated 2026-10-26T01:04:20Z · sha256 `6ec8e288ed36ab15…`
+- `data/research/b3e91409/published/origination.json` · generated 2026-10-26T01:04:30Z · sha256 `6c14cb1e7c9ac7fd…`
+- `data/research/b3e91409/published/snapshot.json` · generated 2026-10-26T01:04:20Z · sha256 `6ec8e288ed36ab15…`
 
 ## Rows
 
@@ -37,6 +37,25 @@ Rows checked: **19** · verified: **18** · blank (explained): **0** · errors: 
 - **error** `1081159` — cannot replay the published numbers: a fitted results model does not publish the predictive formula that turns its posterior means [825.0, 923.0] into a probability; a standard 400-point Elo on the same points gives 0.362592
 - **note** `1093218` — the analysis publishes no limitation text
 - **note** `1082792` — the analysis publishes no limitation text
+- **error** `1082858` — the executive summary has no in-site deep link to this published row
+- **error** `1082859` — the executive summary has no in-site deep link to this published row
+- **error** `1079201` — the executive summary has no in-site deep link to this published row
+- **error** `1079202` — the executive summary has no in-site deep link to this published row
+- **error** `1081159` — the executive summary has no in-site deep link to this published row
+- **error** `1079203` — the executive summary has no in-site deep link to this published row
+- **error** `1081160` — the executive summary has no in-site deep link to this published row
+- **error** `1093218` — the executive summary has no in-site deep link to this published row
+- **error** `1082860` — the executive summary has no in-site deep link to this published row
+- **error** `1082861` — the executive summary has no in-site deep link to this published row
+- **error** `1082897` — the executive summary has no in-site deep link to this published row
+- **error** `1082898` — the executive summary has no in-site deep link to this published row
+- **error** `1081162` — the executive summary has no in-site deep link to this published row
+- **error** `1081163` — the executive summary has no in-site deep link to this published row
+- **error** `1082900` — the executive summary has no in-site deep link to this published row
+- **error** `1081164` — the executive summary has no in-site deep link to this published row
+- **error** `1082901` — the executive summary has no in-site deep link to this published row
+- **error** `1082792` — the executive summary has no in-site deep link to this published row
+- **error** `1082793` — the executive summary has no in-site deep link to this published row
 
 ## Limits of this check
 

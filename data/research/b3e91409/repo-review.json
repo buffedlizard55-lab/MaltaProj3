@@ -1,20 +1,32 @@
 {
  "session": "arena-b3e91409",
  "scope": "Independent, source-linked verification of the published CS2 dashboard on 2026-10-26 (live capture at 00:51-00:54Z from a network-capable runner), the nine open Hotspawn fixtures the 23:03:48Z publication does not list, and the identity/clock conflicts that decide which external line may price them.",
- "review_clock_utc": "2026-10-26T00:56Z",
- "method": "Every live fact below was fetched by .github/workflows/b3e91409-probe.yml and archived under data/research/b3e91409/live/ with its URL, UTC observation time, HTTP status, byte count and SHA-256 (manifest.json, sources.json). The published rows were re-derived offline from the inputs each row itself publishes by scripts/b3e91409_verify.py; the formulas are re-implemented there, not imported from the production ladder. No probability, pick, price or alias was written by this session: the live dossier only records observed prices and the printed rating formula. Hotspawn community '% picked' and HLTV fan votes were never read as inputs.",
+ "review_clock_utc": "2026-10-26T01:22Z",
+ "method": "Every live fact below was fetched by .github/workflows/b3e91409-probe.yml and archived under data/research/b3e91409/live/ with its URL, UTC observation time, HTTP status, byte count and SHA-256 (manifest.json, sources.json). The published rows were re-derived offline from the inputs each row itself publishes by scripts/b3e91409_verify.py; the formulas are re-implemented there, not imported from the production ladder. No probability, pick, price or alias was written by this session: the live dossier only records observed prices and the printed rating formula. Hotspawn community '% picked' and HLTV fan votes were never read as inputs. Re-run at 01:22Z against the 2026-10-26T01:04:30Z publication (19 rows): 18 of 19 probabilities re-derive exactly, one fitted form model is not reproducible from its own published inputs, and all 19 published picks agree with this session's independently derived side.",
  "items": [
   {
    "id": "B3-R01",
    "area": "Coverage: nine open fixtures are absent from the published list",
-   "status": "needs review",
+   "status": "fixed",
    "finding": "The publication generated at 2026-10-25T23:03:48Z (origination.json, 23:04:02Z) lists 10 open fixtures. The same public Hotspawn fixture array read at 2026-10-26T00:51:22Z returns 81 CS2 records and 19 open fixtures, and the rendered lobby at the same instant shows the same 19 cards. The nine fixtures with no published row are 1079201 (INOX Division vs Nemesis, 09:00Z), 1079202 (FOKUS vs ex-Zero Tenacity, 12:00Z), 1081159 (LFO 10 vs ex-6666, 12:00Z), 1081160 (HAVU vs ILLYRIANS, 15:00Z), 1079203 (Metizport vs BRUTE, 15:00Z), 1093218 (Nuclear TigeRES vs UNiTY, 18:00Z), 1081162 (ex-RUSTEC vs Spirit Academy, 27 Oct 12:00Z), 1081163 (BakS vs Saint Sinners, 27 Oct 15:00Z) and 1081164 (Inner Circle Academy vs Lavked, 27 Oct 18:00Z). Each is a low-tier CCT Europe Series #12 or NODWIN Clutch Series #13 fixture, i.e. exactly the class the brief says must still receive a pick.",
-   "handling": "The live dossier (data/research/b3e91409/live/analysis.json, summary.md) prices all 19 fixtures at 00:54Z from observed sources: 6 from a verified Polymarket series order book, 3 from a Thunderpick two-way line, and 10 from the printed HLTV-ranking Elo model. The nine missing ids are listed with their Hotspawn permalink and the source that can price each. Nothing is written into the publisher's own files by this session; the next successful refresh collects the same array, and scripts/b3e91409_verify.py re-runs the coverage comparison against whatever is published.",
+   "handling": "The 00:43Z four-hour refresh (run 40250748384) completed at 01:15Z and published the 2026-10-26T01:04:30Z build: 19 open fixtures, 19 with a pick, 0 unresolved, 3 alias joins (origination.json counts). The nine ids above are all present. This session re-ran scripts/b3e91409_verify.py against that publication: 19 rows checked, 0 coverage gaps, 18 exact replays, 1 reproducibility error (B3-R08) and 3 notes (B3-R06). The live dossier captured at 2026-10-26T01:01:19Z contains the same 19 ids, and all 19 published picks agree on the side with this session's independent line (6 Polymarket books, 3 Thunderpick lines, 10 printed-rank models). The original gap remains in this register as a dated record of what the 23:03:48Z build was missing.",
    "evidence": [
-    {"url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1", "detail": "Observed 2026-10-26T00:51:22Z, HTTP 200, 63,325 bytes, SHA-256 edb80c0294dcf134a6b9c1dbb5290acbf5f57d870a66dcebd863a6a625377839. 81 CS2 records, 19 with a start time after the observation."},
-    {"url": "https://play.hotspawn.com/lobby?cb=1792975882", "detail": "Fresh render observed 2026-10-26T00:51:22Z, HTTP 200, X-Cache MISS, Age 0, SHA-256 9ed09c89ff30370a1dc8bb7c5c04c1ae771fc3798929231ef02653fd4b0d53f5. 19 match permalinks and 19 fixture DOM ids."},
-    {"url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination.json", "detail": "Deployed picks file generated 2026-10-25T23:04:02Z: 10 rows, 10 with a pick. The nine ids above are not present."},
-    {"url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/b3e91409-maltaproj3/data/research/b3e91409/verification.md", "detail": "The same comparison as a report, produced by scripts/b3e91409_verify.py with the input SHA-256 values."}
+    {
+     "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+     "detail": "Observed 2026-10-26T00:51:22Z, HTTP 200, 63,325 bytes, SHA-256 edb80c0294dcf134a6b9c1dbb5290acbf5f57d870a66dcebd863a6a625377839. 81 CS2 records, 19 with a start time after the observation."
+    },
+    {
+     "url": "https://play.hotspawn.com/lobby?cb=1792975882",
+     "detail": "Fresh render observed 2026-10-26T00:51:22Z, HTTP 200, X-Cache MISS, Age 0, SHA-256 9ed09c89ff30370a1dc8bb7c5c04c1ae771fc3798929231ef02653fd4b0d53f5. 19 match permalinks and 19 fixture DOM ids."
+    },
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination.json",
+     "detail": "Deployed picks file generated 2026-10-25T23:04:02Z: 10 rows, 10 with a pick. The nine ids above are not present."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/arena/b3e91409-maltaproj3/data/research/b3e91409/verification.md",
+     "detail": "The same comparison as a report, produced by scripts/b3e91409_verify.py with the input SHA-256 values."
+    }
    ]
   },
   {
@@ -24,9 +36,18 @@
    "finding": "Polymarket event 1252125 (cs2-fokus-zerote-2026-10-26) stamps its full-series market 6186062 and both map markets with gameStartTime '2026-10-26 18:00:00+00'. Hotspawn schedules the fixture at 12:00Z, Thunderpick row 2888795 starts at 12:00Z, and HLTV match 2399117 starts at 12:00Z. The six-hour disagreement is far outside the 60-second identity window, so the Polymarket book cannot be joined; the fixture is priced from Thunderpick 1.35 / 2.90 instead (68.2% / 31.8% after proportional margin removal).",
    "handling": "No rule was relaxed. The published 60-second identity rule correctly refuses the Polymarket event; the conflict is recorded here so the owner of scripts/originate.py can decide whether Polymarket's start-time field is a known platform offset for this competition. The dossier's Thunderpick quote carries its own URL and observation time.",
    "evidence": [
-    {"url": "https://gamma-api.polymarket.com/events/1252125", "detail": "Read 2026-10-26T00:51:26Z from the CS2 tag page set. Series market 6186062 and map markets 6186063/6186064 all carry gameStartTime 2026-10-26 18:00:00+00."},
-    {"url": "https://www.hltv.org/matches/2399117/fokus-vs-ex-zero-tenacity-nodwin-clutch-series-13", "detail": "HLTV match 2399117: FOKUS vs ex-Zero Tenacity, BO3, data-unix 1793016000000 = 2026-10-26T12:00:00Z (start delta 0 s against Hotspawn)."},
-    {"url": "https://thunderpick.io/api/matches", "detail": "Public feed read 2026-10-26T00:51:41Z; row 2888795 FOKUS vs ex-Zero Tenacity startTime 2026-10-26T12:00:00+00:00, Match Winner 1.35 / 2.90."}
+    {
+     "url": "https://gamma-api.polymarket.com/events/1252125",
+     "detail": "Read 2026-10-26T00:51:26Z from the CS2 tag page set. Series market 6186062 and map markets 6186063/6186064 all carry gameStartTime 2026-10-26 18:00:00+00."
+    },
+    {
+     "url": "https://www.hltv.org/matches/2399117/fokus-vs-ex-zero-tenacity-nodwin-clutch-series-13",
+     "detail": "HLTV match 2399117: FOKUS vs ex-Zero Tenacity, BO3, data-unix 1793016000000 = 2026-10-26T12:00:00Z (start delta 0 s against Hotspawn)."
+    },
+    {
+     "url": "https://thunderpick.io/api/matches",
+     "detail": "Public feed read 2026-10-26T00:51:41Z; row 2888795 FOKUS vs ex-Zero Tenacity startTime 2026-10-26T12:00:00+00:00, Match Winner 1.35 / 2.90."
+    }
    ]
   },
   {
@@ -36,10 +57,22 @@
    "finding": "For INOX Division vs Nemesis (NODWIN Clutch Series #13, 09:00Z) the Polymarket series market 6186053 quotes 0.72 / 0.73 bid/ask with outcomes ['Team Nemesis', 'INOX Division']. Hotspawn names the team 'Nemesis'. The reviewed registry has 'Team Nemesis' -> 'Nemesis' but its applies_to list covers only 'PGL Bucharest 2027: Closed Qualifier', 'PGL Bucharest 2027 Closed Qualifier' and 'CIS LAN Championship #9', so the join is correctly refused for this competition and no alias is invented here. The dossier therefore prices the fixture from HLTV ranking points (Nemesis #47 32 pts, INOX Division #84 10 pts) at 46.8% / 53.2%.",
    "handling": "Logged as a request for the owner of data/origination/aliases.json (session arena-500519ba, task 500A-2): add a competition-scoped alias for 'NODWIN Clutch Series #13' backed by the Polymarket event title, the Hotspawn fixture page and HLTV match 2399116, if that owner agrees the three records describe the same team. Until then the market stays unjoined and the model figure is labelled as a research model.",
    "evidence": [
-    {"url": "https://polymarket.com/event/cs2-nem-inox-2026-10-26", "detail": "Event 1252123, title 'Counter-Strike: Team Nemesis vs INOX Division (BO3) - NODWIN Clutch Series Playoffs'; market 6186053 sportsMarketType 'moneyline', gameStartTime 2026-10-26 09:00:00+00, published bestBid 0.72 / bestAsk 0.73."},
-    {"url": "https://www.hotspawn.com/matches/inox-division-vs-nemesis-nodwin-clutch-series-13-1079201", "detail": "Hotspawn fixture 1079201 schedules 'INOX Division vs Nemesis' at 2026-10-26T09:00:00Z in NODWIN Clutch Series #13."},
-    {"url": "https://www.hltv.org/matches/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13", "detail": "HLTV match 2399116, BO3, start delta 0 s against the Hotspawn fixture."},
-    {"url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination/aliases.json", "detail": "Registry read: the 'Team Nemesis' -> 'Nemesis' entries declare only PGL Bucharest 2027 Closed Qualifier and CIS LAN Championship #9."}
+    {
+     "url": "https://polymarket.com/event/cs2-nem-inox-2026-10-26",
+     "detail": "Event 1252123, title 'Counter-Strike: Team Nemesis vs INOX Division (BO3) - NODWIN Clutch Series Playoffs'; market 6186053 sportsMarketType 'moneyline', gameStartTime 2026-10-26 09:00:00+00, published bestBid 0.72 / bestAsk 0.73."
+    },
+    {
+     "url": "https://www.hotspawn.com/matches/inox-division-vs-nemesis-nodwin-clutch-series-13-1079201",
+     "detail": "Hotspawn fixture 1079201 schedules 'INOX Division vs Nemesis' at 2026-10-26T09:00:00Z in NODWIN Clutch Series #13."
+    },
+    {
+     "url": "https://www.hltv.org/matches/2399116/nemesis-vs-inox-division-nodwin-clutch-series-13",
+     "detail": "HLTV match 2399116, BO3, start delta 0 s against the Hotspawn fixture."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination/aliases.json",
+     "detail": "Registry read: the 'Team Nemesis' -> 'Nemesis' entries declare only PGL Bucharest 2027 Closed Qualifier and CIS LAN Championship #9."
+    }
    ]
   },
   {
@@ -49,8 +82,14 @@
    "finding": "Polymarket event 1255952 (cs2-havu-ill4-2026-10-26) does carry a full-series moneyline (market 6231433) at the exact fixture start, but its order book quotes 0.05 / 0.95, a 0.90 spread; the published outcomePrices are 0.5 / 0.5 and bestBid/bestAsk are 0.05 / 0.95. A midpoint from that book would be a fabricated number, so the dossier refuses it and falls back to the HLTV-ranking model (HAVU 50.3% / ILLYRIANS 49.7%).",
    "handling": "No probability was derived from a one-sided or 0.90-wide book. The rejection is recorded with the CLOB URLs so a reviewer can see the empty book itself.",
    "evidence": [
-    {"url": "https://polymarket.com/event/cs2-havu-ill4-2026-10-26", "detail": "Event 1255952 read 2026-10-26T00:51:26Z; market 6231433 moneyline, gameStartTime 2026-10-26 15:00:00+00, bestBid 0.05, bestAsk 0.95, spread 0.90."},
-    {"url": "https://clob.polymarket.com/book?token_id=17438030935532377213829802808502554093288956581468104799085048521243151961262", "detail": "Order book read by scripts/b3e91409_research.py at 00:54Z; the request and its status are recorded in analysis.json book_requests."}
+    {
+     "url": "https://polymarket.com/event/cs2-havu-ill4-2026-10-26",
+     "detail": "Event 1255952 read 2026-10-26T00:51:26Z; market 6231433 moneyline, gameStartTime 2026-10-26 15:00:00+00, bestBid 0.05, bestAsk 0.95, spread 0.90."
+    },
+    {
+     "url": "https://clob.polymarket.com/book?token_id=17438030935532377213829802808502554093288956581468104799085048521243151961262",
+     "detail": "Order book read by scripts/b3e91409_research.py at 00:54Z; the request and its status are recorded in analysis.json book_requests."
+    }
    ]
   },
   {
@@ -60,20 +99,35 @@
    "finding": "1081159 LFO 10 vs ex-6666 (CCT Europe 2026 Series #12, 2026-10-26T12:00Z) appears in the Hotspawn array and in the lobby, and HLTV carries it as match 2399509 (BO3, 0 s start delta), but no Polymarket event and no Thunderpick row names both teams at the 00:51Z observation. Its only quantitative evidence is the HLTV world ranking (LFO 10 and ex-6666 both published), which yields 48.8% / 51.2% from the printed Elo formula. This is the single case of 19 where the pick exists only because of a rating model.",
    "handling": "The pick is published as a research model with its formula and points, not as a market line. If a bookmaker line appears before the lock, the next refresh will take it; no price is inferred from the absence of one.",
    "evidence": [
-    {"url": "https://www.hltv.org/matches/2399509/lfo-10-vs-ex-6666-cct-europe-2026-series-12", "detail": "HLTV match 2399509: LFO 10 vs ex-6666, BO3, data-unix 1793016000000 = 2026-10-26T12:00:00Z."},
-    {"url": "https://www.hltv.org/ranking/teams", "detail": "Official world ranking read 2026-10-26T00:51:27Z, 253 rows; the two teams' published ranks and points are recorded in analysis.json ratings.hltv."},
-    {"url": "https://thunderpick.io/api/matches", "detail": "47 upcoming CS2 rows read at 00:51:41Z; none carries both exact names (the near-name list is recorded in analysis.json research[1].near_misses)."}
+    {
+     "url": "https://www.hltv.org/matches/2399509/lfo-10-vs-ex-6666-cct-europe-2026-series-12",
+     "detail": "HLTV match 2399509: LFO 10 vs ex-6666, BO3, data-unix 1793016000000 = 2026-10-26T12:00:00Z."
+    },
+    {
+     "url": "https://www.hltv.org/ranking/teams",
+     "detail": "Official world ranking read 2026-10-26T00:51:27Z, 253 rows; the two teams' published ranks and points are recorded in analysis.json ratings.hltv."
+    },
+    {
+     "url": "https://thunderpick.io/api/matches",
+     "detail": "47 upcoming CS2 rows read at 00:51:41Z; none carries both exact names (the near-name list is recorded in analysis.json research[1].near_misses)."
+    }
    ]
   },
   {
    "id": "B3-R06",
-   "area": "A verified row publishes no limitation text beside a 0.10-wide single-market median",
+   "area": "Three verified rows publish no limitation text beside a wide or modelled number",
    "status": "needs review",
-   "finding": "Row 1082792 (HOTU vs The Huns) publishes method 'market', label 'Originated market line (Polymarket)', probabilities 87.0% / 13.0% and a quote whose bid/ask are 0.82-0.92 and 0.08-0.18, i.e. a 0.10 spread on a single venue. The two published numbers replay exactly from that quote (delta 0.0), but the analysis carries no limitations array, so the row does not tell the reader that the number is a single-market midpoint on a wide book. Every other published row carries its limitation text.",
+   "finding": "Rows 1082792 (HOTU vs The Huns), 1093218 (Nuclear TigeRES vs UNiTY) and 1081159 (LFO 10 vs ex-6666) carry no limitations array in their origination object. For 1082792 that hides that 87.0% / 13.0% is a single-venue midpoint from a 0.10-wide book (bid 0.82-0.92 / 0.08-0.18); for 1093218 it hides that 58.3% is a median of two books; for 1081159 it hides that 39.0% is a fitted model with an 18.4%-64.5% interval. Every other published row carries its limitation text. The arithmetic in all three replays exactly, so this is a disclosure gap, not a data error.",
    "handling": "Reported, not edited: the row belongs to the publisher's ladder. scripts/b3e91409_verify.py records it as a note and still verifies the arithmetic.",
    "evidence": [
-    {"url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination.json", "detail": "Fixture 1082792 origination: method market, probabilities [0.87, 0.13], quotes[0].bid [0.82, 0.08], ask [0.92, 0.18], spread 0.10, source_url https://polymarket.com/event/cs2-hotu-the9-2026-10-31, and no 'limitations' key."},
-    {"url": "https://polymarket.com/event/cs2-hotu-the9-2026-10-31", "detail": "Event 1241313 read 2026-10-26T00:51:26Z: market 6085308 moneyline, outcomes ['HOTU', 'The Huns Esports'], gameStartTime 2026-10-31 09:00:00+00, bestBid 0.82, bestAsk 0.92."}
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination.json",
+     "detail": "Fixture 1082792 origination: method market, probabilities [0.87, 0.13], quotes[0].bid [0.82, 0.08], ask [0.92, 0.18], spread 0.10, source_url https://polymarket.com/event/cs2-hotu-the9-2026-10-31, and no 'limitations' key."
+    },
+    {
+     "url": "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
+     "detail": "Event 1241313 read 2026-10-26T00:51:26Z: market 6085308 moneyline, outcomes ['HOTU', 'The Huns Esports'], gameStartTime 2026-10-31 09:00:00+00, bestBid 0.82, bestAsk 0.92."
+    }
    ]
   },
   {
@@ -83,8 +137,81 @@
    "finding": "Scheduled run 40250748384 started 2026-10-26T00:43:45Z. At 00:56Z the 'verify-and-deploy' job was still in 'Regression tests (repository fixtures, before any cache restore)', so no fresh snapshot had been published; the public site still served the 2026-10-25T23:03:48Z build. The previous run (40240728081) completed successfully at 23:08Z. The repository's own unit suite passes locally in this sandbox (exit 0), so the step is slow rather than reproducibly broken at this observation; the job's cap is 60 minutes.",
    "handling": "Recorded as an observation with the run link, not as a defect. This session re-checks the published artefacts after the run completes and re-runs scripts/b3e91409_verify.py against whatever it publishes.",
    "evidence": [
-    {"url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40250748384", "detail": "Started 2026-10-26T00:43:45Z; verify-and-deploy job 121341962894 in progress; regression step started 00:44:10Z and had not finished at 00:56:10Z."},
-    {"url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40240728081", "detail": "Previous run, completed successfully; its root-sync commit cfd58e1 is the build currently deployed."}
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40250748384",
+     "detail": "Started 2026-10-26T00:43:45Z; verify-and-deploy job 121341962894 in progress; regression step started 00:44:10Z and had not finished at 00:56:10Z."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/actions/runs/40240728081",
+     "detail": "Previous run, completed successfully; its root-sync commit cfd58e1 is the build currently deployed."
+    }
+   ]
+  },
+  {
+   "id": "B3-R08",
+   "area": "One published probability is not reproducible from the row's own inputs",
+   "status": "needs review",
+   "finding": "Row 1081159 (LFO 10 vs ex-6666) publishes method model, provider \"Own results-based model (bo3.gg series results)\", probabilities 0.39044606 / 0.60955394, inputs with fitted points 825 and 923, rating_sd 114.7, n_series 10 and interval [0.1842, 0.645]. The predictive formula that turns those posterior means into a win probability is not published, and neither standard reconstruction matches the row: Valve's fit.js logistic (RD 75) gives 0.366143 / 0.633857 and a plain 400-point Elo gives 0.362592 / 0.637408, a 2.4-2.8 point gap. The likely explanation is that the fit integrates over the posterior spread, which pulls the estimate toward 0.5, but a reader cannot confirm that from the row. The pick is unchanged under all three computations (ex-6666).",
+   "handling": "Reported, not edited: the row belongs to the publisher's ladder. scripts/b3e91409_verify.py now classifies a fitted results model as not replayable and prints the standard Elo on the same points so the size of the gap is visible; tests/test_b3e91409_verification.py pins the branch. Request for the owner of scripts/originate.py: publish the predictive formula (or the fitted coefficients) beside the posterior means so this row can be replayed like the other 18.",
+   "evidence": [
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination.json",
+     "detail": "Row 1081159 origination: provider \"Own results-based model (bo3.gg series results)\", probabilities [0.39044605815543665, 0.6095539418445634], inputs points 825 / 923, rating_sd 114.7, n_series 10, interval [0.1842, 0.645], source_url https://bo3.gg/matches/sokerorg-vs-ex-6666-26-10-2026, observed_at 2026-10-26T01:05:21Z."
+    },
+    {
+     "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/model/fit.js",
+     "detail": "The published fit.js logistic used to reconstruct the other model rows; with RD 75 it gives 0.366143 for these points."
+    },
+    {
+     "url": "https://bo3.gg/matches/sokerorg-vs-ex-6666-26-10-2026",
+     "detail": "The match page the row cites, with the ten sampled series linked individually in the row's samples[] array."
+    },
+    {
+     "url": "https://github.com/buffedlizard55-lab/MaltaProj3/blob/main/data/origination/aliases.json",
+     "detail": "The Sokerorg -> LFO 10 alias is registered and scoped to CCT Europe 2026 Series #12 with Bovada, HLTV and Hotspawn evidence, so the identity itself is reviewed and was not flagged."
+    }
+   ]
+  },
+  {
+   "id": "B3-R09",
+   "area": "The two official rating inputs disagree by up to 34 points on the same fixture",
+   "status": "needs review",
+   "finding": "Four fixtures are priced by a research model rather than a market. On the same fixture, the two official rating sources the ladder can use imply very different probabilities under one printed Elo formula: 1079201 INOX Division vs Nemesis gives 12.3% / 87.7% from Valve points 1105 / 1455, but 46.8% / 53.2% from HLTV ranking points 10 / 32; 1081163 BakS vs Saint Sinners gives 78.8% from Valve 1044 / 810 but 50.4% from HLTV points; 1082793 5star vs 1WIN gives 17.8% from Valve 1110 / 1383 but 34.9% from HLTV points. The published rows name Valve as the input, so they are not misattributed; the flag is that a model pick is highly sensitive to which official rating is chosen, and HLTV's integer points compress low-tier teams toward 50/50.",
+   "handling": "Published as a limitation with the exact points behind each figure. No number is overridden: the published Valve model stands, and this session's HLTV-based figure exists only in its own dated dossier (data/research/b3e91409/live/analysis.json) so a reviewer can see the spread. Request for the model owner: consider publishing both inputs, or state on the methodology page which official rating is preferred and why.",
+   "evidence": [
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/origination.json",
+     "detail": "Rows 1079201, 1081163, 1082793: method model, inputs named with Valve standing, points and five-player roster."
+    },
+    {
+     "url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+     "detail": "Official Valve table read by the publisher; the four point values above appear in the rows' inputs."
+    },
+    {
+     "url": "https://www.hltv.org/ranking/teams",
+     "detail": "Official HLTV world ranking read 2026-10-26T00:51:27Z (253 rows); ranks and points per team are recorded in data/research/b3e91409/live/hltv-ranking.json."
+    }
+   ]
+  },
+  {
+   "id": "B3-R10",
+   "area": "The dated lobby-coverage block on the executive summary reads like a current gap count",
+   "status": "needs review",
+   "finding": "The executive summary still renders a block headed \"Live Hotspawn fixtures missing from this snapshot — 3 missing at that observation\", listing Hotspawn 1086696, 1082697 and 1086697. The block is a dated record (25 Oct 2026, 14:57) and its body says so, but at 01:22Z on 26 Oct the live inventory had 19 open fixtures and all 19 were published, so the heading overstates a gap that no longer exists. The three fixtures it lists had already been collected before that publication.",
+   "handling": "Reported for the owner of scripts/build.py (session arena-500519ba, task 500A-3): the block already carries its date in the body and in the linked JSON; the request is to put the observation date in the heading (or hide a dated block once a newer successful collect has covered its ids) so a phone reader does not take it for a live count. No data was edited by this session.",
+   "evidence": [
+    {
+     "url": "https://play.hotspawn.com/lobby",
+     "detail": "Read 2026-10-26T01:22Z from the live capture: 19 open cards, including 1086696, 1082697 and 1086697. The lobby DOM ids for the observation are in data/research/b3e91409/live/sources.json."
+    },
+    {
+     "url": "https://buffedlizard55-lab.github.io/MaltaProj3/data/research/bf1f9ce5/live-coverage.json",
+     "detail": "The dated 2026-10-25T13:57:50Z observation the block is rendered from."
+    },
+    {
+     "url": "https://play.hotspawn.com/cs2-pickems#fixture-1086696",
+     "detail": "The Hotspawn pick-em card for one of the three ids the dated block lists; it is part of the live inventory and was collected before the 01:04Z publication."
+    }
    ]
   }
  ]

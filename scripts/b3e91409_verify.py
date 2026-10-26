@@ -278,8 +278,8 @@ def check_row(row):
 
     # Identity: a model's published inputs must name the same two teams the row does.
     inputs = analysis.get('inputs') or []
-    if analysis.get('method') == 'model' and len(inputs) == 2 and len(names) == 2:
-        published_names = [str(i.get('name') or '') for i in inputs if isinstance(i, dict)]
+    published_names = [str(i.get('name')) for i in inputs if isinstance(i, dict) and i.get('name')]
+    if analysis.get('method') == 'model' and len(published_names) == 2 and len(names) == 2:
         if [n.casefold().strip() for n in published_names] != [n.casefold().strip() for n in names]:
             order = [[n.casefold().strip() for n in names], [n.casefold().strip() for n in published_names]]
             if sorted(order[0]) != sorted(order[1]):
@@ -309,6 +309,28 @@ def find_crowd_fields(obj, path=''):
     return hits
 
 
+SITE_ROUTES = ('origination/#picks', 'picks/', 'unresolved/', 'coverage/', 'methodology/',
+               '#picks-at-a-glance', '#unresolved-register')
+
+
+def check_site(site_dir, matches):
+    """The phone route the brief asks for: the executive summary must link the picks pages and
+    every published match must have its own deep link on the page a reader lands on."""
+    index = Path(site_dir) / 'index.html'
+    if not index.exists():
+        return [], None
+    html = index.read_text(encoding='utf-8', errors='replace')
+    findings = []
+    for route in SITE_ROUTES:
+        if route not in html:
+            findings.append(('error', 'site', f'the executive summary does not link {route!r}'))
+    missing = [m['id'] for m in matches if f'#match-{m["id"]}' not in html]
+    for fixture_id in missing:
+        findings.append(('error', fixture_id, 'the executive summary has no in-site deep link to this published row'))
+    return findings, {'index': str(index), 'routes_present': [r for r in SITE_ROUTES if r in html],
+                      'deep_links_missing': missing, 'rows': len(matches)}
+
+
 def coverage(live, published_ids):
     gaps = []
     for fixture in live:
@@ -328,6 +350,7 @@ def main(argv=None):
     parser.add_argument('--snapshot', default=str(ROOT / 'snapshot.json'))
     parser.add_argument('--report-dir', default=str(REPORT_DIR))
     parser.add_argument('--live-dir', default=str(LIVE))
+    parser.add_argument('--site', default=None, help='optional built site directory to check the phone route')
     args = parser.parse_args(argv)
 
     origination_path, snapshot_path = Path(args.origination), Path(args.snapshot)
@@ -367,6 +390,11 @@ def main(argv=None):
         findings.append(('coverage-gap', gap['id'],
                          f"live open fixture {gap['teams'][0]} vs {gap['teams'][1]} ({gap['starts_at']}) has no published row"))
 
+    site_findings, site_meta = ([], None)
+    if args.site:
+        site_findings, site_meta = check_site(args.site, origination.get('matches') or [])
+        findings.extend(site_findings)
+
     crowd = find_crowd_fields(origination.get('matches'))
     for path in crowd:
         findings.append(('error', 'crowd', f'community participation field in a picks row: {path}'))
@@ -378,6 +406,7 @@ def main(argv=None):
         'blank': sum(1 for r in rows if r['verdict'].startswith('blank')),
         'errors': len([f for f in findings if f[0] == 'error']),
         'coverage_gaps': len(gaps),
+        'site_errors': len([f for f in findings if f[1] == 'site']),
         'notes': len([f for f in findings if f[0] == 'note']),
     }
     report = {
@@ -388,6 +417,7 @@ def main(argv=None):
         'published': {'counts': origination.get('counts'), 'generated_at': origination.get('generated_at'),
                       'active_ids': sorted(published_ids)},
         'live': live_meta,
+        'site': site_meta,
         'summary': summary,
         'rows': rows,
         'findings': [{'severity': s, 'id': i, 'detail': d} for s, i, d in findings],

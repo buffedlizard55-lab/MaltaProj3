@@ -70,7 +70,8 @@ def model_row(fixture_id='900003'):
         'origination': {'method': 'model', 'probabilities': probs, 'fair_decimal': [round(1 / x, 3) for x in probs],
                         'source_url': 'https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md',
                         'observed_at': stamp(), 'quotes': [], 'rd_assumption': rd,
-                        'inputs': [{'points': points_a}, {'points': points_b}], 'limitations': ['Research model.']},
+                        'inputs': [{'name': 'Epsilon', 'points': points_a}, {'name': 'Zeta', 'points': points_b}],
+                        'limitations': ['Research model.']},
     }
 
 
@@ -128,6 +129,21 @@ class ReplayTests(unittest.TestCase):
         findings, record = verify.check_row(row)
         self.assertTrue(any('margin' in f[2] for f in findings), findings)
         self.assertEqual(record['verdict'], 'unreplayable')
+
+    def test_model_inputs_must_name_the_same_teams(self):
+        row = model_row()
+        row['origination']['inputs'][1]['name'] = 'Some Other Team'
+        findings, record = verify.check_row(row)
+        self.assertTrue(any('different teams' in f[2] for f in findings), findings)
+
+    def test_fitted_results_model_is_not_replayable_and_says_why(self):
+        row = model_row()
+        row['origination']['provider'] = 'Own results-based model (bo3.gg series results)'
+        row['origination']['inputs'] = [{'name': 'Epsilon', 'points': 825, 'fitted': {'n': 10}},
+                                        {'name': 'Zeta', 'points': 923, 'fitted': {'n': 10}}]
+        findings, record = verify.check_row(row)
+        self.assertEqual(record['verdict'], 'unreplayable')
+        self.assertTrue(any('predictive formula' in f[2] and '0.362' in f[2] for f in findings), findings)
 
     def test_model_uses_the_published_points_and_rd(self):
         row = model_row()
@@ -242,6 +258,28 @@ class CoverageTests(unittest.TestCase):
             argv = write_case(directory, [row])
             self.assertEqual(verify.main(argv + ['--check']), 1)
             self.assertEqual(verify.main(argv), 0)  # report-only mode writes the finding, exit stays 0
+
+
+class PhoneRouteTests(unittest.TestCase):
+    def test_exec_summary_must_link_the_picks_routes_and_every_row(self):
+        with tempfile.TemporaryDirectory() as raw:
+            site = Path(raw) / 'site'
+            site.mkdir()
+            (site / 'index.html').write_text(
+                '<a href="origination/#picks">a</a><a href="picks/">b</a><a href="unresolved/">c</a>'
+                '<a href="coverage/">d</a><a href="methodology/">e</a>#picks-at-a-glance'
+                '#unresolved-register <a href="#match-900001">row</a>', encoding='utf-8')
+            matches = [{'id': '900001'}, {'id': '900002'}]
+            findings, meta = verify.check_site(site, matches)
+            self.assertEqual([f for f in findings if f[1] == 'site'], [])
+            self.assertEqual(meta['deep_links_missing'], ['900002'])
+            self.assertEqual(len(findings), 1)
+            self.assertEqual(findings[0][0], 'error')
+
+    def test_a_missing_site_is_skipped_not_failed(self):
+        findings, meta = verify.check_site('/nonexistent-site', [{'id': '1'}])
+        self.assertEqual(findings, [])
+        self.assertIsNone(meta)
 
 
 class PublishedDossierTests(unittest.TestCase):
