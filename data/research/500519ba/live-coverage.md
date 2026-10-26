@@ -1,6 +1,6 @@
 # Live Hotspawn CS2 lobby vs this build — session arena-500519ba
 
-Observed **2026-10-26T00:59:14Z** (UTC) on a GitHub Actions runner.
+Observed **2026-10-26T01:07:00Z** (UTC) on a GitHub Actions runner.
 
 Dated comparison of the live Hotspawn CS2 lobby with the build this run produced. Evidence only: no probability, pick or alias.
 
