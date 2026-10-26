@@ -1,0 +1,127 @@
+name: 542dfb58 live coverage + gap-source probe
+
+# Session arena-542dfb58. The Arena sandbox has no route to Hotspawn, HLTV,
+# Polymarket or any esportsbook (verified 2026-10-26T00:50Z: `curl` to
+# buffedlizard55-lab.github.io exits 35 with no status line), so this runner is
+# the only place the brief's two open questions can be answered with first-hand
+# evidence:
+#
+#   1. does EVERY CS2 fixture currently open on Hotspawn carry a published pick?
+#   2. for the fixtures the money rungs cannot price, what do HLTV and the
+#      esportsbook / esports-betting-line surfaces actually publish?
+#
+# Facts only. The probe writes no probability, pick or alias, never touches the
+# published snapshot and never deploys. `scripts/originate.py` stays the only
+# path to a published number.
+#
+# The push trigger is limited to this file and the probe script, so the evidence
+# commit below cannot re-enter the workflow. The commit carries `[skip ci]`, and
+# the board's paths-ignore rule means this branch also stays out of the shared
+# validation queue while the probe is being shaped.
+on:
+  push:
+    branches: ['arena/542dfb58-maltaproj3']
+    paths:
+      - '.github/workflows/542dfb58-probe.yml'
+      - 'scripts/542dfb58_gap_probe.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: 542dfb58-probe-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  probe:
+    if: startsWith(github.ref_name, 'arena/542dfb58')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install the probe's declared dependencies
+        run: python -m pip install --quiet requests==2.32.5 beautifulsoup4==4.14.3
+      - name: Reconcile the live lobby with the deployed site and read every gap source
+        run: |
+          set +e
+          # A later success must not leave a previous failure's artefacts behind as if
+          # they were current, and a later failure must not read as a clean run: both
+          # files are cleared here and the error file is written only when this run failed.
+          rm -f data/research/542dfb58/probe-error.txt data/research/542dfb58/inventory-failure.json
+          python -m scripts.542dfb58_gap_probe 2>&1 | tee /tmp/probe-log.txt
+          code=${PIPESTATUS[0]}
+          echo "$code" > data/research/542dfb58/probe-exit-code.txt
+          if [ "$code" -ne 0 ]; then
+            tail -c 4000 /tmp/probe-log.txt > data/research/542dfb58/probe-error.txt
+            echo "::error title=gap probe failed::exit $code — see the step log; evidence up to the failure is committed"
+          fi
+          exit 0
+      - name: Re-parse the archived bodies to prove the parsers replay offline
+        if: always()
+        run: python -m scripts.542dfb58_gap_probe --parse-raw
+      - name: Publish the headline numbers into the run summary
+        if: always()
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          out = Path('data/research/542dfb58')
+          summary = Path(os.environ['GITHUB_STEP_SUMMARY'])
+          try:
+              probe = json.loads((out / 'probe.json').read_text())
+          except (OSError, ValueError) as exc:
+              summary.write_text(f'## 542dfb58 gap probe\n\nNo probe.json — the run failed before writing it ({exc}).\n')
+              raise SystemExit(0)
+          inv, cov = probe['inventory'], probe['coverage']
+          lines = [
+              '## 542dfb58 live coverage + gap probe',
+              '',
+              f'- Hotspawn fixture-API records: **{inv["records"]}**, open CS2 fixtures: **{len(inv["open_fixture_ids"])}**',
+              f'- Rendered-lobby crosscheck: **{inv["crosscheck"]}**',
+              f'- Open fixtures with a published pick: **{cov["with_a_published_pick"]} / {cov["open_fixtures"]}**',
+              f'- Open fixtures with **no** pick: **{len(cov["unpicked"])}**'
+              + (' — ' + ', '.join(r['fixture_id'] for r in cov['unpicked']) if cov['unpicked'] else ''),
+              f'- Missing from both deployed layers: **{cov["missing_from_both_layers"] or "none"}**',
+              f'- Picks resting on a research model (no priced market): **{len(cov["model_or_guidance_only"])}**',
+              '',
+              '### Surfaces read',
+              '',
+              '| surface | http | status | rows | fixtures mentioned |',
+              '| --- | --- | --- | --- | --- |',
+          ]
+          for label, rec in probe['surfaces']['surfaces'].items():
+              lines.append(f'| {label} | {rec.get("http_status", "—")} | {rec.get("status")} | '
+                           f'{rec.get("rows_parsed", 0)} | {rec.get("fixture_ids_visible", 0)} |')
+          lines += ['', 'Exact-name joins and per-fixture detail: `data/research/542dfb58/probe.md`. '
+                        'No probability was produced by this run.', '']
+          summary.write_text('\n'.join(lines))
+          PY
+      - name: Commit the dated evidence to this session branch
+        if: always()
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f data/research/542dfb58
+          if git diff --cached --quiet; then
+            echo "No evidence change to commit."
+            exit 0
+          fi
+          git commit -q -m 'research: 542dfb58 live coverage reconciliation and gap-source probe [skip ci]'
+          for attempt in 1 2 3 4; do
+            git fetch --quiet origin arena/542dfb58-maltaproj3 || true
+            if git rebase origin/arena/542dfb58-maltaproj3; then
+              if git push --quiet origin HEAD:arena/542dfb58-maltaproj3; then
+                echo "Evidence committed and pushed (attempt $attempt)."
+                exit 0
+              fi
+            else
+              git rebase --abort || true
+            fi
+            sleep $((attempt * 4))
+          done
+          echo "::error::the evidence commit could not be pushed"
+          exit 1

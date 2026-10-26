@@ -1,0 +1,393 @@
+{
+  "schema_version": 1,
+  "session": "arena-542dfb58",
+  "observed_at": "2026-10-26T01:27:03Z",
+  "observer": "GitHub Actions runner on arena/542dfb58-maltaproj3: Hotspawn scheduled-fixture API plus both rendered lobby pages, cross-checked against the deployed snapshot.json and origination.json in the same pass",
+  "role": "Dated inventory observation only. Nothing in this file is a probability input; no probability, pick or alias is written by this record.",
+  "hotspawn": {
+    "api_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "lobby_pages": [
+      "https://play.hotspawn.com/lobby",
+      "https://play.hotspawn.com/cs2-pickems"
+    ],
+    "records": 81,
+    "open_cs2_fixtures": 19,
+    "rendered_lobby_crosscheck": "complete",
+    "observed_at": "2026-10-26T01:27:03Z"
+  },
+  "published_site": {
+    "snapshot": {
+      "generated_at": "2026-10-26T01:04:20Z",
+      "counts": {
+        "inventory": 81,
+        "upcoming": 19,
+        "archived": 62,
+        "unknown_schedule": 0,
+        "market": 6,
+        "bookmaker": 3,
+        "model": 8,
+        "unresolved": 2,
+        "picks": 17,
+        "no_edge": 0
+      },
+      "status": "ok"
+    },
+    "origination": {
+      "generated_at": "2026-10-26T01:04:30Z",
+      "counts": {
+        "active": 19,
+        "resolved": 19,
+        "unresolved": 0,
+        "with_pick": 19,
+        "consensus": 1,
+        "market": 7,
+        "bookmaker": 3,
+        "reference": 0,
+        "model": 8,
+        "network": 0,
+        "relay": 0,
+        "guidance": 0,
+        "alias_joined": 3
+      },
+      "status": "ok"
+    }
+  },
+  "comparison": {
+    "active_fixtures_compared": 19,
+    "with_a_published_pick": 19,
+    "unpicked_ids": [],
+    "missing_from_both_deployed_layers": [],
+    "model_or_guidance_only_ids": [
+      "1079201",
+      "1081159",
+      "1081160",
+      "1093218",
+      "1082861",
+      "1081162",
+      "1081163",
+      "1081164",
+      "1082793"
+    ],
+    "new_ids_this_observation": 0
+  },
+  "live_fixtures": [
+    {
+      "id": "1082858",
+      "teams": [
+        "Ground Zero",
+        "Off Chops"
+      ],
+      "published_pick": "Off Chops",
+      "published_method": "market",
+      "priced_by_money": true,
+      "hotspawn_url": "https://polymarket.com/event/cs2-gz1-offcho-2026-10-25",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
+      "competition": "DFRAG Invitational 2026",
+      "starts_at_utc": "2026-10-26T03:00:00Z",
+      "starts_at_basis": "hotspawn_api_snapshot"
+    },
+    {
+      "id": "1082859",
+      "teams": [
+        "NEXVOID",
+        "Alter Ego"
+      ],
+      "published_pick": "NEXVOID",
+      "published_method": "bookmaker",
+      "priced_by_money": true,
+      "hotspawn_url": "https://thunderpick.io/api/matches",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
+      "competition": "DFRAG Invitational 2026",
+      "starts_at_utc": "2026-10-26T03:00:00Z",
+      "starts_at_basis": "hotspawn_api_snapshot"
+    },
+    {
+      "id": "1079201",
+      "teams": [
+        "INOX Division",
+        "Nemesis"
+      ],
+      "published_pick": "Nemesis",
+      "published_method": "model",
+      "priced_by_money": false,
+      "hotspawn_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at_utc": "2026-10-26T09:00:00Z",
+      "starts_at_basis": "hotspawn_api_snapshot"
+    },
+    {
+      "id": "1081159",
+      "teams": [
+        "LFO 10",
+        "ex-6666"
+      ],
+      "published_pick": "ex-6666",
+      "published_method": "model",
+      "priced_by_money": false,
+      "hotspawn_url": "https://bo3.gg/matches/sokerorg-vs-ex-6666-26-10-2026",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at_utc": "2026-10-26T12:00:00Z",
+      "starts_at_basis": "hotspawn_api_snapshot"
+    },
+    {
+      "id": "1079202",
+      "teams": [
+        "FOKUS",
+        "ex-Zero Tenacity"
+      ],
+      "published_pick": "FOKUS",
+      "published_method": "bookmaker",
+      "priced_by_money": true,
+      "hotspawn_url": "https://thunderpick.io/api/matches",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at_utc": "2026-10-26T12:00:00Z",
+      "starts_at_basis": "hotspawn_api_snapshot"
+    },
+    {
+      "id": "1081160",
+      "teams": [
+        "HAVU",
+        "ILLYRIANS"
+      ],
+      "published_pick": "HAVU",
+      "published_method": "model",
+      "priced_by_money": false,
+      "hotspawn_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at_utc": "2026-10-26T15:00:00Z",
+      "starts_at_basis": "hotspawn_api_snapshot"
+    },
+    {
+      "id": "1079203",
+      "teams": [
+        "Metizport",
+        "BRUTE"
+      ],
+      "published_pick": "Metizport",
+      "published_method": "bookmaker",
+      "priced_by_money": true,
+      "hotspawn_url": "https://thunderpick.io/api/matches",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at_utc": "2026-10-26T15:00:00Z",
+      "starts_at_basis": "hotspawn_api_snapshot"
+    },
+    {
+      "id": "1093218",
+      "teams": [
+        "Nuclear TigeRES",
+        "UNiTY"
+      ],
+      "published_pick": "Nuclear TigeRES",
+      "published_method": "model",
+      "priced_by_money": false,
+      "hotspawn_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
+      "competition": "NODWIN Clutch Series #13",
+      "starts_at_utc": "2026-10-26T18:00:00Z",
+      "starts_at_basis": "hotspawn_api_snapshot"
+    },
+    {
+      "id": "1082860",
+      "teams": [
+        "FlyQuest",
+        "Staqued"
+      ],
+      "published_pick": "FlyQuest",
+      "published_method": "market",
+      "priced_by_money": true,
+      "hotspawn_url": "https://polymarket.com/event/cs2-fly-staque-2026-10-26",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
+      "competition": "DFRAG Invitational 2026",
+      "starts_at_utc": "2026-10-27T03:00:00Z",
+      "starts_at_basis": "hotspawn_api_snapshot"
+    },
+    {
+      "id": "1082861",
+      "teams": [
+        "Rooster",
+        "Abyssal"
+      ],
+      "published_pick": "Abyssal",
+      "published_method": "model",
+      "priced_by_money": false,
+      "hotspawn_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
+      "competition": "DFRAG Invitational 2026",
+      "starts_at_utc": "2026-10-27T03:00:00Z",
+      "starts_at_basis": "hotspawn_api_snapshot"
+    },
+    {
+      "id": "1082897",
+      "teams": [
+        "B8",
+        "K27"
+      ],
+      "published_pick": "B8",
+      "published_method": "market",
+      "priced_by_money": true,
+      "hotspawn_url": "https://polymarket.com/event/cs2-b8-k271-2026-10-27",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
+      "competition": "Tesla Cup 2026",
+      "starts_at_utc": "2026-10-27T08:00:00Z",
+      "starts_at_basis": "hotspawn_api_snapshot"
+    },
+    {
+      "id": "1082898",
+      "teams": [
+        "Alliance",
+        "FaZe"
+      ],
+      "published_pick": "FaZe",
+      "published_method": "market",
+      "priced_by_money": true,
+      "hotspawn_url": "https://polymarket.com/event/cs2-all-faze-2026-10-27",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
+      "competition": "Tesla Cup 2026",
+      "starts_at_utc": "2026-10-27T11:00:00Z",
+      "starts_at_basis": "hotspawn_api_snapshot"
+    },
+    {
+      "id": "1081162",
+      "teams": [
+        "ex-RUSTEC",
+        "Spirit Academy"
+      ],
+      "published_pick": "ex-RUSTEC",
+      "published_method": "model",
+      "priced_by_money": false,
+      "hotspawn_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at_utc": "2026-10-27T12:00:00Z",
+      "starts_at_basis": "hotspawn_api_snapshot"
+    },
+    {
+      "id": "1081163",
+      "teams": [
+        "BakS",
+        "Saint Sinners"
+      ],
+      "published_pick": "BakS",
+      "published_method": "model",
+      "priced_by_money": false,
+      "hotspawn_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at_utc": "2026-10-27T15:00:00Z",
+      "starts_at_basis": "hotspawn_api_snapshot"
+    },
+    {
+      "id": "1082900",
+      "teams": [
+        "Luminosity",
+        "HOTU"
+      ],
+      "published_pick": "Luminosity",
+      "published_method": "market",
+      "priced_by_money": true,
+      "hotspawn_url": "https://polymarket.com/event/cs2-lg6-hotu-2026-10-27",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
+      "competition": "Tesla Cup 2026",
+      "starts_at_utc": "2026-10-27T17:00:00Z",
+      "starts_at_basis": "hotspawn_api_snapshot"
+    },
+    {
+      "id": "1081164",
+      "teams": [
+        "Inner Circle Academy",
+        "Lavked"
+      ],
+      "published_pick": "Inner Circle Academy",
+      "published_method": "model",
+      "priced_by_money": false,
+      "hotspawn_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
+      "competition": "CCT Europe 2026 Series #12",
+      "starts_at_utc": "2026-10-27T18:00:00Z",
+      "starts_at_basis": "hotspawn_api_snapshot"
+    },
+    {
+      "id": "1082901",
+      "teams": [
+        "Envy",
+        "GamerLegion"
+      ],
+      "published_pick": "GamerLegion",
+      "published_method": "market",
+      "priced_by_money": true,
+      "hotspawn_url": "https://polymarket.com/event/cs2-envy-gl1-2026-10-27",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
+      "competition": "Tesla Cup 2026",
+      "starts_at_utc": "2026-10-27T20:00:00Z",
+      "starts_at_basis": "hotspawn_api_snapshot"
+    },
+    {
+      "id": "1082792",
+      "teams": [
+        "HOTU",
+        "The Huns"
+      ],
+      "published_pick": "HOTU",
+      "published_method": "market",
+      "priced_by_money": true,
+      "hotspawn_url": "https://polymarket.com/event/cs2-hotu-the9-2026-10-31",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at_utc": "2026-10-31T09:00:00Z",
+      "starts_at_basis": "hotspawn_api_snapshot"
+    },
+    {
+      "id": "1082793",
+      "teams": [
+        "5star",
+        "1WIN"
+      ],
+      "published_pick": "1WIN",
+      "published_method": "model",
+      "priced_by_money": false,
+      "hotspawn_url": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+      "in_published_snapshot": true,
+      "in_published_origination": true,
+      "competition": "Moscow Cyber Games 2026",
+      "starts_at_utc": "2026-10-31T13:00:00Z",
+      "starts_at_basis": "hotspawn_api_snapshot"
+    }
+  ],
+  "line_research_summary": "Fixtures with no money line were re-researched in the same pass; see line-source-research.json for the per-fixture verdicts and the raw responses.",
+  "limitations": [
+    "One observation. Hotspawn adds and retires cards continuously; the four-hour ladder re-reads the same API, so a card that appeared after this sweep is resolved on the next publish.",
+    "A rendered-lobby page is a cross-check, not the inventory: when Hotspawn serves a cached lobby the fixture API stays authoritative and the crosscheck field says so.",
+    "This record counts coverage. It never claims a probability is right, and it never fills a blank."
+  ],
+  "source_urls": [
+    "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=cs2&status=scheduled&tenantId=1",
+    "https://play.hotspawn.com/lobby",
+    "https://play.hotspawn.com/cs2-pickems",
+    "https://buffedlizard55-lab.github.io/MaltaProj3/snapshot.json",
+    "https://buffedlizard55-lab.github.io/MaltaProj3/origination.json"
+  ],
+  "written_at": "2026-10-26T01:27:43Z"
+}
