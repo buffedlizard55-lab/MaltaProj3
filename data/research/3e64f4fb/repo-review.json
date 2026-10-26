@@ -132,7 +132,7 @@
    "area": "Nine live Hotspawn fixtures had no row on the published board at 2026-10-26T00:50Z (inventory rotation between refreshes)",
    "status": "needs review",
    "finding": "The runner probe read Hotspawn's official fixtures API live at 2026-10-26T00:50:54Z: 19 open CS2 fixtures, of which 9 were not present in the published 2026-10-25T23:03:48Z snapshot - 1079201 INOX Division vs Nemesis, 1079202 FOKUS vs ex-Zero Tenacity, 1079203 Metizport vs BRUTE and 1093218 Nuclear TigeRES vs UNiTY (NODWIN Clutch Series #13), plus 1081159 LFO 10 vs ex-6666, 1081160 HAVU vs ILLYRIANS, 1081162 ex-RUSTEC vs Spirit Academy, 1081163 BakS vs Saint Sinners and 1081164 Inner Circle Academy vs Lavked (CCT Europe 2026 Series #12). The first of these starts 2026-10-26T09:00Z. All nine were confirmed on HLTV with exact team names and start times in the same sweep; none appeared in Polymarket's CS2 tag listing, so they are exactly the low-tier population that depends on the esportsbook/model ladder at the next refresh. Hotspawn added them after the last successful four-hour collection, so this is a between-refreshes rotation gap, not a collector defect - but until the next publish lands, a phone visitor sees no row at all for nine open matches.",
-   "handling": "Recorded with first-party evidence (archived API body + HLTV listing) for the publisher owners; this session originates no pick for them. The four-hour publisher is the mechanism that must absorb them, and the second probe sweep re-checks whether they have appeared on the board. If they remain absent after a full refresh cycle, treat that as a publisher defect rather than rotation. Does not block the merge; listed here so the gap is visible on Flagged for Review instead of silent.",
+   "handling": "Update 2026-10-26: the gap closed at the next publish. The 2026-10-26T01:33:57Z snapshot carries all 19 live fixtures with 19 directional picks in the complete list (6 featured market, 3 bookmaker, 8 model, 1 researched consensus upgrade, 1 researched market line and 1 results-form estimate across the two featured-blank rows), and this session's independent replay of that new board returns 0 errors (data/research/3e64f4fb/latest-main/). Recorded with first-party evidence (archived API body + HLTV listing) for the publisher owners; this session originated no pick for them. The residual lesson is timing: Hotspawn added nine fixtures inside one four-hour window, so between refreshes the board can be complete-for-its-snapshot yet behind the lobby - the executive summary already shows the snapshot age and staleness state for exactly this.",
    "evidence": [
     {
      "url": "https://play.hotspawn.com/cs2-pickems",
@@ -183,6 +183,23 @@
     {
      "url": "https://www.hltv.org/matches/2399438/1win-vs-5star-gluck-moscow-cyber-games-2026",
      "detail": "HLTV identity/schedule confirmation for the model-only fixture 1082793, for which no exchange or book market was found in either sweep."
+    }
+   ]
+  },
+  {
+   "id": "3E64-R11",
+   "area": "Results-form rung on the newest board (1081159 LFO 10 vs ex-6666) replays exactly; estimate-level limitations absent",
+   "status": "needs review",
+   "finding": "The 2026-10-26T01:33:57Z board prices 1081159 in the complete list from the own results-form rung: LFO 10 fitted at 825 points from 10 bo3.gg series (posterior SD 114.7, published interval 0.184-0.645, low-confidence flag set) against ex-6666's official Valve 923, giving 39.0%/61.0%. Independent replay under the rung's published rating-deviation schedule (min(400, 150+300/sqrt(10)) = 244.87 for the fitted side) reproduces the published probability to full precision, every sample carries an https bo3.gg results link, and the Sokerorg/LFO 10 name join carries three evidence links (Polymarket gamma event, HLTV match 2399499, HLTV team 14084). One consistency wart: the estimate object itself carries no 'limitations' text - the limitations live only on the surrounding row - unlike the Valve-model rows, which carry them inside the estimate. Any consumer reading the estimate alone would miss the 'own uncalibrated results model' warning.",
+   "handling": "Verifier extended in this session to replay the form rung from its published inputs (points, sample size, posterior sd) so future form rows are checked, not trusted. Flagged for the originate.py owner to mirror the limitations into the estimate object for symmetry with the other model rungs. Cosmetic consistency only; the rendered pages show the row-level limitations, so readers are not misled today. Does not block the merge.",
+   "evidence": [
+    {
+     "url": "https://bo3.gg/matches/sokerorg-vs-ex-6666-26-10-2026",
+     "detail": "The form rung's published source for 1081159; the ten fitted series each link their own bo3.gg result page."
+    },
+    {
+     "url": "https://www.hltv.org/matches/2399499/forze-reload-vs-lfo-10-cct-europe-2026-series-12",
+     "detail": "HLTV evidence anchoring the Sokerorg = LFO 10 identity used by the fitted samples."
     }
    ]
   }

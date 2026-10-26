@@ -204,6 +204,35 @@ class TwoLayerReplayTest(unittest.TestCase):
         self.assertEqual(result['checks']['featured']['blank'], ['4'])
         self.assertEqual(result['checks']['complete']['blank'], ['4'])
 
+    def test_form_rung_replays_under_its_published_rd_schedule(self):
+        import math
+        rd = min(400.0, 150.0 + 300.0 / math.sqrt(10))
+        prob1, _ = v.valve_probability(825, 923, rd)
+        form = {
+            'method': 'model', 'family': 'form',
+            'probabilities': [prob1, 1 - prob1],
+            'observed_at': '2026-10-26T00:00:00Z',
+            'source': 'Own results-based model (bo3.gg series results)',
+            'source_url': 'https://bo3.gg/matches/test',
+            'inputs': [{'name': 'Alpha', 'points': 825, 'source_url': 'https://bo3.gg/matches/test',
+                        'fitted': {'n': 10, 'posterior_sd': 114.7, 'prior_center': 981}},
+                       {'name': 'Bravo', 'points': 923,
+                        'source_url': 'https://github.com/ValveSoftware/counter-strike_regional_standings'}],
+            'rating_sd': 114.7, 'interval': [0.18, 0.65], 'low_confidence': True,
+            'samples': [{'date': '2026-10-25', 'opponent': 'X', 'won': False,
+                         'source_url': 'https://bo3.gg/matches/x'}],
+        }
+        result = self.run_verify([fixture('5', None, None)],
+                                   [org_row('5', None, dict(form), 1)],
+                                   probs={'5': form['probabilities']}, researched_ids=('5',), model_ids=('5',))
+        self.assertEqual(result['errors'], [])
+        wrong_rd, _ = v.valve_probability(825, 923, 75)
+        form['probabilities'] = [round(wrong_rd, 8), round(1 - wrong_rd, 8)]
+        result = self.run_verify([fixture('5', None, None)],
+                                   [org_row('5', None, dict(form), 1)],
+                                   probs={'5': form['probabilities']}, researched_ids=('5',), model_ids=('5',))
+        self.assertTrue(any('form probabilities' in e for e in result['errors']))
+
     def test_summary_requires_unresolved_and_no_line_sections(self):
         a = model_analysis()
         site = site_tree(['2'], {'2': a['probabilities']}, model_ids=())

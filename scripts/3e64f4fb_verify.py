@@ -233,6 +233,8 @@ def replay_model(mid: str, est: dict, p: list[float], errors: list[str],
     if len(inputs) != 2:
         errors.append(f'{mid}: model estimate does not publish two rating inputs')
         return 'invalid'
+    if est.get('family') == 'form':
+        return replay_form(mid, est, p, inputs, errors, warnings)
     for inp in inputs:
         for key in ('name', 'points', 'standing', 'source_url'):
             if inp.get(key) in (None, ''):
@@ -247,6 +249,48 @@ def replay_model(mid: str, est: dict, p: list[float], errors: list[str],
     if not est.get('limitations'):
         warnings.append(f'{mid}: model estimate carries no limitations')
     return 'valve-glicko'
+
+
+def replay_form(mid: str, est: dict, p: list[float], inputs: list,
+                errors: list[str], warnings: list[str]) -> str:
+    """Replay the bo3.gg results-fit rung (`scripts/form_model.py`).
+
+    The fitted side's rating deviation is a published function of its sample
+    size, ``min(400, 150 + 300/sqrt(n))``; the official side uses 75; the
+    expectation uses the larger of the two. The published interval shifts
+    both ratings by the posterior sd. Everything needed is on the row.
+    """
+    rds = []
+    for inp in inputs:
+        for key in ('name', 'points', 'source_url'):
+            if inp.get(key) in (None, ''):
+                errors.append(f'{mid}: form input missing {key}')
+        fitted = inp.get('fitted') or {}
+        if fitted:
+            n = float(fitted.get('n') or 0)
+            if n <= 0:
+                errors.append(f'{mid}: fitted input publishes no sample size')
+                n = 1.0
+            rds.append(min(400.0, 150.0 + 300.0 / math.sqrt(n)))
+        else:
+            rds.append(VALVE_RD)
+    rd = max(rds)
+    prob1, _ = valve_probability(float(inputs[0]['points']), float(inputs[1]['points']), rd)
+    if not (close(p[0], prob1, 1e-9) and close(p[1], 1 - prob1, 1e-9)):
+        errors.append(f'{mid}: form probabilities {p} != replay {prob1} at rd={rd:.2f}')
+    interval = est.get('interval') or []
+    if len(interval) == 2 and not (float(interval[0]) - 1e-9 <= p[0] <= float(interval[1]) + 1e-9):
+        warnings.append(f'{mid}: form probability {p[0]} outside its published interval {interval}')
+    for sample in est.get('samples') or []:
+        url = str(sample.get('source_url') or '')
+        if not url.startswith('https://bo3.gg/') and not url.startswith('https://www.hltv.org/'):
+            errors.append(f'{mid}: form sample without an https results source: {url!r}')
+            break
+    if 'low_confidence' not in est:
+        warnings.append(f'{mid}: form estimate does not publish its low-confidence flag')
+    if not est.get('limitations'):
+        warnings.append(f'{mid}: form estimate carries no limitations')
+    return 'form-fit'
 
 
 def check_pick(mid: str, row: dict, est: dict | None, errors: list[str]) -> None:
@@ -381,10 +425,11 @@ def verify(snapshot: dict, origination: dict, site: Path) -> dict:
                             f'{(feat or {}).get("method")!r}')
         if feat and org and org.get('probabilities'):
             same = all(close(a, b, 5e-7) for a, b in zip(feat['probabilities'], org['probabilities']))
-            if not same and not org.get('upgraded_from_featured_model'):
+            upgraded = org.get('upgraded_from_featured_model') or orow.get('upgraded_from_featured_model')
+            if not same and not upgraded:
                 errors.append(f'{mid}: complete-list probabilities replace the featured estimate '
                               'without declaring an upgrade')
-            if not same and org.get('upgraded_from_featured_model') and not org.get('quotes'):
+            if not same and upgraded and not org.get('quotes'):
                 errors.append(f'{mid}: declared upgrade carries no replacement quote evidence')
         if not feat and org and org.get('probabilities'):
             researched_resolutions.append(mid)
